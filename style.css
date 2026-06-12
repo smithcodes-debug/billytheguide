@@ -1,8 +1,4 @@
-/* ✅ ADD mới ở đầu file */
-@font-face {
-  font-family: 'Aptos Display';
-  src: local('Aptos Display'), local('AptosDisplay');
-}
+/* ✅ RESET */
 * {
   box-sizing: border-box;
 }
@@ -61,29 +57,25 @@ header {
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
-/* ===== STORY ===== */
+/* ===== STORY (FIXED) ===== */
 .story {
-    position: absolute; /* ✅ ADD */
-    right: 80px;        /* ✅ ADD → sát bên phải giống title */
-    top: 120px;         /* ✅ ADD → canh vị trí theo layout */
+  position: absolute;
+  right: 80px;
+  top: 120px;
 
-    z-index: 2;
-    max-width: 420px;
-    margin: 0;          /* ✅ CHANGED (bỏ margin-right cũ) */
+  z-index: 2;
+  max-width: 420px;
+  margin: 0;
 
-    font-size: 20px;
-    line-height: 1.4;
+  font-size: 20px;
+  line-height: 1.4;
 
-    font-family: 'Aptos Display', 'Segoe UI', Arial, sans-serif;
-    display: inline;
+  font-family: 'Segoe UI', Arial, sans-serif;
 
-    padding: 5px 0.35em 0.18em;
-    background: linear-gradient(
-        90deg,
-        rgba(7, 9, 12, 0.58),
-        rgba(18, 22, 28, 0.36)
-    );
-}
+  padding: 10px 14px;
+
+  background: linear-gradient(
+    90deg,
     rgba(7, 9, 12, 0.58),
     rgba(18, 22, 28, 0.36)
   );
@@ -99,14 +91,13 @@ header {
 
 /* ===== CTA ROW ===== */
 .cta-row {
-    position: absolute;   /* ✅ ADD */
-    right: 80px;          /* ✅ align với story */
-    top: 520px;           /* ✅ nằm dưới story */
+  position: absolute;
+  right: 80px;
+  top: 420px;
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* ===== QUOTE ===== */
@@ -123,15 +114,11 @@ header {
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
+/* ❌ NOTE: GitHub Pages vẫn cho input, giữ lại */
 .quote input {
   zoom: 2;
   cursor: pointer;
-
-  animation: bellShake 1.2s ease-in-out infinite;  /* ✅ rung */
-  transform-origin: top center;
-  display: inline-block;
 }
-
 
 /* ===== THANKS ===== */
 .thanks {
@@ -146,29 +133,8 @@ header {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 
-  animation: pulse 2s infinite;
   white-space: nowrap;
 }
-
-/* ===== ANIMATION PULSE ===== */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* ===== BELL SHAKE ===== */
-@keyframes bellShake {
-  0%   { transform: rotate(0); }
-  15%  { transform: rotate(8deg); }
-  30%  { transform: rotate(-6deg); }
-  45%  { transform: rotate(6deg); }
-  60%  { transform: rotate(-4deg); }
-  75%  { transform: rotate(3deg); }
-  100% { transform: rotate(0); }
-}
-
-
 
 /* ===== LOGO ===== */
 .mask {
@@ -200,7 +166,6 @@ header {
   opacity: 0.9;
 }
 
-/* ===== LOGO TEXT STYLE ===== */
 .billy {
   transform: rotate(-5deg);
   display: inline-block;
@@ -208,7 +173,6 @@ header {
   font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
 }
 
 .friend {
@@ -218,7 +182,6 @@ header {
   font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
 }
 
 /* ===== FISH ===== */
@@ -236,86 +199,33 @@ header {
   50% { left: 60%; }
   100% { left: -60px; }
 }
-/* ===== TABLET (<= 1024px) ===== */
-@media (max-width: 1024px) {
-  .hero {
-    padding: 100px 30px 30px 30px; /* ✅ chỉnh padding */
-    background-attachment: scroll; /* ✅ FIX mobile lag */
-  }
 
-  .title {
-    font-size: 32px; /* ✅ giảm size */
-    right: 40px; /* ✅ chỉnh vị trí */
-  }
-
-  .story {
-    max-width: 520px; /* ✅ hẹp lại */
-    font-size: 22px; /* ✅ giảm font */
-  }
-
-  .quote {
-    font-size: 18px; /* ✅ CTA nhỏ lại */
-  }
-
-  .mask {
-    transform: scale(0.9); /* ✅ logo nhỏ */
-  }
-}
-
-/* ===== MOBILE (<= 768px) ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  header {
-    padding: 20px; /* ✅ giảm padding */
-  }
 
   .hero {
-    justify-content: center; /* ✅ center content */
+    justify-content: center;
     align-items: center;
-    padding: 100px 20px 20px 20px;
-    text-align: center; /* ✅ căn giữa text */
+    padding: 100px 20px;
+    text-align: center;
   }
 
   .title {
-    position: static; /* ✅ bỏ absolute */
+    position: static;
     font-size: 26px;
     margin-bottom: 20px;
   }
 
   .story {
+    position: static;
     max-width: 100%;
     font-size: 18px;
-    line-height: 1.5;
   }
 
   .cta-row {
-    flex-direction: column; /* ✅ stack */
+    position: static;
+    flex-direction: column;
     gap: 8px;
-  }
-
-  .quote {
-    font-size: 16px;
-  }
-
-  .thanks {
-    font-size: 14px;
-  }
-
-  .mask {
-    transform: scale(0.75);
-  }
-}
-
-/* ===== SMALL MOBILE (<= 480px) ===== */
-@media (max-width: 480px) {
-  .title {
-    font-size: 22px;
-  }
-
-  .story {
-    font-size: 16px;
-  }
-
-  .quote {
-    font-size: 14px;
+    margin-top: 16px;
   }
 }
