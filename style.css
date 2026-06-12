@@ -93,46 +93,35 @@ header {
 .cta-row {
   position: absolute;
   right: 80px;
-  top: 420px;
+  top: 520px;
 
   display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-/* ===== QUOTE ===== */
 .quote {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
 
   font-size: 22px;
   font-weight: 600;
+
   text-transform: uppercase;
   letter-spacing: 0.8px;
 
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
-/* ❌ NOTE: GitHub Pages vẫn cho input, giữ lại */
+/* ✅ FIX alignment checkbox */
 .quote input {
-  zoom: 2;
-  cursor: pointer;
+  transform: scale(1.4); /* ✅ thay zoom */
+  margin: 0;
 }
 
-/* ===== THANKS ===== */
+/* ✅ FIX thanks nằm cùng dòng */
 .thanks {
-  display: inline-flex;
-  align-items: center;
-
-  margin: 0;
-  padding: 0.02em 0.22em 0.08em;
-
-  background: rgba(10,12,16,0.30);
-
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-
+  margin-left: 8px;
+  font-weight: bold;
   white-space: nowrap;
 }
 
