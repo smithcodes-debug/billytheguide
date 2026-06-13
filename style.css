@@ -102,7 +102,7 @@ header {
 
   white-space: nowrap; /* ✅ FIX QUAN TRỌNG */
 }
-}
+
 
 .quote {
   display: flex;
@@ -127,8 +127,6 @@ header {
   font-size: 28px; /* ✅ ADDED: đảm bảo to cùng line */
 }
 
-}
-``
 
 /* ===== LOGO ===== */
 .mask {
@@ -222,4 +220,3 @@ header {
     gap: 8px;
     margin-top: 16px;
   }
-}
