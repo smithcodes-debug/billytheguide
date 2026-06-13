@@ -210,40 +210,40 @@ header {
   .hero {
     padding: 105px 20px 40px;
     display: flex;
-    justify-content: flex-end; /* ✅ */
+    justify-content: flex-end;
   }
 
   .content {
     align-items: center;
     text-align: center;
-    gap: 4px; /* ✅ UPDATED */
+    gap: 4px;
     width: 100%;
-    margin-top: 15px; /* ✅ UPDATED (Safari safe) */
+    margin-top: -10px; /* ✅ KEY FIX */
   }
 
   .title {
-    margin: 0; /* ✅ UPDATED */
+    margin: 0;
     text-align: center;
   }
 
   .story {
-    margin: 0; /* ✅ UPDATED */
+    margin: 0;
     padding: 14px 16px;
     line-height: 1.6;
     text-align: center;
   }
 
   .cta-row {
-    margin: 0; /* ✅ UPDATED */
+    margin: 0;
     justify-content: center;
-    gap: 4px; /* ✅ UPDATED */
+    gap: 4px;
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px; /* ✅ UPDATED */
+    gap: 4px;
   }
 
   header {
@@ -254,10 +254,8 @@ header {
     transform: translateY(5px);
   }
 
-} /* ✅ ĐÓNG ĐÚNG */
-
-
 }
+
 
 /* ✅ PERFORMANCE */
 .fish, .bubble, .fake-box { will-change: transform; }
