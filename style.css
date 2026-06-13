@@ -290,4 +290,231 @@ header {
     gap: 10px;
     margin-top: 20px;
   }
+}/* ✅ RESET */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ===== GLOBAL ===== */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: absolute;
+  top: 0;
+  padding: 50px 20px;
+  z-index: 2;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  background: url("a.jpg") center/cover no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  position: relative;
+  padding: 120px 40px 40px 40px;
+}
+
+/* ===== OVERLAY ===== */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+}
+
+/* ===== TITLE ===== */
+.title {
+  position: absolute;
+  top: 20px;
+  right: 80px;
+  z-index: 3;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* ===== STORY ===== */
+.story {
+  position: absolute;
+  right: 80px;
+  top: 120px;
+
+  z-index: 2;
+  max-width: 420px;
+
+  font-size: 20px;
+  line-height: 1.5;
+
+  padding: 12px 16px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(7, 9, 12, 0.6),
+    rgba(18, 22, 28, 0.4)
+  );
+}
+
+.story p {
+  margin: 0;
+}
+
+/* ===== CTA ===== */
+.cta-row {
+  position: absolute;
+  right: 80px;
+  top: 520px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.quote {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ===== CHECKBOX ===== */
+.checkbox input {
+  display: none;
+}
+
+.fake-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 4px;
+  display: inline-block;
+  animation: zoomPulse 2s ease-in-out infinite;
+}
+
+.checkbox input:checked + .fake-box {
+  background: white;
+}
+
+@keyframes zoomPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(2); }
+  100% { transform: scale(1); }
+}
+
+/* ===== LOGO ===== */
+.mask {
+  position: relative;
+  padding: 15px 30px;
+  border-radius: 50px;
+
+  background: rgba(255,255,255,0.15);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border: 2px solid rgba(255,255,255,0.6);
+
+  box-shadow:
+    inset 0 0 15px rgba(255,255,255,0.25),
+    0 8px 25px rgba(0,0,0,0.5);
+
+  overflow: hidden; /* ✅ NEW */
+}
+
+.text {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== FISH ===== */
+.fish {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+
+  font-size: 28px;
+  display: block;
+
+  z-index: 1;
+  animation: swim 8s linear infinite;
+}
+
+@keyframes swim {
+  0% { left: 0; transform: scaleX(1); }
+
+  49% { left: calc(100% - 30px); transform: scaleX(1); }
+
+  50% { left: calc(100% - 30px); transform: scaleX(-1); }
+
+  99% { left: 0; transform: scaleX(-1); }
+
+  100% { left: 0; transform: scaleX(1); }
+}
+
+/* ===== BUBBLE ===== */
+.bubble {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+
+  opacity: 0;
+
+  /* ✅ FIX CRITICAL */
+  animation-name: rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* ✅ RANDOM */
+.b1 {
+  left: 20%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 4s;
+}
+
+.b2 {
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  animation-duration: 5s;
+}
+
+.b3 {
+  left: 75%;
+  width: 10px;
+  height: 10px;
+  animation-duration: 6s;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  20% { opacity: 1; }
+
+  100% {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
 }
