@@ -455,24 +455,68 @@ color: #fff;
         opacity: 0.85;
       }
 
-      .popup-backdrop {
-        padding: 18px;
-      }
+     .popup-backdrop {
+  padding: 18px;
+}
 
-      .popup-card {
-        width: min(94vw, 520px);
-        padding: 20px 18px 18px;
-        border-radius: 20px;
-      }
+.popup-card {
+  width: min(94vw, 520px);
+  padding: 20px 18px 18px;
+  border-radius: 20px;
+}
 
-      .popup-title {
-        font-size: 22px;
-      }
+/* ✅ NEW: 5 block grid */
+.popup-notes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px; /* ✅ UPDATED: giảm nhẹ cho vừa card */
+  margin-top: 20px;
+}
 
-      .popup-copy {
-        font-size: 15px;
-      }
-    }
+.popup-note-item {
+  aspect-ratio: 1 / 1;
+
+  background: #ffffff; /* ✅ UPDATED: đổi sang trắng */
+  border-radius: 12px; /* giữ theo code bạn */
+
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ NEW */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ NEW */
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ NEW */
+}
+
+/* ✅ NEW: hover effect */
+.popup-note-item:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.popup-title {
+  font-size: 22px;
+}
+
+.popup-copy {
+  font-size: 15px;
+}
+}
+/* ✅ REQUIRED FIX: phải nằm ngoài media */
+.popup-notes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.popup-note-item {
+  aspect-ratio: 1 / 1;
+
+  background: #ffffff; /* ✅ trắng */
+  border-radius: 12px;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+    
   </style>
 </head>
 
@@ -538,10 +582,22 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
 
     <div class="popup-note">
-      Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
-    </div>
-  </div>
+  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
 </div>
+
+<!-- ✅ NEW: 5 block -->
+<div class="popup-notes">
+  <div class="popup-note-item"></div>
+  <div class="popup-note-item"></div>
+  <div class="popup-note-item"></div>
+  <div class="popup-note-item"></div>
+  <div class="popup-note-item"></div>
+</div>
+
+<!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
+</div> <!-- popup-card -->
+</div> <!-- popup-backdrop -->
+
 
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
