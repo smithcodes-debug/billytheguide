@@ -221,23 +221,23 @@ header {
     align-items: center;
     text-align: center;
 
-    gap: 96px; /* ✅ UPDATED: debug 1 inch giữa title / story / cta */
+    gap: 12px; /* ✅ UPDATED: tăng khoảng cách giữa title / story / cta */
 
     width: 100%;
-    margin-top: 0; /* ✅ KEEP */
+    margin-top: 0; /* ✅ REQUIRED FIX */
   }
 
   .cta-row {
-    margin: 0;
+    margin: 4px 0 0 0; /* ✅ UPDATED: tách CTA ra thêm chút khỏi story */
     justify-content: center;
-    gap: 96px; /* ✅ UPDATED: debug 1 inch giữa quote và Cảm ơn bạn ❤️ */
+    gap: 6px; /* ✅ UPDATED: nới khoảng cách bên trong CTA */
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 96px; /* ✅ UPDATED: debug 1 inch giữa let's... / checkbox / "Leave no trace" */
+    gap: 6px; /* ✅ UPDATED: nới khoảng cách let's... / checkbox / "Leave no trace" */
   }
 
 }
