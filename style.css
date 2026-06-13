@@ -420,9 +420,8 @@ header {
 /* ✅ NEW: thêm dấu tick */
 .checkbox input:checked + .fake-box::after {
   content: "✔"; /* ✅ dấu tick */
-  font-size: 14px;
-}
-``
+  font-size: 22px;
+  color: green; /* ✅ màu xanh cho tick */
 }
 
 .checkbox input:checked + .fake-box {
