@@ -208,49 +208,52 @@ header {
 @media (max-width:768px){
 
   .hero {
-    padding: 105px 20px 40px; /* ✅ UPDATED: push xuống 5px */
+    padding: 105px 20px 40px;
+    display: flex;
+    justify-content: flex-end; /* ✅ KEY */
   }
 
   .content {
     align-items: center;
     text-align: center;
-    gap: 16px; /* ✅ NEW: spacing system */
+    gap: 16px;
+    width: 100%; /* ✅ NEW */
   }
 
   .title {
-    margin-top: 10px; /* ✅ NEW */
-    margin-bottom: 4px; /* ✅ NEW */
+    margin-top: 0;
+    margin-bottom: 4px;
     text-align: center;
   }
 
   .story {
-    margin-top: 6px; /* ✅ NEW */
-    padding: 14px 16px; /* ✅ UPDATED */
-    line-height: 1.6; /* ✅ UPDATED */
+    margin-top: 6px;
+    padding: 14px 16px;
+    line-height: 1.6;
     text-align: center;
   }
 
   .cta-row {
-    margin-top: 10px; /* ✅ NEW */
+    margin-top: 10px;
     justify-content: center;
-    gap: 12px; /* ✅ UPDATED */
+    gap: 12px;
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px; /* ✅ NEW */
+    gap: 8px;
   }
 
   header {
-    padding: 25px 20px 10px; /* ✅ UPDATED */
+    padding: 25px 20px 10px;
   }
 
   .mask {
-    transform: translateY(5px); /* ✅ NEW */
+    transform: translateY(5px);
   }
-}
+
 
 /* ✅ PERFORMANCE */
 .fish, .bubble, .fake-box { will-change: transform; }
