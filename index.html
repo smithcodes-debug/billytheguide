@@ -467,8 +467,17 @@ color: #fff;
 
 /* ✅ NEW: 5 block grid */
 .popup-notes {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex; /* ✅ UPDATED: đổi grid → flex */
+  gap: 12px;
+  overflow-x: auto; /* ✅ NEW: cho scroll ngang */
+  padding-bottom: 6px;
+}
+
+.popup-note-item {
+  flex: 0 0 120px; /* ✅ NEW: mỗi card rộng 120px */
+  aspect-ratio: 1 / 1;
+}
+
   gap: 16px; /* ✅ UPDATED: giảm nhẹ cho vừa card */
   margin-top: 20px;
 }
