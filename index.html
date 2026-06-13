@@ -221,42 +221,23 @@ header {
     align-items: center;
     text-align: center;
 
-    gap: 4px; /* ✅ UPDATED */
+    gap: 12px; /* ✅ UPDATED: tăng khoảng cách giữa title / story / cta */
+
     width: 100%;
     margin-top: 0; /* ✅ REQUIRED FIX */
   }
 
-  .title {
-    margin: 0;
-    text-align: center;
-  }
-
-  .story {
-    margin: 0;
-    padding: 14px 16px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
   .cta-row {
-    margin: 0;
+    margin: 4px 0 0 0; /* ✅ UPDATED: tách CTA ra thêm chút khỏi story */
     justify-content: center;
-    gap: 4px;
+    gap: 6px; /* ✅ UPDATED: nới khoảng cách bên trong CTA */
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
-  }
-
-  header {
-    padding: 25px 20px 10px;
-  }
-
-  .mask {
-    transform: translateY(10px); /* ✅ UPDATED */
+    gap: 6px; /* ✅ UPDATED: nới khoảng cách let's... / checkbox / "Leave no trace" */
   }
 
 }
