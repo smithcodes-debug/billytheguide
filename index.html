@@ -143,7 +143,6 @@ header {
   border-radius: 50px;
 
   background: rgba(255,255,255,0.25);
-
   border: 2px solid rgba(255,255,255,0.6);
 
   overflow: hidden;
@@ -153,48 +152,55 @@ header {
   .mask { backdrop-filter: blur(8px); }
 }
 
-.text { position: relative; z-index:2; }
+.text {
+  position: relative;
+  z-index:2;
 
+  display:flex;             /* ✅ NEW */
+  flex-direction:column;    /* ✅ NEW */
+  align-items:center;
+  gap:4px;                  /* ✅ NEW: ép 3 dòng sát lại */
+}
+
+/* ===== TEXT LOGO ===== */
 .mask .text1 {
-  display: flex;             /* ✅ NEW */
-  justify-content: center;   /* ✅ KEEP center */
-  gap: 6px;                  /* ✅ NEW: khoảng cách chữ */
+  display: flex;
+  justify-content: center;
+  gap: 6px;
 }
 
 /* Billy nghiêng lên */
 .mask .billy {
   display: inline-block;
-  transform: rotate(-8deg); /* ✅ NEW */
-  color: #0000ff; /* ✅ NEW: đổi màu chữ */
-  font-size: 24px; /* ✅ NEW: tăng size chữ */
+  transform: rotate(-8deg);
+  color: #0000ff;
+  font-size: 24px;
 }
 
-/* and giữ nguyên */
+/* and */
 .mask .and {
   display: inline-block;
-  font-size: 20px; /* ✅ NEW: tăng size chữ */
+  font-size: 20px;
 }
 
 /* Friend nghiêng xuống */
 .mask .friend {
   display: inline-block;
-  transform: rotate(8deg); /* ✅ NEW */
-   color: #0000ff; /* ✅ NEW: đổi màu chữ */
-   font-size: 24px; /* ✅ NEW: tăng size chữ */
+  transform: rotate(8deg);
+  color: #0000ff;
+  font-size: 24px;
 }
-
 
 .mask .text2 {
   font-size: 20px;
   text-align:center;
 }
+
 .mask .text3 {
-  font-size: 18px; /* ✅ UPDATED: 14px → +10% */
+  font-size: 18px;
   text-align: center;
-
-  color: #000; /* ✅ NEW: đổi sang màu đen */
-
-  opacity: 1; /* ✅ UPDATED: bỏ fade để chữ nhìn rõ */
+  color: #000;
+  opacity: 1;
 }
 
 /* ===== FISH ===== */
@@ -233,57 +239,55 @@ header {
 }
 
 /* ===================== */
-/* ✅ MOBILE FINAL TUNING */
+/* ✅ MOBILE */
 /* ===================== */
 @media (max-width:768px){
 
   .hero {
-    min-height: 100vh; /* ✅ KEEP */
-    min-height: 100svh; /* ✅ NEW */
-    min-height: 100dvh; /* ✅ NEW */
-    padding: 105px 20px 10px; /* ✅ UPDATED: bottom = 10px */
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding: 105px 20px 10px;
 
     display: flex;
-    flex-direction: column; /* ✅ KEEP */
-    justify-content: flex-end; /* ✅ KEEP */
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   .content {
     align-items: center;
     text-align: center;
-
-    gap: 20px; /* ✅ UPDATED: tăng khoảng cách giữa title / story / cta */
-
+    gap: 20px;
     width: 100%;
-    margin-top: 0; /* ✅ REQUIRED FIX */
-  }
-  .story {
-    font-size: 18px; /* ✅ NEW: tăng size story */
+    margin-top: 0;
   }
 
+  .story {
+    font-size: 18px;
+  }
 
   .cta-row {
-    margin: 8px 0 0 0; /* ✅ UPDATED: tách CTA ra thêm chút khỏi story */
+    margin: 8px 0 0 0;
     justify-content: center;
-    gap: 6px; /* ✅ UPDATED: nới khoảng cách bên trong CTA */
+    gap: 6px;
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px; /* ✅ UPDATED: nới khoảng cách let's... / checkbox / "Leave no trace" */
+    gap: 10px;
   }
-header {
-    display: flex;               /* ✅ NEW */
-    justify-content: center;     /* ✅ NEW: căn giữa logo */
+
+  header {
+    display: flex;
+    justify-content: center;
   }
 
   .mask {
-  padding: 15px 50px; /* ✅ UPDATED: vẫn +20 mỗi bên */
-
-  width: max-content; /* ✅ NEW: theo content */
-}
+    padding: 15px 50px;
+    width: max-content;
+  }
 
 }
 
@@ -306,18 +310,16 @@ body {
       <div class="fish">🐠</div>
       <div class="bubble b1"></div>
       <div class="bubble b2"></div>
-      <div class="bubble b4"></div>
-      <div class="bubble b5"></div>
-      
+      <div class="bubble b3"></div>
 
       <div class="text">
-<div class="text1">
-  <span class="billy">"Billy</span>
-  <span class="and">and</span>
-  <span class="friend">Friend"</span>
-</div>
+        <div class="text1">
+          <span class="billy">"Billy</span>
+          <span class="and">and</span>
+          <span class="friend">Friend"</span>
+        </div>
         <div class="text2">adventures</div>
-        <div class="text3">The private guide</div> <!-- ✅ NEW -->
+        <div class="text3">The private guide</div>
       </div>
     </div>
   </div>
@@ -337,12 +339,10 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <div class="cta-row">
       <span class="quote">
         <span>let's...</span>
-
         <label class="checkbox">
           <input type="checkbox">
           <span class="fake-box"></span>
         </label>
-
         <span>"Leave no trace"</span>
       </span>
 
