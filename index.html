@@ -210,43 +210,40 @@ header {
   .hero {
     padding: 105px 20px 40px;
     display: flex;
-    justify-content: flex-end; /* ✅ KEY */
+    justify-content: flex-end; /* ✅ */
   }
 
   .content {
     align-items: center;
     text-align: center;
-    gap: 16px;
-    width: 100%; /* ✅ NEW */
-  margin-top: -10px; /* ✅ NEW: thay cho transform */
-}
-
+    gap: 4px; /* ✅ UPDATED */
+    width: 100%;
+    margin-top: -5px; /* ✅ UPDATED (Safari safe) */
   }
 
   .title {
-    margin-top: 0;
-    margin-bottom: 4px;
+    margin: 0; /* ✅ UPDATED */
     text-align: center;
   }
 
   .story {
-    margin-top: 6px;
+    margin: 0; /* ✅ UPDATED */
     padding: 14px 16px;
     line-height: 1.6;
     text-align: center;
   }
 
   .cta-row {
-    margin-top: 10px;
+    margin: 0; /* ✅ UPDATED */
     justify-content: center;
-    gap: 12px;
+    gap: 4px; /* ✅ UPDATED */
     flex-wrap: wrap;
   }
 
   .quote {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 4px; /* ✅ UPDATED */
   }
 
   header {
@@ -256,6 +253,8 @@ header {
   .mask {
     transform: translateY(5px);
   }
+
+} /* ✅ ĐÓNG ĐÚNG */
 
 
 }
