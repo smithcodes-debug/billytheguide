@@ -33,7 +33,6 @@ header {
 /* ===== HERO ===== */
 .hero {
   min-height: 100vh;
-
   background: url("a.jpg") center/cover no-repeat;
 
   position: relative;
@@ -208,22 +207,23 @@ header {
 @media (max-width:768px){
 
   .hero {
-    padding: 105px 20px 40px;
+    min-height: 100vh; /* ✅ KEEP */
+    min-height: 100svh; /* ✅ NEW */
+    min-height: 100dvh; /* ✅ NEW */
+    padding: 105px 20px 10px; /* ✅ UPDATED: bottom = 10px */
 
     display: flex;
-    flex-direction: column; /* ✅ FIX */
-    justify-content: flex-end; /* ✅ FIX */
+    flex-direction: column; /* ✅ KEEP */
+    justify-content: flex-end; /* ✅ KEEP */
   }
 
   .content {
     align-items: center;
     text-align: center;
 
-    gap: 4px;
-
+    gap: 4px; /* ✅ UPDATED */
     width: 100%;
-
-    margin-top: -5px; /* ✅ KEY FIX */
+    margin-top: 0; /* ✅ REQUIRED FIX */
   }
 
   .title {
@@ -256,59 +256,10 @@ header {
   }
 
   .mask {
-    transform: translateY(5px);
+    transform: translateY(10px); /* ✅ UPDATED */
   }
 
 }
-  .hero {
-    padding: 105px 20px 40px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .content {
-    align-items: center;
-    text-align: center;
-    gap: 4px;
-    width: 100%;
-    margin-top: -30px; /* ✅ KEY FIX */
-  }
-
-  .title {
-    margin: 0;
-    text-align: center;
-  }
-
-  .story {
-    margin: 0;
-    padding: 14px 16px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  .cta-row {
-    margin: 0;
-    justify-content: center;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
-
-  .quote {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  header {
-    padding: 25px 20px 10px;
-  }
-
-  .mask {
-    transform: translateY(5px);
-  }
-
-
-
 
 /* ✅ PERFORMANCE */
 .fish, .bubble, .fake-box { will-change: transform; }
