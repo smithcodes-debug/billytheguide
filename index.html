@@ -156,10 +156,33 @@ header {
 .text { position: relative; z-index:2; }
 
 .mask .text1 {
-  font-size: 25px;
-  color: rgb(192, 90, 7);
-  text-align:center;
+  display: flex;             /* ✅ NEW */
+  justify-content: center;   /* ✅ KEEP center */
+  gap: 6px;                  /* ✅ NEW: khoảng cách chữ */
 }
+
+/* Billy nghiêng lên */
+.mask .billy {
+  display: inline-block;
+  transform: rotate(-8deg); /* ✅ NEW */
+  color: #0000ff; /* ✅ NEW: đổi màu chữ */
+  font-size: 24px; /* ✅ NEW: tăng size chữ */
+}
+
+/* and giữ nguyên */
+.mask .and {
+  display: inline-block;
+  font-size: 20px; /* ✅ NEW: tăng size chữ */
+}
+
+/* Friend nghiêng xuống */
+.mask .friend {
+  display: inline-block;
+  transform: rotate(8deg); /* ✅ NEW */
+   color: #0000ff; /* ✅ NEW: đổi màu chữ */
+   font-size: 24px; /* ✅ NEW: tăng size chữ */
+}
+
 
 .mask .text2 {
   font-size: 20px;
@@ -288,7 +311,11 @@ body {
       
 
       <div class="text">
-        <div class="text1">"Billy and Friend"</div>
+<div class="text1">
+  <span class="billy">"Billy</span>
+  <span class="and">and</span>
+  <span class="friend">Friend"</span>
+</div>
         <div class="text2">adventures</div>
         <div class="text3">The private guide</div> <!-- ✅ NEW -->
       </div>
