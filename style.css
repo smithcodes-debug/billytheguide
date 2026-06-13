@@ -107,27 +107,26 @@ header {
 .quote {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 30px; /* ✅ CHANGED: tăng size lên */
+  font-weight: 700; /* ✅ CHANGED: đậm hơn */
 
-  white-space: nowrap; /* ✅ FIX */
-}
-}
-
-/* ✅ FIX alignment checkbox */
-.quote input {
-  transform: scale(1.4);
-  margin: 0 4px;
-  flex-shrink: 0; /* ✅ FIX bị ép nhỏ */
-}
-}
-
-/* ✅ FIX thanks nằm cùng dòng */
-.thanks {
-  margin-left: 10px;
   white-space: nowrap;
+}
+
+.quote input {
+  transform: scale(1.8); /* ✅ CHANGED: checkbox to theo chữ */
+  margin: 0 6px; /* ✅ CHANGED: spacing hợp lý hơn */
+  flex-shrink: 0;
+}
+
+.thanks {
+  margin-left: 12px;
+  white-space: nowrap;
+  font-size: 28px; /* ✅ ADDED: đảm bảo to cùng line */
+}
+
 }
 ``
 
