@@ -517,4 +517,28 @@ header {
     transform: translateY(-120px);
     opacity: 0;
   }
+}/* ===== HOVER EFFECT GLOBAL ===== */
+/* ✅ NEW */
+.mask,
+.title,
+.story,
+.cta-row,
+.fake-box {
+  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+}
+
+/* ✅ NEW */
+.mask:hover,
+.title:hover,
+.story:hover,
+.cta-row:hover,
+.fake-box:hover {
+  transform: translateY(-6px) scale(1.03); /* ✅ NẢY NHẸ */
+}
+
+/* ✅ OPTIONAL: glow nhẹ cho đẹp */
+.mask:hover,
+.story:hover {
+  box-shadow: 0 10px 30px rgba(255,255,255,0.2); /* ✅ NEW */
 }
