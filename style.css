@@ -402,10 +402,27 @@ header {
 .fake-box {
   width: 20px;
   height: 20px;
+
   border: 2px solid white;
   border-radius: 4px;
-  display: inline-block;
+
+  display: inline-flex; /* ✅ UPDATED */
+  align-items: center;  /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+
   animation: zoomPulse 2s ease-in-out infinite;
+
+  font-size: 14px; /* ✅ NEW */
+  color: white; /* ✅ NEW */
+}
+
+
+/* ✅ NEW: thêm dấu tick */
+.checkbox input:checked + .fake-box::after {
+  content: "✔"; /* ✅ dấu tick */
+  font-size: 14px;
+}
+``
 }
 
 .checkbox input:checked + .fake-box {
