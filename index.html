@@ -6,124 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coral Tour</title>
 
+  <!-- ✅ FIX: thiếu link -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <!-- ✅ UPDATED: merge CSS vào đây để kiểm soát mobile -->
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background: #0b1e2d;
-      color: #fff;
-    }
-
-    header {
-      padding: 20px 40px;
-    }
-
-    .logo {
-      position: relative;
-    }
-
-    .fish {
-      font-size: 28px;
-    }
-
-    .text1 {
-      font-size: 18px;
-    }
-
-    .text2 {
-      font-size: 14px;
-      opacity: 0.7;
-    }
-
-    .hero {
-      position: relative;
-      height: 100vh;
-      padding: 80px;
-    }
-
-    .title {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .story {
-      max-width: 700px;
-      line-height: 1.6;
-      opacity: 0.9;
-    }
-
-    .cta-row {
-      margin-top: 40px;
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .thanks {
-      opacity: 0.7;
-    }
-
-    /* ===================== */
-    /* ✅ NEW: MOBILE VERSION */
-    /* ===================== */
-    @media (max-width: 768px) {
-
-      /* ✅ UPDATED */
-      header {
-        padding: 15px 20px;
-      }
-
-      /* ✅ UPDATED */
-      .hero {
-        padding: 40px 20px;
-        height: auto;
-      }
-
-      /* ✅ UPDATED */
-      .title {
-        font-size: 26px;
-        text-align: center;
-      }
-
-      /* ✅ UPDATED */
-      .story {
-        font-size: 14px;
-        max-width: 100%;
-        text-align: center;
-      }
-
-      /* ✅ UPDATED */
-      .cta-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-
-      /* ✅ NEW */
-      .text1 {
-        font-size: 14px;
-      }
-
-      /* ✅ NEW */
-      .text2 {
-        font-size: 12px;
-      }
-
-      /* ✅ NEW */
-      .fish {
-        font-size: 22px;
-      }
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -132,6 +18,7 @@
   <div class="logo">
     <div class="mask">
 
+      <!-- ✅ UPDATED -->
       <div class="fish">🐠</div>
 
       <!-- ✅ NEW -->
