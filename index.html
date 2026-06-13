@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coral Tour</title>
 
-  <!-- ✅ FONT -->
+  <!-- ✅ FIX: thiếu link -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
@@ -16,10 +16,12 @@
 
 <header>
   <div class="logo">
-    <div class="mask" id="logoTrigger"> <!-- ✅ UPDATED: thêm id -->
+    <div class="mask">
 
+      <!-- ✅ UPDATED -->
       <div class="fish">🐠</div>
 
+      <!-- ✅ NEW -->
       <div class="bubble b1"></div>
       <div class="bubble b2"></div>
       <div class="bubble b3"></div>
@@ -44,7 +46,10 @@
 
   <div class="story">
     <p>
-      "Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này..."
+      "Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc.
+      Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này…
+      tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường…
+      Bạn có muốn cùng tôi..."
     </p>
   </div>
 
@@ -66,31 +71,6 @@
   </div>
 
 </section>
-
-<!-- ✅ NEW: POPUP -->
-<div class="popup-box" id="popupBox">
-  <div class="popup-content">
-    <p>Body Call Me Baby</p>
-  </div>
-</div>
-
-<!-- ✅ NEW: SCRIPT -->
-<script>
-const logo = document.getElementById("logoTrigger"); /* ✅ UPDATED */
-const popup = document.getElementById("popupBox");
-
-/* ✅ OPEN */
-logo.addEventListener("click", () => {
-  popup.classList.add("active");
-});
-
-/* ✅ CLOSE khi click nền */
-popup.addEventListener("click", (e) => {
-  if (e.target === popup) {
-    popup.classList.remove("active");
-  }
-});
-</script>
 
 </body>
 </html>
