@@ -156,11 +156,17 @@ header {
   position: relative;
   z-index:2;
 
-  display:flex;             /* ✅ NEW */
-  flex-direction:column;    /* ✅ NEW */
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  gap:4px;                  /* ✅ NEW: ép 3 dòng sát lại */
+
+  gap:2px; /* ✅ UPDATED: 4 → 2 (đẹp hơn) */
 }
+
+.text div {
+  line-height: 1; /* ✅ REQUIRED FIX */
+}
+
 
 /* ===== TEXT LOGO ===== */
 .mask .text1 {
