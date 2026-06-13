@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coral Tour</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap
 
 <style>
 
@@ -21,7 +21,7 @@ body {
   color: white;
 }
 
-/* ✅ NEW: GLOBAL HOVER */
+/* ✅ HOVER (DESKTOP ONLY) */
 .mask,
 .title,
 .story,
@@ -34,21 +34,21 @@ body {
 .title:hover,
 .story:hover,
 .cta-row:hover {
-  transform: translateY(-2px) scale(1.02); /* ✅ NEW */
+  transform: translateY(-2px) scale(1.02);
 }
 
 .mask:hover {
   box-shadow:
     0 12px 40px rgba(0,0,0,0.35),
-    inset 0 0 14px rgba(255,255,255,0.3); /* ✅ NEW */
+    inset 0 0 14px rgba(255,255,255,0.3);
 }
 
 .story:hover {
-  background: rgba(20,24,30,0.75); /* ✅ NEW */
+  background: rgba(20,24,30,0.75);
 }
 
 .fake-box:hover {
-  transform: scale(1.2); /* ✅ NEW */
+  transform: scale(1.2);
 }
 
 /* ===== HEADER ===== */
@@ -64,9 +64,11 @@ header {
   min-height: 100vh;
   background: url("a.jpg") center/cover no-repeat;
   position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   padding: 120px 40px 40px;
 }
 
@@ -81,6 +83,7 @@ header {
 .content {
   position: relative;
   z-index: 2;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -101,6 +104,7 @@ header {
   font-size: clamp(14px,2.2vw,20px);
   line-height: 1.5;
   padding: 12px 16px;
+
   background: rgba(18,22,28,0.6);
   text-align: right;
 }
@@ -110,8 +114,10 @@ header {
   display: flex;
   align-items: center;
   gap: 20px;
+
   font-size: clamp(16px,2.5vw,34px);
   font-weight: 700;
+
   justify-content: flex-end;
   flex-wrap: wrap;
 }
@@ -129,11 +135,14 @@ header {
 .fake-box {
   width: 20px;
   height: 20px;
+
   border: 2px solid white;
   border-radius: 4px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   animation: zoomPulse 1.5s ease-in-out infinite;
   position: relative;
   z-index: 3;
@@ -156,12 +165,16 @@ header {
   position: relative;
   padding: 15px 30px;
   border-radius: 50px;
+
   background: rgba(255,255,255,0.15);
   border: 2px solid rgba(255,255,255,0.4);
+
   backdrop-filter: blur(12px);
+
   box-shadow:
     0 8px 32px rgba(0,0,0,0.25),
     inset 0 0 10px rgba(255,255,255,0.2);
+
   overflow: hidden;
 }
 
@@ -170,12 +183,14 @@ header {
   content: "";
   position: absolute;
   inset: 0;
+
   background: linear-gradient(
     120deg,
     rgba(255,255,255,0.08),
     rgba(200,220,255,0.15),
     rgba(255,255,255,0.08)
   );
+
   mix-blend-mode: soft-light;
   opacity: 0.35;
   pointer-events: none;
@@ -185,9 +200,11 @@ header {
 .text {
   position: relative;
   z-index: 3;
+
   display:flex;
   flex-direction: column;
   align-items: center;
+
   gap: 2px;
 }
 
@@ -256,7 +273,9 @@ header {
   100% { transform:translateY(-120px); opacity:0; }
 }
 
-/* ===== MOBILE ===== */
+/* ===================== */
+/* ✅ MOBILE SAFE FIX */
+/* ===================== */
 @media (max-width:768px){
 
   header {
@@ -280,6 +299,23 @@ header {
 
   .story {
     font-size: 18px;
+  }
+
+  /* ✅ CRITICAL FIX: disable hover scale */
+  .mask:hover,
+  .title:hover,
+  .story:hover,
+  .cta-row:hover,
+  .fake-box:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ✅ touch feedback */
+  .mask:active,
+  .story:active,
+  .cta-row:active {
+    opacity: 0.85;
   }
 
 }
