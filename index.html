@@ -209,6 +209,59 @@ header {
 
   .hero {
     padding: 105px 20px 40px;
+
+    display: flex;
+    flex-direction: column; /* ✅ FIX */
+    justify-content: flex-end; /* ✅ FIX */
+  }
+
+  .content {
+    align-items: center;
+    text-align: center;
+
+    gap: 4px;
+
+    width: 100%;
+
+    margin-top: -5px; /* ✅ KEY FIX */
+  }
+
+  .title {
+    margin: 0;
+    text-align: center;
+  }
+
+  .story {
+    margin: 0;
+    padding: 14px 16px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .cta-row {
+    margin: 0;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .quote {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  header {
+    padding: 25px 20px 10px;
+  }
+
+  .mask {
+    transform: translateY(5px);
+  }
+
+}
+  .hero {
+    padding: 105px 20px 40px;
     display: flex;
     justify-content: flex-end;
   }
@@ -254,7 +307,7 @@ header {
     transform: translateY(5px);
   }
 
-}
+
 
 
 /* ✅ PERFORMANCE */
