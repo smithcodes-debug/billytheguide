@@ -424,9 +424,6 @@ header {
   color: green; /* ✅ màu xanh cho tick */
 }
 
-.checkbox input:checked + .fake-box {
-  background: white;
-}
 
 @keyframes zoomPulse {
   0% { transform: scale(1); }
