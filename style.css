@@ -97,34 +97,29 @@ header {
 
   display: flex;
   align-items: center;
-  
-  gap: 12px;
+  gap: 16px;
 
-  white-space: nowrap; /* ✅ FIX QUAN TRỌNG */
+  white-space: nowrap;
+
+  font-size: 32px; /* ✅ SET 1 CHỖ DUY NHẤT */
+  font-weight: 700;
 }
-
 
 .quote {
   display: flex;
   align-items: center;
   gap: 12px;
 
-  font-size: 30px; /* ✅ CHANGED: tăng size lên */
-  font-weight: 700; /* ✅ CHANGED: đậm hơn */
-
-  white-space: nowrap;
-}
-
-.quote input {
-  transform: scale(1.8); /* ✅ CHANGED: checkbox to theo chữ */
-  margin: 0 6px; /* ✅ CHANGED: spacing hợp lý hơn */
-  flex-shrink: 0;
+  font-size: inherit; /* ✅ FIX: dùng cùng size */
+  font-weight: inherit;
 }
 
 .thanks {
   margin-left: 12px;
-  white-space: nowrap;
-  font-size: 28px; /* ✅ ADDED: đảm bảo to cùng line */
+
+  font-size: inherit; /* ✅ FIX: same size */
+  font-weight: inherit;
+
 }
 
 
