@@ -26,300 +26,10 @@ header {
 /* ===== HERO ===== */
 .hero {
   min-height: 100vh;
+
+  /* ✅ UPDATED: bỏ fixed để fix Edge */
   background: url("a.jpg") center/cover no-repeat;
-  background-attachment: fixed;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-
-  position: relative;
-  padding: 120px 40px 40px 40px;
-}
-
-/* ===== OVERLAY ===== */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-}
-
-/* ===== TITLE ===== */
-.title {
-  position: absolute;
-  top: 20px;
-  right: 80px;
-  z-index: 3;
-
-  font-size: 42px;
-  font-weight: 700;
-
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
-
-/* ===== STORY ===== */
-.story {
-  position: absolute;
-  right: 80px;
-  top: 120px;
-
-  z-index: 2;
-  max-width: 420px;
-
-  font-size: 20px;
-  line-height: 1.5;
-
-  padding: 12px 16px;
-
-  background: linear-gradient(
-    90deg,
-    rgba(7, 9, 12, 0.6),
-    rgba(18, 22, 28, 0.4)
-  );
-}
-
-.story p {
-  margin: 0;
-}
-
-/* ===== CTA FINAL ===== */
-.cta-row {
-  position: absolute;
-  right: 80px;
-  top: 520px;
-
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  font-family: 'Poppins', sans-serif;
-  font-size: 34px;
-  font-weight: 700;
-}
-
-.cta-row span {
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-/* ===== QUOTE ===== */
-.quote {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* ===== CUSTOM CHECKBOX ===== */
-.checkbox input {
-  display: none;
-}
-
-.fake-box {
-  width: 20px;
-  height: 20px;
-
-  border: 2px solid white;
-  border-radius: 4px;
-
-  display: inline-block;
-
-  animation: zoomPulse 2s ease-in-out infinite;
-}
-
-.checkbox input:checked + .fake-box {
-  background: white;
-}
-
-@keyframes zoomPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(2); }
-  100% { transform: scale(1); }
-}
-
-/* ===== LOGO ===== */
-.mask {
-  position: relative;
-  padding: 15px 30px;
-  border-radius: 50px;
-
-  background: rgba(255,255,255,0.15);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  border: 2px solid rgba(255,255,255,0.6);
-
-  box-shadow:
-    inset 0 0 15px rgba(255,255,255,0.25),
-    0 8px 25px rgba(0,0,0,0.5);
-
-  overflow: hidden; /* ✅ NEW */
-}
-
-.mask .text1 {
-  font-size: 22px;
-  color: rgb(192, 90, 7);
-  text-align: center;
-}
-
-.mask .text2 {
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-align: center;
-}
-
-/* ✅ FIX LAYER */
-.text {
-  position: relative;
-  z-index: 2;
-}
-
-/* ===== FISH ===== */
-/* ✅ UPDATED */
-.fish {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  font-size: 28px;
-  z-index: 1;
-  animation: swim 8s linear infinite;
-}
-
-/* ✅ NEW */
-@keyframes swim {
-  0% {
-    left: 0;
-    transform: scaleX(1);
-  }
-
-  49% {
-    left: calc(100% - 40px);
-    transform: scaleX(1);
-  }
-
-  50% {
-    left: calc(100% - 40px);
-    transform: scaleX(-1);
-  }
-
-  99% {
-    left: 0;
-    transform: scaleX(-1);
-  }
-
-  100% {
-    left: 0;
-    transform: scaleX(1);
-  }
-}
-
-/* ===== BUBBLE ===== */
-/* ✅ NEW */
-.bubble {
-  position: absolute;
-  bottom: -10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  opacity: 0;
-  animation: rise linear infinite;
-}
-
-/* ✅ RANDOM */
-.b1 {
-  left: 20%;
-  width: 6px;
-  height: 6px;
-  animation-duration: 4s;
-}
-
-.b2 {
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  animation-duration: 5s;
-}
-
-.b3 {
-  left: 75%;
-  width: 10px;
-  height: 10px;
-  animation-duration: 6s;
-}
-
-/* ✅ NEW */
-@keyframes rise {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-120px);
-    opacity: 0;
-  }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .hero {
-    justify-content: center;
-    align-items: center;
-    padding: 100px 20px;
-    text-align: center;
-  }
-
-  .title {
-    position: static;
-    font-size: 26px;
-    margin-bottom: 20px;
-  }
-
-  .story {
-    position: static;
-    max-width: 100%;
-  }
-
-  .cta-row {
-    position: static;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-  }
-}/* ✅ RESET */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* ===== GLOBAL ===== */
-body {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-}
-
-/* ===== HEADER ===== */
-header {
-  position: absolute;
-  top: 0;
-  padding: 50px 20px;
-  z-index: 2;
-}
-
-/* ===== HERO ===== */
-.hero {
-  min-height: 100vh;
-  background: url("a.jpg") center/cover no-repeat;
-  background-attachment: fixed;
+  /* background-attachment: fixed; ❌ REMOVE */
 
   display: flex;
   justify-content: flex-end;
@@ -410,24 +120,22 @@ header {
   align-items: center;  /* ✅ NEW */
   justify-content: center; /* ✅ NEW */
 
-  animation: zoomPulse 2s ease-in-out infinite;
+  animation: zoomPulse 1.5s ease-in-out infinite; /* ✅ UPDATED */
 
-  font-size: 14px; /* ✅ NEW */
-  color: white; /* ✅ NEW */
+  font-size: 14px;
+  color: white;
 }
 
-
-/* ✅ NEW: thêm dấu tick */
+/* ✅ NEW */
 .checkbox input:checked + .fake-box::after {
-  content: "✔"; /* ✅ dấu tick */
+  content: "✔";
   font-size: 22px;
-  color: green; /* ✅ màu xanh cho tick */
+  color: green;
 }
-
 
 @keyframes zoomPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(2); }
+  50% { transform: scale(1.3); } /* ✅ UPDATED */
   100% { transform: scale(1); }
 }
 
@@ -437,7 +145,7 @@ header {
   padding: 15px 30px;
   border-radius: 50px;
 
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.2);
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -448,9 +156,10 @@ header {
     inset 0 0 15px rgba(255,255,255,0.25),
     0 8px 25px rgba(0,0,0,0.5);
 
-  overflow: hidden; /* ✅ NEW */
+  overflow: hidden;
 }
 
+/* ✅ FIX LAYER */
 .text {
   position: relative;
   z-index: 2;
@@ -463,10 +172,11 @@ header {
   left: 0;
 
   font-size: 28px;
-  display: block;
 
   z-index: 1;
   animation: swim 8s linear infinite;
+
+  backface-visibility: hidden; /* ✅ NEW */
 }
 
 @keyframes swim {
@@ -490,148 +200,65 @@ header {
 
   opacity: 0;
 
-  /* ✅ FIX CRITICAL */
-  animation-name: rise;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-/* ✅ RANDOM */
-.b1 {
-  left: 20%;
-  width: 6px;
-  height: 6px;
-  animation-duration: 4s;
-}
-
-.b2 {
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  animation-duration: 5s;
-}
-
-.b3 {
-  left: 75%;
-  width: 10px;
-  height: 10px;
-  animation-duration: 6s;
-}
-
-@keyframes rise {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-
-  20% { opacity: 1; }
-
-  100% {
-    transform: translateY(-120px);
-    opacity: 0;
-  }
-}/* ===== HOVER EFFECT GLOBAL ===== */
-/* ✅ NEW */
-.mask,
-.title,
-.story,
-.cta-row,
-.fake-box {
-  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-}
-
-/* ✅ NEW */
-.mask:hover,
-.title:hover,
-.story:hover,
-.cta-row:hover,
-.fake-box:hover {
-  transform: translateY(-6px) scale(1.03); /* ✅ NẢY NHẸ */
-}
-
-/* ✅ OPTIONAL: glow nhẹ cho đẹp */
-.mask:hover,
-.story:hover {
-  box-shadow: 0 10px 30px rgba(255,255,255,0.2); /* ✅ NEW */
-}
-/* ============================= */
-/* ✅ EDGE FIX GLOBAL */
-/* ============================= */
-
-/* ✅ FORCE GPU */
-.fish,
-.bubble,
-.fake-box,
-.mask {
-  will-change: transform, opacity; /* ✅ NEW */
-  transform: translateZ(0); /* ✅ NEW */
-}
-
-/* ============================= */
-/* ✅ FIX BACKDROP (EDGE) */
-/* ============================= */
-
-.mask {
-  background: rgba(255,255,255,0.2); /* ✅ UPDATED */
-}
-
-/* fallback nếu backdrop fail */
-@supports not ((backdrop-filter: blur(8px))) {
-  .mask {
-    background: rgba(255,255,255,0.25); /* ✅ NEW fallback */
-  }
-}
-
-/* ============================= */
-/* ✅ FIX ANIMATION DROP */
-/* ============================= */
-
-/* ✅ FIX cá */
-.fish {
-  animation: swim 8s linear infinite;
-  backface-visibility: hidden; /* ✅ NEW */
-}
-
-/* ✅ FIX bubble */
-.bubble {
   animation-name: rise;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-fill-mode: both; /* ✅ NEW */
 }
 
-/* ============================= */
-/* ✅ FIX CHECKBOX ANIMATION */
-/* ============================= */
+/* RANDOM */
+.b1 { left: 20%; width: 6px; height: 6px; animation-duration: 4s; }
+.b2 { left: 50%; width: 8px; height: 8px; animation-duration: 5s; }
+.b3 { left: 75%; width: 10px; height: 10px; animation-duration: 6s; }
 
-.fake-box {
-  animation: zoomPulse 1.5s ease-in-out infinite; /* ✅ UPDATED (giảm scale kill bug) */
-}
-
-/* ✅ giảm scale để Edge không disable */
-@keyframes zoomPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.3); } /* ✅ UPDATED (từ 2 -> 1.3) */
-  100% { transform: scale(1); }
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-120px); opacity: 0; }
 }
 
 /* ============================= */
-/* ✅ FIX HOVER LAG EDGE */
+/* ✅ EDGE + PERFORMANCE FIX */
 /* ============================= */
-.mask:hover,
-.title:hover,
-.story:hover,
-.cta-row:hover,
-.fake-box:hover {
-  transform: translateY(-4px) scale(1.02); /* ✅ UPDATED nhẹ lại */
-  will-change: transform;
+.fish,
+.bubble,
+.fake-box,
+.mask {
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
-/* ============================= */
-/* ✅ FIX TEXT RENDER EDGE */
-/* ============================= */
 body {
-  -webkit-font-smoothing: antialiased; /* ✅ NEW */
-  -moz-osx-font-smoothing: grayscale; /* ✅ NEW */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================= */
+/* ✅ MOBILE */
+/* ============================= */
+@media (max-width: 768px) {
+  .hero {
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .title {
+    position: static;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .story {
+    position: static;
+    max-width: 100%;
+  }
+
+  .cta-row {
+    position: static;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
 }
