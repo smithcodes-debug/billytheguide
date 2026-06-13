@@ -6,16 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coral Tour</title>
 
-https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap
+<!-- ✅ UPDATED: fix google font lỗi -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 /* ✅ RESET */
 * { box-sizing: border-box; margin:0; padding:0; }
 
-html, body {
-  overflow-x: hidden;
-}
+html, body { overflow-x: hidden; }
 
 /* ===== GLOBAL ===== */
 body {
@@ -35,12 +34,10 @@ header {
 .hero {
   min-height: 100vh;
 
-  /* ✅ UPDATED: remove fixed */
   background: url("a.jpg") center/cover no-repeat;
 
   position: relative;
 
-  /* ✅ NEW: use flex layout */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,7 +52,7 @@ header {
   background: rgba(0,0,0,0.3);
 }
 
-/* ✅ NEW: wrapper content */
+/* ✅ CONTENT */
 .content {
   position: relative;
   z-index: 2;
@@ -68,28 +65,18 @@ header {
 
 /* ===== TITLE ===== */
 .title {
-  /* ✅ UPDATED: remove absolute */
-  position: static;
-
-  /* ✅ UPDATED: responsive font */
   font-size: clamp(22px, 4vw, 42px);
-
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-
   max-width: 600px;
   text-align: right;
 }
 
 /* ===== STORY ===== */
 .story {
-  /* ✅ UPDATED: remove absolute */
-
   max-width: 420px;
-
   font-size: clamp(14px,2.2vw,20px);
   line-height: 1.5;
-
   padding: 12px 16px;
 
   background: linear-gradient(
@@ -101,12 +88,8 @@ header {
   text-align: right;
 }
 
-.story p { margin:0; }
-
 /* ===== CTA ===== */
 .cta-row {
-  /* ✅ UPDATED: remove absolute */
-
   display: flex;
   align-items: center;
   gap: 20px;
@@ -142,7 +125,6 @@ header {
   animation: zoomPulse 1.5s ease-in-out infinite;
 }
 
-/* ✅ NEW */
 .checkbox input:checked + .fake-box::after {
   content: "✔";
   font-size: 18px;
@@ -151,7 +133,7 @@ header {
 
 @keyframes zoomPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.2); } /* ✅ UPDATED */
+  50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
 
@@ -161,18 +143,15 @@ header {
   padding: 15px 30px;
   border-radius: 50px;
 
-  background: rgba(255,255,255,0.25); /* ✅ UPDATED */
+  background: rgba(255,255,255,0.25);
 
   border: 2px solid rgba(255,255,255,0.6);
 
   overflow: hidden;
 }
 
-/* ✅ fallback blur */
 @supports (backdrop-filter: blur(8px)) {
-  .mask {
-    backdrop-filter: blur(8px);
-  }
+  .mask { backdrop-filter: blur(8px); }
 }
 
 .text { position: relative; z-index:2; }
@@ -193,9 +172,7 @@ header {
   position: absolute;
   bottom: 10px;
   left: 0;
-
   font-size: 24px;
-
   animation: swim 8s linear infinite;
 }
 
@@ -212,7 +189,6 @@ header {
   border-radius:50%;
   background:rgba(255,255,255,0.5);
   opacity:0;
-
   animation: rise linear infinite;
 }
 
@@ -227,42 +203,59 @@ header {
 }
 
 /* ===================== */
-/* ✅ MOBILE */
+/* ✅ MOBILE FINAL TUNING */
 /* ===================== */
 @media (max-width:768px){
 
   .hero {
-    padding: 100px 20px 40px;
+    padding: 105px 20px 40px; /* ✅ UPDATED: push xuống 5px */
   }
 
   .content {
-    align-items: center; /* ✅ UPDATED */
-    text-align:center;
+    align-items: center;
+    text-align: center;
+    gap: 16px; /* ✅ NEW: spacing system */
   }
 
   .title {
-    text-align:center;
+    margin-top: 10px; /* ✅ NEW */
+    margin-bottom: 4px; /* ✅ NEW */
+    text-align: center;
   }
 
   .story {
-    text-align:center;
+    margin-top: 6px; /* ✅ NEW */
+    padding: 14px 16px; /* ✅ UPDATED */
+    line-height: 1.6; /* ✅ UPDATED */
+    text-align: center;
   }
 
   .cta-row {
-    justify-content:center;
+    margin-top: 10px; /* ✅ NEW */
+    justify-content: center;
+    gap: 12px; /* ✅ UPDATED */
+    flex-wrap: wrap;
+  }
+
+  .quote {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px; /* ✅ NEW */
   }
 
   header {
-    padding:20px;
+    padding: 25px 20px 10px; /* ✅ UPDATED */
+  }
+
+  .mask {
+    transform: translateY(5px); /* ✅ NEW */
   }
 }
 
 /* ✅ PERFORMANCE */
-.fish, .bubble, .fake-box {
-  will-change: transform;
-}
+.fish, .bubble, .fake-box { will-change: transform; }
 
-/* ✅ FONT SMOOTH */
+/* ✅ FONT */
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -275,9 +268,7 @@ body {
 <header>
   <div class="logo">
     <div class="mask">
-
       <div class="fish">🐠</div>
-
       <div class="bubble b1"></div>
       <div class="bubble b2"></div>
       <div class="bubble b3"></div>
@@ -286,7 +277,6 @@ body {
         <div class="text1">"billy and friend"</div>
         <div class="text2">adventures</div>
       </div>
-
     </div>
   </div>
 </header>
@@ -294,15 +284,12 @@ body {
 <section class="hero">
   <div class="overlay"></div>
 
-  <!-- ✅ NEW wrapper -->
   <div class="content">
-
     <h1 class="title">Khám phá đại dương xanh</h1>
 
     <div class="story">
       <p>
-       Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..
-      </p>
+Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
     </div>
 
     <div class="cta-row">
@@ -319,7 +306,6 @@ body {
 
       <span>Cảm ơn bạn ❤️</span>
     </div>
-
   </div>
 </section>
 
