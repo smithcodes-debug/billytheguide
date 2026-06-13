@@ -120,14 +120,25 @@ header {
   align-items: center;
   gap: 12px;
 }
+@keyframes zoomPulse {
+  0% {
+    transform: scale(1); /* ✅ 100% */
+  }
+  50% {
+    transform: scale(2); /* ✅ 200% */
+  }
+  100% {
+    transform: scale(1); /* ✅ về lại */
+  }
+}
 
 /* ✅ CHECKBOX RUNG */
 .quote input {
-  transform: scale(1.8);
-  margin: 0 8px;
+  transform: scale(1); /* ✅ reset gốc */
 
-  animation: shake 0.6s infinite; /* ✅ ADDED */
+  animation: zoomPulse 1.5s ease-in-out infinite; /* ✅ CHANGED */
 }
+
 
 /* ✅ ANIMATION */
 @keyframes shake {
