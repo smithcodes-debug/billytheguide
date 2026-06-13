@@ -90,6 +90,7 @@ header {
 }
 
 /* ===== CTA ROW ===== */
+/* ===== CTA ROW (FULL FIX) ===== */
 .cta-row {
   position: absolute;
   right: 80px;
@@ -101,24 +102,41 @@ header {
 
   white-space: nowrap;
 
-  font-size: 32px; /* ✅ SET 1 CHỖ DUY NHẤT */
+  font-family: 'Poppins', sans-serif; /* ✅ FORCE cùng font */
+
+  font-size: 34px; /* ✅ MASTER SIZE */
   font-weight: 700;
 }
 
+/* ✅ FORCE tất cả con giống nhau */
+.cta-row span {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* ✅ QUOTE layout */
 .quote {
   display: flex;
   align-items: center;
   gap: 12px;
-
-  font-size: inherit; /* ✅ FIX: dùng cùng size */
-  font-weight: inherit;
 }
 
-.thanks {
-  margin-left: 12px;
+/* ✅ CHECKBOX RUNG */
+.quote input {
+  transform: scale(1.8);
+  margin: 0 8px;
 
-  font-size: inherit; /* ✅ FIX: same size */
-  font-weight: inherit;
+  animation: shake 0.6s infinite; /* ✅ ADDED */
+}
+
+/* ✅ ANIMATION */
+@keyframes shake {
+  0% { transform: scale(1.8) translateX(0); }
+  25% { transform: scale(1.8) translateX(-2px); }
+  50% { transform: scale(1.8) translateX(2px); }
+  75% { transform: scale(1.8) translateX(-2px); }
+  100% { transform: scale(1.8) translateX(0); }
+
 
 }
 
