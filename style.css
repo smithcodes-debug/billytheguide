@@ -555,3 +555,83 @@ header {
 .story:hover {
   box-shadow: 0 10px 30px rgba(255,255,255,0.2); /* ✅ NEW */
 }
+/* ============================= */
+/* ✅ EDGE FIX GLOBAL */
+/* ============================= */
+
+/* ✅ FORCE GPU */
+.fish,
+.bubble,
+.fake-box,
+.mask {
+  will-change: transform, opacity; /* ✅ NEW */
+  transform: translateZ(0); /* ✅ NEW */
+}
+
+/* ============================= */
+/* ✅ FIX BACKDROP (EDGE) */
+/* ============================= */
+
+.mask {
+  background: rgba(255,255,255,0.2); /* ✅ UPDATED */
+}
+
+/* fallback nếu backdrop fail */
+@supports not ((backdrop-filter: blur(8px))) {
+  .mask {
+    background: rgba(255,255,255,0.25); /* ✅ NEW fallback */
+  }
+}
+
+/* ============================= */
+/* ✅ FIX ANIMATION DROP */
+/* ============================= */
+
+/* ✅ FIX cá */
+.fish {
+  animation: swim 8s linear infinite;
+  backface-visibility: hidden; /* ✅ NEW */
+}
+
+/* ✅ FIX bubble */
+.bubble {
+  animation-name: rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both; /* ✅ NEW */
+}
+
+/* ============================= */
+/* ✅ FIX CHECKBOX ANIMATION */
+/* ============================= */
+
+.fake-box {
+  animation: zoomPulse 1.5s ease-in-out infinite; /* ✅ UPDATED (giảm scale kill bug) */
+}
+
+/* ✅ giảm scale để Edge không disable */
+@keyframes zoomPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); } /* ✅ UPDATED (từ 2 -> 1.3) */
+  100% { transform: scale(1); }
+}
+
+/* ============================= */
+/* ✅ FIX HOVER LAG EDGE */
+/* ============================= */
+.mask:hover,
+.title:hover,
+.story:hover,
+.cta-row:hover,
+.fake-box:hover {
+  transform: translateY(-4px) scale(1.02); /* ✅ UPDATED nhẹ lại */
+  will-change: transform;
+}
+
+/* ============================= */
+/* ✅ FIX TEXT RENDER EDGE */
+/* ============================= */
+body {
+  -webkit-font-smoothing: antialiased; /* ✅ NEW */
+  -moz-osx-font-smoothing: grayscale; /* ✅ NEW */
+}
