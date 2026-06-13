@@ -480,7 +480,39 @@ color: #fff;
 
   gap: 16px; /* ✅ UPDATED: giảm nhẹ cho vừa card */
   margin-top: 20px;
+  /* ✅ NEW: mobile reorder + hide */
+.popup-head {
+  order: 2; /* ✅ đưa title xuống dưới */
 }
+
+.popup-copy {
+  order: 1; /* ✅ giữ nội dung lên trên */
+}
+
+.popup-note {
+  display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
+}
+/* ✅ NEW: mobile reorder + hide */
+/* ✅ NEW: mobile layout chuẩn */
+.popup-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ reorder */
+.popup-copy {
+  order: 1;
+}
+
+.popup-head {
+  order: 2;
+}
+
+/* ✅ hide */
+.popup-note {
+  display: none;
+}
+
 
 .popup-note-item {
   aspect-ratio: 1 / 1;
