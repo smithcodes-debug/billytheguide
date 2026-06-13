@@ -109,7 +109,7 @@ header {
   align-items: center;
   gap: 10px;
 
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 600;
 
   white-space: nowrap; /* ✅ FIX */
@@ -214,7 +214,7 @@ header {
   .story {
     position: static;
     max-width: 100%;
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .cta-row {
