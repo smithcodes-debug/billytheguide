@@ -1041,9 +1041,9 @@ color: #fff;
     inset: 0; /* ✅ NEW */
     z-index: 1001; /* ✅ NEW */
     display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
+    align-items: flex-start; /* ✅ UPDATED: đẩy popup lên top */
     justify-content: center; /* ✅ NEW */
-    padding: 22px; /* ✅ NEW */
+    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; /* ✅ UPDATED: top safe-area cho iOS */
     background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
     backdrop-filter: blur(4px); /* ✅ NEW */
     -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
@@ -1060,6 +1060,7 @@ color: #fff;
   .contact-popup-card {
     position: relative; /* ✅ NEW */
     width: min(92vw, 420px); /* ✅ NEW */
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); /* ✅ NEW: popup top không vượt màn hình */
     padding: 24px 18px 22px; /* ✅ NEW */
     border-radius: 24px; /* ✅ NEW */
     border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
@@ -1073,6 +1074,8 @@ color: #fff;
     transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW: smooth spring */
     will-change: transform, opacity; /* ✅ NEW */
     touch-action: pan-y; /* ✅ NEW */
+    overflow-y: auto; /* ✅ NEW: đủ chỗ cho 10 logo + story */
+    -webkit-overflow-scrolling: touch; /* ✅ NEW */
   }
   .contact-popup-backdrop.is-open .contact-popup-card {
     transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
@@ -1116,6 +1119,18 @@ color: #fff;
     font-weight: 700; /* ✅ NEW */
     letter-spacing: 0.01em; /* ✅ NEW */
   }
+  .contact-popup-story {
+    margin: 0 0 18px; /* ✅ NEW */
+    padding: 12px 13px; /* ✅ NEW */
+    border-radius: 16px; /* ✅ NEW */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+    color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
+    font-size: 13px; /* ✅ NEW */
+    line-height: 1.42; /* ✅ NEW */
+    font-weight: 600; /* ✅ NEW */
+    text-align: center; /* ✅ NEW */
+  }
   .contact-social-list {
     display: grid; /* ✅ NEW */
     grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
@@ -1144,6 +1159,21 @@ color: #fff;
     font-weight: 800; /* ✅ NEW */
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
   }
+  .contact-social-icon.youtube {
+    background: #ff0033; /* ✅ NEW */
+  }
+  .contact-social-icon.wechat {
+    background: #19c15f; /* ✅ NEW */
+  }
+  .contact-social-icon.google-map {
+    background: #34a853; /* ✅ NEW */
+  }
+  .contact-social-icon.maill {
+    background: #ea4335; /* ✅ NEW */
+  }
+  .contact-social-icon.line {
+    background: #06c755; /* ✅ NEW */
+  }
   .contact-social-icon.facebook { background: #1877f2; } /* ✅ NEW */
   .contact-social-icon.telegram { background: #229ed9; } /* ✅ NEW */
   .contact-social-icon.kakao { background: #fee500; color: #191600; } /* ✅ NEW */
@@ -1151,8 +1181,8 @@ color: #fff;
   .contact-social-icon.tiktok { background: #111111; } /* ✅ NEW */
   .contact-social-label {
     display: block; /* ✅ NEW */
-    max-width: 62px; /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
+    max-width: 68px; /* ✅ UPDATED */
+    font-size: 11px; /* ✅ UPDATED */
     line-height: 1.15; /* ✅ NEW */
     font-weight: 600; /* ✅ NEW */
     overflow-wrap: anywhere; /* ✅ NEW */
