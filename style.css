@@ -1264,6 +1264,24 @@ color: #fff;
   }
 }
 
+
+.availability-day.is-today-date {
+  background: #ff4fa3; /* ✅ NEW: today màu hồng */
+  border-color: #ff78bb; /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  box-shadow: 0 0 0 2px rgba(255, 79, 163, 0.24), 0 10px 24px rgba(255, 79, 163, 0.28); /* ✅ NEW */
+}
+.availability-day.is-today-date.is-past,
+.availability-day.is-today-date.is-too-soon {
+  opacity: 1; /* ✅ NEW: today vẫn nổi bật dù không book được */
+  color: #ffffff; /* ✅ NEW */
+}
+.availability-nav button:disabled {
+  opacity: 0.35; /* ✅ NEW */
+  cursor: not-allowed; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1275,3 +1293,7 @@ color: #fff;
   }
 }
   
+
+.availability-legend {
+  display: none; /* ✅ UPDATED: xóa dòng Available / Booked / Contact first khỏi UI */
+}

@@ -26,18 +26,12 @@
   var mobileGestureLastTriggerTime = 0; /* ✅ NEW */
   var contactDragStartY = 0; /* ✅ NEW */
   var contactDragDeltaY = 0; /* ✅ NEW */
-  var availabilityToday = new Date(); /* ✅ NEW */
-  var availabilityViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth(), 1); /* ✅ NEW */
-  var availabilityOpenDates = [ /* ✅ NEW: sửa các ngày trống tại đây */
-    '2026-06-18',
-    '2026-06-19',
-    '2026-06-24',
-    '2026-06-28',
-    '2026-07-03',
-    '2026-07-08'
-  ];
-  var availabilityBookedDates = [ /* ✅ NEW: sửa các ngày đã kín tại đây */
-    '2026-06-20',
+  var availabilityToday = new Date(); /* ✅ UPDATED */
+  var availabilityViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth(), 1); /* ✅ UPDATED */
+  var availabilityMinViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth() - 1, 1); /* ✅ UPDATED: cho xem 1 tháng đã qua */
+  var availabilityMaxViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth() + 2, 1); /* ✅ UPDATED: cho xem 2 tháng tới */
+  var availabilityBookedDates = [ /* ✅ UPDATED: admin khóa đặt tour tại đây, ngày khóa sẽ hiển thị màu đỏ */
+'2026-06-20',
     '2026-06-21',
     '2026-06-25',
     '2026-07-05'
@@ -52,24 +46,29 @@
   function getAvailabilityTodayStart(now) { /* ✅ NEW */
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0); /* ✅ NEW */
   }
-  function evaluateAvailabilityDate(dateKey) { /* ✅ NEW */
+  function evaluateAvailabilityDate(dateKey) { /* ✅ UPDATED */
     var now = new Date(); /* ✅ REQUIRED FIX: luôn lấy giờ thật tại thời điểm khách click */
     var selectedDateStart = getAvailabilityDateStart(dateKey); /* ✅ NEW */
     var todayStart = getAvailabilityTodayStart(now); /* ✅ NEW */
     var twelveHoursFromNow = new Date(now.getTime() + (12 * 60 * 60 * 1000)); /* ✅ NEW */
-    if (selectedDateStart < todayStart) { /* ✅ NEW */
-      return { status: 'past', canBook: false, message: 'Ngày này đã qua nên không thể đặt tour.' }; /* ✅ NEW */
+
+    if (selectedDateStart < todayStart) { /* ✅ UPDATED */
+      return { status: 'past', canBook: false, message: 'Ngày này đã qua nên không thể đặt tour.' }; /* ✅ UPDATED */
     }
-    if (availabilityBookedDates.indexOf(dateKey) !== -1) { /* ✅ NEW */
-      return { status: 'booked', canBook: false, message: 'Ngày này đã kín lịch. Vui lòng chọn ngày khác.' }; /* ✅ NEW */
+
+    if (selectedDateStart.getTime() === todayStart.getTime()) { /* ✅ NEW */
+      return { status: 'today', canBook: false, message: 'Hôm nay không thể đặt tour. Vui lòng chọn ngày từ ngày mai.' }; /* ✅ NEW */
     }
-    if (selectedDateStart <= twelveHoursFromNow) { /* ✅ NEW */
-      return { status: 'too-soon', canBook: false, message: 'Xin lỗi, chúng tôi không đủ thời gian để chuẩn bị tour trong vòng 12 tiếng.' }; /* ✅ NEW */
+
+    if (availabilityBookedDates.indexOf(dateKey) !== -1) { /* ✅ UPDATED */
+      return { status: 'booked', canBook: false, message: 'Ngày này đã được khóa đặt tour. Vui lòng chọn ngày khác.' }; /* ✅ UPDATED */
     }
-    if (availabilityOpenDates.indexOf(dateKey) !== -1) { /* ✅ NEW */
-      return { status: 'available', canBook: true, message: 'Ngày này còn trống. Bấm đặt tour để chọn trải nghiệm.' }; /* ✅ NEW */
+
+    if (selectedDateStart <= twelveHoursFromNow) { /* ✅ UPDATED */
+      return { status: 'too-soon', canBook: false, message: 'Xin lỗi, chúng tôi không đủ thời gian để chuẩn bị tour trong vòng 12 tiếng.' }; /* ✅ UPDATED */
     }
-    return { status: 'contact-first', canBook: false, message: 'Ngày này cần liên hệ trước để kiểm tra lịch.' }; /* ✅ NEW */
+
+    return { status: 'available', canBook: true, message: 'Ngày này còn trống. Bấm đặt tour để chọn trải nghiệm.' }; /* ✅ UPDATED */
   }
   function showAvailabilityMessage(message, type) { /* ✅ NEW */
     if (!availabilityMessage) return; /* ✅ REQUIRED FIX */
@@ -127,8 +126,51 @@
     }
     showAvailabilityMessage(result.message, 'success'); /* ✅ NEW */
   }
+
+  function getAvailabilityMonthKey(date) { /* ✅ NEW */
+    return date.getFullYear() * 12 + date.getMonth(); /* ✅ NEW */
+  }
+  function clampAvailabilityViewDate(date) { /* ✅ NEW */
+    var targetMonthKey = getAvailabilityMonthKey(date); /* ✅ NEW */
+    var minMonthKey = getAvailabilityMonthKey(availabilityMinViewDate); /* ✅ NEW */
+    var maxMonthKey = getAvailabilityMonthKey(availabilityMaxViewDate); /* ✅ NEW */
+    if (targetMonthKey < minMonthKey) { /* ✅ NEW */
+      return new Date(availabilityMinViewDate.getFullYear(), availabilityMinViewDate.getMonth(), 1); /* ✅ NEW */
+    }
+    if (targetMonthKey > maxMonthKey) { /* ✅ NEW */
+      return new Date(availabilityMaxViewDate.getFullYear(), availabilityMaxViewDate.getMonth(), 1); /* ✅ NEW */
+    }
+    return new Date(date.getFullYear(), date.getMonth(), 1); /* ✅ NEW */
+  }
+  function resetAvailabilityDateBounds(resetToToday) { /* ✅ NEW */
+    availabilityToday = new Date(); /* ✅ REQUIRED FIX: mỗi lần mở/render lịch luôn lấy today thật tại thời điểm đó */
+    availabilityMinViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth() - 1, 1); /* ✅ UPDATED: 1 tháng đã qua */
+    availabilityMaxViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth() + 2, 1); /* ✅ UPDATED: 2 tháng tới */
+    if (resetToToday) { /* ✅ NEW */
+      availabilityViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth(), 1); /* ✅ NEW: default luôn là tháng chứa today */
+      return; /* ✅ NEW */
+    }
+    availabilityViewDate = clampAvailabilityViewDate(availabilityViewDate); /* ✅ NEW */
+  }
+  function updateAvailabilityNavState() { /* ✅ NEW */
+    if (!availabilityPrevMonth || !availabilityNextMonth) return; /* ✅ REQUIRED FIX */
+    var currentMonthKey = getAvailabilityMonthKey(availabilityViewDate); /* ✅ NEW */
+    var minMonthKey = getAvailabilityMonthKey(availabilityMinViewDate); /* ✅ NEW */
+    var maxMonthKey = getAvailabilityMonthKey(availabilityMaxViewDate); /* ✅ NEW */
+    availabilityPrevMonth.disabled = currentMonthKey <= minMonthKey; /* ✅ NEW */
+    availabilityNextMonth.disabled = currentMonthKey >= maxMonthKey; /* ✅ NEW */
+  }
+  function isAvailabilityTodayDate(dateKey) { /* ✅ NEW */
+    return dateKey === formatAvailabilityDate(
+      availabilityToday.getFullYear(),
+      availabilityToday.getMonth(),
+      availabilityToday.getDate()
+    ); /* ✅ NEW */
+  }
   function renderAvailabilityCalendar() { /* ✅ UPDATED */
     if (!availabilityDays || !availabilityMonthLabel) return; /* ✅ REQUIRED FIX */
+    resetAvailabilityDateBounds(false); /* ✅ NEW: cập nhật today + khóa range 1 tháng trước/current/2 tháng sau */
+    updateAvailabilityNavState(); /* ✅ NEW */
     var year = availabilityViewDate.getFullYear(); /* ✅ NEW */
     var month = availabilityViewDate.getMonth(); /* ✅ NEW */
     var firstDay = new Date(year, month, 1); /* ✅ NEW */
@@ -153,18 +195,21 @@
       button.setAttribute('data-date', dateKey); /* ✅ NEW */
       button.setAttribute('data-status', state.status); /* ✅ NEW */
       if (!state.canBook) button.setAttribute('aria-disabled', 'true'); /* ✅ NEW */
-      if (state.status === 'past') button.classList.add('is-past'); /* ✅ NEW */
-      if (state.status === 'too-soon') button.classList.add('is-too-soon'); /* ✅ NEW */
-      if (state.status === 'available') button.classList.add('is-open-date'); /* ✅ NEW */
-      if (state.status === 'booked') button.classList.add('is-booked-date'); /* ✅ NEW */
+      if (state.status === 'past') button.classList.add('is-past'); /* ✅ UPDATED */
+      if (state.status === 'today') button.classList.add('is-today-date'); /* ✅ UPDATED: today màu hồng */
+      if (state.status === 'too-soon') button.classList.add('is-too-soon'); /* ✅ UPDATED */
+      if (state.status === 'available') button.classList.add('is-open-date'); /* ✅ UPDATED: mọi ngày hợp lệ đều màu xanh */
+      if (state.status === 'booked') button.classList.add('is-booked-date'); /* ✅ UPDATED: admin khóa sẽ màu đỏ */
+if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* ✅ NEW: today màu hồng */
       button.addEventListener('click', function () { /* ✅ UPDATED */
         handleAvailabilityDateClick(this.getAttribute('data-date'), this); /* ✅ UPDATED */
       });
       availabilityDays.appendChild(button); /* ✅ NEW */
     }
   }
-  function openAvailabilityPopup() { /* ✅ NEW */
+  function openAvailabilityPopup() { /* ✅ UPDATED */
     if (!availabilityPopup) return; /* ✅ REQUIRED FIX */
+    resetAvailabilityDateBounds(true); /* ✅ NEW: mỗi lần mở lịch quay về tháng chứa today */
     renderAvailabilityCalendar(); /* ✅ NEW */
     availabilityPopup.classList.add('is-open'); /* ✅ NEW */
     availabilityPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
@@ -291,14 +336,16 @@
   document.addEventListener('touchstart', handleMobileGestureStart, { passive: true }); /* ✅ NEW */
   document.addEventListener('touchend', handleMobileGestureEnd, { passive: true }); /* ✅ NEW */
   if (availabilityPrevMonth) { /* ✅ NEW */
-    availabilityPrevMonth.addEventListener('click', function () { /* ✅ NEW */
-      availabilityViewDate = new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() - 1, 1); /* ✅ NEW */
+    availabilityPrevMonth.addEventListener('click', function () { /* ✅ UPDATED */
+      resetAvailabilityDateBounds(false); /* ✅ NEW */
+      availabilityViewDate = clampAvailabilityViewDate(new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() - 1, 1)); /* ✅ UPDATED */
       renderAvailabilityCalendar(); /* ✅ NEW */
     });
   }
   if (availabilityNextMonth) { /* ✅ NEW */
-    availabilityNextMonth.addEventListener('click', function () { /* ✅ NEW */
-      availabilityViewDate = new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() + 1, 1); /* ✅ NEW */
+    availabilityNextMonth.addEventListener('click', function () { /* ✅ UPDATED */
+      resetAvailabilityDateBounds(false); /* ✅ NEW */
+      availabilityViewDate = clampAvailabilityViewDate(new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() + 1, 1)); /* ✅ UPDATED */
       renderAvailabilityCalendar(); /* ✅ NEW */
     });
   }
