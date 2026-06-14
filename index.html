@@ -1027,9 +1027,136 @@ color: #fff;
 .fish {
   animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
 }
-.availability-memo {
-  display: none; /* ✅ UPDATED: ẩn logo lịch check availability trên mobile */
 }
+/* ✅ NEW: CONTACT POPUP - desktop inert, mobile styles below */
+.contact-popup-backdrop {
+  display: none; /* ✅ NEW: không ảnh hưởng desktop */
+}
+.mobile-popup-scroll-lock {
+  overflow: hidden; /* ✅ NEW */
+}
+@media (max-width:768px) {
+  .contact-popup-backdrop {
+    position: fixed; /* ✅ NEW */
+    inset: 0; /* ✅ NEW */
+    z-index: 1001; /* ✅ NEW */
+    display: flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    padding: 22px; /* ✅ NEW */
+    background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
+    backdrop-filter: blur(4px); /* ✅ NEW */
+    -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
+    opacity: 0; /* ✅ NEW */
+    visibility: hidden; /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+    transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+  }
+  .contact-popup-backdrop.is-open {
+    opacity: 1; /* ✅ NEW */
+    visibility: visible; /* ✅ NEW */
+    pointer-events: auto; /* ✅ NEW */
+  }
+  .contact-popup-card {
+    position: relative; /* ✅ NEW */
+    width: min(92vw, 420px); /* ✅ NEW */
+    padding: 24px 18px 22px; /* ✅ NEW */
+    border-radius: 24px; /* ✅ NEW */
+    border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
+    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
+    color: #fff; /* ✅ NEW */
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
+    backdrop-filter: blur(14px); /* ✅ NEW */
+    -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
+    transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
+    opacity: 0; /* ✅ NEW */
+    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW: smooth spring */
+    will-change: transform, opacity; /* ✅ NEW */
+    touch-action: pan-y; /* ✅ NEW */
+  }
+  .contact-popup-backdrop.is-open .contact-popup-card {
+    transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
+    opacity: 1; /* ✅ NEW */
+  }
+  .contact-popup-close {
+    position: absolute; /* ✅ NEW */
+    top: 12px; /* ✅ NEW */
+    right: 12px; /* ✅ NEW */
+    width: 36px; /* ✅ NEW */
+    height: 36px; /* ✅ NEW */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+    color: #fff; /* ✅ NEW */
+    font-size: 22px; /* ✅ NEW */
+    line-height: 1; /* ✅ NEW */
+    cursor: pointer; /* ✅ NEW */
+  }
+  .contact-popup-drag-handle {
+    width: 44px; /* ✅ NEW */
+    height: 5px; /* ✅ NEW */
+    margin: 0 auto 18px; /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.34); /* ✅ NEW */
+  }
+  .contact-phone-link {
+    display: flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    width: 100%; /* ✅ NEW */
+    min-height: 44px; /* ✅ NEW */
+    margin: 0 auto 24px; /* ✅ NEW */
+    border-radius: 14px; /* ✅ NEW */
+    border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
+    color: #fff; /* ✅ NEW */
+    text-decoration: none; /* ✅ NEW */
+    font-size: 20px; /* ✅ NEW */
+    line-height: 1.2; /* ✅ NEW */
+    font-weight: 700; /* ✅ NEW */
+    letter-spacing: 0.01em; /* ✅ NEW */
+  }
+  .contact-social-list {
+    display: grid; /* ✅ NEW */
+    grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
+    gap: 12px; /* ✅ NEW */
+    align-items: start; /* ✅ NEW */
+  }
+  .contact-social-item {
+    display: flex; /* ✅ NEW */
+    flex-direction: column; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    gap: 8px; /* ✅ NEW */
+    min-width: 0; /* ✅ NEW */
+    color: #fff; /* ✅ NEW */
+    text-align: center; /* ✅ NEW */
+  }
+  .contact-social-icon {
+    width: 46px; /* ✅ NEW */
+    height: 46px; /* ✅ NEW */
+    border-radius: 12px; /* ✅ NEW */
+    display: inline-flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    color: #fff; /* ✅ NEW */
+    font-size: 21px; /* ✅ NEW */
+    line-height: 1; /* ✅ NEW */
+    font-weight: 800; /* ✅ NEW */
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+  }
+  .contact-social-icon.facebook { background: #1877f2; } /* ✅ NEW */
+  .contact-social-icon.telegram { background: #229ed9; } /* ✅ NEW */
+  .contact-social-icon.kakao { background: #fee500; color: #191600; } /* ✅ NEW */
+  .contact-social-icon.zalo { background: #0068ff; } /* ✅ NEW */
+  .contact-social-icon.tiktok { background: #111111; } /* ✅ NEW */
+  .contact-social-label {
+    display: block; /* ✅ NEW */
+    max-width: 62px; /* ✅ NEW */
+    font-size: 12px; /* ✅ NEW */
+    line-height: 1.15; /* ✅ NEW */
+    font-weight: 600; /* ✅ NEW */
+    overflow-wrap: anywhere; /* ✅ NEW */
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1184,6 +1311,36 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <a class="availability-contact" id="availabilityContactLink" href="mailto:?subject=Tour%20availability%20request">Sau khi chọn ngày màu xanh, bấm vào đây để gửi yêu cầu đặt lịch.</a>
   </div>
 </div>
+<!-- ✅ NEW: CONTACT POPUP -->
+<div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
+  <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
+    <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
+    <div class="contact-popup-drag-handle" aria-hidden="true"></div>
+    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398">+84 812233398</a>
+    <div class="contact-social-list" aria-label="Kênh liên hệ">
+      <span class="contact-social-item" aria-label="facebook">
+        <span class="contact-social-icon facebook" aria-hidden="true">f</span>
+        <span class="contact-social-label">facebook</span>
+      </span>
+      <span class="contact-social-item" aria-label="telegram">
+        <span class="contact-social-icon telegram" aria-hidden="true">↗</span>
+        <span class="contact-social-label">telegram</span>
+      </span>
+      <span class="contact-social-item" aria-label="kakao">
+        <span class="contact-social-icon kakao" aria-hidden="true">K</span>
+        <span class="contact-social-label">kakao</span>
+      </span>
+      <span class="contact-social-item" aria-label="zalo">
+        <span class="contact-social-icon zalo" aria-hidden="true">Z</span>
+        <span class="contact-social-label">zalo</span>
+      </span>
+      <span class="contact-social-item" aria-label="tiktok">
+        <span class="contact-social-icon tiktok" aria-hidden="true">♪</span>
+        <span class="contact-social-label">tiktok</span>
+      </span>
+    </div>
+  </div>
+</div>
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
 (function () {
@@ -1201,6 +1358,15 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   var availabilityPrevMonth = document.getElementById('availabilityPrevMonth'); /* ✅ NEW */
   var availabilityNextMonth = document.getElementById('availabilityNextMonth'); /* ✅ NEW */
   var availabilityContactLink = document.getElementById('availabilityContactLink'); /* ✅ NEW */
+  var contactPopup = document.getElementById('contact-popup'); /* ✅ NEW */
+  var contactPopupCard = contactPopup ? contactPopup.querySelector('.contact-popup-card') : null; /* ✅ NEW */
+  var contactCloseBtn = contactPopup ? contactPopup.querySelector('.contact-popup-close') : null; /* ✅ NEW */
+  var mobileGestureStartY = 0; /* ✅ NEW */
+  var mobileGestureStartX = 0; /* ✅ NEW */
+  var mobileGestureStartTarget = null; /* ✅ NEW */
+  var mobileGestureLastTriggerTime = 0; /* ✅ NEW */
+  var contactDragStartY = 0; /* ✅ NEW */
+  var contactDragDeltaY = 0; /* ✅ NEW */
   var availabilityToday = new Date(); /* ✅ NEW */
   var availabilityViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth(), 1); /* ✅ NEW */
   var availabilityOpenDates = [ /* ✅ NEW: sửa các ngày trống tại đây */
@@ -1272,6 +1438,101 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
     if (availabilityMemo) availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
   }
+  function isMobileGestureViewport() { /* ✅ NEW */
+    return window.matchMedia('(max-width: 768px)').matches; /* ✅ NEW */
+  }
+  function mobileFakeHaptic() { /* ✅ NEW */
+    if (window.navigator && typeof window.navigator.vibrate === 'function') { /* ✅ NEW */
+      window.navigator.vibrate(12); /* ✅ NEW */
+    }
+  }
+  function isAnyMainPopupOpen() { /* ✅ NEW */
+    return popup.classList.contains('is-open') ||
+      (availabilityPopup && availabilityPopup.classList.contains('is-open')) ||
+      (contactPopup && contactPopup.classList.contains('is-open')); /* ✅ NEW */
+  }
+  function isInsidePopupElement(target) { /* ✅ NEW */
+    return !!(target && target.closest && target.closest('.popup-backdrop, .availability-popup-backdrop, .contact-popup-backdrop')); /* ✅ NEW */
+  }
+  function lockMobilePopupScroll() { /* ✅ NEW */
+    document.documentElement.classList.add('mobile-popup-scroll-lock'); /* ✅ NEW */
+    document.body.classList.add('mobile-popup-scroll-lock'); /* ✅ NEW */
+  }
+  function unlockMobilePopupScroll() { /* ✅ NEW */
+    document.documentElement.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
+    document.body.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
+  }
+  function openContactPopup() { /* ✅ NEW */
+    if (!contactPopup || !isMobileGestureViewport()) return; /* ✅ REQUIRED FIX */
+    contactPopup.classList.add('is-open'); /* ✅ NEW */
+    contactPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+    lockMobilePopupScroll(); /* ✅ NEW */
+    mobileFakeHaptic(); /* ✅ NEW */
+  }
+  function closeContactPopup() { /* ✅ NEW */
+    if (!contactPopup) return; /* ✅ REQUIRED FIX */
+    contactPopup.classList.remove('is-open'); /* ✅ NEW */
+    contactPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+    unlockMobilePopupScroll(); /* ✅ NEW */
+    if (contactPopupCard) contactPopupCard.style.transform = ''; /* ✅ NEW */
+  }
+  function handleMobileGestureStart(event) { /* ✅ NEW */
+    if (!isMobileGestureViewport()) return; /* ✅ NEW */
+    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+    mobileGestureStartTarget = event.target; /* ✅ NEW */
+    mobileGestureStartY = event.touches[0].clientY; /* ✅ NEW */
+    mobileGestureStartX = event.touches[0].clientX; /* ✅ NEW */
+  }
+  function handleMobileGestureEnd(event) { /* ✅ NEW */
+    if (!isMobileGestureViewport()) return; /* ✅ NEW */
+    if (!event.changedTouches || event.changedTouches.length !== 1) return; /* ✅ REQUIRED FIX */
+    if (isAnyMainPopupOpen()) return; /* ✅ NEW */
+    if (isInsidePopupElement(mobileGestureStartTarget)) return; /* ✅ NEW */
+    if (mobileGestureStartTarget && mobileGestureStartTarget.closest && mobileGestureStartTarget.closest('button, a, input, label, .cta-trigger, .availability-memo')) return; /* ✅ NEW */
+
+    var now = Date.now(); /* ✅ NEW */
+    if (now - mobileGestureLastTriggerTime < 700) return; /* ✅ NEW: chống double trigger */
+
+    var deltaY = event.changedTouches[0].clientY - mobileGestureStartY; /* ✅ NEW */
+    var deltaX = event.changedTouches[0].clientX - mobileGestureStartX; /* ✅ NEW */
+
+    if (Math.abs(deltaY) <= 60 || Math.abs(deltaY) <= Math.abs(deltaX) * 1.2) return; /* ✅ NEW */
+
+    mobileGestureLastTriggerTime = now; /* ✅ NEW */
+
+    if (deltaY < -60) { /* ✅ NEW */
+      openAvailabilityPopup(); /* ✅ NEW */
+      mobileFakeHaptic(); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+
+    if (deltaY > 60) { /* ✅ NEW */
+      openContactPopup(); /* ✅ NEW */
+    }
+  }
+  function handleContactDragStart(event) { /* ✅ NEW */
+    if (!contactPopup || !contactPopup.classList.contains('is-open')) return; /* ✅ NEW */
+    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+    contactDragStartY = event.touches[0].clientY; /* ✅ NEW */
+    contactDragDeltaY = 0; /* ✅ NEW */
+  }
+  function handleContactDragMove(event) { /* ✅ NEW */
+    if (!contactPopupCard || !contactPopup || !contactPopup.classList.contains('is-open')) return; /* ✅ NEW */
+    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+    contactDragDeltaY = Math.max(0, event.touches[0].clientY - contactDragStartY); /* ✅ NEW */
+    if (contactDragDeltaY > 0) { /* ✅ NEW */
+      contactPopupCard.style.transform = 'translate3d(0,' + Math.round(contactDragDeltaY * 0.45) + 'px,0) scale(1)'; /* ✅ NEW */
+    }
+  }
+  function handleContactDragEnd() { /* ✅ NEW */
+    if (!contactPopupCard || !contactPopup || !contactPopup.classList.contains('is-open')) return; /* ✅ NEW */
+    if (contactDragDeltaY > 90) { /* ✅ NEW */
+      closeContactPopup(); /* ✅ NEW */
+    } else {
+      contactPopupCard.style.transform = ''; /* ✅ NEW */
+    }
+    contactDragDeltaY = 0; /* ✅ NEW */
+  }
   if (availabilityMemo) availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
   if (availabilityCloseBtn) availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ NEW */
   if (availabilityPopup && availabilityPopupCard) { /* ✅ NEW */
@@ -1279,6 +1540,17 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       if (!availabilityPopupCard.contains(event.target)) closeAvailabilityPopup(); /* ✅ NEW */
     });
   }
+  if (contactCloseBtn) contactCloseBtn.addEventListener('click', closeContactPopup); /* ✅ NEW */
+  if (contactPopup && contactPopupCard) { /* ✅ NEW */
+    contactPopup.addEventListener('click', function (event) { /* ✅ NEW */
+      if (!contactPopupCard.contains(event.target)) closeContactPopup(); /* ✅ NEW */
+    });
+    contactPopupCard.addEventListener('touchstart', handleContactDragStart, { passive: true }); /* ✅ NEW */
+    contactPopupCard.addEventListener('touchmove', handleContactDragMove, { passive: true }); /* ✅ NEW */
+    contactPopupCard.addEventListener('touchend', handleContactDragEnd, { passive: true }); /* ✅ NEW */
+  }
+  document.addEventListener('touchstart', handleMobileGestureStart, { passive: true }); /* ✅ NEW */
+  document.addEventListener('touchend', handleMobileGestureEnd, { passive: true }); /* ✅ NEW */
   if (availabilityPrevMonth) { /* ✅ NEW */
     availabilityPrevMonth.addEventListener('click', function () { /* ✅ NEW */
       availabilityViewDate = new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() - 1, 1); /* ✅ NEW */
@@ -1542,6 +1814,9 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     }
     if (event.key === 'Escape' && availabilityPopup && availabilityPopup.classList.contains('is-open')) { /* ✅ NEW */
       closeAvailabilityPopup(); /* ✅ NEW */
+    }
+    if (event.key === 'Escape' && contactPopup && contactPopup.classList.contains('is-open')) { /* ✅ NEW */
+      closeContactPopup(); /* ✅ NEW */
     }
   });
 })();
