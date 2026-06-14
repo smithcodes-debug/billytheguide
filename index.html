@@ -283,7 +283,7 @@ color: #fff;
   right: 16px;        /* ✅ NEW */
   z-index: 10;        /* ✅ NEW */
 }
-    }
+  
     .popup-close:hover {
       background: rgba(255, 255, 255, 0.12);
     }
@@ -452,15 +452,21 @@ color: #fff;
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
-  order: 1;
-  margin-bottom: 0; /* ✅ NEW: bỏ khoảng cách dư */
-  padding-top: 6px; /* ✅ NEW: tạo khoảng cách X xuống */
+  position: absolute; /* ✅ UPDATED */
+  left: 18px;         /* ✅ NEW */
+  right: 18px;        /* ✅ NEW */
+  bottom: 286px;      /* ✅ NEW: đặt title ngay trên 5 popup card */
+  margin: 0;          /* ✅ UPDATED */
+  padding: 0;         /* ✅ UPDATED */
 
 }
 .popup-copy {
-  order: 2;
-  margin-top: 5px;     /* ✅ NEW: cách dấu X 5px */
-  margin-bottom: 90px; /* ✅ NEW: tránh đè 5 card */
+  position: absolute; /* ✅ UPDATED: đưa Cảm ơn bạn lên khu vực top */
+  top: 59px;          /* ✅ UPDATED: dưới X 5px = 16 + 38 + 5 */
+  left: 18px;         /* ✅ NEW */
+  right: 18px;        /* ✅ NEW */
+  margin: 0;          /* ✅ UPDATED */
+  font-size: 15px;    /* ✅ UPDATED */
   
 }
 .popup-note {
@@ -494,9 +500,8 @@ color: #fff;
 }
 .popup-title {
   font-size: 22px;
-}
-.popup-copy {
-  font-size: 15px;
+  margin: 0; /* ✅ NEW */
+
 }
 }
   </style>
