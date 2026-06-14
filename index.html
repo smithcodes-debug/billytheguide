@@ -583,16 +583,13 @@ color: #fff;
 .popup-note-item.is-center {
   z-index: 20; /* ✅ UPDATED: cho card giữa overlay lên card khác */
 }
-
 .popup-note-item.is-center .popup-note-box {
   transform: scale(1.15); /* ✅ UPDATED: phóng to thêm 10%, tổng 15% */
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38); /* ✅ UPDATED */
 }
-
 .popup-note-item.is-center .popup-note-label {
   transform: scale(1.08); /* ✅ UPDATED */
   text-shadow: 0 5px 18px rgba(0, 0, 0, 0.5); /* ✅ UPDATED */
-
 }
 .popup-title {
   order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
@@ -723,7 +720,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     document.querySelectorAll('.cta-trigger').forEach(function (el) {
       el.setAttribute('aria-expanded', 'true');
     });
-    window.setTimeout(requestCenteredPopupCardUpdate, 80); /* ✅ NEW */
+    window.setTimeout(function () { setupInfinitePopupCarousel(true); }, 80); /* ✅ UPDATED: mỗi lần mở popup default ở snorkeling */
     window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   }
   function closePopup() {
@@ -751,20 +748,60 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       closePopup();
     }
   });
- /* ✅ UPDATED: mobile infinite carousel center active card */
+  /* ✅ UPDATED: mobile infinite carousel center active card */
   var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
   var popupNoteItems = []; /* ✅ UPDATED */
   var centerRafId = null; /* ✅ NEW */
   var infiniteLoopWidth = 0; /* ✅ NEW */
-  var infiniteMiddleStart = 0; /* ✅ NEW */
-  var infiniteAfterStart = 0; /* ✅ NEW */
+  var infiniteMiddleStart = 0; /* ✅ UPDATED: scrollLeft khi card snorkeling nằm giữa */
+  var infiniteAfterStart = 0; /* ✅ UPDATED: scrollLeft khi clone sau của snorkeling nằm giữa */
   var isLoopJumping = false; /* ✅ NEW */
+  var originalItemCount = 0; /* ✅ NEW */
 
-  function setupInfinitePopupCarousel() { /* ✅ NEW */
-    if (!popupNotes || popupNotes.getAttribute('data-infinite-ready') === 'true') return; /* ✅ NEW */
+  function getOriginalPopupItems() { /* ✅ NEW */
+    if (!popupNotes) return []; /* ✅ NEW */
+    return Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item:not([data-clone="true"])')); /* ✅ NEW */
+  }
+
+  function measureInfinitePopupCarousel(centerFirstItem) { /* ✅ NEW */
+    if (!popupNotes || !originalItemCount) return; /* ✅ NEW */
+
+    var originalItems = getOriginalPopupItems(); /* ✅ NEW */
+    var firstOriginal = originalItems[0]; /* ✅ NEW */
+    var firstAfterClone = popupNotes.children[originalItemCount * 2]; /* ✅ REQUIRED FIX: lấy card đầu tiên của cụm clone sau */
+
+    if (!firstOriginal || !firstAfterClone) return; /* ✅ NEW */
+
+    var notesVisibleCenter = popupNotes.clientWidth / 2; /* ✅ NEW */
+    var firstOriginalCenter = firstOriginal.offsetLeft + (firstOriginal.offsetWidth / 2) - popupNotes.offsetLeft; /* ✅ NEW */
+    var firstAfterCloneCenter = firstAfterClone.offsetLeft + (firstAfterClone.offsetWidth / 2) - popupNotes.offsetLeft; /* ✅ NEW */
+
+    infiniteMiddleStart = firstOriginalCenter - notesVisibleCenter; /* ✅ UPDATED: boundary dựa trên vị trí centered */
+    infiniteAfterStart = firstAfterCloneCenter - notesVisibleCenter; /* ✅ UPDATED: boundary dựa trên vị trí centered */
+    infiniteLoopWidth = infiniteAfterStart - infiniteMiddleStart; /* ✅ UPDATED */
+
+    if (centerFirstItem) { /* ✅ NEW */
+      popupNotes.scrollLeft = infiniteMiddleStart; /* ✅ UPDATED: default mở ở snorkeling */
+    }
+
+    requestCenteredPopupCardUpdate(); /* ✅ NEW */
+  }
+
+  function setupInfinitePopupCarousel(centerFirstItem) { /* ✅ UPDATED */
+    if (!popupNotes) return; /* ✅ NEW */
+
+    if (popupNotes.getAttribute('data-infinite-ready') === 'true') { /* ✅ NEW */
+      popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(centerFirstItem); /* ✅ NEW */
+      }, 80); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
 
     var originalItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ NEW */
     if (!originalItems.length) return; /* ✅ NEW */
+
+    originalItemCount = originalItems.length; /* ✅ NEW */
 
     var beforeFragment = document.createDocumentFragment(); /* ✅ NEW */
     var afterFragment = document.createDocumentFragment(); /* ✅ NEW */
@@ -788,31 +825,21 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
 
     window.setTimeout(function () { /* ✅ NEW */
-      var firstOriginal = originalItems[0]; /* ✅ NEW */
-      var firstAfterClone = popupNotes.querySelector('.popup-note-item[data-clone="true"]:last-of-type'); /* ✅ NEW */
-
-      infiniteMiddleStart = firstOriginal.offsetLeft - popupNotes.offsetLeft; /* ✅ NEW */
-      infiniteAfterStart = firstAfterClone ? (firstAfterClone.offsetLeft - popupNotes.offsetLeft) : 0; /* ✅ NEW */
-      infiniteLoopWidth = infiniteAfterStart - infiniteMiddleStart; /* ✅ NEW */
-
-      if (infiniteMiddleStart > 0) { /* ✅ NEW */
-        popupNotes.scrollLeft = infiniteMiddleStart; /* ✅ NEW */
-      }
-
-      requestCenteredPopupCardUpdate(); /* ✅ NEW */
-    }, 80);
+      measureInfinitePopupCarousel(centerFirstItem); /* ✅ NEW */
+    }, 80); /* ✅ NEW */
   }
 
   function syncInfinitePopupCarousel() { /* ✅ NEW */
     if (!popupNotes || !infiniteLoopWidth || isLoopJumping) return; /* ✅ NEW */
 
     var currentScroll = popupNotes.scrollLeft; /* ✅ NEW */
+    var safeOffset = 2; /* ✅ NEW */
 
-    if (currentScroll < infiniteMiddleStart) { /* ✅ NEW */
+    if (currentScroll < infiniteMiddleStart - safeOffset) { /* ✅ UPDATED */
       isLoopJumping = true; /* ✅ NEW */
       popupNotes.scrollLeft = currentScroll + infiniteLoopWidth; /* ✅ NEW */
       window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
-    } else if (currentScroll >= infiniteAfterStart) { /* ✅ NEW */
+    } else if (currentScroll >= infiniteAfterStart - safeOffset) { /* ✅ UPDATED */
       isLoopJumping = true; /* ✅ NEW */
       popupNotes.scrollLeft = currentScroll - infiniteLoopWidth; /* ✅ NEW */
       window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
@@ -855,14 +882,17 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   }
 
   if (popupNotes) { /* ✅ NEW */
-    setupInfinitePopupCarousel(); /* ✅ NEW */
+    setupInfinitePopupCarousel(true); /* ✅ UPDATED: default mở ở snorkeling */
     popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
-    window.addEventListener('resize', function () { /* ✅ NEW */
-      popupNotes.removeAttribute('data-infinite-ready'); /* ✅ NEW */
-      requestCenteredPopupCardUpdate(); /* ✅ NEW */
-    }); /* ✅ NEW */
+    window.addEventListener('resize', function () { /* ✅ UPDATED */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(false); /* ✅ UPDATED: resize chỉ đo lại, không clone thêm */
+      }, 120); /* ✅ NEW */
+    }); /* ✅ UPDATED */
     window.addEventListener('orientationchange', function () { /* ✅ NEW */
-      window.setTimeout(requestCenteredPopupCardUpdate, 250); /* ✅ NEW */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(false); /* ✅ UPDATED */
+      }, 250); /* ✅ NEW */
     }); /* ✅ NEW */
   }
 
