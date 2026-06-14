@@ -319,14 +319,30 @@ color: #fff;
     .popup-notes::-webkit-scrollbar {
   display: none; /* ✅ NEW */
 }
-    .popup-note-item {
+  .popup-note-item {
   flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
-  aspect-ratio: 1 / 1;  
-  background: #ffffff; /* ✅ trắng */  
-  border-radius: 12px;  
-  border: 1px solid rgba(0, 0, 0, 0.06);  
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);  
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW */
+  gap: 10px; /* ✅ NEW */
 }
+
+.popup-note-box {
+  aspect-ratio: 1 / 1; /* ✅ NEW */
+  background: #ffffff; /* ✅ NEW */
+  border-radius: 12px; /* ✅ NEW */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ NEW */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ NEW */
+}
+
+.popup-note-label {
+  color: #ffffff; /* ✅ NEW */
+  font-size: 15px; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+  text-transform: lowercase; /* ✅ NEW */
+}
+
     
     /* ===================== */
     /* ✅ NEW: DESKTOP HOVER SAFE */
@@ -574,11 +590,26 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 </div>
 <!-- ✅ NEW: 5 block -->
 <div class="popup-notes">
-  <div class="popup-note-item"></div>
-  <div class="popup-note-item"></div>
-  <div class="popup-note-item"></div>
-  <div class="popup-note-item"></div>
-  <div class="popup-note-item"></div>
+  <div class="popup-note-item">
+    <div class="popup-note-box"></div> <!-- ✅ NEW -->
+    <span class="popup-note-label">snorkeling</span> <!-- ✅ NEW -->
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box"></div> <!-- ✅ NEW -->
+    <span class="popup-note-label">hiking</span> <!-- ✅ NEW -->
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box"></div> <!-- ✅ NEW -->
+    <span class="popup-note-label">propose</span> <!-- ✅ NEW -->
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box"></div> <!-- ✅ NEW -->
+    <span class="popup-note-label">camping</span> <!-- ✅ NEW -->
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box"></div> <!-- ✅ NEW -->
+    <span class="popup-note-label">coral dictionary</span> <!-- ✅ NEW -->
+  </div>
 </div>
 <!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
 </div> <!-- popup-card -->
