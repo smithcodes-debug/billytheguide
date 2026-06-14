@@ -63,6 +63,15 @@
       text-align: right;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* ✅ REQUIRED FIX */
     }
+    .title-desktop-line {
+      display: block; /* ✅ NEW */
+    }
+    .title-desktop-line-1 {
+      text-transform: lowercase; /* ✅ NEW */
+    }
+    .title-desktop-line-2 {
+      text-transform: none; /* ✅ NEW */
+    }
     /* ===== STORY ===== */
     .story {
       max-width: 420px;
@@ -277,13 +286,11 @@ color: #fff;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
-
   position: absolute; /* ✅ NEW */
   top: 16px;          /* ✅ NEW */
   right: 16px;        /* ✅ NEW */
   z-index: 10;        /* ✅ NEW */
-}
-  
+}    
     .popup-close:hover {
       background: rgba(255, 255, 255, 0.12);
     }
@@ -311,22 +318,18 @@ color: #fff;
   padding-bottom: 14px; /* ✅ NEW: chừa chỗ cho scrollbar desktop */
   overscroll-behavior-x: contain; /* ✅ NEW */
 }
-
 /* ✅ NEW: desktop Chrome / Safari / Edge scrollbar */
 .popup-notes::-webkit-scrollbar {
   height: 10px; /* ✅ NEW */
 }
-
 .popup-notes::-webkit-scrollbar-track {
   background: rgba(255,255,255,0.14); /* ✅ NEW */
   border-radius: 999px; /* ✅ NEW */
 }
-
 .popup-notes::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.55); /* ✅ NEW */
   border-radius: 999px; /* ✅ NEW */
 }
-
 .popup-note-item {  
   flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
   min-width: 270px; /* ✅ NEW: chống desktop ép nhỏ card */
@@ -334,7 +337,6 @@ color: #fff;
   flex-direction: column; /* ✅ KEEP */
   gap: 10px; /* ✅ KEEP */
 }
-
 .popup-note-box {
   width: 100%; /* ✅ KEEP */  
   aspect-ratio: 1 / 1; /* ✅ KEEP */  
@@ -344,15 +346,12 @@ color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
   overflow: hidden; /* ✅ NEW: bo góc ảnh theo card */
 }
-
 .popup-note-img {
   width: 100%; /* ✅ NEW */
   height: 100%; /* ✅ NEW */
   display: block; /* ✅ NEW */
   object-fit: cover; /* ✅ NEW: ảnh phủ kín card không méo */
-
 }
-
 .popup-note-label {  
   color: #ffffff; /* ✅ KEEP */
   font-size: 15px; /* ✅ KEEP */
@@ -360,10 +359,7 @@ color: #fff;
   line-height: 1.2; /* ✅ KEEP */
   text-align: center; /* ✅ KEEP */
   text-transform: lowercase; /* ✅ KEEP */
-}
-
-
-    
+}    
     /* ===================== */
     /* ✅ NEW: DESKTOP HOVER SAFE */
     /* ===================== */
@@ -452,19 +448,15 @@ color: #fff;
       .title-desktop {
   display: none; /* ✅ NEW */
 }
-
 .title-mobile-line {
   display: block; /* ✅ NEW */
 }
-
 .title-mobile-line-1 {
   text-transform: lowercase; /* ✅ NEW */
 }
-
 .title-mobile-line-2 {
-  text-transform:
-  }
-      
+  text-transform: none; /* ✅ REQUIRED FIX */
+}
       .quote {
         gap: 8px; /* ✅ KEEP */
         flex-wrap: nowrap; /* ✅ KEEP */
@@ -491,24 +483,18 @@ color: #fff;
 .popup-notes {
   display: flex;
   gap: 16px;
-
   position: absolute;  /* ✅ NEW */
   bottom: 20px;        /* ✅ NEW */
   left: 18px;          /* ✅ NEW: align theo padding card */
   right: 18px;         /* ✅ NEW */
-
   overflow-x: auto;              /* ✅ KEEP */
   overflow-y: hidden;            /* ✅ KEEP */
   -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-
   padding-bottom: 6px;
-
   scrollbar-width: none;         /* ✅ KEEP */
 }
 .popup-notes::-webkit-scrollbar {
   display: none; /* ✅ KEEP */
-
-
 }
 .popup-note-item {
   flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile */  
@@ -516,15 +502,12 @@ color: #fff;
   display: flex; /* ✅ NEW */  
   flex-direction: column; /* ✅ NEW */
   gap: 10px; /* ✅ NEW */
-
 }
-
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
   position: static; /* ✅ UPDATED: để dấu X bám lại popup-card */
   margin: 0;        /* ✅ KEEP */
   padding: 0;       /* ✅ KEEP */
-
 }
 .popup-copy {
   position: absolute; /* ✅ UPDATED: đưa Cảm ơn bạn lên khu vực top */
@@ -532,8 +515,7 @@ color: #fff;
   left: 18px;         /* ✅ NEW */
   right: 18px;        /* ✅ NEW */
   margin: 0;          /* ✅ UPDATED */
-  font-size: 15px;    /* ✅ UPDATED */
-  
+  font-size: 15px;    /* ✅ UPDATED */  
 }
 .popup-note {
   display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
@@ -543,10 +525,8 @@ color: #fff;
 .popup-card {
   display: flex;
   flex-direction: column;
-
   position: relative; /* ✅ NEW */
 }
-
 /* ✅ hide */
 .popup-note {
   display: none;
@@ -559,13 +539,11 @@ color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
   transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ UPDATED */
-
 }
 /* ✅ NEW: hover effect */
 .popup-note-item:hover .popup-note-box {
   transform: translateY(-6px) scale(1.03); /* ✅ UPDATED */
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); /* ✅ UPDATED */
-
 }
 .popup-title {
   position: absolute; /* ✅ UPDATED: title vẫn nằm trên 5 popup card */
@@ -575,9 +553,7 @@ color: #fff;
   font-size: 22px;
   margin: 0;          /* ✅ KEEP */
 }
-
 }
-
   </style>
 </head>
 <body>
@@ -604,7 +580,10 @@ color: #fff;
   <div class="overlay"></div>
   <div class="content">
   <h1 class="title">
-  <span class="title-desktop">"Khám phá Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  <span class="title-desktop"> <!-- ✅ UPDATED -->
+    <span class="title-desktop-line title-desktop-line-1">khám phá</span> <!-- ✅ NEW -->
+    <span class="title-desktop-line title-desktop-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  </span>
   <span class="title-mobile-line title-mobile-line-1">Khám phá</span> <!-- ✅ NEW -->
   <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
 </h1>
