@@ -425,11 +425,16 @@ color: #fff;
 }
 /* ✅ NEW: 5 block grid */
 .popup-notes {
-  display: flex; /* ✅ UPDATED: đổi grid → flex */
-  gap: 16px; /* ✅ REQUIRED FIX */
-  margin-top: 20px; /* ✅ REQUIRED FIX */
-  overflow-x: auto; /* ✅ NEW: cho scroll ngang */
+  display: flex;
+  gap: 16px;
+
+  position: relative; /* ✅ NEW */
+  top: 20px;          /* ✅ NEW */
+
+  margin-top: 0;      /* ✅ UPDATED */
+  overflow-x: auto;
   padding-bottom: 6px;
+
 }
 .popup-note-item {
   flex: 0 0 120px; /* ✅ NEW: mỗi card rộng 120px */
