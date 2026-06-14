@@ -146,8 +146,7 @@
         inset 0 0 10px rgba(255, 255, 255, 0.2);
       overflow: hidden;
     }
-    .mask::before {
-      content: "";
+nt: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(
@@ -384,26 +383,20 @@ color: #fff;
         transform: scale(1.06); /* ✅ NEW */
       }
     }
-
 @media (min-width: 769px) {
   .title {
     margin-top: -90px; /* ✅ NEW: kéo title desktop lên cao hơn */
   }
-
   .title-desktop {
     display: inline-block; /* ✅ NEW: gom 2 dòng desktop thành 1 cụm */
     text-align: center; /* ✅ NEW: căn giữa chữ khám phá theo dòng "Phú Quốc Của Tôi" */
   }
-
   .title-desktop-line {
     display: block; /* ✅ NEW */
   }
 }
-
-
     .title-mobile-line {
   display: none; /* ✅ NEW */
-
 }
     /* ===================== */
     /* ✅ MOBILE LAYOUT RESTORE */
@@ -493,61 +486,63 @@ color: #fff;
   padding: 18px;
 }
 .popup-card {
-  width: min(94vw, 520px);  
-  height: min(82dvh, 720px); /* ✅ UPDATED: ổn định viewport Brave mobile */  
-  max-height: calc(100dvh - 36px); /* ✅ NEW: không vượt màn hình mobile */  
-  padding: 20px 18px 18px;  
-  border-radius: 20px;  
-  display: flex; /* ✅ UPDATED */  
-  flex-direction: column; /* ✅ UPDATED */  
-  position: relative; /* ✅ KEEP */  
-  overflow: hidden; /* ✅ NEW: chống title/card tràn đè layout */  
+  width: min(94vw, 520px); /* ✅ KEEP */
+  height: min(82dvh, 720px); /* ✅ UPDATED: dùng dvh ổn định hơn trên Brave/Safari mobile */
+  max-height: calc(100dvh - 36px); /* ✅ UPDATED: không vượt viewport mobile */
+  padding: 20px 18px 18px; /* ✅ KEEP */
+  border-radius: 20px; /* ✅ KEEP */
+  display: flex; /* ✅ UPDATED */
+  flex-direction: column; /* ✅ UPDATED */
+  position: relative; /* ✅ KEEP */
+  overflow: hidden; /* ✅ UPDATED: khóa popup để các lớp không tràn đè sai */
 }
 /* ✅ NEW: 5 block grid */
 .popup-notes {
-  order: 3; /* ✅ NEW: đặt cards sau title */  
-  display: flex;  
-  gap: 16px;  
-  position: relative; /* ✅ UPDATED: bỏ absolute để không đè title trên Brave */  
-  bottom: auto; /* ✅ UPDATED */  
-  left: auto; /* ✅ UPDATED */  
-  right: auto; /* ✅ UPDATED */  
-  width: 100%; /* ✅ NEW */  
-  margin-top: 0; /* ✅ NEW */  
-  overflow-x: auto;              /* ✅ KEEP */  
-  overflow-y: hidden;            /* ✅ KEEP */  
-  -webkit-overflow-scrolling: touch; /* ✅ KEEP */  
-  padding-bottom: 6px;  
-  scrollbar-width: none;         /* ✅ KEEP */  
-  flex: 0 0 auto; /* ✅ NEW */  
-}  
+  order: 3; /* ✅ UPDATED: cards luôn nằm sau title trong mobile flow */
+  display: flex;
+  gap: 16px;
+  position: relative; /* ✅ UPDATED: bỏ absolute để Brave không đè title/card */
+  bottom: auto; /* ✅ REQUIRED FIX */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  width: 100%; /* ✅ KEEP */
+  margin-top: 0; /* ✅ UPDATED */
+  overflow-x: auto;              /* ✅ KEEP */
+  overflow-y: hidden;            /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  padding-bottom: 6px;
+  scrollbar-width: none;         /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ UPDATED */
+}
 .popup-notes::-webkit-scrollbar {
   display: none; /* ✅ KEEP */
 }
 .popup-note-item {
-  flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile */  
-  min-width: 250px; /* ✅ NEW */  
+  flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile ổn định */
+  min-width: 230px; /* ✅ UPDATED: bỏ xung đột 230/250 gây lệch trên mobile */
   display: flex; /* ✅ NEW */  
   flex-direction: column; /* ✅ NEW */
   gap: 10px; /* ✅ NEW */
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
-  position: content; /* ✅ UPDATED: để dấu X bám lại popup-card */
+  display: contents; /* ✅ REQUIRED FIX: cho title tham gia flow, close vẫn absolute */
   margin: 0;        /* ✅ KEEP */
   padding: 0;       /* ✅ KEEP */
 }
 .popup-copy {
-  position: absolute; /* ✅ UPDATED: giữ copy ở khu vực top mobile */
-  top: 68px; /* ✅ UPDATED: tránh đè với nút X trên Brave */
-  left: 18px; /* ✅ KEEP */
-  right: 18px; /* ✅ KEEP */
-  margin: 0; /* ✅ KEEP */
+  order: 1; /* ✅ UPDATED: copy nằm trên title */
+  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè title/cards trên Brave */
+  top: auto; /* ✅ REQUIRED FIX */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  margin: 54px 0 0; /* ✅ UPDATED: chừa khoảng dưới nút X */
   font-size: 15px; /* ✅ KEEP */
-  line-height: 1.45; /* ✅ NEW: giảm chiều cao text để tránh overlap Brave */
-  max-height: 210px; /* ✅ NEW: giới hạn vùng copy trên Brave/iOS */
-  overflow-y: auto; /* ✅ NEW: nếu text dài thì tự scroll trong vùng copy */
-  -webkit-overflow-scrolling: touch; /* ✅ NEW: scroll mượt iOS/Brave */
+  line-height: 1.45; /* ✅ KEEP */
+  max-height: 210px; /* ✅ UPDATED: giữ vùng copy không ăn xuống cards */
+  overflow-y: auto; /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ NEW */
 }
 .popup-note {
   display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
@@ -555,9 +550,9 @@ color: #fff;
 /* ✅ NEW: mobile reorder + hide */
 /* ✅ NEW: mobile layout chuẩn */
 .popup-card {
-  display: flex;
-  flex-direction: column;
-  position: relative; /* ✅ NEW */
+  display: flex; /* ✅ KEEP */
+  flex-direction: column; /* ✅ KEEP */
+  position: relative; /* ✅ KEEP */
 }
 /* ✅ hide */
 .popup-note {
@@ -579,16 +574,17 @@ color: #fff;
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
 }
 .popup-title {
-  position: absolute; /* ✅ UPDATED: title nằm cố định dưới copy trên mobile */
-  left: 18px; /* ✅ KEEP */
-  right: 18px; /* ✅ KEEP */
-  top: 305px; /* ✅ UPDATED: bỏ bottom để không bị Brave tính lệch viewport */
-  bottom: auto; /* ✅ REQUIRED FIX: tránh overlap copy trên Brave mobile */
+  order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
+  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè card trên Brave/Safari */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  top: auto; /* ✅ REQUIRED FIX */
+  bottom: auto; /* ✅ REQUIRED FIX */
   font-size: 22px; /* ✅ KEEP */
-  line-height: 1.15; /* ✅ NEW: kiểm soát chiều cao title */
-  margin: 0; /* ✅ KEEP */
-  z-index: 2; /* ✅ NEW */
-
+  line-height: 1.15; /* ✅ KEEP */
+  margin: 18px 0 12px; /* ✅ UPDATED: tạo khoảng cách an toàn với cards */
+  z-index: 2; /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ NEW */
 }
 }
   </style>
@@ -659,31 +655,31 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <div class="popup-notes">
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling"> <!-- ✅ NEW -->
+      snorkeling.jpg <!-- ✅ NEW -->
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="hinking.png" alt="hiking"> <!-- ✅ NEW -->
+      hinking.png <!-- ✅ NEW -->
     </div>
     <span class="popup-note-label">hiking</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="propose.jpg" alt="propose"> <!-- ✅ NEW -->
+      propose.jpg <!-- ✅ NEW -->
     </div>
     <span class="popup-note-label">propose</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="camping.png" alt="camping"> <!-- ✅ NEW -->
+      camping.png <!-- ✅ NEW -->
     </div>
     <span class="popup-note-label">camping</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary"> <!-- ✅ NEW -->
+      coral-dictionary.jpg <!-- ✅ NEW -->
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
