@@ -295,53 +295,64 @@ color: #fff;
     .popup-copy strong {
       color: #ffffff;
     }
-    .popup-note {
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.88);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
-   .popup-notes {
-  display: flex; /* ✅ UPDATED: dùng chung cho desktop + mobile */
-  gap: 16px;  
-  margin-top: 20px;
-  overflow-x: auto; /* ✅ NEW: cho phép card to hơn mà không vỡ layout */
-  overflow-y: hidden; /* ✅ NEW */
-  -webkit-overflow-scrolling: touch; /* ✅ NEW */
-  scrollbar-width: none; /* ✅ NEW */
-
-    }
-    .popup-notes::-webkit-scrollbar {
-  display: none; /* ✅ NEW */
+  /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
+.popup-notes {  
+  display: flex; /* ✅ UPDATED */
+  gap: 16px;    
+  margin-top: 20px;  
+  width: 100%; /* ✅ KEEP */
+  max-width: 100%; /* ✅ KEEP */
+  min-width: 0; /* ✅ NEW: giúp desktop scroll đúng trong popup */
+  overflow-x: scroll; /* ✅ UPDATED: ép desktop luôn có vùng cuộn ngang */
+  overflow-y: hidden; /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  scrollbar-width: thin; /* ✅ UPDATED: desktop Firefox hiện scrollbar */
+  scrollbar-color: rgba(255,255,255,0.55) rgba(255,255,255,0.14); /* ✅ NEW */
+  padding-bottom: 14px; /* ✅ NEW: chừa chỗ cho scrollbar desktop */
+  overscroll-behavior-x: contain; /* ✅ NEW */
 }
-  .popup-note-item {
+
+/* ✅ NEW: desktop Chrome / Safari / Edge scrollbar */
+.popup-notes::-webkit-scrollbar {
+  height: 10px; /* ✅ NEW */
+}
+
+.popup-notes::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.14); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+}
+
+.popup-notes::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.55); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+}
+
+.popup-note-item {  
   flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  gap: 10px; /* ✅ NEW */
+  min-width: 270px; /* ✅ NEW: chống desktop ép nhỏ card */
+  display: flex; /* ✅ KEEP */
+  flex-direction: column; /* ✅ KEEP */
+  gap: 10px; /* ✅ KEEP */
 }
 
-.popup-note-box {
-  aspect-ratio: 1 / 1; /* ✅ NEW */
-  background: #ffffff; /* ✅ NEW */
-  border-radius: 12px; /* ✅ NEW */
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ NEW */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ NEW */
+.popup-note-box {  
+  width: 100%; /* ✅ NEW */
+  aspect-ratio: 1 / 1; /* ✅ KEEP */
+  background: #ffffff; /* ✅ KEEP */
+  border-radius: 12px; /* ✅ KEEP */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
 }
 
-.popup-note-label {
-  color: #ffffff; /* ✅ NEW */
-  font-size: 15px; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-transform: lowercase; /* ✅ NEW */
+.popup-note-label {  
+  color: #ffffff; /* ✅ KEEP */
+  font-size: 15px; /* ✅ KEEP */
+  font-weight: 600; /* ✅ KEEP */
+  line-height: 1.2; /* ✅ KEEP */
+  text-align: center; /* ✅ KEEP */
+  text-transform: lowercase; /* ✅ KEEP */
 }
+
 
     
     /* ===================== */
@@ -472,9 +483,12 @@ color: #fff;
 
 }
 .popup-note-item {
-  flex: 0 0 250px; /* ✅ NEW: mỗi card rộng 240px */
-  aspect-ratio: 1 / 1;
+  flex: 0 0 250px; /* ✅ UPDATED: kích thước card mobile */
+  min-width: 250px; /* ✅ NEW */
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW
 }
+
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
   position: static; /* ✅ UPDATED: để dấu X bám lại popup-card */
@@ -507,18 +521,21 @@ color: #fff;
 .popup-note {
   display: none;
 }
-.popup-note-item {
-  aspect-ratio: 1 / 1;
-  background: #ffffff; /* ✅ UPDATED: đổi sang trắng */
-  border-radius: 12px; /* giữ theo code bạn */
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ NEW */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ NEW */
-  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ NEW */
+.popup-note-box {
+  width: 100%; /* ✅ NEW */
+  aspect-ratio: 1 / 1; /* ✅ UPDATED */
+  background: #ffffff; /* ✅ UPDATED */
+  border-radius: 12px; /* ✅ KEEP */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
+  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ UPDATED */
+
 }
 /* ✅ NEW: hover effect */
-.popup-note-item:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+.popup-note-item:hover .popup-note-box {
+  transform: translateY(-6px) scale(1.03); /* ✅ UPDATED */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); /* ✅ UPDATED */
+
 }
 .popup-title {
   position: absolute; /* ✅ UPDATED: title vẫn nằm trên 5 popup card */
