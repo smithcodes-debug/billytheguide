@@ -528,12 +528,16 @@ color: #fff;
   padding: 0;       /* ✅ KEEP */
 }
 .popup-copy {
-  position: absolute; /* ✅ UPDATED: đưa Cảm ơn bạn lên khu vực top */
-  top: 59px;          /* ✅ UPDATED: dưới X 5px = 16 + 38 + 5 */
-  left: 18px;         /* ✅ NEW */
-  right: 18px;        /* ✅ NEW */
-  margin: 0;          /* ✅ UPDATED */
-  font-size: 15px;    /* ✅ UPDATED */  
+  position: absolute; /* ✅ UPDATED: giữ copy ở khu vực top mobile */
+  top: 68px; /* ✅ UPDATED: tránh đè với nút X trên Brave */
+  left: 18px; /* ✅ KEEP */
+  right: 18px; /* ✅ KEEP */
+  margin: 0; /* ✅ KEEP */
+  font-size: 15px; /* ✅ KEEP */
+  line-height: 1.45; /* ✅ NEW: giảm chiều cao text để tránh overlap Brave */
+  max-height: 210px; /* ✅ NEW: giới hạn vùng copy trên Brave/iOS */
+  overflow-y: auto; /* ✅ NEW: nếu text dài thì tự scroll trong vùng copy */
+  -webkit-overflow-scrolling: touch; /* ✅ NEW: scroll mượt iOS/Brave */
 }
 .popup-note {
   display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
@@ -565,12 +569,16 @@ color: #fff;
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
 }
 .popup-title {
-  position: absolute; /* ✅ UPDATED: title vẫn nằm trên 5 popup card */
-  left: 18px;         /* ✅ NEW */
-  right: 18px;        /* ✅ NEW */
-  bottom: 360px;      /* ✅ NEW: giữ title trên 5 popup card */
-  font-size: 22px;
-  margin: 0;          /* ✅ KEEP */
+  position: absolute; /* ✅ UPDATED: title nằm cố định dưới copy trên mobile */
+  left: 18px; /* ✅ KEEP */
+  right: 18px; /* ✅ KEEP */
+  top: 305px; /* ✅ UPDATED: bỏ bottom để không bị Brave tính lệch viewport */
+  bottom: auto; /* ✅ REQUIRED FIX: tránh overlap copy trên Brave mobile */
+  font-size: 22px; /* ✅ KEEP */
+  line-height: 1.15; /* ✅ NEW: kiểm soát chiều cao title */
+  margin: 0; /* ✅ KEEP */
+  z-index: 2; /* ✅ NEW */
+
 }
 }
   </style>
