@@ -92,11 +92,39 @@
       availabilityMessage.classList.remove('is-visible', 'is-error', 'is-success'); /* ✅ NEW */
     }
   }
-  function openAvailabilityTourCards() { /* ✅ NEW */
+  function scrollAvailabilityPopupToBottom() { /* ✅ NEW */
+    if (!availabilityPopupCard) return; /* ✅ REQUIRED FIX */
+
+    window.requestAnimationFrame(function () { /* ✅ NEW */
+      window.setTimeout(function () { /* ✅ NEW: đợi tour cards render xong trên iOS Safari */
+        var bottomPosition = availabilityPopupCard.scrollHeight; /* ✅ NEW */
+
+        if (typeof availabilityPopupCard.scrollTo === 'function') { /* ✅ NEW */
+          availabilityPopupCard.scrollTo({
+            top: bottomPosition,
+            behavior: 'smooth'
+          }); /* ✅ NEW */
+        } else {
+          availabilityPopupCard.scrollTop = bottomPosition; /* ✅ REQUIRED FIX */
+        }
+
+        if (availabilityTourList && typeof availabilityTourList.scrollIntoView === 'function') { /* ✅ NEW */
+          availabilityTourList.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+            inline: 'nearest'
+          }); /* ✅ NEW */
+        }
+      }, 80); /* ✅ NEW */
+    });
+  }
+
+  function openAvailabilityTourCards() { /* ✅ UPDATED */
     if (!availabilitySelectedDateKey || !availabilityTourList) return; /* ✅ REQUIRED FIX */
     availabilityTourList.classList.add('is-open'); /* ✅ NEW */
     availabilityTourList.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
     showAvailabilityMessage('Chọn một trải nghiệm bên dưới cho ngày ' + availabilitySelectedDateKey + '.', 'success'); /* ✅ NEW */
+    scrollAvailabilityPopupToBottom(); /* ✅ NEW: auto scroll xuống danh sách tour */
   }
   function handleAvailabilityDateClick(dateKey, dayButton) { /* ✅ NEW */
     var result = evaluateAvailabilityDate(dateKey); /* ✅ NEW */
