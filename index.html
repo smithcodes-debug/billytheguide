@@ -146,7 +146,8 @@
         inset 0 0 10px rgba(255, 255, 255, 0.2);
       overflow: hidden;
     }
-nt: "";
+    .mask::before {
+      content: ""; /* ✅ REQUIRED FIX */
       position: absolute;
       inset: 0;
       background: linear-gradient(
@@ -510,7 +511,9 @@ color: #fff;
   overflow-x: auto;              /* ✅ KEEP */
   overflow-y: hidden;            /* ✅ KEEP */
   -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  padding-bottom: 6px;
+  padding-top: 8px; /* ✅ NEW: chừa chỗ cho card scale không bị cắt */
+  padding-bottom: 12px; /* ✅ UPDATED: chừa chỗ cho card scale + label */
+  scroll-snap-type: x proximity; /* ✅ NEW: cảm giác carousel/web app */
   scrollbar-width: none;         /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ UPDATED */
 }
@@ -520,9 +523,12 @@ color: #fff;
 .popup-note-item {
   flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile ổn định */
   min-width: 230px; /* ✅ UPDATED: bỏ xung đột 230/250 gây lệch trên mobile */
-  display: flex; /* ✅ NEW */  
+  display: flex; /* ✅ NEW */
   flex-direction: column; /* ✅ NEW */
   gap: 10px; /* ✅ NEW */
+  scroll-snap-align: center; /* ✅ NEW */
+  transition: transform 0.28s ease, filter 0.28s ease; /* ✅ NEW */
+  transform-origin: center center; /* ✅ NEW */
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
@@ -572,6 +578,18 @@ color: #fff;
 .popup-note-item:focus-within .popup-note-box {
   transform: translateY(-6px) scale(1.04); /* ✅ UPDATED */
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
+}
+/* ✅ NEW: mobile carousel center active card */
+.popup-note-item.is-center {
+  z-index: 3; /* ✅ NEW */
+}
+.popup-note-item.is-center .popup-note-box {
+  transform: scale(1.05); /* ✅ NEW: card ở giữa to hơn 5% */
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32); /* ✅ NEW */
+}
+.popup-note-item.is-center .popup-note-label {
+  transform: scale(1.04); /* ✅ NEW */
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.45); /* ✅ NEW */
 }
 .popup-title {
   order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
@@ -683,10 +701,10 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
-
 <!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
-</div> <!-- popup-card -->
-</div> <!-- popup-backdrop -->
+</div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
+</div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
+</div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
 (function () {
@@ -702,6 +720,8 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     document.querySelectorAll('.cta-trigger').forEach(function (el) {
       el.setAttribute('aria-expanded', 'true');
     });
+    window.setTimeout(requestCenteredPopupCardUpdate, 80); /* ✅ NEW */
+    window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   }
   function closePopup() {
     popup.classList.remove('is-open'); /* ✅ NEW */
@@ -728,6 +748,44 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       closePopup();
     }
   });
+  /* ✅ NEW: mobile carousel center active card */
+  var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
+  var popupNoteItems = popup.querySelectorAll('.popup-note-item'); /* ✅ NEW */
+  var centerRafId = null; /* ✅ NEW */
+  function updateCenteredPopupCard() { /* ✅ NEW */
+    if (!popupNotes || !popupNoteItems.length) return; /* ✅ NEW */
+    var notesRect = popupNotes.getBoundingClientRect(); /* ✅ NEW */
+    var notesCenter = notesRect.left + (notesRect.width / 2); /* ✅ NEW */
+    var closestItem = null; /* ✅ NEW */
+    var closestDistance = Infinity; /* ✅ NEW */
+    popupNoteItems.forEach(function (item) { /* ✅ NEW */
+      var itemRect = item.getBoundingClientRect(); /* ✅ NEW */
+      var itemCenter = itemRect.left + (itemRect.width / 2); /* ✅ NEW */
+      var distance = Math.abs(notesCenter - itemCenter); /* ✅ NEW */
+      if (distance < closestDistance) { /* ✅ NEW */
+        closestDistance = distance; /* ✅ NEW */
+        closestItem = item; /* ✅ NEW */
+      }
+    });
+    popupNoteItems.forEach(function (item) { /* ✅ NEW */
+      item.classList.toggle('is-center', item === closestItem); /* ✅ NEW */
+    });
+  }
+  function requestCenteredPopupCardUpdate() { /* ✅ NEW */
+    if (centerRafId) return; /* ✅ NEW */
+    centerRafId = window.requestAnimationFrame(function () { /* ✅ NEW */
+      centerRafId = null; /* ✅ NEW */
+      updateCenteredPopupCard(); /* ✅ NEW */
+    });
+  }
+  if (popupNotes) { /* ✅ NEW */
+    popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
+    window.addEventListener('resize', requestCenteredPopupCardUpdate); /* ✅ NEW */
+    window.addEventListener('orientationchange', function () { /* ✅ NEW */
+      window.setTimeout(requestCenteredPopupCardUpdate, 250); /* ✅ NEW */
+    }); /* ✅ NEW */
+  }
+  window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
