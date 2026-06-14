@@ -139,8 +139,8 @@
       border-radius: 50px;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */
-      -webkit-backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */ /* ✅ REQUIRED FIX */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* ✅ REQUIRED FIX */
       box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.25),
         inset 0 0 10px rgba(255, 255, 255, 0.2);
@@ -236,8 +236,8 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */
-      -webkit-backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */ /* ✅ REQUIRED FIX */
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); /* ✅ REQUIRED FIX */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -424,7 +424,6 @@ color: #fff;
         min-height: 100vh;
         min-height: 100svh;
         min-height: 100dvh;
-        background: url("a-mobile.jpg") center/cover no-repeat; /* ✅ UPDATED: dùng ảnh hero nhẹ hơn cho mobile */
         padding: 145px 28px 28px; /* ✅ UPDATED */
         display: flex;
         flex-direction: column;
@@ -611,23 +610,6 @@ color: #fff;
   z-index: 2; /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ NEW */
 }
-.bubble {
-  display: none; /* ✅ UPDATED: tắt bubble trên mobile để giảm animation */
-}
-.fish {
-  animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
-}
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important; /* ✅ NEW: hỗ trợ máy yếu / reduced motion */
-    animation-iteration-count: 1 !important; /* ✅ NEW */
-    transition-duration: 0.001ms !important; /* ✅ NEW */
-    scroll-behavior: auto !important; /* ✅ NEW */
-  }
 }
   </style>
 </head>
@@ -697,31 +679,31 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <div class="popup-notes">
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="hinking.png" alt="hiking"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">hiking</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="propose.jpg" alt="propose" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="propose.jpg" alt="propose"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">propose</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="camping.png" alt="camping" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="camping.png" alt="camping"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">camping</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
@@ -906,6 +888,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   }
 
   if (popupNotes) { /* ✅ NEW */
+    setupInfinitePopupCarousel(true); /* ✅ UPDATED: default mở ở snorkeling */
     popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
     window.addEventListener('resize', function () { /* ✅ UPDATED */
       window.setTimeout(function () { /* ✅ NEW */
@@ -919,6 +902,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     }); /* ✅ NEW */
   }
 
+  window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
