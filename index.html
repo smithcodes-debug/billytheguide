@@ -384,8 +384,26 @@ color: #fff;
         transform: scale(1.06); /* ✅ NEW */
       }
     }
+
+@media (min-width: 769px) {
+  .title {
+    margin-top: -90px; /* ✅ NEW: kéo title desktop lên cao hơn */
+  }
+
+  .title-desktop {
+    display: inline-block; /* ✅ NEW: gom 2 dòng desktop thành 1 cụm */
+    text-align: center; /* ✅ NEW: căn giữa chữ khám phá theo dòng "Phú Quốc Của Tôi" */
+  }
+
+  .title-desktop-line {
+    display: block; /* ✅ NEW */
+  }
+}
+
+
     .title-mobile-line {
   display: none; /* ✅ NEW */
+
 }
     /* ===================== */
     /* ✅ MOBILE LAYOUT RESTORE */
@@ -540,10 +558,11 @@ color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
   transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ UPDATED */
 }
-/* ✅ NEW: hover effect */
-.popup-note-item:hover .popup-note-box {
-  transform: translateY(-6px) scale(1.03); /* ✅ UPDATED */
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); /* ✅ UPDATED */
+/* ✅ UPDATED: mobile tap / scroll touch effect */
+.popup-note-item:active .popup-note-box,
+.popup-note-item:focus-within .popup-note-box {
+  transform: translateY(-6px) scale(1.04); /* ✅ UPDATED */
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
 }
 .popup-title {
   position: absolute; /* ✅ UPDATED: title vẫn nằm trên 5 popup card */
