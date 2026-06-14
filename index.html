@@ -751,43 +751,121 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       closePopup();
     }
   });
-  /* ✅ NEW: mobile carousel center active card */
+ /* ✅ UPDATED: mobile infinite carousel center active card */
   var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
-  var popupNoteItems = popup.querySelectorAll('.popup-note-item'); /* ✅ NEW */
+  var popupNoteItems = []; /* ✅ UPDATED */
   var centerRafId = null; /* ✅ NEW */
+  var infiniteLoopWidth = 0; /* ✅ NEW */
+  var infiniteMiddleStart = 0; /* ✅ NEW */
+  var infiniteAfterStart = 0; /* ✅ NEW */
+  var isLoopJumping = false; /* ✅ NEW */
+
+  function setupInfinitePopupCarousel() { /* ✅ NEW */
+    if (!popupNotes || popupNotes.getAttribute('data-infinite-ready') === 'true') return; /* ✅ NEW */
+
+    var originalItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ NEW */
+    if (!originalItems.length) return; /* ✅ NEW */
+
+    var beforeFragment = document.createDocumentFragment(); /* ✅ NEW */
+    var afterFragment = document.createDocumentFragment(); /* ✅ NEW */
+
+    originalItems.forEach(function (item) { /* ✅ NEW */
+      var beforeClone = item.cloneNode(true); /* ✅ NEW */
+      beforeClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+      beforeClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      beforeFragment.appendChild(beforeClone); /* ✅ NEW */
+
+      var afterClone = item.cloneNode(true); /* ✅ NEW */
+      afterClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+      afterClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      afterFragment.appendChild(afterClone); /* ✅ NEW */
+    });
+
+    popupNotes.insertBefore(beforeFragment, popupNotes.firstChild); /* ✅ NEW */
+    popupNotes.appendChild(afterFragment); /* ✅ NEW */
+    popupNotes.setAttribute('data-infinite-ready', 'true'); /* ✅ NEW */
+
+    popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
+
+    window.setTimeout(function () { /* ✅ NEW */
+      var firstOriginal = originalItems[0]; /* ✅ NEW */
+      var firstAfterClone = popupNotes.querySelector('.popup-note-item[data-clone="true"]:last-of-type'); /* ✅ NEW */
+
+      infiniteMiddleStart = firstOriginal.offsetLeft - popupNotes.offsetLeft; /* ✅ NEW */
+      infiniteAfterStart = firstAfterClone ? (firstAfterClone.offsetLeft - popupNotes.offsetLeft) : 0; /* ✅ NEW */
+      infiniteLoopWidth = infiniteAfterStart - infiniteMiddleStart; /* ✅ NEW */
+
+      if (infiniteMiddleStart > 0) { /* ✅ NEW */
+        popupNotes.scrollLeft = infiniteMiddleStart; /* ✅ NEW */
+      }
+
+      requestCenteredPopupCardUpdate(); /* ✅ NEW */
+    }, 80);
+  }
+
+  function syncInfinitePopupCarousel() { /* ✅ NEW */
+    if (!popupNotes || !infiniteLoopWidth || isLoopJumping) return; /* ✅ NEW */
+
+    var currentScroll = popupNotes.scrollLeft; /* ✅ NEW */
+
+    if (currentScroll < infiniteMiddleStart) { /* ✅ NEW */
+      isLoopJumping = true; /* ✅ NEW */
+      popupNotes.scrollLeft = currentScroll + infiniteLoopWidth; /* ✅ NEW */
+      window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
+    } else if (currentScroll >= infiniteAfterStart) { /* ✅ NEW */
+      isLoopJumping = true; /* ✅ NEW */
+      popupNotes.scrollLeft = currentScroll - infiniteLoopWidth; /* ✅ NEW */
+      window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
+    }
+  }
+
   function updateCenteredPopupCard() { /* ✅ NEW */
     if (!popupNotes || !popupNoteItems.length) return; /* ✅ NEW */
+
+    syncInfinitePopupCarousel(); /* ✅ NEW */
+
     var notesRect = popupNotes.getBoundingClientRect(); /* ✅ NEW */
     var notesCenter = notesRect.left + (notesRect.width / 2); /* ✅ NEW */
     var closestItem = null; /* ✅ NEW */
     var closestDistance = Infinity; /* ✅ NEW */
+
     popupNoteItems.forEach(function (item) { /* ✅ NEW */
       var itemRect = item.getBoundingClientRect(); /* ✅ NEW */
       var itemCenter = itemRect.left + (itemRect.width / 2); /* ✅ NEW */
       var distance = Math.abs(notesCenter - itemCenter); /* ✅ NEW */
+
       if (distance < closestDistance) { /* ✅ NEW */
         closestDistance = distance; /* ✅ NEW */
         closestItem = item; /* ✅ NEW */
       }
     });
+
     popupNoteItems.forEach(function (item) { /* ✅ NEW */
       item.classList.toggle('is-center', item === closestItem); /* ✅ NEW */
     });
   }
+
   function requestCenteredPopupCardUpdate() { /* ✅ NEW */
     if (centerRafId) return; /* ✅ NEW */
+
     centerRafId = window.requestAnimationFrame(function () { /* ✅ NEW */
       centerRafId = null; /* ✅ NEW */
       updateCenteredPopupCard(); /* ✅ NEW */
     });
   }
+
   if (popupNotes) { /* ✅ NEW */
+    setupInfinitePopupCarousel(); /* ✅ NEW */
     popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
-    window.addEventListener('resize', requestCenteredPopupCardUpdate); /* ✅ NEW */
+    window.addEventListener('resize', function () { /* ✅ NEW */
+      popupNotes.removeAttribute('data-infinite-ready'); /* ✅ NEW */
+      requestCenteredPopupCardUpdate(); /* ✅ NEW */
+    }); /* ✅ NEW */
     window.addEventListener('orientationchange', function () { /* ✅ NEW */
       window.setTimeout(requestCenteredPopupCardUpdate, 250); /* ✅ NEW */
     }); /* ✅ NEW */
   }
+
   window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
