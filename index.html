@@ -360,6 +360,329 @@ color: #fff;
   text-align: center; /* ✅ KEEP */
   text-transform: lowercase; /* ✅ KEEP */
 }    
+
+    /* ===================== */
+    /* ✅ NEW: CHECK AVALIBILITY MEMO */
+    /* ===================== */
+    .availability-memo {
+      position: absolute; /* ✅ NEW */
+      left: 34px; /* ✅ NEW */
+      bottom: 50px; /* ✅ NEW */
+      z-index: 4; /* ✅ NEW */
+      width: 150px; /* ✅ NEW */
+      min-height: 128px; /* ✅ NEW */
+      border: 0; /* ✅ NEW */
+      padding: 0; /* ✅ NEW */
+      background: transparent; /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+      font-family: 'Poppins', sans-serif; /* ✅ NEW */
+      cursor: pointer; /* ✅ NEW */
+      -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+      animation: availabilityMemoFloat 3.2s ease-in-out infinite; /* ✅ NEW */
+    }
+    .availability-memo::before {
+      content: ""; /* ✅ REQUIRED FIX */
+      position: absolute; /* ✅ NEW */
+      inset: 7px 5px -7px; /* ✅ NEW */
+      border-radius: 24px; /* ✅ NEW */
+      background: rgba(0, 0, 0, 0.28); /* ✅ NEW */
+      filter: blur(10px); /* ✅ NEW */
+      transform: translateY(10px); /* ✅ NEW */
+    }
+    .availability-memo-card {
+      position: relative; /* ✅ NEW */
+      display: flex; /* ✅ NEW */
+      flex-direction: column; /* ✅ NEW */
+      align-items: center; /* ✅ NEW */
+      gap: 8px; /* ✅ NEW */
+      width: 100%; /* ✅ NEW */
+      min-height: 128px; /* ✅ NEW */
+      padding: 13px 12px 12px; /* ✅ NEW */
+      border-radius: 22px; /* ✅ NEW */
+      border: 1px solid rgba(255, 255, 255, 0.52); /* ✅ NEW */
+      background: linear-gradient(160deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); /* ✅ NEW */
+      box-shadow: 0 12px 28px rgba(0,0,0,0.28), inset 0 0 16px rgba(255,255,255,0.12); /* ✅ NEW */
+      backdrop-filter: blur(5px); /* ✅ NEW */
+      -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
+      overflow: hidden; /* ✅ NEW */
+    }
+    .availability-memo-card::after {
+      content: ""; /* ✅ REQUIRED FIX */
+      position: absolute; /* ✅ NEW */
+      top: -55%; /* ✅ NEW */
+      left: -65%; /* ✅ NEW */
+      width: 70%; /* ✅ NEW */
+      height: 210%; /* ✅ NEW */
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.46), transparent); /* ✅ NEW */
+      transform: rotate(24deg); /* ✅ NEW */
+      animation: availabilityMemoShine 3.8s ease-in-out infinite; /* ✅ NEW */
+      pointer-events: none; /* ✅ NEW */
+    }
+    .availability-calendar-icon {
+      position: relative; /* ✅ NEW */
+      width: 58px; /* ✅ NEW */
+      height: 60px; /* ✅ NEW */
+      border-radius: 10px 10px 12px 12px; /* ✅ NEW */
+      background: #fff; /* ✅ NEW */
+      box-shadow: 0 10px 18px rgba(0,0,0,0.24); /* ✅ NEW */
+      overflow: hidden; /* ✅ NEW */
+      transform-origin: center bottom; /* ✅ NEW */
+      animation: availabilityCalendarWiggle 2.4s ease-in-out infinite; /* ✅ NEW */
+    }
+    .availability-calendar-top {
+      position: absolute; /* ✅ NEW */
+      top: 0; /* ✅ NEW */
+      left: 0; /* ✅ NEW */
+      right: 0; /* ✅ NEW */
+      height: 18px; /* ✅ NEW */
+      background: #ff5a3d; /* ✅ NEW */
+    }
+    .availability-calendar-rings {
+      position: absolute; /* ✅ NEW */
+      top: -5px; /* ✅ NEW */
+      left: 11px; /* ✅ NEW */
+      right: 11px; /* ✅ NEW */
+      display: flex; /* ✅ NEW */
+      justify-content: space-between; /* ✅ NEW */
+      z-index: 2; /* ✅ NEW */
+    }
+    .availability-calendar-rings span {
+      width: 7px; /* ✅ NEW */
+      height: 15px; /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      background: #26313a; /* ✅ NEW */
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.72); /* ✅ NEW */
+    }
+    .availability-calendar-grid {
+      position: absolute; /* ✅ NEW */
+      left: 10px; /* ✅ NEW */
+      right: 10px; /* ✅ NEW */
+      bottom: 10px; /* ✅ NEW */
+      display: grid; /* ✅ NEW */
+      grid-template-columns: repeat(3, 1fr); /* ✅ NEW */
+      gap: 5px; /* ✅ NEW */
+    }
+    .availability-calendar-grid span {
+      height: 6px; /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      background: #d5dbe1; /* ✅ NEW */
+    }
+    .availability-calendar-grid span:nth-child(2),
+    .availability-calendar-grid span:nth-child(5) {
+      background: #22c55e; /* ✅ NEW */
+      animation: availabilityDatePulse 1.6s ease-in-out infinite; /* ✅ NEW */
+    }
+    .availability-memo-text {
+      position: relative; /* ✅ NEW */
+      z-index: 2; /* ✅ NEW */
+      display: block; /* ✅ NEW */
+      font-size: 14px; /* ✅ NEW */
+      line-height: 1.12; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+      text-align: center; /* ✅ NEW */
+      text-transform: lowercase; /* ✅ NEW */
+      text-shadow: 0 2px 10px rgba(0,0,0,0.72); /* ✅ NEW */
+    }
+    .availability-memo-hint {
+      position: relative; /* ✅ NEW */
+      z-index: 2; /* ✅ NEW */
+      display: inline-flex; /* ✅ NEW */
+      align-items: center; /* ✅ NEW */
+      justify-content: center; /* ✅ NEW */
+      min-height: 22px; /* ✅ NEW */
+      padding: 3px 9px; /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
+      color: #06220f; /* ✅ NEW */
+      font-size: 11px; /* ✅ NEW */
+      line-height: 1; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+    }
+    .availability-memo:focus-visible .availability-memo-card {
+      outline: 3px solid rgba(255,255,255,0.92); /* ✅ NEW */
+      outline-offset: 4px; /* ✅ NEW */
+    }
+    @keyframes availabilityMemoFloat {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(0, -8px, 0); }
+    }
+    @keyframes availabilityCalendarWiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(3deg) scale(1.03); }
+    }
+    @keyframes availabilityMemoShine {
+      0% { left: -65%; opacity: 0; }
+      35% { opacity: 0.65; }
+      70%, 100% { left: 115%; opacity: 0; }
+    }
+    @keyframes availabilityDatePulse {
+      0%, 100% { opacity: 0.55; transform: scaleX(0.82); }
+      50% { opacity: 1; transform: scaleX(1); }
+    }
+    .availability-popup-backdrop {
+      position: fixed; /* ✅ NEW */
+      inset: 0; /* ✅ NEW */
+      z-index: 1000; /* ✅ NEW */
+      display: flex; /* ✅ NEW */
+      align-items: center; /* ✅ NEW */
+      justify-content: center; /* ✅ NEW */
+      padding: 22px; /* ✅ NEW */
+      background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
+      backdrop-filter: blur(4px); /* ✅ NEW */
+      -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
+      opacity: 0; /* ✅ NEW */
+      visibility: hidden; /* ✅ NEW */
+      pointer-events: none; /* ✅ NEW */
+      transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+    }
+    .availability-popup-backdrop.is-open {
+      opacity: 1; /* ✅ NEW */
+      visibility: visible; /* ✅ NEW */
+      pointer-events: auto; /* ✅ NEW */
+    }
+    .availability-popup-card {
+      position: relative; /* ✅ NEW */
+      width: min(94vw, 430px); /* ✅ NEW */
+      max-height: min(86vh, 720px); /* ✅ NEW */
+      max-height: min(86dvh, 720px); /* ✅ NEW */
+      overflow: auto; /* ✅ NEW */
+      padding: 24px 20px 20px; /* ✅ NEW */
+      border-radius: 24px; /* ✅ NEW */
+      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
+      background: linear-gradient(180deg, rgba(23,29,35,0.96), rgba(10,13,18,0.96)); /* ✅ NEW */
+      box-shadow: 0 24px 70px rgba(0,0,0,0.42); /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+      transform: translateY(12px) scale(0.98); /* ✅ NEW */
+      transition: transform 0.24s ease; /* ✅ NEW */
+      -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+    }
+    .availability-popup-backdrop.is-open .availability-popup-card {
+      transform: translateY(0) scale(1); /* ✅ NEW */
+    }
+    .availability-popup-close {
+      position: absolute; /* ✅ NEW */
+      top: 14px; /* ✅ NEW */
+      right: 14px; /* ✅ NEW */
+      width: 36px; /* ✅ NEW */
+      height: 36px; /* ✅ NEW */
+      border: 1px solid rgba(255,255,255,0.2); /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      background: rgba(255,255,255,0.08); /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+      font-size: 22px; /* ✅ NEW */
+      line-height: 1; /* ✅ NEW */
+      cursor: pointer; /* ✅ NEW */
+    }
+    .availability-popup-title {
+      margin: 0 44px 8px 0; /* ✅ NEW */
+      font-size: 25px; /* ✅ NEW */
+      line-height: 1.1; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+      text-transform: lowercase; /* ✅ NEW */
+    }
+    .availability-popup-desc {
+      margin: 0 0 16px; /* ✅ NEW */
+      color: rgba(255,255,255,0.78); /* ✅ NEW */
+      font-size: 14px; /* ✅ NEW */
+      line-height: 1.45; /* ✅ NEW */
+    }
+    .availability-calendar-head {
+      display: flex; /* ✅ NEW */
+      align-items: center; /* ✅ NEW */
+      justify-content: space-between; /* ✅ NEW */
+      gap: 12px; /* ✅ NEW */
+      margin: 14px 0; /* ✅ NEW */
+    }
+    .availability-month-label {
+      font-size: 18px; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+    }
+    .availability-nav {
+      display: flex; /* ✅ NEW */
+      gap: 8px; /* ✅ NEW */
+    }
+    .availability-nav button {
+      width: 34px; /* ✅ NEW */
+      height: 34px; /* ✅ NEW */
+      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      background: rgba(255,255,255,0.08); /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+      cursor: pointer; /* ✅ NEW */
+      font-size: 18px; /* ✅ NEW */
+    }
+    .availability-weekdays,
+    .availability-days {
+      display: grid; /* ✅ NEW */
+      grid-template-columns: repeat(7, 1fr); /* ✅ NEW */
+      gap: 7px; /* ✅ NEW */
+    }
+    .availability-weekdays span {
+      color: rgba(255,255,255,0.58); /* ✅ NEW */
+      font-size: 11px; /* ✅ NEW */
+      text-align: center; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+    }
+    .availability-day {
+      min-height: 40px; /* ✅ NEW */
+      border: 1px solid rgba(255,255,255,0.1); /* ✅ NEW */
+      border-radius: 12px; /* ✅ NEW */
+      background: rgba(255,255,255,0.06); /* ✅ NEW */
+      color: rgba(255,255,255,0.92); /* ✅ NEW */
+      font: inherit; /* ✅ NEW */
+      font-size: 13px; /* ✅ NEW */
+      font-weight: 700; /* ✅ NEW */
+      cursor: default; /* ✅ NEW */
+    }
+    .availability-day.is-empty { visibility: hidden; } /* ✅ NEW */
+    .availability-day.is-past {
+      color: rgba(255,255,255,0.32); /* ✅ NEW */
+      background: rgba(255,255,255,0.035); /* ✅ NEW */
+    }
+    .availability-day.is-open-date {
+      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
+      border-color: rgba(34, 197, 94, 0.95); /* ✅ NEW */
+      color: #06220f; /* ✅ NEW */
+      cursor: pointer; /* ✅ NEW */
+    }
+    .availability-day.is-booked-date {
+      background: rgba(239, 68, 68, 0.82); /* ✅ NEW */
+      border-color: rgba(239, 68, 68, 0.9); /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+    }
+    .availability-legend {
+      display: flex; /* ✅ NEW */
+      flex-wrap: wrap; /* ✅ NEW */
+      gap: 8px 12px; /* ✅ NEW */
+      margin-top: 16px; /* ✅ NEW */
+      color: rgba(255,255,255,0.78); /* ✅ NEW */
+      font-size: 12px; /* ✅ NEW */
+    }
+    .availability-legend span {
+      display: inline-flex; /* ✅ NEW */
+      align-items: center; /* ✅ NEW */
+      gap: 6px; /* ✅ NEW */
+    }
+    .availability-legend i {
+      width: 10px; /* ✅ NEW */
+      height: 10px; /* ✅ NEW */
+      border-radius: 999px; /* ✅ NEW */
+      display: inline-block; /* ✅ NEW */
+    }
+    .availability-legend .open-dot { background: #22c55e; } /* ✅ NEW */
+    .availability-legend .booked-dot { background: #ef4444; } /* ✅ NEW */
+    .availability-legend .contact-dot { background: rgba(255,255,255,0.28); } /* ✅ NEW */
+    .availability-contact {
+      display: block; /* ✅ NEW */
+      margin-top: 16px; /* ✅ NEW */
+      padding: 12px 14px; /* ✅ NEW */
+      border-radius: 14px; /* ✅ NEW */
+      background: rgba(255,255,255,0.08); /* ✅ NEW */
+      color: #fff; /* ✅ NEW */
+      font-size: 13px; /* ✅ NEW */
+      line-height: 1.4; /* ✅ NEW */
+      text-decoration: none; /* ✅ NEW */
+    }
     /* ===================== */
     /* ✅ NEW: DESKTOP HOVER SAFE */
     /* ===================== */
@@ -611,6 +934,41 @@ color: #fff;
   z-index: 2; /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ NEW */
 }
+
+.availability-memo {
+  left: 18px; /* ✅ NEW */
+  bottom: 112px; /* ✅ NEW */
+  width: 126px; /* ✅ NEW */
+  min-height: 110px; /* ✅ NEW */
+  animation-duration: 3.8s; /* ✅ NEW */
+}
+.availability-memo-card {
+  min-height: 110px; /* ✅ NEW */
+  padding: 11px 9px 10px; /* ✅ NEW */
+  border-radius: 18px; /* ✅ NEW */
+}
+.availability-calendar-icon {
+  width: 48px; /* ✅ NEW */
+  height: 50px; /* ✅ NEW */
+}
+.availability-memo-text {
+  font-size: 12px; /* ✅ NEW */
+}
+.availability-memo-hint {
+  font-size: 10px; /* ✅ NEW */
+  min-height: 20px; /* ✅ NEW */
+  padding: 3px 7px; /* ✅ NEW */
+}
+.availability-popup-card {
+  width: min(94vw, 430px); /* ✅ NEW */
+  max-height: calc(100dvh - 36px); /* ✅ NEW */
+  padding: 22px 16px 18px; /* ✅ NEW */
+}
+.availability-day {
+  min-height: 36px; /* ✅ NEW */
+  border-radius: 10px; /* ✅ NEW */
+  font-size: 12px; /* ✅ NEW */
+}
 .bubble {
   display: none; /* ✅ UPDATED: tắt bubble trên mobile để giảm animation */
 }
@@ -653,6 +1011,23 @@ color: #fff;
 </header>
 <section class="hero">
   <div class="overlay"></div>
+
+  <!-- ✅ NEW: CHECK AVALIBILITY MEMO -->
+  <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
+    <span class="availability-memo-card" aria-hidden="true">
+      <span class="availability-calendar-icon">
+        <span class="availability-calendar-rings"><span></span><span></span></span>
+        <span class="availability-calendar-top"></span>
+        <span class="availability-calendar-grid">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </span>
+      </span>
+      <span class="availability-memo-text">check avalibility</span>
+      <span class="availability-memo-hint">open dates</span>
+    </span>
+  </button>
+
   <div class="content">
   <h1 class="title">
   <span class="title-desktop"> <!-- ✅ UPDATED -->
@@ -729,6 +1104,33 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 </div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
 </div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
 </div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
+
+<!-- ✅ NEW: CHECK AVALIBILITY POPUP -->
+<div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
+  <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
+    <button class="availability-popup-close" type="button" aria-label="Đóng lịch">×</button>
+    <h2 class="availability-popup-title" id="availabilityPopupTitle">check avalibility</h2>
+    <p class="availability-popup-desc">Chọn ngày còn trống để nhắn Billy and Friend Adventures kiểm tra và giữ lịch tour cho bạn.</p>
+    <div class="availability-calendar-head">
+      <div class="availability-month-label" id="availabilityMonthLabel"></div>
+      <div class="availability-nav" aria-label="Đổi tháng">
+        <button type="button" id="availabilityPrevMonth" aria-label="Tháng trước">‹</button>
+        <button type="button" id="availabilityNextMonth" aria-label="Tháng sau">›</button>
+      </div>
+    </div>
+    <div class="availability-weekdays" aria-hidden="true">
+      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+    </div>
+    <div class="availability-days" id="availabilityDays"></div>
+    <div class="availability-legend">
+      <span><i class="open-dot"></i>Available</span>
+      <span><i class="booked-dot"></i>Booked</span>
+      <span><i class="contact-dot"></i>Contact first</span>
+    </div>
+    <a class="availability-contact" id="availabilityContactLink" href="mailto:?subject=Tour%20availability%20request">Sau khi chọn ngày màu xanh, bấm vào đây để gửi yêu cầu đặt lịch.</a>
+  </div>
+</div>
+
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
 (function () {
@@ -737,6 +1139,107 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   var popupCard = popup.querySelector('.popup-card');
   var closeBtn = popup.querySelector('.popup-close');
   var triggers = document.querySelectorAll('.cta-trigger'); /* ✅ UPDATED */
+
+  var availabilityMemo = document.getElementById('availabilityMemo'); /* ✅ NEW */
+  var availabilityPopup = document.getElementById('availability-popup'); /* ✅ NEW */
+  var availabilityPopupCard = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-card') : null; /* ✅ NEW */
+  var availabilityCloseBtn = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-close') : null; /* ✅ NEW */
+  var availabilityDays = document.getElementById('availabilityDays'); /* ✅ NEW */
+  var availabilityMonthLabel = document.getElementById('availabilityMonthLabel'); /* ✅ NEW */
+  var availabilityPrevMonth = document.getElementById('availabilityPrevMonth'); /* ✅ NEW */
+  var availabilityNextMonth = document.getElementById('availabilityNextMonth'); /* ✅ NEW */
+  var availabilityContactLink = document.getElementById('availabilityContactLink'); /* ✅ NEW */
+  var availabilityToday = new Date(); /* ✅ NEW */
+  var availabilityViewDate = new Date(availabilityToday.getFullYear(), availabilityToday.getMonth(), 1); /* ✅ NEW */
+  var availabilityOpenDates = [ /* ✅ NEW: sửa các ngày trống tại đây */
+    '2026-06-18',
+    '2026-06-19',
+    '2026-06-24',
+    '2026-06-28',
+    '2026-07-03',
+    '2026-07-08'
+  ];
+  var availabilityBookedDates = [ /* ✅ NEW: sửa các ngày đã kín tại đây */
+    '2026-06-20',
+    '2026-06-21',
+    '2026-06-25',
+    '2026-07-05'
+  ];
+  function formatAvailabilityDate(year, monthIndex, day) { /* ✅ NEW */
+    return year + '-' + ('0' + (monthIndex + 1)).slice(-2) + '-' + ('0' + day).slice(-2); /* ✅ NEW */
+  }
+  function renderAvailabilityCalendar() { /* ✅ NEW */
+    if (!availabilityDays || !availabilityMonthLabel) return; /* ✅ REQUIRED FIX */
+    var year = availabilityViewDate.getFullYear(); /* ✅ NEW */
+    var month = availabilityViewDate.getMonth(); /* ✅ NEW */
+    var firstDay = new Date(year, month, 1); /* ✅ NEW */
+    var lastDate = new Date(year, month + 1, 0).getDate(); /* ✅ NEW */
+    var mondayOffset = (firstDay.getDay() + 6) % 7; /* ✅ NEW */
+    availabilityMonthLabel.textContent = firstDay.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); /* ✅ NEW */
+    availabilityDays.innerHTML = ''; /* ✅ NEW */
+    for (var emptyIndex = 0; emptyIndex < mondayOffset; emptyIndex += 1) { /* ✅ NEW */
+      var emptyCell = document.createElement('span'); /* ✅ NEW */
+      emptyCell.className = 'availability-day is-empty'; /* ✅ NEW */
+      availabilityDays.appendChild(emptyCell); /* ✅ NEW */
+    }
+    for (var day = 1; day <= lastDate; day += 1) { /* ✅ NEW */
+      var dateKey = formatAvailabilityDate(year, month, day); /* ✅ NEW */
+      var button = document.createElement('button'); /* ✅ NEW */
+      button.type = 'button'; /* ✅ NEW */
+      button.className = 'availability-day'; /* ✅ NEW */
+      button.textContent = day; /* ✅ NEW */
+      button.setAttribute('aria-label', dateKey); /* ✅ NEW */
+      if (new Date(year, month, day, 23, 59, 59) < availabilityToday) button.classList.add('is-past'); /* ✅ NEW */
+      if (availabilityOpenDates.indexOf(dateKey) !== -1) { /* ✅ NEW */
+        button.classList.add('is-open-date'); /* ✅ NEW */
+        button.setAttribute('aria-label', dateKey + ' available'); /* ✅ NEW */
+      }
+      if (availabilityBookedDates.indexOf(dateKey) !== -1) { /* ✅ NEW */
+        button.classList.add('is-booked-date'); /* ✅ NEW */
+        button.setAttribute('aria-label', dateKey + ' booked'); /* ✅ NEW */
+      }
+      button.addEventListener('click', function () { /* ✅ NEW */
+        if (!this.classList.contains('is-open-date') || !availabilityContactLink) return; /* ✅ REQUIRED FIX */
+        var selectedDate = this.getAttribute('aria-label').split(' ')[0]; /* ✅ NEW */
+        availabilityContactLink.href = 'mailto:?subject=Tour%20availability%20request%20' + encodeURIComponent(selectedDate); /* ✅ NEW */
+        availabilityContactLink.textContent = 'Request this date: ' + selectedDate; /* ✅ NEW */
+      });
+      availabilityDays.appendChild(button); /* ✅ NEW */
+    }
+  }
+  function openAvailabilityPopup() { /* ✅ NEW */
+    if (!availabilityPopup) return; /* ✅ REQUIRED FIX */
+    renderAvailabilityCalendar(); /* ✅ NEW */
+    availabilityPopup.classList.add('is-open'); /* ✅ NEW */
+    availabilityPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+    if (availabilityMemo) availabilityMemo.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
+  }
+  function closeAvailabilityPopup() { /* ✅ NEW */
+    if (!availabilityPopup) return; /* ✅ REQUIRED FIX */
+    availabilityPopup.classList.remove('is-open'); /* ✅ NEW */
+    availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+    if (availabilityMemo) availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
+  }
+  if (availabilityMemo) availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
+  if (availabilityCloseBtn) availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ NEW */
+  if (availabilityPopup && availabilityPopupCard) { /* ✅ NEW */
+    availabilityPopup.addEventListener('click', function (event) { /* ✅ NEW */
+      if (!availabilityPopupCard.contains(event.target)) closeAvailabilityPopup(); /* ✅ NEW */
+    });
+  }
+  if (availabilityPrevMonth) { /* ✅ NEW */
+    availabilityPrevMonth.addEventListener('click', function () { /* ✅ NEW */
+      availabilityViewDate = new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() - 1, 1); /* ✅ NEW */
+      renderAvailabilityCalendar(); /* ✅ NEW */
+    });
+  }
+  if (availabilityNextMonth) { /* ✅ NEW */
+    availabilityNextMonth.addEventListener('click', function () { /* ✅ NEW */
+      availabilityViewDate = new Date(availabilityViewDate.getFullYear(), availabilityViewDate.getMonth() + 1, 1); /* ✅ NEW */
+      renderAvailabilityCalendar(); /* ✅ NEW */
+    });
+  }
+
   function openPopup() {
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
@@ -922,6 +1425,9 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
+    }
+    if (event.key === 'Escape' && availabilityPopup && availabilityPopup.classList.contains('is-open')) { /* ✅ NEW */
+      closeAvailabilityPopup(); /* ✅ NEW */
     }
   });
 })();
