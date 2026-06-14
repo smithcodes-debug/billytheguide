@@ -139,8 +139,8 @@
       border-radius: 50px;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); /* ✅ REQUIRED FIX */
+      backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */
+      -webkit-backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */ /* ✅ REQUIRED FIX */
       box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.25),
         inset 0 0 10px rgba(255, 255, 255, 0.2);
@@ -236,8 +236,8 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px); /* ✅ REQUIRED FIX */
+      backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */
+      -webkit-backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */ /* ✅ REQUIRED FIX */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -424,6 +424,7 @@ color: #fff;
         min-height: 100vh;
         min-height: 100svh;
         min-height: 100dvh;
+        background: url("a-mobile.jpg") center/cover no-repeat; /* ✅ UPDATED: dùng ảnh hero nhẹ hơn cho mobile */
         padding: 145px 28px 28px; /* ✅ UPDATED */
         display: flex;
         flex-direction: column;
@@ -610,139 +611,24 @@ color: #fff;
   z-index: 2; /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ NEW */
 }
+.bubble {
+  display: none; /* ✅ UPDATED: tắt bubble trên mobile để giảm animation */
 }
-  
+.fish {
+  animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
+}
+}
 
-/* ✅ NEW: CHECKING AVAILABILITY SCREEN */
-.checking-screen {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100svh;
-  height: 100dvh;
-  background: #f7f8fb;
-  color: #121217;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.22s ease, visibility 0.22s ease;
-}
-.checking-screen.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-.checking-inner {
-  width: min(100%, 620px);
-  padding: 0 32px;
-  text-align: center;
-  transform: translateY(-4vh);
-}
-.checking-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
-}
-.checking-dots span {
-  width: 10px;
-  height: 10px;
-  display: block;
-  border-radius: 999px;
-  background: #c8cdd2;
-  animation: checkingDotPulse 1.2s ease-in-out infinite;
-}
-.checking-dots span:nth-child(2) {
-  animation-delay: 0.16s;
-}
-.checking-dots span:nth-child(3) {
-  animation-delay: 0.32s;
-}
-.checking-title {
-  margin: 0 0 18px;
-  color: #121217;
-  font-size: clamp(42px, 8vw, 58px);
-  line-height: 0.95;
-  font-weight: 700;
-  letter-spacing: -0.07em;
-}
-.checking-sub {
-  margin: 0 0 34px;
-  color: #747780;
-  font-size: clamp(18px, 4vw, 25px);
-  line-height: 1.25;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-.checking-bar {
-  width: min(100%, 480px);
-  height: 5px;
-  margin: 0 auto;
-  border-radius: 999px;
-  background: #e1e4e8;
-  overflow: hidden;
-}
-.checking-bar-fill {
-  width: 64%;
-  height: 100%;
-  border-radius: inherit;
-  background: #16171b;
-  transform-origin: left center;
-  animation: checkingBarLoad 1.8s ease-in-out infinite;
-}
-@keyframes checkingDotPulse {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(0.92);
-  }
-  45% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-@keyframes checkingBarLoad {
-  0% {
-    transform: translateX(-105%);
-  }
-  55% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(155%);
-  }
-}
-@media (max-width:768px) {
-  .checking-inner {
-    width: 100%;
-    padding: 0 44px;
-    transform: translateY(-3vh);
-  }
-  .checking-title {
-    font-size: 42px;
-    line-height: 0.98;
-    white-space: nowrap;
-  }
-  .checking-sub {
-    font-size: 22px;
-  }
-  .checking-bar {
-    width: 100%;
-    max-width: 482px;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .checking-dots span,
-  .checking-bar-fill {
-    animation: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important; /* ✅ NEW: hỗ trợ máy yếu / reduced motion */
+    animation-iteration-count: 1 !important; /* ✅ NEW */
+    transition-duration: 0.001ms !important; /* ✅ NEW */
+    scroll-behavior: auto !important; /* ✅ NEW */
   }
 }
-
   </style>
 </head>
 <body>
@@ -811,31 +697,31 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <div class="popup-notes">
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="hinking.png" alt="hiking"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">hiking</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="propose.jpg" alt="propose"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="propose.jpg" alt="propose" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">propose</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="camping.png" alt="camping"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="camping.png" alt="camping" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">camping</span>
   </div>
   <div class="popup-note-item">
     <div class="popup-note-box">
-      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
@@ -843,23 +729,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 </div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
 </div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
 </div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
-
-<!-- ✅ NEW: CHECKING AVAILABILITY SCREEN -->
-<div class="checking-screen" id="checkingScreen" aria-hidden="true">
-  <div class="checking-inner">
-    <div class="checking-dots">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <h2 class="checking-title">Checking availability</h2>
-    <p class="checking-sub">Loading the best available dates</p>
-    <div class="checking-bar">
-      <div class="checking-bar-fill"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
 (function () {
@@ -868,8 +737,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   var popupCard = popup.querySelector('.popup-card');
   var closeBtn = popup.querySelector('.popup-close');
   var triggers = document.querySelectorAll('.cta-trigger'); /* ✅ UPDATED */
-  var checkingScreen = document.getElementById('checkingScreen'); /* ✅ NEW */
-  var checkingTimer = null; /* ✅ NEW */
   function openPopup() {
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
@@ -887,39 +754,15 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       el.setAttribute('aria-expanded', 'false');
     });
   }
-  function openChecking() { /* ✅ NEW */
-    if (!checkingScreen) return; /* ✅ REQUIRED FIX */
-    checkingScreen.classList.add('is-open'); /* ✅ NEW */
-    checkingScreen.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-  }
-  function closeChecking() { /* ✅ NEW */
-    if (!checkingScreen) return; /* ✅ REQUIRED FIX */
-    checkingScreen.classList.remove('is-open'); /* ✅ NEW */
-    checkingScreen.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-  }
-  function openPopupAfterChecking() { /* ✅ NEW */
-    if (!checkingScreen) { /* ✅ REQUIRED FIX */
-      openPopup(); /* ✅ REQUIRED FIX */
-      return; /* ✅ REQUIRED FIX */
-    }
-    openChecking(); /* ✅ NEW */
-    if (checkingTimer) { /* ✅ NEW */
-      window.clearTimeout(checkingTimer); /* ✅ NEW */
-    }
-    checkingTimer = window.setTimeout(function () { /* ✅ NEW */
-      closeChecking(); /* ✅ NEW */
-      openPopup(); /* ✅ NEW */
-    }, 1800); /* ✅ NEW */
-  }
   triggers.forEach(function (trigger) {
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
-      openPopupAfterChecking(); /* ✅ UPDATED */
+      openPopup();
     });
     trigger.addEventListener('keydown', function (event) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        openPopupAfterChecking(); /* ✅ UPDATED */
+        openPopup();
       }
     });
   });
@@ -1063,7 +906,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   }
 
   if (popupNotes) { /* ✅ NEW */
-    setupInfinitePopupCarousel(true); /* ✅ UPDATED: default mở ở snorkeling */
     popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
     window.addEventListener('resize', function () { /* ✅ UPDATED */
       window.setTimeout(function () { /* ✅ NEW */
@@ -1077,7 +919,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     }); /* ✅ NEW */
   }
 
-  window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
@@ -1085,6 +926,5 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   });
 })();
 </script>
-
 </body>
 </html>
