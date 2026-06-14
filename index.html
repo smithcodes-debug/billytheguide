@@ -795,15 +795,22 @@ color: #fff;
         max-width: calc(100vw - 40px); /* ✅ NEW */
       }
       .hero {
-        min-height: 100vh;
-        min-height: 100svh;
-        min-height: 100dvh;
-        background: url("a-mobile.jpg") center/cover no-repeat; /* ✅ UPDATED: dùng ảnh hero nhẹ hơn cho mobile */
-        padding: 145px 28px 28px; /* ✅ UPDATED */
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background-color: #0b1118; /* ✅ NEW: fallback màu nền nếu ảnh chưa load */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+    url("a-mobile.jpg"),
+    url("a.jpg"); /* ✅ UPDATED: mobile ưu tiên a-mobile.jpg, nếu lỗi thì fallback sang a.jpg */
+  background-position: center center; /* ✅ UPDATED */
+  background-size: cover; /* ✅ UPDATED */
+  background-repeat: no-repeat; /* ✅ UPDATED */
+  padding: 145px 28px 28px; /* ✅ KEEP */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
       .content {
         align-items: center;
         text-align: center;
