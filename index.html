@@ -452,10 +452,15 @@ color: #fff;
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
-  order: 1; /* ✅ đưa title xuống dưới */
+  order: 1;
+  margin-bottom: 0; /* ✅ NEW: bỏ khoảng cách dư */
+
 }
 .popup-copy {
-  order: 2; /* ✅ giữ nội dung lên trên */
+  order: 2;
+  margin-top: 5px;     /* ✅ NEW: cách dấu X 5px */
+  margin-bottom: 90px; /* ✅ NEW: tránh đè 5 card */
+  
 }
 .popup-note {
   display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
