@@ -1,187 +1,1089 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coral Tour</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coral Tour</title>
+  <!-- ✅ UPDATED -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ✅ RESET */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      overflow-x: hidden;
+    }
+    /* ===== GLOBAL ===== */
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      -webkit-font-smoothing: antialiased; /* ✅ REQUIRED FIX */
+      -moz-osx-font-smoothing: grayscale; /* ✅ REQUIRED FIX */
+    }
+    /* ===== HEADER ===== */
+    header {
+      position: absolute;
+      top: 0;
+      padding: 40px 20px;
+      z-index: 2;
+    }
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: url("a.jpg") center/cover no-repeat;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 120px 40px 40px;
+    }
+    /* ===== OVERLAY ===== */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    /* ===== CONTENT ===== */
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 20px;
+    }
+    /* ===== TITLE ===== */
+    .title {
+      font-size: clamp(22px, 4vw, 42px);
+      font-weight: 700;
+      max-width: 600px;
+      text-align: right;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* ✅ REQUIRED FIX */
+    }
+    .title-desktop-line {
+      display: block; /* ✅ NEW */
+    }
+    .title-desktop-line-1 {
+      text-transform: lowercase; /* ✅ NEW */
+    }
+    .title-desktop-line-2 {
+      text-transform: none; /* ✅ NEW */
+    }
+    /* ===== STORY ===== */
+    .story {
+      max-width: 420px;
+      font-size: clamp(14px, 2.2vw, 20px);
+      line-height: 1.5;
+      padding: 12px 16px;
+      background: rgba(18, 22, 28, 0.6);
+      text-align: right;
+    }
+    .story p {
+      margin: 0; /* ✅ REQUIRED FIX */
+    }
+    /* ===== CTA ===== */
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: clamp(16px, 2.5vw, 34px);
+      font-weight: 700;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+    /* ===== QUOTE ===== */
+    .quote {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer; /* ✅ NEW */
+    }
+    .thanks {
+      cursor: pointer; /* ✅ NEW */
+    }
+    /* ===== CHECKBOX ===== */
+    .checkbox input {
+      display: none;
+    }
+    .fake-box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid white;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: zoomPulse 1.5s ease-in-out infinite;
+      position: relative;
+      z-index: 3;
+    }
+    .checkbox input:checked + .fake-box::after {
+      content: "✔";
+      font-size: 18px;
+      color: green;
+    }
+    @keyframes zoomPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    /* ===== LOGO ===== */
+    .mask {
+      position: relative;
+      padding: 15px 30px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* ✅ REQUIRED FIX */
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    .mask::before {
+      content: ""; /* ✅ REQUIRED FIX */
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.08),
+        rgba(200, 220, 255, 0.15),
+        rgba(255, 255, 255, 0.08)
+      );
+      mix-blend-mode: soft-light;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .text {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .text div {
+      line-height: 1;
+    }
+    .mask .text1 {
+      display: flex;
+      gap: 6px;
+    }
+    .mask .billy {
+      transform: rotate(-8deg);
+      color: #0a0a0a;
+      font: bold italic 30px 'Poppins', sans-serif;
+    }
+    .mask .and {
+      font-size: 20px;
+    }
+    .mask .friend {
+      transform: rotate(8deg);
+      color: #0d0d0e;
+      font-size: 30px;
+    }
+    .mask .text2 {
+      font-size: 20px;
+    }
+    .mask .text3 {
+      font-size: 25px;
+      color: #000;
+      font-weight: 500;
+      font-style: italic;
+    }
+    /* ===== FISH ===== */
+    .fish {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      font-size: 24px;
+      animation: swim 8s linear infinite;
+      z-index: 3;
+    }
+    @keyframes swim {
+      0% { left: 0; transform: scaleX(1); }
+      50% { left: calc(100% - 30px); transform: scaleX(-1); }
+      100% { left: 0; transform: scaleX(1); }
+    }
+    /* ===== BUBBLE ===== */
+    .bubble {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      animation: rise linear infinite;
+      z-index: 3;
+    }
+    .b1 { left: 20%; width: 6px; height: 6px; animation-duration: 4s; }
+    .b2 { left: 50%; width: 8px; height: 8px; animation-duration: 5s; }
+    .b3 { left: 75%; width: 10px; height: 10px; animation-duration: 6s; }
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-120px); opacity: 0; }
+    }
+    /* ===================== */
+    /* ✅ NEW: POPUP */
+    /* ===================== */
+    .popup-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); /* ✅ REQUIRED FIX */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 999;
+    }
+    .popup-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  .popup-card {
+  width: 80vw; /* ✅ UPDATED: cách trái + phải mỗi bên 10% */
+  height: 80vh; /* ✅ NEW: cách trên + dưới mỗi bên 10% */
+  max-width: none; /* ✅ REQUIRED FIX */
+  max-height: none; /* ✅ REQUIRED FIX */
+color: #fff;
+  transform: translateY(0) scale(1); /* ✅ UPDATED */
+}
+    .popup-backdrop.is-open .popup-card {
+      transform: translateY(0) scale(1);
+    }
+    .popup-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .popup-title {
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .popup-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  position: absolute; /* ✅ NEW */
+  top: 16px;          /* ✅ NEW */
+  right: 16px;        /* ✅ NEW */
+  z-index: 10;        /* ✅ NEW */
+}    
+    .popup-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .popup-copy {
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .popup-copy strong {
+      color: #ffffff;
+    }
+  /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
+.popup-notes {  
+  display: flex; /* ✅ UPDATED */
+  gap: 16px;    
+  margin-top: 20px;  
+  width: 100%; /* ✅ KEEP */
+  max-width: 100%; /* ✅ KEEP */
+  min-width: 0; /* ✅ NEW: giúp desktop scroll đúng trong popup */
+  overflow-x: scroll; /* ✅ UPDATED: ép desktop luôn có vùng cuộn ngang */
+  overflow-y: hidden; /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  scrollbar-width: thin; /* ✅ UPDATED: desktop Firefox hiện scrollbar */
+  scrollbar-color: rgba(255,255,255,0.55) rgba(255,255,255,0.14); /* ✅ NEW */
+  padding-bottom: 14px; /* ✅ NEW: chừa chỗ cho scrollbar desktop */
+  overscroll-behavior-x: contain; /* ✅ NEW */
+}
+/* ✅ NEW: desktop Chrome / Safari / Edge scrollbar */
+.popup-notes::-webkit-scrollbar {
+  height: 10px; /* ✅ NEW */
+}
+.popup-notes::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.14); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+}
+.popup-notes::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.55); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+}
+.popup-note-item {  
+  flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
+  min-width: 270px; /* ✅ NEW: chống desktop ép nhỏ card */
+  display: flex; /* ✅ KEEP */
+  flex-direction: column; /* ✅ KEEP */
+  gap: 10px; /* ✅ KEEP */
+}
+.popup-note-box {
+  width: 100%; /* ✅ KEEP */  
+  aspect-ratio: 1 / 1; /* ✅ KEEP */  
+  background: #ffffff; /* ✅ KEEP */  
+  border-radius: 12px; /* ✅ KEEP */  
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */  
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
+  overflow: hidden; /* ✅ NEW: bo góc ảnh theo card */
+}
+.popup-note-img {
+  width: 100%; /* ✅ NEW */
+  height: 100%; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  object-fit: cover; /* ✅ NEW: ảnh phủ kín card không méo */
+}
+.popup-note-label {  
+  color: #ffffff; /* ✅ KEEP */
+  font-size: 15px; /* ✅ KEEP */
+  font-weight: 600; /* ✅ KEEP */
+  line-height: 1.2; /* ✅ KEEP */
+  text-align: center; /* ✅ KEEP */
+  text-transform: lowercase; /* ✅ KEEP */
+}    
+    /* ===================== */
+    /* ✅ NEW: DESKTOP HOVER SAFE */
+    /* ===================== */
+    @media (hover: hover) and (pointer: fine) {
+      .mask:hover,
+      .title:hover,
+      .story:hover,
+      .cta-row:hover {
+        transform: translateY(-2px) scale(1.02); /* ✅ NEW */
+      }
+      .mask:hover {
+        box-shadow:
+          0 12px 40px rgba(0,0,0,0.35),
+          inset 0 0 14px rgba(255,255,255,0.3); /* ✅ NEW */
+      }
+      .story:hover {
+        background: rgba(20,24,30,0.75); /* ✅ NEW */
+      }
+      .fake-box:hover,
+      .quote:hover,
+      .thanks:hover {
+        transform: scale(1.06); /* ✅ NEW */
+      }
+    }
+@media (min-width: 769px) {
+  .title {
+    margin-top: -90px; /* ✅ NEW: kéo title desktop lên cao hơn */
+  }
+  .title-desktop {
+    display: inline-block; /* ✅ NEW: gom 2 dòng desktop thành 1 cụm */
+    text-align: center; /* ✅ NEW: căn giữa chữ khám phá theo dòng "Phú Quốc Của Tôi" */
+  }
+  .title-desktop-line {
+    display: block; /* ✅ NEW */
+  }
+}
+    .title-mobile-line {
+  display: none; /* ✅ NEW */
+}
+    /* ===================== */
+    /* ✅ MOBILE LAYOUT RESTORE */
+    /* ===================== */
+    @media (max-width:768px) {
+      header {
+        display: flex;
+        justify-content: center;
+        width: 100%; /* ✅ REQUIRED FIX */
+        padding: 18px 20px 0; /* ✅ UPDATED */
+      }
+      .cta-row > span,
+      .quote > span {
+        text-decoration: underline; /* ✅ NEW */
+        text-underline-offset: 3px; /* ✅ NEW */
+        text-decoration-thickness: 1.5px; /* ✅ NEW */
+      }
+      .mask {
+        padding: 15px 36px; /* ✅ UPDATED */
+        width: max-content;
+        max-width: calc(100vw - 40px); /* ✅ NEW */
+      }
+      .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+        padding: 145px 28px 28px; /* ✅ UPDATED */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .content {
+        align-items: center;
+        text-align: center;
+        gap: 18px; /* ✅ UPDATED */
+        width: 100%;
+        margin-top: 0;
+      }
+      .title {
+        text-align: center; /* ✅ UPDATED */
+        font-size: 28px; /* ✅ UPDATED */
+      }
+      .story {
+        font-size: 18px;
+        text-align: center; /* ✅ UPDATED */
+        width: 100%; /* ✅ NEW */
+        max-width: 100%; /* ✅ UPDATED */
+        padding: 16px 18px; /* ✅ UPDATED */
+        line-height: 1.52; /* ✅ UPDATED */
+      }
+      .cta-row {
+        margin: 4px 0 0 0; /* ✅ KEEP */
+        justify-content: center;
+        gap: 12px; /* ✅ KEEP */
+        flex-wrap: nowrap; /* ✅ KEEP */
+        white-space: nowrap; /* ✅ KEEP */
+        font-size: 18px; /* ✅ UPDATED */
+        width: 100%; /* ✅ KEEP */
+      }
+      .title-desktop {
+  display: none; /* ✅ NEW */
+}
+.title-mobile-line {
+  display: block; /* ✅ NEW */
+}
+.title-mobile-line-1 {
+  text-transform: lowercase; /* ✅ NEW */
+}
+.title-mobile-line-2 {
+  text-transform: none; /* ✅ REQUIRED FIX */
+}
+      .quote {
+        gap: 8px; /* ✅ KEEP */
+        flex-wrap: nowrap; /* ✅ KEEP */
+        white-space: nowrap; /* ✅ KEEP */
+        font-size: inherit; /* ✅ NEW */
+      }
+      /* ✅ touch feedback */
+      .mask:active,
+      .story:active,
+      .cta-row:active,
+      .quote:active,
+      .thanks:active {
+        opacity: 0.85;
+      }
+     .popup-backdrop {
+  padding: 18px;
+}
+.popup-card {
+  width: min(94vw, 520px); /* ✅ KEEP */
+  height: min(82dvh, 720px); /* ✅ UPDATED: dùng dvh ổn định hơn trên Brave/Safari mobile */
+  max-height: calc(100dvh - 36px); /* ✅ UPDATED: không vượt viewport mobile */
+  padding: 20px 18px 18px; /* ✅ KEEP */
+  border-radius: 20px; /* ✅ KEEP */
+  display: flex; /* ✅ UPDATED */
+  flex-direction: column; /* ✅ UPDATED */
+  position: relative; /* ✅ KEEP */
+  overflow: hidden; /* ✅ UPDATED: khóa popup để các lớp không tràn đè sai */
+}
+/* ✅ NEW: 5 block grid */
+.popup-notes {
+  order: 3; /* ✅ UPDATED: cards luôn nằm sau title trong mobile flow */
+  display: flex;
+  gap: 26px;
+  position: relative; /* ✅ UPDATED: bỏ absolute để Brave không đè title/card */
+  bottom: auto; /* ✅ REQUIRED FIX */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  width: 100%; /* ✅ KEEP */
+  margin-top: 0; /* ✅ UPDATED */
+  overflow-x: auto;              /* ✅ KEEP */
+  overflow-y: hidden;            /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  padding-top: 22px; /* ✅ NEW: chừa chỗ cho card scale không bị cắt */
+  padding-bottom: 24px; /* ✅ UPDATED: chừa chỗ cho card scale + label */
+  scroll-snap-type: x proximity; /* ✅ NEW: cảm giác carousel/web app */
+  scrollbar-width: none;         /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ UPDATED */
+}
+.popup-notes::-webkit-scrollbar {
+  display: none; /* ✅ KEEP */
+}
+.popup-note-item {
+  flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile ổn định */
+  min-width: 230px; /* ✅ UPDATED: bỏ xung đột 230/250 gây lệch trên mobile */
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW */
+  gap: 10px; /* ✅ NEW */
+  scroll-snap-align: center; /* ✅ NEW */
+  transition: transform 0.28s ease, filter 0.28s ease; /* ✅ NEW */
+  transform-origin: center center; /* ✅ NEW */
+}
+  /* ✅ NEW: mobile reorder + hide */
+.popup-head {
+  display: contents; /* ✅ REQUIRED FIX: cho title tham gia flow, close vẫn absolute */
+  margin: 0;        /* ✅ KEEP */
+  padding: 0;       /* ✅ KEEP */
+}
+.popup-copy {
+  order: 1; /* ✅ UPDATED: copy nằm trên title */
+  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè title/cards trên Brave */
+  top: auto; /* ✅ REQUIRED FIX */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  margin: 54px 0 0; /* ✅ UPDATED: chừa khoảng dưới nút X */
+  font-size: 15px; /* ✅ KEEP */
+  line-height: 1.45; /* ✅ KEEP */
+  max-height: 210px; /* ✅ UPDATED: giữ vùng copy không ăn xuống cards */
+  overflow-y: auto; /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ NEW */
+}
+.popup-note {
+  display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
+}
+/* ✅ NEW: mobile reorder + hide */
+/* ✅ NEW: mobile layout chuẩn */
+.popup-card {
+  display: flex; /* ✅ KEEP */
+  flex-direction: column; /* ✅ KEEP */
+  position: relative; /* ✅ KEEP */
+}
+/* ✅ hide */
+.popup-note {
+  display: none;
+}
+.popup-note-box {
+  width: 100%; /* ✅ NEW */
+  aspect-ratio: 1 / 1; /* ✅ UPDATED */
+  background: #ffffff; /* ✅ UPDATED */
+  border-radius: 12px; /* ✅ KEEP */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
+  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ UPDATED */
+}
+/* ✅ UPDATED: mobile tap / scroll touch effect */
+.popup-note-item:active .popup-note-box,
+.popup-note-item:focus-within .popup-note-box {
+  transform: translateY(-6px) scale(1.04); /* ✅ UPDATED */
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+/* ✅ UPDATED: mobile carousel center active card */
+.popup-note-item.is-center {
+  z-index: 20; /* ✅ UPDATED: cho card giữa overlay lên card khác */
+  gap: 34px; /* ✅ UPDATED: đẩy label xuống theo card khi zoom, tránh bị đè */
+}
 
-<style>
+.popup-note-item.is-center .popup-note-box {
+  transform: scale(1.15); /* ✅ UPDATED: phóng to thêm 10%, tổng 15% */
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38); /* ✅ UPDATED */
+}
 
-/* (GIỮ NGUYÊN TOÀN BỘ STYLE CỦA BẠN) */
+.popup-note-item.is-center .popup-note-label {
+  transform: scale(1.08); /* ✅ UPDATED */
+  transform-origin: center top; /* ✅ NEW: label scale từ trên xuống, ổn định hơn */
+  text-shadow: 0 5px 18px rgba(0, 0, 0, 0.5); /* ✅ UPDATED */
 
+}
+.popup-title {
+  order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
+  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè card trên Brave/Safari */
+  left: auto; /* ✅ REQUIRED FIX */
+  right: auto; /* ✅ REQUIRED FIX */
+  top: auto; /* ✅ REQUIRED FIX */
+  bottom: auto; /* ✅ REQUIRED FIX */
+  font-size: 22px; /* ✅ KEEP */
+  line-height: 1.15; /* ✅ KEEP */
+  margin: 18px 0 12px; /* ✅ UPDATED: tạo khoảng cách an toàn với cards */
+  z-index: 2; /* ✅ KEEP */
+  flex: 0 0 auto; /* ✅ NEW */
+}
+}
+  
 
-/* ✅ NEW: CHECKING SCREEN */
+/* ✅ NEW: CHECKING AVAILABILITY SCREEN */
 .checking-screen {
   position: fixed;
   inset: 0;
-  background: #f4f5f7;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  background: #f7f8fb;
+  color: #121217;
   z-index: 9999;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
 }
-
 .checking-screen.is-open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
-
 .checking-inner {
+  width: min(100%, 620px);
+  padding: 0 32px;
   text-align: center;
-  max-width: 320px;
-  width: 100%;
-  padding: 0 20px;
+  transform: translateY(-4vh);
 }
-
 .checking-dots {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
-
 .checking-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #c9ccd1;
-  animation: dotFade 1.4s infinite;
-}
-
-.checking-dots span:nth-child(2) { animation-delay: 0.2s; }
-.checking-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes dotFade {
-  0%, 80%, 100% { opacity: 0.3; }
-  40% { opacity: 1; }
-}
-
-.checking-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 10px;
-}
-
-.checking-sub {
-  font-size: 16px;
-  color: #6b7280;
-  margin-bottom: 30px;
-}
-
-.checking-bar {
-  width: 100%;
-  height: 4px;
-  background: #e5e7eb;
+  width: 10px;
+  height: 10px;
+  display: block;
   border-radius: 999px;
+  background: #c8cdd2;
+  animation: checkingDotPulse 1.2s ease-in-out infinite;
+}
+.checking-dots span:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.checking-dots span:nth-child(3) {
+  animation-delay: 0.32s;
+}
+.checking-title {
+  margin: 0 0 18px;
+  color: #121217;
+  font-size: clamp(42px, 8vw, 58px);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+}
+.checking-sub {
+  margin: 0 0 34px;
+  color: #747780;
+  font-size: clamp(18px, 4vw, 25px);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.checking-bar {
+  width: min(100%, 480px);
+  height: 5px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #e1e4e8;
   overflow: hidden;
 }
-
 .checking-bar-fill {
-  width: 40%;
+  width: 64%;
   height: 100%;
-  background: #111;
-  border-radius: 999px;
-  animation: loadingBar 1.8s infinite;
+  border-radius: inherit;
+  background: #16171b;
+  transform-origin: left center;
+  animation: checkingBarLoad 1.8s ease-in-out infinite;
+}
+@keyframes checkingDotPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+@keyframes checkingBarLoad {
+  0% {
+    transform: translateX(-105%);
+  }
+  55% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(155%);
+  }
+}
+@media (max-width:768px) {
+  .checking-inner {
+    width: 100%;
+    padding: 0 44px;
+    transform: translateY(-3vh);
+  }
+  .checking-title {
+    font-size: 42px;
+    line-height: 0.98;
+    white-space: nowrap;
+  }
+  .checking-sub {
+    font-size: 22px;
+  }
+  .checking-bar {
+    width: 100%;
+    max-width: 482px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .checking-dots span,
+  .checking-bar-fill {
+    animation: none;
+  }
 }
 
-@keyframes loadingBar {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
-}
-
-</style>
+  </style>
 </head>
-
 <body>
+<header>
+  <div class="logo">
+    <div class="mask">
+      <div class="fish">🐠</div>
+      <div class="bubble b1"></div>
+      <div class="bubble b2"></div>
+      <div class="bubble b3"></div>
+      <div class="text">
+        <div class="text1">
+          <span class="billy">"Billy</span>
+          <span class="and">and</span>
+          <span class="friend">Friend"</span>
+        </div>
+        <div class="text2">adventures</div>
+        <div class="text3">The private guide</div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="hero">
+  <div class="overlay"></div>
+  <div class="content">
+  <h1 class="title">
+  <span class="title-desktop"> <!-- ✅ UPDATED -->
+    <span class="title-desktop-line title-desktop-line-1">khám phá</span> <!-- ✅ NEW -->
+    <span class="title-desktop-line title-desktop-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  </span>
+  <span class="title-mobile-line title-mobile-line-1">Khám phá</span> <!-- ✅ NEW -->
+  <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+</h1>
+    <div class="story">
+      <p>
+Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
+    </div>
+    <div class="cta-row">
+      <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false"> <!-- ✅ NEW -->
+        <span>let's...</span>
+        <label class="checkbox">
+          <input type="checkbox" id="leaveNoTraceCheckbox"> <!-- ✅ NEW -->
+          <span class="fake-box"></span>
+        </label>
+        <span>"Leave no trace"</span>
+      </span>
+      <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span> <!-- ✅ NEW -->
+    </div>
+  </div>
+</section>
+<!-- ✅ NEW: POPUP -->
+<div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
+  <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div class="popup-head">
+      <h2 class="popup-title" id="popupTitle">Bạn đang tìm kiếm điều gì ở Phú Quốc?</h2>
+      <button class="popup-close" type="button" aria-label="Đóng popup">×</button>
+    </div>
+    <div class="popup-copy">
+      <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.
+      Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.
+    </div>
+    <div class="popup-note">
+  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
+</div>
+<!-- ✅ NEW: 5 block -->
+<div class="popup-notes">
+  <div class="popup-note-item">
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling"> <!-- ✅ REQUIRED FIX -->
+    </div>
+    <span class="popup-note-label">snorkeling</span>
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="hinking.png" alt="hiking"> <!-- ✅ REQUIRED FIX -->
+    </div>
+    <span class="popup-note-label">hiking</span>
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="propose.jpg" alt="propose"> <!-- ✅ REQUIRED FIX -->
+    </div>
+    <span class="popup-note-label">propose</span>
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="camping.png" alt="camping"> <!-- ✅ REQUIRED FIX -->
+    </div>
+    <span class="popup-note-label">camping</span>
+  </div>
+  <div class="popup-note-item">
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary"> <!-- ✅ REQUIRED FIX -->
+    </div>
+    <span class="popup-note-label">coral dictionary</span>
+  </div>
+<!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
+</div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
+</div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
+</div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
 
-<!-- ===== HERO + CONTENT (GIỮ NGUYÊN FILE GỐC) ===== -->
-
-<!-- ✅ NEW: CHECKING AVAILABILITY -->
+<!-- ✅ NEW: CHECKING AVAILABILITY SCREEN -->
 <div class="checking-screen" id="checkingScreen" aria-hidden="true">
   <div class="checking-inner">
-
     <div class="checking-dots">
       <span></span>
       <span></span>
       <span></span>
     </div>
-
     <h2 class="checking-title">Checking availability</h2>
-
-    <p class="checking-sub">
-      Loading the best available dates
-    </p>
-
+    <p class="checking-sub">Loading the best available dates</p>
     <div class="checking-bar">
       <div class="checking-bar-fill"></div>
     </div>
-
   </div>
 </div>
 
+<!-- ✅ NEW: CTA INTERACTION -->
 <script>
-
 (function () {
-
-/* ✅ NEW: CHECKING CONTROL */
-var checkingScreen = document.getElementById('checkingScreen');
-
-function openChecking() {
-  checkingScreen.classList.add('is-open');
-}
-
-function closeChecking() {
-  checkingScreen.classList.remove('is-open');
-}
-
-/* ===== ORIGINAL VARIABLES (GIỮ NGUYÊN) ===== */
-var checkbox = document.getElementById('leaveNoTraceCheckbox');
-var popup = document.getElementById('leave-no-trace-popup');
-var popupCard = popup.querySelector('.popup-card');
-var closeBtn = popup.querySelector('.popup-close');
-var triggers = document.querySelectorAll('.cta-trigger');
-
-/* ✅ UPDATED FLOW */
-function openPopup() {
-  checkbox.checked = true;
-  popup.classList.add('is-open');
-}
-
-/* ✅ UPDATED CLICK */
-triggers.forEach(function (trigger) {
-  trigger.addEventListener('click', function (event) {
-    event.preventDefault();
-
-    openChecking();
-
-    setTimeout(function () {
-      closeChecking();
-      openPopup();
-    }, 1800);
-  });
-});
-
-/* CLOSE */
-closeBtn.addEventListener('click', function () {
-  popup.classList.remove('is-open');
-});
-
-popup.addEventListener('click', function (event) {
-  if (!popupCard.contains(event.target)) {
-    popup.classList.remove('is-open');
+  var checkbox = document.getElementById('leaveNoTraceCheckbox');
+  var popup = document.getElementById('leave-no-trace-popup');
+  var popupCard = popup.querySelector('.popup-card');
+  var closeBtn = popup.querySelector('.popup-close');
+  var triggers = document.querySelectorAll('.cta-trigger'); /* ✅ UPDATED */
+  var checkingScreen = document.getElementById('checkingScreen'); /* ✅ NEW */
+  var checkingTimer = null; /* ✅ NEW */
+  function openPopup() {
+    checkbox.checked = true; /* ✅ NEW */
+    popup.classList.add('is-open'); /* ✅ NEW */
+    popup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+    document.querySelectorAll('.cta-trigger').forEach(function (el) {
+      el.setAttribute('aria-expanded', 'true');
+    });
+    window.setTimeout(function () { setupInfinitePopupCarousel(true); }, 80); /* ✅ UPDATED: mỗi lần mở popup default ở snorkeling */
+    window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
   }
-});
+  function closePopup() {
+    popup.classList.remove('is-open'); /* ✅ NEW */
+    popup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+    document.querySelectorAll('.cta-trigger').forEach(function (el) {
+      el.setAttribute('aria-expanded', 'false');
+    });
+  }
+  function openChecking() { /* ✅ NEW */
+    if (!checkingScreen) return; /* ✅ REQUIRED FIX */
+    checkingScreen.classList.add('is-open'); /* ✅ NEW */
+    checkingScreen.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+  }
+  function closeChecking() { /* ✅ NEW */
+    if (!checkingScreen) return; /* ✅ REQUIRED FIX */
+    checkingScreen.classList.remove('is-open'); /* ✅ NEW */
+    checkingScreen.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+  }
+  function openPopupAfterChecking() { /* ✅ NEW */
+    if (!checkingScreen) { /* ✅ REQUIRED FIX */
+      openPopup(); /* ✅ REQUIRED FIX */
+      return; /* ✅ REQUIRED FIX */
+    }
+    openChecking(); /* ✅ NEW */
+    if (checkingTimer) { /* ✅ NEW */
+      window.clearTimeout(checkingTimer); /* ✅ NEW */
+    }
+    checkingTimer = window.setTimeout(function () { /* ✅ NEW */
+      closeChecking(); /* ✅ NEW */
+      openPopup(); /* ✅ NEW */
+    }, 1800); /* ✅ NEW */
+  }
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function (event) {
+      event.preventDefault();
+      openPopupAfterChecking(); /* ✅ UPDATED */
+    });
+    trigger.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPopupAfterChecking(); /* ✅ UPDATED */
+      }
+    });
+  });
+  closeBtn.addEventListener('click', closePopup);
+  popup.addEventListener('click', function (event) {
+    if (!popupCard.contains(event.target)) {
+      closePopup();
+    }
+  });
+  /* ✅ UPDATED: mobile infinite carousel center active card */
+  var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
+  var popupNoteItems = []; /* ✅ UPDATED */
+  var centerRafId = null; /* ✅ NEW */
+  var infiniteLoopWidth = 0; /* ✅ NEW */
+  var infiniteMiddleStart = 0; /* ✅ UPDATED: scrollLeft khi card snorkeling nằm giữa */
+  var infiniteAfterStart = 0; /* ✅ UPDATED: scrollLeft khi clone sau của snorkeling nằm giữa */
+  var isLoopJumping = false; /* ✅ NEW */
+  var originalItemCount = 0; /* ✅ NEW */
 
+  function getOriginalPopupItems() { /* ✅ NEW */
+    if (!popupNotes) return []; /* ✅ NEW */
+    return Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item:not([data-clone="true"])')); /* ✅ NEW */
+  }
+
+  function measureInfinitePopupCarousel(centerFirstItem) { /* ✅ NEW */
+    if (!popupNotes || !originalItemCount) return; /* ✅ NEW */
+
+    var originalItems = getOriginalPopupItems(); /* ✅ NEW */
+    var firstOriginal = originalItems[0]; /* ✅ NEW */
+    var firstAfterClone = popupNotes.children[originalItemCount * 2]; /* ✅ REQUIRED FIX: lấy card đầu tiên của cụm clone sau */
+
+    if (!firstOriginal || !firstAfterClone) return; /* ✅ NEW */
+
+    var notesVisibleCenter = popupNotes.clientWidth / 2; /* ✅ NEW */
+    var firstOriginalCenter = firstOriginal.offsetLeft + (firstOriginal.offsetWidth / 2) - popupNotes.offsetLeft; /* ✅ NEW */
+    var firstAfterCloneCenter = firstAfterClone.offsetLeft + (firstAfterClone.offsetWidth / 2) - popupNotes.offsetLeft; /* ✅ NEW */
+
+    infiniteMiddleStart = firstOriginalCenter - notesVisibleCenter; /* ✅ UPDATED: boundary dựa trên vị trí centered */
+    infiniteAfterStart = firstAfterCloneCenter - notesVisibleCenter; /* ✅ UPDATED: boundary dựa trên vị trí centered */
+    infiniteLoopWidth = infiniteAfterStart - infiniteMiddleStart; /* ✅ UPDATED */
+
+    if (centerFirstItem) { /* ✅ NEW */
+      popupNotes.scrollLeft = infiniteMiddleStart; /* ✅ UPDATED: default mở ở snorkeling */
+    }
+
+    requestCenteredPopupCardUpdate(); /* ✅ NEW */
+  }
+
+  function setupInfinitePopupCarousel(centerFirstItem) { /* ✅ UPDATED */
+    if (!popupNotes) return; /* ✅ NEW */
+
+    if (popupNotes.getAttribute('data-infinite-ready') === 'true') { /* ✅ NEW */
+      popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(centerFirstItem); /* ✅ NEW */
+      }, 80); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+
+    var originalItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ NEW */
+    if (!originalItems.length) return; /* ✅ NEW */
+
+    originalItemCount = originalItems.length; /* ✅ NEW */
+
+    var beforeFragment = document.createDocumentFragment(); /* ✅ NEW */
+    var afterFragment = document.createDocumentFragment(); /* ✅ NEW */
+
+    originalItems.forEach(function (item) { /* ✅ NEW */
+      var beforeClone = item.cloneNode(true); /* ✅ NEW */
+      beforeClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+      beforeClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      beforeFragment.appendChild(beforeClone); /* ✅ NEW */
+
+      var afterClone = item.cloneNode(true); /* ✅ NEW */
+      afterClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+      afterClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      afterFragment.appendChild(afterClone); /* ✅ NEW */
+    });
+
+    popupNotes.insertBefore(beforeFragment, popupNotes.firstChild); /* ✅ NEW */
+    popupNotes.appendChild(afterFragment); /* ✅ NEW */
+    popupNotes.setAttribute('data-infinite-ready', 'true'); /* ✅ NEW */
+
+    popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
+
+    window.setTimeout(function () { /* ✅ NEW */
+      measureInfinitePopupCarousel(centerFirstItem); /* ✅ NEW */
+    }, 80); /* ✅ NEW */
+  }
+
+  function syncInfinitePopupCarousel() { /* ✅ NEW */
+    if (!popupNotes || !infiniteLoopWidth || isLoopJumping) return; /* ✅ NEW */
+
+    var currentScroll = popupNotes.scrollLeft; /* ✅ NEW */
+    var safeOffset = 2; /* ✅ NEW */
+
+    if (currentScroll < infiniteMiddleStart - safeOffset) { /* ✅ UPDATED */
+      isLoopJumping = true; /* ✅ NEW */
+      popupNotes.scrollLeft = currentScroll + infiniteLoopWidth; /* ✅ NEW */
+      window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
+    } else if (currentScroll >= infiniteAfterStart - safeOffset) { /* ✅ UPDATED */
+      isLoopJumping = true; /* ✅ NEW */
+      popupNotes.scrollLeft = currentScroll - infiniteLoopWidth; /* ✅ NEW */
+      window.setTimeout(function () { isLoopJumping = false; }, 0); /* ✅ NEW */
+    }
+  }
+
+  function updateCenteredPopupCard() { /* ✅ NEW */
+    if (!popupNotes || !popupNoteItems.length) return; /* ✅ NEW */
+
+    syncInfinitePopupCarousel(); /* ✅ NEW */
+
+    var notesRect = popupNotes.getBoundingClientRect(); /* ✅ NEW */
+    var notesCenter = notesRect.left + (notesRect.width / 2); /* ✅ NEW */
+    var closestItem = null; /* ✅ NEW */
+    var closestDistance = Infinity; /* ✅ NEW */
+
+    popupNoteItems.forEach(function (item) { /* ✅ NEW */
+      var itemRect = item.getBoundingClientRect(); /* ✅ NEW */
+      var itemCenter = itemRect.left + (itemRect.width / 2); /* ✅ NEW */
+      var distance = Math.abs(notesCenter - itemCenter); /* ✅ NEW */
+
+      if (distance < closestDistance) { /* ✅ NEW */
+        closestDistance = distance; /* ✅ NEW */
+        closestItem = item; /* ✅ NEW */
+      }
+    });
+
+    popupNoteItems.forEach(function (item) { /* ✅ NEW */
+      item.classList.toggle('is-center', item === closestItem); /* ✅ NEW */
+    });
+  }
+
+  function requestCenteredPopupCardUpdate() { /* ✅ NEW */
+    if (centerRafId) return; /* ✅ NEW */
+
+    centerRafId = window.requestAnimationFrame(function () { /* ✅ NEW */
+      centerRafId = null; /* ✅ NEW */
+      updateCenteredPopupCard(); /* ✅ NEW */
+    });
+  }
+
+  if (popupNotes) { /* ✅ NEW */
+    setupInfinitePopupCarousel(true); /* ✅ UPDATED: default mở ở snorkeling */
+    popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
+    window.addEventListener('resize', function () { /* ✅ UPDATED */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(false); /* ✅ UPDATED: resize chỉ đo lại, không clone thêm */
+      }, 120); /* ✅ NEW */
+    }); /* ✅ UPDATED */
+    window.addEventListener('orientationchange', function () { /* ✅ NEW */
+      window.setTimeout(function () { /* ✅ NEW */
+        measureInfinitePopupCarousel(false); /* ✅ UPDATED */
+      }, 250); /* ✅ NEW */
+    }); /* ✅ NEW */
+  }
+
+  window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && popup.classList.contains('is-open')) {
+      closePopup();
+    }
+  });
 })();
-
 </script>
 
 </body>
