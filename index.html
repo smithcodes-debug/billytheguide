@@ -346,84 +346,159 @@ color: #fff;
     /* ===================== */
     /* ✅ MOBILE LAYOUT RESTORE */
     /* ===================== */
- @media (max-width:768px) {
-
+    @media (max-width:768px) {
+      header {
+        display: flex;
+        justify-content: center;
+        width: 100%; /* ✅ REQUIRED FIX */
+        padding: 18px 20px 0; /* ✅ UPDATED */
+      }
+      .cta-row > span,
+      .quote > span {
+        text-decoration: underline; /* ✅ NEW */
+        text-underline-offset: 3px; /* ✅ NEW */
+        text-decoration-thickness: 1.5px; /* ✅ NEW */
+      }
+      .mask {
+        padding: 15px 36px; /* ✅ UPDATED */
+        width: max-content;
+        max-width: calc(100vw - 40px); /* ✅ NEW */
+      }
+      .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+        padding: 145px 28px 28px; /* ✅ UPDATED */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .content {
+        align-items: center;
+        text-align: center;
+        gap: 18px; /* ✅ UPDATED */
+        width: 100%;
+        margin-top: 0;
+      }
+      .title {
+        text-align: center; /* ✅ UPDATED */
+        font-size: 28px; /* ✅ UPDATED */
+      }
+      .story {
+        font-size: 18px;
+        text-align: center; /* ✅ UPDATED */
+        width: 100%; /* ✅ NEW */
+        max-width: 100%; /* ✅ UPDATED */
+        padding: 16px 18px; /* ✅ UPDATED */
+        line-height: 1.52; /* ✅ UPDATED */
+      }
+      .cta-row {
+        margin: 4px 0 0 0; /* ✅ KEEP */
+        justify-content: center;
+        gap: 12px; /* ✅ KEEP */
+        flex-wrap: nowrap; /* ✅ KEEP */
+        white-space: nowrap; /* ✅ KEEP */
+        font-size: 18px; /* ✅ UPDATED */
+        width: 100%; /* ✅ KEEP */
+      }
+      .quote {
+        gap: 8px; /* ✅ KEEP */
+        flex-wrap: nowrap; /* ✅ KEEP */
+        white-space: nowrap; /* ✅ KEEP */
+        font-size: inherit; /* ✅ NEW */
+      }
+      /* ✅ touch feedback */
+      .mask:active,
+      .story:active,
+      .cta-row:active,
+      .quote:active,
+      .thanks:active {
+        opacity: 0.85;
+      }
+     .popup-backdrop {
+  padding: 18px;
+}
 .popup-card {
-  display: flex;
-  flex-direction: column;
-  position: relative; /* ✅ REQUIRED FIX */
   width: min(94vw, 520px);
   padding: 20px 18px 18px;
   border-radius: 20px;
 }
-
-/* ✅ FIX ORDER (clean, không duplicate nữa) */
-.popup-copy {
-  order: 1;
-}
-
-.popup-head {
-  order: 2;
-}
-
-.popup-notes {
-  order: 3; /* ✅ NEW */
-}
-
-/* ✅ TITLE */
-.popup-title {
-  font-size: 22px;
-}
-
-/* ✅ TEXT */
-.popup-copy {
-  font-size: 15px;
-}
-
-/* ✅ HIDE */
-.popup-note {
-  display: none;
-}
-
-/* ✅ 5 CARD — GẮN ĐÁY */
+/* ✅ NEW: 5 block grid */
 .popup-notes {
   display: flex;
   gap: 16px;
 
   position: absolute;  /* ✅ NEW */
   bottom: 20px;        /* ✅ NEW */
-  left: 18px;
-  right: 18px;
+  left: 18px;          /* ✅ NEW: align theo padding card */
+  right: 18px;         /* ✅ NEW */
 
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;              /* ✅ KEEP */
+  overflow-y: hidden;            /* ✅ KEEP */
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
 
   padding-bottom: 6px;
 
-  scrollbar-width: none;
+  scrollbar-width: none;         /* ✅ KEEP */
 }
 .popup-notes::-webkit-scrollbar {
+  display: none; /* ✅ KEEP */
+
+
+}
+.popup-note-item {
+  flex: 0 0 240px; /* ✅ NEW: mỗi card rộng 240px */
+  aspect-ratio: 1 / 1;
+}
+  /* ✅ NEW: mobile reorder + hide */
+.popup-head {
+  order: 2; /* ✅ đưa title xuống dưới */
+}
+.popup-copy {
+  order: 1; /* ✅ giữ nội dung lên trên */
+}
+.popup-note {
+  display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
+}
+/* ✅ NEW: mobile reorder + hide */
+/* ✅ NEW: mobile layout chuẩn */
+.popup-card {
+  display: flex;
+  flex-direction: column;
+
+  position: relative; /* ✅ NEW */
+}
+
+/* ✅ reorder */
+.popup-copy {
+  order: 2;
+}
+.popup-head {
+  order: 1;
+}
+/* ✅ hide */
+.popup-note {
   display: none;
 }
-
-/* ✅ CARD SIZE 200% */
 .popup-note-item {
-  flex: 0 0 240px; /* ✅ UPDATED */
   aspect-ratio: 1 / 1;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #ffffff; /* ✅ UPDATED: đổi sang trắng */
+  border-radius: 12px; /* giữ theo code bạn */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ NEW */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ NEW */
+  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ NEW */
 }
-
-/* ✅ HOVER */
+/* ✅ NEW: hover effect */
 .popup-note-item:hover {
   transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
-
+.popup-title {
+  font-size: 22px;
+}
+.popup-copy {
+  font-size: 15px;
+}
 }
   </style>
 </head>
