@@ -306,19 +306,28 @@ color: #fff;
       line-height: 1.55;
     }
     /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
-    .popup-notes {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      margin-top: 20px;
+   .popup-notes {
+  display: flex; /* ✅ UPDATED: dùng chung cho desktop + mobile */
+  gap: 16px;  
+  margin-top: 20px;
+  overflow-x: auto; /* ✅ NEW: cho phép card to hơn mà không vỡ layout */
+  overflow-y: hidden; /* ✅ NEW */
+  -webkit-overflow-scrolling: touch; /* ✅ NEW */
+  scrollbar-width: none; /* ✅ NEW */
+
     }
+    .popup-notes::-webkit-scrollbar {
+  display: none; /* ✅ NEW */
+}
     .popup-note-item {
-      aspect-ratio: 1 / 1;
-      background: #ffffff; /* ✅ trắng */
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
+  flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
+  aspect-ratio: 1 / 1;  
+  background: #ffffff; /* ✅ trắng */  
+  border-radius: 12px;  
+  border: 1px solid rgba(0, 0, 0, 0.06);  
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);  
+}
+    
     /* ===================== */
     /* ✅ NEW: DESKTOP HOVER SAFE */
     /* ===================== */
@@ -447,7 +456,7 @@ color: #fff;
 
 }
 .popup-note-item {
-  flex: 0 0 240px; /* ✅ NEW: mỗi card rộng 240px */
+  flex: 0 0 270px; /* ✅ NEW: mỗi card rộng 240px */
   aspect-ratio: 1 / 1;
 }
   /* ✅ NEW: mobile reorder + hide */
