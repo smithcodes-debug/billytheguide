@@ -388,6 +388,9 @@ color: #fff;
         transform: scale(1.06); /* ✅ NEW */
       }
     }
+    .title-mobile-line {
+  display: none; /* ✅ NEW */
+}
     /* ===================== */
     /* ✅ MOBILE LAYOUT RESTORE */
     /* ===================== */
@@ -446,6 +449,22 @@ color: #fff;
         font-size: 18px; /* ✅ UPDATED */
         width: 100%; /* ✅ KEEP */
       }
+      .title-desktop {
+  display: none; /* ✅ NEW */
+}
+
+.title-mobile-line {
+  display: block; /* ✅ NEW */
+}
+
+.title-mobile-line-1 {
+  text-transform: lowercase; /* ✅ NEW */
+}
+
+.title-mobile-line-2 {
+  text-transform:
+  }
+      
       .quote {
         gap: 8px; /* ✅ KEEP */
         flex-wrap: nowrap; /* ✅ KEEP */
@@ -584,7 +603,11 @@ color: #fff;
 <section class="hero">
   <div class="overlay"></div>
   <div class="content">
-    <h1 class="title">"Khám phá Phú Quốc Của Tôi"</h1>
+  <h1 class="title">
+  <span class="title-desktop">"Khám phá Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  <span class="title-mobile-line title-mobile-line-1">Khám phá</span> <!-- ✅ NEW -->
+  <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+</h1>
     <div class="story">
       <p>
 Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
