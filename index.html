@@ -268,15 +268,21 @@ color: #fff;
       letter-spacing: 0.01em;
     }
     .popup-close {
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-size: 22px;
-      line-height: 1;
-      cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+
+  position: absolute; /* ✅ NEW */
+  top: 16px;          /* ✅ NEW */
+  right: 16px;        /* ✅ NEW */
+  z-index: 10;        /* ✅ NEW */
+}
     }
     .popup-close:hover {
       background: rgba(255, 255, 255, 0.12);
