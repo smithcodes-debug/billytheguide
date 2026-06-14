@@ -290,7 +290,7 @@ color: #fff;
   top: 16px;          /* ✅ NEW */
   right: 16px;        /* ✅ NEW */
   z-index: 10;        /* ✅ NEW */
-}    
+}      
     .popup-close:hover {
       background: rgba(255, 255, 255, 0.12);
     }
@@ -303,48 +303,85 @@ color: #fff;
       color: #ffffff;
     }
   /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
-.popup-notes {  
+.popup-notes-shell {
+  position: relative; /* ✅ NEW */
+  margin-top: 20px; /* ✅ NEW */
+}
+.popup-notes {
   display: flex; /* ✅ UPDATED */
-  gap: 16px;    
-  margin-top: 20px;  
+  gap: 16px;
   width: 100%; /* ✅ KEEP */
   max-width: 100%; /* ✅ KEEP */
   min-width: 0; /* ✅ NEW: giúp desktop scroll đúng trong popup */
-  overflow-x: scroll; /* ✅ UPDATED: ép desktop luôn có vùng cuộn ngang */
+  overflow-x: auto; /* ✅ UPDATED: scroll bằng arrow + touchpad */
   overflow-y: hidden; /* ✅ KEEP */
   -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  scrollbar-width: thin; /* ✅ UPDATED: desktop Firefox hiện scrollbar */
-  scrollbar-color: rgba(255,255,255,0.55) rgba(255,255,255,0.14); /* ✅ NEW */
-  padding-bottom: 14px; /* ✅ NEW: chừa chỗ cho scrollbar desktop */
+  -ms-overflow-style: none; /* ✅ NEW: ẩn scrollbar IE/Edge legacy */
+  scrollbar-width: none; /* ✅ UPDATED: ẩn scrollbar Firefox */
+  scroll-behavior: smooth; /* ✅ NEW */
+  padding: 12px 56px 22px; /* ✅ NEW: chừa chỗ cho arrow + hover scale */
   overscroll-behavior-x: contain; /* ✅ NEW */
 }
-/* ✅ NEW: desktop Chrome / Safari / Edge scrollbar */
 .popup-notes::-webkit-scrollbar {
-  height: 10px; /* ✅ NEW */
+  display: none; /* ✅ UPDATED: ẩn scrollbar Chrome / Safari / Edge */
+  width: 0; /* ✅ NEW */
+  height: 0; /* ✅ NEW */
 }
-.popup-notes::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.14); /* ✅ NEW */
+.popup-notes-arrow {
+  position: absolute; /* ✅ NEW */
+  top: calc(50% - 18px); /* ✅ NEW */
+  transform: translateY(-50%); /* ✅ NEW */
+  width: 42px; /* ✅ NEW */
+  height: 42px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
   border-radius: 999px; /* ✅ NEW */
+  background: rgba(15, 20, 28, 0.82); /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  font-size: 28px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+  z-index: 4; /* ✅ NEW */
+  backdrop-filter: blur(6px); /* ✅ NEW */
+  -webkit-backdrop-filter: blur(6px); /* ✅ REQUIRED FIX */
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease; /* ✅ NEW */
 }
-.popup-notes::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.55); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
+.popup-notes-arrow:hover {
+  background: rgba(22, 28, 38, 0.92); /* ✅ NEW */
+  transform: translateY(-50%) scale(1.06); /* ✅ NEW */
 }
-.popup-note-item {  
+.popup-notes-arrow:disabled {
+  opacity: 0.34; /* ✅ NEW */
+  cursor: default; /* ✅ NEW */
+  transform: translateY(-50%); /* ✅ NEW */
+}
+.popup-notes-arrow-left {
+  left: 6px; /* ✅ NEW */
+}
+.popup-notes-arrow-right {
+  right: 6px; /* ✅ NEW */
+}
+.popup-note-item {
   flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
   min-width: 270px; /* ✅ NEW: chống desktop ép nhỏ card */
   display: flex; /* ✅ KEEP */
   flex-direction: column; /* ✅ KEEP */
   gap: 10px; /* ✅ KEEP */
+  transition: transform 0.28s ease, filter 0.28s ease; /* ✅ NEW */
+  transform-origin: center center; /* ✅ NEW */
 }
 .popup-note-box {
-  width: 100%; /* ✅ KEEP */  
-  aspect-ratio: 1 / 1; /* ✅ KEEP */  
-  background: #ffffff; /* ✅ KEEP */  
-  border-radius: 12px; /* ✅ KEEP */  
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */  
+  width: 100%; /* ✅ KEEP */
+  aspect-ratio: 1 / 1; /* ✅ KEEP */
+  background: #ffffff; /* ✅ KEEP */
+  border-radius: 12px; /* ✅ KEEP */
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
   overflow: hidden; /* ✅ NEW: bo góc ảnh theo card */
+  transition: transform 0.28s ease, box-shadow 0.28s ease; /* ✅ NEW */
 }
 .popup-note-img {
   width: 100%; /* ✅ NEW */
@@ -352,14 +389,28 @@ color: #fff;
   display: block; /* ✅ NEW */
   object-fit: cover; /* ✅ NEW: ảnh phủ kín card không méo */
 }
-.popup-note-label {  
+.popup-note-label {
   color: #ffffff; /* ✅ KEEP */
   font-size: 15px; /* ✅ KEEP */
   font-weight: 600; /* ✅ KEEP */
   line-height: 1.2; /* ✅ KEEP */
   text-align: center; /* ✅ KEEP */
   text-transform: lowercase; /* ✅ KEEP */
-}    
+  transition: transform 0.28s ease, text-shadow 0.28s ease; /* ✅ NEW */
+}
+@media (hover: hover) and (pointer: fine) {
+  .popup-note-item:hover {
+    transform: translateY(-6px) scale(1.04); /* ✅ NEW */
+    z-index: 2; /* ✅ NEW */
+  }
+  .popup-note-item:hover .popup-note-box {
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3); /* ✅ NEW */
+  }
+  .popup-note-item:hover .popup-note-label {
+    transform: scale(1.02); /* ✅ NEW */
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34); /* ✅ NEW */
+  }
+}
 
     /* ===================== */
     /* ✅ NEW: CHECK AVALIBILITY MEMO */
@@ -809,7 +860,7 @@ color: #fff;
       }
      .popup-backdrop {
   padding: 18px;
-}
+}  
 .popup-card {
   width: min(94vw, 520px); /* ✅ KEEP */
   height: min(82dvh, 720px); /* ✅ UPDATED: dùng dvh ổn định hơn trên Brave/Safari mobile */
@@ -822,8 +873,12 @@ color: #fff;
   overflow: hidden; /* ✅ UPDATED: khóa popup để các lớp không tràn đè sai */
 }
 /* ✅ NEW: 5 block grid */
-.popup-notes {
+.popup-notes-shell {
   order: 3; /* ✅ UPDATED: cards luôn nằm sau title trong mobile flow */
+  width: 100%; /* ✅ NEW */
+  margin-top: 0; /* ✅ UPDATED */
+}
+.popup-notes {
   display: flex;
   gap: 26px;
   position: relative; /* ✅ UPDATED: bỏ absolute để Brave không đè title/card */
@@ -835,14 +890,16 @@ color: #fff;
   overflow-x: auto;              /* ✅ KEEP */
   overflow-y: hidden;            /* ✅ KEEP */
   -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  padding-top: 22px; /* ✅ NEW: chừa chỗ cho card scale không bị cắt */
-  padding-bottom: 24px; /* ✅ UPDATED: chừa chỗ cho card scale + label */
+  padding: 22px 0 24px; /* ✅ UPDATED: mobile không chừa chỗ arrow */
   scroll-snap-type: x proximity; /* ✅ NEW: cảm giác carousel/web app */
   scrollbar-width: none;         /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ UPDATED */
 }
 .popup-notes::-webkit-scrollbar {
   display: none; /* ✅ KEEP */
+}
+.popup-notes-arrow {
+  display: none; /* ✅ UPDATED: mobile ưu tiên swipe, tránh che card */
 }
 .popup-note-item {
   flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile ổn định */
@@ -903,23 +960,19 @@ color: #fff;
   transform: translateY(-6px) scale(1.04); /* ✅ UPDATED */
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
 }
-
 /* ✅ UPDATED: mobile carousel center active card */
 .popup-note-item.is-center {
   z-index: 20; /* ✅ UPDATED: cho card giữa overlay lên card khác */
   gap: 34px; /* ✅ UPDATED: đẩy label xuống theo card khi zoom, tránh bị đè */
 }
-
 .popup-note-item.is-center .popup-note-box {
   transform: scale(1.15); /* ✅ UPDATED: phóng to thêm 10%, tổng 15% */
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38); /* ✅ UPDATED */
 }
-
 .popup-note-item.is-center .popup-note-label {
   transform: scale(1.08); /* ✅ UPDATED */
   transform-origin: center top; /* ✅ NEW: label scale từ trên xuống, ổn định hơn */
   text-shadow: 0 5px 18px rgba(0, 0, 0, 0.5); /* ✅ UPDATED */
-
 }
 .popup-title {
   order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
@@ -934,7 +987,6 @@ color: #fff;
   z-index: 2; /* ✅ KEEP */
   flex: 0 0 auto; /* ✅ NEW */
 }
-
 .availability-memo {
   left: 18px; /* ✅ NEW */
   bottom: 112px; /* ✅ NEW */
@@ -976,7 +1028,6 @@ color: #fff;
   animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
 }
 }
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1011,7 +1062,6 @@ color: #fff;
 </header>
 <section class="hero">
   <div class="overlay"></div>
-
   <!-- ✅ NEW: CHECK AVALIBILITY MEMO -->
   <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
     <span class="availability-memo-card" aria-hidden="true">
@@ -1027,7 +1077,6 @@ color: #fff;
       <span class="availability-memo-hint">open dates</span>
     </span>
   </button>
-
   <div class="content">
   <h1 class="title">
   <span class="title-desktop"> <!-- ✅ UPDATED -->
@@ -1069,7 +1118,9 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
 </div>
 <!-- ✅ NEW: 5 block -->
-<div class="popup-notes">
+<div class="popup-notes-shell"> <!-- ✅ NEW -->
+  <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button> <!-- ✅ NEW -->
+  <div class="popup-notes">
   <div class="popup-note-item">
     <div class="popup-note-box">
       <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
@@ -1100,11 +1151,11 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
-<!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
-</div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
+  </div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
+  <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button> <!-- ✅ NEW -->
+</div> <!-- popup-notes-shell --> <!-- ✅ NEW -->
 </div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
 </div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
-
 <!-- ✅ NEW: CHECK AVALIBILITY POPUP -->
 <div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
   <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
@@ -1130,7 +1181,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <a class="availability-contact" id="availabilityContactLink" href="mailto:?subject=Tour%20availability%20request">Sau khi chọn ngày màu xanh, bấm vào đây để gửi yêu cầu đặt lịch.</a>
   </div>
 </div>
-
 <!-- ✅ NEW: CTA INTERACTION -->
 <script>
 (function () {
@@ -1139,7 +1189,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   var popupCard = popup.querySelector('.popup-card');
   var closeBtn = popup.querySelector('.popup-close');
   var triggers = document.querySelectorAll('.cta-trigger'); /* ✅ UPDATED */
-
   var availabilityMemo = document.getElementById('availabilityMemo'); /* ✅ NEW */
   var availabilityPopup = document.getElementById('availability-popup'); /* ✅ NEW */
   var availabilityPopupCard = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-card') : null; /* ✅ NEW */
@@ -1239,7 +1288,6 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       renderAvailabilityCalendar(); /* ✅ NEW */
     });
   }
-
   function openPopup() {
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
@@ -1247,8 +1295,13 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     document.querySelectorAll('.cta-trigger').forEach(function (el) {
       el.setAttribute('aria-expanded', 'true');
     });
-    window.setTimeout(function () { setupInfinitePopupCarousel(true); }, 80); /* ✅ UPDATED: mỗi lần mở popup default ở snorkeling */
-    window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
+    if (isMobilePopupCarouselMode()) { /* ✅ UPDATED: infinite carousel chỉ dùng cho mobile */
+      window.setTimeout(function () { setupInfinitePopupCarousel(true); }, 80); /* ✅ UPDATED: mỗi lần mở popup default ở snorkeling */
+      window.setTimeout(requestCenteredPopupCardUpdate, 300); /* ✅ NEW */
+    } else if (popupNotes) {
+      popupNotes.scrollLeft = 0; /* ✅ NEW */
+      updatePopupArrowState(); /* ✅ NEW */
+    }
   }
   function closePopup() {
     popup.classList.remove('is-open'); /* ✅ NEW */
@@ -1277,6 +1330,8 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   });
   /* ✅ UPDATED: mobile infinite carousel center active card */
   var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
+  var popupArrowPrev = popup.querySelector('.popup-notes-arrow-left'); /* ✅ NEW */
+  var popupArrowNext = popup.querySelector('.popup-notes-arrow-right'); /* ✅ NEW */
   var popupNoteItems = []; /* ✅ UPDATED */
   var centerRafId = null; /* ✅ NEW */
   var infiniteLoopWidth = 0; /* ✅ NEW */
@@ -1284,6 +1339,44 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   var infiniteAfterStart = 0; /* ✅ UPDATED: scrollLeft khi clone sau của snorkeling nằm giữa */
   var isLoopJumping = false; /* ✅ NEW */
   var originalItemCount = 0; /* ✅ NEW */
+
+  function isMobilePopupCarouselMode() { /* ✅ NEW */
+    return window.matchMedia('(max-width: 768px)').matches; /* ✅ NEW */
+  }
+
+  function getPopupScrollStep() { /* ✅ NEW */
+    if (!popupNotes) return 320; /* ✅ REQUIRED FIX */
+
+    var firstItem = popupNotes.querySelector('.popup-note-item:not([data-clone="true"])') || popupNotes.querySelector('.popup-note-item'); /* ✅ NEW */
+
+    if (!firstItem) return Math.max(260, Math.round(popupNotes.clientWidth * 0.72)); /* ✅ REQUIRED FIX */
+
+    var popupNotesStyles = window.getComputedStyle(popupNotes); /* ✅ NEW */
+    var popupNotesGap = parseFloat(popupNotesStyles.columnGap || popupNotesStyles.gap || 0) || 0; /* ✅ NEW */
+
+    return Math.round(firstItem.getBoundingClientRect().width + popupNotesGap); /* ✅ NEW */
+  }
+
+  function updatePopupArrowState() { /* ✅ NEW */
+    if (!popupNotes || !popupArrowPrev || !popupArrowNext) return; /* ✅ REQUIRED FIX */
+
+    if (isMobilePopupCarouselMode()) { /* ✅ NEW */
+      popupArrowPrev.disabled = false; /* ✅ NEW */
+      popupArrowNext.disabled = false; /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+
+    var maxScrollLeft = Math.max(0, popupNotes.scrollWidth - popupNotes.clientWidth); /* ✅ NEW */
+
+    popupArrowPrev.disabled = popupNotes.scrollLeft <= 4; /* ✅ NEW */
+    popupArrowNext.disabled = popupNotes.scrollLeft >= maxScrollLeft - 4; /* ✅ NEW */
+  }
+
+  function scrollPopupNotes(direction) { /* ✅ NEW */
+    if (!popupNotes) return; /* ✅ REQUIRED FIX */
+
+    popupNotes.scrollBy({ left: getPopupScrollStep() * direction, behavior: 'smooth' }); /* ✅ NEW */
+  }
 
   function getOriginalPopupItems() { /* ✅ NEW */
     if (!popupNotes) return []; /* ✅ NEW */
@@ -1312,11 +1405,11 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     }
 
     requestCenteredPopupCardUpdate(); /* ✅ NEW */
+    updatePopupArrowState(); /* ✅ NEW */
   }
 
   function setupInfinitePopupCarousel(centerFirstItem) { /* ✅ UPDATED */
     if (!popupNotes) return; /* ✅ NEW */
-
     if (popupNotes.getAttribute('data-infinite-ready') === 'true') { /* ✅ NEW */
       popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
       window.setTimeout(function () { /* ✅ NEW */
@@ -1337,18 +1430,17 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       var beforeClone = item.cloneNode(true); /* ✅ NEW */
       beforeClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
       beforeClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
-      beforeFragment.appendChild(beforeClone); /* ✅ NEW */
+      beforeFragment.appendChild(beforeClone);
 
       var afterClone = item.cloneNode(true); /* ✅ NEW */
       afterClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
       afterClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
-      afterFragment.appendChild(afterClone); /* ✅ NEW */
+      afterFragment.appendChild(afterClone);
     });
 
     popupNotes.insertBefore(beforeFragment, popupNotes.firstChild); /* ✅ NEW */
     popupNotes.appendChild(afterFragment); /* ✅ NEW */
     popupNotes.setAttribute('data-infinite-ready', 'true'); /* ✅ NEW */
-
     popupNoteItems = Array.prototype.slice.call(popupNotes.querySelectorAll('.popup-note-item')); /* ✅ UPDATED */
 
     window.setTimeout(function () { /* ✅ NEW */
@@ -1357,11 +1449,10 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   }
 
   function syncInfinitePopupCarousel() { /* ✅ NEW */
+    if (!isMobilePopupCarouselMode()) return; /* ✅ NEW */
     if (!popupNotes || !infiniteLoopWidth || isLoopJumping) return; /* ✅ NEW */
-
     var currentScroll = popupNotes.scrollLeft; /* ✅ NEW */
     var safeOffset = 2; /* ✅ NEW */
-
     if (currentScroll < infiniteMiddleStart - safeOffset) { /* ✅ UPDATED */
       isLoopJumping = true; /* ✅ NEW */
       popupNotes.scrollLeft = currentScroll + infiniteLoopWidth; /* ✅ NEW */
@@ -1401,27 +1492,47 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 
   function requestCenteredPopupCardUpdate() { /* ✅ NEW */
     if (centerRafId) return; /* ✅ NEW */
-
     centerRafId = window.requestAnimationFrame(function () { /* ✅ NEW */
       centerRafId = null; /* ✅ NEW */
       updateCenteredPopupCard(); /* ✅ NEW */
     });
   }
 
+  if (popupArrowPrev) { /* ✅ NEW */
+    popupArrowPrev.addEventListener('click', function () { /* ✅ NEW */
+      scrollPopupNotes(-1); /* ✅ NEW */
+    });
+  }
+
+  if (popupArrowNext) { /* ✅ NEW */
+    popupArrowNext.addEventListener('click', function () { /* ✅ NEW */
+      scrollPopupNotes(1); /* ✅ NEW */
+    });
+  }
+
   if (popupNotes) { /* ✅ NEW */
-    popupNotes.addEventListener('scroll', requestCenteredPopupCardUpdate, { passive: true }); /* ✅ NEW */
+    popupNotes.addEventListener('scroll', function () { /* ✅ UPDATED */
+      requestCenteredPopupCardUpdate(); /* ✅ NEW */
+      updatePopupArrowState(); /* ✅ NEW */
+    }, { passive: true }); /* ✅ UPDATED */
     window.addEventListener('resize', function () { /* ✅ UPDATED */
       window.setTimeout(function () { /* ✅ NEW */
-        measureInfinitePopupCarousel(false); /* ✅ UPDATED: resize chỉ đo lại, không clone thêm */
+        if (isMobilePopupCarouselMode() && popupNotes.getAttribute('data-infinite-ready') === 'true') {
+          measureInfinitePopupCarousel(false); /* ✅ UPDATED: resize chỉ đo lại, không clone thêm */
+        }
+        updatePopupArrowState(); /* ✅ NEW */
       }, 120); /* ✅ NEW */
     }); /* ✅ UPDATED */
     window.addEventListener('orientationchange', function () { /* ✅ NEW */
       window.setTimeout(function () { /* ✅ NEW */
-        measureInfinitePopupCarousel(false); /* ✅ UPDATED */
+        if (isMobilePopupCarouselMode() && popupNotes.getAttribute('data-infinite-ready') === 'true') {
+          measureInfinitePopupCarousel(false); /* ✅ UPDATED */
+        }
+        updatePopupArrowState(); /* ✅ NEW */
       }, 250); /* ✅ NEW */
     }); /* ✅ NEW */
   }
-
+  updatePopupArrowState(); /* ✅ NEW */
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
