@@ -493,24 +493,34 @@ color: #fff;
   padding: 18px;
 }
 .popup-card {
-  width: min(94vw, 520px);
-  padding: 20px 18px 18px;
-  border-radius: 20px;
+  width: min(94vw, 520px);  
+  height: min(82dvh, 720px); /* ✅ UPDATED: ổn định viewport Brave mobile */  
+  max-height: calc(100dvh - 36px); /* ✅ NEW: không vượt màn hình mobile */  
+  padding: 20px 18px 18px;  
+  border-radius: 20px;  
+  display: flex; /* ✅ UPDATED */  
+  flex-direction: column; /* ✅ UPDATED */  
+  position: relative; /* ✅ KEEP */  
+  overflow: hidden; /* ✅ NEW: chống title/card tràn đè layout */  
 }
 /* ✅ NEW: 5 block grid */
 .popup-notes {
-  display: flex;
-  gap: 16px;
-  position: absolute;  /* ✅ NEW */
-  bottom: 20px;        /* ✅ NEW */
-  left: 18px;          /* ✅ NEW: align theo padding card */
-  right: 18px;         /* ✅ NEW */
-  overflow-x: auto;              /* ✅ KEEP */
-  overflow-y: hidden;            /* ✅ KEEP */
-  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  padding-bottom: 6px;
-  scrollbar-width: none;         /* ✅ KEEP */
-}
+  order: 3; /* ✅ NEW: đặt cards sau title */  
+  display: flex;  
+  gap: 16px;  
+  position: relative; /* ✅ UPDATED: bỏ absolute để không đè title trên Brave */  
+  bottom: auto; /* ✅ UPDATED */  
+  left: auto; /* ✅ UPDATED */  
+  right: auto; /* ✅ UPDATED */  
+  width: 100%; /* ✅ NEW */  
+  margin-top: 0; /* ✅ NEW */  
+  overflow-x: auto;              /* ✅ KEEP */  
+  overflow-y: hidden;            /* ✅ KEEP */  
+  -webkit-overflow-scrolling: touch; /* ✅ KEEP */  
+  padding-bottom: 6px;  
+  scrollbar-width: none;         /* ✅ KEEP */  
+  flex: 0 0 auto; /* ✅ NEW */  
+}  
 .popup-notes::-webkit-scrollbar {
   display: none; /* ✅ KEEP */
 }
@@ -523,7 +533,7 @@ color: #fff;
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
-  position: static; /* ✅ UPDATED: để dấu X bám lại popup-card */
+  position: content; /* ✅ UPDATED: để dấu X bám lại popup-card */
   margin: 0;        /* ✅ KEEP */
   padding: 0;       /* ✅ KEEP */
 }
