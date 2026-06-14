@@ -335,13 +335,22 @@ color: #fff;
   gap: 10px; /* ✅ KEEP */
 }
 
-.popup-note-box {  
-  width: 100%; /* ✅ NEW */
-  aspect-ratio: 1 / 1; /* ✅ KEEP */
-  background: #ffffff; /* ✅ KEEP */
-  border-radius: 12px; /* ✅ KEEP */
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
+.popup-note-box {
+  width: 100%; /* ✅ KEEP */  
+  aspect-ratio: 1 / 1; /* ✅ KEEP */  
+  background: #ffffff; /* ✅ KEEP */  
+  border-radius: 12px; /* ✅ KEEP */  
+  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */  
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
+  overflow: hidden; /* ✅ NEW: bo góc ảnh theo card */
+}
+
+.popup-note-img {
+  width: 100%; /* ✅ NEW */
+  height: 100%; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  object-fit: cover; /* ✅ NEW: ảnh phủ kín card không méo */
+
 }
 
 .popup-note-label {  
@@ -610,24 +619,34 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <!-- ✅ NEW: 5 block -->
 <div class="popup-notes">
   <div class="popup-note-item">
-    <div class="popup-note-box"></div> <!-- ✅ NEW -->
-    <span class="popup-note-label">snorkeling</span> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="snorkeling.jpg" alt="snorkeling"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">snorkeling</span>
   </div>
   <div class="popup-note-item">
-    <div class="popup-note-box"></div> <!-- ✅ NEW -->
-    <span class="popup-note-label">hiking</span> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="hiking.jpg" alt="hiking"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">hiking</span>
   </div>
   <div class="popup-note-item">
-    <div class="popup-note-box"></div> <!-- ✅ NEW -->
-    <span class="popup-note-label">propose</span> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="propose.jpg" alt="propose"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">propose</span>
   </div>
   <div class="popup-note-item">
-    <div class="popup-note-box"></div> <!-- ✅ NEW -->
-    <span class="popup-note-label">camping</span> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="camping.jpg" alt="camping"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">camping</span>
   </div>
   <div class="popup-note-item">
-    <div class="popup-note-box"></div> <!-- ✅ NEW -->
-    <span class="popup-note-label">coral dictionary</span> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">coral dictionary</span>
   </div>
 </div>
 <!-- ❗ CHỈ SAU KHI XONG MỚI đóng -->
