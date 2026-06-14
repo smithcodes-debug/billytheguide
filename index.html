@@ -452,12 +452,9 @@ color: #fff;
 }
   /* ✅ NEW: mobile reorder + hide */
 .popup-head {
-  position: absolute; /* ✅ UPDATED */
-  left: 18px;         /* ✅ NEW */
-  right: 18px;        /* ✅ NEW */
-  bottom: 286px;      /* ✅ NEW: đặt title ngay trên 5 popup card */
-  margin: 0;          /* ✅ UPDATED */
-  padding: 0;         /* ✅ UPDATED */
+  position: static; /* ✅ UPDATED: để dấu X bám lại popup-card */
+  margin: 0;        /* ✅ KEEP */
+  padding: 0;       /* ✅ KEEP */
 
 }
 .popup-copy {
@@ -499,11 +496,16 @@ color: #fff;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 .popup-title {
+  position: absolute; /* ✅ UPDATED: title vẫn nằm trên 5 popup card */
+  left: 18px;         /* ✅ NEW */
+  right: 18px;        /* ✅ NEW */
+  bottom: 286px;      /* ✅ NEW: giữ title trên 5 popup card */
   font-size: 22px;
-  margin: 0; /* ✅ NEW */
+  margin: 0;          /* ✅ KEEP */
+}
 
 }
-}
+
   </style>
 </head>
 <body>
