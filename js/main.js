@@ -1,5 +1,5 @@
 import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
-import { initNavigation, initContactPopup } from './ui/navigation.js'; /* ✅ UPDATED */
+import { initNavigation, initContactPopup, initSnorkelingCardNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
 
 function initHomePopup() { /* ✅ NEW */
@@ -69,5 +69,7 @@ initGesture(); /* ✅ UPDATED */
 initNavigation(); /* ✅ UPDATED */
 initHomePopup(); /* ✅ UPDATED */
 initContactPopup(); /* ✅ UPDATED */
+initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
+initHome(); /* ✅ UPDATED */
 initHome(); /* ✅ UPDATED */
