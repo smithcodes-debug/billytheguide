@@ -1,5 +1,7 @@
 /* ✅ UPDATED: moved from inline script in coral-snorkeling-phu-quoc.html */
-document.addEventListener('DOMContentLoaded', function () {  var backButton = document.getElementById('snorkelingBackButton'); /* ✅ NEW */
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('snorkeling.js loaded'); /* ✅ NEW */
+  var backButton = document.getElementById('snorkelingBackButton'); /* ✅ NEW */
   var heroVideo = document.getElementById('snorkelingHeroVideo'); /* ✅ NEW */
   var bookingModal = document.getElementById('snorkelingBookingModal'); /* ✅ NEW */
   var prepModal = document.getElementById('snorkelingPrepModal'); /* ✅ NEW */

@@ -72,4 +72,3 @@ initContactPopup(); /* ✅ UPDATED */
 initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
 initHome(); /* ✅ UPDATED */
-initHome(); /* ✅ UPDATED */
