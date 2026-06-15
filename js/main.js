@@ -1,6 +1,7 @@
 import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
+import { initNavigation, initContactPopup } from './ui/navigation.js'; /* ✅ UPDATED */
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
-import { initNavigation, initContactPopup } from './ui/navigation
+
 function initHomePopup() { /* ✅ NEW */
   const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
   const popup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
@@ -63,45 +64,6 @@ function initHomePopup() { /* ✅ NEW */
 function initHome() { /* ✅ UPDATED */
   console.log('Home initialized'); /* ✅ UPDATED */
 }
-
-
-  function closeContactPopup() { /* ✅ NEW */
-    contactPopup.classList.remove('is-open'); /* ✅ NEW */
-    contactPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-    document.documentElement.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
-    document.body.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
-    contactPopupCard.style.transform = ''; /* ✅ NEW */
-    logoTrigger.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
-  }
-
-  logoTrigger.addEventListener('click', function () { /* ✅ NEW */
-    openContactPopup(); /* ✅ NEW */
-  });
-
-  logoTrigger.addEventListener('keydown', function (event) { /* ✅ NEW */
-    if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
-      event.preventDefault(); /* ✅ NEW */
-      openContactPopup(); /* ✅ NEW */
-    }
-  });
-
-  contactCloseBtn.addEventListener('click', closeContactPopup); /* ✅ NEW */
-
-  contactPopup.addEventListener('click', function (event) { /* ✅ NEW */
-    if (!contactPopupCard.contains(event.target)) { /* ✅ NEW */
-      closeContactPopup(); /* ✅ NEW */
-    }
-  });
-
-  document.addEventListener('keydown', function (event) { /* ✅ NEW */
-    if (event.key === 'Escape' && contactPopup.classList.contains('is-open')) { /* ✅ NEW */
-      closeContactPopup(); /* ✅ NEW */
-    }
-  });
-
-  console.log('Contact popup initialized'); /* ✅ NEW */
-}
-
 
 initGesture(); /* ✅ UPDATED */
 initNavigation(); /* ✅ UPDATED */
