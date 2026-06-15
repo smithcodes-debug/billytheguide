@@ -1,4 +1,5 @@
 import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
+import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
 import { initNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
 
 function initHomePopup() { /* ✅ NEW */

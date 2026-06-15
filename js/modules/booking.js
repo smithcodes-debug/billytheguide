@@ -1,14 +1,37 @@
-export function initBooking() {
-  const form = document.getElementById('bookingForm');
-  if (!form) return;
+export function initAvailabilityPopup() { /* ✅ NEW */
+  const availabilityMemo = document.getElementById('availabilityMemo'); /* ✅ NEW */
+  const availabilityPopup = document.getElementById('availability-popup'); /* ✅ NEW */
+  const availabilityPopupCard = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-card') : null; /* ✅ NEW */
+  const availabilityCloseBtn = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-close') : null; /* ✅ NEW */
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (!availabilityMemo || !availabilityPopup || !availabilityPopupCard || !availabilityCloseBtn) return; /* ✅ REQUIRED FIX */
 
-    const name = form.querySelector('#name')?.value;
-    const guests = form.querySelector('#guests')?.value;
+  function openAvailabilityPopup() { /* ✅ NEW */
+    availabilityPopup.classList.add('is-open'); /* ✅ NEW */
+    availabilityPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+    availabilityMemo.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
+  }
 
-    console.log('Booking:', { name, guests });
-    alert('Booking submitted (demo)');
+  function closeAvailabilityPopup() { /* ✅ NEW */
+    availabilityPopup.classList.remove('is-open'); /* ✅ NEW */
+    availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+    availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
+  }
+
+  availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
+  availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ NEW */
+
+  availabilityPopup.addEventListener('click', function (event) { /* ✅ NEW */
+    if (!availabilityPopupCard.contains(event.target)) { /* ✅ NEW */
+      closeAvailabilityPopup(); /* ✅ NEW */
+    }
   });
+
+  document.addEventListener('keydown', function (event) { /* ✅ NEW */
+    if (event.key === 'Escape' && availabilityPopup.classList.contains('is-open')) { /* ✅ NEW */
+      closeAvailabilityPopup(); /* ✅ NEW */
+    }
+  });
+
+  console.log('Availability popup initialized from booking module'); /* ✅ NEW */
 }
