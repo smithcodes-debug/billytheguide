@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-  <div class="logo">
+  <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false"> <!-- ✅ UPDATED -->
     <div class="mask">
       <div class="fish">🐠</div>
       <div class="bubble b1"></div>
@@ -175,7 +175,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
   <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
     <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
-    <div class="contact-popup-drag-handle" aria-hidden="true"></div>
+    <div class="contact-popup-drag-handle" aria-hidden="true">About US</div> <!-- ✅ UPDATED -->
     <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398">+84 812233398</a>
     <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p> <!-- ✅ NEW -->
     <div class="contact-social-list" aria-label="Kênh liên hệ">  
@@ -220,6 +220,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
         <span class="contact-social-label">line</span> <!-- ✅ NEW -->
       </span> <!-- ✅ NEW -->
     </div>
+    <div class="contact-footer-text">find me on what you have</div> <!-- ✅ NEW -->
   </div>
 </div>
 <!-- ✅ NEW: CTA INTERACTION -->

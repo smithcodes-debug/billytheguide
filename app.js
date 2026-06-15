@@ -20,6 +20,7 @@
   var contactPopup = document.getElementById('contact-popup'); /* ✅ NEW */
   var contactPopupCard = contactPopup ? contactPopup.querySelector('.contact-popup-card') : null; /* ✅ NEW */
   var contactCloseBtn = contactPopup ? contactPopup.querySelector('.contact-popup-close') : null; /* ✅ NEW */
+  var logoTrigger = document.getElementById('logoTrigger'); /* ✅ NEW */
   var mobileGestureStartY = 0; /* ✅ NEW */
   var mobileGestureStartX = 0; /* ✅ NEW */
   var mobileGestureStartTarget = null; /* ✅ NEW */
@@ -279,6 +280,7 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
     contactPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
     lockMobilePopupScroll(); /* ✅ NEW */
     mobileFakeHaptic(); /* ✅ NEW */
+    if (logoTrigger) logoTrigger.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
   }
   function closeContactPopup() { /* ✅ NEW */
     if (!contactPopup) return; /* ✅ REQUIRED FIX */
@@ -286,6 +288,7 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
     contactPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
     unlockMobilePopupScroll(); /* ✅ NEW */
     if (contactPopupCard) contactPopupCard.style.transform = ''; /* ✅ NEW */
+    if (logoTrigger) logoTrigger.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
   }
   function handleMobileGestureStart(event) { /* ✅ NEW */
     if (!isMobileGestureViewport()) return; /* ✅ NEW */
@@ -344,6 +347,17 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
     }
     contactDragDeltaY = 0; /* ✅ NEW */
   }
+  if (logoTrigger) { /* ✅ NEW */
+    logoTrigger.addEventListener('click', function () { /* ✅ NEW */
+      openContactPopup(); /* ✅ NEW */
+    }); /* ✅ NEW */
+    logoTrigger.addEventListener('keydown', function (event) { /* ✅ NEW */
+      if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
+        event.preventDefault(); /* ✅ NEW */
+        openContactPopup(); /* ✅ NEW */
+      } /* ✅ NEW */
+    }); /* ✅ NEW */
+  } /* ✅ NEW */
   if (availabilityMemo) availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
   if (availabilityCloseBtn) availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ NEW */
   if (availabilityContactLink) availabilityContactLink.addEventListener('click', openAvailabilityTourCards); /* ✅ NEW */

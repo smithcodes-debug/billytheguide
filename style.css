@@ -1312,6 +1312,101 @@ color: #fff;
   pointer-events: none; /* ✅ NEW */
 }
 
+
+/* ✅ NEW: CONTACT POPUP FOOTER TEXT */
+.contact-footer-text {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ✅ NEW: CONTACT SOCIAL LOGO - 10 subtle animations */
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(1) {
+  animation: contactFadeUp 0.72s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(2) {
+  animation: contactFadeDown 0.78s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(3) {
+  animation: contactScaleIn 0.74s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(4) {
+  animation: contactSoftRotate 0.82s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(5) {
+  animation: contactFadeLeft 0.76s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(6) {
+  animation: contactFadeRight 0.76s ease both;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(7) {
+  animation: contactSoftFloat 2.8s ease-in-out infinite;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(8) {
+  animation: contactScalePulse 3s ease-in-out infinite;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(9) {
+  animation: contactSoftTilt 3.2s ease-in-out infinite;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(10) {
+  animation: contactGlowSoft 3.4s ease-in-out infinite;
+}
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(1) { animation-delay: 0.03s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(2) { animation-delay: 0.06s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(3) { animation-delay: 0.09s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(4) { animation-delay: 0.12s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(5) { animation-delay: 0.15s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(6) { animation-delay: 0.18s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(7) { animation-delay: 0.21s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(8) { animation-delay: 0.24s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(9) { animation-delay: 0.27s; }
+.contact-popup-backdrop.is-open .contact-social-item:nth-child(10) { animation-delay: 0.3s; }
+
+@keyframes contactFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes contactFadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes contactFadeLeft {
+  from { opacity: 0; transform: translateX(9px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes contactFadeRight {
+  from { opacity: 0; transform: translateX(-9px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes contactScaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes contactSoftRotate {
+  from { opacity: 0; transform: rotate(-4deg) scale(0.96); }
+  to { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+@keyframes contactSoftFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes contactScalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045); }
+}
+@keyframes contactSoftTilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.4deg); }
+}
+@keyframes contactGlowSoft {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+  50% { filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.24)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
