@@ -1589,3 +1589,47 @@ color: #fff;
 .availability-legend {
   display: none; /* ✅ UPDATED: xóa dòng Available / Booked / Contact first khỏi UI */
 }
+
+/* ✅ NEW: SNORKELING CARD NAVIGATION */
+.popup-note-item[data-tour="snorkeling"] {
+  cursor: pointer;
+  touch-action: pan-x;
+}
+
+.popup-note-item[data-tour="snorkeling"]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.88);
+  outline-offset: 7px;
+  border-radius: 16px;
+}
+
+.popup-note-item.is-snorkeling-transition-target {
+  z-index: 30;
+}
+
+.popup-note-item.is-snorkeling-transition-target .popup-note-box {
+  transform: scale(1.055);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+body.snorkeling-transition-ready {
+  transition: opacity 0.42s ease, transform 0.42s ease;
+}
+
+body.is-snorkeling-navigating {
+  opacity: 0;
+  transform: scale(1.012);
+  pointer-events: none;
+}
+
+body.is-snorkeling-navigating .popup-backdrop.is-open {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.snorkeling-transition-ready,
+  body.is-snorkeling-navigating,
+  .popup-note-item.is-snorkeling-transition-target .popup-note-box {
+    transition-duration: 0.001ms !important;
+    transform: none !important;
+  }
+}

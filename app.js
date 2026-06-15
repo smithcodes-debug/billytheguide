@@ -433,6 +433,12 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
   });
   /* ✅ UPDATED: mobile infinite carousel center active card */
   var popupNotes = popup.querySelector('.popup-notes'); /* ✅ NEW */
+  var snorkelingLandingUrl = 'coral-snorkeling-phu-quoc.html'; /* ✅ NEW */
+  var snorkelingNavigationLocked = false; /* ✅ NEW */
+  var snorkelingTouchStartX = 0; /* ✅ NEW */
+  var snorkelingTouchStartY = 0; /* ✅ NEW */
+  var snorkelingSuppressClick = false; /* ✅ NEW */
+  var snorkelingSuppressClickTimer = null; /* ✅ NEW */
   var popupArrowPrev = popup.querySelector('.popup-notes-arrow-left'); /* ✅ NEW */
   var popupArrowNext = popup.querySelector('.popup-notes-arrow-right'); /* ✅ NEW */
   var popupNoteItems = []; /* ✅ UPDATED */
@@ -533,11 +539,17 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
       var beforeClone = item.cloneNode(true); /* ✅ NEW */
       beforeClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
       beforeClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      beforeClone.removeAttribute('tabindex'); /* ✅ REQUIRED FIX */
+      beforeClone.removeAttribute('role'); /* ✅ REQUIRED FIX */
+      beforeClone.removeAttribute('aria-label'); /* ✅ REQUIRED FIX */
       beforeFragment.appendChild(beforeClone);
 
       var afterClone = item.cloneNode(true); /* ✅ NEW */
       afterClone.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
       afterClone.setAttribute('data-clone', 'true'); /* ✅ NEW */
+      afterClone.removeAttribute('tabindex'); /* ✅ REQUIRED FIX */
+      afterClone.removeAttribute('role'); /* ✅ REQUIRED FIX */
+      afterClone.removeAttribute('aria-label'); /* ✅ REQUIRED FIX */
       afterFragment.appendChild(afterClone);
     });
 
@@ -600,6 +612,74 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
       updateCenteredPopupCard(); /* ✅ NEW */
     });
   }
+  function getSnorkelingPopupCard(target) { /* ✅ NEW */
+    var card = target && target.closest ? target.closest('.popup-note-item') : null; /* ✅ NEW */
+    if (!card || !popupNotes || !popupNotes.contains(card)) return null; /* ✅ REQUIRED FIX */
+    var tourName = (card.getAttribute('data-tour') || '').toLowerCase(); /* ✅ NEW */
+    var label = card.querySelector('.popup-note-label'); /* ✅ NEW */
+    var labelText = label ? label.textContent.replace(/\s+/g, ' ').trim().toLowerCase() : ''; /* ✅ NEW */
+    if (tourName === 'snorkeling' || labelText === 'snorkeling') return card; /* ✅ NEW */
+    return null; /* ✅ NEW */
+  }
+  function navigateToSnorkelingLanding(card) { /* ✅ NEW */
+    if (snorkelingNavigationLocked) return; /* ✅ REQUIRED FIX */
+    snorkelingNavigationLocked = true; /* ✅ NEW */
+    if (!document.body || !document.body.classList) { /* ✅ REQUIRED FIX */
+      window.location.href = snorkelingLandingUrl; /* ✅ REQUIRED FIX */
+      return; /* ✅ REQUIRED FIX */
+    }
+    if (card && card.classList) card.classList.add('is-snorkeling-transition-target'); /* ✅ NEW */
+    document.body.classList.add('snorkeling-transition-ready'); /* ✅ NEW */
+    window.requestAnimationFrame(function () { /* ✅ NEW */
+      document.body.classList.add('is-snorkeling-navigating'); /* ✅ NEW */
+    });
+    window.setTimeout(function () { /* ✅ NEW */
+      window.location.href = snorkelingLandingUrl; /* ✅ NEW */
+    }, 430); /* ✅ NEW */
+  }
+  function handleSnorkelingTouchStart(event) { /* ✅ NEW */
+    if (!getSnorkelingPopupCard(event.target)) return; /* ✅ NEW */
+    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+    snorkelingTouchStartX = event.touches[0].clientX; /* ✅ NEW */
+    snorkelingTouchStartY = event.touches[0].clientY; /* ✅ NEW */
+    snorkelingSuppressClick = false; /* ✅ NEW */
+    if (snorkelingSuppressClickTimer) { /* ✅ NEW */
+      window.clearTimeout(snorkelingSuppressClickTimer); /* ✅ NEW */
+      snorkelingSuppressClickTimer = null; /* ✅ NEW */
+    }
+  }
+  function handleSnorkelingTouchMove(event) { /* ✅ NEW */
+    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+    if (!getSnorkelingPopupCard(event.target)) return; /* ✅ NEW */
+    var deltaX = event.touches[0].clientX - snorkelingTouchStartX; /* ✅ NEW */
+    var deltaY = event.touches[0].clientY - snorkelingTouchStartY; /* ✅ NEW */
+    if (Math.abs(deltaX) > 14 || Math.abs(deltaY) > 14) snorkelingSuppressClick = true; /* ✅ NEW */
+  }
+  function handleSnorkelingTouchEnd() { /* ✅ NEW */
+    if (!snorkelingSuppressClick) return; /* ✅ NEW */
+    snorkelingSuppressClickTimer = window.setTimeout(function () { /* ✅ NEW */
+      snorkelingSuppressClick = false; /* ✅ NEW */
+      snorkelingSuppressClickTimer = null; /* ✅ NEW */
+    }, 360); /* ✅ NEW */
+  }
+  function handleSnorkelingCardClick(event) { /* ✅ NEW */
+    var card = getSnorkelingPopupCard(event.target); /* ✅ NEW */
+    if (!card) return; /* ✅ NEW */
+    if (snorkelingSuppressClick) { /* ✅ REQUIRED FIX: không navigate khi user đang swipe carousel */
+      event.preventDefault(); /* ✅ REQUIRED FIX */
+      return; /* ✅ REQUIRED FIX */
+    }
+    event.preventDefault(); /* ✅ NEW */
+    navigateToSnorkelingLanding(card); /* ✅ NEW */
+  }
+  function handleSnorkelingCardKeydown(event) { /* ✅ NEW */
+    var card = getSnorkelingPopupCard(event.target); /* ✅ NEW */
+    if (!card) return; /* ✅ NEW */
+    if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
+      event.preventDefault(); /* ✅ NEW */
+      navigateToSnorkelingLanding(card); /* ✅ NEW */
+    }
+  }
 
   if (popupArrowPrev) { /* ✅ NEW */
     popupArrowPrev.addEventListener('click', function () { /* ✅ NEW */
@@ -614,6 +694,12 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
   }
 
   if (popupNotes) { /* ✅ NEW */
+    popupNotes.addEventListener('touchstart', handleSnorkelingTouchStart, { passive: true }); /* ✅ NEW */
+    popupNotes.addEventListener('touchmove', handleSnorkelingTouchMove, { passive: true }); /* ✅ NEW */
+    popupNotes.addEventListener('touchend', handleSnorkelingTouchEnd, { passive: true }); /* ✅ NEW */
+    popupNotes.addEventListener('click', handleSnorkelingCardClick); /* ✅ NEW */
+    popupNotes.addEventListener('keydown', handleSnorkelingCardKeydown); /* ✅ NEW */
+
     popupNotes.addEventListener('scroll', function () { /* ✅ UPDATED */
       requestCenteredPopupCardUpdate(); /* ✅ NEW */
       updatePopupArrowState(); /* ✅ NEW */
