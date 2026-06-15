@@ -274,8 +274,8 @@ if (isAvailabilityTodayDate(dateKey)) button.classList.add('is-today-date'); /* 
     document.documentElement.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
     document.body.classList.remove('mobile-popup-scroll-lock'); /* ✅ NEW */
   }
-  function openContactPopup() { /* ✅ NEW */
-    if (!contactPopup || !isMobileGestureViewport()) return; /* ✅ REQUIRED FIX */
+  function openContactPopup() { /* ✅ UPDATED */
+    if (!contactPopup) return; /* ✅ REQUIRED FIX: cho phép logo mở contact memo trên cả desktop và mobile */
     contactPopup.classList.add('is-open'); /* ✅ NEW */
     contactPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
     lockMobilePopupScroll(); /* ✅ NEW */

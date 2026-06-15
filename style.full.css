@@ -1028,9 +1028,176 @@ color: #fff;
   animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
 }
 }
-/* ✅ NEW: CONTACT POPUP - desktop inert, mobile styles below */
+/* ✅ UPDATED: CONTACT POPUP - áp dụng cho cả desktop và mobile */
 .contact-popup-backdrop {
-  display: none; /* ✅ NEW: không ảnh hưởng desktop */
+  position: fixed; /* ✅ NEW */
+  inset: 0; /* ✅ NEW */
+  z-index: 1001; /* ✅ NEW */
+  display: flex; /* ✅ UPDATED: desktop cũng có thể mở contact memo */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  padding: 36px; /* ✅ NEW */
+  background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
+  backdrop-filter: blur(4px); /* ✅ NEW */
+  -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
+  opacity: 0; /* ✅ NEW */
+  visibility: hidden; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+}
+.contact-popup-backdrop.is-open {
+  opacity: 1; /* ✅ NEW */
+  visibility: visible; /* ✅ NEW */
+  pointer-events: auto; /* ✅ NEW */
+}
+.contact-popup-card {
+  position: relative; /* ✅ NEW */
+  width: min(92vw, 560px); /* ✅ NEW */
+  max-height: calc(100dvh - 72px); /* ✅ NEW */
+  padding: 28px 24px 26px; /* ✅ NEW */
+  border-radius: 24px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
+  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
+  color: #fff; /* ✅ NEW */
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  backdrop-filter: blur(14px); /* ✅ NEW */
+  -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
+  transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
+  opacity: 0; /* ✅ NEW */
+  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW */
+  will-change: transform, opacity; /* ✅ NEW */
+  overflow-y: auto; /* ✅ NEW */
+  -webkit-overflow-scrolling: touch; /* ✅ NEW */
+}
+.contact-popup-backdrop.is-open .contact-popup-card {
+  transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
+  opacity: 1; /* ✅ NEW */
+}
+.contact-popup-close {
+  position: absolute; /* ✅ NEW */
+  top: 12px; /* ✅ NEW */
+  right: 12px; /* ✅ NEW */
+  width: 36px; /* ✅ NEW */
+  height: 36px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  color: #fff; /* ✅ NEW */
+  font-size: 22px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+}
+.contact-popup-drag-handle {
+  width: max-content; /* ✅ UPDATED */
+  height: auto; /* ✅ UPDATED */
+  margin: 0 auto 18px; /* ✅ NEW */
+  padding: 4px 14px; /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.18); /* ✅ UPDATED */
+  color: rgba(255, 255, 255, 0.9); /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+}
+.contact-phone-link {
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  width: 100%; /* ✅ NEW */
+  min-height: 44px; /* ✅ NEW */
+  margin: 0 auto 24px; /* ✅ NEW */
+  border-radius: 14px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
+  color: #fff; /* ✅ NEW */
+  text-decoration: none; /* ✅ NEW */
+  font-size: 20px; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: 0.01em; /* ✅ NEW */
+}
+.contact-popup-story {
+  margin: 0 0 18px; /* ✅ NEW */
+  padding: 12px 13px; /* ✅ NEW */
+  border-radius: 16px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
+  line-height: 1.42; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+.contact-social-list {
+  display: grid; /* ✅ NEW */
+  grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
+  gap: 12px; /* ✅ NEW */
+  align-items: start; /* ✅ NEW */
+}
+.contact-social-item {
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  gap: 8px; /* ✅ NEW */
+  min-width: 0; /* ✅ NEW */
+  color: #fff; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+.contact-social-icon {
+  width: 46px; /* ✅ NEW */
+  height: 46px; /* ✅ NEW */
+  border-radius: 12px; /* ✅ NEW */
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  color: #fff; /* ✅ NEW */
+  font-size: 21px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  font-weight: 800; /* ✅ NEW */
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+}
+.contact-social-icon.facebook {
+  background: #1877f2; /* ✅ NEW */
+}
+.contact-social-icon.telegram {
+  background: #229ed9; /* ✅ NEW */
+}
+.contact-social-icon.kakao {
+  background: #fee500; /* ✅ NEW */
+  color: #111; /* ✅ NEW */
+}
+.contact-social-icon.zalo {
+  background: #0068ff; /* ✅ NEW */
+}
+.contact-social-icon.tiktok {
+  background: #111111; /* ✅ NEW */
+}
+.contact-social-icon.youtube {
+  background: #ff0033; /* ✅ NEW */
+}
+.contact-social-icon.wechat {
+  background: #19c15f; /* ✅ NEW */
+}
+.contact-social-icon.google-map {
+  background: #34a853; /* ✅ NEW */
+}
+.contact-social-icon.maill {
+  background: #ea4335; /* ✅ NEW */
+}
+.contact-social-icon.line {
+  background: #06c755; /* ✅ NEW */
+}
+.contact-social-label {
+  display: block; /* ✅ NEW */
+  max-width: 68px; /* ✅ NEW */
+  font-size: 11px; /* ✅ NEW */
+  line-height: 1.15; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+  overflow-wrap: anywhere; /* ✅ NEW */
+}
+#logoTrigger {
+  cursor: pointer; /* ✅ NEW */
+  touch-action: manipulation; /* ✅ NEW */
 }
 .mobile-popup-scroll-lock {
   overflow: hidden; /* ✅ NEW */
