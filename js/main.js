@@ -1,7 +1,6 @@
 import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
-import { initNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
-
+import { initNavigation, initContactPopup } from './ui/navigation
 function initHomePopup() { /* ✅ NEW */
   const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
   const popup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
@@ -64,21 +63,7 @@ function initHomePopup() { /* ✅ NEW */
 function initHome() { /* ✅ UPDATED */
   console.log('Home initialized'); /* ✅ UPDATED */
 }
-function initContactPopup() { /* ✅ NEW */
-  const contactPopup = document.getElementById('contact-popup'); /* ✅ NEW */
-  const contactPopupCard = contactPopup ? contactPopup.querySelector('.contact-popup-card') : null; /* ✅ NEW */
-  const contactCloseBtn = contactPopup ? contactPopup.querySelector('.contact-popup-close') : null; /* ✅ NEW */
-  const logoTrigger = document.getElementById('logoTrigger'); /* ✅ NEW */
 
-  if (!contactPopup || !contactPopupCard || !contactCloseBtn || !logoTrigger) return; /* ✅ REQUIRED FIX */
-
-  function openContactPopup() { /* ✅ NEW */
-    contactPopup.classList.add('is-open'); /* ✅ NEW */
-    contactPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-    document.documentElement.classList.add('mobile-popup-scroll-lock'); /* ✅ NEW */
-    document.body.classList.add('mobile-popup-scroll-lock'); /* ✅ NEW */
-    logoTrigger.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
-  }
 
   function closeContactPopup() { /* ✅ NEW */
     contactPopup.classList.remove('is-open'); /* ✅ NEW */
