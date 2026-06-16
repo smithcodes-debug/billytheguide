@@ -1849,6 +1849,153 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     transition-duration: 0.001ms !important; /* ✅ NEW */
   }
 }
+/* ✅ NEW: STORY EXPAND SECTION */
+.more-stories-section {
+  position: relative; /* ✅ NEW */
+  min-height: 2000px; /* ✅ NEW */
+  padding: 96px 24px 140px; /* ✅ NEW */
+  background: linear-gradient(180deg, #f8fbfd 0%, #eef7f8 45%, #f7fbff 100%); /* ✅ NEW */
+  color: #1c2833; /* ✅ NEW */
+  overflow: hidden; /* ✅ NEW */
+}
+.more-stories-section::before {
+  content: ""; /* ✅ REQUIRED FIX */
+  position: absolute; /* ✅ NEW */
+  inset: 0 0 auto; /* ✅ NEW */
+  height: 160px; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); /* ✅ NEW */
+}
+.more-stories-inner {
+  position: relative; /* ✅ NEW */
+  z-index: 1; /* ✅ NEW */
+  width: min(1120px, 100%); /* ✅ NEW */
+  margin: 0 auto; /* ✅ NEW */
+}
+.more-stories-kicker {
+  margin: 0 0 10px; /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.58); /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
+  line-height: 1.3; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: 0.08em; /* ✅ NEW */
+  text-transform: uppercase; /* ✅ NEW */
+}
+.more-stories-title {
+  margin: 0; /* ✅ NEW */
+  max-width: 780px; /* ✅ NEW */
+  color: #17202a; /* ✅ NEW */
+  font-size: clamp(34px, 7vw, 64px); /* ✅ NEW */
+  line-height: 0.98; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: -0.04em; /* ✅ NEW */
+}
+.more-stories-intro {
+  max-width: 760px; /* ✅ NEW */
+  margin: 22px 0 0; /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.72); /* ✅ NEW */
+  font-size: clamp(16px, 2.2vw, 19px); /* ✅ NEW */
+  line-height: 1.72; /* ✅ NEW */
+  font-weight: 500; /* ✅ NEW */
+}
+.more-stories-back-button {
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  min-height: 42px; /* ✅ NEW */
+  margin: 28px 0 0; /* ✅ NEW */
+  padding: 10px 16px; /* ✅ NEW */
+  border: 1px solid rgba(20, 40, 60, 0.1); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
+  color: #1c2833; /* ✅ NEW */
+  font: inherit; /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); /* ✅ NEW */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.more-story-grid {
+  display: grid; /* ✅ NEW */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ NEW */
+  gap: 18px; /* ✅ NEW */
+  margin-top: 48px; /* ✅ NEW */
+}
+.more-story-card {
+  min-height: 320px; /* ✅ NEW */
+  padding: 14px; /* ✅ NEW */
+  border: 1px solid rgba(20, 40, 60, 0.08); /* ✅ NEW */
+  border-radius: 24px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.76); /* ✅ NEW */
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.08); /* ✅ NEW */
+}
+.more-story-media {
+  width: 100%; /* ✅ NEW */
+  aspect-ratio: 4 / 3; /* ✅ NEW */
+  border-radius: 18px; /* ✅ NEW */
+  background: linear-gradient(135deg, rgba(36, 120, 140, 0.12), rgba(255, 255, 255, 0.75)); /* ✅ NEW */
+  border: 1px dashed rgba(20, 40, 60, 0.14); /* ✅ NEW */
+}
+.more-story-body {
+  padding: 16px 4px 4px; /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.68); /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1.58; /* ✅ NEW */
+}
+.more-story-card-title {
+  margin: 0 0 8px; /* ✅ NEW */
+  color: #17202a; /* ✅ NEW */
+  font-size: 18px; /* ✅ NEW */
+  line-height: 1.18; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+}
+.more-story-timeline {
+  margin-top: 56px; /* ✅ NEW */
+  padding: 26px; /* ✅ NEW */
+  border: 1px solid rgba(20, 40, 60, 0.08); /* ✅ NEW */
+  border-radius: 28px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.64); /* ✅ NEW */
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
+}
+.more-story-timeline-title {
+  margin: 0 0 20px; /* ✅ NEW */
+  color: #17202a; /* ✅ NEW */
+  font-size: clamp(24px, 4vw, 38px); /* ✅ NEW */
+  line-height: 1.08; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+}
+.more-story-timeline-list {
+  display: grid; /* ✅ NEW */
+  gap: 14px; /* ✅ NEW */
+}
+.more-story-timeline-item {
+  min-height: 82px; /* ✅ NEW */
+  padding: 16px; /* ✅ NEW */
+  border-radius: 18px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
+  border: 1px dashed rgba(20, 40, 60, 0.12); /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.62); /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1.55; /* ✅ NEW */
+}
+@media (max-width: 768px) {
+  .more-stories-section {
+    min-height: 2000px; /* ✅ NEW */
+    padding: 88px 20px 120px; /* ✅ NEW */
+  }
+  .more-story-grid {
+    grid-template-columns: 1fr; /* ✅ NEW */
+    gap: 16px; /* ✅ NEW */
+  }
+  .more-story-card {
+    min-height: 300px; /* ✅ NEW */
+  }
+  .more-story-timeline {
+    padding: 18px; /* ✅ NEW */
+  }
+}
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
@@ -2080,6 +2227,69 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <div class="contact-footer-text">find me on what you have</div> <!-- ✅ NEW -->
   </div>
 </div>
+<!-- ✅ NEW: STORY EXPAND SECTION -->
+<section class="more-stories-section" id="more-stories-section" aria-labelledby="moreStoriesTitle">
+  <div class="more-stories-inner">
+    <p class="more-stories-kicker">Billy and Friend Adventures</p>
+    <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">More stories from Billy and Friend Adventures</h2>
+    <p class="more-stories-intro">A quiet place for deeper stories about Phú Quốc, local memories, coral respect, slow travel, and the Leave no trace philosophy.</p>
+    <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Quay lại khu vực tour">Back to tours</button>
+
+    <div class="more-story-grid" aria-label="Story cards">
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">Story card</h3>
+          <!-- Story content will be added here -->
+        </div>
+      </article>
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">Coral / environment</h3>
+          <!-- Coral education content will be added here -->
+        </div>
+      </article>
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">Founder / local story</h3>
+          <!-- Founder/local story content will be added here -->
+        </div>
+      </article>
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">Tour philosophy</h3>
+          <!-- Tour philosophy content will be added here -->
+        </div>
+      </article>
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">Leave no trace</h3>
+          <!-- Leave no trace philosophy content will be added here -->
+        </div>
+      </article>
+      <article class="more-story-card">
+        <div class="more-story-media" aria-hidden="true"></div>
+        <div class="more-story-body">
+          <h3 class="more-story-card-title">More memories</h3>
+          <!-- Additional story content will be added here -->
+        </div>
+      </article>
+    </div>
+
+    <div class="more-story-timeline" aria-label="Timeline">
+      <h3 class="more-story-timeline-title">Timeline</h3>
+      <div class="more-story-timeline-list">
+        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
+        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
+        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
+      </div>
+    </div>
+  </div>
+</section>
 <script>
 /* ✅ NEW: MAP LANDING PAGE FOR POPUP CARDS */
 (function () {

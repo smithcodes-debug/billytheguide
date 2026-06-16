@@ -3,6 +3,7 @@ import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js
 import { initContactPopup } from './ui/contact-popup.js'; /* ✅ NEW */
 import { initPolicyPopup } from './ui/policy-popup.js'; /* ✅ NEW */
 import { initTourCarousel } from './ui/tour-carousel.js'; /* ✅ NEW */
+import { initStoryExpand } from './ui/story-expand.js'; /* ✅ NEW */
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
 
 function initHomePopup() { /* ✅ NEW */
@@ -74,6 +75,7 @@ initHomePopup(); /* ✅ UPDATED */
 initPolicyPopup(); /* ✅ NEW */
 initContactPopup(); /* ✅ UPDATED */
 initTourCarousel(); /* ✅ NEW */
+initStoryExpand(); /* ✅ NEW */
 initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
 initHome(); /* ✅ UPDATED */
