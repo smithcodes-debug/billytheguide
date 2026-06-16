@@ -1646,6 +1646,209 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
 }
 
+
+/* ===================== */
+/* ✅ NEW: POLICY POPUP */
+/* ===================== */
+.title[role="button"] {
+  cursor: pointer; /* ✅ NEW */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.title[role="button"]:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
+  outline-offset: 8px; /* ✅ NEW */
+  border-radius: 14px; /* ✅ NEW */
+}
+.policy-popup-backdrop {
+  position: fixed; /* ✅ NEW */
+  inset: 0; /* ✅ NEW */
+  z-index: 1002; /* ✅ NEW */
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  padding: 24px; /* ✅ NEW */
+  background: rgba(0, 0, 0, 0.68); /* ✅ NEW */
+  backdrop-filter: blur(5px); /* ✅ NEW */
+  -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
+  opacity: 0; /* ✅ NEW */
+  visibility: hidden; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+}
+.policy-popup-backdrop.is-open {
+  opacity: 1; /* ✅ NEW */
+  visibility: visible; /* ✅ NEW */
+  pointer-events: auto; /* ✅ NEW */
+}
+.policy-popup-backdrop.is-closing {
+  opacity: 0; /* ✅ NEW */
+  visibility: visible; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+}
+.policy-popup-card {
+  position: relative; /* ✅ NEW */
+  width: min(92vw, 560px); /* ✅ NEW */
+  max-height: calc(100dvh - 48px); /* ✅ NEW */
+  overflow-y: auto; /* ✅ NEW */
+  -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+  padding: 34px 28px 30px; /* ✅ NEW */
+  border-radius: 28px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
+  background: linear-gradient(180deg, rgba(25, 31, 39, 0.96), rgba(8, 12, 18, 0.96)); /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  transform: translateY(14px) scale(0.97); /* ✅ NEW */
+  opacity: 0; /* ✅ NEW */
+  transition: transform 0.28s ease, opacity 0.24s ease; /* ✅ NEW */
+}
+.policy-popup-backdrop.is-open .policy-popup-card {
+  transform: translateY(0) scale(1); /* ✅ NEW */
+  opacity: 1; /* ✅ NEW */
+}
+.policy-popup-backdrop.is-closing .policy-popup-card {
+  transform: translateY(10px) scale(0.98); /* ✅ NEW */
+  opacity: 0; /* ✅ NEW */
+}
+.policy-popup-close {
+  position: absolute; /* ✅ NEW */
+  top: 14px; /* ✅ NEW */
+  right: 14px; /* ✅ NEW */
+  width: 38px; /* ✅ NEW */
+  height: 38px; /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  font-size: 22px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+}
+.policy-popup-close:hover {
+  background: rgba(255, 255, 255, 0.14); /* ✅ NEW */
+}
+.policy-popup-logo-slot {
+  display: flex; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  min-height: 120px; /* ✅ NEW */
+  margin: 0 auto 10px; /* ✅ NEW */
+  overflow: visible; /* ✅ NEW */
+}
+.policy-popup-logo-slot .mask {
+  transform: scale(0.82); /* ✅ NEW */
+  transform-origin: center center; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+}
+.policy-popup-logo-slot .mask:hover {
+  transform: scale(0.82); /* ✅ REQUIRED FIX */
+}
+.policy-popup-title {
+  margin: 0 44px 14px; /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  font-size: clamp(20px, 4vw, 27px); /* ✅ NEW */
+  line-height: 1.15; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+.policy-popup-copy {
+  margin: 0 auto 22px; /* ✅ NEW */
+  max-width: 480px; /* ✅ NEW */
+  color: rgba(255, 255, 255, 0.9); /* ✅ NEW */
+  font-size: 15px; /* ✅ NEW */
+  line-height: 1.62; /* ✅ NEW */
+  font-weight: 500; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+.policy-popup-action {
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  width: max-content; /* ✅ NEW */
+  max-width: 100%; /* ✅ NEW */
+  margin: 0 auto; /* ✅ NEW */
+  padding: 10px 18px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  font: inherit; /* ✅ NEW */
+  font-size: clamp(19px, 5vw, 30px); /* ✅ NEW */
+  line-height: 1.1; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+  text-decoration: none; /* ✅ NEW */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.policy-popup-action:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
+  outline-offset: 5px; /* ✅ NEW */
+}
+.policy-wave-text {
+  display: inline-flex; /* ✅ NEW */
+  align-items: baseline; /* ✅ NEW */
+  white-space: pre; /* ✅ NEW */
+}
+.policy-wave-text span {
+  display: inline-block; /* ✅ NEW */
+  animation: policyWaveText 1.45s ease-in-out infinite; /* ✅ NEW */
+  animation-delay: calc(var(--policy-wave-index, 0) * 0.055s); /* ✅ NEW */
+  will-change: transform; /* ✅ NEW */
+}
+@keyframes policyWaveText {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-5px); }
+  70% { transform: translateY(0); }
+}
+.sr-only {
+  position: absolute; /* ✅ NEW */
+  width: 1px; /* ✅ NEW */
+  height: 1px; /* ✅ NEW */
+  padding: 0; /* ✅ NEW */
+  margin: -1px; /* ✅ NEW */
+  overflow: hidden; /* ✅ NEW */
+  clip: rect(0, 0, 0, 0); /* ✅ NEW */
+  white-space: nowrap; /* ✅ NEW */
+  border: 0; /* ✅ NEW */
+}
+@media (max-width:768px) {
+  .policy-popup-backdrop {
+    padding: calc(env(safe-area-inset-top, 0px) + 18px) 18px 18px; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+  }
+  .policy-popup-card {
+    width: min(94vw, 430px); /* ✅ NEW */
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 36px); /* ✅ NEW */
+    padding: 30px 18px 24px; /* ✅ NEW */
+    border-radius: 24px; /* ✅ NEW */
+  }
+  .policy-popup-logo-slot {
+    min-height: 104px; /* ✅ NEW */
+    margin-bottom: 4px; /* ✅ NEW */
+  }
+  .policy-popup-logo-slot .mask {
+    transform: scale(0.68); /* ✅ NEW */
+  }
+  .policy-popup-logo-slot .mask:hover {
+    transform: scale(0.68); /* ✅ REQUIRED FIX */
+  }
+  .policy-popup-title {
+    margin: 0 38px 12px; /* ✅ NEW */
+    font-size: 21px; /* ✅ NEW */
+  }
+  .policy-popup-copy {
+    font-size: 14px; /* ✅ NEW */
+    line-height: 1.55; /* ✅ NEW */
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .policy-popup-backdrop,
+  .policy-popup-card,
+  .policy-wave-text span {
+    animation-duration: 0.001ms !important; /* ✅ NEW */
+    animation-iteration-count: 1 !important; /* ✅ NEW */
+    transition-duration: 0.001ms !important; /* ✅ NEW */
+  }
+}
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
@@ -1712,6 +1915,19 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
   </div>
 </section>
+<!-- ✅ NEW: POLICY POPUP -->
+<div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
+  <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
+    <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
+    <div class="policy-popup-logo-slot" aria-hidden="true"></div>
+    <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
+    <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
+    <button class="policy-popup-action" type="button" aria-label="Mở chính sách Leave no trace">
+      <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
+      <span class="sr-only">"Leave no trace"</span>
+    </button>
+  </div>
+</div>
 <!-- ✅ NEW: POPUP -->
 <div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
   <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
