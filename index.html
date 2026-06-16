@@ -1736,19 +1736,19 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
-  <div class="popup-note-item">
+  <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page"> <!-- ✅ NEW -->
     <div class="popup-note-box">
       <img class="popup-note-img" src="hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">hiking</span>
   </div>
-  <div class="popup-note-item">
+  <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page"> <!-- ✅ NEW -->
     <div class="popup-note-box">
       <img class="popup-note-img" src="propose.jpg" alt="propose" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
     <span class="popup-note-label">propose</span>
   </div>
-  <div class="popup-note-item">
+  <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page"> <!-- ✅ NEW -->
     <div class="popup-note-box">
       <img class="popup-note-img" src="camping.png" alt="camping" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
@@ -1864,6 +1864,38 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <div class="contact-footer-text">find me on what you have</div> <!-- ✅ NEW -->
   </div>
 </div>
+<script>
+/* ✅ NEW: MAP LANDING PAGE FOR POPUP CARDS */
+(function () {
+  const tourLinks = {
+    hiking: "./hiking.html", /* ✅ NEW */
+    propose: "./propose.html", /* ✅ NEW */
+    camping: "./camping.html" /* ✅ NEW */
+  };
+
+  document.querySelectorAll('.popup-note-item[data-tour]').forEach((card) => {
+    const tour = card.dataset.tour;
+
+    if (tour === "snorkeling") return; /* ✅ NEW: keep existing snorkeling JS flow */
+    if (!tourLinks[tour]) return;
+
+    card.style.cursor = "pointer"; /* ✅ NEW */
+
+    const goToTourPage = () => {
+      window.location.href = tourLinks[tour]; /* ✅ NEW */
+    };
+
+    card.addEventListener('click', goToTourPage); /* ✅ NEW */
+
+    card.addEventListener('keydown', (event) => { /* ✅ NEW */
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        goToTourPage();
+      }
+    });
+  });
+}());
+</script>
 <script type="module" src="./js/main.js"></script>
 </body>
 </html>
