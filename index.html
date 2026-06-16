@@ -369,8 +369,8 @@ color: #fff;
   right: 6px; /* ✅ NEW */
 }
 .popup-note-item {
-  flex: 0 0 270px; /* ✅ UPDATED: card to hơn, áp dụng desktop + mobile */
-  min-width: 270px; /* ✅ NEW: chống desktop ép nhỏ card */
+  flex: 0 0 257px; /* ✅ UPDATED: thu nhỏ card 5% từ 270px xuống 257px */
+  min-width: 257px; /* ✅ UPDATED: thu nhỏ card 5% từ 270px xuống 257px */
   display: flex; /* ✅ KEEP */
   flex-direction: column; /* ✅ KEEP */
   gap: 10px; /* ✅ KEEP */
@@ -913,8 +913,8 @@ color: #fff;
   display: none; /* ✅ UPDATED: mobile ưu tiên swipe, tránh che card */
 }
 .popup-note-item {
-  flex: 0 0 230px; /* ✅ UPDATED: kích thước card mobile ổn định */
-  min-width: 230px; /* ✅ UPDATED: bỏ xung đột 230/250 gây lệch trên mobile */
+  flex: 0 0 219px; /* ✅ UPDATED: thu nhỏ card mobile 5% từ 230px xuống 219px */
+  min-width: 219px; /* ✅ UPDATED: thu nhỏ card mobile 5% từ 230px xuống 219px */
   display: flex; /* ✅ NEW */
   flex-direction: column; /* ✅ NEW */
   gap: 10px; /* ✅ NEW */
@@ -1848,37 +1848,6 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     animation-iteration-count: 1 !important; /* ✅ NEW */
     transition-duration: 0.001ms !important; /* ✅ NEW */
   }
-}
-/* ✅ NEW: TEMP DISABLE SNORKELING CARD ANIMATION */
-.popup-note-item[data-tour="snorkeling"],
-.popup-note-item[data-tour="snorkeling"] .popup-note-box,
-.popup-note-item[data-tour="snorkeling"] .popup-note-label {
-  transition: none !important; /* ✅ NEW */
-  animation: none !important; /* ✅ NEW */
-}
-
-/* ✅ NEW: TEMP DISABLE SNORKELING CENTER SCALE */
-.popup-note-item[data-tour="snorkeling"].is-center,
-.popup-note-item[data-tour="snorkeling"].is-center .popup-note-box,
-.popup-note-item[data-tour="snorkeling"].is-center .popup-note-label {
-  transform: none !important; /* ✅ NEW */
-  transition: none !important; /* ✅ NEW */
-  animation: none !important; /* ✅ NEW */
-}
-
-/* ✅ NEW: TEMP DISABLE SNORKELING TAP / FOCUS EFFECT */
-.popup-note-item[data-tour="snorkeling"]:active .popup-note-box,
-.popup-note-item[data-tour="snorkeling"]:focus-within .popup-note-box {
-  transform: none !important; /* ✅ NEW */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important; /* ✅ NEW */
-}
-
-/* ✅ NEW: TEMP DISABLE SNORKELING PAGE TRANSITION TARGET */
-.popup-note-item[data-tour="snorkeling"].is-snorkeling-transition-target,
-.popup-note-item[data-tour="snorkeling"].is-snorkeling-transition-target .popup-note-box {
-  transform: none !important; /* ✅ NEW */
-  transition: none !important; /* ✅ NEW */
-  animation: none !important; /* ✅ NEW */
 }
 /* ✅ NEW: END MERGED style.css */
   </style>
