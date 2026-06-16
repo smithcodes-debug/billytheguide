@@ -1849,6 +1849,37 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     transition-duration: 0.001ms !important; /* ✅ NEW */
   }
 }
+/* ✅ NEW: TEMP DISABLE SNORKELING CARD ANIMATION */
+.popup-note-item[data-tour="snorkeling"],
+.popup-note-item[data-tour="snorkeling"] .popup-note-box,
+.popup-note-item[data-tour="snorkeling"] .popup-note-label {
+  transition: none !important; /* ✅ NEW */
+  animation: none !important; /* ✅ NEW */
+}
+
+/* ✅ NEW: TEMP DISABLE SNORKELING CENTER SCALE */
+.popup-note-item[data-tour="snorkeling"].is-center,
+.popup-note-item[data-tour="snorkeling"].is-center .popup-note-box,
+.popup-note-item[data-tour="snorkeling"].is-center .popup-note-label {
+  transform: none !important; /* ✅ NEW */
+  transition: none !important; /* ✅ NEW */
+  animation: none !important; /* ✅ NEW */
+}
+
+/* ✅ NEW: TEMP DISABLE SNORKELING TAP / FOCUS EFFECT */
+.popup-note-item[data-tour="snorkeling"]:active .popup-note-box,
+.popup-note-item[data-tour="snorkeling"]:focus-within .popup-note-box {
+  transform: none !important; /* ✅ NEW */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important; /* ✅ NEW */
+}
+
+/* ✅ NEW: TEMP DISABLE SNORKELING PAGE TRANSITION TARGET */
+.popup-note-item[data-tour="snorkeling"].is-snorkeling-transition-target,
+.popup-note-item[data-tour="snorkeling"].is-snorkeling-transition-target .popup-note-box {
+  transform: none !important; /* ✅ NEW */
+  transition: none !important; /* ✅ NEW */
+  animation: none !important; /* ✅ NEW */
+}
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
