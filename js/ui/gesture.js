@@ -2,6 +2,8 @@ export function initGesture() {
   let startX = 0;
   let startY = 0;
 
+  const EDGE_BACK_ZONE = 24; /* ✅ NEW */
+
   function isMobileViewport() { /* ✅ UPDATED */
     return window.innerWidth <= 768 || window.matchMedia('(hover: none) and (pointer: coarse)').matches; /* ✅ UPDATED */
   }
@@ -26,16 +28,24 @@ export function initGesture() {
     const deltaY = endY - startY;
     const absDeltaX = Math.abs(deltaX); /* ✅ NEW */
     const absDeltaY = Math.abs(deltaY); /* ✅ NEW */
+    const isMobile = isMobileViewport(); /* ✅ NEW */
+    const popupIsOpen = hasOpenPopup(); /* ✅ NEW */
 
-    if (deltaX > 60 && absDeltaX > absDeltaY) {
+    if (
+      isMobile && /* ✅ UPDATED */
+      popupIsOpen && /* ✅ UPDATED: chỉ back khi đang mở popup */
+      startX <= EDGE_BACK_ZONE && /* ✅ NEW: chỉ nhận swipe từ cạnh trái 24px */
+      deltaX > 60 &&
+      absDeltaX > absDeltaY
+    ) {
       window.history.back();
       return; /* ✅ NEW */
     }
 
-    if (!isMobileViewport()) return; /* ✅ KEEP: mobile only */
-    if (hasOpenPopup()) return; /* ✅ KEEP: chỉ chạy khi chưa có popup nào mở */
+    if (!isMobile) return; /* ✅ KEEP: mobile only */
+    if (popupIsOpen) return; /* ✅ KEEP: swipe up chỉ chạy khi chưa có popup nào mở */
 
-    if (deltaY < -30 && absDeltaY > 30) { /* ✅ UPDATED: bỏ điều kiện quá khắt khe */
+    if (deltaY < -30 && absDeltaY > 30) { /* ✅ UPDATED */
       window.dispatchEvent(new CustomEvent('billy:open-availability-popup')); /* ✅ NEW */
     }
   }, { passive: true });
