@@ -5,7 +5,6 @@ export function initPolicyPopup() { /* ✅ NEW */
   const policyCloseBtn = policyPopup ? policyPopup.querySelector('.policy-popup-close') : null; /* ✅ NEW */
   const policyActionBtn = policyPopup ? policyPopup.querySelector('.policy-popup-action') : null; /* ✅ NEW */
   const policyLogoSlot = policyPopup ? policyPopup.querySelector('.policy-popup-logo-slot') : null; /* ✅ NEW */
-  const sourceLogoMask = document.querySelector('#logoTrigger .mask'); /* ✅ NEW */
   const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)'); /* ✅ NEW */
 
   if (!titleTrigger || !policyPopup || !policyPopupCard || !policyCloseBtn || !policyActionBtn || !policyLogoSlot) return; /* ✅ REQUIRED FIX */
@@ -14,14 +13,16 @@ export function initPolicyPopup() { /* ✅ NEW */
   if (isInitialized) return; /* ✅ REQUIRED FIX */
   policyPopup.dataset.policyPopupInitialized = 'true'; /* ✅ NEW */
 
-  function cloneBrandLogo() { /* ✅ NEW */
-    if (!sourceLogoMask || policyLogoSlot.dataset.logoCloned === 'true') return; /* ✅ REQUIRED FIX */
+  function cloneBrandLogo() { /* ✅ UPDATED */
+    const sourceLogoMask = document.querySelector('#logoTrigger .mask'); /* ✅ UPDATED: luôn lấy logo mới nhất từ DOM hiện tại */
 
-    const clonedLogo = sourceLogoMask.cloneNode(true); /* ✅ NEW */
+    if (!sourceLogoMask) return; /* ✅ REQUIRED FIX */
+
+    const clonedLogo = sourceLogoMask.cloneNode(true); /* ✅ UPDATED */
     clonedLogo.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-    policyLogoSlot.innerHTML = ''; /* ✅ NEW */
-    policyLogoSlot.appendChild(clonedLogo); /* ✅ NEW */
-    policyLogoSlot.dataset.logoCloned = 'true'; /* ✅ NEW */
+
+    policyLogoSlot.innerHTML = ''; /* ✅ UPDATED: luôn refresh logo clone khi mở popup */
+    policyLogoSlot.appendChild(clonedLogo); /* ✅ UPDATED */
   }
 
   function prepareWaveText() { /* ✅ NEW */
@@ -49,7 +50,7 @@ export function initPolicyPopup() { /* ✅ NEW */
   }
 
   function openPolicyPopup() { /* ✅ NEW */
-    cloneBrandLogo(); /* ✅ NEW */
+    cloneBrandLogo(); /* ✅ UPDATED */
     prepareWaveText(); /* ✅ NEW */
 
     policyPopup.classList.remove('is-closing'); /* ✅ NEW */
