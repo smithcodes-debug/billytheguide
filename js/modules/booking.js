@@ -92,6 +92,29 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
     availabilityMessage.className = 'availability-message is-visible' + (type ? ' is-' + type : ''); /* ✅ NEW */
   }
 
+  function openTourChoicePopupFromAvailability() { /* ✅ NEW */
+    const leaveNoTracePopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
+    const leaveNoTraceCheckbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
+    const ctaTriggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
+
+    if (!leaveNoTracePopup) return; /* ✅ REQUIRED FIX */
+
+    closeAvailabilityPopup(); /* ✅ NEW */
+
+    window.setTimeout(function () { /* ✅ NEW */
+      if (leaveNoTraceCheckbox) { /* ✅ NEW */
+        leaveNoTraceCheckbox.checked = true; /* ✅ NEW */
+      }
+
+      leaveNoTracePopup.classList.add('is-open'); /* ✅ NEW */
+      leaveNoTracePopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+
+      ctaTriggers.forEach(function (trigger) { /* ✅ NEW */
+        trigger.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
+      });
+    }, 180); /* ✅ NEW */
+  }
+
   function renderCalendar() { /* ✅ NEW */
     availabilityDays.innerHTML = ''; /* ✅ NEW */
 
@@ -140,14 +163,9 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
       if (dateKey === selectedDateKey) dayButton.classList.add('is-selected-date'); /* ✅ NEW */
 
       if (isAvailableDate) { /* ✅ NEW */
-        dayButton.addEventListener('click', function () { /* ✅ NEW */
+        dayButton.addEventListener('click', function () { /* ✅ UPDATED */
           selectedDateKey = dateKey; /* ✅ NEW */
-          availabilityContactLink.disabled = false; /* ✅ NEW */
-          availabilityContactLink.textContent = 'Đã chọn ' + dateKey + '. Chọn tour bên dưới.'; /* ✅ NEW */
-          availabilityTourList.classList.add('is-open'); /* ✅ NEW */
-          availabilityTourList.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-          showMessage('Ngày ' + dateKey + ' còn trống. Chọn tour để xem landing page.', 'success'); /* ✅ NEW */
-          renderCalendar(); /* ✅ NEW */
+          openTourChoicePopupFromAvailability(); /* ✅ NEW */
         });
       } else { /* ✅ NEW */
         dayButton.disabled = true; /* ✅ NEW */
@@ -211,6 +229,11 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
   availabilityTourList.querySelectorAll('.availability-tour-item').forEach(function (tourItem) { /* ✅ NEW */
     tourItem.setAttribute('role', 'button'); /* ✅ NEW */
     tourItem.setAttribute('tabindex', '0'); /* ✅ NEW */
+  });
+
+  window.addEventListener('billy:open-availability-popup', function () { /* ✅ NEW */
+    if (availabilityPopup.classList.contains('is-open')) return; /* ✅ REQUIRED FIX */
+    openAvailabilityPopup(); /* ✅ NEW */
   });
 
   availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
