@@ -12,6 +12,11 @@ export function initGesture() {
     return Boolean(document.querySelector('.popup-backdrop.is-open, .availability-popup-backdrop.is-open, .contact-popup-backdrop.is-open')); /* ✅ NEW */
   }
 
+  function hasTourCardPopupOpen() { /* ✅ NEW */
+    const tourPopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
+    return Boolean(tourPopup && tourPopup.classList.contains('is-open')); /* ✅ NEW */
+  }
+
   document.addEventListener('touchstart', (e) => {
     if (!e.touches || e.touches.length !== 1) return;
 
@@ -43,6 +48,7 @@ export function initGesture() {
     }
 
     if (!isMobile) return; /* ✅ KEEP: mobile only */
+    if (hasTourCardPopupOpen()) return; /* ✅ REQUIRED FIX */
     if (popupIsOpen) return; /* ✅ KEEP: swipe up chỉ chạy khi chưa có popup nào mở */
 
     if (deltaY < -30 && absDeltaY > 30) { /* ✅ UPDATED */
