@@ -1,7 +1,8 @@
 import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
-import { initNavigation, initContactPopup, initSnorkelingCardNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
-import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
+import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
+import { initContactPopup } from './ui/contact-popup.js'; /* ✅ NEW */
 import { initPolicyPopup } from './ui/policy-popup.js'; /* ✅ NEW */
+import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
 
 function initHomePopup() { /* ✅ NEW */
   const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
@@ -74,4 +75,3 @@ initContactPopup(); /* ✅ UPDATED */
 initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
 initHome(); /* ✅ UPDATED */
-
