@@ -806,6 +806,7 @@ color: #fff;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
     url("a-mobile.jpg"),
+    url("none"); /* ✅ UPDATED: mobile ưu tiên a-mobile.jpg, nếu lỗi thì fallback sang a.jpg */
   background-position: center center; /* ✅ UPDATED */
   background-size: cover; /* ✅ UPDATED */
   background-repeat: no-repeat; /* ✅ UPDATED */
