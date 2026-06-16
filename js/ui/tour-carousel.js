@@ -22,11 +22,34 @@ export function initTourCarousel() { /* ✅ NEW */
     camping: './camping.html' /* ✅ NEW */
   };
 
+  const SCROLL_IDLE_DELAY = 150; /* ✅ NEW: chờ scroll/momentum dừng rồi mới teleport để tránh giật */
+  const LOOP_EPSILON = 1; /* ✅ NEW */
+
   let isJumping = false; /* ✅ NEW */
   let scrollFrame = 0; /* ✅ NEW */
+  let idleTimer = 0; /* ✅ NEW */
   let originalStartLeft = 0; /* ✅ NEW */
   let originalEndLeft = 0; /* ✅ NEW */
   let loopWidth = 0; /* ✅ NEW */
+
+  function injectStabilityStyle() { /* ✅ NEW */
+    if (document.getElementById('tourCarouselStabilityStyle')) return; /* ✅ REQUIRED FIX */
+
+    const style = document.createElement('style'); /* ✅ NEW */
+    style.id = 'tourCarouselStabilityStyle'; /* ✅ NEW */
+    style.textContent = `
+      .popup-notes.is-infinite-jumping {
+        scroll-snap-type: none !important;
+        scroll-behavior: auto !important;
+      }
+      .popup-notes.is-infinite-jumping .popup-note-item,
+      .popup-notes.is-infinite-jumping .popup-note-box,
+      .popup-notes.is-infinite-jumping .popup-note-label {
+        transition: none !important;
+      }
+    `; /* ✅ NEW */
+    document.head.appendChild(style); /* ✅ NEW */
+  }
 
   function prepareCard(card, index, cloneType) { /* ✅ NEW */
     card.dataset.carouselIndex = String(index); /* ✅ NEW */
@@ -73,14 +96,14 @@ export function initTourCarousel() { /* ✅ NEW */
     return Array.from(scroller.querySelectorAll('.popup-note-item')); /* ✅ NEW */
   }
 
-  function measureLoop() { /* ✅ UPDATED */
-    originalStartLeft = getCenteredScrollLeft(originalCards[0]); /* ✅ UPDATED: dùng vị trí center để tránh jump sớm gây giật */
-    originalEndLeft = getCenteredScrollLeft(afterClones[0]); /* ✅ UPDATED: dùng vị trí center để tránh jump sớm gây giật */
-    loopWidth = originalEndLeft - originalStartLeft; /* ✅ NEW */
-  }
-
   function getCenteredScrollLeft(card) { /* ✅ NEW */
     return card.offsetLeft - ((scroller.clientWidth - card.clientWidth) / 2); /* ✅ NEW */
+  }
+
+  function measureLoop() { /* ✅ UPDATED */
+    originalStartLeft = getCenteredScrollLeft(originalCards[0]); /* ✅ UPDATED: tính theo vị trí center để không teleport sớm */
+    originalEndLeft = getCenteredScrollLeft(afterClones[0]); /* ✅ UPDATED: điểm bắt đầu clone sau */
+    loopWidth = originalEndLeft - originalStartLeft; /* ✅ NEW */
   }
 
   function scrollToCard(card, behavior) { /* ✅ NEW */
@@ -105,38 +128,9 @@ export function initTourCarousel() { /* ✅ NEW */
     scroller.style.scrollSnapType = ''; /* ✅ NEW */
   }
 
-  function jumpBy(delta) { /* ✅ NEW */
-    if (!loopWidth || isJumping) return; /* ✅ REQUIRED FIX */
+  function updateCenterCard() { /* ✅ UPDATED */
+    if (isJumping) return; /* ✅ REQUIRED FIX: không đổi is-center trong lúc teleport */
 
-    isJumping = true; /* ✅ NEW */
-    setJumpMode(true); /* ✅ NEW */
-    scroller.scrollLeft += delta; /* ✅ NEW */
-
-    window.requestAnimationFrame(function () { /* ✅ NEW */
-      window.requestAnimationFrame(function () { /* ✅ NEW */
-        setJumpMode(false); /* ✅ NEW */
-        isJumping = false; /* ✅ NEW */
-        updateCenterCard(); /* ✅ NEW */
-      });
-    });
-  }
-
-  function maintainInfinitePosition() { /* ✅ NEW */
-    if (!loopWidth || isJumping) return; /* ✅ REQUIRED FIX */
-
-    const currentLeft = scroller.scrollLeft; /* ✅ NEW */
-
-    if (currentLeft < originalStartLeft - 1) { /* ✅ UPDATED */
-      jumpBy(loopWidth); /* ✅ NEW */
-      return; /* ✅ NEW */
-    }
-
-    if (currentLeft >= originalEndLeft - 1) { /* ✅ UPDATED */
-      jumpBy(-loopWidth); /* ✅ NEW */
-    }
-  }
-
-  function updateCenterCard() { /* ✅ NEW */
     const cards = getAllCards(); /* ✅ NEW */
     const viewportCenter = scroller.scrollLeft + (scroller.clientWidth / 2); /* ✅ NEW */
     let nearestCard = null; /* ✅ NEW */
@@ -157,13 +151,56 @@ export function initTourCarousel() { /* ✅ NEW */
     });
   }
 
-  function handleScroll() { /* ✅ NEW */
+  function teleportBy(delta) { /* ✅ NEW */
+    if (!loopWidth || isJumping) return; /* ✅ REQUIRED FIX */
+
+    isJumping = true; /* ✅ NEW */
+    window.clearTimeout(idleTimer); /* ✅ NEW */
+    setJumpMode(true); /* ✅ NEW */
+
+    scroller.scrollLeft += delta; /* ✅ NEW: teleport ngầm sau khi scroll idle */
+
+    window.requestAnimationFrame(function () { /* ✅ NEW */
+      window.requestAnimationFrame(function () { /* ✅ NEW */
+        setJumpMode(false); /* ✅ NEW */
+        isJumping = false; /* ✅ NEW */
+        updateCenterCard(); /* ✅ NEW */
+      });
+    });
+  }
+
+  function teleportIfNeededAfterIdle() { /* ✅ NEW */
+    if (!loopWidth || isJumping) return; /* ✅ REQUIRED FIX */
+
+    const currentLeft = scroller.scrollLeft; /* ✅ NEW */
+
+    if (currentLeft < originalStartLeft - LOOP_EPSILON) { /* ✅ NEW */
+      teleportBy(loopWidth); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+
+    if (currentLeft >= originalEndLeft - LOOP_EPSILON) { /* ✅ NEW */
+      teleportBy(-loopWidth); /* ✅ NEW */
+    }
+  }
+
+  function scheduleIdleTeleportCheck() { /* ✅ NEW */
+    window.clearTimeout(idleTimer); /* ✅ NEW */
+    idleTimer = window.setTimeout(function () { /* ✅ NEW */
+      measureLoop(); /* ✅ NEW */
+      teleportIfNeededAfterIdle(); /* ✅ NEW */
+    }, SCROLL_IDLE_DELAY); /* ✅ NEW */
+  }
+
+  function handleScroll() { /* ✅ UPDATED */
+    if (isJumping) return; /* ✅ REQUIRED FIX */
+    scheduleIdleTeleportCheck(); /* ✅ NEW: chỉ teleport khi scroll idle */
+
     if (scrollFrame) return; /* ✅ NEW */
 
     scrollFrame = window.requestAnimationFrame(function () { /* ✅ NEW */
       scrollFrame = 0; /* ✅ NEW */
-      maintainInfinitePosition(); /* ✅ NEW */
-      updateCenterCard(); /* ✅ NEW */
+      updateCenterCard(); /* ✅ UPDATED: scroll tự nhiên chỉ update card giữa */
     });
   }
 
@@ -186,10 +223,11 @@ export function initTourCarousel() { /* ✅ NEW */
     return currentCard.previousElementSibling || getAllCards()[getAllCards().length - 1]; /* ✅ NEW */
   }
 
-  function handleArrowClick(direction) { /* ✅ NEW */
+  function handleArrowClick(direction) { /* ✅ UPDATED */
     measureLoop(); /* ✅ NEW */
     const targetCard = getSiblingCard(direction); /* ✅ NEW */
     scrollToCard(targetCard, 'smooth'); /* ✅ NEW */
+    scheduleIdleTeleportCheck(); /* ✅ NEW */
   }
 
   function handleCloneCardClick(event) { /* ✅ NEW */
@@ -207,18 +245,22 @@ export function initTourCarousel() { /* ✅ NEW */
 
   function resetToFirstOriginal() { /* ✅ NEW */
     measureLoop(); /* ✅ NEW */
+    isJumping = true; /* ✅ NEW */
     setJumpMode(true); /* ✅ NEW */
     scrollToCard(originalCards[0], 'auto'); /* ✅ NEW */
 
     window.requestAnimationFrame(function () { /* ✅ NEW */
       window.requestAnimationFrame(function () { /* ✅ NEW */
         setJumpMode(false); /* ✅ NEW */
+        isJumping = false; /* ✅ NEW */
         updateCenterCard(); /* ✅ NEW */
       });
     });
   }
 
-  scroller.addEventListener('scroll', handleScroll, { passive: true }); /* ✅ NEW */
+  injectStabilityStyle(); /* ✅ NEW */
+
+  scroller.addEventListener('scroll', handleScroll, { passive: true }); /* ✅ UPDATED */
   scroller.addEventListener('click', handleCloneCardClick); /* ✅ NEW */
 
   if (leftArrow) { /* ✅ NEW */
@@ -238,7 +280,7 @@ export function initTourCarousel() { /* ✅ NEW */
   window.addEventListener('resize', function () { /* ✅ NEW */
     window.requestAnimationFrame(function () { /* ✅ NEW */
       measureLoop(); /* ✅ NEW */
-      maintainInfinitePosition(); /* ✅ NEW */
+      teleportIfNeededAfterIdle(); /* ✅ NEW */
       updateCenterCard(); /* ✅ NEW */
     });
   });
@@ -246,5 +288,5 @@ export function initTourCarousel() { /* ✅ NEW */
   window.addEventListener('load', resetToFirstOriginal); /* ✅ NEW */
   resetToFirstOriginal(); /* ✅ NEW */
 
-  console.log('Tour carousel initialized'); /* ✅ NEW */
+  console.log('Tour carousel initialized with idle infinite loop'); /* ✅ UPDATED */
 }
