@@ -871,27 +871,30 @@ color: #fff;
     /* ✅ MOBILE LAYOUT RESTORE */
     /* ===================== */
     @media (max-width:768px) {
-      header {
-        display: flex; /* ✅ UPDATED */
-        justify-content: space-between; /* ✅ UPDATED */
-        width: auto; /* ✅ UPDATED */
-        left: 10px; /* ✅ NEW */
-        right: 10px; /* ✅ NEW */
-        top: calc(env(safe-area-inset-top, 0px) + 10px); /* ✅ UPDATED */
-        min-height: 70px; /* ✅ NEW */
-        padding: 8px 12px; /* ✅ UPDATED */
-      }
+    header {
+        display: flex; /* ✅ UPDATED */  
+        justify-content: space-between; /* ✅ UPDATED */  
+        width: auto; /* ✅ UPDATED */  
+        left: 10px; /* ✅ NEW */  
+        right: 10px; /* ✅ NEW */  
+        top: calc(env(safe-area-inset-top, 0px) + 8px); /* ✅ UPDATED */  
+        min-height: 54px; /* ✅ UPDATED: giảm chiều cao header theo logo mobile */  
+        padding: 6px 9px; /* ✅ UPDATED: thu nhỏ padding header mobile */  
+        gap: 10px; /* ✅ UPDATED: giảm khoảng cách logo/menu */  
+      }  
       .cta-row > span,
       .quote > span {
         text-decoration: underline; /* ✅ NEW */
         text-underline-offset: 3px; /* ✅ NEW */
         text-decoration-thickness: 1.5px; /* ✅ NEW */
       }
-      .mask {
-        padding: 15px 36px; /* ✅ UPDATED */
-        width: max-content;
-        max-width: calc(100vw - 96px); /* ✅ UPDATED */
-      }
+     .mask {
+        padding: 7px 30px; /* ✅ UPDATED: giảm chiều cao ~30%, chiều dài ~10% trên mobile */  
+        width: max-content;  
+        max-width: calc(100vw - 92px); /* ✅ UPDATED */  
+        transform: none; /* ✅ UPDATED: bỏ scale layout ảo để header co thật */  
+        transform-origin: left center; /* ✅ UPDATED */  
+      }  
       .hero {
   min-height: 100vh;
   min-height: 100svh;
