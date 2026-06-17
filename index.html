@@ -2567,10 +2567,10 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   .mobile-edge-pad {
     position: fixed; /* ✅ NEW */
     left: 50%; /* ✅ NEW */
-    bottom: calc(env(safe-area-inset-bottom, 0px) - 9px); /* ✅ UPDATED: dính bottom và chỉ nhô nửa thân lên */
-    z-index: 98; /* ✅ NEW: dưới header/search popup, trên hero */
-    width: 180px; /* ✅ UPDATED: mở rộng edge pad */
-    height: 18px; /* ✅ UPDATED: làm mỏng hơn */
+    bottom: calc(env(safe-area-inset-bottom, 0px) - 11.5px); /* ✅ UPDATED: giữ edge pad nhô nửa thân sau khi tăng chiều cao */
+    z-index: 1004; /* ✅ UPDATED: cho edge pad nổi trên popup tour */
+    width: 260px; /* ✅ UPDATED: ngang dài thêm mỗi bên 40px */
+    height: 23px; /* ✅ UPDATED: cao thêm 5px */
     padding: 0; /* ✅ NEW */
     border: 0; /* ✅ NEW */
     border-radius: 999px; /* ✅ NEW */
