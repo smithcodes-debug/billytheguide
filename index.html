@@ -871,16 +871,16 @@ color: #fff;
     /* ✅ MOBILE LAYOUT RESTORE */
     /* ===================== */
     @media (max-width:768px) {
-    header {
+   header {
         display: flex; /* ✅ UPDATED */  
         justify-content: space-between; /* ✅ UPDATED */  
         width: auto; /* ✅ UPDATED */  
         left: 10px; /* ✅ NEW */  
         right: 10px; /* ✅ NEW */  
         top: calc(env(safe-area-inset-top, 0px) + 8px); /* ✅ UPDATED */  
-        min-height: 54px; /* ✅ UPDATED: giảm chiều cao header theo logo mobile */  
-        padding: 6px 9px; /* ✅ UPDATED: thu nhỏ padding header mobile */  
-        gap: 10px; /* ✅ UPDATED: giảm khoảng cách logo/menu */  
+        min-height: 44px; /* ✅ UPDATED: giảm tiếp theo logo mobile nhỏ hơn 30% */  
+        padding: 5px 8px; /* ✅ UPDATED: header co lại theo logo */  
+        gap: 8px; /* ✅ UPDATED */  
       }  
       .cta-row > span,
       .quote > span {
