@@ -871,16 +871,16 @@ color: #fff;
     /* ✅ MOBILE LAYOUT RESTORE */
     /* ===================== */
     @media (max-width:768px) {
-   header {
+   header {  
         display: flex; /* ✅ UPDATED */  
         justify-content: space-between; /* ✅ UPDATED */  
         width: auto; /* ✅ UPDATED */  
         left: 10px; /* ✅ NEW */  
         right: 10px; /* ✅ NEW */  
         top: calc(env(safe-area-inset-top, 0px) + 8px); /* ✅ UPDATED */  
-        min-height: 44px; /* ✅ UPDATED: giảm tiếp theo logo mobile nhỏ hơn 30% */  
-        padding: 10px 13px; /* ✅ UPDATED: header co lại theo logo */  
-        gap: 10px; /* ✅ UPDATED */  
+        min-height: 28px; /* ✅ UPDATED: co header thêm 30% theo logo mobile */  
+        padding: 3px 6px; /* ✅ UPDATED: giảm padding header mobile */  
+        gap: 6px; /* ✅ UPDATED */  
       }  
       .cta-row > span,
       .quote > span {
@@ -888,12 +888,57 @@ color: #fff;
         text-underline-offset: 3px; /* ✅ NEW */
         text-decoration-thickness: 1.5px; /* ✅ NEW */
       }
-     .mask {
-        padding: 7px 30px; /* ✅ UPDATED: giảm chiều cao ~30%, chiều dài ~10% trên mobile */  
+     .mask {  
+        padding: 3px 12px; /* ✅ UPDATED: thu nhỏ logo thêm 30% trên mobile */  
         width: max-content;  
         max-width: calc(100vw - 92px); /* ✅ UPDATED */  
-        transform: none; /* ✅ UPDATED: bỏ scale layout ảo để header co thật */  
+        transform: none; /* ✅ UPDATED: giữ layout thật, tránh scale ảo gây lệch Safari */  
         transform-origin: left center; /* ✅ UPDATED */  
+      }  
+      .text {  
+        gap: 0; /* ✅ UPDATED */  
+      }  
+      .text div {  
+        line-height: 0.78; /* ✅ UPDATED: nén chiều cao logo mobile thêm 30% */  
+      }  
+      .mask .text1 {  
+        gap: 2px; /* ✅ UPDATED */  
+      }  
+      .mask .billy {  
+        font-size: 11px; /* ✅ UPDATED: nhỏ thêm 30% */  
+      }  
+      .mask .and {  
+        font-size: 7px; /* ✅ UPDATED: nhỏ thêm 30% */  
+      }  
+      .mask .friend {  
+        font-size: 11px; /* ✅ UPDATED: nhỏ thêm 30% */  
+      }  
+      .mask .text2 {  
+        font-size: 7px; /* ✅ UPDATED: nhỏ thêm 30% */  
+      }  
+      .mask .text3 {  
+        font-size: 9px; /* ✅ UPDATED: nhỏ thêm 30% */  
+      }  
+      .fish {  
+        font-size: 10px; /* ✅ UPDATED: cá nhỏ theo logo */  
+        bottom: 4px; /* ✅ UPDATED */  
+      }  
+      .menu-trigger {  
+        width: 24px; /* ✅ UPDATED: thu nhỏ menu header mobile thêm 30% */  
+        height: 24px; /* ✅ UPDATED: thu nhỏ menu header mobile thêm 30% */  
+        box-shadow: 0 4px 10px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */  
+      }  
+      .menu-trigger-lines,  
+      .menu-trigger-lines::before,  
+      .menu-trigger-lines::after {  
+        width: 11px; /* ✅ UPDATED */  
+        height: 1.5px; /* ✅ UPDATED */  
+      }  
+      .menu-trigger-lines::before {  
+        top: -4px; /* ✅ UPDATED */  
+      }  
+      .menu-trigger-lines::after {  
+        top: 4px; /* ✅ UPDATED */  
       }  
       .hero {
   min-height: 100vh;
