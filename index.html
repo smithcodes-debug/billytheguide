@@ -1011,7 +1011,8 @@ color: #fff;
       }
       .title {
         text-align: center; /* ✅ UPDATED */
-        font-size: 28px; /* ✅ UPDATED */
+        font-size: 31px; /* ✅ UPDATED: tăng nhẹ title mobile */
+        transform: translateY(-5px); /* ✅ UPDATED: kéo title mobile lên trên nhẹ */
       }
       .story {
         font-size: 18px;
@@ -1020,6 +1021,28 @@ color: #fff;
         max-width: 100%; /* ✅ UPDATED */
         padding: 16px 18px; /* ✅ UPDATED */
         line-height: 1.52; /* ✅ UPDATED */
+        transition: opacity 0.55s ease, transform 0.55s ease; /* ✅ NEW: story xuất hiện nhẹ nhàng khi typewriter chạy */
+      }
+      .story.is-story-typewriter-pending {
+        opacity: 0; /* ✅ NEW */
+        transform: translateY(8px); /* ✅ NEW */
+      }
+      .story.is-story-typewriter-active {
+        opacity: 1; /* ✅ NEW */
+        transform: translateY(0); /* ✅ NEW */
+      }
+      .story.is-story-typewriter-active p::after {
+        content: ""; /* ✅ NEW */
+        display: inline-block; /* ✅ NEW */
+        width: 2px; /* ✅ NEW */
+        height: 1em; /* ✅ NEW */
+        margin-left: 2px; /* ✅ NEW */
+        background: currentColor; /* ✅ NEW */
+        vertical-align: -0.12em; /* ✅ NEW */
+        animation: storyCaretBlink 0.8s steps(1) infinite; /* ✅ NEW */
+      }
+      .story.is-story-typewriter-done p::after {
+        display: none; /* ✅ NEW */
       }
       .cta-row {
         margin: 4px 0 0 0; /* ✅ KEEP */
@@ -2325,6 +2348,11 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     height: 100%; /* ✅ NEW */
   }
 }
+
+@keyframes storyCaretBlink {
+  0%, 49% { opacity: 1; } /* ✅ NEW */
+  50%, 100% { opacity: 0; } /* ✅ NEW */
+}
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
@@ -2716,6 +2744,43 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   if (!menuTrigger) return; /* ✅ REQUIRED FIX */
   menuTrigger.addEventListener('click', function () {
     menuTrigger.setAttribute('aria-expanded', menuTrigger.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+  });
+}());
+</script>
+<script>
+/* ✅ NEW: MOBILE STORY TYPEWRITER */
+(function () {
+  const STORY_TYPEWRITER_MOBILE_QUERY = '(max-width: 768px)'; /* ✅ NEW */
+  const STORY_TYPEWRITER_DELAY = 35; /* ✅ NEW: 35ms mỗi ký tự */
+  const story = document.querySelector('.story'); /* ✅ NEW */
+  const storyParagraph = story ? story.querySelector('p') : null; /* ✅ NEW */
+  if (!story || !storyParagraph) return; /* ✅ REQUIRED FIX */
+  if (!window.matchMedia(STORY_TYPEWRITER_MOBILE_QUERY).matches) return; /* ✅ NEW: chỉ mobile */
+  if (story.dataset.typewriterInitialized === 'true') return; /* ✅ REQUIRED FIX */
+  story.dataset.typewriterInitialized = 'true'; /* ✅ NEW */
+  const fullStoryText = storyParagraph.textContent.trim(); /* ✅ NEW */
+  if (!fullStoryText) return; /* ✅ REQUIRED FIX */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { /* ✅ NEW */
+    storyParagraph.textContent = fullStoryText; /* ✅ NEW */
+    story.classList.add('is-story-typewriter-active', 'is-story-typewriter-done'); /* ✅ NEW */
+    return; /* ✅ NEW */
+  }
+  let currentIndex = 0; /* ✅ NEW */
+  story.classList.add('is-story-typewriter-pending'); /* ✅ NEW */
+  storyParagraph.textContent = ''; /* ✅ NEW */
+  window.requestAnimationFrame(function () { /* ✅ NEW */
+    story.classList.remove('is-story-typewriter-pending'); /* ✅ NEW */
+    story.classList.add('is-story-typewriter-active'); /* ✅ NEW */
+    const typeNextCharacter = function () { /* ✅ NEW */
+      currentIndex += 1; /* ✅ NEW */
+      storyParagraph.textContent = fullStoryText.slice(0, currentIndex); /* ✅ NEW */
+      if (currentIndex < fullStoryText.length) { /* ✅ NEW */
+        window.setTimeout(typeNextCharacter, STORY_TYPEWRITER_DELAY); /* ✅ NEW */
+        return; /* ✅ NEW */
+      }
+      story.classList.add('is-story-typewriter-done'); /* ✅ NEW */
+    };
+    window.setTimeout(typeNextCharacter, STORY_TYPEWRITER_DELAY); /* ✅ NEW */
   });
 }());
 </script>
