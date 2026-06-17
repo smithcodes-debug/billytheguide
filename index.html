@@ -1424,7 +1424,7 @@ color: #fff;
 }
 .availability-tour-list.is-open {
   display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(4, minmax(0, 1fr)); /* ✅ NEW */
+  grid-template-columns: repeat(5, minmax(0, 1fr)); /* ✅ UPDATED */
 }
 .availability-tour-item {
   display: flex; /* ✅ NEW */
@@ -2241,6 +2241,12 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
+  <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page"> <!-- ✅ NEW -->
+    <div class="popup-note-box">
+      <img class="popup-note-img" src="diving.JPG" alt="diving" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+    </div>
+    <span class="popup-note-label">diving</span>
+  </div>
   <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page"> <!-- ✅ NEW -->
     <div class="popup-note-box">
       <img class="popup-note-img" src="hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
@@ -2259,7 +2265,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
     <span class="popup-note-label">camping</span>
   </div>
-  <div class="popup-note-item">
+  <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page"> <!-- ✅ UPDATED -->
     <div class="popup-note-box">
       <img class="popup-note-img" src="coral-dictionary.jpg" alt="coral dictionary" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
     </div>
@@ -2295,6 +2301,12 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
           <img class="availability-tour-img" src="snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ NEW -->
         </div>
         <span class="availability-tour-label">snorkeling</span> <!-- ✅ NEW -->
+      </div>
+      <div class="availability-tour-item" data-tour="diving"> <!-- ✅ NEW -->
+        <div class="availability-tour-box"> <!-- ✅ NEW -->
+          <img class="availability-tour-img" src="diving.JPG" alt="diving" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+        </div>
+        <span class="availability-tour-label">diving</span> <!-- ✅ NEW -->
       </div>
       <div class="availability-tour-item" data-tour="hiking"> <!-- ✅ NEW -->
         <div class="availability-tour-box"> <!-- ✅ NEW -->
@@ -2473,24 +2485,26 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   </div>
 </section>
 <script>
-/* ✅ NEW: MAP LANDING PAGE FOR POPUP CARDS */
+/* ✅ UPDATED: MAP LANDING PAGE FOR POPUP CARDS */
 (function () {
-  const tourLinks = {
-    hiking: "./hiking.html", /* ✅ NEW */
-    propose: "./propose.html", /* ✅ NEW */
-    camping: "./camping.html" /* ✅ NEW */
+  const tourLinks = { /* ✅ UPDATED */
+    diving: "./diving-island-phu-quoc.html", /* ✅ NEW */
+    hiking: "./hiking-mountain-phu-quoc.html", /* ✅ UPDATED */
+    propose: "./propose-island-phu-quoc.html", /* ✅ UPDATED */
+    camping: "./camping-island-phu-quoc.html", /* ✅ UPDATED */
+    coralDictionary: "./coral-dictionary-at-phu-quoc.html" /* ✅ NEW */
   };
 
   document.querySelectorAll('.popup-note-item[data-tour]').forEach((card) => {
     const tour = card.dataset.tour;
 
-    if (tour === "snorkeling") return; /* ✅ NEW: keep existing snorkeling JS flow */
+    if (tour === "snorkeling") return; /* ✅ UPDATED: keep existing snorkeling handler in navigation.js */
     if (!tourLinks[tour]) return;
 
     card.style.cursor = "pointer"; /* ✅ NEW */
 
     const goToTourPage = () => {
-      window.location.href = tourLinks[tour]; /* ✅ NEW */
+      window.location.href = tourLinks[tour]; /* ✅ UPDATED */
     };
 
     card.addEventListener('click', goToTourPage); /* ✅ NEW */
