@@ -5,6 +5,7 @@ import { initPolicyPopup } from './ui/policy-popup.js'; /* ✅ NEW */
 import { initTourCarousel } from './ui/tour-carousel.js'; /* ✅ NEW */
 import { initStoryExpand } from './ui/story-expand.js'; /* ✅ NEW */
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
+import { initSearchPopup } from './ui/search-popup.js'; /* ✅ NEW */
 
 function initHomePopup() { /* ✅ NEW */
   const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
@@ -107,4 +108,5 @@ initTourCarousel(); /* ✅ NEW */
 initStoryExpand(); /* ✅ NEW */
 initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
+initSearchPopup(); /* ✅ NEW */
 initHome(); /* ✅ UPDATED */
