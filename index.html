@@ -2696,6 +2696,103 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     display: none; /* ✅ UPDATED: ẩn Back to tours trên mobile, giữ HTML để an toàn */
   }
 }
+/* ✅ NEW: 5 MOBILE SAFE PAD SCROLL SNAP */
+.snap-page {
+  display: none; /* ✅ NEW: chỉ kích hoạt 5 safe pad trên mobile */
+  background: #ffffff; /* ✅ NEW */
+  color: var(--color-ink); /* ✅ NEW */
+}
+.snap-section {
+  position: relative; /* ✅ NEW */
+  min-height: 100vh; /* ✅ NEW */
+  min-height: 100svh; /* ✅ NEW */
+  min-height: 100dvh; /* ✅ NEW */
+  padding: 132px 24px 40px; /* ✅ NEW */
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  background: #ffffff; /* ✅ NEW */
+  overflow: hidden; /* ✅ NEW */
+}
+.snap-section::before {
+  content: ""; /* ✅ REQUIRED FIX */
+  position: absolute; /* ✅ NEW */
+  inset: 0; /* ✅ NEW */
+  pointer-events: none; /* ✅ NEW */
+  background:
+    radial-gradient(circle at 20% 18%, rgba(15, 111, 120, 0.08), transparent 34%),
+    radial-gradient(circle at 82% 72%, rgba(159, 223, 229, 0.18), transparent 38%); /* ✅ NEW */
+}
+.snap-safe-pad {
+  position: relative; /* ✅ NEW */
+  z-index: 1; /* ✅ NEW */
+  width: min(100%, 560px); /* ✅ NEW */
+  min-height: 260px; /* ✅ NEW */
+  padding: 28px 24px; /* ✅ NEW */
+  border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
+  border-radius: 28px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
+  color: var(--color-ink); /* ✅ NEW */
+  box-shadow: 0 22px 70px rgba(5, 6, 8, 0.1); /* ✅ NEW */
+  backdrop-filter: blur(12px); /* ✅ NEW */
+  -webkit-backdrop-filter: blur(12px); /* ✅ REQUIRED FIX */
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  gap: 12px; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+.snap-safe-pad-kicker {
+  color: rgba(8, 63, 70, 0.68); /* ✅ NEW */
+  font-size: 12px; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: 0.14em; /* ✅ NEW */
+  text-transform: uppercase; /* ✅ NEW */
+}
+.snap-safe-pad-title {
+  color: var(--color-ink); /* ✅ NEW */
+  font-size: clamp(24px, 5vw, 42px); /* ✅ NEW */
+  line-height: 1.08; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: -0.03em; /* ✅ NEW */
+}
+.snap-safe-pad-memo {
+  max-width: 360px; /* ✅ NEW */
+  color: rgba(16, 20, 24, 0.62); /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1.5; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+}
+@media (max-width:768px) {
+  .snap-page {
+    display: block; /* ✅ NEW: mobile only */
+    height: 100vh; /* ✅ NEW */
+    height: 100svh; /* ✅ NEW */
+    height: 100dvh; /* ✅ NEW */
+    overflow-y: auto; /* ✅ NEW */
+    overflow-x: hidden; /* ✅ REQUIRED FIX */
+    scroll-snap-type: y mandatory; /* ✅ NEW */
+    scroll-behavior: smooth; /* ✅ NEW */
+    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+  }
+  .snap-section {
+    min-height: 100vh; /* ✅ NEW */
+    min-height: 100svh; /* ✅ NEW */
+    min-height: 100dvh; /* ✅ NEW */
+    padding: calc(env(safe-area-inset-top, 0px) + 104px) 18px calc(env(safe-area-inset-bottom, 0px) + 34px); /* ✅ NEW */
+    scroll-snap-align: start; /* ✅ NEW */
+    scroll-snap-stop: always; /* ✅ NEW */
+  }
+  .snap-safe-pad {
+    width: 100%; /* ✅ NEW */
+    min-height: min(52dvh, 430px); /* ✅ NEW */
+    padding: 24px 18px; /* ✅ NEW */
+    border-radius: 24px; /* ✅ NEW */
+  }
+}
+
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
@@ -2784,6 +2881,43 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
   </div>
 </section>
+<main class="snap-page" aria-label="5 safe content pads"> <!-- ✅ NEW -->
+  <section class="snap-section snap-section-01" aria-label="Safe pad 1"> <!-- ✅ NEW -->
+    <div class="snap-safe-pad"> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-kicker">safe pad 01</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-title">vùng an toàn cho nội dung</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-memo">memo: viết nội dung của phần 1 trong khối này.</div> <!-- ✅ NEW -->
+    </div> <!-- ✅ NEW -->
+  </section> <!-- ✅ NEW -->
+  <section class="snap-section snap-section-02" aria-label="Safe pad 2"> <!-- ✅ NEW -->
+    <div class="snap-safe-pad"> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-kicker">safe pad 02</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-title">vùng an toàn cho nội dung</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-memo">memo: viết nội dung của phần 2 trong khối này.</div> <!-- ✅ NEW -->
+    </div> <!-- ✅ NEW -->
+  </section> <!-- ✅ NEW -->
+  <section class="snap-section snap-section-03" aria-label="Safe pad 3"> <!-- ✅ NEW -->
+    <div class="snap-safe-pad"> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-kicker">safe pad 03</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-title">vùng an toàn cho nội dung</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-memo">memo: viết nội dung của phần 3 trong khối này.</div> <!-- ✅ NEW -->
+    </div> <!-- ✅ NEW -->
+  </section> <!-- ✅ NEW -->
+  <section class="snap-section snap-section-04" aria-label="Safe pad 4"> <!-- ✅ NEW -->
+    <div class="snap-safe-pad"> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-kicker">safe pad 04</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-title">vùng an toàn cho nội dung</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-memo">memo: viết nội dung của phần 4 trong khối này.</div> <!-- ✅ NEW -->
+    </div> <!-- ✅ NEW -->
+  </section> <!-- ✅ NEW -->
+  <section class="snap-section snap-section-05" aria-label="Safe pad 5"> <!-- ✅ NEW -->
+    <div class="snap-safe-pad"> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-kicker">safe pad 05</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-title">vùng an toàn cho nội dung</div> <!-- ✅ NEW -->
+      <div class="snap-safe-pad-memo">memo: viết nội dung của phần 5 trong khối này.</div> <!-- ✅ NEW -->
+    </div> <!-- ✅ NEW -->
+  </section> <!-- ✅ NEW -->
+</main> <!-- ✅ NEW -->
 <button class="mobile-edge-pad" type="button" aria-label="Mở phần thông tin bên dưới" aria-controls="more-stories-section"></button> <!-- ✅ NEW -->
 <!-- ✅ NEW: POLICY POPUP -->
 <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
