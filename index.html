@@ -934,13 +934,18 @@ color: #fff;
         font-size: 17px; /* ✅ UPDATED: cá scale theo logo */  
         bottom: 6px; /* ✅ UPDATED */  
       }  
-      .menu-trigger {    
+     .menu-trigger {
         width: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
         height: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
-        padding: 4px; /* ✅ UPDATED: menu.svg fit trong button */    
+        padding: 2px; /* ✅ UPDATED: giảm padding để menu.svg nhìn to hơn trong mobile */    
         overflow: hidden; /* ✅ NEW */    
         box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */    
-      }  
+      }
+
+      .menu-trigger-icon {
+        transform: scale(2); /* ✅ UPDATED: scale menu.svg to hơn 25% chỉ trên mobile */
+        transform-origin: center center; /* ✅ NEW */
+      }
       .menu-trigger-lines,  
       .menu-trigger-lines::before,  
       .menu-trigger-lines::after {  
