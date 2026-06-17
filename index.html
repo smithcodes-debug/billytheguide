@@ -935,16 +935,22 @@ color: #fff;
         bottom: 6px; /* ✅ UPDATED */  
       }  
      .menu-trigger {
-        width: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
-        height: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
-        padding: 2px; /* ✅ UPDATED: giảm padding để menu.svg nhìn to hơn trong mobile */    
+        width: 46px; /* ✅ UPDATED: tăng chiều rộng button để hợp với header mobile */    
+        height: 46px; /* ✅ UPDATED: tăng chiều cao button để hợp với header mobile */    
+        padding: 3px; /* ✅ UPDATED: giữ khoảng thở nhỏ quanh vector */    
         overflow: hidden; /* ✅ NEW */    
         box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */    
       }
 
       .menu-trigger-icon {
-        transform: scale(2); /* ✅ UPDATED: scale menu.svg to hơn 25% chỉ trên mobile */
-        transform-origin: center center; /* ✅ NEW */
+        display: block; /* ✅ UPDATED */
+        width: 42px; /* ✅ UPDATED: tăng chiều rộng thật của menu.svg */
+        height: 42px; /* ✅ UPDATED: tăng chiều cao thật của menu.svg */
+        max-width: none; /* ✅ NEW: tránh bị ép bởi rule khác */
+        max-height: none; /* ✅ NEW: tránh bị ép bởi rule khác */
+        object-fit: contain; /* ✅ UPDATED: giữ tỉ lệ vector, không méo */
+        transform: none; /* ✅ UPDATED: bỏ scale để dùng size thật */
+        transform-origin: center center; /* ✅ KEEP */
       }
       .menu-trigger-lines,  
       .menu-trigger-lines::before,  
