@@ -74,6 +74,8 @@
       flex: 0 0 auto;
       width: 48px;
       height: 48px;
+      padding: 5px; /* ✅ UPDATED: cho vector fit đúng size menu button */
+      overflow: hidden; /* ✅ NEW: không cho vector tràn khỏi button */
       border: 1px solid rgba(5, 6, 8, 0.1);
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.54);
@@ -85,6 +87,13 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
       box-shadow: 0 8px 22px rgba(5, 6, 8, 0.08);
+    }
+    .menu-trigger-icon {
+      display: block; /* ✅ NEW */
+      width: 100%; /* ✅ NEW */
+      height: 100%; /* ✅ NEW */
+      object-fit: contain; /* ✅ NEW: giữ tỉ lệ vector, không méo */
+      pointer-events: none; /* ✅ NEW: click vẫn ăn vào button */
     }
     .menu-trigger-lines,
     .menu-trigger-lines::before,
@@ -925,10 +934,12 @@ color: #fff;
         font-size: 17px; /* ✅ UPDATED: cá scale theo logo */  
         bottom: 6px; /* ✅ UPDATED */  
       }  
-      .menu-trigger {  
-        width: 40px; /* ✅ UPDATED: menu header scale thêm 30% */  
-        height: 40px; /* ✅ UPDATED: menu header scale thêm 30% */  
-        box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */  
+      .menu-trigger {    
+        width: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
+        height: 40px; /* ✅ UPDATED: giữ size bằng menu button hiện tại */    
+        padding: 4px; /* ✅ UPDATED: vector fit trong button */    
+        overflow: hidden; /* ✅ NEW */    
+        box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */    
       }  
       .menu-trigger-lines,  
       .menu-trigger-lines::before,  
@@ -2304,9 +2315,9 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
       </div>
     </div>
   </div>
-  <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false"> <!-- ✅ NEW -->
-    <span class="menu-trigger-lines" aria-hidden="true"></span> <!-- ✅ NEW -->
-  </button> <!-- ✅ NEW -->
+  <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false"> <!-- ✅ UPDATED -->
+    <img class="menu-trigger-icon" src="./person_only_vector.svg" alt="" aria-hidden="true" loading="eager" decoding="async"> <!-- ✅ NEW -->
+  </button> <!-- ✅ UPDATED -->
 </header>
 <section class="hero">
   <div class="overlay"></div>
