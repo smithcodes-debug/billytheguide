@@ -48,27 +48,28 @@
       -moz-osx-font-smoothing: grayscale; /* ✅ REQUIRED FIX */
     }
     /* ===== HEADER ===== */
-    header {
-      position: fixed; /* ✅ UPDATED */
-      top: calc(env(safe-area-inset-top, 0px) + 12px); /* ✅ UPDATED */
-      left: var(--header-pill-x); /* ✅ NEW */
-      right: var(--header-pill-x); /* ✅ NEW */
-      width: auto; /* ✅ NEW */
-      min-height: 76px; /* ✅ NEW */
-      padding: 10px 14px; /* ✅ UPDATED */
-      z-index: 100; /* ✅ UPDATED */
-      display: flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: space-between; /* ✅ NEW */
-      gap: 18px; /* ✅ NEW */
-      border: 1px solid var(--surface-border-dark); /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: var(--surface-glass-white); /* ✅ NEW */
-      color: var(--color-ink); /* ✅ NEW */
-      box-shadow: var(--shadow-premium-soft); /* ✅ NEW */
-      backdrop-filter: blur(16px); /* ✅ NEW */
-      -webkit-backdrop-filter: blur(16px); /* ✅ REQUIRED FIX */
-    }
+    /* ===== HEADER ===== */
+header {
+  position: fixed; /* ✅ UPDATED */
+  top: calc(env(safe-area-inset-top, 0px) + 12px); /* ✅ UPDATED */
+  left: var(--header-pill-x); /* ✅ NEW */
+  right: var(--header-pill-x); /* ✅ NEW */
+  width: auto; /* ✅ NEW */
+  min-height: 76px; /* ✅ NEW */
+  padding: 10px 14px; /* ✅ UPDATED */
+  z-index: 100; /* ✅ UPDATED */
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: space-between; /* ✅ NEW */
+  gap: 18px; /* ✅ NEW */
+  border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ UPDATED */
+  border-radius: 999px; /* ✅ NEW */
+  background: #ffffff; /* ✅ UPDATED: chuyển header sang màu trắng */
+  color: var(--color-ink); /* ✅ NEW */
+  box-shadow: var(--shadow-premium-soft); /* ✅ NEW */
+  backdrop-filter: none; /* ✅ UPDATED: bỏ glass blur để trắng sạch hơn */
+  -webkit-backdrop-filter: none; /* ✅ UPDATED */
+}
     /* ✅ NEW: MENU TRIGGER */
     .menu-trigger {
       flex: 0 0 auto;
