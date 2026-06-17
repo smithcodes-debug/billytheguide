@@ -23,17 +23,9 @@ function initHomePopup() { /* ✅ NEW */
     return window.innerWidth <= 768; /* ✅ NEW */
   }
 
-  function lockHomeScrollIfNeeded() { /* ✅ NEW */
-    if (homeScrollUnlocked) return; /* ✅ NEW */
-
-    if (isMobileHomeScrollLockViewport()) { /* ✅ NEW */
-      document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-      document.body.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-      return; /* ✅ NEW */
-    }
-
-    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+  function lockHomeScrollIfNeeded() { /* ✅ UPDATED */
+    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ UPDATED */
+    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ UPDATED */
   }
 
   function unlockHomeScroll() { /* ✅ NEW */
@@ -50,7 +42,6 @@ function initHomePopup() { /* ✅ NEW */
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
     popup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-
     triggers.forEach(function (el) { /* ✅ NEW */
       el.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
     });
@@ -59,7 +50,6 @@ function initHomePopup() { /* ✅ NEW */
   function closePopup() { /* ✅ NEW */
     popup.classList.remove('is-open'); /* ✅ NEW */
     popup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-
     triggers.forEach(function (el) { /* ✅ NEW */
       el.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
     });
