@@ -12,10 +12,39 @@ function initHomePopup() { /* ✅ NEW */
   const popupCard = popup ? popup.querySelector('.popup-card') : null; /* ✅ NEW */
   const closeBtn = popup ? popup.querySelector('.popup-close') : null; /* ✅ NEW */
   const triggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
+  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
+  let homeScrollUnlocked = false; /* ✅ NEW */
 
   if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return; /* ✅ REQUIRED FIX */
 
+  function isMobileHomeScrollLockViewport() { /* ✅ NEW */
+    return window.innerWidth <= 768; /* ✅ NEW */
+  }
+
+  function lockHomeScrollIfNeeded() { /* ✅ NEW */
+    if (homeScrollUnlocked) return; /* ✅ NEW */
+
+    if (isMobileHomeScrollLockViewport()) { /* ✅ NEW */
+      document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+      document.body.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+
+    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+  }
+
+  function unlockHomeScroll() { /* ✅ NEW */
+    homeScrollUnlocked = true; /* ✅ NEW */
+    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+  }
+
+  lockHomeScrollIfNeeded(); /* ✅ NEW */
+  window.addEventListener('resize', lockHomeScrollIfNeeded); /* ✅ NEW */
+
   function openPopup() { /* ✅ NEW */
+    unlockHomeScroll(); /* ✅ NEW */
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
     popup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
