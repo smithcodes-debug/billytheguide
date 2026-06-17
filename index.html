@@ -1937,21 +1937,39 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
 .policy-popup-close:hover {
   background: rgba(255, 255, 255, 0.14); /* ✅ NEW */
 }
+
+.policy-popup-media-row {
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  gap: 26px; /* ✅ NEW */
+  min-height: 126px; /* ✅ NEW */
+  margin: 0 auto 10px; /* ✅ NEW */
+  overflow: visible; /* ✅ NEW */
+}
+.policy-popup-menu-vector {
+  width: 72px; /* ✅ NEW */
+  height: 72px; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  object-fit: contain; /* ✅ NEW */
+  flex: 0 0 auto; /* ✅ NEW */
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28)); /* ✅ NEW */
+}
 .policy-popup-logo-slot {
   display: flex; /* ✅ NEW */
   justify-content: center; /* ✅ NEW */
   align-items: center; /* ✅ NEW */
-  min-height: 120px; /* ✅ NEW */
-  margin: 0 auto 10px; /* ✅ NEW */
+  min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao */
+  margin: 0; /* ✅ UPDATED: row mới quản lý khoảng cách */
   overflow: visible; /* ✅ NEW */
 }
 .policy-popup-logo-slot .mask {
-  transform: scale(0.82); /* ✅ NEW */
+  transform: scale(0.94); /* ✅ UPDATED: scale logo policy popup thêm 15% */
   transform-origin: center center; /* ✅ NEW */
   pointer-events: none; /* ✅ NEW */
 }
 .policy-popup-logo-slot .mask:hover {
-  transform: scale(0.82); /* ✅ REQUIRED FIX */
+  transform: scale(0.94); /* ✅ REQUIRED FIX */
 }
 .policy-popup-title {
   margin: 0 44px 14px; /* ✅ NEW */
@@ -1994,6 +2012,55 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
   outline-offset: 5px; /* ✅ NEW */
 }
+.policy-popup-guidelines-toggle {
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  width: max-content; /* ✅ NEW */
+  max-width: 100%; /* ✅ NEW */
+  margin: 12px auto 0; /* ✅ NEW */
+  padding: 0; /* ✅ NEW */
+  border: 0; /* ✅ NEW */
+  background: transparent; /* ✅ NEW */
+  color: rgba(255, 255, 255, 0.84); /* ✅ NEW */
+  font: inherit; /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1.25; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  text-decoration: underline; /* ✅ NEW */
+  text-underline-offset: 4px; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.policy-popup-guidelines-toggle:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.84); /* ✅ NEW */
+  outline-offset: 5px; /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+}
+.policy-popup-guidelines {
+  display: none; /* ✅ NEW */
+  max-width: 430px; /* ✅ NEW */
+  margin: 12px auto 0; /* ✅ NEW */
+  padding: 13px 15px; /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
+  border-radius: 18px; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  color: rgba(255, 255, 255, 0.92); /* ✅ NEW */
+  text-align: left; /* ✅ NEW */
+}
+.policy-popup-guidelines.is-open {
+  display: block; /* ✅ NEW */
+}
+.policy-popup-guidelines-list {
+  display: grid; /* ✅ NEW */
+  gap: 7px; /* ✅ NEW */
+  margin: 0; /* ✅ NEW */
+  padding-left: 18px; /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
+  line-height: 1.38; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+}
+
 .policy-wave-text {
   display: inline-flex; /* ✅ NEW */
   align-items: baseline; /* ✅ NEW */
@@ -2032,15 +2099,34 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     padding: 30px 18px 24px; /* ✅ NEW */
     border-radius: 24px; /* ✅ NEW */
   }
-  .policy-popup-logo-slot {
-    min-height: 104px; /* ✅ NEW */
+
+  .policy-popup-media-row {
+    gap: 18px; /* ✅ NEW */
+    min-height: 112px; /* ✅ NEW */
     margin-bottom: 4px; /* ✅ NEW */
   }
+  .policy-popup-menu-vector {
+    width: 72px; /* ✅ NEW */
+    height: 72px; /* ✅ NEW */
+  }
+  .policy-popup-guidelines-toggle {
+    font-size: 13px; /* ✅ NEW */
+  }
+  .policy-popup-guidelines {
+    padding: 12px 13px; /* ✅ NEW */
+  }
+  .policy-popup-guidelines-list {
+    font-size: 12px; /* ✅ NEW */
+  }
+  .policy-popup-logo-slot {
+    min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao mobile */
+    margin-bottom: 0; /* ✅ UPDATED: row mới quản lý khoảng cách mobile */
+  }
   .policy-popup-logo-slot .mask {
-    transform: scale(0.68); /* ✅ NEW */
+    transform: scale(0.78); /* ✅ UPDATED: scale logo policy popup mobile thêm 15% */
   }
   .policy-popup-logo-slot .mask:hover {
-    transform: scale(0.68); /* ✅ REQUIRED FIX */
+    transform: scale(0.78); /* ✅ REQUIRED FIX */
   }
   .policy-popup-title {
     margin: 0 38px 12px; /* ✅ NEW */
@@ -2703,13 +2789,26 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
   <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
     <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
-    <div class="policy-popup-logo-slot" aria-hidden="true"></div>
+    <div class="policy-popup-media-row" aria-hidden="true"> <!-- ✅ UPDATED -->
+      <div class="policy-popup-logo-slot"></div> <!-- ✅ UPDATED -->
+      <img class="policy-popup-menu-vector" src="./menu.PNG" alt="" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+    </div>
     <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
     <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
     <button class="policy-popup-action" type="button" aria-label="Mở chính sách Leave no trace">
       <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
       <span class="sr-only">"Leave no trace"</span>
     </button>
+    <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button> <!-- ✅ NEW -->
+    <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true"> <!-- ✅ NEW -->
+      <ul class="policy-popup-guidelines-list"> <!-- ✅ NEW -->
+        <li>do not step on coral</li> <!-- ✅ NEW -->
+        <li>do not litter</li> <!-- ✅ NEW -->
+        <li>do not bring back coral, even dead coral</li> <!-- ✅ NEW -->
+        <li>together clean up everything after your tour</li> <!-- ✅ NEW -->
+        <li>try to stay organic</li> <!-- ✅ NEW -->
+      </ul>
+    </div>
   </div>
 </div>
 <!-- ✅ NEW: POPUP -->

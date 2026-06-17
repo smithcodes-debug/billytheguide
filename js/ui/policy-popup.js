@@ -5,6 +5,8 @@ export function initPolicyPopup() { /* ✅ NEW */
   const policyCloseBtn = policyPopup ? policyPopup.querySelector('.policy-popup-close') : null; /* ✅ NEW */
   const policyActionBtn = policyPopup ? policyPopup.querySelector('.policy-popup-action') : null; /* ✅ NEW */
   const policyLogoSlot = policyPopup ? policyPopup.querySelector('.policy-popup-logo-slot') : null; /* ✅ NEW */
+  const policyGuidelinesToggle = policyPopup ? policyPopup.querySelector('.policy-popup-guidelines-toggle') : null; /* ✅ NEW */
+  const policyGuidelines = policyPopup ? policyPopup.querySelector('.policy-popup-guidelines') : null; /* ✅ NEW */
   const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)'); /* ✅ NEW */
 
   if (!titleTrigger || !policyPopup || !policyPopupCard || !policyCloseBtn || !policyActionBtn || !policyLogoSlot) return; /* ✅ REQUIRED FIX */
@@ -49,10 +51,21 @@ export function initPolicyPopup() { /* ✅ NEW */
     titleTrigger.setAttribute('aria-expanded', isExpanded ? 'true' : 'false'); /* ✅ NEW */
   }
 
+  function setPolicyGuidelinesState(isOpen) { /* ✅ NEW */
+    if (!policyGuidelinesToggle || !policyGuidelines) return; /* ✅ REQUIRED FIX */
+    policyGuidelines.classList.toggle('is-open', isOpen); /* ✅ NEW */
+    policyGuidelines.setAttribute('aria-hidden', isOpen ? 'false' : 'true'); /* ✅ NEW */
+    policyGuidelinesToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false'); /* ✅ NEW */
+  }
+  function togglePolicyGuidelines() { /* ✅ NEW */
+    if (!policyGuidelinesToggle || !policyGuidelines) return; /* ✅ REQUIRED FIX */
+    setPolicyGuidelinesState(!policyGuidelines.classList.contains('is-open')); /* ✅ NEW */
+  }
   function openPolicyPopup() { /* ✅ NEW */
     cloneBrandLogo(); /* ✅ UPDATED */
     prepareWaveText(); /* ✅ NEW */
 
+    setPolicyGuidelinesState(false); /* ✅ NEW */
     policyPopup.classList.remove('is-closing'); /* ✅ NEW */
     policyPopup.classList.add('is-open'); /* ✅ NEW */
     policyPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
@@ -65,6 +78,7 @@ export function initPolicyPopup() { /* ✅ NEW */
       return; /* ✅ NEW */
     }
 
+    setPolicyGuidelinesState(false); /* ✅ NEW */
     policyPopup.classList.add('is-closing'); /* ✅ NEW */
     policyPopup.classList.remove('is-open'); /* ✅ NEW */
     setTitleTriggerState(false); /* ✅ NEW */
@@ -119,6 +133,12 @@ export function initPolicyPopup() { /* ✅ NEW */
     openTourCardsAfterPolicy(); /* ✅ NEW */
   });
 
+  if (policyGuidelinesToggle) { /* ✅ NEW */
+    policyGuidelinesToggle.addEventListener('click', function (event) { /* ✅ NEW */
+      event.preventDefault(); /* ✅ NEW */
+      togglePolicyGuidelines(); /* ✅ NEW */
+    });
+  }
   policyCloseBtn.addEventListener('click', function () { /* ✅ NEW */
     closePolicyPopup(); /* ✅ NEW */
   });
