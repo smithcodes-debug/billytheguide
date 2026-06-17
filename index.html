@@ -1008,6 +1008,7 @@ color: #fff;
         gap: 18px; /* ✅ UPDATED */
         width: 100%;
         margin-top: 0;
+        transform: translateY(-10px); /* ✅ UPDATED: kéo toàn bộ cụm title + story + CTA lên thêm 10px trên mobile */
       }
       .title {
         text-align: center; /* ✅ UPDATED */
@@ -2557,6 +2558,56 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     font-weight: 600; /* ✅ NEW */
   }
 }
+
+/* ✅ NEW: MOBILE EDGE PAD */
+.mobile-edge-pad {
+  display: none; /* ✅ NEW: chỉ hiện trên mobile */
+}
+@media (max-width:768px) {
+  .mobile-edge-pad {
+    position: fixed; /* ✅ NEW */
+    left: 50%; /* ✅ NEW */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 11px); /* ✅ NEW */
+    z-index: 98; /* ✅ NEW: dưới header/search popup, trên hero */
+    width: 128px; /* ✅ NEW */
+    height: 24px; /* ✅ NEW */
+    padding: 0; /* ✅ NEW */
+    border: 0; /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.92); /* ✅ NEW */
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+    display: inline-flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    cursor: pointer; /* ✅ NEW */
+    touch-action: none; /* ✅ NEW: bắt swipe ổn định */
+    -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+    transform: translate3d(-50%, 0, 0); /* ✅ NEW */
+    opacity: 1; /* ✅ NEW */
+    visibility: visible; /* ✅ NEW */
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; /* ✅ NEW */
+  }
+  .mobile-edge-pad::before {
+    content: ""; /* ✅ REQUIRED FIX */
+    width: 54px; /* ✅ NEW */
+    height: 5px; /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(5, 6, 8, 0.42); /* ✅ NEW */
+  }
+  .mobile-edge-pad.is-hidden {
+    opacity: 0; /* ✅ NEW */
+    visibility: hidden; /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+    transform: translate3d(-50%, 12px, 0); /* ✅ NEW */
+  }
+  .mobile-edge-pad:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.86); /* ✅ NEW */
+    outline-offset: 5px; /* ✅ NEW */
+  }
+  .more-stories-back-button {
+    display: none; /* ✅ UPDATED: ẩn Back to tours trên mobile, giữ HTML để an toàn */
+  }
+}
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
@@ -2645,6 +2696,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
   </div>
 </section>
+<button class="mobile-edge-pad" type="button" aria-label="Mở phần thông tin bên dưới" aria-controls="more-stories-section"></button> <!-- ✅ NEW -->
 <!-- ✅ NEW: POLICY POPUP -->
 <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
   <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
