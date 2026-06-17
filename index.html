@@ -1849,151 +1849,284 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     transition-duration: 0.001ms !important; /* ✅ NEW */
   }
 }
-/* ✅ NEW: STORY EXPAND SECTION */
+/* ✅ UPDATED: STORY EXPAND SECTION REBUILD */
 .more-stories-section {
-  position: relative; /* ✅ NEW */
-  min-height: 2000px; /* ✅ NEW */
-  padding: 96px 24px 140px; /* ✅ NEW */
-  background: linear-gradient(180deg, #f8fbfd 0%, #eef7f8 45%, #f7fbff 100%); /* ✅ NEW */
-  color: #1c2833; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
+  position: relative; /* ✅ UPDATED */
+  padding: 96px 24px 120px; /* ✅ UPDATED */
+  background: linear-gradient(180deg, #f8fbfd 0%, #eef7f8 45%, #f7fbff 100%); /* ✅ KEEP */
+  color: #1c2833; /* ✅ KEEP */
+  overflow: hidden; /* ✅ KEEP */
 }
 .more-stories-section::before {
   content: ""; /* ✅ REQUIRED FIX */
-  position: absolute; /* ✅ NEW */
-  inset: 0 0 auto; /* ✅ NEW */
-  height: 160px; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); /* ✅ NEW */
+  position: absolute; /* ✅ KEEP */
+  inset: 0 0 auto; /* ✅ KEEP */
+  height: 160px; /* ✅ KEEP */
+  pointer-events: none; /* ✅ KEEP */
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); /* ✅ KEEP */
 }
 .more-stories-inner {
-  position: relative; /* ✅ NEW */
-  z-index: 1; /* ✅ NEW */
-  width: min(1120px, 100%); /* ✅ NEW */
-  margin: 0 auto; /* ✅ NEW */
+  position: relative; /* ✅ KEEP */
+  z-index: 1; /* ✅ KEEP */
+  width: min(1120px, 100%); /* ✅ KEEP */
+  margin: 0 auto; /* ✅ KEEP */
 }
 .more-stories-kicker {
-  margin: 0 0 10px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.58); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.3; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: 0.08em; /* ✅ NEW */
-  text-transform: uppercase; /* ✅ NEW */
+  margin: 0 0 10px; /* ✅ KEEP */
+  color: rgba(28, 40, 51, 0.58); /* ✅ KEEP */
+  font-size: 13px; /* ✅ KEEP */
+  line-height: 1.3; /* ✅ KEEP */
+  font-weight: 700; /* ✅ KEEP */
+  letter-spacing: 0.08em; /* ✅ KEEP */
+  text-transform: uppercase; /* ✅ KEEP */
 }
 .more-stories-title {
-  margin: 0; /* ✅ NEW */
-  max-width: 780px; /* ✅ NEW */
-  color: #17202a; /* ✅ NEW */
-  font-size: clamp(34px, 7vw, 64px); /* ✅ NEW */
-  line-height: 0.98; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: -0.04em; /* ✅ NEW */
+  margin: 0; /* ✅ KEEP */
+  max-width: 860px; /* ✅ UPDATED */
+  color: #17202a; /* ✅ KEEP */
+  font-size: clamp(34px, 7vw, 64px); /* ✅ KEEP */
+  line-height: 0.98; /* ✅ KEEP */
+  font-weight: 700; /* ✅ KEEP */
+  letter-spacing: -0.04em; /* ✅ KEEP */
 }
 .more-stories-intro {
-  max-width: 760px; /* ✅ NEW */
-  margin: 22px 0 0; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.72); /* ✅ NEW */
-  font-size: clamp(16px, 2.2vw, 19px); /* ✅ NEW */
-  line-height: 1.72; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
+  max-width: 780px; /* ✅ UPDATED */
+  margin: 22px 0 0; /* ✅ KEEP */
+  color: rgba(28, 40, 51, 0.72); /* ✅ KEEP */
+  font-size: clamp(16px, 2.2vw, 19px); /* ✅ KEEP */
+  line-height: 1.72; /* ✅ KEEP */
+  font-weight: 500; /* ✅ KEEP */
 }
 .more-stories-back-button {
+  display: inline-flex; /* ✅ KEEP */
+  align-items: center; /* ✅ KEEP */
+  justify-content: center; /* ✅ KEEP */
+  min-height: 42px; /* ✅ KEEP */
+  margin: 28px 0 0; /* ✅ KEEP */
+  padding: 10px 16px; /* ✅ KEEP */
+  border: 1px solid rgba(20, 40, 60, 0.1); /* ✅ KEEP */
+  border-radius: 999px; /* ✅ KEEP */
+  background: rgba(255, 255, 255, 0.72); /* ✅ KEEP */
+  color: #1c2833; /* ✅ KEEP */
+  font: inherit; /* ✅ KEEP */
+  font-size: 14px; /* ✅ KEEP */
+  line-height: 1; /* ✅ KEEP */
+  font-weight: 700; /* ✅ KEEP */
+  cursor: pointer; /* ✅ KEEP */
+  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); /* ✅ KEEP */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.more-services-block {
+  margin-top: 46px; /* ✅ NEW */
+}
+.more-section-label {
+  margin: 0 0 14px; /* ✅ NEW */
+  color: #0f4c5c; /* ✅ NEW */
+  font-size: clamp(22px, 4vw, 32px); /* ✅ NEW */
+  line-height: 1.12; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  letter-spacing: -0.02em; /* ✅ NEW */
+}
+.more-services-grid {
+  display: grid; /* ✅ NEW */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ NEW */
+  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.45); /* ✅ NEW */
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
+}
+.more-service-card {
+  display: flex; /* ✅ NEW */
+  flex-direction: column; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  min-height: 170px; /* ✅ NEW */
+  padding: 24px 22px; /* ✅ NEW */
+  border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  color: #1c2833; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+  text-decoration: none; /* ✅ NEW */
+  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease; /* ✅ NEW */
+}
+.more-service-card:nth-child(3n) {
+  border-right: 0; /* ✅ NEW */
+}
+.more-service-card:nth-last-child(-n + 3) {
+  border-bottom: 0; /* ✅ NEW */
+}
+.more-service-card-title {
+  margin: 0; /* ✅ NEW */
+  color: #123044; /* ✅ NEW */
+  font-size: 16px; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+}
+.more-service-card-desc {
+  margin: 12px auto 0; /* ✅ NEW */
+  max-width: 280px; /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.72); /* ✅ NEW */
+  font-size: 14px; /* ✅ NEW */
+  line-height: 1.45; /* ✅ NEW */
+  font-weight: 500; /* ✅ NEW */
+}
+.more-service-card-link {
   display: inline-flex; /* ✅ NEW */
   align-items: center; /* ✅ NEW */
   justify-content: center; /* ✅ NEW */
-  min-height: 42px; /* ✅ NEW */
-  margin: 28px 0 0; /* ✅ NEW */
-  padding: 10px 16px; /* ✅ NEW */
-  border: 1px solid rgba(20, 40, 60, 0.1); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
-  color: #1c2833; /* ✅ NEW */
-  font: inherit; /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
+  margin: 18px auto 0; /* ✅ NEW */
+  color: #0f4c5c; /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
   line-height: 1; /* ✅ NEW */
   font-weight: 700; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
 }
-.more-story-grid {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ NEW */
-  gap: 18px; /* ✅ NEW */
-  margin-top: 48px; /* ✅ NEW */
+.more-service-card:focus-visible {
+  outline: 3px solid rgba(15, 76, 92, 0.38); /* ✅ NEW */
+  outline-offset: 4px; /* ✅ NEW */
 }
-.more-story-card {
-  min-height: 320px; /* ✅ NEW */
-  padding: 14px; /* ✅ NEW */
-  border: 1px solid rgba(20, 40, 60, 0.08); /* ✅ NEW */
-  border-radius: 24px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.76); /* ✅ NEW */
-  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.08); /* ✅ NEW */
+@media (hover: hover) and (pointer: fine) {
+  .more-service-card:hover {
+    transform: translateY(-4px); /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.94); /* ✅ NEW */
+    box-shadow: 0 22px 54px rgba(20, 40, 60, 0.1); /* ✅ NEW */
+    z-index: 1; /* ✅ NEW */
+  }
 }
-.more-story-media {
-  width: 100%; /* ✅ NEW */
-  aspect-ratio: 4 / 3; /* ✅ NEW */
-  border-radius: 18px; /* ✅ NEW */
-  background: linear-gradient(135deg, rgba(36, 120, 140, 0.12), rgba(255, 255, 255, 0.75)); /* ✅ NEW */
-  border: 1px dashed rgba(20, 40, 60, 0.14); /* ✅ NEW */
+.more-accordion-block {
+  margin-top: 54px; /* ✅ NEW */
 }
-.more-story-body {
-  padding: 16px 4px 4px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.68); /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.58; /* ✅ NEW */
-}
-.more-story-card-title {
-  margin: 0 0 8px; /* ✅ NEW */
-  color: #17202a; /* ✅ NEW */
-  font-size: 18px; /* ✅ NEW */
-  line-height: 1.18; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-}
-.more-story-timeline {
-  margin-top: 56px; /* ✅ NEW */
-  padding: 26px; /* ✅ NEW */
-  border: 1px solid rgba(20, 40, 60, 0.08); /* ✅ NEW */
-  border-radius: 28px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.64); /* ✅ NEW */
+.more-accordion-list {
+  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
+  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
   box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
 }
-.more-story-timeline-title {
-  margin: 0 0 20px; /* ✅ NEW */
-  color: #17202a; /* ✅ NEW */
-  font-size: clamp(24px, 4vw, 38px); /* ✅ NEW */
-  line-height: 1.08; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
+.more-accordion-item {
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
 }
-.more-story-timeline-list {
+.more-accordion-item:last-child {
+  border-bottom: 0; /* ✅ NEW */
+}
+.more-accordion-summary {
+  display: flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: space-between; /* ✅ NEW */
+  gap: 18px; /* ✅ NEW */
+  min-height: 64px; /* ✅ NEW */
+  padding: 20px 22px; /* ✅ NEW */
+  color: #123044; /* ✅ NEW */
+  font-size: 17px; /* ✅ NEW */
+  line-height: 1.2; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  cursor: pointer; /* ✅ NEW */
+  list-style: none; /* ✅ NEW */
+  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+}
+.more-accordion-summary::-webkit-details-marker {
+  display: none; /* ✅ NEW */
+}
+.more-accordion-summary::after {
+  content: "+"; /* ✅ NEW */
+  flex: 0 0 auto; /* ✅ NEW */
+  color: rgba(18, 48, 68, 0.58); /* ✅ NEW */
+  font-size: 24px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  font-weight: 500; /* ✅ NEW */
+}
+.more-accordion-item[open] .more-accordion-summary::after {
+  content: "–"; /* ✅ NEW */
+}
+.more-accordion-panel {
+  padding: 0 22px 22px; /* ✅ NEW */
+  color: rgba(28, 40, 51, 0.74); /* ✅ NEW */
+  font-size: 15px; /* ✅ NEW */
+  line-height: 1.65; /* ✅ NEW */
+  font-weight: 500; /* ✅ NEW */
+}
+.more-accordion-panel p {
+  margin: 0 0 12px; /* ✅ NEW */
+}
+.more-faq-list {
   display: grid; /* ✅ NEW */
   gap: 14px; /* ✅ NEW */
+  margin: 0; /* ✅ NEW */
 }
-.more-story-timeline-item {
-  min-height: 82px; /* ✅ NEW */
-  padding: 16px; /* ✅ NEW */
-  border-radius: 18px; /* ✅ NEW */
+.more-faq-list dt {
+  color: #123044; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+}
+.more-faq-list dd {
+  margin: 4px 0 0; /* ✅ NEW */
+}
+.more-contact-platforms {
+  display: flex; /* ✅ NEW */
+  flex-wrap: wrap; /* ✅ NEW */
+  gap: 10px; /* ✅ NEW */
+  margin-top: 6px; /* ✅ NEW */
+}
+.more-contact-platform {
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  min-height: 34px; /* ✅ NEW */
+  padding: 7px 12px; /* ✅ NEW */
+  border: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
   background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
-  border: 1px dashed rgba(20, 40, 60, 0.12); /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.62); /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.55; /* ✅ NEW */
+  color: #123044; /* ✅ NEW */
+  font-size: 13px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  font-weight: 700; /* ✅ NEW */
+  text-transform: lowercase; /* ✅ NEW */
+}
+@media (max-width: 900px) {
+  .more-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ✅ NEW */
+  }
+  .more-service-card:nth-child(3n) {
+    border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  }
+  .more-service-card:nth-child(2n) {
+    border-right: 0; /* ✅ NEW */
+  }
+  .more-service-card:nth-last-child(-n + 3) {
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  }
+  .more-service-card:nth-last-child(-n + 2) {
+    border-bottom: 0; /* ✅ NEW */
+  }
 }
 @media (max-width: 768px) {
   .more-stories-section {
-    min-height: 2000px; /* ✅ NEW */
-    padding: 88px 20px 120px; /* ✅ NEW */
+    padding: 88px 20px 110px; /* ✅ UPDATED */
   }
-  .more-story-grid {
+  .more-services-block {
+    margin-top: 42px; /* ✅ NEW */
+  }
+  .more-services-grid {
     grid-template-columns: 1fr; /* ✅ NEW */
-    gap: 16px; /* ✅ NEW */
   }
-  .more-story-card {
-    min-height: 300px; /* ✅ NEW */
+  .more-service-card,
+  .more-service-card:nth-child(2n),
+  .more-service-card:nth-child(3n),
+  .more-service-card:nth-last-child(-n + 2),
+  .more-service-card:nth-last-child(-n + 3) {
+    border-right: 0; /* ✅ NEW */
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
   }
-  .more-story-timeline {
+  .more-service-card:last-child {
+    border-bottom: 0; /* ✅ NEW */
+  }
+  .more-service-card {
+    min-height: 152px; /* ✅ NEW */
+    padding: 22px 18px; /* ✅ NEW */
+  }
+  .more-accordion-block {
+    margin-top: 42px; /* ✅ NEW */
+  }
+  .more-accordion-summary {
     padding: 18px; /* ✅ NEW */
+  }
+  .more-accordion-panel {
+    padding: 0 18px 20px; /* ✅ NEW */
   }
 }
 
@@ -2236,65 +2369,105 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <div class="contact-footer-text">find me on what you have</div> <!-- ✅ NEW -->
   </div>
 </div>
-<!-- ✅ NEW: STORY EXPAND SECTION -->
+<!-- ✅ UPDATED: STORY EXPAND SECTION REBUILD -->
 <section class="more-stories-section" id="more-stories-section" aria-labelledby="moreStoriesTitle">
   <div class="more-stories-inner">
     <p class="more-stories-kicker">Billy and Friend Adventures</p>
-    <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">More stories from Billy and Friend Adventures</h2>
-    <p class="more-stories-intro">A quiet place for deeper stories about Phú Quốc, local memories, coral respect, slow travel, and the Leave no trace philosophy.</p>
-    <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Quay lại khu vực tour">Back to tours</button>
+    <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
+    <p class="more-stories-intro">Choose a slower, more personal way to discover Phú Quốc through coral-friendly snorkeling, private diving, quiet hiking routes, island camping, proposal getaways, and practical coral knowledge shaped by a Leave no trace mindset.</p>
+    <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Back to tour choices">Back to tours</button>
 
-    <div class="more-story-grid" aria-label="Story cards">
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">Story card</h3>
-          <!-- Story content will be added here -->
-        </div>
-      </article>
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">Coral / environment</h3>
-          <!-- Coral education content will be added here -->
-        </div>
-      </article>
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">Founder / local story</h3>
-          <!-- Founder/local story content will be added here -->
-        </div>
-      </article>
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">Tour philosophy</h3>
-          <!-- Tour philosophy content will be added here -->
-        </div>
-      </article>
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">Leave no trace</h3>
-          <!-- Leave no trace philosophy content will be added here -->
-        </div>
-      </article>
-      <article class="more-story-card">
-        <div class="more-story-media" aria-hidden="true"></div>
-        <div class="more-story-body">
-          <h3 class="more-story-card-title">More memories</h3>
-          <!-- Additional story content will be added here -->
-        </div>
-      </article>
+    <div class="more-services-block" aria-labelledby="moreServicesTitle">
+      <h3 class="more-section-label" id="moreServicesTitle">Compact semantic layer</h3>
+      <div class="more-services-grid" aria-label="Private Phú Quốc tour landing pages">
+        <a class="more-service-card" href="./coral-snorkeling-phu-quoc.html">
+          <h4 class="more-service-card-title">Snorkeling in Phú Quốc</h4>
+          <p class="more-service-card-desc">Private coral-friendly snorkeling with a local guide and slower, cleaner travel.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+        <a class="more-service-card" href="./diving-island-phu-quoc.html">
+          <h4 class="more-service-card-title">Private Diving in Phú Quốc</h4>
+          <p class="more-service-card-desc">A calm private diving experience for guests who want deeper island water stories.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+        <a class="more-service-card" href="./hiking-mountain-phu-quoc.html">
+          <h4 class="more-service-card-title">Private Hiking in Phú Quốc</h4>
+          <p class="more-service-card-desc">Quiet local routes for guests who want to see another side of Phú Quốc.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+        <a class="more-service-card" href="./camping-island-phu-quoc.html">
+          <h4 class="more-service-card-title">Private Camping in Phú Quốc</h4>
+          <p class="more-service-card-desc">Simple outdoor time focused on nature, quiet places, and Leave no trace.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+        <a class="more-service-card" href="./propose-island-phu-quoc.html">
+          <h4 class="more-service-card-title">Private Proposal Getaway in Phú Quốc</h4>
+          <p class="more-service-card-desc">A quiet private setup for couples visiting the island and planning a memory.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+        <a class="more-service-card" href="./coral-dictionary-at-phu-quoc.html">
+          <h4 class="more-service-card-title">Coral Dictionary at Phú Quốc</h4>
+          <p class="more-service-card-desc">Simple coral notes to help guests understand, respect, and protect reef life.</p>
+          <span class="more-service-card-link">Read more</span>
+        </a>
+      </div>
     </div>
 
-    <div class="more-story-timeline" aria-label="Timeline">
-      <h3 class="more-story-timeline-title">Timeline</h3>
-      <div class="more-story-timeline-list">
-        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
-        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
-        <div class="more-story-timeline-item"><!-- Timeline content will be added here --></div>
+    <div class="more-accordion-block" aria-labelledby="moreAccordionTitle">
+      <h3 class="more-section-label" id="moreAccordionTitle">Accordion</h3>
+      <div class="more-accordion-list">
+        <details class="more-accordion-item" open>
+          <summary class="more-accordion-summary">Leave no trace</summary>
+          <div class="more-accordion-panel">
+            <p>Leave no trace is the travel promise behind Billy and Friend Adventures: enjoy Phú Quốc without damaging coral reefs, beaches, forest paths, or the quiet local places that make the island worth visiting.</p>
+            <p>Guests are guided to move slowly, avoid touching coral, reduce waste, respect local routes, and leave each place as natural as possible for the people who arrive after them.</p>
+          </div>
+        </details>
+        <details class="more-accordion-item">
+          <summary class="more-accordion-summary">FAQ</summary>
+          <div class="more-accordion-panel">
+            <dl class="more-faq-list">
+              <div>
+                <dt>Are these private experiences?</dt>
+                <dd>Yes. The focus is on private, slower, and more personal Phú Quốc experiences instead of crowded standard tours.</dd>
+              </div>
+              <div>
+                <dt>Is snorkeling beginner-friendly?</dt>
+                <dd>Yes. The snorkeling experience is designed to be calm, guided, and respectful of coral safety.</dd>
+              </div>
+              <div>
+                <dt>How does the tour protect coral reefs?</dt>
+                <dd>The guide explains safe movement, no-touch reef behavior, cleaner travel habits, and why coral needs distance and respect.</dd>
+              </div>
+              <div>
+                <dt>How can guests book?</dt>
+                <dd>Guests can use the contact popup, choose an available date, or open a specific landing page for the experience they want.</dd>
+              </div>
+              <div>
+                <dt>Which experience should first-time visitors choose?</dt>
+                <dd>Snorkeling is usually the easiest first choice, while hiking, camping, diving, and proposal getaways fit more specific travel plans.</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+        <details class="more-accordion-item">
+          <summary class="more-accordion-summary">Contact platforms</summary>
+          <div class="more-accordion-panel">
+            <p>Find Billy and Friend Adventures on the contact platform you already use. Direct links will be mapped after the official channels are ready.</p>
+            <div class="more-contact-platforms" aria-label="Contact platform names">
+              <span class="more-contact-platform">facebook</span>
+              <span class="more-contact-platform">telegram</span>
+              <span class="more-contact-platform">kakao</span>
+              <span class="more-contact-platform">zalo</span>
+              <span class="more-contact-platform">tiktok</span>
+              <span class="more-contact-platform">youtube</span>
+              <span class="more-contact-platform">wechat</span>
+              <span class="more-contact-platform">google map</span>
+              <span class="more-contact-platform">maill</span>
+              <span class="more-contact-platform">line</span>
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   </div>
