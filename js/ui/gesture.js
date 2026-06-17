@@ -1,8 +1,9 @@
 export function initGesture() {
   let startX = 0;
   let startY = 0;
-
+  let availabilitySwipeDisabled = false; /* ✅ NEW */
   const EDGE_BACK_ZONE = 24; /* ✅ NEW */
+  const AVAILABILITY_SWIPE_TOP_THRESHOLD = 80; /* ✅ NEW */
 
   function isMobileViewport() { /* ✅ UPDATED */
     return window.innerWidth <= 768 || window.matchMedia('(hover: none) and (pointer: coarse)').matches; /* ✅ UPDATED */
@@ -17,11 +18,42 @@ export function initGesture() {
     return Boolean(tourPopup && tourPopup.classList.contains('is-open')); /* ✅ NEW */
   }
 
+  function disableAvailabilitySwipeOnceTourPopupOpens() { /* ✅ NEW */
+    if (hasTourCardPopupOpen()) { /* ✅ NEW */
+      availabilitySwipeDisabled = true; /* ✅ NEW */
+    }
+  }
+
+  function isAvailabilitySwipeAllowedAtCurrentScroll() { /* ✅ NEW */
+    return window.scrollY <= AVAILABILITY_SWIPE_TOP_THRESHOLD; /* ✅ NEW */
+  }
+
+  function observeTourPopupState() { /* ✅ NEW */
+    const tourPopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
+    if (!tourPopup) return; /* ✅ REQUIRED FIX */
+    if (tourPopup.dataset.availabilitySwipeObserverInitialized === 'true') return; /* ✅ REQUIRED FIX */
+
+    tourPopup.dataset.availabilitySwipeObserverInitialized = 'true'; /* ✅ NEW */
+
+    const observer = new MutationObserver(function () { /* ✅ NEW */
+      disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
+    });
+
+    observer.observe(tourPopup, { /* ✅ NEW */
+      attributes: true, /* ✅ NEW */
+      attributeFilter: ['class'] /* ✅ NEW */
+    });
+
+    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
+  }
+
+  observeTourPopupState(); /* ✅ NEW */
+
   document.addEventListener('touchstart', (e) => {
     if (!e.touches || e.touches.length !== 1) return;
-
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
   }, { passive: true });
 
   document.addEventListener('touchend', (e) => {
@@ -36,6 +68,8 @@ export function initGesture() {
     const isMobile = isMobileViewport(); /* ✅ NEW */
     const popupIsOpen = hasOpenPopup(); /* ✅ NEW */
 
+    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
+
     if (
       isMobile && /* ✅ UPDATED */
       popupIsOpen && /* ✅ UPDATED: chỉ back khi đang mở popup */
@@ -48,8 +82,13 @@ export function initGesture() {
     }
 
     if (!isMobile) return; /* ✅ KEEP: mobile only */
-    if (hasTourCardPopupOpen()) return; /* ✅ REQUIRED FIX */
+    if (hasTourCardPopupOpen()) { /* ✅ UPDATED */
+      availabilitySwipeDisabled = true; /* ✅ NEW */
+      return; /* ✅ REQUIRED FIX */
+    }
     if (popupIsOpen) return; /* ✅ KEEP: swipe up chỉ chạy khi chưa có popup nào mở */
+    if (availabilitySwipeDisabled) return; /* ✅ NEW */
+    if (!isAvailabilitySwipeAllowedAtCurrentScroll()) return; /* ✅ NEW */
 
     if (deltaY < -30 && absDeltaY > 30) { /* ✅ UPDATED */
       window.dispatchEvent(new CustomEvent('billy:open-availability-popup')); /* ✅ NEW */
