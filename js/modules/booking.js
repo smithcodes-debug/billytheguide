@@ -13,11 +13,12 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
 
   if (!availabilityMemo || !availabilityPopup || !availabilityPopupCard || !availabilityCloseBtn || !availabilityMonthLabel || !availabilityDays || !availabilityPrevMonth || !availabilityNextMonth || !availabilityMessage || !availabilityContactLink || !availabilityTourList) return; /* ✅ REQUIRED FIX */
 
-  const TOUR_PAGE_MAP = { /* ✅ NEW */
+  const TOUR_PAGE_MAP = { /* ✅ UPDATED */
     snorkeling: './coral-snorkeling-phu-quoc.html', /* ✅ NEW */
-    hiking: './pages/hiking.html', /* ✅ NEW */
-    camping: './pages/camping.html', /* ✅ NEW */
-    propose: './pages/propose.html' /* ✅ NEW */
+    diving: './diving-island-phu-quoc.html', /* ✅ NEW */
+    hiking: './hiking-mountain-phu-quoc.html', /* ✅ UPDATED */
+    camping: './camping-island-phu-quoc.html', /* ✅ UPDATED */
+    propose: './propose-island-phu-quoc.html' /* ✅ UPDATED */
   };
 
   const BOOKED_DATES = new Set([ /* ✅ NEW: fake booked data for current month + next month */
