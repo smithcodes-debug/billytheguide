@@ -146,6 +146,9 @@ header {
       inset: 0;
       background: rgba(5, 6, 8, 0.42); /* ✅ UPDATED */
     }
+    .hero-guide-tagline {
+      display: none; /* ✅ NEW: mặc định ẩn trên desktop */
+    }
     /* ===== CONTENT ===== */
     .content {
       position: relative;
@@ -892,6 +895,23 @@ color: #fff;
         padding: 5px 10px; /* ✅ UPDATED: tăng padding theo scale 30% */  
         gap: 18px; /* ✅ UPDATED: kéo logo và menu header xa nhau hơn */  
         border-radius: 0; /* ✅ UPDATED: bỏ bo góc header mobile */  
+      }
+      .hero-guide-tagline {
+        display: block; /* ✅ NEW */
+        position: absolute; /* ✅ NEW */
+        top: calc(env(safe-area-inset-top, 0px) + 68px); /* ✅ NEW: nằm ngay dưới header mobile */
+        left: 0; /* ✅ NEW */
+        right: 0; /* ✅ NEW */
+        z-index: 3; /* ✅ NEW: nằm trên overlay hero */
+        padding: 7px 18px; /* ✅ NEW */
+        color: #ffffff; /* ✅ NEW */
+        font-size: 15px; /* ✅ NEW */
+        line-height: 1.25; /* ✅ NEW */
+        font-weight: 600; /* ✅ NEW */
+        letter-spacing: 0.02em; /* ✅ NEW */
+        text-align: left; /* ✅ NEW */
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55); /* ✅ NEW */
+        pointer-events: none; /* ✅ NEW */
       }  
       .cta-row > span,
       .quote > span {
@@ -2333,6 +2353,7 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
 </header>
 <section class="hero">
   <div class="overlay"></div>
+  <div class="hero-guide-tagline">• professional local guide team</div> <!-- ✅ NEW -->
   <!-- ✅ NEW: CHECK AVALIBILITY MEMO -->
   <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
     <span class="availability-memo-card" aria-hidden="true">
