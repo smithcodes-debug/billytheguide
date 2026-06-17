@@ -527,7 +527,7 @@ color: #fff;
       z-index: 4; /* ✅ NEW */
       width: 150px; /* ✅ NEW */
       min-height: 128px; /* ✅ NEW */
-      border: 0; /* ✅ NEW */
+      border: 1px solid rgba(255, 255, 255, 0.58); /* ✅ UPDATED: viền glass mỏng */
       padding: 0; /* ✅ NEW */
       background: transparent; /* ✅ NEW */
       color: #fff; /* ✅ NEW */
@@ -1008,7 +1008,7 @@ color: #fff;
         gap: 18px; /* ✅ UPDATED */
         width: 100%;
         margin-top: 0;
-        transform: translateY(-10px); /* ✅ UPDATED: kéo toàn bộ cụm title + story + CTA lên thêm 10px trên mobile */
+        transform: translateY(-20px); /* ✅ UPDATED: kéo toàn bộ cụm title + story + CTA lên tổng cộng 20px trên mobile */
       }
       .title {
         text-align: center; /* ✅ UPDATED */
@@ -1487,7 +1487,7 @@ color: #fff;
   }
   .contact-popup-drag-handle {
     width: 44px; /* ✅ NEW */
-    height: 5px; /* ✅ NEW */
+    height: 4px; /* ✅ UPDATED: handle mỏng hơn */
     margin: 0 auto 18px; /* ✅ NEW */
     border-radius: 999px; /* ✅ NEW */
     background: rgba(255, 255, 255, 0.34); /* ✅ NEW */
@@ -2365,7 +2365,7 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
 @media (max-width:768px) {
   .header-search-trigger {
     flex: 1 1 auto; /* ✅ NEW */
-    min-width: 54px; /* ✅ NEW */
+    min-width: 68px; /* ✅ UPDATED: handle bên trong dài hơn theo pill mới */
     max-width: 112px; /* ✅ NEW: giữ search nằm gọn giữa logo và menu */
     height: 38px; /* ✅ NEW */
     padding: 0 10px; /* ✅ NEW */
@@ -2567,15 +2567,17 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   .mobile-edge-pad {
     position: fixed; /* ✅ NEW */
     left: 50%; /* ✅ NEW */
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 11px); /* ✅ NEW */
+    bottom: calc(env(safe-area-inset-bottom, 0px) - 9px); /* ✅ UPDATED: dính bottom và chỉ nhô nửa thân lên */
     z-index: 98; /* ✅ NEW: dưới header/search popup, trên hero */
-    width: 128px; /* ✅ NEW */
-    height: 24px; /* ✅ NEW */
+    width: 180px; /* ✅ UPDATED: mở rộng edge pad */
+    height: 18px; /* ✅ UPDATED: làm mỏng hơn */
     padding: 0; /* ✅ NEW */
     border: 0; /* ✅ NEW */
     border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.92); /* ✅ NEW */
-    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.58); /* ✅ UPDATED: glass pill trắng mờ */
+    backdrop-filter: blur(10px); /* ✅ UPDATED: glass blur cho edge pad */
+    -webkit-backdrop-filter: blur(10px); /* ✅ REQUIRED FIX */
+    box-shadow: 0 -2px 18px rgba(255, 255, 255, 0.22), 0 10px 30px rgba(0, 0, 0, 0.24); /* ✅ UPDATED: bóng mềm kiểu floating edge */
     display: inline-flex; /* ✅ NEW */
     align-items: center; /* ✅ NEW */
     justify-content: center; /* ✅ NEW */
@@ -2592,13 +2594,13 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     width: 54px; /* ✅ NEW */
     height: 5px; /* ✅ NEW */
     border-radius: 999px; /* ✅ NEW */
-    background: rgba(5, 6, 8, 0.42); /* ✅ NEW */
+    background: rgba(5, 6, 8, 0.32); /* ✅ UPDATED: thanh trong mềm hơn */
   }
   .mobile-edge-pad.is-hidden {
     opacity: 0; /* ✅ NEW */
     visibility: hidden; /* ✅ NEW */
     pointer-events: none; /* ✅ NEW */
-    transform: translate3d(-50%, 12px, 0); /* ✅ NEW */
+    transform: translate3d(-50%, 10px, 0); /* ✅ UPDATED: ẩn nhẹ theo edge pad mỏng */
   }
   .mobile-edge-pad:focus-visible {
     outline: 3px solid rgba(255, 255, 255, 0.86); /* ✅ NEW */
