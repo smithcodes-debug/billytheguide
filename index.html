@@ -2576,7 +2576,7 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
   .mobile-home-feed-card-scroll {
     height: 100%; /* ✅ NEW */
-    padding: clamp(24px, 6.5vw, 46px) clamp(20px, 5.5vw, 40px); /* ✅ UPDATED: giảm padding để nội dung fit trong card */
+padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: giảm safe pad để card có nhiều không gian hơn */
     overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card, tránh gesture bị nuốt */
     display: flex; /* ✅ NEW */
     flex-direction: column; /* ✅ NEW */
