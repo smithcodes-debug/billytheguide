@@ -1296,39 +1296,58 @@ color: #fff;
   transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
   opacity: 1; /* ✅ NEW */
 }
+.contact-popup-header {
+  display: grid; /* ✅ NEW */
+  grid-template-columns: 46px minmax(0, 1fr) 46px; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  gap: 12px; /* ✅ NEW */
+  margin: 0 0 18px; /* ✅ NEW */
+}
+.contact-popup-header-vector {
+  width: 46px; /* ✅ NEW */
+  height: 46px; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  object-fit: contain; /* ✅ NEW */
+}
 .contact-popup-close {
-  position: absolute; /* ✅ NEW */
-  top: 12px; /* ✅ NEW */
-  right: 12px; /* ✅ NEW */
-  width: 36px; /* ✅ NEW */
-  height: 36px; /* ✅ NEW */
+  position: static; /* ✅ UPDATED */
+  flex: 0 0 auto; /* ✅ NEW */
+  width: 46px; /* ✅ UPDATED */
+  height: 46px; /* ✅ UPDATED */
   border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
   border-radius: 999px; /* ✅ NEW */
   background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
   color: #fff; /* ✅ NEW */
-  font-size: 22px; /* ✅ NEW */
+  font-size: 28px; /* ✅ UPDATED */
   line-height: 1; /* ✅ NEW */
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
   cursor: pointer; /* ✅ NEW */
 }
 .contact-popup-drag-handle {
-  width: max-content; /* ✅ UPDATED */
+  width: auto; /* ✅ UPDATED */
   height: auto; /* ✅ UPDATED */
-  margin: 0 auto 18px; /* ✅ NEW */
-  padding: 4px 14px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.18); /* ✅ UPDATED */
-  color: rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
+  margin: 0; /* ✅ UPDATED */
+  padding: 0; /* ✅ UPDATED */
+  border-radius: 0; /* ✅ UPDATED */
+  background: transparent; /* ✅ UPDATED: remove thanh ngang */
+  color: rgba(255, 255, 255, 0.96); /* ✅ UPDATED */
+  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
   font-weight: 700; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
+  line-height: 1.05; /* ✅ UPDATED */
+  text-align: center; /* ✅ NEW */
+  white-space: nowrap; /* ✅ NEW */
 }
 .contact-phone-link {
+  position: relative; /* ✅ NEW */
   display: flex; /* ✅ NEW */
   align-items: center; /* ✅ NEW */
   justify-content: center; /* ✅ NEW */
   width: 100%; /* ✅ NEW */
-  min-height: 44px; /* ✅ NEW */
+  min-height: 54px; /* ✅ UPDATED */
   margin: 0 auto 24px; /* ✅ NEW */
+  padding: 0 58px; /* ✅ NEW */
   border-radius: 14px; /* ✅ NEW */
   border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
   background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
@@ -1338,6 +1357,27 @@ color: #fff;
   line-height: 1.2; /* ✅ NEW */
   font-weight: 700; /* ✅ NEW */
   letter-spacing: 0.01em; /* ✅ NEW */
+}
+.contact-phone-icon {
+  position: absolute; /* ✅ NEW */
+  left: 16px; /* ✅ NEW */
+  top: 50%; /* ✅ NEW */
+  width: 38px; /* ✅ NEW */
+  height: 38px; /* ✅ NEW */
+  border-radius: 999px; /* ✅ NEW */
+  display: inline-flex; /* ✅ NEW */
+  align-items: center; /* ✅ NEW */
+  justify-content: center; /* ✅ NEW */
+  color: #ffffff; /* ✅ NEW */
+  font-size: 21px; /* ✅ NEW */
+  line-height: 1; /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
+  transform: translateY(-50%); /* ✅ NEW */
+}
+.contact-phone-number {
+  display: inline-block; /* ✅ NEW */
+  min-width: 0; /* ✅ NEW */
 }
 .contact-popup-story {
   margin: 0 0 18px; /* ✅ NEW */
@@ -1471,34 +1511,53 @@ color: #fff;
     transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
     opacity: 1; /* ✅ NEW */
   }
+  .contact-popup-header {
+    grid-template-columns: 44px minmax(0, 1fr) 44px; /* ✅ NEW */
+    gap: 10px; /* ✅ NEW */
+    margin: 0 0 18px; /* ✅ NEW */
+  }
+  .contact-popup-header-vector {
+    width: 44px; /* ✅ NEW */
+    height: 44px; /* ✅ NEW */
+  }
   .contact-popup-close {
-    position: absolute; /* ✅ NEW */
-    top: 12px; /* ✅ NEW */
-    right: 12px; /* ✅ NEW */
-    width: 36px; /* ✅ NEW */
-    height: 36px; /* ✅ NEW */
+    position: static; /* ✅ UPDATED */
+    width: 44px; /* ✅ UPDATED */
+    height: 44px; /* ✅ UPDATED */
     border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
     border-radius: 999px; /* ✅ NEW */
     background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
     color: #fff; /* ✅ NEW */
-    font-size: 22px; /* ✅ NEW */
+    font-size: 28px; /* ✅ UPDATED */
     line-height: 1; /* ✅ NEW */
+    display: inline-flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
     cursor: pointer; /* ✅ NEW */
   }
   .contact-popup-drag-handle {
-    width: 44px; /* ✅ NEW */
-    height: 4px; /* ✅ UPDATED: handle mỏng hơn */
-    margin: 0 auto 18px; /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.34); /* ✅ NEW */
+    width: auto; /* ✅ UPDATED */
+    height: auto; /* ✅ UPDATED */
+    margin: 0; /* ✅ UPDATED */
+    padding: 0; /* ✅ NEW */
+    border-radius: 0; /* ✅ UPDATED */
+    background: transparent; /* ✅ UPDATED: remove thanh ngang */
+    color: rgba(255, 255, 255, 0.96); /* ✅ NEW */
+    font-size: 20px; /* ✅ UPDATED: match số điện thoại */
+    line-height: 1.05; /* ✅ NEW */
+    font-weight: 700; /* ✅ NEW */
+    text-align: center; /* ✅ NEW */
+    white-space: nowrap; /* ✅ NEW */
   }
   .contact-phone-link {
+    position: relative; /* ✅ NEW */
     display: flex; /* ✅ NEW */
     align-items: center; /* ✅ NEW */
     justify-content: center; /* ✅ NEW */
     width: 100%; /* ✅ NEW */
-    min-height: 44px; /* ✅ NEW */
+    min-height: 54px; /* ✅ UPDATED */
     margin: 0 auto 24px; /* ✅ NEW */
+    padding: 0 58px; /* ✅ NEW */
     border-radius: 14px; /* ✅ NEW */
     border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
     background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
@@ -1707,11 +1766,11 @@ color: #fff;
 .contact-footer-text {
   margin-top: 18px;
   text-align: center;
-  font-size: 12px;
+  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
   line-height: 1.35;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.68);
+  font-weight: 700; /* ✅ UPDATED */
+  letter-spacing: 0.02em; /* ✅ UPDATED */
+  color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */
 }
 
 /* ✅ NEW: CONTACT SOCIAL LOGO - 10 subtle animations */
@@ -3138,9 +3197,12 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
 <!-- ✅ NEW: CONTACT POPUP -->
 <div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
   <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
-    <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
-    <div class="contact-popup-drag-handle" aria-hidden="true">About US</div> <!-- ✅ UPDATED -->
-    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398">+84 812233398</a>
+    <div class="contact-popup-header"> <!-- ✅ NEW -->
+      <img class="contact-popup-header-vector" src="menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true"> <!-- ✅ NEW -->
+      <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div> <!-- ✅ UPDATED -->
+      <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button> <!-- ✅ UPDATED -->
+    </div> <!-- ✅ NEW -->
+    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398"><span class="contact-phone-icon" aria-hidden="true">☎</span><span class="contact-phone-number">+84 812233398</span></a> <!-- ✅ UPDATED -->
     <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p> <!-- ✅ NEW -->
     <div class="contact-social-list" aria-label="Kênh liên hệ">  
       <span class="contact-social-item" aria-label="facebook">  
