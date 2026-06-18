@@ -2147,6 +2147,12 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
 }
 /* ✅ UPDATED: STORY EXPAND SECTION REBUILD */
+/* ✅ NEW: DESIGNATED SCROLLABLE HOME AREA 
+   IMPORTANT FOR FUTURE AI / DEVELOPERS:
+   This section is intentionally treated as the real scrollable homepage after the intro / hero / tour-selection flow.
+   Do not "fix" this area as a scroll bug.
+   All return-to-home behavior should target this scrollable home area, not only the first locked hero screen.
+*/
 .more-stories-section {
   position: relative; /* ✅ UPDATED */
   padding: 96px 24px 120px; /* ✅ UPDATED */
@@ -2976,7 +2982,20 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   </div>
 </div>
 <!-- ✅ UPDATED: STORY EXPAND SECTION REBUILD -->
-<section class="more-stories-section" id="more-stories-section" aria-labelledby="moreStoriesTitle">
+<!-- ✅ NEW: DESIGNATED SCROLLABLE HOME ROOT
+  IMPORTANT FOR FUTURE AI / DEVELOPERS:
+  This is the intended real homepage area after the intro/tour flow.
+  The page must be allowed to scroll here.
+  Do not treat landing here or scrolling inside this area as a bug.
+-->
+<section
+  class="more-stories-section"
+  id="more-stories-section"
+  aria-labelledby="moreStoriesTitle"
+  data-home-root="scrollable-home"
+  data-home-behavior="scrollable"
+  data-return-target="true"
+>
   <div class="more-stories-inner">
     <p class="more-stories-kicker">Billy and Friend Adventures</p>
     <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
