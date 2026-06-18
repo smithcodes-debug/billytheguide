@@ -47,6 +47,8 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
   const now = new Date(); /* ✅ NEW */
   const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1); /* ✅ NEW */
   const maxBookingDate = addMonths(new Date(now.getFullYear(), now.getMonth(), now.getDate()), 6); /* ✅ NEW */
+  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup'; /* ✅ NEW */
+  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
   let visibleMonthDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), 1); /* ✅ NEW */
   let selectedDateKey = ''; /* ✅ NEW */
 
@@ -103,6 +105,13 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
     closeAvailabilityPopup(); /* ✅ NEW */
 
     window.setTimeout(function () { /* ✅ NEW */
+      window.dispatchEvent(new CustomEvent(OPEN_HOME_TOUR_POPUP_EVENT)); /* ✅ NEW */
+
+      if (leaveNoTracePopup.classList.contains('is-open')) return; /* ✅ REQUIRED FIX */
+
+      document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ REQUIRED FIX */
+      document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ REQUIRED FIX */
+
       if (leaveNoTraceCheckbox) { /* ✅ NEW */
         leaveNoTraceCheckbox.checked = true; /* ✅ NEW */
       }
@@ -118,7 +127,6 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
 
   function renderCalendar() { /* ✅ NEW */
     availabilityDays.innerHTML = ''; /* ✅ NEW */
-
     const year = visibleMonthDate.getFullYear(); /* ✅ NEW */
     const month = visibleMonthDate.getMonth(); /* ✅ NEW */
     const firstDate = new Date(year, month, 1); /* ✅ NEW */
@@ -170,6 +178,7 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
         });
       } else { /* ✅ NEW */
         dayButton.disabled = true; /* ✅ NEW */
+
         if (isBookedDate) { /* ✅ NEW */
           dayButton.setAttribute('aria-label', dateKey + ' đã được đặt'); /* ✅ NEW */
         } else if (isAfterMaxDate) { /* ✅ NEW */

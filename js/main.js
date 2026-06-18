@@ -15,6 +15,7 @@ function initHomePopup() { /* ✅ NEW */
   const closeBtn = popup ? popup.querySelector('.popup-close') : null; /* ✅ NEW */
   const triggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
   const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
+  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup'; /* ✅ NEW */
   let homeScrollUnlocked = false; /* ✅ NEW */
 
   if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return; /* ✅ REQUIRED FIX */
@@ -25,13 +26,11 @@ function initHomePopup() { /* ✅ NEW */
 
   function lockHomeScrollIfNeeded() { /* ✅ NEW */
     if (homeScrollUnlocked) return; /* ✅ NEW */
-
     if (isMobileHomeScrollLockViewport()) { /* ✅ NEW */
       document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
       document.body.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
       return; /* ✅ NEW */
     }
-
     document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
     document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
   }
@@ -50,7 +49,6 @@ function initHomePopup() { /* ✅ NEW */
     checkbox.checked = true; /* ✅ NEW */
     popup.classList.add('is-open'); /* ✅ NEW */
     popup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-
     triggers.forEach(function (el) { /* ✅ NEW */
       el.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
     });
@@ -59,7 +57,6 @@ function initHomePopup() { /* ✅ NEW */
   function closePopup() { /* ✅ NEW */
     popup.classList.remove('is-open'); /* ✅ NEW */
     popup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-
     triggers.forEach(function (el) { /* ✅ NEW */
       el.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
     });
@@ -77,6 +74,10 @@ function initHomePopup() { /* ✅ NEW */
         openPopup(); /* ✅ NEW */
       }
     });
+  });
+
+  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, function () { /* ✅ NEW */
+    openPopup(); /* ✅ NEW */
   });
 
   closeBtn.addEventListener('click', closePopup); /* ✅ NEW */
