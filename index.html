@@ -2604,6 +2604,11 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     transform: translateZ(0); /* ✅ REQUIRED FIX: ổn định Safari khi snap + fixed header */
   }
   .mobile-home-feed-card-scroll {
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel:first-child .mobile-home-feed-card-scroll {
+  justify-content: flex-start; /* ✅ NEW */
+  padding: 10px clamp(20px, 5.5vw, 40px) 0; /* ✅ NEW: cách mép trên 10px */
+  transform: none; /* ✅ UPDATED */
+}
     height: 100%; /* ✅ NEW */
 padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: giảm safe pad để card có nhiều không gian hơn */
     overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card, tránh gesture bị nuốt */
@@ -2612,7 +2617,6 @@ padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inse
     justify-content: center; /* ✅ NEW */
     overscroll-behavior: contain; /* ✅ NEW */
     touch-action: pan-y; /* ✅ NEW */
-transform: translate3d(0, -115px, 0); /* ✅ NEW */
   }
   .mobile-home-feed-card-scroll::-webkit-scrollbar {
     display: none; /* ✅ NEW */
