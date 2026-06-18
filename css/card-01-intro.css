@@ -1,0 +1,219 @@
+/* ✅ NEW: CARD 01 CSS - intro + shared mobile feed base
+   This file intentionally contains the shared mobile feed layout because the user requested exactly 10 card CSS files.
+   Keep generic .mobile-home-feed layout here. Put card-specific overrides at the bottom of each card file.
+*/
+
+/* ✅ NEW: MOBILE HOME FEED SAFE-PAD WEB APP LAYOUT */
+.mobile-home-feed,
+.mobile-home-feed-handle {
+  display: none; /* ✅ NEW */
+}
+@media (max-width:768px) {
+  html.mobile-home-feed-snap,
+  body.mobile-home-feed-snap {
+    scroll-snap-type: none; /* ✅ UPDATED: TikTok strict dùng .mobile-home-feed làm scroll owner, tránh double snap trên body */
+    overscroll-behavior-y: contain; /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready {
+    height: 100vh; /* ✅ NEW: section chỉ giữ đúng một viewport, feed bên trong tự swipe */
+    height: 100svh; /* ✅ NEW */
+    height: 100dvh; /* ✅ NEW */
+    padding: 0; /* ✅ UPDATED */
+    overflow: hidden; /* ✅ UPDATED: khóa window scroll trong section, chuyển quyền scroll cho .mobile-home-feed */
+    background:
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready::before {
+    display: none; /* ✅ UPDATED: tránh lớp gradient cũ phủ lên safe pad */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
+    display: none; /* ✅ UPDATED: mobile dùng feed card, desktop vẫn giữ nguyên content cũ */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    position: relative; /* ✅ NEW */
+    z-index: 1; /* ✅ NEW */
+    display: block; /* ✅ NEW */
+    width: 100%; /* ✅ NEW */
+    height: 100vh; /* ✅ NEW: scroll container chính kiểu TikTok */
+    height: 100svh; /* ✅ NEW */
+    height: 100dvh; /* ✅ NEW */
+    overflow-x: hidden; /* ✅ NEW */
+    overflow-y: auto; /* ✅ NEW: feed nhận swipe dọc thay vì window/body */
+    scroll-snap-type: y mandatory; /* ✅ UPDATED: strict snap từng card */
+    scroll-padding-top: 0; /* ✅ NEW */
+    overscroll-behavior-y: contain; /* ✅ NEW */
+    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX: momentum scroll ổn định trên iOS */
+    touch-action: pan-y; /* ✅ NEW */
+    scrollbar-width: none; /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {
+    display: none; /* ✅ NEW */
+    width: 0; /* ✅ NEW */
+    height: 0; /* ✅ NEW */
+  }
+  .mobile-home-feed-panel {
+    height: 100vh; /* ✅ UPDATED: mỗi panel đúng 1 màn hình để swipe 1 phát / 1 card */
+    height: 100svh; /* ✅ UPDATED */
+    height: 100dvh; /* ✅ UPDATED */
+    min-height: 100vh; /* ✅ NEW */
+    min-height: 100svh; /* ✅ NEW */
+    min-height: 100dvh; /* ✅ NEW */
+ padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 18px); /* ✅ UPDATED: kéo dài toàn bộ more story pads xuống, chỉ chừa 10px trước thanh địa chỉ browser */
+    display: flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    scroll-snap-align: start; /* ✅ NEW */
+    scroll-snap-stop: always; /* ✅ NEW */
+    overflow: hidden; /* ✅ NEW: panel không tự scroll, chỉ feed scroll */
+  }
+  .mobile-home-feed-panel-empty {
+    display: none; /* ✅ UPDATED: bỏ các blank panel để swipe liền mạch như TikTok */
+  }
+  .mobile-home-feed-card {
+    position: relative; /* ✅ NEW */
+    width: min(100%, 700px); /* ✅ NEW */
+    height: 100%; /* ✅ UPDATED: card dùng toàn bộ vùng panel sau safe padding */
+    min-height: 0; /* ✅ UPDATED: tránh tràn viewport thấp trên Safari/Android */
+    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
+    border-radius: 38px; /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */
+    color: var(--color-ink); /* ✅ NEW */
+    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */
+    overflow: hidden; /* ✅ NEW */
+    transform: translateZ(0); /* ✅ REQUIRED FIX: ổn định Safari khi snap + fixed header */
+  }
+  .mobile-home-feed-card-scroll {
+    height: 100%; /* ✅ NEW */
+padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: giảm safe pad để card có nhiều không gian hơn */
+    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card, tránh gesture bị nuốt */
+    display: flex; /* ✅ NEW */
+    flex-direction: column; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    overscroll-behavior: contain; /* ✅ NEW */
+    touch-action: pan-y; /* ✅ NEW */
+  }
+  .mobile-home-feed-card-scroll::-webkit-scrollbar {
+    display: none; /* ✅ NEW */
+    width: 0; /* ✅ NEW */
+    height: 0; /* ✅ NEW */
+  }
+  .mobile-home-feed-card-empty {
+    background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
+  }
+  .mobile-home-feed-card-empty::after {
+    content: ""; /* ✅ REQUIRED FIX */
+    position: absolute; /* ✅ NEW */
+    inset: 18px; /* ✅ NEW */
+    border-radius: 30px; /* ✅ NEW */
+    background:
+      radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18)); /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+  }
+  .mobile-home-feed .more-stories-kicker {
+    margin-bottom: 18px; /* ✅ UPDATED */
+    color: rgba(8, 63, 70, 0.62); /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-stories-title {
+    max-width: none; /* ✅ UPDATED */
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(30px, 8vw, 50px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */
+    line-height: 1.03; /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+    letter-spacing: -0.045em; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-stories-intro {
+    margin-top: 20px; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.64); /* ✅ UPDATED */
+    font-size: clamp(15px, 3.8vw, 20px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */
+    line-height: 1.48; /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card {
+    min-height: 100%; /* ✅ UPDATED */
+    padding: 0; /* ✅ UPDATED */
+    border: 0; /* ✅ UPDATED */
+    background: transparent; /* ✅ UPDATED */
+    box-shadow: none; /* ✅ UPDATED */
+    color: var(--color-ink); /* ✅ UPDATED */
+    display: flex; /* ✅ UPDATED */
+    align-items: center; /* ✅ UPDATED */
+    justify-content: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-title {
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */
+    line-height: 1.08; /* ✅ UPDATED */
+    letter-spacing: -0.035em; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-desc {
+    margin-top: 16px; /* ✅ UPDATED */
+    max-width: 520px; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.62); /* ✅ UPDATED */
+    font-size: clamp(15px, 3.9vw, 20px); /* ✅ UPDATED: fit strict card */
+    line-height: 1.4; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-link {
+    margin-top: 24px; /* ✅ UPDATED */
+    color: var(--color-hue-deep); /* ✅ UPDATED */
+    font-size: 16px; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-item {
+    border: 0; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-summary {
+    padding: 0 0 14px; /* ✅ UPDATED */
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */
+    line-height: 1.08; /* ✅ UPDATED */
+    letter-spacing: -0.04em; /* ✅ UPDATED */
+    cursor: default; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-summary::after {
+    display: none; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-panel {
+    padding: 0; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.66); /* ✅ UPDATED */
+    font-size: 14px; /* ✅ UPDATED: fit strict card */
+    line-height: 1.48; /* ✅ UPDATED */
+    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card */
+  }
+  .mobile-home-feed .more-faq-list {
+    gap: 10px; /* ✅ UPDATED: fit strict card */
+  }
+  .mobile-home-feed .more-contact-platforms {
+    justify-content: center; /* ✅ UPDATED */
+    gap: 10px; /* ✅ UPDATED */
+  }
+  .mobile-home-feed-handle {
+    position: fixed; /* ✅ NEW */
+    left: 50%; /* ✅ NEW */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 43px); /* ✅ NEW */
+    z-index: 1005; /* ✅ NEW */
+    width: 58px; /* ✅ NEW */
+    height: 7px; /* ✅ NEW */
+    border: 0; /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(5, 6, 8, 0.22); /* ✅ NEW */
+    transform: translate3d(-50%, 0, 0); /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-handle {
+    display: block; /* ✅ NEW */
+  }
+}
+
+/* ✅ NEW: CARD 01 INTRO OVERRIDES */
+@media (max-width:768px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+    /* ✅ NEW: edit card 01 container styles here */
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
+    /* ✅ NEW: edit card 01 text/layout spacing here */
+  }
+}

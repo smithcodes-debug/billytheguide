@@ -133,13 +133,16 @@ function initMobileHomeFeed() { /* ✅ NEW */
     return clone; /* ✅ NEW */
   }
 
-  function createContentPanel(sourceNode) { /* ✅ NEW */
+  function createContentPanel(sourceNode, cardIndex) { /* ✅ UPDATED */
     const panel = document.createElement('section'); /* ✅ NEW */
     const card = document.createElement('div'); /* ✅ NEW */
     const scroll = document.createElement('div'); /* ✅ NEW */
-    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content'; /* ✅ NEW */
-    card.className = 'mobile-home-feed-card mobile-home-feed-card-content'; /* ✅ NEW */
-    scroll.className = 'mobile-home-feed-card-scroll'; /* ✅ NEW */
+    const cardNumber = String(cardIndex + 1).padStart(2, '0'); /* ✅ NEW */
+    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber; /* ✅ UPDATED */
+    card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber; /* ✅ UPDATED */
+    scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber; /* ✅ UPDATED */
+    panel.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
+    card.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
     scroll.appendChild(cloneForMobileFeed(sourceNode)); /* ✅ NEW */
     card.appendChild(scroll); /* ✅ NEW */
     panel.appendChild(card); /* ✅ NEW */
@@ -182,8 +185,8 @@ function initMobileHomeFeed() { /* ✅ NEW */
   sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) { /* ✅ NEW */
     contentNodes.push(item); /* ✅ NEW */
   });
-  contentNodes.forEach(function (node) { /* ✅ NEW */
-    feed.appendChild(createContentPanel(node)); /* ✅ NEW */
+  contentNodes.slice(0, 10).forEach(function (node, index) { /* ✅ UPDATED: limit to 10 maintainable mobile feed cards */
+    feed.appendChild(createContentPanel(node, index)); /* ✅ UPDATED */
     feed.appendChild(createEmptyPanel()); /* ✅ NEW */
   });
   homeSection.appendChild(feed); /* ✅ NEW */
