@@ -29,31 +29,7 @@
       --surface-border-dark: rgba(5, 6, 8, 0.08);
       --shadow-premium-soft: 0 18px 54px rgba(5, 6, 8, 0.14);
       --header-pill-x: clamp(12px, 3vw, 28px);
-      --app-header-z-index: 2000; /* ✅ NEW: protected header layer, visual size unchanged */
-      --app-header-safe-gap: 15px; /* ✅ NEW: all UI must stay 15px below protected header */
-      --app-header-desktop-top: 12px; /* ✅ NEW: mirrors current desktop header top */
-      --app-header-desktop-height: 76px; /* ✅ NEW: mirrors current desktop header min-height */
-      --app-header-mobile-height: 47px; /* ✅ NEW: user-selected protected white header height */
-      --app-header-tagline-gap: 21px; /* ✅ NEW: keeps current tagline position under white header */
-      --app-header-tagline-height: 33px; /* ✅ NEW: protects “professional Phu Quoc local guide team” */
-      --app-protected-header-offset: calc(
-        env(safe-area-inset-top, 0px)
-        + var(--app-header-desktop-top)
-        + var(--app-header-desktop-height)
-        + var(--app-header-safe-gap)
-      ); /* ✅ NEW */
     }
-    @media (max-width:768px) { /* ✅ NEW */
-      :root { /* ✅ NEW */
-        --app-protected-header-offset: calc(
-          env(safe-area-inset-top, 0px)
-          + var(--app-header-mobile-height)
-          + var(--app-header-tagline-gap)
-          + var(--app-header-tagline-height)
-          + var(--app-header-safe-gap)
-        ); /* ✅ NEW */
-      } /* ✅ NEW */
-    } /* ✅ NEW */
 
     /* ✅ RESET */
     * {
@@ -71,16 +47,6 @@
       -webkit-font-smoothing: antialiased; /* ✅ REQUIRED FIX */
       -moz-osx-font-smoothing: grayscale; /* ✅ REQUIRED FIX */
     }
-    .app-under-header { /* ✅ NEW: future shared utility for page sections below protected header */
-      padding-top: var(--app-protected-header-offset); /* ✅ NEW */
-    }
-    .app-fixed-under-header { /* ✅ NEW: future shared utility for fixed panels below protected header */
-      top: var(--app-protected-header-offset); /* ✅ NEW */
-    }
-    .app-fullscreen-below-header { /* ✅ NEW: future shared utility for full-screen overlays below protected header */
-      top: var(--app-protected-header-offset); /* ✅ NEW */
-      height: calc(100dvh - var(--app-protected-header-offset)); /* ✅ NEW */
-    }
     /* ===== HEADER ===== */
     /* ===== HEADER ===== */
 header {
@@ -91,7 +57,7 @@ header {
   width: auto; /* ✅ NEW */
   min-height: 76px; /* ✅ NEW */
   padding: 10px 14px; /* ✅ UPDATED */
-  z-index: var(--app-header-z-index); /* ✅ UPDATED: protected header above overlays, size unchanged */
+  z-index: 100; /* ✅ UPDATED */
   display: flex; /* ✅ NEW */
   align-items: center; /* ✅ NEW */
   justify-content: space-between; /* ✅ NEW */
@@ -936,7 +902,7 @@ color: #fff;
         top: calc(env(safe-area-inset-top, 0px) + 68px); /* ✅ NEW: nằm ngay dưới header mobile */
         left: 0; /* ✅ NEW */
         right: 0; /* ✅ NEW */
-        z-index: var(--app-header-z-index); /* ✅ UPDATED: protected as second header component */
+        z-index: 3; /* ✅ NEW: nằm trên overlay hero */
         padding: 7px 18px; /* ✅ NEW */
         color: #ffffff; /* ✅ NEW */
         font-size: 15px; /* ✅ NEW */
@@ -1115,13 +1081,12 @@ color: #fff;
         opacity: 0.85;
       }
      .popup-backdrop {
-  inset: var(--app-protected-header-offset) 0 0; /* ✅ NEW: keep popup below full protected header */
   padding: 18px;
 }  
 .popup-card {
   width: min(94vw, 520px); /* ✅ KEEP */
   height: min(82dvh, 720px); /* ✅ UPDATED: dùng dvh ổn định hơn trên Brave/Safari mobile */
-  max-height: calc(100dvh - var(--app-protected-header-offset) - 36px); /* ✅ UPDATED: keep below protected header */
+  max-height: calc(100dvh - 36px); /* ✅ UPDATED: không vượt viewport mobile */
   padding: 20px 18px 18px; /* ✅ KEEP */
   border-radius: 20px; /* ✅ KEEP */
   display: flex; /* ✅ UPDATED */
@@ -1269,13 +1234,9 @@ color: #fff;
   min-height: 20px; /* ✅ NEW */
   padding: 3px 7px; /* ✅ NEW */
 }
-.availability-popup-backdrop {
-  inset: var(--app-protected-header-offset) 0 0; /* ✅ NEW: keep availability popup below full protected header */
-  padding: 18px; /* ✅ NEW */
-}
 .availability-popup-card {
   width: min(94vw, 430px); /* ✅ NEW */
-  max-height: calc(100dvh - var(--app-protected-header-offset) - 36px); /* ✅ UPDATED: keep below protected header */
+  max-height: calc(100dvh - 36px); /* ✅ NEW */
   padding: 22px 16px 18px; /* ✅ NEW */
 }
 .availability-day {
@@ -1507,12 +1468,12 @@ color: #fff;
 @media (max-width:768px) {
   .contact-popup-backdrop {
     position: fixed; /* ✅ NEW */
-    inset: var(--app-protected-header-offset) 0 0; /* ✅ UPDATED: keep contact popup below full protected header */
+    inset: 0; /* ✅ NEW */
     z-index: 1001; /* ✅ NEW */
     display: flex; /* ✅ NEW */
     align-items: flex-start; /* ✅ UPDATED: đẩy popup lên top */
     justify-content: center; /* ✅ NEW */
-    padding: 22px 22px 22px; /* ✅ UPDATED: protected header offset handled by inset */
+    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; /* ✅ UPDATED: top safe-area cho iOS */
     background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
     backdrop-filter: blur(4px); /* ✅ NEW */
     -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
@@ -1529,7 +1490,7 @@ color: #fff;
   .contact-popup-card {
     position: relative; /* ✅ NEW */
     width: min(92vw, 420px); /* ✅ NEW */
-    max-height: calc(100dvh - var(--app-protected-header-offset) - 44px); /* ✅ UPDATED: popup top không vượt protected header */
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); /* ✅ NEW: popup top không vượt màn hình */
     padding: 24px 18px 22px; /* ✅ NEW */
     border-radius: 24px; /* ✅ NEW */
     border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
@@ -2188,13 +2149,12 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
 }
 @media (max-width:768px) {
   .policy-popup-backdrop {
-    inset: var(--app-protected-header-offset) 0 0; /* ✅ NEW: keep policy popup below full protected header */
-    padding: 18px; /* ✅ UPDATED: protected header offset handled by inset */
+    padding: calc(env(safe-area-inset-top, 0px) + 18px) 18px 18px; /* ✅ NEW */
     align-items: center; /* ✅ NEW */
   }
   .policy-popup-card {
     width: min(94vw, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - var(--app-protected-header-offset) - 36px); /* ✅ UPDATED: keep below protected header */
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 36px); /* ✅ NEW */
     padding: 30px 18px 24px; /* ✅ NEW */
     border-radius: 24px; /* ✅ NEW */
   }
@@ -2801,12 +2761,12 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
   .mobile-search-backdrop {
     position: fixed; /* ✅ NEW */
-    inset: var(--app-protected-header-offset) 0 0; /* ✅ UPDATED: keep search popup below full protected header */
+    inset: 0; /* ✅ NEW */
     z-index: 1003; /* ✅ NEW: cao hơn contact/policy popup */
     display: flex; /* ✅ NEW */
     align-items: flex-start; /* ✅ NEW */
     justify-content: center; /* ✅ NEW */
-    padding: 0 14px 18px; /* ✅ UPDATED: protected header offset handled by inset */
+    padding: calc(env(safe-area-inset-top, 0px) + 78px) 14px 18px; /* ✅ NEW: popup trượt xuống dưới header */
     background: rgba(0, 0, 0, 0.58); /* ✅ NEW */
     backdrop-filter: blur(4px); /* ✅ NEW */
     -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
@@ -2822,7 +2782,7 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
   .mobile-search-panel {
     width: min(100%, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - var(--app-protected-header-offset) - 18px); /* ✅ UPDATED: keep below protected header */
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 96px); /* ✅ NEW */
     overflow-y: auto; /* ✅ NEW */
     padding: 14px; /* ✅ NEW */
     border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
