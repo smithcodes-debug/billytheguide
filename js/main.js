@@ -101,6 +101,132 @@ function initHomePopup() { /* ✅ NEW */
   console.log('Home popup initialized'); /* ✅ NEW */
 }
 
+
+function initMobileHomeFeed() { /* ✅ NEW */
+  const MOBILE_MAX_WIDTH = 768; /* ✅ NEW */
+  const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
+  const SOURCE_INNER_SELECTOR = '.more-stories-inner'; /* ✅ NEW */
+  const FEED_CLASS = 'mobile-home-feed'; /* ✅ NEW */
+  const FEED_READY_CLASS = 'is-mobile-home-feed-ready'; /* ✅ NEW */
+  const SNAP_CLASS = 'mobile-home-feed-snap'; /* ✅ NEW */
+  const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
+  const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null; /* ✅ NEW */
+
+  if (!homeSection || !sourceInner) return; /* ✅ REQUIRED FIX */
+  if (homeSection.querySelector('.' + FEED_CLASS)) return; /* ✅ REQUIRED FIX */
+
+  function isMobileViewport() { /* ✅ NEW */
+    return window.innerWidth <= MOBILE_MAX_WIDTH; /* ✅ NEW */
+  }
+
+  function cloneForMobileFeed(sourceNode) { /* ✅ NEW */
+    const clone = sourceNode.cloneNode(true); /* ✅ NEW */
+    clone.querySelectorAll('[id]').forEach(function (node) { /* ✅ NEW */
+      node.removeAttribute('id'); /* ✅ REQUIRED FIX: tránh duplicate id với desktop source */
+    });
+    if (clone.hasAttribute && clone.hasAttribute('id')) { /* ✅ NEW */
+      clone.removeAttribute('id'); /* ✅ REQUIRED FIX */
+    }
+    clone.querySelectorAll('details').forEach(function (details) { /* ✅ NEW */
+      details.setAttribute('open', ''); /* ✅ NEW */
+    });
+    return clone; /* ✅ NEW */
+  }
+
+  function createContentPanel(sourceNode) { /* ✅ NEW */
+    const panel = document.createElement('section'); /* ✅ NEW */
+    const card = document.createElement('div'); /* ✅ NEW */
+    const scroll = document.createElement('div'); /* ✅ NEW */
+    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content'; /* ✅ NEW */
+    card.className = 'mobile-home-feed-card mobile-home-feed-card-content'; /* ✅ NEW */
+    scroll.className = 'mobile-home-feed-card-scroll'; /* ✅ NEW */
+    scroll.appendChild(cloneForMobileFeed(sourceNode)); /* ✅ NEW */
+    card.appendChild(scroll); /* ✅ NEW */
+    panel.appendChild(card); /* ✅ NEW */
+    return panel; /* ✅ NEW */
+  }
+
+  function createEmptyPanel() { /* ✅ NEW */
+    const panel = document.createElement('section'); /* ✅ NEW */
+    const card = document.createElement('div'); /* ✅ NEW */
+    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-empty'; /* ✅ NEW */
+    card.className = 'mobile-home-feed-card mobile-home-feed-card-empty'; /* ✅ NEW */
+    card.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+    panel.appendChild(card); /* ✅ NEW */
+    return panel; /* ✅ NEW */
+  }
+
+  function createIntroNode() { /* ✅ NEW */
+    const intro = document.createElement('div'); /* ✅ NEW */
+    const kicker = sourceInner.querySelector('.more-stories-kicker'); /* ✅ NEW */
+    const title = sourceInner.querySelector('.more-stories-title'); /* ✅ NEW */
+    const copy = sourceInner.querySelector('.more-stories-intro'); /* ✅ NEW */
+    if (kicker) intro.appendChild(cloneForMobileFeed(kicker)); /* ✅ NEW */
+    if (title) intro.appendChild(cloneForMobileFeed(title)); /* ✅ NEW */
+    if (copy) intro.appendChild(cloneForMobileFeed(copy)); /* ✅ NEW */
+    return intro; /* ✅ NEW */
+  }
+
+  const feed = document.createElement('div'); /* ✅ NEW */
+  const handle = document.createElement('span'); /* ✅ NEW */
+  const contentNodes = []; /* ✅ NEW */
+  let isSnapActivated = false; /* ✅ NEW */
+  feed.className = FEED_CLASS; /* ✅ NEW */
+  feed.setAttribute('aria-label', 'Mobile home feed'); /* ✅ NEW */
+  handle.className = 'mobile-home-feed-handle'; /* ✅ NEW */
+  handle.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+  contentNodes.push(createIntroNode()); /* ✅ NEW */
+  sourceInner.querySelectorAll('.more-service-card').forEach(function (card) { /* ✅ NEW */
+    contentNodes.push(card); /* ✅ NEW */
+  });
+  sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) { /* ✅ NEW */
+    contentNodes.push(item); /* ✅ NEW */
+  });
+  contentNodes.forEach(function (node) { /* ✅ NEW */
+    feed.appendChild(createContentPanel(node)); /* ✅ NEW */
+    feed.appendChild(createEmptyPanel()); /* ✅ NEW */
+  });
+  homeSection.appendChild(feed); /* ✅ NEW */
+  homeSection.appendChild(handle); /* ✅ NEW */
+
+  function applySnapStateIfNeeded() { /* ✅ NEW */
+    if (isMobileViewport() && isSnapActivated) { /* ✅ NEW */
+      document.documentElement.classList.add(SNAP_CLASS); /* ✅ NEW */
+      document.body.classList.add(SNAP_CLASS); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+    document.documentElement.classList.remove(SNAP_CLASS); /* ✅ NEW */
+    document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
+  }
+
+  function activateSnapWhenHomeReached() { /* ✅ NEW */
+    if (!isMobileViewport() || isSnapActivated) return; /* ✅ NEW */
+    if (homeSection.getBoundingClientRect().top <= 8) { /* ✅ NEW */
+      isSnapActivated = true; /* ✅ NEW */
+      applySnapStateIfNeeded(); /* ✅ NEW */
+    }
+  }
+
+  function syncMobileFeedState() { /* ✅ NEW */
+    if (isMobileViewport()) { /* ✅ NEW */
+      homeSection.classList.add(FEED_READY_CLASS); /* ✅ NEW */
+      activateSnapWhenHomeReached(); /* ✅ NEW */
+      applySnapStateIfNeeded(); /* ✅ NEW */
+      return; /* ✅ NEW */
+    }
+    homeSection.classList.remove(FEED_READY_CLASS); /* ✅ NEW */
+    applySnapStateIfNeeded(); /* ✅ NEW */
+  }
+
+  syncMobileFeedState(); /* ✅ NEW */
+  window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true }); /* ✅ NEW */
+  window.addEventListener('resize', syncMobileFeedState); /* ✅ NEW */
+  window.addEventListener('orientationchange', function () { /* ✅ NEW */
+    window.setTimeout(syncMobileFeedState, 220); /* ✅ NEW */
+  }); /* ✅ NEW */
+  console.log('Mobile home feed initialized'); /* ✅ NEW */
+}
+
 function initMobileHomeSectionLock() { /* ✅ NEW */
   const MOBILE_MAX_WIDTH = 768; /* ✅ NEW */
   const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
@@ -280,5 +406,6 @@ initSnorkelingCardNavigation(); /* ✅ NEW */
 initAvailabilityPopup(); /* ✅ NEW */
 initSearchPopup(); /* ✅ NEW */
 initMobileEdgePad(); /* ✅ NEW */
+initMobileHomeFeed(); /* ✅ NEW */
 initMobileHomeSectionLock(); /* ✅ NEW */
 initHome(); /* ✅ UPDATED */
