@@ -391,21 +391,44 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
   console.log('Mobile home section lock initialized'); /* ✅ NEW */
 }
 
+
+const APP_LOADING_CLASS = 'js-loading'; /* ✅ NEW */
+const APP_READY_CLASS = 'js-ready'; /* ✅ NEW */
+
+function markAppReady() { /* ✅ NEW */
+  document.body.classList.remove(APP_LOADING_CLASS); /* ✅ NEW */
+  document.body.classList.add(APP_READY_CLASS); /* ✅ NEW */
+} /* ✅ NEW */
+
+function markAppReadyOnNextPaint() { /* ✅ NEW */
+  window.requestAnimationFrame(function () { /* ✅ NEW */
+    markAppReady(); /* ✅ NEW */
+  }); /* ✅ NEW */
+} /* ✅ NEW */
+
+function safeInit(initFn, initName) { /* ✅ NEW */
+  try { /* ✅ NEW */
+    initFn(); /* ✅ NEW */
+  } catch (error) { /* ✅ NEW */
+    console.error(initName + ' failed', error); /* ✅ NEW */
+  } /* ✅ NEW */
+} /* ✅ NEW */
 function initHome() { /* ✅ UPDATED */
   console.log('Home initialized'); /* ✅ UPDATED */
 }
 
-initGesture(); /* ✅ UPDATED */
-initNavigation(); /* ✅ UPDATED */
-initHomePopup(); /* ✅ UPDATED */
-initPolicyPopup(); /* ✅ NEW */
-initContactPopup(); /* ✅ UPDATED */
-initTourCarousel(); /* ✅ NEW */
-initStoryExpand(); /* ✅ NEW */
-initSnorkelingCardNavigation(); /* ✅ NEW */
-initAvailabilityPopup(); /* ✅ NEW */
-initSearchPopup(); /* ✅ NEW */
-initMobileEdgePad(); /* ✅ NEW */
-initMobileHomeFeed(); /* ✅ NEW */
-initMobileHomeSectionLock(); /* ✅ NEW */
-initHome(); /* ✅ UPDATED */
+safeInit(initGesture, 'initGesture'); /* ✅ UPDATED */
+safeInit(initNavigation, 'initNavigation'); /* ✅ UPDATED */
+safeInit(initHomePopup, 'initHomePopup'); /* ✅ UPDATED */
+safeInit(initPolicyPopup, 'initPolicyPopup'); /* ✅ UPDATED */
+safeInit(initContactPopup, 'initContactPopup'); /* ✅ UPDATED */
+safeInit(initTourCarousel, 'initTourCarousel'); /* ✅ UPDATED */
+safeInit(initStoryExpand, 'initStoryExpand'); /* ✅ UPDATED */
+safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation'); /* ✅ UPDATED */
+safeInit(initAvailabilityPopup, 'initAvailabilityPopup'); /* ✅ UPDATED */
+safeInit(initSearchPopup, 'initSearchPopup'); /* ✅ UPDATED */
+safeInit(initMobileEdgePad, 'initMobileEdgePad'); /* ✅ UPDATED */
+safeInit(initMobileHomeFeed, 'initMobileHomeFeed'); /* ✅ UPDATED */
+safeInit(initMobileHomeSectionLock, 'initMobileHomeSectionLock'); /* ✅ UPDATED */
+safeInit(initHome, 'initHome'); /* ✅ UPDATED */
+markAppReadyOnNextPaint(); /* ✅ NEW */

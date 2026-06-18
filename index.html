@@ -6,6 +6,7 @@
   <title>Coral Tour</title>
   <!-- ✅ UPDATED -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="modulepreload" href="./js/main.js"> <!-- ✅ NEW: preload main JS module early while keeping execution production-safe -->
 
   <!-- ✅ NEW: INLINE CSS MERGED FROM style.css -->
   <style>
@@ -46,6 +47,34 @@
       color: var(--color-white); /* ✅ UPDATED */
       -webkit-font-smoothing: antialiased; /* ✅ REQUIRED FIX */
       -moz-osx-font-smoothing: grayscale; /* ✅ REQUIRED FIX */
+    }
+
+    /* ✅ NEW: PRODUCTION-SAFE LOAD ORDER
+       Header paints immediately. Hero + next sections become visible after JS modules initialize.
+       Fail-safe animation prevents blank content if a module is blocked or delayed. */
+    .site-content {
+      display: block; /* ✅ NEW */
+    }
+    body.js-loading .hero,
+    body.js-loading .more-stories-section {
+      opacity: 0; /* ✅ NEW */
+      transform: translate3d(0, 8px, 0); /* ✅ NEW */
+      pointer-events: none; /* ✅ NEW */
+      animation: appFailSafeReveal 0.001s linear 1.8s forwards; /* ✅ NEW */
+    }
+    body.js-ready .hero,
+    body.js-ready .more-stories-section {
+      opacity: 1; /* ✅ NEW */
+      transform: translate3d(0, 0, 0); /* ✅ NEW */
+      pointer-events: auto; /* ✅ NEW */
+      transition: opacity 0.28s ease, transform 0.28s ease; /* ✅ NEW */
+    }
+    @keyframes appFailSafeReveal {
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        pointer-events: auto;
+      }
     }
     /* ===== HEADER ===== */
     /* ===== HEADER ===== */
@@ -2970,7 +2999,7 @@ transform: translate3d(0, -100px, 0); /* ✅ NEW */
 /* ✅ NEW: END MERGED style.css */
   </style>
 </head>
-<body>
+<body class="js-loading">
 <header>
   <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false"> <!-- ✅ UPDATED -->
     <div class="mask">
@@ -3011,6 +3040,8 @@ transform: translate3d(0, -100px, 0); /* ✅ NEW */
     <div class="mobile-search-results" aria-live="polite"></div> <!-- ✅ NEW -->
   </div>
 </div>
+<!-- ✅ NEW: production-safe content wrapper; header stays outside main and loads first -->
+<main id="site-content" class="site-content">
 <section class="hero">
   <div class="overlay"></div>
   <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div> <!-- ✅ NEW -->
@@ -3365,6 +3396,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
   </div>
 </section>
+</main>
 <script>
 /* ✅ UPDATED: MAP LANDING PAGE FOR POPUP CARDS */
 (function () {
