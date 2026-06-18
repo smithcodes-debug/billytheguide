@@ -2433,6 +2433,182 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
 }
 
+
+/* ✅ NEW: MOBILE HOME FEED SAFE-PAD WEB APP LAYOUT */
+.mobile-home-feed,
+.mobile-home-feed-handle {
+  display: none; /* ✅ NEW */
+}
+@media (max-width:768px) {
+  html.mobile-home-feed-snap,
+  body.mobile-home-feed-snap {
+    scroll-snap-type: y proximity; /* ✅ NEW */
+    overscroll-behavior-y: contain; /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready {
+    padding: 0; /* ✅ UPDATED */
+    overflow: visible; /* ✅ UPDATED: body viewport sẽ là scroll container cho feed */
+    background:
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready::before {
+    display: none; /* ✅ UPDATED: tránh lớp gradient cũ phủ lên safe pad */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
+    display: none; /* ✅ UPDATED: mobile dùng feed card, desktop vẫn giữ nguyên content cũ */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    position: relative; /* ✅ NEW */
+    z-index: 1; /* ✅ NEW */
+    display: block; /* ✅ NEW */
+    width: 100%; /* ✅ NEW */
+  }
+  .mobile-home-feed-panel {
+    min-height: 100vh; /* ✅ NEW */
+    min-height: 100svh; /* ✅ NEW */
+    min-height: 100dvh; /* ✅ NEW */
+    padding: calc(env(safe-area-inset-top, 0px) + 112px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); /* ✅ NEW */
+    display: flex; /* ✅ NEW */
+    align-items: center; /* ✅ NEW */
+    justify-content: center; /* ✅ NEW */
+    scroll-snap-align: start; /* ✅ NEW */
+    scroll-snap-stop: always; /* ✅ NEW */
+  }
+  .mobile-home-feed-card {
+    position: relative; /* ✅ NEW */
+    width: min(100%, 700px); /* ✅ NEW */
+    height: min(58dvh, 560px); /* ✅ NEW */
+    min-height: 390px; /* ✅ NEW */
+    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
+    border-radius: 38px; /* ✅ NEW */
+    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */
+    color: var(--color-ink); /* ✅ NEW */
+    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */
+    overflow: hidden; /* ✅ NEW */
+    transform: translateZ(0); /* ✅ REQUIRED FIX: ổn định Safari khi snap + fixed header */
+  }
+  .mobile-home-feed-card-scroll {
+    height: 100%; /* ✅ NEW */
+    padding: clamp(30px, 8vw, 56px) clamp(22px, 6vw, 42px); /* ✅ NEW */
+    overflow-y: auto; /* ✅ NEW */
+    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+    overscroll-behavior: contain; /* ✅ NEW */
+    scrollbar-width: none; /* ✅ NEW */
+  }
+  .mobile-home-feed-card-scroll::-webkit-scrollbar {
+    display: none; /* ✅ NEW */
+    width: 0; /* ✅ NEW */
+    height: 0; /* ✅ NEW */
+  }
+  .mobile-home-feed-card-empty {
+    background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
+  }
+  .mobile-home-feed-card-empty::after {
+    content: ""; /* ✅ REQUIRED FIX */
+    position: absolute; /* ✅ NEW */
+    inset: 18px; /* ✅ NEW */
+    border-radius: 30px; /* ✅ NEW */
+    background:
+      radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18)); /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+  }
+  .mobile-home-feed .more-stories-kicker {
+    margin-bottom: 18px; /* ✅ UPDATED */
+    color: rgba(8, 63, 70, 0.62); /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-stories-title {
+    max-width: none; /* ✅ UPDATED */
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(32px, 8.5vw, 54px); /* ✅ UPDATED */
+    line-height: 1.03; /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+    letter-spacing: -0.045em; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-stories-intro {
+    margin-top: 22px; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.64); /* ✅ UPDATED */
+    font-size: clamp(17px, 4.2vw, 22px); /* ✅ UPDATED */
+    line-height: 1.55; /* ✅ UPDATED */
+    text-align: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card {
+    min-height: 100%; /* ✅ UPDATED */
+    padding: 0; /* ✅ UPDATED */
+    border: 0; /* ✅ UPDATED */
+    background: transparent; /* ✅ UPDATED */
+    box-shadow: none; /* ✅ UPDATED */
+    color: var(--color-ink); /* ✅ UPDATED */
+    display: flex; /* ✅ UPDATED */
+    align-items: center; /* ✅ UPDATED */
+    justify-content: center; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-title {
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(26px, 7.5vw, 44px); /* ✅ UPDATED */
+    line-height: 1.08; /* ✅ UPDATED */
+    letter-spacing: -0.035em; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-desc {
+    margin-top: 18px; /* ✅ UPDATED */
+    max-width: 520px; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.62); /* ✅ UPDATED */
+    font-size: clamp(17px, 4.4vw, 22px); /* ✅ UPDATED */
+    line-height: 1.45; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-service-card-link {
+    margin-top: 24px; /* ✅ UPDATED */
+    color: var(--color-hue-deep); /* ✅ UPDATED */
+    font-size: 16px; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-item {
+    border: 0; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-summary {
+    padding: 0 0 16px; /* ✅ UPDATED */
+    color: #101820; /* ✅ UPDATED */
+    font-size: clamp(28px, 8vw, 48px); /* ✅ UPDATED */
+    line-height: 1.08; /* ✅ UPDATED */
+    letter-spacing: -0.04em; /* ✅ UPDATED */
+    cursor: default; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-summary::after {
+    display: none; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-accordion-panel {
+    padding: 0; /* ✅ UPDATED */
+    color: rgba(16, 20, 24, 0.66); /* ✅ UPDATED */
+    font-size: 16px; /* ✅ UPDATED */
+    line-height: 1.6; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-faq-list {
+    gap: 16px; /* ✅ UPDATED */
+  }
+  .mobile-home-feed .more-contact-platforms {
+    justify-content: center; /* ✅ UPDATED */
+    gap: 10px; /* ✅ UPDATED */
+  }
+  .mobile-home-feed-handle {
+    position: fixed; /* ✅ NEW */
+    left: 50%; /* ✅ NEW */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 43px); /* ✅ NEW */
+    z-index: 1005; /* ✅ NEW */
+    width: 58px; /* ✅ NEW */
+    height: 7px; /* ✅ NEW */
+    border: 0; /* ✅ NEW */
+    border-radius: 999px; /* ✅ NEW */
+    background: rgba(5, 6, 8, 0.22); /* ✅ NEW */
+    transform: translate3d(-50%, 0, 0); /* ✅ NEW */
+    pointer-events: none; /* ✅ NEW */
+  }
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-handle {
+    display: block; /* ✅ NEW */
+  }
+}
+
 /* ✅ NEW: MOBILE HOME SCROLL LOCK UNTIL LEAVE NO TRACE */
 @media (max-width:768px) {
   html.home-scroll-locked,
