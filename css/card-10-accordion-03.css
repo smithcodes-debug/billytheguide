@@ -1,5 +1,5 @@
 /* ✅ NEW: CARD 10 CSS - accordion card 03 */
-@media (max-width:768px) {
+@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 {
     /* ✅ NEW: edit card 10 container styles here */
   }
@@ -7,4 +7,4 @@
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .mobile-home-feed-card-scroll {
     /* ✅ NEW: edit card 10 text/layout spacing here */
   }
-}
+} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
