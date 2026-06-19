@@ -89,25 +89,25 @@
     /* ===== HEADER ===== */
     /* ===== HEADER ===== */
 header {
-  position: fixed; /* ✅ UPDATED */
-  top: calc(env(safe-area-inset-top, 0px) + 12px); /* ✅ UPDATED */
-  left: var(--header-pill-x); /* ✅ NEW */
-  right: var(--header-pill-x); /* ✅ NEW */
-  width: auto; /* ✅ NEW */
-  min-height: 76px; /* ✅ NEW */
-  padding: 10px 14px; /* ✅ UPDATED */
-  z-index: 100; /* ✅ UPDATED */
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: space-between; /* ✅ NEW */
-  gap: 18px; /* ✅ NEW */
-  border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ UPDATED */
-  border-radius: 999px; /* ✅ NEW */
-  background: #ffffff; /* ✅ UPDATED: chuyển header sang màu trắng */
-  color: var(--color-ink); /* ✅ NEW */
-  box-shadow: var(--shadow-premium-soft); /* ✅ NEW */
-  backdrop-filter: none; /* ✅ UPDATED: bỏ glass blur để trắng sạch hơn */
-  -webkit-backdrop-filter: none; /* ✅ UPDATED */
+  position: fixed; /* ✅ UPDATED */  
+  top: calc(env(safe-area-inset-top, 0px) + 12px); /* ✅ UPDATED */  
+  left: var(--header-pill-x); /* ✅ NEW */  
+  right: var(--header-pill-x); /* ✅ NEW */  
+  width: auto; /* ✅ NEW */  
+  min-height: 76px; /* ✅ NEW */  
+  padding: 10px 14px; /* ✅ UPDATED */  
+  z-index: 1100; /* ✅ UPDATED: giữ header luôn nổi trên popup tour carousel */  
+  display: flex; /* ✅ NEW */  
+  align-items: center; /* ✅ NEW */  
+  justify-content: space-between; /* ✅ NEW */  
+  gap: 18px; /* ✅ NEW */  
+  border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ UPDATED */  
+  border-radius: 999px; /* ✅ NEW */  
+  background: #ffffff; /* ✅ UPDATED: chuyển header sang màu trắng */  
+  color: var(--color-ink); /* ✅ NEW */  
+  box-shadow: var(--shadow-premium-soft); /* ✅ NEW */  
+  backdrop-filter: none; /* ✅ UPDATED: bỏ glass blur để trắng sạch hơn */  
+  -webkit-backdrop-filter: none; /* ✅ UPDATED */  
 }
     /* ✅ NEW: MENU TRIGGER */
     .menu-trigger {
@@ -377,21 +377,21 @@ header {
     /* ✅ NEW: POPUP */
     /* ===================== */
     .popup-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */
-      -webkit-backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */ /* ✅ REQUIRED FIX */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
-      z-index: 999;
-    }
+  position: fixed;  
+  inset: 0;  
+  background: rgba(0, 0, 0, 0.65);  
+  backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */  
+  -webkit-backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */ /* ✅ REQUIRED FIX */  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  padding: 24px;  
+  opacity: 0;  
+  visibility: hidden;  
+  pointer-events: none;  
+  transition: opacity 0.25s ease, visibility 0.25s ease;  
+  z-index: 1000; /* ✅ UPDATED: popup tour nằm dưới header */  
+}
     .popup-backdrop.is-open {
       opacity: 1;
       visibility: visible;
