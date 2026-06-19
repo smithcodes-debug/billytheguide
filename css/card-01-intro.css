@@ -241,20 +241,28 @@
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-side-icons {
     position: absolute; /* ✅ NEW */
-    left: 15px; /* ✅ NEW: cách mép trái card trắng 15px */
+    left: 15px; /* ✅ UPDATED: pad memo cách mép trái card trắng 15px */
     top: 390px; /* ✅ NEW: đưa cụm icon xuống vùng trắng được khoanh đỏ */
     z-index: 2; /* ✅ NEW */
     display: grid; /* ✅ NEW */
     grid-template-rows: repeat(6, 38px); /* ✅ NEW: chia thành 6 dòng */
     gap: 6px; /* ✅ NEW */
-    width: 42px; /* ✅ NEW */
+    width: 54px; /* ✅ UPDATED: tăng chiều ngang để có pad bao quanh icon */
+    padding: 8px 6px; /* ✅ NEW: tạo khoảng thở bên trong pad memo */
+    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
+    border-radius: 18px; /* ✅ NEW: bo tròn 4 cạnh pad memo */
+    background: rgba(255, 255, 255, 0.72); /* ✅ NEW: nền trắng mờ */
+    box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */
+    backdrop-filter: blur(8px); /* ✅ NEW */
+    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX: Safari iOS */
     pointer-events: none; /* ✅ NEW */
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-side-icon {
     display: block; /* ✅ NEW */
-    width: 42px; /* ✅ NEW */
-    height: 38px; /* ✅ NEW */
+    width: 42px; /* ✅ UPDATED */
+    height: 38px; /* ✅ UPDATED */
     object-fit: contain; /* ✅ NEW */
+    border-radius: 12px; /* ✅ NEW: icon nằm trong memo mềm hơn */
   }
 } /* ✅ REQUIRED FIX: đóng @media cuối file, xóa block lặp lỗi cú pháp ở cuối */
