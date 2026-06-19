@@ -213,7 +213,9 @@ padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inse
     /* ✅ NEW: edit card 01 container styles here */
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 01 text/layout spacing here */
-  }
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
+  padding: 5px 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: nâng cụm text card 01 sát top pad, cách cạnh top 5px */  
+  justify-content: flex-start; /* ✅ UPDATED: đưa cụm text lên đầu card thay vì căn giữa dọc */  
 }
+}
+
