@@ -7,15 +7,15 @@ export function initTourCarousel() { /* ✅ REQUIRED FIX */
   if (scroller.dataset.tourCarouselInitialized === 'true') return; /* ✅ REQUIRED FIX */
   scroller.dataset.tourCarouselInitialized = 'true'; /* ✅ NEW */
 
-  const TOUR_PAGE_MAP = { /* ✅ UPDATED */
+ const TOUR_PAGE_MAP = { /* ✅ UPDATED */
     snorkeling: './coral-snorkeling-phu-quoc.html', /* ✅ NEW */
     diving: './diving-island-phu-quoc.html', /* ✅ NEW */
     hiking: './hiking-mountain-phu-quoc.html', /* ✅ UPDATED */
-    propose: './propose-island-phu-quoc.html', /* ✅ UPDATED */
     camping: './camping-island-phu-quoc.html', /* ✅ UPDATED */
+    propose: './propose-island-phu-quoc.html', /* ✅ UPDATED */
+    phuQuocTipAndTrick: './phu-quoc-tip-and-trick.html', /* ✅ NEW */
     coralDictionary: './coral-dictionary-at-phu-quoc.html' /* ✅ NEW */
   };
-
   const SCROLL_STEP_RATIO = 0.82; /* ✅ NEW */
   let scrollFrame = 0; /* ✅ NEW */
 
