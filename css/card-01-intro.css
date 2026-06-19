@@ -214,8 +214,26 @@ padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inse
   }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
-  padding: 5px 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: nâng cụm text card 01 sát top pad, cách cạnh top 5px */  
-  justify-content: flex-start; /* ✅ UPDATED: đưa cụm text lên đầu card thay vì căn giữa dọc */  
+  padding: 5px 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: nâng cụm text card 01 sát top pad, cách cạnh top 5px */    
+  justify-content: flex-start; /* ✅ UPDATED: đưa cụm text lên đầu card thay vì căn giữa dọc */    
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {
+  font-size: clamp(21px, 5.6vw, 35px); /* ✅ UPDATED: thu nhỏ cụm title 30% từ clamp(30px, 8vw, 50px) */
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title::after {
+  content: "\"Some laugh because we are different.\A We smile because we choose not to be the same.\""; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  max-width: 560px; /* ✅ NEW */
+  margin: 16px auto 0; /* ✅ NEW */
+  color: rgba(16, 20, 24, 0.58); /* ✅ NEW */
+  font-size: clamp(13px, 3.4vw, 17px); /* ✅ NEW */
+  line-height: 1.42; /* ✅ NEW */
+  font-weight: 600; /* ✅ NEW */
+  letter-spacing: -0.01em; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+  white-space: pre-line; /* ✅ NEW */
 }
 }
 
