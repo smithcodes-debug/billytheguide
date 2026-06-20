@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-9-ui-js-behavior-graph",
+  "version": "pdrs-01-10-root-legacy-and-snorkeling-page-inventory",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "ui-js-behavior-graph-accounted-main-runtime-mapped-secondary-stubs-unintegrated",
-    "note": "PDRS-01.9 đã cập nhật UI JS behavior graph: main.js runtime init order, gesture/navigation/search/policy/contact/tour-carousel/story-expand/mobile-edge-pad, page entries, snorkeling page, booking/payment/confirmation stubs. brand-logo.js/payment.js/confirmation.js chưa được main.js import nên được đánh dấu là secondary/unintegrated."
+    "status": "snorkeling-page-and-root-legacy-files-accounted-temporary-map-before-final-reconciliation",
+    "note": "PDRS-01.10 đã cập nhật batch snorkeling landing page + root legacy files: coral-snorkeling-phu-quoc.html, snorkeling.css, js/snorkeling.js, style.css, app.js. snorkeling page hiện dùng inline CSS trong HTML và script js/snorkeling.js defer; style.css/app.js được đánh dấu legacy/root-overlap cần hiệu chỉnh sau nếu vẫn được page nào import."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -22,7 +22,8 @@
   },
   "knownFiles": {
     "htmlEntry": [
-      "index.html"
+      "index.html",
+      "coral-snorkeling-phu-quoc.html"
     ],
     "cssLoadOrder": [
       "./css/home-hero-tour-popup.css",
@@ -80,7 +81,9 @@
       "./js/pages/snorkeling.js",
       "./js/pages/hiking.js",
       "./js/pages/camping.js",
-      "./js/pages/general.js"
+      "./js/pages/general.js",
+      "./js/snorkeling.js",
+      "./app.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -91,6 +94,20 @@
       "paymentImportedByMain": false,
       "confirmationImportedByMain": false,
       "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu."
+    },
+    "cssUploadedOrAccounted": [
+      "./snorkeling.css",
+      "./style.css"
+    ],
+    "rootLegacyInventoryNotes": {
+      "styleCssUploaded": true,
+      "appJsUploaded": true,
+      "styleCssInActiveIndexCssLoadOrder": false,
+      "appJsInActiveIndexJsLoadOrder": false,
+      "snorkelingCssLinkedByCoralSnorkelingHtml": false,
+      "snorkelingCssMergedInlineInCoralSnorkelingHtml": true,
+      "snorkelingJsLoadedByCoralSnorkelingHtml": "js/snorkeling.js defer",
+      "note": "style.css/app.js are accounted as root legacy/overlap files until a specific HTML import confirms active runtime usage."
     }
   },
   "uploadPolicyForFutureDebug": {
@@ -105,11 +122,16 @@
       "js/modules/header-menu-state.js",
       "js/modules/mobile-story-typewriter.js"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.9 UI JS behavior graph accounted. Runtime main.js init order is mapped. Secondary stubs brand-logo/payment/confirmation are not imported by main.js.",
+    "currentInventoryCheckpoint": "PDRS-01.10 map updated: snorkeling landing page + root legacy style.css/app.js accounted. Next step should verify which HTML pages import style.css/app.js, then reconcile duplicates.",
     "nextRecommendedJsBatch": [
       "HTML page importing ./js/ui/brand-logo.js if used",
       "HTML page importing ./js/modules/payment.js if used",
       "HTML page importing ./js/modules/confirmation.js if used"
+    ],
+    "nextRecommendedUploadBatch": [
+      "diving-island-phu-quoc.html",
+      "hiking-mountain-phu-quoc.html",
+      "camping-island-phu-quoc.html"
     ]
   },
   "projectInvariants": [
@@ -388,6 +410,13 @@
         "css/modules/06-availability-booking.css",
         "./js/modules/booking.js",
         "js/main.js"
+      ],
+      "legacyOverlapFiles": [
+        "./app.js",
+        "./style.css"
+      ],
+      "riskNotes": [
+        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "07-mobile-edge-pad": {
@@ -575,6 +604,13 @@
         "High-coupling node: #leave-no-trace-popup is touched by main.js/initHomePopup, policy-popup.js, booking.js, story-expand.js, gesture.js, tour-carousel.js, navigation.js.",
         "route-handler-overlap-risk: tour-carousel.js handles .popup-note-item[data-tour], navigation.js handles snorkeling card, and tour-card-links.js is an incomplete legacy mapping module.",
         "story-expand.js closes tour popup and scrolls to #more-stories-section; back-to-tours scrolls to .hero."
+      ],
+      "legacyOverlapFiles": [
+        "./app.js",
+        "./style.css"
+      ],
+      "riskNotes": [
+        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "10-contact-popup": {
@@ -622,6 +658,13 @@
         "Open/close state uses .is-open, aria-hidden, trigger aria-expanded and mobile-popup-scroll-lock.",
         "Closes via close button, backdrop click, Escape, or billy:close-contact-popup event.",
         "Can be opened externally via billy:open-contact-popup event."
+      ],
+      "legacyOverlapFiles": [
+        "./app.js",
+        "./style.css"
+      ],
+      "riskNotes": [
+        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "11-scroll-home-composite": {
@@ -699,16 +742,38 @@
       ]
     },
     "20-snorkeling-page": {
-      "area": "snorkeling landing page/back button/video lazy-load/booking modal/prep modal/booking form/swipe back",
+      "area": "snorkeling landing page/back button/inline CSS/video lazy-load/booking modal/prep modal/booking form/swipe back",
       "htmlModule": "coral-snorkeling-phu-quoc.html — snorkeling landing page runtime module",
-      "cssFilesPrimary": [],
-      "cssFilesRelated": [],
+      "htmlFilesPrimary": [
+        "coral-snorkeling-phu-quoc.html"
+      ],
+      "cssFilesPrimary": [
+        "inline <style> inside coral-snorkeling-phu-quoc.html"
+      ],
+      "cssFilesRelated": [
+        "./snorkeling.css"
+      ],
       "jsFilesPrimary": [
+        "./js/snorkeling.js"
+      ],
+      "jsFilesRelated": [
         "./js/pages/snorkeling.js"
       ],
       "selectors": [
+        "body.snorkeling-page",
         "#snorkelingBackButton",
+        "#top",
+        ".snorkeling-hero",
+        ".snorkeling-hero-image",
         "#snorkelingHeroVideo",
+        ".snorkeling-hero-video",
+        ".snorkeling-hero-overlay",
+        ".snorkeling-hero-content",
+        ".snorkeling-kicker",
+        ".snorkeling-hero-actions",
+        ".snorkeling-btn",
+        "[data-open-booking]",
+        "[data-open-prep]",
         "#snorkelingBookingModal",
         "#snorkelingPrepModal",
         "#snorkelingBookingForm",
@@ -719,42 +784,49 @@
         "#bookingContact",
         "#bookingWarning",
         "#bookingSummary",
+        "input[name=\"payment\"]:checked",
         "#snorkelingConfirmation",
-        "[data-open-booking]",
-        "[data-open-prep]",
         "[data-close-booking]",
         "[data-close-prep]",
-        "input[name=\"payment\"]:checked",
-        "source[data-src]",
-        "button[type=\"submit\"]"
+        ".snorkeling-modal",
+        ".snorkeling-modal-card",
+        ".snorkeling-modal-close",
+        "source[data-src]"
       ],
       "states": [
-        "document.body.is-ready",
-        ".is-open",
-        ".is-visible",
-        ".is-loaded",
+        "body.snorkeling-page.is-ready",
+        ".snorkeling-modal.is-open",
+        ".snorkeling-hero-video.is-loaded",
+        ".snorkeling-booking-warning.is-visible",
         "aria-hidden",
+        "aria-live",
         "bookingDate.min",
         "submitButton.disabled",
         "document.documentElement.style.overflow",
         "document.body.style.overflow",
         "touchstart",
         "touchend",
-        "Escape"
+        "Escape",
+        "window.location.href=index.html",
+        "snorkeling-hero.webm lazy-load"
       ],
       "behavior": [
-        "DOMContentLoaded initializes snorkeling page runtime.",
-        "Back button and left-edge swipe return user to index.html.",
-        "Booking/prep modals open via data attributes and close via close attributes, backdrop click, or Escape.",
-        "Booking date minimum is set to tomorrow.",
-        "Package price and submit disabled state are recalculated from guest count and experience type.",
-        "Booking submit renders summary into #snorkelingConfirmation.",
-        "Hero video lazy load exists but is intentionally disabled to prevent 404 console error."
+        "coral-snorkeling-phu-quoc.html is a standalone snorkeling landing page with inline runtime CSS.",
+        "HTML loads js/snorkeling.js with defer.",
+        "snorkeling.css was uploaded/accounted but is not linked by the current coral-snorkeling-phu-quoc.html; inline CSS is the active page CSS.",
+        "snorkeling.js controls back navigation, booking modal, preparation modal, booking validation/summary, left-edge swipe back, Escape close, and hero video lazy load.",
+        "Hero video lazy load references snorkeling-hero.webm; verify media file exists if console shows 404."
+      ],
+      "riskNotes": [
+        "Inline CSS and external snorkeling.css differ: external body.snorkeling-page starts opacity:0 while current inline CSS starts opacity:1.",
+        "snorkelingConfirmation uses innerHTML for form data summary; sanitize before using untrusted user input in production.",
+        "Earlier mapped ./js/pages/snorkeling.js is now superseded/aliased by active HTML script path js/snorkeling.js unless another page imports the pages path."
       ],
       "futureUploadIfBug": [
         "coral-snorkeling-phu-quoc.html",
-        "./js/pages/snorkeling.js",
-        "related snorkeling CSS file if visual/modal issue appears"
+        "./js/snorkeling.js",
+        "./snorkeling.css",
+        "snorkeling-hero.webm if video 404 appears"
       ]
     },
     "21-page-entry-modules": {
@@ -960,7 +1032,8 @@
       ],
       "riskNotes": [
         "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
-        "Header must remain visible and not covered by lock/popup state."
+        "Header must remain visible and not covered by lock/popup state.",
+        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -968,6 +1041,10 @@
         "./js/ui/story-expand.js",
         "./js/ui/mobile-edge-pad.js",
         "./js/ui/gesture.js"
+      ],
+      "legacyOverlapFiles": [
+        "./app.js",
+        "./style.css"
       ]
     },
     "25-secondary-unintegrated-js-stubs": {
@@ -1004,6 +1081,119 @@
         "HTML page importing ./js/ui/brand-logo.js",
         "HTML page importing ./js/modules/payment.js",
         "HTML page importing ./js/modules/confirmation.js"
+      ]
+    },
+    "26-root-legacy-runtime-files": {
+      "area": "root-level legacy/overlap CSS and JS files pending final active-import reconciliation",
+      "htmlModule": "unknown root or legacy pages; not listed in active index.html load order",
+      "cssFilesPrimary": [
+        "./style.css"
+      ],
+      "jsFilesPrimary": [
+        "./app.js"
+      ],
+      "selectors": [
+        ".popup-card",
+        ".popup-backdrop",
+        ".popup-head",
+        ".popup-title",
+        ".popup-close",
+        ".popup-copy",
+        ".popup-notes-shell",
+        ".popup-notes",
+        ".popup-notes-arrow",
+        ".popup-notes-arrow-left",
+        ".popup-notes-arrow-right",
+        ".popup-note-item",
+        ".popup-note-box",
+        ".popup-note-img",
+        ".popup-note-label",
+        ".title",
+        ".title-desktop",
+        ".title-mobile-line",
+        "header",
+        ".mask",
+        ".hero",
+        ".content",
+        ".story",
+        ".cta-row",
+        ".quote",
+        ".thanks",
+        ".availability-memo",
+        ".availability-popup-card",
+        ".availability-day",
+        ".availability-message",
+        ".availability-contact",
+        ".availability-tour-list",
+        ".availability-tour-item",
+        ".contact-popup-backdrop",
+        ".contact-popup-card",
+        ".contact-popup-close",
+        ".contact-social-list",
+        "#logoTrigger",
+        ".mobile-popup-scroll-lock",
+        "#leaveNoTraceCheckbox",
+        "#leave-no-trace-popup",
+        "#availabilityMemo",
+        "#availability-popup",
+        "#availabilityDays",
+        "#availabilityMonthLabel",
+        "#availabilityPrevMonth",
+        "#availabilityNextMonth",
+        "#availabilityContactLink",
+        "#availabilityMessage",
+        "#availabilityTourList",
+        "#contact-popup"
+      ],
+      "states": [
+        ".is-open",
+        ".is-center",
+        ".is-selected-date",
+        ".is-visible",
+        ".is-error",
+        ".is-success",
+        ".is-today-date",
+        ".is-open-date",
+        ".is-booked-date",
+        ".is-past",
+        ".is-too-soon",
+        ".is-snorkeling-transition-target",
+        "body.snorkeling-transition-ready",
+        "body.is-snorkeling-navigating",
+        "mobile-popup-scroll-lock",
+        "data-infinite-ready",
+        "data-clone",
+        "aria-hidden",
+        "aria-expanded",
+        "aria-disabled",
+        "data-date",
+        "data-status",
+        "touchstart",
+        "touchmove",
+        "touchend",
+        "keydown",
+        "Escape",
+        "resize",
+        "orientationchange",
+        "requestAnimationFrame",
+        "window.location.href=coral-snorkeling-phu-quoc.html"
+      ],
+      "behavior": [
+        "app.js is a monolithic IIFE legacy/runtime file overlapping current modular main.js behavior: home popup, availability calendar, contact popup, mobile gestures, carousel, and snorkeling transition.",
+        "style.css contains root popup/contact/availability/snorkeling transition styling that overlaps current modular CSS files and should be treated as legacy/pending active import verification.",
+        "Neither ./style.css nor ./app.js is listed in active index.html cssLoadOrder/jsLoadOrder in the current PDRS map.",
+        "If any secondary HTML imports style.css or app.js, this module becomes active for that page and must be reconciled before edits."
+      ],
+      "riskNotes": [
+        "High duplication risk with ./js/main.js + ./js/ui/* + ./js/modules/booking.js.",
+        "style.css fetch shows CSS comment sanitization/malformed-comment symptoms; verify raw file before editing.",
+        "app.js touches the same high-coupling nodes as current modular runtime: #leave-no-trace-popup, #availability-popup, #contact-popup, popup carousel and snorkeling navigation.",
+        "Do not merge or delete app.js/style.css until HTML imports are confirmed."
+      ],
+      "futureUploadIfBug": [
+        "./app.js",
+        "./style.css",
+        "HTML page importing app.js/style.css"
       ]
     }
   },
@@ -1376,6 +1566,127 @@
         ".hero",
         "#mobile-search-popup"
       ]
+    },
+    "snorkeling-landing-css-js-loi": {
+      "userDescriptionExamples": [
+        "snorkeling page trắng",
+        "snorkeling page bị opacity sai",
+        "snorkeling modal không mở",
+        "snorkeling video 404",
+        "snorkeling booking summary lỗi",
+        "snorkeling css không ăn"
+      ],
+      "routeToModule": "20-snorkeling-page",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "coral-snorkeling-phu-quoc.html",
+        "./js/snorkeling.js",
+        "./snorkeling.css"
+      ],
+      "selectors": [
+        "body.snorkeling-page",
+        "#snorkelingBackButton",
+        "#top",
+        ".snorkeling-hero",
+        ".snorkeling-hero-image",
+        "#snorkelingHeroVideo",
+        ".snorkeling-hero-video",
+        ".snorkeling-hero-overlay",
+        ".snorkeling-hero-content",
+        ".snorkeling-kicker",
+        ".snorkeling-hero-actions",
+        ".snorkeling-btn",
+        "[data-open-booking]",
+        "[data-open-prep]",
+        "#snorkelingBookingModal",
+        "#snorkelingPrepModal",
+        "#snorkelingBookingForm",
+        "#bookingDate",
+        "#bookingGuests",
+        "#bookingExperience",
+        "#bookingName",
+        "#bookingContact",
+        "#bookingWarning",
+        "#bookingSummary",
+        "input[name=\"payment\"]:checked",
+        "#snorkelingConfirmation",
+        "[data-close-booking]",
+        "[data-close-prep]",
+        ".snorkeling-modal",
+        ".snorkeling-modal-card",
+        ".snorkeling-modal-close",
+        "source[data-src]"
+      ]
+    },
+    "root-legacy-overlap-loi": {
+      "userDescriptionExamples": [
+        "app.js còn dùng không",
+        "style.css còn dùng không",
+        "popup bị chạy 2 logic",
+        "calendar bị trùng logic",
+        "contact popup bị conflict legacy",
+        "snorkeling transition bị conflict"
+      ],
+      "routeToModule": "26-root-legacy-runtime-files",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./app.js",
+        "./style.css",
+        "HTML page importing app.js/style.css"
+      ],
+      "selectors": [
+        ".popup-card",
+        ".popup-backdrop",
+        ".popup-head",
+        ".popup-title",
+        ".popup-close",
+        ".popup-copy",
+        ".popup-notes-shell",
+        ".popup-notes",
+        ".popup-notes-arrow",
+        ".popup-notes-arrow-left",
+        ".popup-notes-arrow-right",
+        ".popup-note-item",
+        ".popup-note-box",
+        ".popup-note-img",
+        ".popup-note-label",
+        ".title",
+        ".title-desktop",
+        ".title-mobile-line",
+        "header",
+        ".mask",
+        ".hero",
+        ".content",
+        ".story",
+        ".cta-row",
+        ".quote",
+        ".thanks",
+        ".availability-memo",
+        ".availability-popup-card",
+        ".availability-day",
+        ".availability-message",
+        ".availability-contact",
+        ".availability-tour-list",
+        ".availability-tour-item",
+        ".contact-popup-backdrop",
+        ".contact-popup-card",
+        ".contact-popup-close",
+        ".contact-social-list",
+        "#logoTrigger",
+        ".mobile-popup-scroll-lock",
+        "#leaveNoTraceCheckbox",
+        "#leave-no-trace-popup",
+        "#availabilityMemo",
+        "#availability-popup",
+        "#availabilityDays",
+        "#availabilityMonthLabel",
+        "#availabilityPrevMonth",
+        "#availabilityNextMonth",
+        "#availabilityContactLink",
+        "#availabilityMessage",
+        "#availabilityTourList",
+        "#contact-popup"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -1582,11 +1893,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-02.0 — Runtime Debug / Refactor Gate",
+    "nextStepName": "PDRS-01.11 — Landing Page HTML Import Reconciliation",
     "recommendedUploadBatch": [
-      "target bug symptom + project-debug-routing-system.json + exact module file from debug route"
+      "diving-island-phu-quoc.html",
+      "hiking-mountain-phu-quoc.html",
+      "camping-island-phu-quoc.html"
     ],
-    "goal": "JS/CSS/HTML asset inventory and behavior map are now sufficient for targeted debugging. Do not refactor runtime unless user explicitly requests a scoped code change."
+    "goal": "Xác định các landing page còn lại import CSS/JS nào, đặc biệt có dùng ./style.css hoặc ./app.js không. Sau đó mới hiệu chỉnh map legacy/runtime chính xác."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -1871,8 +2184,8 @@
     }
   },
   "jsModuleInventory": {
-    "step": "PDRS-01.9 — UI JS Behavior Graph",
-    "status": "pass-main-runtime-and-ui-js-accounted-secondary-stubs-unintegrated",
+    "step": "PDRS-01.10 — JS + Root Legacy Runtime Inventory",
+    "status": "pass-ui-js-accounted-plus-root-appjs-temporary-legacy-overlap-accounted",
     "updatedAtLocal": "2026-06-21T00:28:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": false,
@@ -2082,13 +2395,27 @@
         "status": "received-and-source-read",
         "role": "shared page helper",
         "primaryModule": "21-page-entry-modules"
+      },
+      {
+        "path": "./app.js",
+        "status": "received-and-source-read-legacy-overlap-risk-active-import-unknown",
+        "role": "root monolithic runtime overlapping modular UI/booking/popup/carousel behavior",
+        "primaryModule": "26-root-legacy-runtime-files"
+      },
+      {
+        "path": "./js/snorkeling.js",
+        "status": "received-and-source-read-active-by-coral-snorkeling-html",
+        "role": "snorkeling landing page runtime",
+        "primaryModule": "20-snorkeling-page"
       }
     ],
     "criticalCouplingNotes": [
       "High-coupling node: #leave-no-trace-popup is controlled by multiple modules.",
       "route-handler-overlap-risk: tour-carousel.js, navigation.js and tour-card-links.js overlap around popup tour card navigation.",
       "cross-module-scroll-lock-stack: home-scroll-locked, mobile-popup-scroll-lock, mobile-home-feed-snap and history guard can interact.",
-      "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js."
+      "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js.",
+      "app.js is an additional root monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
+      "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js."
     ],
     "jsPendingForCompleteInventory": [
       {
@@ -2100,6 +2427,72 @@
         "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PASS — main.js runtime graph and uploaded UI JS files are accounted. Secondary stubs remain unintegrated by current main.js."
+    "jsInventoryStatus": "PASS — current modular UI JS remains accounted; app.js is now accounted as legacy/root-overlap pending import reconciliation; js/snorkeling.js is active for snorkeling landing page."
+  },
+  "snorkelingLandingPageInventory": {
+    "step": "PDRS-01.10 — Snorkeling Landing Page Inventory",
+    "status": "accounted",
+    "updatedAtLocal": "2026-06-21T00:28:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "note": "PDRS metadata updated only."
+    },
+    "filesReceivedOrAccounted": [
+      {
+        "path": "coral-snorkeling-phu-quoc.html",
+        "status": "received-and-source-read",
+        "activeCss": "inline <style>",
+        "activeJs": "js/snorkeling.js defer",
+        "role": "standalone snorkeling landing page"
+      },
+      {
+        "path": "./snorkeling.css",
+        "status": "received-and-source-read-not-linked-by-current-snorkeling-html",
+        "role": "external/source copy of snorkeling landing CSS",
+        "note": "Current coral-snorkeling-phu-quoc.html has inline CSS instead of linking this file."
+      },
+      {
+        "path": "./js/snorkeling.js",
+        "status": "received-and-source-read-active-by-current-snorkeling-html",
+        "role": "snorkeling page interaction runtime"
+      }
+    ],
+    "knownDifferences": [
+      "External snorkeling.css sets body.snorkeling-page opacity:0 while current inline CSS sets opacity:1.",
+      "snorkeling.js lazy-loads snorkeling-hero.webm after 280ms."
+    ]
+  },
+  "rootLegacyRuntimeInventory": {
+    "step": "PDRS-01.10 — Root Legacy Runtime Inventory",
+    "status": "received-and-accounted-active-import-unknown",
+    "updatedAtLocal": "2026-06-21T00:28:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "note": "PDRS metadata updated only."
+    },
+    "filesReceivedOrAccounted": [
+      {
+        "path": "./app.js",
+        "status": "received-and-source-read-legacy-overlap-risk",
+        "role": "monolithic root runtime overlapping modular main.js/ui/modules behavior",
+        "activeInIndexHtml": false
+      },
+      {
+        "path": "./style.css",
+        "status": "received-and-source-read-legacy-overlap-risk-syntax-verify-required",
+        "role": "root CSS overlapping modular CSS and popup/contact/availability styles",
+        "activeInIndexHtml": false
+      }
+    ],
+    "reconciliationNeeded": [
+      "Find any HTML page that imports ./app.js.",
+      "Find any HTML page that imports ./style.css.",
+      "If unused, keep as legacy reference or remove only after explicit user confirmation.",
+      "If used, reconcile against ./js/main.js, ./js/ui/*, ./js/modules/booking.js and current CSS modules."
+    ]
   }
 }
