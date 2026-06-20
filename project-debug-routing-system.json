@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-8-js-module-inventory",
+  "version": "pdrs-01-9-ui-js-behavior-graph",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "js-module-inventory-partial-uploaded-files-accounted-main-and-gesture-pending",
-    "note": "PDRS-01.8 đã cập nhật kiểm kê các JS files đã upload: index-loaded modules, booking/payment/confirmation stubs, page entries, and snorkeling landing-page JS. main.js và ../ui/gesture.js vẫn cần upload để hoàn tất behavior graph."
+    "status": "ui-js-behavior-graph-accounted-main-runtime-mapped-secondary-stubs-unintegrated",
+    "note": "PDRS-01.9 đã cập nhật UI JS behavior graph: main.js runtime init order, gesture/navigation/search/policy/contact/tour-carousel/story-expand/mobile-edge-pad, page entries, snorkeling page, booking/payment/confirmation stubs. brand-logo.js/payment.js/confirmation.js chưa được main.js import nên được đánh dấu là secondary/unintegrated."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -17,7 +17,8 @@
     "jsAdded": false,
     "bodyChanged": false,
     "textChanged": false,
-    "classIdAttributeChanged": false
+    "classIdAttributeChanged": false,
+    "note": "Only PDRS JSON metadata was updated. No runtime HTML/CSS/JS source was modified."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -60,25 +61,36 @@
       "./propose-island-phu-quoc.html"
     ],
     "jsUploadedOrAccounted": [
+      "./js/main.js",
+      "./js/ui/gesture.js",
+      "./js/ui/navigation.js",
+      "./js/ui/contact-popup.js",
+      "./js/ui/policy-popup.js",
+      "./js/ui/tour-carousel.js",
+      "./js/ui/story-expand.js",
+      "./js/ui/search-popup.js",
+      "./js/ui/mobile-edge-pad.js",
+      "./js/ui/brand-logo.js",
+      "./js/modules/booking.js",
       "./js/modules/tour-card-links.js",
       "./js/modules/header-menu-state.js",
       "./js/modules/mobile-story-typewriter.js",
-      "./js/main.js",
-      "./js/modules/booking.js",
-      "./js/modules/confirmation.js",
       "./js/modules/payment.js",
+      "./js/modules/confirmation.js",
+      "./js/pages/snorkeling.js",
       "./js/pages/hiking.js",
       "./js/pages/camping.js",
-      "./js/pages/general.js",
-      "./js/pages/snorkeling.js",
-      "../ui/gesture.js"
+      "./js/pages/general.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
-      "uploadedJsAccounted": true,
-      "mainJsSourcePending": true,
-      "gestureJsSourcePending": true,
-      "note": "knownFiles.jsLoadOrder vẫn phản ánh index.html active runtime. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu ngoài index.html."
+      "mainJsSourceAccounted": true,
+      "gestureJsSourceAccounted": true,
+      "uiJsBehaviorGraphAccounted": true,
+      "brandLogoImportedByMain": false,
+      "paymentImportedByMain": false,
+      "confirmationImportedByMain": false,
+      "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu."
     }
   },
   "uploadPolicyForFutureDebug": {
@@ -93,10 +105,11 @@
       "js/modules/header-menu-state.js",
       "js/modules/mobile-story-typewriter.js"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.8 JS inventory partial: uploaded JS files accounted; main.js and gesture.js pending for complete behavior graph.",
+    "currentInventoryCheckpoint": "PDRS-01.9 UI JS behavior graph accounted. Runtime main.js init order is mapped. Secondary stubs brand-logo/payment/confirmation are not imported by main.js.",
     "nextRecommendedJsBatch": [
-      "./js/main.js",
-      "../ui/gesture.js"
+      "HTML page importing ./js/ui/brand-logo.js if used",
+      "HTML page importing ./js/modules/payment.js if used",
+      "HTML page importing ./js/modules/confirmation.js if used"
     ]
   },
   "projectInvariants": [
@@ -200,7 +213,8 @@
       ],
       "jsFilesPrimary": [
         "./js/modules/header-menu-state.js",
-        "./js/main.js"
+        "./js/main.js",
+        "./js/ui/brand-logo.js"
       ],
       "selectors": [
         "header",
@@ -208,17 +222,24 @@
         "#logoTrigger",
         ".header-search-trigger",
         ".menu-trigger",
-        ".menu-trigger-icon"
+        ".menu-trigger-icon",
+        "#logoTrigger .mask",
+        "[data-contact-popup-trigger]"
       ],
       "states": [
         "aria-expanded",
         "aria-controls",
-        "aria-haspopup"
+        "aria-haspopup",
+        "role",
+        "tabindex",
+        "data-contact-popup-trigger"
       ],
       "futureUploadIfBug": [
         "css/home-hero-tour-popup.css",
         "js/modules/header-menu-state.js",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/brand-logo.js",
+        "./js/ui/contact-popup.js"
       ]
     },
     "03-mobile-search": {
@@ -228,6 +249,7 @@
         "./css/modules/03-mobile-search.css"
       ],
       "jsFilesPrimary": [
+        "./js/ui/search-popup.js",
         "./js/main.js"
       ],
       "selectors": [
@@ -238,16 +260,45 @@
         ".mobile-search-close",
         ".mobile-search-form",
         ".mobile-search-input",
-        ".mobile-search-results"
+        ".mobile-search-results",
+        ".mobile-search-card",
+        ".mobile-search-card-title",
+        ".mobile-search-card-desc",
+        ".mobile-search-card-action",
+        ".mobile-search-empty"
       ],
       "states": [
         ".is-open",
         "aria-hidden",
-        "aria-expanded"
+        "aria-expanded",
+        "input",
+        "submit",
+        "Escape",
+        "matchMedia.change",
+        "SEARCH_DATA",
+        "window.location.href"
       ],
       "futureUploadIfBug": [
         "css/modules/03-mobile-search.css",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/search-popup.js"
+      ],
+      "behavior": [
+        "Mobile-only search popup controlled by .header-search-trigger and #mobile-search-popup.",
+        "Search data maps keywords to route cards or anchor targets.",
+        "Open state uses .is-open, aria-hidden=false and trigger aria-expanded=true.",
+        "Close by close button, backdrop click, Escape, or leaving mobile media query."
+      ],
+      "routes": [
+        "./coral-snorkeling-phu-quoc.html",
+        "./diving-island-phu-quoc.html",
+        "./hiking-mountain-phu-quoc.html",
+        "./camping-island-phu-quoc.html",
+        "./propose-island-phu-quoc.html",
+        "./coral-dictionary-at-phu-quoc.html",
+        "#leave-no-trace-popup",
+        "#contact-popup",
+        "#more-stories-section"
       ]
     },
     "05-hero-story-cta": {
@@ -349,22 +400,38 @@
         "./css/modules/11-scroll-home-composite.css"
       ],
       "jsFilesPrimary": [
+        "./js/ui/mobile-edge-pad.js",
         "./js/main.js"
       ],
       "selectors": [
         ".mobile-edge-pad",
         "#more-stories-section",
-        ".more-stories-back-button"
+        ".more-stories-back-button",
+        ".hero",
+        "#mobile-search-popup"
       ],
       "states": [
         ".is-hidden",
         "aria-controls",
-        "data-story-back-to-tours"
+        "data-story-back-to-tours",
+        "home-scroll-locked",
+        "heroIsVisible",
+        "touchStartY",
+        "IntersectionObserver",
+        "MutationObserver",
+        "matchMedia.change",
+        "scroll"
       ],
       "futureUploadIfBug": [
         "css/modules/07-mobile-edge-pad.css",
         "css/modules/11-scroll-home-composite.css",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/mobile-edge-pad.js"
+      ],
+      "behavior": [
+        "Click or upward swipe on .mobile-edge-pad unlocks home scroll and jumps to #more-stories-section.",
+        "Edge pad hides when not mobile, when hero is not visible, or when mobile search popup is open.",
+        "Uses IntersectionObserver for .hero and MutationObserver for #mobile-search-popup class changes."
       ]
     },
     "08-policy-popup": {
@@ -374,6 +441,7 @@
         "./css/modules/08-policy-popup.css"
       ],
       "jsFilesPrimary": [
+        "./js/ui/policy-popup.js",
         "./js/main.js"
       ],
       "selectors": [
@@ -384,16 +452,44 @@
         ".policy-popup-action",
         ".policy-popup-guidelines-toggle",
         "#policyGuidelines",
-        ".policy-popup-guidelines-list"
+        ".policy-popup-guidelines-list",
+        ".title",
+        ".policy-popup-logo-slot",
+        ".policy-wave-text",
+        "#logoTrigger .mask",
+        "#leave-no-trace-popup",
+        "#leaveNoTraceCheckbox",
+        ".cta-trigger",
+        ".policy-popup-guidelines"
       ],
       "states": [
         ".is-open",
         "aria-hidden",
-        "aria-expanded"
+        "aria-expanded",
+        "data-policy-popup-initialized",
+        "data-wave-prepared",
+        ".is-closing",
+        "role",
+        "tabindex",
+        "prefers-reduced-motion",
+        "Escape",
+        "billy:open-policy-popup"
       ],
       "futureUploadIfBug": [
         "css/modules/08-policy-popup.css",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/policy-popup.js"
+      ],
+      "behavior": [
+        ".title opens policy popup and is normalized as keyboard-accessible trigger.",
+        "Policy popup clones #logoTrigger .mask into .policy-popup-logo-slot when opened.",
+        "Policy action closes policy popup then opens #leave-no-trace-popup and checks #leaveNoTraceCheckbox.",
+        "Guidelines toggle uses .is-open, aria-hidden and aria-expanded."
+      ],
+      "couplingNotes": [
+        "policy-popup.js reads logo DOM from #logoTrigger .mask",
+        "policy-popup.js opens 09-tour-popup after policy action",
+        "policy-popup.js updates .cta-trigger aria-expanded"
       ]
     },
     "09-tour-popup": {
@@ -404,8 +500,13 @@
         "./css/modules/09-tour-snorkeling-transition.css"
       ],
       "jsFilesPrimary": [
-        "./js/modules/tour-card-links.js",
-        "./js/main.js"
+        "./js/main.js",
+        "./js/ui/tour-carousel.js",
+        "./js/ui/navigation.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/policy-popup.js",
+        "./js/modules/booking.js",
+        "./js/modules/tour-card-links.js"
       ],
       "selectors": [
         "#leave-no-trace-popup",
@@ -417,7 +518,15 @@
         ".popup-notes-arrow",
         ".popup-note-item",
         ".popup-note-item[data-tour=snorkeling]",
-        ".popup-note-box"
+        ".popup-note-box",
+        ".popup-notes-arrow-left",
+        ".popup-notes-arrow-right",
+        ".popup-note-item[data-tour]",
+        "[data-nav]",
+        "#more-stories-section",
+        "#moreStoriesTitle",
+        "[data-story-back-to-tours]",
+        ".hero"
       ],
       "states": [
         ".is-open",
@@ -425,13 +534,47 @@
         "body.snorkeling-transition-ready",
         "body.is-snorkeling-navigating",
         "data-tour",
-        "aria-hidden"
+        "aria-hidden",
+        "data-tour-carousel-initialized",
+        ".is-center",
+        "scroll",
+        "click",
+        "keydown",
+        "Enter",
+        "Space",
+        "resize",
+        "requestAnimationFrame",
+        "window.location.href",
+        "data-story-expand-initialized",
+        "mobile-popup-scroll-lock",
+        "billy:open-home-tour-popup",
+        "billy:open-more-stories-from-tour-popup",
+        "billy:open-more-stories"
       ],
       "futureUploadIfBug": [
         "css/home-hero-tour-popup.css",
         "css/modules/09-tour-snorkeling-transition.css",
         "js/modules/tour-card-links.js",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/tour-carousel.js",
+        "./js/ui/navigation.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/policy-popup.js",
+        "./js/modules/booking.js"
+      ],
+      "routes": [
+        "./coral-snorkeling-phu-quoc.html",
+        "./diving-island-phu-quoc.html",
+        "./hiking-mountain-phu-quoc.html",
+        "./camping-island-phu-quoc.html",
+        "./propose-island-phu-quoc.html",
+        "./phu-quoc-tip-and-trick.html",
+        "./coral-dictionary-at-phu-quoc.html"
+      ],
+      "couplingNotes": [
+        "High-coupling node: #leave-no-trace-popup is touched by main.js/initHomePopup, policy-popup.js, booking.js, story-expand.js, gesture.js, tour-carousel.js, navigation.js.",
+        "route-handler-overlap-risk: tour-carousel.js handles .popup-note-item[data-tour], navigation.js handles snorkeling card, and tour-card-links.js is an incomplete legacy mapping module.",
+        "story-expand.js closes tour popup and scrolls to #more-stories-section; back-to-tours scrolls to .hero."
       ]
     },
     "10-contact-popup": {
@@ -441,6 +584,8 @@
         "./css/modules/10-contact-popup.css"
       ],
       "jsFilesPrimary": [
+        "./js/ui/contact-popup.js",
+        "./js/ui/brand-logo.js",
         "./js/main.js"
       ],
       "selectors": [
@@ -451,16 +596,32 @@
         "#logoTrigger",
         "#contactPhoneLink",
         ".contact-social-list",
-        ".contact-social-item"
+        ".contact-social-item",
+        "[data-contact-popup-trigger]"
       ],
       "states": [
         ".is-open",
         "aria-hidden",
-        "aria-expanded"
+        "aria-expanded",
+        "mobile-popup-scroll-lock",
+        "data-contact-popup-initialized",
+        "billy:open-contact-popup",
+        "billy:close-contact-popup",
+        "Escape",
+        "role",
+        "tabindex"
       ],
       "futureUploadIfBug": [
         "css/modules/10-contact-popup.css",
-        "js/main.js"
+        "js/main.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/brand-logo.js"
+      ],
+      "behavior": [
+        "Contact popup opens from #logoTrigger or [data-contact-popup-trigger].",
+        "Open/close state uses .is-open, aria-hidden, trigger aria-expanded and mobile-popup-scroll-lock.",
+        "Closes via close button, backdrop click, Escape, or billy:close-contact-popup event.",
+        "Can be opened externally via billy:open-contact-popup event."
       ]
     },
     "11-scroll-home-composite": {
@@ -481,7 +642,9 @@
         "./css/card-10-accordion-03.css"
       ],
       "jsFilesPrimary": [
-        "./js/main.js"
+        "./js/main.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/mobile-edge-pad.js"
       ],
       "selectors": [
         "#more-stories-section",
@@ -492,17 +655,47 @@
         ".more-service-card",
         ".more-accordion-item",
         ".more-accordion-summary",
-        ".more-contact-platform"
+        ".more-contact-platform",
+        ".more-stories-kicker",
+        ".more-stories-quote",
+        ".more-stories-intro",
+        ".mobile-home-feed",
+        ".mobile-home-feed-panel",
+        ".mobile-home-feed-card",
+        ".mobile-home-feed-handle",
+        "#logoTrigger"
       ],
       "states": [
         "details[open]",
         "data-home-root",
         "data-home-behavior",
-        "data-return-target"
+        "data-return-target",
+        ".is-mobile-home-feed-ready",
+        ".is-desktop-home-feed-normal-scroll",
+        ".mobile-home-feed-snap",
+        "data-mobile-feed-card",
+        "home-scroll-locked",
+        "history.pushState",
+        "popstate",
+        "wheel",
+        "touchstart",
+        "touchmove",
+        "scroll",
+        "resize",
+        "orientationchange"
       ],
       "futureUploadIfBug": [
         "css/modules/11-scroll-home-composite.css",
-        "js/main.js"
+        "js/main.js",
+        "./js/main.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/mobile-edge-pad.js"
+      ],
+      "behavior": [
+        "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
+        "main.js/initMobileHomeSectionLock guards mobile/tablet users from scrolling above home section after lock activation.",
+        "story-expand.js scrolls from tour popup to #more-stories-section and back-to-tours scrolls to .hero.",
+        "mobile-edge-pad.js jumps from hero to more stories on mobile."
       ]
     },
     "20-snorkeling-page": {
@@ -572,7 +765,7 @@
         "./js/pages/hiking.js",
         "./js/pages/camping.js",
         "./js/pages/general.js",
-        "../ui/gesture.js"
+        "./js/ui/gesture.js"
       ],
       "selectors": [],
       "states": [],
@@ -585,7 +778,7 @@
         "./js/pages/hiking.js",
         "./js/pages/camping.js",
         "./js/pages/general.js",
-        "../ui/gesture.js"
+        "./js/ui/gesture.js"
       ]
     },
     "22-payment-confirmation-stubs": {
@@ -616,6 +809,201 @@
         "./js/modules/payment.js",
         "./js/modules/confirmation.js",
         "HTML page containing #paymentButton or #confirmationBox"
+      ]
+    },
+    "18-main-js-entry": {
+      "area": "main runtime orchestrator / app init order / home internal modules / app ready state",
+      "htmlModule": "MODULE 18 — MAIN JS ENTRY",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "imports": [
+        "./js/ui/gesture.js",
+        "./js/ui/navigation.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/policy-popup.js",
+        "./js/ui/tour-carousel.js",
+        "./js/ui/story-expand.js",
+        "./js/modules/booking.js",
+        "./js/ui/search-popup.js",
+        "./js/ui/mobile-edge-pad.js"
+      ],
+      "internalFunctions": [
+        "initHomePopup",
+        "initMobileHomeFeed",
+        "initMobileHomeSectionLock",
+        "markAppReady",
+        "markAppReadyOnNextPaint",
+        "safeInit",
+        "initHome"
+      ],
+      "runtimeInitOrder": [
+        "initGesture",
+        "initNavigation",
+        "initHomePopup",
+        "initPolicyPopup",
+        "initContactPopup",
+        "initTourCarousel",
+        "initStoryExpand",
+        "initSnorkelingCardNavigation",
+        "initAvailabilityPopup",
+        "initSearchPopup",
+        "initMobileEdgePad",
+        "initMobileHomeFeed",
+        "initMobileHomeSectionLock",
+        "initHome",
+        "markAppReadyOnNextPaint"
+      ],
+      "selectors": [
+        "#leaveNoTraceCheckbox",
+        "#leave-no-trace-popup",
+        ".popup-card",
+        ".popup-close",
+        ".cta-trigger",
+        ".more-stories-section",
+        ".more-stories-inner",
+        "#logoTrigger"
+      ],
+      "states": [
+        "body.js-loading",
+        "body.js-ready",
+        "home-scroll-locked",
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded",
+        ".is-mobile-home-feed-ready",
+        ".is-desktop-home-feed-normal-scroll",
+        ".mobile-home-feed-snap",
+        "history.pushState",
+        "popstate"
+      ],
+      "futureUploadIfBug": [
+        "./js/main.js"
+      ]
+    },
+    "23-ui-gesture-navigation-system": {
+      "area": "global gesture + navigation bridge",
+      "htmlModule": "cross-page/shared UI JS behavior layer",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/ui/gesture.js",
+        "./js/ui/navigation.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".popup-backdrop.is-open",
+        ".availability-popup-backdrop.is-open",
+        ".contact-popup-backdrop.is-open",
+        "#leave-no-trace-popup",
+        "[data-nav]",
+        ".popup-note-item[data-tour=\"snorkeling\"]"
+      ],
+      "states": [
+        "availabilitySwipeDisabled",
+        "data-availability-swipe-observer-initialized",
+        "touchstart",
+        "touchend",
+        "window.scrollY",
+        "window.history.back",
+        "billy:open-availability-popup",
+        "MutationObserver",
+        "window.location.href"
+      ],
+      "behavior": [
+        "gesture.js handles mobile popup edge-back and swipe-up to open availability.",
+        "navigation.js maps [data-nav] elements to window.location.href.",
+        "navigation.js maps snorkeling popup card to coral-snorkeling-phu-quoc.html."
+      ],
+      "futureUploadIfBug": [
+        "./js/ui/gesture.js",
+        "./js/ui/navigation.js",
+        "./js/main.js"
+      ]
+    },
+    "24-cross-module-scroll-lock-stack": {
+      "area": "cross-module scroll lock / popup lock / home feed snap / mobile history guard",
+      "htmlModule": "cross-module runtime state layer",
+      "cssFilesPrimary": [
+        "./css/modules/11-scroll-home-composite.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/08-policy-popup.css",
+        "./css/modules/10-contact-popup.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/gesture.js"
+      ],
+      "selectors": [
+        "html",
+        "body",
+        "#leave-no-trace-popup",
+        "#contact-popup",
+        "#mobile-search-popup",
+        ".more-stories-section"
+      ],
+      "states": [
+        "home-scroll-locked",
+        "mobile-popup-scroll-lock",
+        "mobile-home-feed-snap",
+        "isLocked",
+        "isProgrammaticScroll",
+        "hasHistoryGuard",
+        "history.pushState",
+        "popstate",
+        "wheel",
+        "touchmove"
+      ],
+      "riskNotes": [
+        "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
+        "Header must remain visible and not covered by lock/popup state."
+      ],
+      "futureUploadIfBug": [
+        "./js/main.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/gesture.js"
+      ]
+    },
+    "25-secondary-unintegrated-js-stubs": {
+      "area": "uploaded JS not imported by current main.js",
+      "htmlModule": "unknown secondary pages or future integration points",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/ui/brand-logo.js",
+        "./js/modules/payment.js",
+        "./js/modules/confirmation.js"
+      ],
+      "selectors": [
+        "#logoTrigger",
+        "#logoTrigger .mask",
+        ".logo",
+        ".mask",
+        "#paymentButton",
+        "#confirmationBox"
+      ],
+      "states": [
+        "aria-controls",
+        "aria-expanded",
+        "role",
+        "tabindex",
+        "alert",
+        "innerHTML"
+      ],
+      "riskNotes": [
+        "brand-logo.js is uploaded/accounted but not imported by current main.js.",
+        "payment.js and confirmation.js are uploaded/accounted but not imported by current main.js.",
+        "confirmation.js uses innerHTML; sanitize data before using untrusted input."
+      ],
+      "futureUploadIfBug": [
+        "HTML page importing ./js/ui/brand-logo.js",
+        "HTML page importing ./js/modules/payment.js",
+        "HTML page importing ./js/modules/confirmation.js"
       ]
     }
   },
@@ -869,6 +1257,125 @@
         "#paymentButton",
         "#confirmationBox"
       ]
+    },
+    "ui-js-runtime-init-loi": {
+      "userDescriptionExamples": [
+        "JS không chạy",
+        "module init lỗi",
+        "main.js lỗi",
+        "app bị đứng sau khi load",
+        "body vẫn js-loading"
+      ],
+      "routeToModule": "18-main-js-entry",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/main.js",
+        "module file named in console safeInit error"
+      ],
+      "selectors": [
+        "body.js-loading",
+        "body.js-ready"
+      ]
+    },
+    "tour-card-route-overlap-loi": {
+      "userDescriptionExamples": [
+        "card tour chuyển trang 2 lần",
+        "snorkeling card bị conflict",
+        "tour card click sai page",
+        "phu quoc tip card không đi đúng"
+      ],
+      "routeToModule": "09-tour-popup",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/main.js",
+        "./js/ui/tour-carousel.js",
+        "./js/ui/navigation.js",
+        "./js/modules/tour-card-links.js"
+      ],
+      "selectors": [
+        ".popup-note-item[data-tour]",
+        ".popup-note-item[data-tour=\"snorkeling\"]",
+        "[data-nav]"
+      ]
+    },
+    "scroll-lock-stack-loi": {
+      "userDescriptionExamples": [
+        "không scroll được",
+        "bị kẹt ở home section",
+        "popup đóng rồi vẫn lock scroll",
+        "back gesture bị giữ lại",
+        "mobile feed snap lỗi"
+      ],
+      "routeToModule": "24-cross-module-scroll-lock-stack",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/main.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/story-expand.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/gesture.js",
+        "css/modules/11-scroll-home-composite.css"
+      ],
+      "selectors": [
+        "html",
+        "body",
+        ".more-stories-section",
+        "#leave-no-trace-popup",
+        "#contact-popup",
+        "#mobile-search-popup"
+      ]
+    },
+    "mobile-search-ui-loi": {
+      "userDescriptionExamples": [
+        "search mobile không ra kết quả",
+        "search mobile route sai",
+        "search popup không focus input",
+        "search không đóng khi resize"
+      ],
+      "routeToModule": "03-mobile-search",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/ui/search-popup.js",
+        "css/modules/03-mobile-search.css",
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".header-search-trigger",
+        "#mobile-search-popup",
+        ".mobile-search-backdrop",
+        ".mobile-search-panel",
+        ".mobile-search-close",
+        ".mobile-search-form",
+        ".mobile-search-input",
+        ".mobile-search-results",
+        ".mobile-search-card",
+        ".mobile-search-card-title",
+        ".mobile-search-card-desc",
+        ".mobile-search-card-action",
+        ".mobile-search-empty"
+      ]
+    },
+    "mobile-edge-pad-ui-loi": {
+      "userDescriptionExamples": [
+        "mobile edge pad không hiện",
+        "edge pad không scroll xuống",
+        "edge pad che search",
+        "edge pad không ẩn khi hero mất"
+      ],
+      "routeToModule": "07-mobile-edge-pad",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/ui/mobile-edge-pad.js",
+        "css/modules/07-mobile-edge-pad.css",
+        "css/modules/11-scroll-home-composite.css"
+      ],
+      "selectors": [
+        ".mobile-edge-pad",
+        "#more-stories-section",
+        ".more-stories-back-button",
+        ".hero",
+        "#mobile-search-popup"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -1075,12 +1582,11 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.9 — Complete JS Behavior Graph",
+    "nextStepName": "PDRS-02.0 — Runtime Debug / Refactor Gate",
     "recommendedUploadBatch": [
-      "./js/main.js",
-      "../ui/gesture.js"
+      "target bug symptom + project-debug-routing-system.json + exact module file from debug route"
     ],
-    "goal": "Hoàn tất mapping JS runtime bằng main entry và shared gesture dependency; sau đó mới refactor/sửa runtime nếu được yêu cầu."
+    "goal": "JS/CSS/HTML asset inventory and behavior map are now sufficient for targeted debugging. Do not refactor runtime unless user explicitly requests a scoped code change."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -1365,8 +1871,8 @@
     }
   },
   "jsModuleInventory": {
-    "step": "PDRS-01.8 — JS Module Inventory",
-    "status": "partial-pass-uploaded-js-accounted-main-and-gesture-pending",
+    "step": "PDRS-01.9 — UI JS Behavior Graph",
+    "status": "pass-main-runtime-and-ui-js-accounted-secondary-stubs-unintegrated",
     "updatedAtLocal": "2026-06-21T00:28:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": false,
@@ -1385,213 +1891,215 @@
         "./js/main.js"
       ]
     },
+    "mainRuntimeGraph": {
+      "area": "main runtime orchestrator / app init order / home internal modules / app ready state",
+      "htmlModule": "MODULE 18 — MAIN JS ENTRY",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "imports": [
+        "./js/ui/gesture.js",
+        "./js/ui/navigation.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/policy-popup.js",
+        "./js/ui/tour-carousel.js",
+        "./js/ui/story-expand.js",
+        "./js/modules/booking.js",
+        "./js/ui/search-popup.js",
+        "./js/ui/mobile-edge-pad.js"
+      ],
+      "internalFunctions": [
+        "initHomePopup",
+        "initMobileHomeFeed",
+        "initMobileHomeSectionLock",
+        "markAppReady",
+        "markAppReadyOnNextPaint",
+        "safeInit",
+        "initHome"
+      ],
+      "runtimeInitOrder": [
+        "initGesture",
+        "initNavigation",
+        "initHomePopup",
+        "initPolicyPopup",
+        "initContactPopup",
+        "initTourCarousel",
+        "initStoryExpand",
+        "initSnorkelingCardNavigation",
+        "initAvailabilityPopup",
+        "initSearchPopup",
+        "initMobileEdgePad",
+        "initMobileHomeFeed",
+        "initMobileHomeSectionLock",
+        "initHome",
+        "markAppReadyOnNextPaint"
+      ],
+      "selectors": [
+        "#leaveNoTraceCheckbox",
+        "#leave-no-trace-popup",
+        ".popup-card",
+        ".popup-close",
+        ".cta-trigger",
+        ".more-stories-section",
+        ".more-stories-inner",
+        "#logoTrigger"
+      ],
+      "states": [
+        "body.js-loading",
+        "body.js-ready",
+        "home-scroll-locked",
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded",
+        ".is-mobile-home-feed-ready",
+        ".is-desktop-home-feed-normal-scroll",
+        ".mobile-home-feed-snap",
+        "history.pushState",
+        "popstate"
+      ],
+      "futureUploadIfBug": [
+        "./js/main.js"
+      ]
+    },
     "uploadedJsReceivedOrAccounted": [
       {
-        "path": "./js/modules/header-menu-state.js",
+        "path": "./js/main.js",
         "status": "received-and-source-read",
-        "role": "MODULE 16 header menu aria-expanded toggle",
-        "primaryModule": "02-header-system",
-        "selectors": [
-          ".menu-trigger"
-        ],
-        "states": [
-          "aria-expanded"
-        ],
-        "coupling": "none"
+        "role": "main runtime orchestrator",
+        "primaryModule": "18-main-js-entry"
       },
       {
-        "path": "./js/modules/tour-card-links.js",
-        "status": "received-and-source-read-implementation-incomplete",
-        "role": "MODULE 15 tour card route mapping for non-snorkeling cards",
-        "primaryModule": "09-tour-popup",
-        "selectors": [
-          ".popup-note-item[data-tour]"
-        ],
-        "states": [
-          "data-tour"
-        ],
-        "knownLimitation": "Source currently defines tourLinks and loops cards but does not attach click/keyboard navigation yet."
+        "path": "./js/ui/gesture.js",
+        "status": "received-and-source-read",
+        "role": "global mobile gesture bridge",
+        "primaryModule": "23-ui-gesture-navigation-system"
       },
       {
-        "path": "./js/modules/mobile-story-typewriter.js",
-        "status": "received-and-source-read-syntax-verify-required",
-        "role": "MODULE 17 mobile-only hero story typewriter",
-        "primaryModule": "05-hero-story-cta",
-        "selectors": [
-          ".story",
-          ".story p"
-        ],
-        "states": [
-          "is-story-typewriter-pending",
-          "is-story-typewriter-active",
-          "is-story-typewriter-done",
-          "data-typewriter-initialized"
-        ],
-        "knownIssue": "Uploaded source contains a required syntax fix area around the story/storyParagraph guard and the character loop is not completed."
+        "path": "./js/ui/navigation.js",
+        "status": "received-and-source-read",
+        "role": "data-nav and snorkeling card navigation",
+        "primaryModule": "23-ui-gesture-navigation-system"
+      },
+      {
+        "path": "./js/ui/contact-popup.js",
+        "status": "received-and-source-read",
+        "role": "contact/about popup controller",
+        "primaryModule": "10-contact-popup"
+      },
+      {
+        "path": "./js/ui/policy-popup.js",
+        "status": "received-and-source-read",
+        "role": "policy popup + tour popup bridge",
+        "primaryModule": "08-policy-popup"
+      },
+      {
+        "path": "./js/ui/tour-carousel.js",
+        "status": "received-and-source-read",
+        "role": "tour popup carousel + route activation",
+        "primaryModule": "09-tour-popup"
+      },
+      {
+        "path": "./js/ui/story-expand.js",
+        "status": "received-and-source-read",
+        "role": "tour popup to more stories expansion",
+        "primaryModule": "09-tour-popup"
+      },
+      {
+        "path": "./js/ui/search-popup.js",
+        "status": "received-and-source-read",
+        "role": "mobile search popup and result rendering",
+        "primaryModule": "03-mobile-search"
+      },
+      {
+        "path": "./js/ui/mobile-edge-pad.js",
+        "status": "received-and-source-read",
+        "role": "mobile edge pad jump to more stories",
+        "primaryModule": "07-mobile-edge-pad"
+      },
+      {
+        "path": "./js/ui/brand-logo.js",
+        "status": "received-and-source-read-not-imported-by-main",
+        "role": "brand logo helper/trigger utility",
+        "primaryModule": "25-secondary-unintegrated-js-stubs"
       },
       {
         "path": "./js/modules/booking.js",
         "status": "received-and-source-read",
-        "role": "availability calendar, booking popup, date state, tour route bridge",
-        "primaryModule": "06-booking-availability",
-        "relatedModules": [
-          "09-tour-popup"
-        ],
-        "selectors": [
-          "#availabilityMemo",
-          "#availability-popup",
-          ".availability-popup-card",
-          ".availability-popup-close",
-          "#availabilityMonthLabel",
-          "#availabilityPrevMonth",
-          "#availabilityNextMonth",
-          "#availabilityDays",
-          "#availabilityMessage",
-          "#availabilityContactLink",
-          "#availabilityTourList",
-          ".availability-tour-item"
-        ],
-        "states": [
-          ".is-open",
-          ".is-open-date",
-          ".is-booked-date",
-          ".is-past",
-          ".is-too-soon",
-          ".is-selected-date",
-          "disabled",
-          "aria-hidden",
-          "aria-expanded",
-          "data-tour",
-          "data-date"
-        ],
-        "coupling": "cross-module bridge to 09-tour-popup via billy:open-home-tour-popup and Leave no trace popup fallback"
+        "role": "availability calendar / booking popup / tour bridge",
+        "primaryModule": "06-booking-availability"
+      },
+      {
+        "path": "./js/modules/header-menu-state.js",
+        "status": "received-and-source-read",
+        "role": "header menu aria-expanded toggle",
+        "primaryModule": "02-header-system"
+      },
+      {
+        "path": "./js/modules/mobile-story-typewriter.js",
+        "status": "received-and-source-read-syntax-verify-required",
+        "role": "mobile story typewriter",
+        "primaryModule": "05-hero-story-cta"
+      },
+      {
+        "path": "./js/modules/tour-card-links.js",
+        "status": "received-and-source-read-implementation-incomplete",
+        "role": "legacy/incomplete tour card link map",
+        "primaryModule": "09-tour-popup"
+      },
+      {
+        "path": "./js/modules/payment.js",
+        "status": "received-and-source-read-not-imported-by-main",
+        "role": "payment demo stub",
+        "primaryModule": "25-secondary-unintegrated-js-stubs"
+      },
+      {
+        "path": "./js/modules/confirmation.js",
+        "status": "received-and-source-read-not-imported-by-main",
+        "role": "confirmation render stub",
+        "primaryModule": "25-secondary-unintegrated-js-stubs"
       },
       {
         "path": "./js/pages/snorkeling.js",
         "status": "received-and-source-read",
-        "role": "snorkeling landing page runtime: modal, booking form, price state, swipe-back, disabled lazy video load",
-        "primaryModule": "20-snorkeling-page",
-        "selectors": [
-          "#snorkelingBackButton",
-          "#snorkelingHeroVideo",
-          "#snorkelingBookingModal",
-          "#snorkelingPrepModal",
-          "#snorkelingBookingForm",
-          "#bookingDate",
-          "#bookingGuests",
-          "#bookingExperience",
-          "#bookingName",
-          "#bookingContact",
-          "#bookingWarning",
-          "#bookingSummary",
-          "#snorkelingConfirmation",
-          "[data-open-booking]",
-          "[data-open-prep]",
-          "[data-close-booking]",
-          "[data-close-prep]",
-          "input[name=\"payment\"]:checked",
-          "source[data-src]",
-          "button[type=\"submit\"]"
-        ],
-        "states": [
-          "document.body.is-ready",
-          ".is-open",
-          ".is-visible",
-          ".is-loaded",
-          "aria-hidden",
-          "bookingDate.min",
-          "submitButton.disabled",
-          "document.documentElement.style.overflow",
-          "document.body.style.overflow",
-          "touchstart",
-          "touchend",
-          "Escape"
-        ],
-        "coupling": "page-local"
+        "role": "snorkeling landing page runtime",
+        "primaryModule": "20-snorkeling-page"
       },
       {
         "path": "./js/pages/hiking.js",
         "status": "received-and-source-read",
         "role": "hiking page entry",
-        "primaryModule": "21-page-entry-modules",
-        "imports": [
-          "../ui/gesture.js"
-        ],
-        "runtimeCalls": [
-          "initGesture",
-          "initHiking"
-        ],
-        "coupling": "depends-on-shared-gesture"
+        "primaryModule": "21-page-entry-modules"
       },
       {
         "path": "./js/pages/camping.js",
         "status": "received-and-source-read",
         "role": "camping page entry",
-        "primaryModule": "21-page-entry-modules",
-        "imports": [
-          "../ui/gesture.js"
-        ],
-        "runtimeCalls": [
-          "initGesture",
-          "initCamping"
-        ],
-        "coupling": "depends-on-shared-gesture"
+        "primaryModule": "21-page-entry-modules"
       },
       {
         "path": "./js/pages/general.js",
         "status": "received-and-source-read",
         "role": "shared page helper",
-        "primaryModule": "21-page-entry-modules",
-        "imports": [
-          "../ui/gesture.js"
-        ],
-        "exports": [
-          "initGeneralPage"
-        ],
-        "runtimeCalls": [
-          "initGesture"
-        ],
-        "coupling": "shared-helper"
-      },
-      {
-        "path": "./js/modules/payment.js",
-        "status": "received-and-source-read",
-        "role": "payment demo stub",
-        "primaryModule": "22-payment-confirmation-stubs",
-        "selectors": [
-          "#paymentButton"
-        ],
-        "states": [
-          "click",
-          "alert"
-        ],
-        "coupling": "low"
-      },
-      {
-        "path": "./js/modules/confirmation.js",
-        "status": "received-and-source-read",
-        "role": "confirmation render stub",
-        "primaryModule": "22-payment-confirmation-stubs",
-        "selectors": [
-          "#confirmationBox"
-        ],
-        "states": [
-          "innerHTML"
-        ],
-        "coupling": "low",
-        "risk": "innerHTML should not receive unsanitized untrusted input"
+        "primaryModule": "21-page-entry-modules"
       }
+    ],
+    "criticalCouplingNotes": [
+      "High-coupling node: #leave-no-trace-popup is controlled by multiple modules.",
+      "route-handler-overlap-risk: tour-carousel.js, navigation.js and tour-card-links.js overlap around popup tour card navigation.",
+      "cross-module-scroll-lock-stack: home-scroll-locked, mobile-popup-scroll-lock, mobile-home-feed-snap and history guard can interact.",
+      "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js."
     ],
     "jsPendingForCompleteInventory": [
       {
-        "path": "./js/main.js",
-        "reason": "Active index.html loads this as main module entry. Source is required to complete behavior graph."
+        "path": "HTML page importing ./js/ui/brand-logo.js",
+        "reason": "Only needed if brand-logo.js is actually used outside main.js."
       },
       {
-        "path": "../ui/gesture.js",
-        "reason": "Imported by hiking.js, camping.js, and general.js. Source is required to map swipe/gesture behavior and avoid circular/cross-page assumptions."
+        "path": "HTML page importing ./js/modules/payment.js or confirmation.js",
+        "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PARTIAL PASS — uploaded JS files are accounted. Complete JS behavior graph still requires ./js/main.js and ../ui/gesture.js."
+    "jsInventoryStatus": "PASS — main.js runtime graph and uploaded UI JS files are accounted. Secondary stubs remain unintegrated by current main.js."
   }
 }
