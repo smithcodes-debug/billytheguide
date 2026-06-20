@@ -1,165 +1,261 @@
+<!-- =====================================================
+  ✅ NEW: PROJECT MODULE INDEX — index.html
+
+  PURPOSE:
+  - Fast debug map for this page.
+  - Search module names directly when editing.
+  - Edit only inside the requested target module.
+  - All untouched HTML text/content remains IMMUTABLE.
+
+  CURRENT MODULE ORDER:
+  00-document-shell
+
+  01-head
+    01-head-meta
+    01-head-fonts
+    01-head-preload
+    01-head-css-links
+    01-head-inline-style
+
+  02-header
+    02-header-logo
+    02-header-search
+    02-header-menu
+
+  03-mobile-search
+
+  04-main-root
+
+  05-hero
+    05-hero-title
+    05-hero-story
+    05-hero-cta
+
+  06-booking
+    06-booking-floating-trigger
+    06-booking-popup
+    06-booking-calendar
+    06-booking-message
+    06-booking-tour-list
+
+  07-mobile-edge-pad
+
+  08-policy-popup
+
+  09-tour-popup
+    09-tour-card-list
+    09-tour-card-snorkeling
+    09-tour-card-diving
+    09-tour-card-hiking
+    09-tour-card-camping
+    09-tour-card-propose
+    09-tour-card-phu-quoc-tip
+    09-tour-card-coral-dictionary
+
+  10-contact-popup
+    10-contact-phone
+    10-contact-story
+    10-contact-social-list
+
+  11-scroll-home
+
+  12-service-grid
+
+  13-accordion
+
+  14-platform-chips
+
+  15-script-tour-navigation
+
+  16-script-header-menu-state
+
+  17-script-mobile-story-typewriter
+
+  18-main-js-entry
+
+  RULES FOR FUTURE EDITS:
+  - Do not rename class/id/attribute unless explicitly requested.
+  - Do not change text nodes unless explicitly requested.
+  - Do not move modules unless the requested step says so.
+  - Header is protected: it must stay visible above all page content.
+===================================================== -->
+<!-- =====================================================
+  ✅ NEW: MODULE 00 — DOCUMENT / APP SHELL
+  MAP: 00-document-shell
+  PURPOSE: Root HTML document shell. No layout or business logic lives here.
+===================================================== -->
 <!DOCTYPE html>
 <html lang="vi">
+<!-- =====================================================
+  ✅ NEW: MODULE 01 — HEAD / ASSET REGISTRY
+  MAP: 01-head-meta / 01-head-fonts / 01-head-preload / 01-head-css-links / 01-head-inline-style-registry
+  PURPOSE: Meta, font loading, preload, stylesheet links, and temporary inline CSS registry.
+===================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coral Tour</title>
-  <!-- ✅ UPDATED -->
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="modulepreload" href="./js/main.js"> <!-- ✅ NEW: preload main JS module early while keeping execution production-safe -->
-  <link rel="stylesheet" href="./css/home-hero-tour-popup.css"> <!-- ✅ NEW: extracted stable header + hero + tour popup CSS -->
-  <link rel="stylesheet" href="./css/card-01-intro.css"> <!-- ✅ NEW: mobile more story feed card-01-intro.css -->
-  <link rel="stylesheet" href="./css/card-02-service-01.css"> <!-- ✅ NEW: mobile more story feed card-02-service-01.css -->
-  <link rel="stylesheet" href="./css/card-03-service-02.css"> <!-- ✅ NEW: mobile more story feed card-03-service-02.css -->
-  <link rel="stylesheet" href="./css/card-04-service-03.css"> <!-- ✅ NEW: mobile more story feed card-04-service-03.css -->
-  <link rel="stylesheet" href="./css/card-05-service-04.css"> <!-- ✅ NEW: mobile more story feed card-05-service-04.css -->
-  <link rel="stylesheet" href="./css/card-06-service-05.css"> <!-- ✅ NEW: mobile more story feed card-06-service-05.css -->
-  <link rel="stylesheet" href="./css/card-07-service-06.css"> <!-- ✅ NEW: mobile more story feed card-07-service-06.css -->
-  <link rel="stylesheet" href="./css/card-08-accordion-01.css"> <!-- ✅ NEW: mobile more story feed card-08-accordion-01.css -->
-  <link rel="stylesheet" href="./css/card-09-accordion-02.css"> <!-- ✅ NEW: mobile more story feed card-09-accordion-02.css -->
-  <link rel="stylesheet" href="./css/card-10-accordion-03.css"> <!-- ✅ NEW: mobile more story feed card-10-accordion-03.css -->
+  <link rel="modulepreload" href="./js/main.js"> 
+  <link rel="stylesheet" href="./css/home-hero-tour-popup.css"> 
+  <link rel="stylesheet" href="./css/card-01-intro.css"> 
+  <link rel="stylesheet" href="./css/card-02-service-01.css"> 
+  <link rel="stylesheet" href="./css/card-03-service-02.css"> 
+  <link rel="stylesheet" href="./css/card-04-service-03.css"> 
+  <link rel="stylesheet" href="./css/card-05-service-04.css"> 
+  <link rel="stylesheet" href="./css/card-06-service-05.css"> 
+  <link rel="stylesheet" href="./css/card-07-service-06.css"> 
+  <link rel="stylesheet" href="./css/card-08-accordion-01.css"> 
+  <link rel="stylesheet" href="./css/card-09-accordion-02.css"> 
+  <link rel="stylesheet" href="./css/card-10-accordion-03.css"> 
 
-  <!-- ✅ NEW: INLINE CSS MERGED FROM style.css -->
+  
+  <!-- =====================================================
+    ✅ NEW: MODULE 01.5 — INLINE STYLE REGISTRY
+    MAP: 01-head-inline-style-registry
+    PURPOSE: Temporary merged CSS area. Future extraction target only; do not refactor in this step.
+  ===================================================== -->
   <style>/* ===================== */
-    /* ✅ NEW: CHECK AVALIBILITY MEMO */
+    
     /* ===================== */
     .availability-memo {
-      position: absolute; /* ✅ NEW */
-      left: 34px; /* ✅ NEW */
-      bottom: 50px; /* ✅ NEW */
-      z-index: 4; /* ✅ NEW */
-      width: 150px; /* ✅ NEW */
-      min-height: 128px; /* ✅ NEW */
-      border: 1px solid rgba(255, 255, 255, 0.58); /* ✅ UPDATED: viền glass mỏng */
-      padding: 0; /* ✅ NEW */
-      background: transparent; /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-family: 'Poppins', sans-serif; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-      -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-      animation: availabilityMemoFloat 3.2s ease-in-out infinite; /* ✅ NEW */
+      position: absolute; 
+      left: 34px; 
+      bottom: 50px; 
+      z-index: 4; 
+      width: 150px; 
+      min-height: 128px; 
+      border: 1px solid rgba(255, 255, 255, 0.58); 
+      padding: 0; 
+      background: transparent; 
+      color: #fff; 
+      font-family: 'Poppins', sans-serif; 
+      cursor: pointer; 
+      -webkit-tap-highlight-color: transparent; 
+      animation: availabilityMemoFloat 3.2s ease-in-out infinite; 
     }
     .availability-memo::before {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute; /* ✅ NEW */
-      inset: 7px 5px -7px; /* ✅ NEW */
-      border-radius: 24px; /* ✅ NEW */
-      background: rgba(0, 0, 0, 0.28); /* ✅ NEW */
-      filter: blur(10px); /* ✅ NEW */
-      transform: translateY(10px); /* ✅ NEW */
+      content: ""; 
+      position: absolute; 
+      inset: 7px 5px -7px; 
+      border-radius: 24px; 
+      background: rgba(0, 0, 0, 0.28); 
+      filter: blur(10px); 
+      transform: translateY(10px); 
     }
     .availability-memo-card {
-      position: relative; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      flex-direction: column; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      gap: 8px; /* ✅ NEW */
-      width: 100%; /* ✅ NEW */
-      min-height: 128px; /* ✅ NEW */
-      padding: 13px 12px 12px; /* ✅ NEW */
-      border-radius: 22px; /* ✅ NEW */
-      border: 1px solid rgba(255, 255, 255, 0.52); /* ✅ NEW */
-      background: linear-gradient(160deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); /* ✅ NEW */
-      box-shadow: 0 12px 28px rgba(0,0,0,0.28), inset 0 0 16px rgba(255,255,255,0.12); /* ✅ NEW */
-      backdrop-filter: blur(5px); /* ✅ NEW */
-      -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
-      overflow: hidden; /* ✅ NEW */
+      position: relative; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 8px; 
+      width: 100%; 
+      min-height: 128px; 
+      padding: 13px 12px 12px; 
+      border-radius: 22px; 
+      border: 1px solid rgba(255, 255, 255, 0.52); 
+      background: linear-gradient(160deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); 
+      box-shadow: 0 12px 28px rgba(0,0,0,0.28), inset 0 0 16px rgba(255,255,255,0.12); 
+      backdrop-filter: blur(5px); 
+      -webkit-backdrop-filter: blur(5px); 
+      overflow: hidden; 
     }
     .availability-memo-card::after {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute; /* ✅ NEW */
-      top: -55%; /* ✅ NEW */
-      left: -65%; /* ✅ NEW */
-      width: 70%; /* ✅ NEW */
-      height: 210%; /* ✅ NEW */
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.46), transparent); /* ✅ NEW */
-      transform: rotate(24deg); /* ✅ NEW */
-      animation: availabilityMemoShine 3.8s ease-in-out infinite; /* ✅ NEW */
-      pointer-events: none; /* ✅ NEW */
+      content: ""; 
+      position: absolute; 
+      top: -55%; 
+      left: -65%; 
+      width: 70%; 
+      height: 210%; 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.46), transparent); 
+      transform: rotate(24deg); 
+      animation: availabilityMemoShine 3.8s ease-in-out infinite; 
+      pointer-events: none; 
     }
     .availability-calendar-icon {
-      position: relative; /* ✅ NEW */
-      width: 58px; /* ✅ NEW */
-      height: 60px; /* ✅ NEW */
-      border-radius: 10px 10px 12px 12px; /* ✅ NEW */
-      background: #fff; /* ✅ NEW */
-      box-shadow: 0 10px 18px rgba(0,0,0,0.24); /* ✅ NEW */
-      overflow: hidden; /* ✅ NEW */
-      transform-origin: center bottom; /* ✅ NEW */
-      animation: availabilityCalendarWiggle 2.4s ease-in-out infinite; /* ✅ NEW */
+      position: relative; 
+      width: 58px; 
+      height: 60px; 
+      border-radius: 10px 10px 12px 12px; 
+      background: #fff; 
+      box-shadow: 0 10px 18px rgba(0,0,0,0.24); 
+      overflow: hidden; 
+      transform-origin: center bottom; 
+      animation: availabilityCalendarWiggle 2.4s ease-in-out infinite; 
     }
     .availability-calendar-top {
-      position: absolute; /* ✅ NEW */
-      top: 0; /* ✅ NEW */
-      left: 0; /* ✅ NEW */
-      right: 0; /* ✅ NEW */
-      height: 18px; /* ✅ NEW */
-      background: #ff5a3d; /* ✅ NEW */
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      height: 18px; 
+      background: #ff5a3d; 
     }
     .availability-calendar-rings {
-      position: absolute; /* ✅ NEW */
-      top: -5px; /* ✅ NEW */
-      left: 11px; /* ✅ NEW */
-      right: 11px; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      justify-content: space-between; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
+      position: absolute; 
+      top: -5px; 
+      left: 11px; 
+      right: 11px; 
+      display: flex; 
+      justify-content: space-between; 
+      z-index: 2; 
     }
     .availability-calendar-rings span {
-      width: 7px; /* ✅ NEW */
-      height: 15px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: #26313a; /* ✅ NEW */
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.72); /* ✅ NEW */
+      width: 7px; 
+      height: 15px; 
+      border-radius: 999px; 
+      background: #26313a; 
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.72); 
     }
     .availability-calendar-grid {
-      position: absolute; /* ✅ NEW */
-      left: 10px; /* ✅ NEW */
-      right: 10px; /* ✅ NEW */
-      bottom: 10px; /* ✅ NEW */
-      display: grid; /* ✅ NEW */
-      grid-template-columns: repeat(3, 1fr); /* ✅ NEW */
-      gap: 5px; /* ✅ NEW */
+      position: absolute; 
+      left: 10px; 
+      right: 10px; 
+      bottom: 10px; 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 5px; 
     }
     .availability-calendar-grid span {
-      height: 6px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: #d5dbe1; /* ✅ NEW */
+      height: 6px; 
+      border-radius: 999px; 
+      background: #d5dbe1; 
     }
     .availability-calendar-grid span:nth-child(2),
     .availability-calendar-grid span:nth-child(5) {
-      background: #22c55e; /* ✅ NEW */
-      animation: availabilityDatePulse 1.6s ease-in-out infinite; /* ✅ NEW */
+      background: #22c55e; 
+      animation: availabilityDatePulse 1.6s ease-in-out infinite; 
     }
     .availability-memo-text {
-      position: relative; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
-      display: block; /* ✅ NEW */
-      font-size: 14px; /* ✅ NEW */
-      line-height: 1.12; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      text-align: center; /* ✅ NEW */
-      text-transform: lowercase; /* ✅ NEW */
-      text-shadow: 0 2px 10px rgba(0,0,0,0.72); /* ✅ NEW */
+      position: relative; 
+      z-index: 2; 
+      display: block; 
+      font-size: 14px; 
+      line-height: 1.12; 
+      font-weight: 700; 
+      text-align: center; 
+      text-transform: lowercase; 
+      text-shadow: 0 2px 10px rgba(0,0,0,0.72); 
     }
     .availability-memo-hint {
-      position: relative; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
-      display: inline-flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: center; /* ✅ NEW */
-      min-height: 22px; /* ✅ NEW */
-      padding: 3px 9px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
-      color: #06220f; /* ✅ NEW */
-      font-size: 11px; /* ✅ NEW */
-      line-height: 1; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
+      position: relative; 
+      z-index: 2; 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      min-height: 22px; 
+      padding: 3px 9px; 
+      border-radius: 999px; 
+      background: rgba(34, 197, 94, 0.88); 
+      color: #06220f; 
+      font-size: 11px; 
+      line-height: 1; 
+      font-weight: 700; 
     }
     .availability-memo:focus-visible .availability-memo-card {
-      outline: 3px solid rgba(255,255,255,0.92); /* ✅ NEW */
-      outline-offset: 4px; /* ✅ NEW */
+      outline: 3px solid rgba(255,255,255,0.92); 
+      outline-offset: 4px; 
     }
     @keyframes availabilityMemoFloat {
       0%, 100% { transform: translate3d(0, 0, 0); }
@@ -179,171 +275,171 @@
       50% { opacity: 1; transform: scaleX(1); }
     }
     .availability-popup-backdrop {
-      position: fixed; /* ✅ NEW */
-      inset: 0; /* ✅ NEW */
-      z-index: 1000; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: center; /* ✅ NEW */
-      padding: 22px; /* ✅ NEW */
-      background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-      backdrop-filter: blur(4px); /* ✅ NEW */
-      -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-      opacity: 0; /* ✅ NEW */
-      visibility: hidden; /* ✅ NEW */
-      pointer-events: none; /* ✅ NEW */
-      transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+      position: fixed; 
+      inset: 0; 
+      z-index: 1000; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 22px; 
+      background: rgba(0, 0, 0, 0.66); 
+      backdrop-filter: blur(4px); 
+      -webkit-backdrop-filter: blur(4px); 
+      opacity: 0; 
+      visibility: hidden; 
+      pointer-events: none; 
+      transition: opacity 0.24s ease, visibility 0.24s ease; 
     }
     .availability-popup-backdrop.is-open {
-      opacity: 1; /* ✅ NEW */
-      visibility: visible; /* ✅ NEW */
-      pointer-events: auto; /* ✅ NEW */
+      opacity: 1; 
+      visibility: visible; 
+      pointer-events: auto; 
     }
     .availability-popup-card {
-      position: relative; /* ✅ NEW */
-      width: min(94vw, 430px); /* ✅ NEW */
-      max-height: min(86vh, 720px); /* ✅ NEW */
-      max-height: min(86dvh, 720px); /* ✅ NEW */
-      overflow: auto; /* ✅ NEW */
-      padding: 24px 20px 20px; /* ✅ NEW */
-      border-radius: 24px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
-      background: linear-gradient(180deg, rgba(23,29,35,0.96), rgba(10,13,18,0.96)); /* ✅ NEW */
-      box-shadow: 0 24px 70px rgba(0,0,0,0.42); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      transform: translateY(12px) scale(0.98); /* ✅ NEW */
-      transition: transform 0.24s ease; /* ✅ NEW */
-      -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+      position: relative; 
+      width: min(94vw, 430px); 
+      max-height: min(86vh, 720px); 
+      max-height: min(86dvh, 720px); 
+      overflow: auto; 
+      padding: 24px 20px 20px; 
+      border-radius: 24px; 
+      border: 1px solid rgba(255,255,255,0.22); 
+      background: linear-gradient(180deg, rgba(23,29,35,0.96), rgba(10,13,18,0.96)); 
+      box-shadow: 0 24px 70px rgba(0,0,0,0.42); 
+      color: #fff; 
+      transform: translateY(12px) scale(0.98); 
+      transition: transform 0.24s ease; 
+      -webkit-overflow-scrolling: touch; 
     }
     .availability-popup-backdrop.is-open .availability-popup-card {
-      transform: translateY(0) scale(1); /* ✅ NEW */
+      transform: translateY(0) scale(1); 
     }
     .availability-popup-close {
-      position: absolute; /* ✅ NEW */
-      top: 14px; /* ✅ NEW */
-      right: 14px; /* ✅ NEW */
-      width: 36px; /* ✅ NEW */
-      height: 36px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.2); /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-size: 22px; /* ✅ NEW */
-      line-height: 1; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
+      position: absolute; 
+      top: 14px; 
+      right: 14px; 
+      width: 36px; 
+      height: 36px; 
+      border: 1px solid rgba(255,255,255,0.2); 
+      border-radius: 999px; 
+      background: rgba(255,255,255,0.08); 
+      color: #fff; 
+      font-size: 22px; 
+      line-height: 1; 
+      cursor: pointer; 
     }
     .availability-popup-title {
-      margin: 0 44px 8px 0; /* ✅ NEW */
-      font-size: 25px; /* ✅ NEW */
-      line-height: 1.1; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      text-transform: lowercase; /* ✅ NEW */
+      margin: 0 44px 8px 0; 
+      font-size: 25px; 
+      line-height: 1.1; 
+      font-weight: 700; 
+      text-transform: lowercase; 
     }
     .availability-popup-desc {
-      margin: 0 0 16px; /* ✅ NEW */
-      color: rgba(255,255,255,0.78); /* ✅ NEW */
-      font-size: 14px; /* ✅ NEW */
-      line-height: 1.45; /* ✅ NEW */
+      margin: 0 0 16px; 
+      color: rgba(255,255,255,0.78); 
+      font-size: 14px; 
+      line-height: 1.45; 
     }
     .availability-calendar-head {
-      display: flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: space-between; /* ✅ NEW */
-      gap: 12px; /* ✅ NEW */
-      margin: 14px 0; /* ✅ NEW */
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 12px; 
+      margin: 14px 0; 
     }
     .availability-month-label {
-      font-size: 18px; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
+      font-size: 18px; 
+      font-weight: 700; 
     }
     .availability-nav {
-      display: flex; /* ✅ NEW */
-      gap: 8px; /* ✅ NEW */
+      display: flex; 
+      gap: 8px; 
     }
     .availability-nav button {
-      width: 34px; /* ✅ NEW */
-      height: 34px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-      font-size: 18px; /* ✅ NEW */
+      width: 34px; 
+      height: 34px; 
+      border: 1px solid rgba(255,255,255,0.22); 
+      border-radius: 999px; 
+      background: rgba(255,255,255,0.08); 
+      color: #fff; 
+      cursor: pointer; 
+      font-size: 18px; 
     }
     .availability-weekdays,
     .availability-days {
-      display: grid; /* ✅ NEW */
-      grid-template-columns: repeat(7, 1fr); /* ✅ NEW */
-      gap: 7px; /* ✅ NEW */
+      display: grid; 
+      grid-template-columns: repeat(7, 1fr); 
+      gap: 7px; 
     }
     .availability-weekdays span {
-      color: rgba(255,255,255,0.58); /* ✅ NEW */
-      font-size: 11px; /* ✅ NEW */
-      text-align: center; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
+      color: rgba(255,255,255,0.58); 
+      font-size: 11px; 
+      text-align: center; 
+      font-weight: 700; 
     }
     .availability-day {
-      min-height: 40px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.1); /* ✅ NEW */
-      border-radius: 12px; /* ✅ NEW */
-      background: rgba(255,255,255,0.06); /* ✅ NEW */
-      color: rgba(255,255,255,0.92); /* ✅ NEW */
-      font: inherit; /* ✅ NEW */
-      font-size: 13px; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      cursor: default; /* ✅ NEW */
+      min-height: 40px; 
+      border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 12px; 
+      background: rgba(255,255,255,0.06); 
+      color: rgba(255,255,255,0.92); 
+      font: inherit; 
+      font-size: 13px; 
+      font-weight: 700; 
+      cursor: default; 
     }
-    .availability-day.is-empty { visibility: hidden; } /* ✅ NEW */
+    .availability-day.is-empty { visibility: hidden; } 
     .availability-day.is-past {
-      color: rgba(255,255,255,0.32); /* ✅ NEW */
-      background: rgba(255,255,255,0.035); /* ✅ NEW */
+      color: rgba(255,255,255,0.32); 
+      background: rgba(255,255,255,0.035); 
     }
     .availability-day.is-open-date {
-      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
-      border-color: rgba(34, 197, 94, 0.95); /* ✅ NEW */
-      color: #06220f; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
+      background: rgba(34, 197, 94, 0.88); 
+      border-color: rgba(34, 197, 94, 0.95); 
+      color: #06220f; 
+      cursor: pointer; 
     }
     .availability-day.is-booked-date {
-      background: rgba(239, 68, 68, 0.82); /* ✅ NEW */
-      border-color: rgba(239, 68, 68, 0.9); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
+      background: rgba(239, 68, 68, 0.82); 
+      border-color: rgba(239, 68, 68, 0.9); 
+      color: #fff; 
     }
     .availability-legend {
-      display: flex; /* ✅ NEW */
-      flex-wrap: wrap; /* ✅ NEW */
-      gap: 8px 12px; /* ✅ NEW */
-      margin-top: 16px; /* ✅ NEW */
-      color: rgba(255,255,255,0.78); /* ✅ NEW */
-      font-size: 12px; /* ✅ NEW */
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 8px 12px; 
+      margin-top: 16px; 
+      color: rgba(255,255,255,0.78); 
+      font-size: 12px; 
     }
     .availability-legend span {
-      display: inline-flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      gap: 6px; /* ✅ NEW */
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
     }
     .availability-legend i {
-      width: 10px; /* ✅ NEW */
-      height: 10px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      display: inline-block; /* ✅ NEW */
+      width: 10px; 
+      height: 10px; 
+      border-radius: 999px; 
+      display: inline-block; 
     }
-    .availability-legend .open-dot { background: #22c55e; } /* ✅ NEW */
-    .availability-legend .booked-dot { background: #ef4444; } /* ✅ NEW */
-    .availability-legend .contact-dot { background: rgba(255,255,255,0.28); } /* ✅ NEW */
+    .availability-legend .open-dot { background: #22c55e; } 
+    .availability-legend .booked-dot { background: #ef4444; } 
+    .availability-legend .contact-dot { background: rgba(255,255,255,0.28); } 
     .availability-contact {
-      display: block; /* ✅ NEW */
-      margin-top: 16px; /* ✅ NEW */
-      padding: 12px 14px; /* ✅ NEW */
-      border-radius: 14px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-size: 13px; /* ✅ NEW */
-      line-height: 1.4; /* ✅ NEW */
-      text-decoration: none; /* ✅ NEW */
+      display: block; 
+      margin-top: 16px; 
+      padding: 12px 14px; 
+      border-radius: 14px; 
+      background: rgba(255,255,255,0.08); 
+      color: #fff; 
+      font-size: 13px; 
+      line-height: 1.4; 
+      text-decoration: none; 
     }
     /* ===================== */
-    /* ✅ MOBILE LAYOUT RESTORE */
+    
     /* ===================== */
     @media (max-width:768px) {
 .availability-memo {
@@ -382,529 +478,529 @@
 }
 }
 
-/* ✅ UPDATED: CONTACT POPUP - áp dụng cho cả desktop và mobile */
+
 .contact-popup-backdrop {
-  position: fixed; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: 1001; /* ✅ NEW */
-  display: flex; /* ✅ UPDATED: desktop cũng có thể mở contact memo */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  padding: 36px; /* ✅ NEW */
-  background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-  backdrop-filter: blur(4px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-  opacity: 0; /* ✅ NEW */
-  visibility: hidden; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+  position: fixed; 
+  inset: 0; 
+  z-index: 1001; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 36px; 
+  background: rgba(0, 0, 0, 0.66); 
+  backdrop-filter: blur(4px); 
+  -webkit-backdrop-filter: blur(4px); 
+  opacity: 0; 
+  visibility: hidden; 
+  pointer-events: none; 
+  transition: opacity 0.24s ease, visibility 0.24s ease; 
 }
 .contact-popup-backdrop.is-open {
-  opacity: 1; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: auto; /* ✅ NEW */
+  opacity: 1; 
+  visibility: visible; 
+  pointer-events: auto; 
 }
 .contact-popup-card {
-  position: relative; /* ✅ NEW */
-  width: min(92vw, 560px); /* ✅ NEW */
-  max-height: calc(100dvh - 72px); /* ✅ NEW */
-  padding: 28px 24px 26px; /* ✅ NEW */
-  border-radius: 24px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  backdrop-filter: blur(14px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
-  transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
-  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW */
-  will-change: transform, opacity; /* ✅ NEW */
-  overflow-y: auto; /* ✅ NEW */
-  -webkit-overflow-scrolling: touch; /* ✅ NEW */
+  position: relative; 
+  width: min(92vw, 560px); 
+  max-height: calc(100dvh - 72px); 
+  padding: 28px 24px 26px; 
+  border-radius: 24px; 
+  border: 1px solid rgba(255, 255, 255, 0.22); 
+  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); 
+  color: #fff; 
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); 
+  backdrop-filter: blur(14px); 
+  -webkit-backdrop-filter: blur(14px); 
+  transform: translate3d(0, 18px, 0) scale(0.96); 
+  opacity: 0; 
+  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; 
+  will-change: transform, opacity; 
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; 
 }
 .contact-popup-backdrop.is-open .contact-popup-card {
-  transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-  opacity: 1; /* ✅ NEW */
+  transform: translate3d(0, 0, 0) scale(1); 
+  opacity: 1; 
 }
 .contact-popup-header {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: 46px minmax(0, 1fr) 46px; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  gap: 12px; /* ✅ NEW */
-  margin: 0 0 18px; /* ✅ NEW */
+  display: grid; 
+  grid-template-columns: 46px minmax(0, 1fr) 46px; 
+  align-items: center; 
+  gap: 12px; 
+  margin: 0 0 18px; 
 }
 .contact-popup-header-vector {
-  width: 46px; /* ✅ NEW */
-  height: 46px; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: contain; /* ✅ NEW */
+  width: 46px; 
+  height: 46px; 
+  display: block; 
+  object-fit: contain; 
 }
 .contact-popup-close {
-  position: static; /* ✅ UPDATED */
-  flex: 0 0 auto; /* ✅ NEW */
-  width: 46px; /* ✅ UPDATED */
-  height: 46px; /* ✅ UPDATED */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  font-size: 28px; /* ✅ UPDATED */
-  line-height: 1; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
+  position: static; 
+  flex: 0 0 auto; 
+  width: 46px; 
+  height: 46px; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.08); 
+  color: #fff; 
+  font-size: 28px; 
+  line-height: 1; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
 }
 .contact-popup-drag-handle {
-  width: auto; /* ✅ UPDATED */
-  height: auto; /* ✅ UPDATED */
-  margin: 0; /* ✅ UPDATED */
-  padding: 0; /* ✅ UPDATED */
-  border-radius: 0; /* ✅ UPDATED */
-  background: transparent; /* ✅ UPDATED: remove thanh ngang */
-  color: rgba(255, 255, 255, 0.96); /* ✅ UPDATED */
-  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
-  font-weight: 700; /* ✅ NEW */
-  line-height: 1.05; /* ✅ UPDATED */
-  text-align: center; /* ✅ NEW */
-  white-space: nowrap; /* ✅ NEW */
+  width: auto; 
+  height: auto; 
+  margin: 0; 
+  padding: 0; 
+  border-radius: 0; 
+  background: transparent; 
+  color: rgba(255, 255, 255, 0.96); 
+  font-size: 20px; 
+  font-weight: 700; 
+  line-height: 1.05; 
+  text-align: center; 
+  white-space: nowrap; 
 }
 .contact-phone-link {
-  position: relative; /* ✅ NEW */
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: 100%; /* ✅ NEW */
-  min-height: 54px; /* ✅ UPDATED */
-  margin: 0 auto 24px; /* ✅ NEW */
-  padding: 0 58px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  font-size: 20px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: 0.01em; /* ✅ NEW */
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 100%; 
+  min-height: 54px; 
+  margin: 0 auto 24px; 
+  padding: 0 58px; 
+  border-radius: 14px; 
+  border: 1px solid rgba(255, 255, 255, 0.26); 
+  background: rgba(255, 255, 255, 0.1); 
+  color: #fff; 
+  text-decoration: none; 
+  font-size: 20px; 
+  line-height: 1.2; 
+  font-weight: 700; 
+  letter-spacing: 0.01em; 
 }
 .contact-phone-icon {
-  position: absolute; /* ✅ NEW */
-  left: 16px; /* ✅ NEW */
-  top: 50%; /* ✅ NEW */
-  width: 38px; /* ✅ NEW */
-  height: 38px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: 21px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  transform: translateY(-50%); /* ✅ NEW */
+  position: absolute; 
+  left: 16px; 
+  top: 50%; 
+  width: 38px; 
+  height: 38px; 
+  border-radius: 999px; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: #ffffff; 
+  font-size: 21px; 
+  line-height: 1; 
+  background: rgba(255, 255, 255, 0.08); 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  transform: translateY(-50%); 
 }
 .contact-phone-number {
-  display: inline-block; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
+  display: inline-block; 
+  min-width: 0; 
 }
 .contact-popup-story {
-  margin: 0 0 18px; /* ✅ NEW */
-  padding: 12px 13px; /* ✅ NEW */
-  border-radius: 16px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.42; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
+  margin: 0 0 18px; 
+  padding: 12px 13px; 
+  border-radius: 16px; 
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  background: rgba(255, 255, 255, 0.08); 
+  color: rgba(255, 255, 255, 0.94); 
+  font-size: 13px; 
+  line-height: 1.42; 
+  font-weight: 600; 
+  text-align: center; 
 }
 .contact-social-list {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
-  gap: 12px; /* ✅ NEW */
-  align-items: start; /* ✅ NEW */
+  display: grid; 
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 12px; 
+  align-items: start; 
 }
 .contact-social-item {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  gap: 8px; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 8px; 
+  min-width: 0; 
+  color: #fff; 
+  text-align: center; 
 }
 .contact-social-icon {
-  width: 46px; /* ✅ NEW */
-  height: 46px; /* ✅ NEW */
-  border-radius: 12px; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  font-size: 21px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 800; /* ✅ NEW */
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+  width: 46px; 
+  height: 46px; 
+  border-radius: 12px; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: #fff; 
+  font-size: 21px; 
+  line-height: 1; 
+  font-weight: 800; 
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); 
 }
 .contact-social-icon.facebook {
-  background: #1877f2; /* ✅ NEW */
+  background: #1877f2; 
 }
 .contact-social-icon.telegram {
-  background: #229ed9; /* ✅ NEW */
+  background: #229ed9; 
 }
 .contact-social-icon.kakao {
-  background: #fee500; /* ✅ NEW */
-  color: #111; /* ✅ NEW */
+  background: #fee500; 
+  color: #111; 
 }
 .contact-social-icon.zalo {
-  background: #0068ff; /* ✅ NEW */
+  background: #0068ff; 
 }
 .contact-social-icon.tiktok {
-  background: #111111; /* ✅ NEW */
+  background: #111111; 
 }
 .contact-social-icon.youtube {
-  background: #ff0033; /* ✅ NEW */
+  background: #ff0033; 
 }
 .contact-social-icon.wechat {
-  background: #19c15f; /* ✅ NEW */
+  background: #19c15f; 
 }
 .contact-social-icon.google-map {
-  background: #34a853; /* ✅ NEW */
+  background: #34a853; 
 }
 .contact-social-icon.maill {
-  background: #ea4335; /* ✅ NEW */
+  background: #ea4335; 
 }
 .contact-social-icon.line {
-  background: #06c755; /* ✅ NEW */
+  background: #06c755; 
 }
 .contact-social-label {
-  display: block; /* ✅ NEW */
-  max-width: 68px; /* ✅ NEW */
-  font-size: 11px; /* ✅ NEW */
-  line-height: 1.15; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-  overflow-wrap: anywhere; /* ✅ NEW */
+  display: block; 
+  max-width: 68px; 
+  font-size: 11px; 
+  line-height: 1.15; 
+  font-weight: 600; 
+  overflow-wrap: anywhere; 
 }
 #logoTrigger {
-  cursor: pointer; /* ✅ NEW */
-  touch-action: manipulation; /* ✅ NEW */
+  cursor: pointer; 
+  touch-action: manipulation; 
 }
 .mobile-popup-scroll-lock {
-  overflow: hidden; /* ✅ NEW */
+  overflow: hidden; 
 }
 @media (max-width:768px) {
   .contact-popup-backdrop {
-    position: fixed; /* ✅ NEW */
-    inset: 0; /* ✅ NEW */
-    z-index: 1001; /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: flex-start; /* ✅ UPDATED: đẩy popup lên top */
-    justify-content: center; /* ✅ NEW */
-    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; /* ✅ UPDATED: top safe-area cho iOS */
-    background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-    backdrop-filter: blur(4px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+    position: fixed; 
+    inset: 0; 
+    z-index: 1001; 
+    display: flex; 
+    align-items: flex-start; 
+    justify-content: center; 
+    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; 
+    background: rgba(0, 0, 0, 0.66); 
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px); 
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; 
+    transition: opacity 0.24s ease, visibility 0.24s ease; 
   }
   .contact-popup-backdrop.is-open {
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    pointer-events: auto; /* ✅ NEW */
+    opacity: 1; 
+    visibility: visible; 
+    pointer-events: auto; 
   }
   .contact-popup-card {
-    position: relative; /* ✅ NEW */
-    width: min(92vw, 420px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); /* ✅ NEW: popup top không vượt màn hình */
-    padding: 24px 18px 22px; /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    backdrop-filter: blur(14px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
-    transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
-    opacity: 0; /* ✅ NEW */
-    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW: smooth spring */
-    will-change: transform, opacity; /* ✅ NEW */
-    touch-action: pan-y; /* ✅ NEW */
-    overflow-y: auto; /* ✅ NEW: đủ chỗ cho 10 logo + story */
-    -webkit-overflow-scrolling: touch; /* ✅ NEW */
+    position: relative; 
+    width: min(92vw, 420px); 
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); 
+    padding: 24px 18px 22px; 
+    border-radius: 24px; 
+    border: 1px solid rgba(255, 255, 255, 0.22); 
+    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); 
+    color: #fff; 
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(14px); 
+    -webkit-backdrop-filter: blur(14px); 
+    transform: translate3d(0, 18px, 0) scale(0.96); 
+    opacity: 0; 
+    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; 
+    will-change: transform, opacity; 
+    touch-action: pan-y; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
   }
   .contact-popup-backdrop.is-open .contact-popup-card {
-    transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
+    transform: translate3d(0, 0, 0) scale(1); 
+    opacity: 1; 
   }
   .contact-popup-header {
-    grid-template-columns: 44px minmax(0, 1fr) 44px; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-    margin: 0 0 18px; /* ✅ NEW */
+    grid-template-columns: 44px minmax(0, 1fr) 44px; 
+    gap: 10px; 
+    margin: 0 0 18px; 
   }
   .contact-popup-header-vector {
-    width: 44px; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
+    width: 44px; 
+    height: 44px; 
   }
   .contact-popup-close {
-    position: static; /* ✅ UPDATED */
-    width: 44px; /* ✅ UPDATED */
-    height: 44px; /* ✅ UPDATED */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    font-size: 28px; /* ✅ UPDATED */
-    line-height: 1; /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
+    position: static; 
+    width: 44px; 
+    height: 44px; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 999px; 
+    background: rgba(255, 255, 255, 0.08); 
+    color: #fff; 
+    font-size: 28px; 
+    line-height: 1; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
   }
   .contact-popup-drag-handle {
-    width: auto; /* ✅ UPDATED */
-    height: auto; /* ✅ UPDATED */
-    margin: 0; /* ✅ UPDATED */
-    padding: 0; /* ✅ NEW */
-    border-radius: 0; /* ✅ UPDATED */
-    background: transparent; /* ✅ UPDATED: remove thanh ngang */
-    color: rgba(255, 255, 255, 0.96); /* ✅ NEW */
-    font-size: 20px; /* ✅ UPDATED: match số điện thoại */
-    line-height: 1.05; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-    white-space: nowrap; /* ✅ NEW */
+    width: auto; 
+    height: auto; 
+    margin: 0; 
+    padding: 0; 
+    border-radius: 0; 
+    background: transparent; 
+    color: rgba(255, 255, 255, 0.96); 
+    font-size: 20px; 
+    line-height: 1.05; 
+    font-weight: 700; 
+    text-align: center; 
+    white-space: nowrap; 
   }
   .contact-phone-link {
-    position: relative; /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    width: 100%; /* ✅ NEW */
-    min-height: 54px; /* ✅ UPDATED */
-    margin: 0 auto 24px; /* ✅ NEW */
-    padding: 0 58px; /* ✅ NEW */
-    border-radius: 14px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    text-decoration: none; /* ✅ NEW */
-    font-size: 20px; /* ✅ NEW */
-    line-height: 1.2; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    letter-spacing: 0.01em; /* ✅ NEW */
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    width: 100%; 
+    min-height: 54px; 
+    margin: 0 auto 24px; 
+    padding: 0 58px; 
+    border-radius: 14px; 
+    border: 1px solid rgba(255, 255, 255, 0.26); 
+    background: rgba(255, 255, 255, 0.1); 
+    color: #fff; 
+    text-decoration: none; 
+    font-size: 20px; 
+    line-height: 1.2; 
+    font-weight: 700; 
+    letter-spacing: 0.01em; 
   }
   .contact-popup-story {
-    margin: 0 0 18px; /* ✅ NEW */
-    padding: 12px 13px; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-    font-size: 13px; /* ✅ NEW */
-    line-height: 1.42; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
+    margin: 0 0 18px; 
+    padding: 12px 13px; 
+    border-radius: 16px; 
+    border: 1px solid rgba(255, 255, 255, 0.18); 
+    background: rgba(255, 255, 255, 0.08); 
+    color: rgba(255, 255, 255, 0.94); 
+    font-size: 13px; 
+    line-height: 1.42; 
+    font-weight: 600; 
+    text-align: center; 
   }
   .contact-social-list {
-    display: grid; /* ✅ NEW */
-    grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
-    gap: 12px; /* ✅ NEW */
-    align-items: start; /* ✅ NEW */
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 12px; 
+    align-items: start; 
   }
   .contact-social-item {
-    display: flex; /* ✅ NEW */
-    flex-direction: column; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 8px; /* ✅ NEW */
-    min-width: 0; /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+    min-width: 0; 
+    color: #fff; 
+    text-align: center; 
   }
   .contact-social-icon {
-    width: 46px; /* ✅ NEW */
-    height: 46px; /* ✅ NEW */
-    border-radius: 12px; /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    font-size: 21px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 800; /* ✅ NEW */
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
+    width: 46px; 
+    height: 46px; 
+    border-radius: 12px; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #fff; 
+    font-size: 21px; 
+    line-height: 1; 
+    font-weight: 800; 
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); 
   }
   .contact-social-icon.youtube {
-    background: #ff0033; /* ✅ NEW */
+    background: #ff0033; 
   }
   .contact-social-icon.wechat {
-    background: #19c15f; /* ✅ NEW */
+    background: #19c15f; 
   }
   .contact-social-icon.google-map {
-    background: #34a853; /* ✅ NEW */
+    background: #34a853; 
   }
   .contact-social-icon.maill {
-    background: #ea4335; /* ✅ NEW */
+    background: #ea4335; 
   }
   .contact-social-icon.line {
-    background: #06c755; /* ✅ NEW */
+    background: #06c755; 
   }
-  .contact-social-icon.facebook { background: #1877f2; } /* ✅ NEW */
-  .contact-social-icon.telegram { background: #229ed9; } /* ✅ NEW */
-  .contact-social-icon.kakao { background: #fee500; color: #191600; } /* ✅ NEW */
-  .contact-social-icon.zalo { background: #0068ff; } /* ✅ NEW */
-  .contact-social-icon.tiktok { background: #111111; } /* ✅ NEW */
+  .contact-social-icon.facebook { background: #1877f2; } 
+  .contact-social-icon.telegram { background: #229ed9; } 
+  .contact-social-icon.kakao { background: #fee500; color: #191600; } 
+  .contact-social-icon.zalo { background: #0068ff; } 
+  .contact-social-icon.tiktok { background: #111111; } 
   .contact-social-label {
-    display: block; /* ✅ NEW */
-    max-width: 68px; /* ✅ UPDATED */
-    font-size: 11px; /* ✅ UPDATED */
-    line-height: 1.15; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-    overflow-wrap: anywhere; /* ✅ NEW */
+    display: block; 
+    max-width: 68px; 
+    font-size: 11px; 
+    line-height: 1.15; 
+    font-weight: 600; 
+    overflow-wrap: anywhere; 
   }
 }
 
 /* ===================== */
-/* ✅ NEW: CHECK AVAILABILITY BOOKING FLOW */
+
 /* ===================== */
 .availability-day.is-past,
 .availability-day.is-too-soon {
-  opacity: 0.52; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
+  opacity: 0.52; 
+  cursor: not-allowed; 
 }
 .availability-day.is-too-soon {
-  background: rgba(255,255,255,0.045); /* ✅ NEW */
-  border-color: rgba(255,255,255,0.12); /* ✅ NEW */
-  color: rgba(255,255,255,0.42); /* ✅ NEW */
+  background: rgba(255,255,255,0.045); 
+  border-color: rgba(255,255,255,0.12); 
+  color: rgba(255,255,255,0.42); 
 }
 .availability-day.is-selected-date {
-  outline: 3px solid rgba(255,255,255,0.78); /* ✅ NEW */
-  outline-offset: 2px; /* ✅ NEW */
+  outline: 3px solid rgba(255,255,255,0.78); 
+  outline-offset: 2px; 
 }
 .availability-message {
-  display: none; /* ✅ NEW */
-  margin-top: 14px; /* ✅ NEW */
-  padding: 11px 13px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
-  background: rgba(255,255,255,0.1); /* ✅ NEW */
-  color: rgba(255,255,255,0.94); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.4; /* ✅ NEW */
+  display: none; 
+  margin-top: 14px; 
+  padding: 11px 13px; 
+  border-radius: 14px; 
+  background: rgba(255,255,255,0.1); 
+  color: rgba(255,255,255,0.94); 
+  font-size: 13px; 
+  line-height: 1.4; 
 }
 .availability-message.is-visible {
-  display: block; /* ✅ NEW */
+  display: block; 
 }
 .availability-message.is-error {
-  background: rgba(239, 68, 68, 0.18); /* ✅ NEW */
-  border: 1px solid rgba(239, 68, 68, 0.38); /* ✅ NEW */
+  background: rgba(239, 68, 68, 0.18); 
+  border: 1px solid rgba(239, 68, 68, 0.38); 
 }
 .availability-message.is-success {
-  background: rgba(34, 197, 94, 0.16); /* ✅ NEW */
-  border: 1px solid rgba(34, 197, 94, 0.34); /* ✅ NEW */
+  background: rgba(34, 197, 94, 0.16); 
+  border: 1px solid rgba(34, 197, 94, 0.34); 
 }
 .availability-contact {
-  width: 100%; /* ✅ UPDATED */
-  border: 0; /* ✅ UPDATED */
-  cursor: pointer; /* ✅ UPDATED */
-  font-family: 'Poppins', sans-serif; /* ✅ UPDATED */
-  text-align: left; /* ✅ UPDATED */
+  width: 100%; 
+  border: 0; 
+  cursor: pointer; 
+  font-family: 'Poppins', sans-serif; 
+  text-align: left; 
 }
 .availability-contact:disabled {
-  opacity: 0.55; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
+  opacity: 0.55; 
+  cursor: not-allowed; 
 }
 .availability-tour-list {
-  display: none; /* ✅ NEW */
-  margin-top: 16px; /* ✅ NEW */
-  gap: 14px; /* ✅ NEW */
+  display: none; 
+  margin-top: 16px; 
+  gap: 14px; 
 }
 .availability-tour-list.is-open {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(5, minmax(0, 1fr)); /* ✅ UPDATED */
+  display: grid; 
+  grid-template-columns: repeat(5, minmax(0, 1fr)); 
 }
 .availability-tour-item {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  gap: 8px; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+  min-width: 0; 
 }
 .availability-tour-box {
-  width: 100%; /* ✅ NEW */
-  aspect-ratio: 1 / 1; /* ✅ NEW */
-  border-radius: 12px; /* ✅ NEW */
-  background: #fff; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.22); /* ✅ NEW */
+  width: 100%; 
+  aspect-ratio: 1 / 1; 
+  border-radius: 12px; 
+  background: #fff; 
+  overflow: hidden; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22); 
 }
 .availability-tour-img {
-  width: 100%; /* ✅ NEW */
-  height: 100%; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: cover; /* ✅ NEW */
+  width: 100%; 
+  height: 100%; 
+  display: block; 
+  object-fit: cover; 
 }
 .availability-tour-label {
-  color: #fff; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-transform: lowercase; /* ✅ NEW */
+  color: #fff; 
+  font-size: 13px; 
+  font-weight: 700; 
+  line-height: 1.2; 
+  text-align: center; 
+  text-transform: lowercase; 
 }
 @media (max-width:768px) {
   .availability-tour-list.is-open {
-    grid-template-columns: 1fr; /* ✅ NEW: mobile hiển thị từ trên xuống dưới */
+    grid-template-columns: 1fr; 
   }
   .availability-tour-item {
-    flex-direction: row; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 12px; /* ✅ NEW */
+    flex-direction: row; 
+    align-items: center; 
+    gap: 12px; 
   }
   .availability-tour-box {
-    width: 72px; /* ✅ NEW */
-    flex: 0 0 72px; /* ✅ NEW */
+    width: 72px; 
+    flex: 0 0 72px; 
   }
   .availability-tour-label {
-    text-align: left; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
+    text-align: left; 
+    font-size: 15px; 
   }
 }
 
 
 .availability-day.is-today-date {
-  background: #ff4fa3; /* ✅ NEW: today màu hồng */
-  border-color: #ff78bb; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  box-shadow: 0 0 0 2px rgba(255, 79, 163, 0.24), 0 10px 24px rgba(255, 79, 163, 0.28); /* ✅ NEW */
+  background: #ff4fa3; 
+  border-color: #ff78bb; 
+  color: #ffffff; 
+  box-shadow: 0 0 0 2px rgba(255, 79, 163, 0.24), 0 10px 24px rgba(255, 79, 163, 0.28); 
 }
 .availability-day.is-today-date.is-past,
 .availability-day.is-today-date.is-too-soon {
-  opacity: 1; /* ✅ NEW: today vẫn nổi bật dù không book được */
-  color: #ffffff; /* ✅ NEW */
+  opacity: 1; 
+  color: #ffffff; 
 }
 .availability-nav button:disabled {
-  opacity: 0.35; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
+  opacity: 0.35; 
+  cursor: not-allowed; 
+  pointer-events: none; 
 }
 
 
-/* ✅ NEW: CONTACT POPUP FOOTER TEXT */
+
 .contact-footer-text {
   margin-top: 18px;
   text-align: center;
-  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
+  font-size: 20px; 
   line-height: 1.35;
-  font-weight: 700; /* ✅ UPDATED */
-  letter-spacing: 0.02em; /* ✅ UPDATED */
-  color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */
+  font-weight: 700; 
+  letter-spacing: 0.02em; 
+  color: rgba(255, 255, 255, 0.78); 
 }
 
-/* ✅ NEW: CONTACT SOCIAL LOGO - 10 subtle animations */
+
 .contact-popup-backdrop.is-open .contact-social-item:nth-child(1) {
   animation: contactFadeUp 0.72s ease both;
 }
@@ -991,19 +1087,19 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important; /* ✅ NEW: hỗ trợ máy yếu / reduced motion */
-    animation-iteration-count: 1 !important; /* ✅ NEW */
-    transition-duration: 0.001ms !important; /* ✅ NEW */
-    scroll-behavior: auto !important; /* ✅ NEW */
+    animation-duration: 0.001ms !important; 
+    animation-iteration-count: 1 !important; 
+    transition-duration: 0.001ms !important; 
+    scroll-behavior: auto !important; 
   }
 }
   
 
 .availability-legend {
-  display: none; /* ✅ UPDATED: xóa dòng Available / Booked / Contact first khỏi UI */
+  display: none; 
 }
 
-/* ✅ NEW: SNORKELING CARD NAVIGATION */
+
 .popup-note-item[data-tour="snorkeling"] {
   cursor: pointer;
   touch-action: pan-x;
@@ -1049,218 +1145,218 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
 
 
 /* ===================== */
-/* ✅ NEW: POLICY POPUP */
+
 /* ===================== */
 .title[role="button"] {
-  cursor: pointer; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+  cursor: pointer; 
+  -webkit-tap-highlight-color: transparent; 
 }
 .title[role="button"]:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  outline-offset: 8px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
+  outline: 3px solid rgba(255, 255, 255, 0.9); 
+  outline-offset: 8px; 
+  border-radius: 14px; 
 }
 .policy-popup-backdrop {
-  position: fixed; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: 1002; /* ✅ NEW */
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  padding: 24px; /* ✅ NEW */
-  background: rgba(0, 0, 0, 0.68); /* ✅ NEW */
-  backdrop-filter: blur(5px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
-  opacity: 0; /* ✅ NEW */
-  visibility: hidden; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
+  position: fixed; 
+  inset: 0; 
+  z-index: 1002; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 24px; 
+  background: rgba(0, 0, 0, 0.68); 
+  backdrop-filter: blur(5px); 
+  -webkit-backdrop-filter: blur(5px); 
+  opacity: 0; 
+  visibility: hidden; 
+  pointer-events: none; 
+  transition: opacity 0.24s ease, visibility 0.24s ease; 
 }
 .policy-popup-backdrop.is-open {
-  opacity: 1; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: auto; /* ✅ NEW */
+  opacity: 1; 
+  visibility: visible; 
+  pointer-events: auto; 
 }
 .policy-popup-backdrop.is-closing {
-  opacity: 0; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
+  opacity: 0; 
+  visibility: visible; 
+  pointer-events: none; 
 }
 .policy-popup-card {
-  position: relative; /* ✅ NEW */
-  width: min(92vw, 560px); /* ✅ NEW */
-  max-height: calc(100dvh - 48px); /* ✅ NEW */
-  overflow-y: auto; /* ✅ NEW */
-  -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
-  padding: 34px 28px 30px; /* ✅ NEW */
-  border-radius: 28px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
-  background: linear-gradient(180deg, rgba(25, 31, 39, 0.96), rgba(8, 12, 18, 0.96)); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  transform: translateY(14px) scale(0.97); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
-  transition: transform 0.28s ease, opacity 0.24s ease; /* ✅ NEW */
+  position: relative; 
+  width: min(92vw, 560px); 
+  max-height: calc(100dvh - 48px); 
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; 
+  padding: 34px 28px 30px; 
+  border-radius: 28px; 
+  border: 1px solid rgba(255, 255, 255, 0.24); 
+  background: linear-gradient(180deg, rgba(25, 31, 39, 0.96), rgba(8, 12, 18, 0.96)); 
+  color: #ffffff; 
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5), inset 0 0 18px rgba(255, 255, 255, 0.08); 
+  transform: translateY(14px) scale(0.97); 
+  opacity: 0; 
+  transition: transform 0.28s ease, opacity 0.24s ease; 
 }
 .policy-popup-backdrop.is-open .policy-popup-card {
-  transform: translateY(0) scale(1); /* ✅ NEW */
-  opacity: 1; /* ✅ NEW */
+  transform: translateY(0) scale(1); 
+  opacity: 1; 
 }
 .policy-popup-backdrop.is-closing .policy-popup-card {
-  transform: translateY(10px) scale(0.98); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
+  transform: translateY(10px) scale(0.98); 
+  opacity: 0; 
 }
 .policy-popup-close {
-  position: absolute; /* ✅ NEW */
-  top: 14px; /* ✅ NEW */
-  right: 14px; /* ✅ NEW */
-  width: 38px; /* ✅ NEW */
-  height: 38px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: 22px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
+  position: absolute; 
+  top: 14px; 
+  right: 14px; 
+  width: 38px; 
+  height: 38px; 
+  border-radius: 999px; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  background: rgba(255, 255, 255, 0.08); 
+  color: #ffffff; 
+  font-size: 22px; 
+  line-height: 1; 
+  cursor: pointer; 
 }
 .policy-popup-close:hover {
-  background: rgba(255, 255, 255, 0.14); /* ✅ NEW */
+  background: rgba(255, 255, 255, 0.14); 
 }
 
 .policy-popup-media-row {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  gap: 26px; /* ✅ NEW */
-  min-height: 126px; /* ✅ NEW */
-  margin: 0 auto 10px; /* ✅ NEW */
-  overflow: visible; /* ✅ NEW */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 26px; 
+  min-height: 126px; 
+  margin: 0 auto 10px; 
+  overflow: visible; 
 }
 .policy-popup-menu-vector {
-  width: 72px; /* ✅ NEW */
-  height: 72px; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: contain; /* ✅ NEW */
-  flex: 0 0 auto; /* ✅ NEW */
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28)); /* ✅ NEW */
+  width: 72px; 
+  height: 72px; 
+  display: block; 
+  object-fit: contain; 
+  flex: 0 0 auto; 
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28)); 
 }
 .policy-popup-logo-slot {
-  display: flex; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao */
-  margin: 0; /* ✅ UPDATED: row mới quản lý khoảng cách */
-  overflow: visible; /* ✅ NEW */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: auto; 
+  margin: 0; 
+  overflow: visible; 
 }
 .policy-popup-logo-slot .mask {
-  transform: scale(0.94); /* ✅ UPDATED: scale logo policy popup thêm 15% */
-  transform-origin: center center; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
+  transform: scale(0.94); 
+  transform-origin: center center; 
+  pointer-events: none; 
 }
 .policy-popup-logo-slot .mask:hover {
-  transform: scale(0.94); /* ✅ REQUIRED FIX */
+  transform: scale(0.94); 
 }
 .policy-popup-title {
-  margin: 0 44px 14px; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: clamp(20px, 4vw, 27px); /* ✅ NEW */
-  line-height: 1.15; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
+  margin: 0 44px 14px; 
+  color: #ffffff; 
+  font-size: clamp(20px, 4vw, 27px); 
+  line-height: 1.15; 
+  font-weight: 700; 
+  text-align: center; 
 }
 .policy-popup-copy {
-  margin: 0 auto 22px; /* ✅ NEW */
-  max-width: 480px; /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  font-size: 15px; /* ✅ NEW */
-  line-height: 1.62; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
+  margin: 0 auto 22px; 
+  max-width: 480px; 
+  color: rgba(255, 255, 255, 0.9); 
+  font-size: 15px; 
+  line-height: 1.62; 
+  font-weight: 500; 
+  text-align: center; 
 }
 .policy-popup-action {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: max-content; /* ✅ NEW */
-  max-width: 100%; /* ✅ NEW */
-  margin: 0 auto; /* ✅ NEW */
-  padding: 10px 18px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font: inherit; /* ✅ NEW */
-  font-size: clamp(19px, 5vw, 30px); /* ✅ NEW */
-  line-height: 1.1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: max-content; 
+  max-width: 100%; 
+  margin: 0 auto; 
+  padding: 10px 18px; 
+  border: 1px solid rgba(255, 255, 255, 0.24); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.1); 
+  color: #ffffff; 
+  font: inherit; 
+  font-size: clamp(19px, 5vw, 30px); 
+  line-height: 1.1; 
+  font-weight: 700; 
+  cursor: pointer; 
+  text-decoration: none; 
+  -webkit-tap-highlight-color: transparent; 
 }
 .policy-popup-action:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  outline-offset: 5px; /* ✅ NEW */
+  outline: 3px solid rgba(255, 255, 255, 0.9); 
+  outline-offset: 5px; 
 }
 .policy-popup-guidelines-toggle {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: max-content; /* ✅ NEW */
-  max-width: 100%; /* ✅ NEW */
-  margin: 12px auto 0; /* ✅ NEW */
-  padding: 0; /* ✅ NEW */
-  border: 0; /* ✅ NEW */
-  background: transparent; /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.84); /* ✅ NEW */
-  font: inherit; /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.25; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-decoration: underline; /* ✅ NEW */
-  text-underline-offset: 4px; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: max-content; 
+  max-width: 100%; 
+  margin: 12px auto 0; 
+  padding: 0; 
+  border: 0; 
+  background: transparent; 
+  color: rgba(255, 255, 255, 0.84); 
+  font: inherit; 
+  font-size: 14px; 
+  line-height: 1.25; 
+  font-weight: 700; 
+  text-decoration: underline; 
+  text-underline-offset: 4px; 
+  cursor: pointer; 
+  -webkit-tap-highlight-color: transparent; 
 }
 .policy-popup-guidelines-toggle:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.84); /* ✅ NEW */
-  outline-offset: 5px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
+  outline: 3px solid rgba(255, 255, 255, 0.84); 
+  outline-offset: 5px; 
+  border-radius: 999px; 
 }
 .policy-popup-guidelines {
-  display: none; /* ✅ NEW */
-  max-width: 430px; /* ✅ NEW */
-  margin: 12px auto 0; /* ✅ NEW */
-  padding: 13px 15px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-  border-radius: 18px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.92); /* ✅ NEW */
-  text-align: left; /* ✅ NEW */
+  display: none; 
+  max-width: 430px; 
+  margin: 12px auto 0; 
+  padding: 13px 15px; 
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  border-radius: 18px; 
+  background: rgba(255, 255, 255, 0.08); 
+  color: rgba(255, 255, 255, 0.92); 
+  text-align: left; 
 }
 .policy-popup-guidelines.is-open {
-  display: block; /* ✅ NEW */
+  display: block; 
 }
 .policy-popup-guidelines-list {
-  display: grid; /* ✅ NEW */
-  gap: 7px; /* ✅ NEW */
-  margin: 0; /* ✅ NEW */
-  padding-left: 18px; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.38; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
+  display: grid; 
+  gap: 7px; 
+  margin: 0; 
+  padding-left: 18px; 
+  font-size: 13px; 
+  line-height: 1.38; 
+  font-weight: 600; 
 }
 
 .policy-wave-text {
-  display: inline-flex; /* ✅ NEW */
-  align-items: baseline; /* ✅ NEW */
-  white-space: pre; /* ✅ NEW */
+  display: inline-flex; 
+  align-items: baseline; 
+  white-space: pre; 
 }
 .policy-wave-text span {
-  display: inline-block; /* ✅ NEW */
-  animation: policyWaveText 1.45s ease-in-out infinite; /* ✅ NEW */
-  animation-delay: calc(var(--policy-wave-index, 0) * 0.055s); /* ✅ NEW */
-  will-change: transform; /* ✅ NEW */
+  display: inline-block; 
+  animation: policyWaveText 1.45s ease-in-out infinite; 
+  animation-delay: calc(var(--policy-wave-index, 0) * 0.055s); 
+  will-change: transform; 
 }
 @keyframes policyWaveText {
   0%, 100% { transform: translateY(0); }
@@ -1268,638 +1364,643 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   70% { transform: translateY(0); }
 }
 .sr-only {
-  position: absolute; /* ✅ NEW */
-  width: 1px; /* ✅ NEW */
-  height: 1px; /* ✅ NEW */
-  padding: 0; /* ✅ NEW */
-  margin: -1px; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
-  clip: rect(0, 0, 0, 0); /* ✅ NEW */
-  white-space: nowrap; /* ✅ NEW */
-  border: 0; /* ✅ NEW */
+  position: absolute; 
+  width: 1px; 
+  height: 1px; 
+  padding: 0; 
+  margin: -1px; 
+  overflow: hidden; 
+  clip: rect(0, 0, 0, 0); 
+  white-space: nowrap; 
+  border: 0; 
 }
 @media (max-width:768px) {
   .policy-popup-backdrop {
-    padding: calc(env(safe-area-inset-top, 0px) + 18px) 18px 18px; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
+    padding: calc(env(safe-area-inset-top, 0px) + 18px) 18px 18px; 
+    align-items: center; 
   }
   .policy-popup-card {
-    width: min(94vw, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 36px); /* ✅ NEW */
-    padding: 30px 18px 24px; /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
+    width: min(94vw, 430px); 
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 36px); 
+    padding: 30px 18px 24px; 
+    border-radius: 24px; 
   }
 
   .policy-popup-media-row {
-    gap: 18px; /* ✅ NEW */
-    min-height: 112px; /* ✅ NEW */
-    margin-bottom: 4px; /* ✅ NEW */
+    gap: 18px; 
+    min-height: 112px; 
+    margin-bottom: 4px; 
   }
   .policy-popup-menu-vector {
-    width: 72px; /* ✅ NEW */
-    height: 72px; /* ✅ NEW */
+    width: 72px; 
+    height: 72px; 
   }
   .policy-popup-guidelines-toggle {
-    font-size: 13px; /* ✅ NEW */
+    font-size: 13px; 
   }
   .policy-popup-guidelines {
-    padding: 12px 13px; /* ✅ NEW */
+    padding: 12px 13px; 
   }
   .policy-popup-guidelines-list {
-    font-size: 12px; /* ✅ NEW */
+    font-size: 12px; 
   }
   .policy-popup-logo-slot {
-    min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao mobile */
-    margin-bottom: 0; /* ✅ UPDATED: row mới quản lý khoảng cách mobile */
+    min-height: auto; 
+    margin-bottom: 0; 
   }
   .policy-popup-logo-slot .mask {
-    transform: scale(0.78); /* ✅ UPDATED: scale logo policy popup mobile thêm 15% */
+    transform: scale(0.78); 
   }
   .policy-popup-logo-slot .mask:hover {
-    transform: scale(0.78); /* ✅ REQUIRED FIX */
+    transform: scale(0.78); 
   }
   .policy-popup-title {
-    margin: 0 38px 12px; /* ✅ NEW */
-    font-size: 21px; /* ✅ NEW */
+    margin: 0 38px 12px; 
+    font-size: 21px; 
   }
   .policy-popup-copy {
-    font-size: 14px; /* ✅ NEW */
-    line-height: 1.55; /* ✅ NEW */
+    font-size: 14px; 
+    line-height: 1.55; 
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .policy-popup-backdrop,
   .policy-popup-card,
   .policy-wave-text span {
-    animation-duration: 0.001ms !important; /* ✅ NEW */
-    animation-iteration-count: 1 !important; /* ✅ NEW */
-    transition-duration: 0.001ms !important; /* ✅ NEW */
+    animation-duration: 0.001ms !important; 
+    animation-iteration-count: 1 !important; 
+    transition-duration: 0.001ms !important; 
   }
 }
-/* ✅ UPDATED: STORY EXPAND SECTION REBUILD */
-/* ✅ NEW: DESIGNATED SCROLLABLE HOME AREA 
-   IMPORTANT FOR FUTURE AI / DEVELOPERS:
-   This section is intentionally treated as the real scrollable homepage after the intro / hero / tour-selection flow.
-   Do not "fix" this area as a scroll bug.
-   All return-to-home behavior should target this scrollable home area, not only the first locked hero screen.
-*/
+
+
 .more-stories-section {
-  position: relative; /* ✅ UPDATED */
-  padding: 96px 24px 120px; /* ✅ UPDATED */
-  background: linear-gradient(180deg, var(--color-soft-white) 0%, var(--color-white) 55%, #f3f6f7 100%); /* ✅ UPDATED */
-  color: var(--color-ink); /* ✅ UPDATED */
-  overflow: hidden; /* ✅ KEEP */
+  position: relative; 
+  padding: 96px 24px 120px; 
+  background: linear-gradient(180deg, var(--color-soft-white) 0%, var(--color-white) 55%, #f3f6f7 100%); 
+  color: var(--color-ink); 
+  overflow: hidden; 
 }
 .more-stories-section::before {
-  content: ""; /* ✅ REQUIRED FIX */
-  position: absolute; /* ✅ KEEP */
-  inset: 0 0 auto; /* ✅ KEEP */
-  height: 160px; /* ✅ KEEP */
-  pointer-events: none; /* ✅ KEEP */
-  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); /* ✅ KEEP */
+  content: ""; 
+  position: absolute; 
+  inset: 0 0 auto; 
+  height: 160px; 
+  pointer-events: none; 
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); 
 }
 .more-stories-inner {
-  position: relative; /* ✅ KEEP */
-  z-index: 1; /* ✅ KEEP */
-  width: min(1120px, 100%); /* ✅ KEEP */
-  margin: 0 auto; /* ✅ KEEP */
+  position: relative; 
+  z-index: 1; 
+  width: min(1120px, 100%); 
+  margin: 0 auto; 
 }
 .more-stories-kicker {
-  margin: 0 0 10px; /* ✅ KEEP */
-  color: rgba(28, 40, 51, 0.58); /* ✅ KEEP */
-  font-size: 13px; /* ✅ KEEP */
-  line-height: 1.3; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  letter-spacing: 0.08em; /* ✅ KEEP */
-  text-transform: uppercase; /* ✅ KEEP */
+  margin: 0 0 10px; 
+  color: rgba(28, 40, 51, 0.58); 
+  font-size: 13px; 
+  line-height: 1.3; 
+  font-weight: 700; 
+  letter-spacing: 0.08em; 
+  text-transform: uppercase; 
 }
 .more-stories-title {
-  margin: 0; /* ✅ KEEP */
-  max-width: 860px; /* ✅ UPDATED */
-  color: #17202a; /* ✅ KEEP */
-  font-size: clamp(34px, 7vw, 64px); /* ✅ KEEP */
-  line-height: 0.98; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  letter-spacing: -0.04em; /* ✅ KEEP */
+  margin: 0; 
+  max-width: 860px; 
+  color: #17202a; 
+  font-size: clamp(34px, 7vw, 64px); 
+  line-height: 0.98; 
+  font-weight: 700; 
+  letter-spacing: -0.04em; 
 }
 .more-stories-intro {
-  max-width: 780px; /* ✅ UPDATED */
-  margin: 22px 0 0; /* ✅ KEEP */
-  color: rgba(28, 40, 51, 0.72); /* ✅ KEEP */
-  font-size: clamp(16px, 2.2vw, 19px); /* ✅ KEEP */
-  line-height: 1.72; /* ✅ KEEP */
-  font-weight: 500; /* ✅ KEEP */
+  max-width: 780px; 
+  margin: 22px 0 0; 
+  color: rgba(28, 40, 51, 0.72); 
+  font-size: clamp(16px, 2.2vw, 19px); 
+  line-height: 1.72; 
+  font-weight: 500; 
 }
 .more-stories-back-button {
-  display: inline-flex; /* ✅ KEEP */
-  align-items: center; /* ✅ KEEP */
-  justify-content: center; /* ✅ KEEP */
-  min-height: 42px; /* ✅ KEEP */
-  margin: 28px 0 0; /* ✅ KEEP */
-  padding: 10px 16px; /* ✅ KEEP */
-  border: 1px solid rgba(20, 40, 60, 0.1); /* ✅ KEEP */
-  border-radius: 999px; /* ✅ KEEP */
-  background: rgba(255, 255, 255, 0.72); /* ✅ KEEP */
-  color: #1c2833; /* ✅ KEEP */
-  font: inherit; /* ✅ KEEP */
-  font-size: 14px; /* ✅ KEEP */
-  line-height: 1; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  cursor: pointer; /* ✅ KEEP */
-  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); /* ✅ KEEP */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 42px; 
+  margin: 28px 0 0; 
+  padding: 10px 16px; 
+  border: 1px solid rgba(20, 40, 60, 0.1); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.72); 
+  color: #1c2833; 
+  font: inherit; 
+  font-size: 14px; 
+  line-height: 1; 
+  font-weight: 700; 
+  cursor: pointer; 
+  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); 
+  -webkit-tap-highlight-color: transparent; 
 }
 .more-services-block {
-  margin-top: 46px; /* ✅ NEW */
+  margin-top: 46px; 
 }
 .more-section-label {
-  margin: 0 0 14px; /* ✅ NEW */
-  color: var(--color-hue-deep); /* ✅ UPDATED */
-  font-size: clamp(22px, 4vw, 32px); /* ✅ NEW */
-  line-height: 1.12; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: -0.02em; /* ✅ NEW */
+  margin: 0 0 14px; 
+  color: var(--color-hue-deep); 
+  font-size: clamp(22px, 4vw, 32px); 
+  line-height: 1.12; 
+  font-weight: 700; 
+  letter-spacing: -0.02em; 
 }
 .more-services-grid {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ NEW */
-  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.45); /* ✅ NEW */
-  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
+  display: grid; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  border: 1px solid rgba(15, 76, 92, 0.16); 
+  background: rgba(255, 255, 255, 0.45); 
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); 
 }
 .more-service-card {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  min-height: 170px; /* ✅ NEW */
-  padding: 24px 22px; /* ✅ NEW */
-  border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  color: #1c2833; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
-  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease; /* ✅ NEW */
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  min-height: 170px; 
+  padding: 24px 22px; 
+  border-right: 1px solid rgba(15, 76, 92, 0.14); 
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
+  color: #1c2833; 
+  text-align: center; 
+  text-decoration: none; 
+  background: rgba(247, 251, 252, 0.78); 
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease; 
 }
 .more-service-card:nth-child(3n) {
-  border-right: 0; /* ✅ NEW */
+  border-right: 0; 
 }
 .more-service-card:nth-last-child(-n + 3) {
-  border-bottom: 0; /* ✅ NEW */
+  border-bottom: 0; 
 }
 .more-service-card-title {
-  margin: 0; /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 16px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
+  margin: 0; 
+  color: #123044; 
+  font-size: 16px; 
+  line-height: 1.2; 
+  font-weight: 700; 
 }
 .more-service-card-desc {
-  margin: 12px auto 0; /* ✅ NEW */
-  max-width: 280px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.72); /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.45; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
+  margin: 12px auto 0; 
+  max-width: 280px; 
+  color: rgba(28, 40, 51, 0.72); 
+  font-size: 14px; 
+  line-height: 1.45; 
+  font-weight: 500; 
 }
 .more-service-card-link {
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  margin: 18px auto 0; /* ✅ NEW */
-  color: var(--color-hue-deep); /* ✅ UPDATED */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin: 18px auto 0; 
+  color: var(--color-hue-deep); 
+  font-size: 13px; 
+  line-height: 1; 
+  font-weight: 700; 
 }
 .more-service-card:focus-visible {
-  outline: 3px solid rgba(15, 76, 92, 0.38); /* ✅ NEW */
-  outline-offset: 4px; /* ✅ NEW */
+  outline: 3px solid rgba(15, 76, 92, 0.38); 
+  outline-offset: 4px; 
 }
 @media (hover: hover) and (pointer: fine) {
   .more-service-card:hover {
-    transform: translateY(-4px); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-    box-shadow: 0 22px 54px rgba(20, 40, 60, 0.1); /* ✅ NEW */
-    z-index: 1; /* ✅ NEW */
+    transform: translateY(-4px); 
+    background: rgba(255, 255, 255, 0.94); 
+    box-shadow: 0 22px 54px rgba(20, 40, 60, 0.1); 
+    z-index: 1; 
   }
 }
 .more-accordion-block {
-  margin-top: 54px; /* ✅ NEW */
+  margin-top: 54px; 
 }
 .more-accordion-list {
-  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
-  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
-  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
+  border: 1px solid rgba(15, 76, 92, 0.16); 
+  background: rgba(247, 251, 252, 0.78); 
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); 
 }
 .more-accordion-item {
-  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
 }
 .more-accordion-item:last-child {
-  border-bottom: 0; /* ✅ NEW */
+  border-bottom: 0; 
 }
 .more-accordion-summary {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: space-between; /* ✅ NEW */
-  gap: 18px; /* ✅ NEW */
-  min-height: 64px; /* ✅ NEW */
-  padding: 20px 22px; /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 17px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  list-style: none; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 18px; 
+  min-height: 64px; 
+  padding: 20px 22px; 
+  color: #123044; 
+  font-size: 17px; 
+  line-height: 1.2; 
+  font-weight: 700; 
+  cursor: pointer; 
+  list-style: none; 
+  -webkit-tap-highlight-color: transparent; 
 }
 .more-accordion-summary::-webkit-details-marker {
-  display: none; /* ✅ NEW */
+  display: none; 
 }
 .more-accordion-summary::after {
-  content: "+"; /* ✅ NEW */
-  flex: 0 0 auto; /* ✅ NEW */
-  color: rgba(18, 48, 68, 0.58); /* ✅ NEW */
-  font-size: 24px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
+  content: "+"; 
+  flex: 0 0 auto; 
+  color: rgba(18, 48, 68, 0.58); 
+  font-size: 24px; 
+  line-height: 1; 
+  font-weight: 500; 
 }
 .more-accordion-item[open] .more-accordion-summary::after {
-  content: "–"; /* ✅ NEW */
+  content: "–"; 
 }
 .more-accordion-panel {
-  padding: 0 22px 22px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.74); /* ✅ NEW */
-  font-size: 15px; /* ✅ NEW */
-  line-height: 1.65; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
+  padding: 0 22px 22px; 
+  color: rgba(28, 40, 51, 0.74); 
+  font-size: 15px; 
+  line-height: 1.65; 
+  font-weight: 500; 
 }
 .more-accordion-panel p {
-  margin: 0 0 12px; /* ✅ NEW */
+  margin: 0 0 12px; 
 }
 .more-faq-list {
-  display: grid; /* ✅ NEW */
-  gap: 14px; /* ✅ NEW */
-  margin: 0; /* ✅ NEW */
+  display: grid; 
+  gap: 14px; 
+  margin: 0; 
 }
 .more-faq-list dt {
-  color: #123044; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
+  color: #123044; 
+  font-weight: 700; 
 }
 .more-faq-list dd {
-  margin: 4px 0 0; /* ✅ NEW */
+  margin: 4px 0 0; 
 }
 .more-contact-platforms {
-  display: flex; /* ✅ NEW */
-  flex-wrap: wrap; /* ✅ NEW */
-  gap: 10px; /* ✅ NEW */
-  margin-top: 6px; /* ✅ NEW */
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin-top: 6px; 
 }
 .more-contact-platform {
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  min-height: 34px; /* ✅ NEW */
-  padding: 7px 12px; /* ✅ NEW */
-  border: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-transform: lowercase; /* ✅ NEW */
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 34px; 
+  padding: 7px 12px; 
+  border: 1px solid rgba(15, 76, 92, 0.14); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.72); 
+  color: #123044; 
+  font-size: 13px; 
+  line-height: 1; 
+  font-weight: 700; 
+  text-transform: lowercase; 
 }
 @media (max-width: 900px) {
   .more-services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ✅ NEW */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
   }
   .more-service-card:nth-child(3n) {
-    border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+    border-right: 1px solid rgba(15, 76, 92, 0.14); 
   }
   .more-service-card:nth-child(2n) {
-    border-right: 0; /* ✅ NEW */
+    border-right: 0; 
   }
   .more-service-card:nth-last-child(-n + 3) {
-    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
   }
   .more-service-card:nth-last-child(-n + 2) {
-    border-bottom: 0; /* ✅ NEW */
+    border-bottom: 0; 
   }
 }
 @media (max-width: 768px) {
   .more-stories-section {
-    padding: 88px 20px 110px; /* ✅ UPDATED */
+    padding: 88px 20px 110px; 
   }
   .more-services-block {
-    margin-top: 42px; /* ✅ NEW */
+    margin-top: 42px; 
   }
   .more-services-grid {
-    grid-template-columns: 1fr; /* ✅ NEW */
+    grid-template-columns: 1fr; 
   }
   .more-service-card,
   .more-service-card:nth-child(2n),
   .more-service-card:nth-child(3n),
   .more-service-card:nth-last-child(-n + 2),
   .more-service-card:nth-last-child(-n + 3) {
-    border-right: 0; /* ✅ NEW */
-    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
+    border-right: 0; 
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
   }
   .more-service-card:last-child {
-    border-bottom: 0; /* ✅ NEW */
+    border-bottom: 0; 
   }
   .more-service-card {
-    min-height: 152px; /* ✅ NEW */
-    padding: 22px 18px; /* ✅ NEW */
+    min-height: 152px; 
+    padding: 22px 18px; 
   }
   .more-accordion-block {
-    margin-top: 42px; /* ✅ NEW */
+    margin-top: 42px; 
   }
   .more-accordion-summary {
-    padding: 18px; /* ✅ NEW */
+    padding: 18px; 
   }
   .more-accordion-panel {
-    padding: 0 18px 20px; /* ✅ NEW */
+    padding: 0 18px 20px; 
   }
 }
 
 
-/* ✅ UPDATED: MOBILE MORE STORY FEED CARD CSS moved to 10 files in ./css/card-01-intro.css through ./css/card-10-accordion-03.css */
-/* ✅ NEW: MOBILE HOME SCROLL LOCK UNTIL LEAVE NO TRACE */
+
+
 @media (max-width:768px) {
   html.home-scroll-locked,
   body.home-scroll-locked {
-    overflow: hidden; /* ✅ NEW */
-    height: 100%; /* ✅ NEW */
+    overflow: hidden; 
+    height: 100%; 
   }
 }
 
 @keyframes storyCaretBlink {
-  0%, 49% { opacity: 1; } /* ✅ NEW */
-  50%, 100% { opacity: 0; } /* ✅ NEW */
+  0%, 49% { opacity: 1; } 
+  50%, 100% { opacity: 0; } 
 }
 
-/* ✅ NEW: MOBILE HEADER SEARCH */
+
 .header-search-trigger {
-  display: none; /* ✅ NEW: chỉ hiện trên mobile */
+  display: none; 
 }
 .mobile-search-backdrop {
-  display: none; /* ✅ NEW: chỉ dùng khi search popup mở */
+  display: none; 
 }
 @media (max-width:768px) {
   .header-search-trigger {
-    flex: 1 1 auto; /* ✅ NEW */
-    min-width: 68px; /* ✅ UPDATED: handle bên trong dài hơn theo pill mới */
-    max-width: 112px; /* ✅ NEW: giữ search nằm gọn giữa logo và menu */
-    height: 38px; /* ✅ NEW */
-    padding: 0 10px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.78); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    gap: 5px; /* ✅ NEW */
-    font: inherit; /* ✅ NEW */
-    font-size: 14px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-    white-space: nowrap; /* ✅ NEW */
-    touch-action: manipulation; /* ✅ NEW */
-    -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-    box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ NEW */
+    flex: 1 1 auto; 
+    min-width: 68px; 
+    max-width: 112px; 
+    height: 38px; 
+    padding: 0 10px; 
+    border: 1px solid rgba(5, 6, 8, 0.08); 
+    border-radius: 999px; 
+    background: rgba(255, 255, 255, 0.78); 
+    color: var(--color-ink); 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 5px; 
+    font: inherit; 
+    font-size: 14px; 
+    line-height: 1; 
+    font-weight: 700; 
+    cursor: pointer; 
+    white-space: nowrap; 
+    touch-action: manipulation; 
+    -webkit-tap-highlight-color: transparent; 
+    box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); 
   }
   .header-search-trigger:focus-visible {
-    outline: 3px solid rgba(15, 111, 120, 0.26); /* ✅ NEW */
-    outline-offset: 3px; /* ✅ NEW */
+    outline: 3px solid rgba(15, 111, 120, 0.26); 
+    outline-offset: 3px; 
   }
   .header-search-icon {
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 15px; 
+    line-height: 1; 
   }
   .header-search-dots {
-    display: inline-block; /* ✅ NEW */
-    letter-spacing: 0.06em; /* ✅ NEW */
+    display: inline-block; 
+    letter-spacing: 0.06em; 
   }
   .mobile-search-backdrop {
-    position: fixed; /* ✅ NEW */
-    inset: 0; /* ✅ NEW */
-    z-index: 1003; /* ✅ NEW: cao hơn contact/policy popup */
-    display: flex; /* ✅ NEW */
-    align-items: flex-start; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    padding: calc(env(safe-area-inset-top, 0px) + 78px) 14px 18px; /* ✅ NEW: popup trượt xuống dưới header */
-    background: rgba(0, 0, 0, 0.58); /* ✅ NEW */
-    backdrop-filter: blur(4px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transition: opacity 0.26s ease, visibility 0.26s ease; /* ✅ NEW */
+    position: fixed; 
+    inset: 0; 
+    z-index: 1003; 
+    display: flex; 
+    align-items: flex-start; 
+    justify-content: center; 
+    padding: calc(env(safe-area-inset-top, 0px) + 78px) 14px 18px; 
+    background: rgba(0, 0, 0, 0.58); 
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px); 
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; 
+    transition: opacity 0.26s ease, visibility 0.26s ease; 
   }
   .mobile-search-backdrop.is-open {
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    pointer-events: auto; /* ✅ NEW */
+    opacity: 1; 
+    visibility: visible; 
+    pointer-events: auto; 
   }
   .mobile-search-panel {
-    width: min(100%, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 96px); /* ✅ NEW */
-    overflow-y: auto; /* ✅ NEW */
-    padding: 14px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
-    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(244,247,248,0.92)); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38); /* ✅ NEW */
-    transform: translate3d(0, -12px, 0) scale(0.98); /* ✅ NEW */
-    opacity: 0; /* ✅ NEW */
-    transition: transform 0.32s cubic-bezier(0.2, 1.1, 0.2, 1), opacity 0.24s ease; /* ✅ NEW */
-    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
+    width: min(100%, 430px); 
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 96px); 
+    overflow-y: auto; 
+    padding: 14px; 
+    border: 1px solid rgba(255, 255, 255, 0.22); 
+    border-radius: 24px; 
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(244,247,248,0.92)); 
+    color: var(--color-ink); 
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38); 
+    transform: translate3d(0, -12px, 0) scale(0.98); 
+    opacity: 0; 
+    transition: transform 0.32s cubic-bezier(0.2, 1.1, 0.2, 1), opacity 0.24s ease; 
+    -webkit-overflow-scrolling: touch; 
   }
   .mobile-search-backdrop.is-open .mobile-search-panel {
-    transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
+    transform: translate3d(0, 0, 0) scale(1); 
+    opacity: 1; 
   }
   .mobile-search-head {
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: space-between; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-    margin-bottom: 12px; /* ✅ NEW */
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 10px; 
+    margin-bottom: 12px; 
   }
   .mobile-search-title {
-    margin: 0; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1.2; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-transform: lowercase; /* ✅ NEW */
+    margin: 0; 
+    font-size: 15px; 
+    line-height: 1.2; 
+    font-weight: 700; 
+    text-transform: lowercase; 
   }
   .mobile-search-close {
-    flex: 0 0 auto; /* ✅ NEW */
-    width: 34px; /* ✅ NEW */
-    height: 34px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.12); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255,255,255,0.82); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    font-size: 22px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
+    flex: 0 0 auto; 
+    width: 34px; 
+    height: 34px; 
+    border: 1px solid rgba(5, 6, 8, 0.12); 
+    border-radius: 999px; 
+    background: rgba(255,255,255,0.82); 
+    color: var(--color-ink); 
+    font-size: 22px; 
+    line-height: 1; 
+    cursor: pointer; 
   }
   .mobile-search-form {
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 8px; /* ✅ NEW */
-    margin-bottom: 12px; /* ✅ NEW */
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-bottom: 12px; 
   }
   .mobile-search-input {
-    flex: 1 1 auto; /* ✅ NEW */
-    min-width: 0; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.12); /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    padding: 0 13px; /* ✅ NEW */
-    background: #ffffff; /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    font: inherit; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    outline: none; /* ✅ NEW */
+    flex: 1 1 auto; 
+    min-width: 0; 
+    height: 44px; 
+    border: 1px solid rgba(5, 6, 8, 0.12); 
+    border-radius: 16px; 
+    padding: 0 13px; 
+    background: #ffffff; 
+    color: var(--color-ink); 
+    font: inherit; 
+    font-size: 15px; 
+    outline: none; 
   }
   .mobile-search-input:focus {
-    border-color: rgba(15, 111, 120, 0.42); /* ✅ NEW */
-    box-shadow: 0 0 0 3px rgba(15, 111, 120, 0.12); /* ✅ NEW */
+    border-color: rgba(15, 111, 120, 0.42); 
+    box-shadow: 0 0 0 3px rgba(15, 111, 120, 0.12); 
   }
   .mobile-search-submit {
-    flex: 0 0 auto; /* ✅ NEW */
-    width: 44px; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
-    border: 0; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    background: var(--color-hue-deep); /* ✅ NEW */
-    color: #ffffff; /* ✅ NEW */
-    font-size: 18px; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
+    flex: 0 0 auto; 
+    width: 44px; 
+    height: 44px; 
+    border: 0; 
+    border-radius: 16px; 
+    background: var(--color-hue-deep); 
+    color: #ffffff; 
+    font-size: 18px; 
+    cursor: pointer; 
   }
   .mobile-search-hint {
-    margin: 0 0 12px; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.62); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1.35; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
+    margin: 0 0 12px; 
+    color: rgba(16, 20, 24, 0.62); 
+    font-size: 12px; 
+    line-height: 1.35; 
+    font-weight: 600; 
   }
   .mobile-search-results {
-    display: grid; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
+    display: grid; 
+    gap: 10px; 
   }
   .mobile-search-card {
-    display: grid; /* ✅ NEW */
-    gap: 6px; /* ✅ NEW */
-    padding: 12px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
-    border-radius: 18px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.86); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    text-decoration: none; /* ✅ NEW */
-    box-shadow: 0 12px 28px rgba(5, 6, 8, 0.08); /* ✅ NEW */
+    display: grid; 
+    gap: 6px; 
+    padding: 12px; 
+    border: 1px solid rgba(5, 6, 8, 0.08); 
+    border-radius: 18px; 
+    background: rgba(255, 255, 255, 0.86); 
+    color: var(--color-ink); 
+    text-decoration: none; 
+    box-shadow: 0 12px 28px rgba(5, 6, 8, 0.08); 
   }
   .mobile-search-card-title {
-    margin: 0; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1.22; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-transform: lowercase; /* ✅ NEW */
+    margin: 0; 
+    font-size: 15px; 
+    line-height: 1.22; 
+    font-weight: 700; 
+    text-transform: lowercase; 
   }
   .mobile-search-card-desc {
-    margin: 0; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.68); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1.42; /* ✅ NEW */
-    font-weight: 500; /* ✅ NEW */
+    margin: 0; 
+    color: rgba(16, 20, 24, 0.68); 
+    font-size: 12px; 
+    line-height: 1.42; 
+    font-weight: 500; 
   }
   .mobile-search-card-action {
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    width: max-content; /* ✅ NEW */
-    margin-top: 2px; /* ✅ NEW */
-    color: var(--color-hue-deep); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
+    display: inline-flex; 
+    align-items: center; 
+    width: max-content; 
+    margin-top: 2px; 
+    color: var(--color-hue-deep); 
+    font-size: 12px; 
+    line-height: 1; 
+    font-weight: 700; 
   }
   .mobile-search-empty {
-    padding: 12px; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    background: rgba(8, 63, 70, 0.08); /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.78); /* ✅ NEW */
-    font-size: 13px; /* ✅ NEW */
-    line-height: 1.45; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
+    padding: 12px; 
+    border-radius: 16px; 
+    background: rgba(8, 63, 70, 0.08); 
+    color: rgba(16, 20, 24, 0.78); 
+    font-size: 13px; 
+    line-height: 1.45; 
+    font-weight: 600; 
   }
 }
 
-/* ✅ NEW: MOBILE EDGE PAD */
+
 .mobile-edge-pad {
-  display: none; /* ✅ NEW: chỉ hiện trên mobile */
+  display: none; 
 }
 @media (max-width:768px) {
   .mobile-edge-pad {
-    position: fixed; /* ✅ NEW */
-    left: 50%; /* ✅ NEW */
-    bottom: calc(env(safe-area-inset-bottom, 0px) - 11.5px); /* ✅ UPDATED: giữ edge pad nhô nửa thân sau khi tăng chiều cao */
-    z-index: 1004; /* ✅ UPDATED: cho edge pad nổi trên popup tour */
-    width: 360px; /* ✅ UPDATED: ngang dài thêm mỗi bên 40px */
-    height: 30px; /* ✅ UPDATED: cao thêm 5px */
-    padding: 0; /* ✅ NEW */
-    border: 0; /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.58); /* ✅ UPDATED: glass pill trắng mờ */
-    backdrop-filter: blur(10px); /* ✅ UPDATED: glass blur cho edge pad */
-    -webkit-backdrop-filter: blur(10px); /* ✅ REQUIRED FIX */
-    box-shadow: 0 -2px 18px rgba(255, 255, 255, 0.22), 0 10px 30px rgba(0, 0, 0, 0.24); /* ✅ UPDATED: bóng mềm kiểu floating edge */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-    touch-action: none; /* ✅ NEW: bắt swipe ổn định */
-    -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-    transform: translate3d(-50%, 0, 0); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; /* ✅ NEW */
+    position: fixed; 
+    left: 50%; 
+    bottom: calc(env(safe-area-inset-bottom, 0px) - 11.5px); 
+    z-index: 1004; 
+    width: 360px; 
+    height: 30px; 
+    padding: 0; 
+    border: 0; 
+    border-radius: 999px; 
+    background: rgba(255, 255, 255, 0.58); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    box-shadow: 0 -2px 18px rgba(255, 255, 255, 0.22), 0 10px 30px rgba(0, 0, 0, 0.24); 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    touch-action: none; 
+    -webkit-tap-highlight-color: transparent; 
+    transform: translate3d(-50%, 0, 0); 
+    opacity: 1; 
+    visibility: visible; 
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; 
   }
   .mobile-edge-pad::before {
-    content: ""; /* ✅ REQUIRED FIX */
-    width: 54px; /* ✅ NEW */
-    height: 5px; /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(5, 6, 8, 0.32); /* ✅ UPDATED: thanh trong mềm hơn */
+    content: ""; 
+    width: 54px; 
+    height: 5px; 
+    border-radius: 999px; 
+    background: rgba(5, 6, 8, 0.32); 
   }
   .mobile-edge-pad.is-hidden {
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transform: translate3d(-50%, 10px, 0); /* ✅ UPDATED: ẩn nhẹ theo edge pad mỏng */
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; 
+    transform: translate3d(-50%, 10px, 0); 
   }
   .mobile-edge-pad:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.86); /* ✅ NEW */
-    outline-offset: 5px; /* ✅ NEW */
+    outline: 3px solid rgba(255, 255, 255, 0.86); 
+    outline-offset: 5px; 
   }
   .more-stories-back-button {
-    display: none; /* ✅ UPDATED: ẩn Back to tours trên mobile, giữ HTML để an toàn */
+    display: none; 
   }
 }
-/* ✅ NEW: END MERGED style.css */
+
   </style>
 </head>
 <body class="js-loading">
+<!-- =====================================================
+  ✅ NEW: MODULE 02 — HEADER SYSTEM
+  MAP: 02-header-root / 02-header-logo / 02-header-search / 02-header-menu
+  PURPOSE: Global header, logo contact trigger, mobile search trigger, and menu trigger.
+===================================================== -->
 <header>
-  <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false"> <!-- ✅ UPDATED -->
+  <!-- =====================================================
+    ✅ NEW: MODULE 02.1 — HEADER LOGO TRIGGER
+    MAP: 02-header-logo-trigger / 02-header-logo-visual / 02-header-logo-text
+    PURPOSE: Brand logo and contact/about popup trigger.
+  ===================================================== -->
+  <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false"> 
     <div class="mask">
       <div class="fish">🐠</div>
       <div class="bubble b1"></div>
@@ -1916,34 +2017,64 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
       </div>
     </div>
   </div>
-  <button class="header-search-trigger" type="button" aria-label="Open search" aria-controls="mobile-search-popup" aria-expanded="false"> <!-- ✅ NEW -->
-    <span class="header-search-icon" aria-hidden="true">🔍</span> <!-- ✅ NEW -->
-    <span class="header-search-dots" aria-hidden="true">......</span> <!-- ✅ NEW -->
-  </button> <!-- ✅ NEW -->
-  <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false"> <!-- ✅ UPDATED -->
-    <img class="menu-trigger-icon" src="images/menu.svg" alt="" aria-hidden="true" loading="eager" decoding="async"> <!-- ✅ NEW -->
-  </button> <!-- ✅ UPDATED -->
+  <!-- =====================================================
+    ✅ NEW: MODULE 02.2 — HEADER SEARCH TRIGGER
+    MAP: 02-header-search-trigger
+    PURPOSE: Mobile search popup trigger inside header.
+  ===================================================== -->
+  <button class="header-search-trigger" type="button" aria-label="Open search" aria-controls="mobile-search-popup" aria-expanded="false"> 
+    <span class="header-search-icon" aria-hidden="true">🔍</span> 
+    <span class="header-search-dots" aria-hidden="true">......</span> 
+  </button> 
+  <!-- =====================================================
+    ✅ NEW: MODULE 02.3 — HEADER MENU TRIGGER
+    MAP: 02-header-menu-trigger / 02-header-menu-icon
+    PURPOSE: Header menu button and menu vector icon.
+  ===================================================== -->
+  <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false"> 
+    <img class="menu-trigger-icon" src="images/menu.svg" alt="" aria-hidden="true" loading="eager" decoding="async"> 
+  </button> 
 </header>
-<div class="mobile-search-backdrop" id="mobile-search-popup" aria-hidden="true"> <!-- ✅ NEW -->
-  <div class="mobile-search-panel" role="dialog" aria-modal="true" aria-labelledby="mobileSearchTitle"> <!-- ✅ NEW -->
-    <div class="mobile-search-head"> <!-- ✅ NEW -->
-      <h2 class="mobile-search-title" id="mobileSearchTitle">hãy thử tìm một trải nghiệm</h2> <!-- ✅ NEW -->
-      <button class="mobile-search-close" type="button" aria-label="Đóng search">×</button> <!-- ✅ NEW -->
+<!-- =====================================================
+  ✅ NEW: MODULE 03 — MOBILE SEARCH MODULE
+  MAP: 03-mobile-search-root / 03-mobile-search-panel / 03-mobile-search-form / 03-mobile-search-results
+  PURPOSE: Mobile-only search dialog and result rendering container.
+===================================================== -->
+<div class="mobile-search-backdrop" id="mobile-search-popup" aria-hidden="true"> 
+  <div class="mobile-search-panel" role="dialog" aria-modal="true" aria-labelledby="mobileSearchTitle"> 
+    <div class="mobile-search-head"> 
+      <h2 class="mobile-search-title" id="mobileSearchTitle">hãy thử tìm một trải nghiệm</h2> 
+      <button class="mobile-search-close" type="button" aria-label="Đóng search">×</button> 
     </div>
-    <form class="mobile-search-form" role="search"> <!-- ✅ NEW -->
-      <input class="mobile-search-input" type="search" placeholder="snorkeling, diving, hiking..." aria-label="Tìm kiếm trải nghiệm" autocomplete="off"> <!-- ✅ NEW -->
-      <button class="mobile-search-submit" type="submit" aria-label="Tìm kiếm">🔍</button> <!-- ✅ NEW -->
+    <form class="mobile-search-form" role="search"> 
+      <input class="mobile-search-input" type="search" placeholder="snorkeling, diving, hiking..." aria-label="Tìm kiếm trải nghiệm" autocomplete="off"> 
+      <button class="mobile-search-submit" type="submit" aria-label="Tìm kiếm">🔍</button> 
     </form>
-    <p class="mobile-search-hint">search nhanh: snorkeling, diving, hiking, camping, contact</p> <!-- ✅ NEW -->
-    <div class="mobile-search-results" aria-live="polite"></div> <!-- ✅ NEW -->
+    <p class="mobile-search-hint">search nhanh: snorkeling, diving, hiking, camping, contact</p> 
+    <div class="mobile-search-results" aria-live="polite"></div> 
   </div>
 </div>
-<!-- ✅ NEW: production-safe content wrapper; header stays outside main and loads first -->
+<!-- =====================================================
+  ✅ NEW: MODULE 04 — MAIN CONTENT ROOT
+  MAP: 04-main-root / 04-site-content
+  PURPOSE: Main page content wrapper. Header intentionally stays outside this root.
+===================================================== -->
+
 <main id="site-content" class="site-content">
+<!-- =====================================================
+  ✅ NEW: MODULE 05 — HERO MODULE
+  MAP: 05-hero-root / 05-hero-title / 05-hero-story / 05-hero-cta
+  PURPOSE: Landing hero, guide tagline, intro story, and Leave no trace CTA.
+===================================================== -->
 <section class="hero">
   <div class="overlay"></div>
-  <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div> <!-- ✅ NEW -->
-  <!-- ✅ NEW: CHECK AVALIBILITY MEMO -->
+  <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div> 
+  <!-- =====================================================
+    ✅ NEW: MODULE 06.1 — BOOKING FLOATING TRIGGER
+    MAP: 06-booking-floating-trigger / 06-booking-floating-card / 06-booking-floating-calendar-icon
+    PURPOSE: Floating booking availability trigger inside hero.
+  ===================================================== -->
+  
   <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
     <span class="availability-memo-card" aria-hidden="true">
       <span class="availability-calendar-icon">
@@ -1960,38 +2091,48 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   </button>
   <div class="content">
   <h1 class="title">
-  <span class="title-desktop"> <!-- ✅ UPDATED -->
-    <span class="title-desktop-line title-desktop-line-1">khám phá</span> <!-- ✅ NEW -->
-    <span class="title-desktop-line title-desktop-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  <span class="title-desktop"> 
+    <span class="title-desktop-line title-desktop-line-1">khám phá</span> 
+    <span class="title-desktop-line title-desktop-line-2">"Phú Quốc Của Tôi"</span> 
   </span>
-  <span class="title-mobile-line title-mobile-line-1">Khám phá</span> <!-- ✅ NEW -->
-  <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> <!-- ✅ NEW -->
+  <span class="title-mobile-line title-mobile-line-1">Khám phá</span> 
+  <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> 
 </h1>
     <div class="story">
       <p>
 Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
     </div>
     <div class="cta-row">
-      <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false"> <!-- ✅ NEW -->
+      <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false"> 
         <span>let's...</span>
         <label class="checkbox">
-          <input type="checkbox" id="leaveNoTraceCheckbox"> <!-- ✅ NEW -->
+          <input type="checkbox" id="leaveNoTraceCheckbox"> 
           <span class="fake-box"></span>
         </label>
         <span>"Leave no trace"</span>
       </span>
-      <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span> <!-- ✅ NEW -->
+      <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span> 
     </div>
   </div>
 </section>
-<button class="mobile-edge-pad" type="button" aria-label="Mở phần thông tin bên dưới" aria-controls="more-stories-section"></button> <!-- ✅ NEW -->
-<!-- ✅ NEW: POLICY POPUP -->
+<!-- =====================================================
+  ✅ NEW: MODULE 07 — MOBILE EDGE PAD MODULE
+  MAP: 07-mobile-edge-pad-root / 07-mobile-edge-pad-trigger / 07-mobile-edge-pad-hidden-state
+  PURPOSE: Mobile bottom edge handle for opening or returning to the scrollable home area.
+===================================================== -->
+<button class="mobile-edge-pad" type="button" aria-label="Mở phần thông tin bên dưới" aria-controls="more-stories-section"></button> 
+<!-- =====================================================
+  ✅ NEW: MODULE 08 — POLICY / LEAVE NO TRACE POLICY MODULE
+  MAP: 08-policy-popup-root / 08-policy-popup-card / 08-policy-popup-action / 08-policy-popup-guidelines
+  PURPOSE: Leave no trace policy dialog, action button, and guidelines panel.
+===================================================== -->
+
 <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
   <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
     <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
-    <div class="policy-popup-media-row" aria-hidden="true"> <!-- ✅ UPDATED -->
-      <div class="policy-popup-logo-slot"></div> <!-- ✅ UPDATED -->
-      <img class="policy-popup-menu-vector" src="images/menu.png" alt="" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+    <div class="policy-popup-media-row" aria-hidden="true"> 
+      <div class="policy-popup-logo-slot"></div> 
+      <img class="policy-popup-menu-vector" src="images/menu.png" alt="" loading="lazy" decoding="async"> 
     </div>
     <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
     <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
@@ -1999,19 +2140,24 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
       <span class="sr-only">"Leave no trace"</span>
     </button>
-    <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button> <!-- ✅ NEW -->
-    <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true"> <!-- ✅ NEW -->
-      <ul class="policy-popup-guidelines-list"> <!-- ✅ NEW -->
-        <li>do not step on coral</li> <!-- ✅ NEW -->
-        <li>do not litter</li> <!-- ✅ NEW -->
-        <li>do not bring back coral, even dead coral</li> <!-- ✅ NEW -->
-        <li>together clean up everything after your tour</li> <!-- ✅ NEW -->
-        <li>try to stay organic</li> <!-- ✅ NEW -->
+    <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button> 
+    <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true"> 
+      <ul class="policy-popup-guidelines-list"> 
+        <li>do not step on coral</li> 
+        <li>do not litter</li> 
+        <li>do not bring back coral, even dead coral</li> 
+        <li>together clean up everything after your tour</li> 
+        <li>try to stay organic</li> 
       </ul>
     </div>
   </div>
 </div>
-<!-- ✅ NEW: POPUP -->
+<!-- =====================================================
+  ✅ NEW: MODULE 09 — TOUR SELECTION POPUP MODULE
+  MAP: 09-tour-popup-root / 09-tour-card-list / 09-tour-card-item
+  PURPOSE: Leave no trace confirmation popup and horizontal tour/knowledge card selector.
+===================================================== -->
+
 <div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
   <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
     <div class="popup-head">
@@ -2025,58 +2171,63 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     <div class="popup-note">
   Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
 </div>
-<!-- ✅ NEW: 5 block -->
-<div class="popup-notes-shell"> <!-- ✅ NEW -->
-  <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button> <!-- ✅ NEW -->
+
+<div class="popup-notes-shell"> 
+  <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button> 
   <div class="popup-notes">
-  <div class="popup-note-item" data-tour="snorkeling" role="button" tabindex="0" aria-label="Open snorkeling experience page"> <!-- ✅ UPDATED -->
+  <div class="popup-note-item" data-tour="snorkeling" role="button" tabindex="0" aria-label="Open snorkeling experience page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="images/snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">snorkeling</span>
   </div>
-  <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page"> <!-- ✅ NEW -->
+  <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/diving.JPG" alt="diving" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <img class="popup-note-img" src="images/diving.JPG" alt="diving" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">diving</span>
   </div>
-  <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page"> <!-- ✅ NEW -->
+  <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="images/hinking.png" alt="hiking" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">hiking</span>
   </div>
-  <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page"> <!-- ✅ UPDATED -->
+  <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/camping.png" alt="camping" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="images/camping.png" alt="camping" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">camping</span>
   </div>
-  <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page"> <!-- ✅ UPDATED -->
+  <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/propose.jpg" alt="propose" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="images/propose.jpg" alt="propose" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">propose</span>
   </div>
-  <div class="popup-note-item" data-tour="phuQuocTipAndTrick" role="button" tabindex="0" aria-label="Open Phu Quoc tip and trick page"> <!-- ✅ NEW -->
+  <div class="popup-note-item" data-tour="phuQuocTipAndTrick" role="button" tabindex="0" aria-label="Open Phu Quoc tip and trick page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/phuquoctipandtrick.png" alt="phu quoc tip and trick" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <img class="popup-note-img" src="images/phuquoctipandtrick.png" alt="phu quoc tip and trick" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">phu quoc tip and trick</span>
   </div>
-  <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page"> <!-- ✅ UPDATED -->
+  <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page"> 
     <div class="popup-note-box">
-      <img class="popup-note-img" src="images/coral-dictionary.jpg" alt="coral dictionary" loading="lazy" decoding="async"> <!-- ✅ REQUIRED FIX -->
+      <img class="popup-note-img" src="images/coral-dictionary.jpg" alt="coral dictionary" loading="lazy" decoding="async"> 
     </div>
     <span class="popup-note-label">coral dictionary</span>
   </div>
-  </div> <!-- popup-notes --> <!-- ✅ REQUIRED FIX -->
-  <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button> <!-- ✅ NEW -->
-</div> <!-- popup-notes-shell --> <!-- ✅ NEW -->
-</div> <!-- popup-card --> <!-- ✅ REQUIRED FIX -->
-</div> <!-- popup-backdrop --> <!-- ✅ REQUIRED FIX -->
-<!-- ✅ NEW: CHECK AVALIBILITY POPUP -->
+  </div> <!-- popup-notes --> 
+  <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button> 
+</div> <!-- popup-notes-shell --> 
+</div> <!-- popup-card --> 
+</div> <!-- popup-backdrop --> 
+<!-- =====================================================
+  ✅ NEW: MODULE 06.2 — BOOKING / AVAILABILITY POPUP MODULE
+  MAP: 06-booking-popup / 06-booking-calendar / 06-booking-message / 06-booking-tour-list
+  PURPOSE: Booking calendar, date state UI, primary action, and tour list after date selection.
+===================================================== -->
+
 <div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
   <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
     <button class="availability-popup-close" type="button" aria-label="Đóng lịch">×</button>
@@ -2093,52 +2244,57 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
     </div>
     <div class="availability-days" id="availabilityDays"></div>
-<div class="availability-message" id="availabilityMessage" role="status" aria-live="polite"></div> <!-- ✅ NEW -->
-    <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button> <!-- ✅ UPDATED -->
-    <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true"> <!-- ✅ NEW -->
-      <div class="availability-tour-item" data-tour="snorkeling"> <!-- ✅ NEW -->
-        <div class="availability-tour-box"> <!-- ✅ NEW -->
-          <img class="availability-tour-img" src="images/snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+<div class="availability-message" id="availabilityMessage" role="status" aria-live="polite"></div> 
+    <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button> 
+    <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true"> 
+      <div class="availability-tour-item" data-tour="snorkeling"> 
+        <div class="availability-tour-box"> 
+          <img class="availability-tour-img" src="images/snorkeling.jpg" alt="snorkeling" loading="lazy" decoding="async"> 
         </div>
-        <span class="availability-tour-label">snorkeling</span> <!-- ✅ NEW -->
+        <span class="availability-tour-label">snorkeling</span> 
       </div>
-      <div class="availability-tour-item" data-tour="diving"> <!-- ✅ NEW -->
-        <div class="availability-tour-box"> <!-- ✅ NEW -->
-          <img class="availability-tour-img" src="images/diving.JPG" alt="diving" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <div class="availability-tour-item" data-tour="diving"> 
+        <div class="availability-tour-box"> 
+          <img class="availability-tour-img" src="images/diving.JPG" alt="diving" loading="lazy" decoding="async"> 
         </div>
-        <span class="availability-tour-label">diving</span> <!-- ✅ NEW -->
+        <span class="availability-tour-label">diving</span> 
       </div>
-      <div class="availability-tour-item" data-tour="hiking"> <!-- ✅ NEW -->
-        <div class="availability-tour-box"> <!-- ✅ NEW -->
-          <img class="availability-tour-img" src="images/hinking.png" alt="hiking" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <div class="availability-tour-item" data-tour="hiking"> 
+        <div class="availability-tour-box"> 
+          <img class="availability-tour-img" src="images/hinking.png" alt="hiking" loading="lazy" decoding="async"> 
         </div>
-        <span class="availability-tour-label">hiking</span> <!-- ✅ NEW -->
+        <span class="availability-tour-label">hiking</span> 
       </div>
-      <div class="availability-tour-item" data-tour="camping"> <!-- ✅ NEW -->
-        <div class="availability-tour-box"> <!-- ✅ NEW -->
-          <img class="availability-tour-img" src="images/camping.png" alt="camping" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <div class="availability-tour-item" data-tour="camping"> 
+        <div class="availability-tour-box"> 
+          <img class="availability-tour-img" src="images/camping.png" alt="camping" loading="lazy" decoding="async"> 
         </div>
-        <span class="availability-tour-label">camping</span> <!-- ✅ NEW -->
+        <span class="availability-tour-label">camping</span> 
       </div>
-      <div class="availability-tour-item" data-tour="propose"> <!-- ✅ NEW -->
-        <div class="availability-tour-box"> <!-- ✅ NEW -->
-          <img class="availability-tour-img" src="images/propose.jpg" alt="propose" loading="lazy" decoding="async"> <!-- ✅ NEW -->
+      <div class="availability-tour-item" data-tour="propose"> 
+        <div class="availability-tour-box"> 
+          <img class="availability-tour-img" src="images/propose.jpg" alt="propose" loading="lazy" decoding="async"> 
         </div>
-        <span class="availability-tour-label">propose</span> <!-- ✅ NEW -->
+        <span class="availability-tour-label">propose</span> 
       </div>
-    </div> <!-- ✅ NEW -->
+    </div> 
   </div>
 </div>
-<!-- ✅ NEW: CONTACT POPUP -->
+<!-- =====================================================
+  ✅ NEW: MODULE 10 — CONTACT / ABOUT MODULE
+  MAP: 10-contact-popup / 10-contact-phone / 10-contact-story / 10-contact-social-list
+  PURPOSE: About Us contact dialog opened from the header logo.
+===================================================== -->
+
 <div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
   <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
-    <div class="contact-popup-header"> <!-- ✅ NEW -->
-      <img class="contact-popup-header-vector" src="images/menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true"> <!-- ✅ NEW -->
-      <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div> <!-- ✅ UPDATED -->
-      <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button> <!-- ✅ UPDATED -->
-    </div> <!-- ✅ NEW -->
-    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398"><span class="contact-phone-icon" aria-hidden="true">☎</span><span class="contact-phone-number">+84 812233398</span></a> <!-- ✅ UPDATED -->
-    <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p> <!-- ✅ NEW -->
+    <div class="contact-popup-header"> 
+      <img class="contact-popup-header-vector" src="images/menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true"> 
+      <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div> 
+      <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button> 
+    </div> 
+    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398"><span class="contact-phone-icon" aria-hidden="true">☎</span><span class="contact-phone-number">+84 812233398</span></a> 
+    <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p> 
     <div class="contact-social-list" aria-label="Kênh liên hệ">  
       <span class="contact-social-item" aria-label="facebook">  
         <span class="contact-social-icon facebook" aria-hidden="true">f</span>  
@@ -2160,37 +2316,37 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
         <span class="contact-social-icon tiktok" aria-hidden="true">♪</span>  
         <span class="contact-social-label">tiktok</span>  
       </span>
-      <span class="contact-social-item" aria-label="youtube"> <!-- ✅ NEW -->
-        <span class="contact-social-icon youtube" aria-hidden="true">▶</span> <!-- ✅ NEW -->
-        <span class="contact-social-label">youtube</span> <!-- ✅ NEW -->
-      </span> <!-- ✅ NEW -->
-      <span class="contact-social-item" aria-label="wechat"> <!-- ✅ NEW -->
-        <span class="contact-social-icon wechat" aria-hidden="true">💬</span> <!-- ✅ NEW -->
-        <span class="contact-social-label">wechat</span> <!-- ✅ NEW -->
-      </span> <!-- ✅ NEW -->
-      <span class="contact-social-item" aria-label="google map"> <!-- ✅ NEW -->
-        <span class="contact-social-icon google-map" aria-hidden="true">⌖</span> <!-- ✅ NEW -->
-        <span class="contact-social-label">google map</span> <!-- ✅ NEW -->
-      </span> <!-- ✅ NEW -->
-      <span class="contact-social-item" aria-label="maill"> <!-- ✅ NEW -->
-        <span class="contact-social-icon maill" aria-hidden="true">@</span> <!-- ✅ NEW -->
-        <span class="contact-social-label">maill</span> <!-- ✅ NEW -->
-      </span> <!-- ✅ NEW -->
-      <span class="contact-social-item" aria-label="line"> <!-- ✅ NEW -->
-        <span class="contact-social-icon line" aria-hidden="true">L</span> <!-- ✅ NEW -->
-        <span class="contact-social-label">line</span> <!-- ✅ NEW -->
-      </span> <!-- ✅ NEW -->
+      <span class="contact-social-item" aria-label="youtube"> 
+        <span class="contact-social-icon youtube" aria-hidden="true">▶</span> 
+        <span class="contact-social-label">youtube</span> 
+      </span> 
+      <span class="contact-social-item" aria-label="wechat"> 
+        <span class="contact-social-icon wechat" aria-hidden="true">💬</span> 
+        <span class="contact-social-label">wechat</span> 
+      </span> 
+      <span class="contact-social-item" aria-label="google map"> 
+        <span class="contact-social-icon google-map" aria-hidden="true">⌖</span> 
+        <span class="contact-social-label">google map</span> 
+      </span> 
+      <span class="contact-social-item" aria-label="maill"> 
+        <span class="contact-social-icon maill" aria-hidden="true">@</span> 
+        <span class="contact-social-label">maill</span> 
+      </span> 
+      <span class="contact-social-item" aria-label="line"> 
+        <span class="contact-social-icon line" aria-hidden="true">L</span> 
+        <span class="contact-social-label">line</span> 
+      </span> 
     </div>
-    <div class="contact-footer-text">find me on what you have</div> <!-- ✅ NEW -->
+    <div class="contact-footer-text">find me on what you have</div> 
   </div>
 </div>
-<!-- ✅ UPDATED: STORY EXPAND SECTION REBUILD -->
-<!-- ✅ NEW: DESIGNATED SCROLLABLE HOME ROOT
-  IMPORTANT FOR FUTURE AI / DEVELOPERS:
-  This is the intended real homepage area after the intro/tour flow.
-  The page must be allowed to scroll here.
-  Do not treat landing here or scrolling inside this area as a bug.
--->
+<!-- =====================================================
+  ✅ NEW: MODULE 11 — SCROLLABLE HOME MODULE
+  MAP: 11-scroll-home-root / 11-scroll-home-title / 11-scroll-home-intro / 11-scroll-home-back-button
+  PURPOSE: Intended scrollable homepage area after the intro/tour flow.
+===================================================== -->
+
+
 <section
   class="more-stories-section"
   id="more-stories-section"
@@ -2202,12 +2358,17 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   <div class="more-stories-inner">
     <p class="more-stories-kicker">Billy and Friend Adventures</p>
     <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
-<p class="more-stories-quote">"Some laugh because we are different.<br>We smile because we choose not to be the same."</p> <!-- ✅ NEW -->
+<p class="more-stories-quote">"Some laugh because we are different.<br>We smile because we choose not to be the same."</p> 
 <p class="more-stories-intro">Choose a slower, more personal way to discover Phú Quốc through coral-friendly snorkeling, private diving, quiet hiking routes, island camping, proposal getaways, and practical coral knowledge shaped by a Leave no trace mindset.</p>
 
 
     <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Back to tour choices">Back to tours</button>
 
+    <!-- =====================================================
+      ✅ NEW: MODULE 12 — SERVICE LINK GRID MODULE
+      MAP: 12-service-grid-root / 12-service-card / 12-service-card-link-label
+      PURPOSE: Compact semantic landing-page link grid for private Phú Quốc experiences.
+    ===================================================== -->
     <div class="more-services-block" aria-labelledby="moreServicesTitle">
       <h3 class="more-section-label" id="moreServicesTitle">Compact semantic layer</h3>
       <div class="more-services-grid" aria-label="Private Phú Quốc tour landing pages">
@@ -2244,6 +2405,11 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       </div>
     </div>
 
+    <!-- =====================================================
+      ✅ NEW: MODULE 13 — HOME ACCORDION MODULE
+      MAP: 13-accordion-root / 13-accordion-item / 13-accordion-summary / 13-accordion-panel
+      PURPOSE: Expandable Leave no trace, FAQ, and contact platform information.
+    ===================================================== -->
     <div class="more-accordion-block" aria-labelledby="moreAccordionTitle">
       <h3 class="more-section-label" id="moreAccordionTitle">Accordion</h3>
       <div class="more-accordion-list">
@@ -2285,6 +2451,11 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
           <summary class="more-accordion-summary">Contact platforms</summary>
           <div class="more-accordion-panel">
             <p>Find Billy and Friend Adventures on the contact platform you already use. Direct links will be mapped after the official channels are ready.</p>
+            <!-- =====================================================
+              ✅ NEW: MODULE 14 — CONTACT PLATFORM CHIPS MODULE
+              MAP: 14-platform-chips-root / 14-platform-chip
+              PURPOSE: Platform name chips inside the Contact platforms accordion panel.
+            ===================================================== -->
             <div class="more-contact-platforms" aria-label="Contact platform names">
               <span class="more-contact-platform">facebook</span>
               <span class="more-contact-platform">telegram</span>
@@ -2304,87 +2475,32 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   </div>
 </section>
 </main>
-<script>
-/* ✅ UPDATED: MAP LANDING PAGE FOR POPUP CARDS */
-(function () {
-  const tourLinks = { /* ✅ UPDATED */
-    diving: "./diving-island-phu-quoc.html", /* ✅ NEW */
-    hiking: "./hiking-mountain-phu-quoc.html", /* ✅ UPDATED */
-    propose: "./propose-island-phu-quoc.html", /* ✅ UPDATED */
-    camping: "./camping-island-phu-quoc.html", /* ✅ UPDATED */
-    coralDictionary: "./coral-dictionary-at-phu-quoc.html" /* ✅ NEW */
-  };
-
-  document.querySelectorAll('.popup-note-item[data-tour]').forEach((card) => {
-    const tour = card.dataset.tour;
-
-    if (tour === "snorkeling") return; /* ✅ UPDATED: keep existing snorkeling handler in navigation.js */
-    if (!tourLinks[tour]) return;
-
-    card.style.cursor = "pointer"; /* ✅ NEW */
-
-    const goToTourPage = () => {
-      window.location.href = tourLinks[tour]; /* ✅ UPDATED */
-    };
-
-    card.addEventListener('click', goToTourPage); /* ✅ NEW */
-
-    card.addEventListener('keydown', (event) => { /* ✅ NEW */
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        goToTourPage();
-      }
-    });
-  });
-}());
-</script>
-<script>
-/* ✅ NEW: HEADER MENU BUTTON CLICK STATE - ready for future module */
-(function () {
-  const menuTrigger = document.querySelector('.menu-trigger');
-  if (!menuTrigger) return; /* ✅ REQUIRED FIX */
-  menuTrigger.addEventListener('click', function () {
-    menuTrigger.setAttribute('aria-expanded', menuTrigger.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
-  });
-}());
-</script>
-<script>
-/* ✅ NEW: MOBILE STORY TYPEWRITER */
-(function () {
-  const STORY_TYPEWRITER_MOBILE_QUERY = '(max-width: 768px)'; /* ✅ NEW */
-  const STORY_TYPEWRITER_DELAY = 35; /* ✅ NEW: 35ms mỗi ký tự */
-  const story = document.querySelector('.story'); /* ✅ NEW */
-  const storyParagraph = story ? story.querySelector('p') : null; /* ✅ NEW */
-  if (!story || !storyParagraph) return; /* ✅ REQUIRED FIX */
-  if (!window.matchMedia(STORY_TYPEWRITER_MOBILE_QUERY).matches) return; /* ✅ NEW: chỉ mobile */
-  if (story.dataset.typewriterInitialized === 'true') return; /* ✅ REQUIRED FIX */
-  story.dataset.typewriterInitialized = 'true'; /* ✅ NEW */
-  const fullStoryText = storyParagraph.textContent.trim(); /* ✅ NEW */
-  if (!fullStoryText) return; /* ✅ REQUIRED FIX */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { /* ✅ NEW */
-    storyParagraph.textContent = fullStoryText; /* ✅ NEW */
-    story.classList.add('is-story-typewriter-active', 'is-story-typewriter-done'); /* ✅ NEW */
-    return; /* ✅ NEW */
-  }
-  let currentIndex = 0; /* ✅ NEW */
-  story.classList.add('is-story-typewriter-pending'); /* ✅ NEW */
-  storyParagraph.textContent = ''; /* ✅ NEW */
-  window.requestAnimationFrame(function () { /* ✅ NEW */
-    story.classList.remove('is-story-typewriter-pending'); /* ✅ NEW */
-    story.classList.add('is-story-typewriter-active'); /* ✅ NEW */
-    const typeNextCharacter = function () { /* ✅ NEW */
-      currentIndex += 1; /* ✅ NEW */
-      storyParagraph.textContent = fullStoryText.slice(0, currentIndex); /* ✅ NEW */
-      if (currentIndex < fullStoryText.length) { /* ✅ NEW */
-        window.setTimeout(typeNextCharacter, STORY_TYPEWRITER_DELAY); /* ✅ NEW */
-        return; /* ✅ NEW */
-      }
-      story.classList.add('is-story-typewriter-done'); /* ✅ NEW */
-    };
-    window.setTimeout(typeNextCharacter, STORY_TYPEWRITER_DELAY); /* ✅ NEW */
-  });
-}());
-</script>
+<!-- =====================================================
+  ✅ UPDATED: MODULE 15 — TOUR CARD LINKS MODULE
+  MAP: 15-script-tour-navigation-root / 15-script-tour-link-map / 15-script-tour-card-binding
+  FILE: ./js/modules/tour-card-links.js
+  PURPOSE: External JS module that maps popup tour cards to landing pages. Snorkeling remains handled by external navigation logic.
+===================================================== -->
+<script type="module" src="./js/modules/tour-card-links.js"></script>
+<!-- =====================================================
+  ✅ UPDATED: MODULE 16 — HEADER MENU STATE MODULE
+  MAP: 16-script-header-menu-state-root / 16-script-menu-expanded-toggle
+  FILE: ./js/modules/header-menu-state.js
+  PURPOSE: External JS module that toggles aria-expanded state for the header menu trigger.
+===================================================== -->
+<script type="module" src="./js/modules/header-menu-state.js"></script>
+<!-- =====================================================
+  ✅ UPDATED: MODULE 17 — MOBILE STORY TYPEWRITER MODULE
+  MAP: 17-script-mobile-story-typewriter-root / 17-script-typewriter-config / 17-script-typewriter-loop
+  FILE: ./js/modules/mobile-story-typewriter.js
+  PURPOSE: External JS module that renders the hero story text with a mobile-only typewriter effect.
+===================================================== -->
+<script type="module" src="./js/modules/mobile-story-typewriter.js"></script>
+<!-- =====================================================
+  ✅ NEW: MODULE 18 — MAIN JS ENTRY
+  MAP: 18-main-js-entry / 18-main-module-loader
+  PURPOSE: External JavaScript module entry point.
+===================================================== -->
 <script type="module" src="./js/main.js"></script>
 </body>
 </html>
