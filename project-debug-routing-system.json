@@ -1,0 +1,857 @@
+{
+  "systemName": "Project Debug Routing System",
+  "version": "pdrs-01-core-router-index-html",
+  "language": "vi",
+  "createdFrom": [
+    "index.html"
+  ],
+  "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
+  "scope": {
+    "level": "project-wide-v1",
+    "status": "core-router-from-index-html-only",
+    "note": "PDRS-01 chưa đọc sâu source CSS/JS. Các CSS/JS files sẽ được ingest dần theo batch 2-3 file/lần ở các bước tiếp theo."
+  },
+  "runtimeChangePolicy": {
+    "indexHtmlChange": "comment-anchor-only",
+    "cssAdded": false,
+    "jsAdded": false,
+    "bodyChanged": false,
+    "textChanged": false,
+    "classIdAttributeChanged": false
+  },
+  "knownFiles": {
+    "htmlEntry": [
+      "index.html"
+    ],
+    "cssLoadOrder": [
+      "./css/home-hero-tour-popup.css",
+      "./css/card-01-intro.css",
+      "./css/card-02-service-01.css",
+      "./css/card-03-service-02.css",
+      "./css/card-04-service-03.css",
+      "./css/card-05-service-04.css",
+      "./css/card-06-service-05.css",
+      "./css/card-07-service-06.css",
+      "./css/card-08-accordion-01.css",
+      "./css/card-09-accordion-02.css",
+      "./css/card-10-accordion-03.css",
+      "./css/modules/06-availability-booking.css",
+      "./css/modules/10-contact-popup.css",
+      "./css/modules/08-policy-popup.css",
+      "./css/modules/11-scroll-home-composite.css",
+      "./css/modules/03-mobile-search.css",
+      "./css/modules/07-mobile-edge-pad.css",
+      "./css/modules/09-tour-snorkeling-transition.css",
+      "./css/modules/01-global-motion.css",
+      "./css/modules/17-mobile-story-typewriter.css"
+    ],
+    "jsLoadOrder": [
+      "./js/modules/tour-card-links.js",
+      "./js/modules/header-menu-state.js",
+      "./js/modules/mobile-story-typewriter.js",
+      "./js/main.js"
+    ],
+    "knownRoutePagesFromIndex": [
+      "./camping-island-phu-quoc.html",
+      "./coral-dictionary-at-phu-quoc.html",
+      "./coral-snorkeling-phu-quoc.html",
+      "./diving-island-phu-quoc.html",
+      "./hiking-mountain-phu-quoc.html",
+      "./propose-island-phu-quoc.html"
+    ]
+  },
+  "uploadPolicyForFutureDebug": {
+    "defaultFilesToUpload": [
+      "project-debug-routing-system.json",
+      "index.html"
+    ],
+    "batchLimitPreference": "2-3 files/lần",
+    "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
+    "nextRecommendedCssBatch": [
+      "css/home-hero-tour-popup.css",
+      "css/modules/03-mobile-search.css",
+      "css/modules/06-availability-booking.css"
+    ]
+  },
+  "projectInvariants": [
+    {
+      "id": "header-always-visible",
+      "rule": "Header phải luôn fixed/visible trên tất cả page và không bị che. Mọi content/popup cần tôn trọng header và z-index.",
+      "primaryAreas": [
+        "02-header-system",
+        "z-index-overlay-stack"
+      ],
+      "firstFilesToInspect": [
+        "css/home-hero-tour-popup.css",
+        "css/modules/03-mobile-search.css",
+        "css/modules/06-availability-booking.css",
+        "css/modules/08-policy-popup.css",
+        "css/modules/10-contact-popup.css"
+      ]
+    },
+    {
+      "id": "immutable-html-text",
+      "rule": "Không sửa text HTML/body nếu không được yêu cầu.",
+      "firstFilesToInspect": [
+        "index.html"
+      ]
+    },
+    {
+      "id": "external-css-only-after-step6j",
+      "rule": "Inline style registry đã remove. CSS active hiện nằm ở external CSS links.",
+      "firstFilesToInspect": [
+        "./css/home-hero-tour-popup.css",
+        "./css/card-01-intro.css",
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css",
+        "./css/card-04-service-03.css",
+        "./css/card-05-service-04.css",
+        "./css/card-06-service-05.css",
+        "./css/card-07-service-06.css",
+        "./css/card-08-accordion-01.css",
+        "./css/card-09-accordion-02.css",
+        "./css/card-10-accordion-03.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/10-contact-popup.css",
+        "./css/modules/08-policy-popup.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/modules/09-tour-snorkeling-transition.css",
+        "./css/modules/01-global-motion.css",
+        "./css/modules/17-mobile-story-typewriter.css"
+      ]
+    }
+  ],
+  "modules": {
+    "01-head-assets": {
+      "area": "head/meta/font/preload/css-js asset order",
+      "htmlModule": "MODULE 01 — HEAD / ASSET REGISTRY",
+      "cssFiles": [
+        "./css/home-hero-tour-popup.css",
+        "./css/card-01-intro.css",
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css",
+        "./css/card-04-service-03.css",
+        "./css/card-05-service-04.css",
+        "./css/card-06-service-05.css",
+        "./css/card-07-service-06.css",
+        "./css/card-08-accordion-01.css",
+        "./css/card-09-accordion-02.css",
+        "./css/card-10-accordion-03.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/10-contact-popup.css",
+        "./css/modules/08-policy-popup.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/modules/09-tour-snorkeling-transition.css",
+        "./css/modules/01-global-motion.css",
+        "./css/modules/17-mobile-story-typewriter.css"
+      ],
+      "jsFiles": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "head",
+        "link[rel=stylesheet]",
+        "link[rel=modulepreload]"
+      ],
+      "states": [],
+      "futureUploadIfBug": [
+        "index.html"
+      ]
+    },
+    "02-header-system": {
+      "area": "global header/logo/search/menu",
+      "htmlModule": "MODULE 02 — HEADER SYSTEM",
+      "cssFilesPrimary": [
+        "./css/home-hero-tour-popup.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/10-contact-popup.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/header-menu-state.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        "header",
+        ".logo",
+        "#logoTrigger",
+        ".header-search-trigger",
+        ".menu-trigger",
+        ".menu-trigger-icon"
+      ],
+      "states": [
+        "aria-expanded",
+        "aria-controls",
+        "aria-haspopup"
+      ],
+      "futureUploadIfBug": [
+        "css/home-hero-tour-popup.css",
+        "js/modules/header-menu-state.js",
+        "js/main.js"
+      ]
+    },
+    "03-mobile-search": {
+      "area": "mobile search trigger/dialog/form/results",
+      "htmlModule": "MODULE 03 — MOBILE SEARCH MODULE + MODULE 02.2",
+      "cssFilesPrimary": [
+        "./css/modules/03-mobile-search.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".header-search-trigger",
+        "#mobile-search-popup",
+        ".mobile-search-backdrop",
+        ".mobile-search-panel",
+        ".mobile-search-close",
+        ".mobile-search-form",
+        ".mobile-search-input",
+        ".mobile-search-results"
+      ],
+      "states": [
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/03-mobile-search.css",
+        "js/main.js"
+      ]
+    },
+    "05-hero-story-cta": {
+      "area": "hero/overlay/title/story/cta/Leave no trace trigger",
+      "htmlModule": "MODULE 05 — HERO MODULE",
+      "cssFilesPrimary": [
+        "./css/home-hero-tour-popup.css",
+        "./css/card-01-intro.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/17-mobile-story-typewriter.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/mobile-story-typewriter.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".hero",
+        ".overlay",
+        ".hero-guide-tagline",
+        ".content",
+        ".title",
+        ".title-desktop",
+        ".title-mobile-line",
+        ".story",
+        ".cta-row",
+        ".cta-trigger",
+        "#leaveNoTraceCheckbox"
+      ],
+      "states": [
+        "aria-controls",
+        "aria-expanded",
+        "storyCaretBlink"
+      ],
+      "futureUploadIfBug": [
+        "css/home-hero-tour-popup.css",
+        "css/card-01-intro.css",
+        "css/modules/17-mobile-story-typewriter.css",
+        "js/modules/mobile-story-typewriter.js"
+      ]
+    },
+    "06-booking-availability": {
+      "area": "availability memo/calendar popup/date state/tour list",
+      "htmlModule": "MODULE 06.1 + MODULE 06.2",
+      "cssFilesPrimary": [
+        "./css/modules/06-availability-booking.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#availabilityMemo",
+        "#availability-popup",
+        ".availability-popup-backdrop",
+        ".availability-popup-card",
+        ".availability-popup-close",
+        "#availabilityMonthLabel",
+        "#availabilityPrevMonth",
+        "#availabilityNextMonth",
+        "#availabilityDays",
+        "#availabilityMessage",
+        "#availabilityContactLink",
+        "#availabilityTourList",
+        ".availability-tour-item"
+      ],
+      "states": [
+        ".is-open",
+        "disabled",
+        "aria-hidden",
+        "aria-expanded",
+        "data-tour"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/06-availability-booking.css",
+        "js/main.js"
+      ]
+    },
+    "07-mobile-edge-pad": {
+      "area": "mobile bottom edge handle/scroll home trigger",
+      "htmlModule": "MODULE 07 — MOBILE EDGE PAD MODULE",
+      "cssFilesPrimary": [
+        "./css/modules/07-mobile-edge-pad.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/11-scroll-home-composite.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".mobile-edge-pad",
+        "#more-stories-section",
+        ".more-stories-back-button"
+      ],
+      "states": [
+        ".is-hidden",
+        "aria-controls",
+        "data-story-back-to-tours"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/07-mobile-edge-pad.css",
+        "css/modules/11-scroll-home-composite.css",
+        "js/main.js"
+      ]
+    },
+    "08-policy-popup": {
+      "area": "Leave no trace policy popup/guidelines",
+      "htmlModule": "MODULE 08 — POLICY / LEAVE NO TRACE POLICY MODULE",
+      "cssFilesPrimary": [
+        "./css/modules/08-policy-popup.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#policy-popup",
+        ".policy-popup-backdrop",
+        ".policy-popup-card",
+        ".policy-popup-close",
+        ".policy-popup-action",
+        ".policy-popup-guidelines-toggle",
+        "#policyGuidelines",
+        ".policy-popup-guidelines-list"
+      ],
+      "states": [
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/08-policy-popup.css",
+        "js/main.js"
+      ]
+    },
+    "09-tour-popup": {
+      "area": "tour selection popup/card scroller/snorkeling transition",
+      "htmlModule": "MODULE 09 — TOUR SELECTION POPUP MODULE",
+      "cssFilesPrimary": [
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/09-tour-snorkeling-transition.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/tour-card-links.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#leave-no-trace-popup",
+        ".popup-backdrop",
+        ".popup-card",
+        ".popup-close",
+        ".popup-notes-shell",
+        ".popup-notes",
+        ".popup-notes-arrow",
+        ".popup-note-item",
+        ".popup-note-item[data-tour=snorkeling]",
+        ".popup-note-box"
+      ],
+      "states": [
+        ".is-open",
+        ".is-snorkeling-transition-target",
+        "body.snorkeling-transition-ready",
+        "body.is-snorkeling-navigating",
+        "data-tour",
+        "aria-hidden"
+      ],
+      "futureUploadIfBug": [
+        "css/home-hero-tour-popup.css",
+        "css/modules/09-tour-snorkeling-transition.css",
+        "js/modules/tour-card-links.js",
+        "js/main.js"
+      ]
+    },
+    "10-contact-popup": {
+      "area": "contact/about popup/phone/social list",
+      "htmlModule": "MODULE 10 — CONTACT / ABOUT MODULE",
+      "cssFilesPrimary": [
+        "./css/modules/10-contact-popup.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#contact-popup",
+        ".contact-popup-backdrop",
+        ".contact-popup-card",
+        ".contact-popup-close",
+        "#logoTrigger",
+        "#contactPhoneLink",
+        ".contact-social-list",
+        ".contact-social-item"
+      ],
+      "states": [
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/10-contact-popup.css",
+        "js/main.js"
+      ]
+    },
+    "11-scroll-home-composite": {
+      "area": "scroll-home/service grid/accordion/platform chips",
+      "htmlModule": "MODULE 11 + MODULE 12 + MODULE 13 + MODULE 14",
+      "cssFilesPrimary": [
+        "./css/modules/11-scroll-home-composite.css"
+      ],
+      "cssFilesRelated": [
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css",
+        "./css/card-04-service-03.css",
+        "./css/card-05-service-04.css",
+        "./css/card-06-service-05.css",
+        "./css/card-07-service-06.css",
+        "./css/card-08-accordion-01.css",
+        "./css/card-09-accordion-02.css",
+        "./css/card-10-accordion-03.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#more-stories-section",
+        "#moreStoriesTitle",
+        ".more-stories-section",
+        ".more-stories-inner",
+        ".more-services-grid",
+        ".more-service-card",
+        ".more-accordion-item",
+        ".more-accordion-summary",
+        ".more-contact-platform"
+      ],
+      "states": [
+        "details[open]",
+        "data-home-root",
+        "data-home-behavior",
+        "data-return-target"
+      ],
+      "futureUploadIfBug": [
+        "css/modules/11-scroll-home-composite.css",
+        "js/main.js"
+      ]
+    }
+  },
+  "debugScenarios": {
+    "header-bi-che-hoac-lech": {
+      "userDescriptionExamples": [
+        "header bị che",
+        "logo lệch",
+        "menu icon sai",
+        "search icon header lệch"
+      ],
+      "routeToModule": "02-header-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/home-hero-tour-popup.css",
+        "css/modules/03-mobile-search.css",
+        "js/modules/header-menu-state.js"
+      ],
+      "selectors": [
+        "header",
+        ".logo",
+        ".header-search-trigger",
+        ".menu-trigger"
+      ]
+    },
+    "mobile-search-loi": {
+      "userDescriptionExamples": [
+        "search mobile không mở",
+        "search popup không đóng",
+        "kết quả search không hiện"
+      ],
+      "routeToModule": "03-mobile-search",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/modules/03-mobile-search.css",
+        "js/main.js"
+      ],
+      "selectors": [
+        ".header-search-trigger",
+        "#mobile-search-popup",
+        ".mobile-search-close",
+        ".mobile-search-results"
+      ]
+    },
+    "availability-booking-loi": {
+      "userDescriptionExamples": [
+        "calendar không mở",
+        "date state lỗi",
+        "nút chọn ngày sai",
+        "tour list booking lỗi"
+      ],
+      "routeToModule": "06-booking-availability",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/modules/06-availability-booking.css",
+        "js/main.js"
+      ],
+      "selectors": [
+        "#availabilityMemo",
+        "#availability-popup",
+        "#availabilityDays",
+        "#availabilityContactLink",
+        "#availabilityTourList"
+      ]
+    },
+    "policy-popup-loi": {
+      "userDescriptionExamples": [
+        "policy popup không mở",
+        "guidelines không expand",
+        "leave no trace policy lỗi"
+      ],
+      "routeToModule": "08-policy-popup",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/modules/08-policy-popup.css",
+        "js/main.js"
+      ],
+      "selectors": [
+        "#policy-popup",
+        ".policy-popup-guidelines-toggle",
+        "#policyGuidelines"
+      ]
+    },
+    "tour-popup-snorkeling-loi": {
+      "userDescriptionExamples": [
+        "popup tour lỗi",
+        "card snorkeling không chuyển trang",
+        "transition snorkeling trắng đen",
+        "arrow scroll card lỗi"
+      ],
+      "routeToModule": "09-tour-popup",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/home-hero-tour-popup.css",
+        "css/modules/09-tour-snorkeling-transition.css",
+        "js/modules/tour-card-links.js",
+        "js/main.js"
+      ],
+      "selectors": [
+        "#leave-no-trace-popup",
+        ".popup-note-item[data-tour=snorkeling]",
+        ".popup-notes-arrow",
+        "body.is-snorkeling-navigating"
+      ]
+    },
+    "contact-popup-loi": {
+      "userDescriptionExamples": [
+        "contact popup không mở",
+        "about us lệch",
+        "social list lỗi"
+      ],
+      "routeToModule": "10-contact-popup",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/modules/10-contact-popup.css",
+        "js/main.js"
+      ],
+      "selectors": [
+        "#contact-popup",
+        "#logoTrigger",
+        ".contact-social-list"
+      ]
+    },
+    "scroll-home-loi": {
+      "userDescriptionExamples": [
+        "scroll home sai",
+        "service grid sai",
+        "accordion lỗi",
+        "platform chips lệch",
+        "mobile edge pad không scroll"
+      ],
+      "routeToModule": "11-scroll-home-composite",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/modules/11-scroll-home-composite.css",
+        "css/modules/07-mobile-edge-pad.css",
+        "js/main.js"
+      ],
+      "selectors": [
+        "#more-stories-section",
+        ".more-services-grid",
+        ".more-accordion-item",
+        ".mobile-edge-pad"
+      ]
+    },
+    "z-index-overlay-conflict": {
+      "userDescriptionExamples": [
+        "popup nằm dưới header",
+        "backdrop che sai",
+        "overlay conflict",
+        "z-index sai"
+      ],
+      "routeToModule": "cross-module-overlay-stack",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/home-hero-tour-popup.css",
+        "css/modules/03-mobile-search.css",
+        "css/modules/06-availability-booking.css",
+        "css/modules/08-policy-popup.css",
+        "css/modules/10-contact-popup.css"
+      ],
+      "selectors": [
+        "header",
+        ".popup-backdrop",
+        ".mobile-search-backdrop",
+        ".availability-popup-backdrop",
+        ".policy-popup-backdrop",
+        ".contact-popup-backdrop"
+      ]
+    }
+  },
+  "registriesFromIndexHtml": {
+    "ids": [
+      "availability-popup",
+      "availabilityContactLink",
+      "availabilityDays",
+      "availabilityMemo",
+      "availabilityMessage",
+      "availabilityMonthLabel",
+      "availabilityNextMonth",
+      "availabilityPopupTitle",
+      "availabilityPrevMonth",
+      "availabilityTourList",
+      "contact-popup",
+      "contactPhoneLink",
+      "contactPopupTitle",
+      "leave-no-trace-popup",
+      "leaveNoTraceCheckbox",
+      "logoTrigger",
+      "mobile-search-popup",
+      "mobileSearchTitle",
+      "more-stories-section",
+      "moreAccordionTitle",
+      "moreServicesTitle",
+      "moreStoriesTitle",
+      "policy-popup",
+      "policyGuidelines",
+      "policyPopupTitle",
+      "popupTitle",
+      "site-content"
+    ],
+    "classes": [
+      "and",
+      "availability-calendar-grid",
+      "availability-calendar-head",
+      "availability-calendar-icon",
+      "availability-calendar-rings",
+      "availability-calendar-top",
+      "availability-contact",
+      "availability-days",
+      "availability-memo",
+      "availability-memo-card",
+      "availability-memo-hint",
+      "availability-memo-text",
+      "availability-message",
+      "availability-month-label",
+      "availability-nav",
+      "availability-popup-backdrop",
+      "availability-popup-card",
+      "availability-popup-close",
+      "availability-popup-desc",
+      "availability-popup-title",
+      "availability-tour-box",
+      "availability-tour-img",
+      "availability-tour-item",
+      "availability-tour-label",
+      "availability-tour-list",
+      "availability-weekdays",
+      "b1",
+      "b2",
+      "b3",
+      "billy",
+      "bubble",
+      "checkbox",
+      "contact-footer-text",
+      "contact-phone-icon",
+      "contact-phone-link",
+      "contact-phone-number",
+      "contact-popup-backdrop",
+      "contact-popup-card",
+      "contact-popup-close",
+      "contact-popup-drag-handle",
+      "contact-popup-header",
+      "contact-popup-header-vector",
+      "contact-popup-story",
+      "contact-social-icon",
+      "contact-social-item",
+      "contact-social-label",
+      "contact-social-list",
+      "content",
+      "cta-row",
+      "cta-trigger",
+      "facebook",
+      "fake-box",
+      "fish",
+      "friend",
+      "google-map",
+      "header-search-dots",
+      "header-search-icon",
+      "header-search-trigger",
+      "hero",
+      "hero-guide-tagline",
+      "js-loading",
+      "kakao",
+      "line",
+      "logo",
+      "maill",
+      "mask",
+      "menu-trigger",
+      "menu-trigger-icon",
+      "mobile-edge-pad",
+      "mobile-search-backdrop",
+      "mobile-search-close",
+      "mobile-search-form",
+      "mobile-search-head",
+      "mobile-search-hint",
+      "mobile-search-input",
+      "mobile-search-panel",
+      "mobile-search-results",
+      "mobile-search-submit",
+      "mobile-search-title",
+      "more-accordion-block",
+      "more-accordion-item",
+      "more-accordion-list",
+      "more-accordion-panel",
+      "more-accordion-summary",
+      "more-contact-platform",
+      "more-contact-platforms",
+      "more-faq-list",
+      "more-section-label",
+      "more-service-card",
+      "more-service-card-desc",
+      "more-service-card-link",
+      "more-service-card-title",
+      "more-services-block",
+      "more-services-grid",
+      "more-stories-back-button",
+      "more-stories-inner",
+      "more-stories-intro",
+      "more-stories-kicker",
+      "more-stories-quote",
+      "more-stories-section",
+      "more-stories-title",
+      "overlay",
+      "policy-popup-action",
+      "policy-popup-backdrop",
+      "policy-popup-card",
+      "policy-popup-close",
+      "policy-popup-copy",
+      "policy-popup-guidelines",
+      "policy-popup-guidelines-list",
+      "policy-popup-guidelines-toggle",
+      "policy-popup-logo-slot",
+      "policy-popup-media-row",
+      "policy-popup-menu-vector",
+      "policy-popup-title",
+      "policy-wave-text",
+      "popup-backdrop",
+      "popup-card",
+      "popup-close",
+      "popup-copy",
+      "popup-head",
+      "popup-note",
+      "popup-note-box",
+      "popup-note-img",
+      "popup-note-item",
+      "popup-note-label",
+      "popup-notes",
+      "popup-notes-arrow",
+      "popup-notes-arrow-left",
+      "popup-notes-arrow-right",
+      "popup-notes-shell",
+      "popup-title",
+      "quote",
+      "site-content",
+      "sr-only",
+      "story",
+      "telegram",
+      "text",
+      "text1",
+      "text2",
+      "text3",
+      "thanks",
+      "tiktok",
+      "title",
+      "title-desktop",
+      "title-desktop-line",
+      "title-desktop-line-1",
+      "title-desktop-line-2",
+      "title-mobile-line",
+      "title-mobile-line-1",
+      "title-mobile-line-2",
+      "wechat",
+      "youtube",
+      "zalo"
+    ],
+    "dataAttributes": [
+      "data-home-behavior",
+      "data-home-root",
+      "data-return-target",
+      "data-story-back-to-tours",
+      "data-tour"
+    ],
+    "ariaAttributes": [
+      "aria-controls",
+      "aria-expanded",
+      "aria-haspopup",
+      "aria-hidden",
+      "aria-label",
+      "aria-labelledby",
+      "aria-live",
+      "aria-modal"
+    ]
+  },
+  "nextSteps": {
+    "nextStepName": "PDRS-02 — CSS Source Ingestion Batch 1",
+    "recommendedUploadBatch": [
+      "css/home-hero-tour-popup.css",
+      "css/modules/03-mobile-search.css",
+      "css/modules/06-availability-booking.css"
+    ],
+    "goal": "Đọc sâu CSS source 2-3 file đầu tiên để bổ sung selector/media/z-index/cascade vào project-debug-routing-system.json."
+  }
+}
