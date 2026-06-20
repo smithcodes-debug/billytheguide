@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-7-root-card-css-inventory",
+  "version": "pdrs-01-8-js-module-inventory",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,11 +8,11 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "css-modules-and-root-card-css-accounted-js-inventory-pending",
-    "note": "PDRS-01.7 đã cập nhật kiểm kê root card CSS: toàn bộ 10 card CSS theo index.html đã được account; JS module inventory là bước tiếp theo."
+    "status": "js-module-inventory-partial-uploaded-files-accounted-main-and-gesture-pending",
+    "note": "PDRS-01.8 đã cập nhật kiểm kê các JS files đã upload: index-loaded modules, booking/payment/confirmation stubs, page entries, and snorkeling landing-page JS. main.js và ../ui/gesture.js vẫn cần upload để hoàn tất behavior graph."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "comment-anchor-only",
+    "indexHtmlChange": "none-metadata-map-only",
     "cssAdded": false,
     "jsAdded": false,
     "bodyChanged": false,
@@ -58,7 +58,28 @@
       "./diving-island-phu-quoc.html",
       "./hiking-mountain-phu-quoc.html",
       "./propose-island-phu-quoc.html"
-    ]
+    ],
+    "jsUploadedOrAccounted": [
+      "./js/modules/tour-card-links.js",
+      "./js/modules/header-menu-state.js",
+      "./js/modules/mobile-story-typewriter.js",
+      "./js/main.js",
+      "./js/modules/booking.js",
+      "./js/modules/confirmation.js",
+      "./js/modules/payment.js",
+      "./js/pages/hiking.js",
+      "./js/pages/camping.js",
+      "./js/pages/general.js",
+      "./js/pages/snorkeling.js",
+      "../ui/gesture.js"
+    ],
+    "jsInventoryNotes": {
+      "activeIndexJsLoadOrderUnchanged": true,
+      "uploadedJsAccounted": true,
+      "mainJsSourcePending": true,
+      "gestureJsSourcePending": true,
+      "note": "knownFiles.jsLoadOrder vẫn phản ánh index.html active runtime. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu ngoài index.html."
+    }
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -72,7 +93,11 @@
       "js/modules/header-menu-state.js",
       "js/modules/mobile-story-typewriter.js"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.7 css/modules + root card CSS accounted; JS inventory pending."
+    "currentInventoryCheckpoint": "PDRS-01.8 JS inventory partial: uploaded JS files accounted; main.js and gesture.js pending for complete behavior graph.",
+    "nextRecommendedJsBatch": [
+      "./js/main.js",
+      "../ui/gesture.js"
+    ]
   },
   "projectInvariants": [
     {
@@ -271,6 +296,7 @@
         "./css/modules/06-availability-booking.css"
       ],
       "jsFilesPrimary": [
+        "./js/modules/booking.js",
         "./js/main.js"
       ],
       "selectors": [
@@ -286,17 +312,30 @@
         "#availabilityMessage",
         "#availabilityContactLink",
         "#availabilityTourList",
-        ".availability-tour-item"
+        ".availability-tour-item",
+        ".availability-day",
+        ".is-open-date",
+        ".is-booked-date",
+        ".is-past",
+        ".is-too-soon",
+        ".is-selected-date"
       ],
       "states": [
         ".is-open",
         "disabled",
         "aria-hidden",
         "aria-expanded",
-        "data-tour"
+        "data-tour",
+        ".is-open-date",
+        ".is-booked-date",
+        ".is-past",
+        ".is-too-soon",
+        ".is-selected-date",
+        "data-date"
       ],
       "futureUploadIfBug": [
         "css/modules/06-availability-booking.css",
+        "./js/modules/booking.js",
         "js/main.js"
       ]
     },
@@ -464,6 +503,119 @@
       "futureUploadIfBug": [
         "css/modules/11-scroll-home-composite.css",
         "js/main.js"
+      ]
+    },
+    "20-snorkeling-page": {
+      "area": "snorkeling landing page/back button/video lazy-load/booking modal/prep modal/booking form/swipe back",
+      "htmlModule": "coral-snorkeling-phu-quoc.html — snorkeling landing page runtime module",
+      "cssFilesPrimary": [],
+      "cssFilesRelated": [],
+      "jsFilesPrimary": [
+        "./js/pages/snorkeling.js"
+      ],
+      "selectors": [
+        "#snorkelingBackButton",
+        "#snorkelingHeroVideo",
+        "#snorkelingBookingModal",
+        "#snorkelingPrepModal",
+        "#snorkelingBookingForm",
+        "#bookingDate",
+        "#bookingGuests",
+        "#bookingExperience",
+        "#bookingName",
+        "#bookingContact",
+        "#bookingWarning",
+        "#bookingSummary",
+        "#snorkelingConfirmation",
+        "[data-open-booking]",
+        "[data-open-prep]",
+        "[data-close-booking]",
+        "[data-close-prep]",
+        "input[name=\"payment\"]:checked",
+        "source[data-src]",
+        "button[type=\"submit\"]"
+      ],
+      "states": [
+        "document.body.is-ready",
+        ".is-open",
+        ".is-visible",
+        ".is-loaded",
+        "aria-hidden",
+        "bookingDate.min",
+        "submitButton.disabled",
+        "document.documentElement.style.overflow",
+        "document.body.style.overflow",
+        "touchstart",
+        "touchend",
+        "Escape"
+      ],
+      "behavior": [
+        "DOMContentLoaded initializes snorkeling page runtime.",
+        "Back button and left-edge swipe return user to index.html.",
+        "Booking/prep modals open via data attributes and close via close attributes, backdrop click, or Escape.",
+        "Booking date minimum is set to tomorrow.",
+        "Package price and submit disabled state are recalculated from guest count and experience type.",
+        "Booking submit renders summary into #snorkelingConfirmation.",
+        "Hero video lazy load exists but is intentionally disabled to prevent 404 console error."
+      ],
+      "futureUploadIfBug": [
+        "coral-snorkeling-phu-quoc.html",
+        "./js/pages/snorkeling.js",
+        "related snorkeling CSS file if visual/modal issue appears"
+      ]
+    },
+    "21-page-entry-modules": {
+      "area": "secondary landing page JS entries and shared page helper",
+      "htmlModule": "route pages outside active index.html",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/pages/hiking.js",
+        "./js/pages/camping.js",
+        "./js/pages/general.js",
+        "../ui/gesture.js"
+      ],
+      "selectors": [],
+      "states": [],
+      "behavior": [
+        "hiking.js imports initGesture from ../ui/gesture.js, logs Hiking page loaded, then initializes gesture and page function.",
+        "camping.js imports initGesture from ../ui/gesture.js, logs Camping page loaded, then initializes gesture and page function.",
+        "general.js exports initGeneralPage(pageName), logs pageName + page loaded, then initializes gesture."
+      ],
+      "futureUploadIfBug": [
+        "./js/pages/hiking.js",
+        "./js/pages/camping.js",
+        "./js/pages/general.js",
+        "../ui/gesture.js"
+      ]
+    },
+    "22-payment-confirmation-stubs": {
+      "area": "payment demo and booking confirmation rendering stubs",
+      "htmlModule": "unknown-or-secondary-booking-page",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/modules/payment.js",
+        "./js/modules/confirmation.js"
+      ],
+      "selectors": [
+        "#paymentButton",
+        "#confirmationBox"
+      ],
+      "states": [
+        "alert(Payment demo success)",
+        "confirmationBox.innerHTML"
+      ],
+      "behavior": [
+        "payment.js exports initPayment and binds click on #paymentButton if present.",
+        "confirmation.js exports showConfirmation(data) and renders name/guest confirmation into #confirmationBox if present."
+      ],
+      "riskNotes": [
+        "confirmation.js uses innerHTML with incoming data; sanitize before using untrusted user input.",
+        "#paymentButton and #confirmationBox were not found in active index.html inventory, so these files are likely page-specific or not integrated yet."
+      ],
+      "futureUploadIfBug": [
+        "./js/modules/payment.js",
+        "./js/modules/confirmation.js",
+        "HTML page containing #paymentButton or #confirmationBox"
       ]
     }
   },
@@ -640,6 +792,82 @@
         ".availability-popup-backdrop",
         ".policy-popup-backdrop",
         ".contact-popup-backdrop"
+      ]
+    },
+    "snorkeling-page-loi": {
+      "userDescriptionExamples": [
+        "snorkeling page lỗi",
+        "nút back snorkeling không hoạt động",
+        "booking modal snorkeling không mở",
+        "prep modal không đóng",
+        "booking snorkeling không submit",
+        "swipe back snorkeling lỗi",
+        "snorkeling video lỗi"
+      ],
+      "routeToModule": "20-snorkeling-page",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "coral-snorkeling-phu-quoc.html",
+        "./js/pages/snorkeling.js",
+        "related snorkeling CSS file if visual/modal issue appears"
+      ],
+      "selectors": [
+        "#snorkelingBackButton",
+        "#snorkelingHeroVideo",
+        "#snorkelingBookingModal",
+        "#snorkelingPrepModal",
+        "#snorkelingBookingForm",
+        "#bookingDate",
+        "#bookingGuests",
+        "#bookingExperience",
+        "#bookingName",
+        "#bookingContact",
+        "#bookingWarning",
+        "#bookingSummary",
+        "#snorkelingConfirmation",
+        "[data-open-booking]",
+        "[data-open-prep]",
+        "[data-close-booking]",
+        "[data-close-prep]",
+        "input[name=\"payment\"]:checked",
+        "source[data-src]",
+        "button[type=\"submit\"]"
+      ]
+    },
+    "page-gesture-loi": {
+      "userDescriptionExamples": [
+        "gesture page lỗi",
+        "hiking page gesture lỗi",
+        "camping page gesture lỗi",
+        "swipe page lỗi"
+      ],
+      "routeToModule": "21-page-entry-modules",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/pages/hiking.js",
+        "./js/pages/camping.js",
+        "./js/pages/general.js",
+        "../ui/gesture.js"
+      ],
+      "selectors": []
+    },
+    "payment-confirmation-loi": {
+      "userDescriptionExamples": [
+        "payment button không chạy",
+        "confirmation không hiện",
+        "booking confirmed không render",
+        "confirmationBox lỗi"
+      ],
+      "routeToModule": "22-payment-confirmation-stubs",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/modules/payment.js",
+        "./js/modules/confirmation.js",
+        "HTML page containing #paymentButton or #confirmationBox"
+      ],
+      "selectors": [
+        "#paymentButton",
+        "#confirmationBox"
       ]
     }
   },
@@ -847,13 +1075,12 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.8 — JS Module Inventory",
+    "nextStepName": "PDRS-01.9 — Complete JS Behavior Graph",
     "recommendedUploadBatch": [
-      "js/modules/tour-card-links.js",
-      "js/modules/header-menu-state.js",
-      "js/modules/mobile-story-typewriter.js"
+      "./js/main.js",
+      "../ui/gesture.js"
     ],
-    "goal": "Kiểm kê JS modules theo index.html trước khi ingest sâu behavior source."
+    "goal": "Hoàn tất mapping JS runtime bằng main entry và shared gesture dependency; sau đó mới refactor/sửa runtime nếu được yêu cầu."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -1136,5 +1363,235 @@
         "./js/modules/mobile-story-typewriter.js"
       ]
     }
+  },
+  "jsModuleInventory": {
+    "step": "PDRS-01.8 — JS Module Inventory",
+    "status": "partial-pass-uploaded-js-accounted-main-and-gesture-pending",
+    "updatedAtLocal": "2026-06-21T00:28:00+07:00",
+    "runtimeChangePolicy": {
+      "indexHtmlChanged": false,
+      "runtimeCssChanged": false,
+      "runtimeJsChanged": false,
+      "htmlTextChanged": false,
+      "note": "PDRS metadata updated only. No runtime JS/CSS/HTML source was modified."
+    },
+    "activeIndexHtmlCheck": {
+      "jsModuleScriptCount": 4,
+      "activeIndexJsLoadOrderUnchanged": true,
+      "activeIndexJsLoadOrder": [
+        "./js/modules/tour-card-links.js",
+        "./js/modules/header-menu-state.js",
+        "./js/modules/mobile-story-typewriter.js",
+        "./js/main.js"
+      ]
+    },
+    "uploadedJsReceivedOrAccounted": [
+      {
+        "path": "./js/modules/header-menu-state.js",
+        "status": "received-and-source-read",
+        "role": "MODULE 16 header menu aria-expanded toggle",
+        "primaryModule": "02-header-system",
+        "selectors": [
+          ".menu-trigger"
+        ],
+        "states": [
+          "aria-expanded"
+        ],
+        "coupling": "none"
+      },
+      {
+        "path": "./js/modules/tour-card-links.js",
+        "status": "received-and-source-read-implementation-incomplete",
+        "role": "MODULE 15 tour card route mapping for non-snorkeling cards",
+        "primaryModule": "09-tour-popup",
+        "selectors": [
+          ".popup-note-item[data-tour]"
+        ],
+        "states": [
+          "data-tour"
+        ],
+        "knownLimitation": "Source currently defines tourLinks and loops cards but does not attach click/keyboard navigation yet."
+      },
+      {
+        "path": "./js/modules/mobile-story-typewriter.js",
+        "status": "received-and-source-read-syntax-verify-required",
+        "role": "MODULE 17 mobile-only hero story typewriter",
+        "primaryModule": "05-hero-story-cta",
+        "selectors": [
+          ".story",
+          ".story p"
+        ],
+        "states": [
+          "is-story-typewriter-pending",
+          "is-story-typewriter-active",
+          "is-story-typewriter-done",
+          "data-typewriter-initialized"
+        ],
+        "knownIssue": "Uploaded source contains a required syntax fix area around the story/storyParagraph guard and the character loop is not completed."
+      },
+      {
+        "path": "./js/modules/booking.js",
+        "status": "received-and-source-read",
+        "role": "availability calendar, booking popup, date state, tour route bridge",
+        "primaryModule": "06-booking-availability",
+        "relatedModules": [
+          "09-tour-popup"
+        ],
+        "selectors": [
+          "#availabilityMemo",
+          "#availability-popup",
+          ".availability-popup-card",
+          ".availability-popup-close",
+          "#availabilityMonthLabel",
+          "#availabilityPrevMonth",
+          "#availabilityNextMonth",
+          "#availabilityDays",
+          "#availabilityMessage",
+          "#availabilityContactLink",
+          "#availabilityTourList",
+          ".availability-tour-item"
+        ],
+        "states": [
+          ".is-open",
+          ".is-open-date",
+          ".is-booked-date",
+          ".is-past",
+          ".is-too-soon",
+          ".is-selected-date",
+          "disabled",
+          "aria-hidden",
+          "aria-expanded",
+          "data-tour",
+          "data-date"
+        ],
+        "coupling": "cross-module bridge to 09-tour-popup via billy:open-home-tour-popup and Leave no trace popup fallback"
+      },
+      {
+        "path": "./js/pages/snorkeling.js",
+        "status": "received-and-source-read",
+        "role": "snorkeling landing page runtime: modal, booking form, price state, swipe-back, disabled lazy video load",
+        "primaryModule": "20-snorkeling-page",
+        "selectors": [
+          "#snorkelingBackButton",
+          "#snorkelingHeroVideo",
+          "#snorkelingBookingModal",
+          "#snorkelingPrepModal",
+          "#snorkelingBookingForm",
+          "#bookingDate",
+          "#bookingGuests",
+          "#bookingExperience",
+          "#bookingName",
+          "#bookingContact",
+          "#bookingWarning",
+          "#bookingSummary",
+          "#snorkelingConfirmation",
+          "[data-open-booking]",
+          "[data-open-prep]",
+          "[data-close-booking]",
+          "[data-close-prep]",
+          "input[name=\"payment\"]:checked",
+          "source[data-src]",
+          "button[type=\"submit\"]"
+        ],
+        "states": [
+          "document.body.is-ready",
+          ".is-open",
+          ".is-visible",
+          ".is-loaded",
+          "aria-hidden",
+          "bookingDate.min",
+          "submitButton.disabled",
+          "document.documentElement.style.overflow",
+          "document.body.style.overflow",
+          "touchstart",
+          "touchend",
+          "Escape"
+        ],
+        "coupling": "page-local"
+      },
+      {
+        "path": "./js/pages/hiking.js",
+        "status": "received-and-source-read",
+        "role": "hiking page entry",
+        "primaryModule": "21-page-entry-modules",
+        "imports": [
+          "../ui/gesture.js"
+        ],
+        "runtimeCalls": [
+          "initGesture",
+          "initHiking"
+        ],
+        "coupling": "depends-on-shared-gesture"
+      },
+      {
+        "path": "./js/pages/camping.js",
+        "status": "received-and-source-read",
+        "role": "camping page entry",
+        "primaryModule": "21-page-entry-modules",
+        "imports": [
+          "../ui/gesture.js"
+        ],
+        "runtimeCalls": [
+          "initGesture",
+          "initCamping"
+        ],
+        "coupling": "depends-on-shared-gesture"
+      },
+      {
+        "path": "./js/pages/general.js",
+        "status": "received-and-source-read",
+        "role": "shared page helper",
+        "primaryModule": "21-page-entry-modules",
+        "imports": [
+          "../ui/gesture.js"
+        ],
+        "exports": [
+          "initGeneralPage"
+        ],
+        "runtimeCalls": [
+          "initGesture"
+        ],
+        "coupling": "shared-helper"
+      },
+      {
+        "path": "./js/modules/payment.js",
+        "status": "received-and-source-read",
+        "role": "payment demo stub",
+        "primaryModule": "22-payment-confirmation-stubs",
+        "selectors": [
+          "#paymentButton"
+        ],
+        "states": [
+          "click",
+          "alert"
+        ],
+        "coupling": "low"
+      },
+      {
+        "path": "./js/modules/confirmation.js",
+        "status": "received-and-source-read",
+        "role": "confirmation render stub",
+        "primaryModule": "22-payment-confirmation-stubs",
+        "selectors": [
+          "#confirmationBox"
+        ],
+        "states": [
+          "innerHTML"
+        ],
+        "coupling": "low",
+        "risk": "innerHTML should not receive unsanitized untrusted input"
+      }
+    ],
+    "jsPendingForCompleteInventory": [
+      {
+        "path": "./js/main.js",
+        "reason": "Active index.html loads this as main module entry. Source is required to complete behavior graph."
+      },
+      {
+        "path": "../ui/gesture.js",
+        "reason": "Imported by hiking.js, camping.js, and general.js. Source is required to map swipe/gesture behavior and avoid circular/cross-page assumptions."
+      }
+    ],
+    "jsInventoryStatus": "PARTIAL PASS — uploaded JS files are accounted. Complete JS behavior graph still requires ./js/main.js and ../ui/gesture.js."
   }
 }
