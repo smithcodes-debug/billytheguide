@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-core-router-index-html",
+  "version": "pdrs-01-7-root-card-css-inventory",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "core-router-from-index-html-only",
-    "note": "PDRS-01 chưa đọc sâu source CSS/JS. Các CSS/JS files sẽ được ingest dần theo batch 2-3 file/lần ở các bước tiếp theo."
+    "status": "css-modules-and-root-card-css-accounted-js-inventory-pending",
+    "note": "PDRS-01.7 đã cập nhật kiểm kê root card CSS: toàn bộ 10 card CSS theo index.html đã được account; JS module inventory là bước tiếp theo."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "comment-anchor-only",
@@ -68,10 +68,11 @@
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
     "nextRecommendedCssBatch": [
-      "css/home-hero-tour-popup.css",
-      "css/modules/03-mobile-search.css",
-      "css/modules/06-availability-booking.css"
-    ]
+      "js/modules/tour-card-links.js",
+      "js/modules/header-menu-state.js",
+      "js/modules/mobile-story-typewriter.js"
+    ],
+    "currentInventoryCheckpoint": "PDRS-01.7 css/modules + root card CSS accounted; JS inventory pending."
   },
   "projectInvariants": [
     {
@@ -846,12 +847,294 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-02 — CSS Source Ingestion Batch 1",
+    "nextStepName": "PDRS-01.8 — JS Module Inventory",
     "recommendedUploadBatch": [
-      "css/home-hero-tour-popup.css",
-      "css/modules/03-mobile-search.css",
-      "css/modules/06-availability-booking.css"
+      "js/modules/tour-card-links.js",
+      "js/modules/header-menu-state.js",
+      "js/modules/mobile-story-typewriter.js"
     ],
-    "goal": "Đọc sâu CSS source 2-3 file đầu tiên để bổ sung selector/media/z-index/cascade vào project-debug-routing-system.json."
+    "goal": "Kiểm kê JS modules theo index.html trước khi ingest sâu behavior source."
+  },
+  "assetInventoryReconciliation": {
+    "step": "PDRS-01.6 — Asset Inventory Reconciliation",
+    "status": "css-modules-accounted-index-and-pdrs-synced",
+    "updatedAtLocal": "2026-06-20T20:48:00+07:00",
+    "runtimeChangePolicy": {
+      "indexHtmlChanged": false,
+      "runtimeCssChanged": false,
+      "runtimeJsChanged": false,
+      "htmlTextChanged": false,
+      "note": "PDRS metadata updated only. No index.html / CSS / JS runtime source was modified."
+    },
+    "activeIndexHtmlCheck": {
+      "hasInlineStyleTag": false,
+      "hasPdrsAnchor": true,
+      "cssLinkCount": 20,
+      "jsModuleScriptCount": 4,
+      "cssLoadOrderMatchesPdrsKnownFiles": true,
+      "jsLoadOrderMatchesPdrsKnownFiles": true
+    },
+    "requiredByActiveIndex": {
+      "cssLoadOrder": [
+        "./css/home-hero-tour-popup.css",
+        "./css/card-01-intro.css",
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css",
+        "./css/card-04-service-03.css",
+        "./css/card-05-service-04.css",
+        "./css/card-06-service-05.css",
+        "./css/card-07-service-06.css",
+        "./css/card-08-accordion-01.css",
+        "./css/card-09-accordion-02.css",
+        "./css/card-10-accordion-03.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/10-contact-popup.css",
+        "./css/modules/08-policy-popup.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/modules/09-tour-snorkeling-transition.css",
+        "./css/modules/01-global-motion.css",
+        "./css/modules/17-mobile-story-typewriter.css"
+      ],
+      "jsLoadOrder": [
+        "./js/modules/tour-card-links.js",
+        "./js/modules/header-menu-state.js",
+        "./js/modules/mobile-story-typewriter.js",
+        "./js/main.js"
+      ]
+    },
+    "cssModulesRequiredByIndex": [
+      "./css/modules/06-availability-booking.css",
+      "./css/modules/10-contact-popup.css",
+      "./css/modules/08-policy-popup.css",
+      "./css/modules/11-scroll-home-composite.css",
+      "./css/modules/03-mobile-search.css",
+      "./css/modules/07-mobile-edge-pad.css",
+      "./css/modules/09-tour-snorkeling-transition.css",
+      "./css/modules/01-global-motion.css",
+      "./css/modules/17-mobile-story-typewriter.css"
+    ],
+    "cssModulesReceivedOrAccounted": [
+      "./css/modules/01-global-motion.css",
+      "./css/modules/03-mobile-search.css",
+      "./css/modules/06-availability-booking.css",
+      "./css/modules/07-mobile-edge-pad.css",
+      "./css/modules/08-policy-popup.css",
+      "./css/modules/09-tour-snorkeling-transition.css",
+      "./css/modules/10-contact-popup.css",
+      "./css/modules/11-scroll-home-composite.css",
+      "./css/modules/17-mobile-story-typewriter.css"
+    ],
+    "cssModulesMissingFromUploadSequence": [],
+    "cssModulesStatus": "PASS — all css/modules files required by active index.html have been accounted for in upload sequence.",
+    "extraDebugFilesReceived": [
+      {
+        "path": "./css/modules/_css-module-map.css",
+        "status": "received-extra-debug-map-not-loaded-by-index",
+        "runtimeRequired": false,
+        "note": "Ownership/debug map file. Not required as a runtime stylesheet unless explicitly linked later."
+      }
+    ],
+    "rootCssReceivedOrAccounted": [
+      {
+        "path": "./css/home-hero-tour-popup.css",
+        "status": "received-root-css",
+        "expectedLocation": "./css/home-hero-tour-popup.css",
+        "pathWarning": "Do not keep the active runtime copy only inside ./css/modules/ because active index.html links ./css/home-hero-tour-popup.css."
+      }
+    ],
+    "rootCardCssStillNeedsInventory": [],
+    "syntaxVerifyQueue": [
+      {
+        "path": "./css/home-hero-tour-popup.css",
+        "reason": "Fetched text showed pseudo-selector/comment sanitization symptoms such as before/after text; verify raw file before editing."
+      },
+      {
+        "path": "./css/modules/03-mobile-search.css",
+        "reason": "Initial uploaded copy appeared truncated during fetch; recovery copy exists but raw runtime file should be verified before deep debug."
+      },
+      {
+        "path": "./css/modules/06-availability-booking.css",
+        "reason": "Fetched text showed possible pseudo-selector/comma sanitization symptoms; verify raw file before editing."
+      },
+      {
+        "path": "./css/modules/10-contact-popup.css",
+        "reason": "Fetched text showed social icon selector grouping sanitization symptoms; verify raw file before editing."
+      },
+      {
+        "path": "./css/modules/11-scroll-home-composite.css",
+        "reason": "Fetched text showed before/after/details-marker sanitization symptoms; verify raw file before editing."
+      },
+      {
+        "path": "./css/card-07-service-06.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      },
+      {
+        "path": "./css/card-08-accordion-01.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      },
+      {
+        "path": "./css/card-09-accordion-02.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      }
+    ],
+    "safeNextStep": {
+      "name": "PDRS-01.7 — Root Card CSS Inventory",
+      "goal": "Account for ./css/card-01-intro.css through ./css/card-10-accordion-03.css without modifying runtime files.",
+      "recommendedUploadBatch": [
+        "./css/card-01-intro.css",
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css"
+      ]
+    },
+    "rootCardCssReceivedOrAccounted": [
+      "./css/card-01-intro.css",
+      "./css/card-02-service-01.css",
+      "./css/card-03-service-02.css",
+      "./css/card-04-service-03.css",
+      "./css/card-05-service-04.css",
+      "./css/card-06-service-05.css",
+      "./css/card-07-service-06.css",
+      "./css/card-08-accordion-01.css",
+      "./css/card-09-accordion-02.css",
+      "./css/card-10-accordion-03.css"
+    ],
+    "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session."
+  },
+  "rootCardCssInventory": {
+    "step": "PDRS-01.7 — Root Card CSS Inventory",
+    "status": "root-card-css-accounted",
+    "updatedAtLocal": "2026-06-20T20:48:00+07:00",
+    "runtimeChangePolicy": {
+      "indexHtmlChanged": false,
+      "runtimeCssChanged": false,
+      "runtimeJsChanged": false,
+      "htmlTextChanged": false,
+      "note": "PDRS metadata updated only. No index.html / CSS / JS runtime source was modified."
+    },
+    "activeIndexHtmlCheck": {
+      "hasInlineStyleTag": false,
+      "hasPdrsAnchor": true,
+      "cssLinkCount": 20,
+      "jsModuleScriptCount": 4,
+      "cssLoadOrderMatchesPdrsKnownFiles": true,
+      "jsLoadOrderMatchesPdrsKnownFiles": true
+    },
+    "rootCardCssRequiredByIndex": [
+      "./css/card-01-intro.css",
+      "./css/card-02-service-01.css",
+      "./css/card-03-service-02.css",
+      "./css/card-04-service-03.css",
+      "./css/card-05-service-04.css",
+      "./css/card-06-service-05.css",
+      "./css/card-07-service-06.css",
+      "./css/card-08-accordion-01.css",
+      "./css/card-09-accordion-02.css",
+      "./css/card-10-accordion-03.css"
+    ],
+    "rootCardCssReceivedOrAccounted": [
+      {
+        "path": "./css/card-01-intro.css",
+        "status": "received-and-source-read",
+        "role": "card-01 intro + shared mobile-home-feed base layout",
+        "importantNote": "This file owns shared .mobile-home-feed layout and card-01 overrides."
+      },
+      {
+        "path": "./css/card-02-service-01.css",
+        "status": "received-and-source-read",
+        "role": "card-02 service override shell"
+      },
+      {
+        "path": "./css/card-03-service-02.css",
+        "status": "received-and-source-read",
+        "role": "card-03 service override shell"
+      },
+      {
+        "path": "./css/card-04-service-03.css",
+        "status": "received-and-source-read",
+        "role": "card-04 service override shell"
+      },
+      {
+        "path": "./css/card-05-service-04.css",
+        "status": "received-and-source-read",
+        "role": "card-05 service override shell"
+      },
+      {
+        "path": "./css/card-06-service-05.css",
+        "status": "received-and-source-read",
+        "role": "card-06 service override shell"
+      },
+      {
+        "path": "./css/card-07-service-06.css",
+        "status": "accounted-by-user-confirmation-fetch-unreadable",
+        "role": "card-07 service override shell expected",
+        "verifyLater": true,
+        "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
+      },
+      {
+        "path": "./css/card-08-accordion-01.css",
+        "status": "accounted-by-user-confirmation-fetch-unreadable",
+        "role": "card-08 accordion override shell expected",
+        "verifyLater": true,
+        "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
+      },
+      {
+        "path": "./css/card-09-accordion-02.css",
+        "status": "accounted-by-user-confirmation-fetch-unreadable",
+        "role": "card-09 accordion override shell expected",
+        "verifyLater": true,
+        "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
+      },
+      {
+        "path": "./css/card-10-accordion-03.css",
+        "status": "received-and-source-read",
+        "role": "card-10 accordion override shell"
+      }
+    ],
+    "rootCardCssMissingFromInventory": [],
+    "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
+    "cardCssPrimaryDebugRouting": {
+      "mobileFeedSwipeOrSnapIssues": [
+        "./css/card-01-intro.css",
+        "./js/main.js"
+      ],
+      "individualServiceCardVisualIssues": [
+        "./css/card-02-service-01.css",
+        "./css/card-03-service-02.css",
+        "./css/card-04-service-03.css",
+        "./css/card-05-service-04.css",
+        "./css/card-06-service-05.css",
+        "./css/card-07-service-06.css"
+      ],
+      "individualAccordionCardVisualIssues": [
+        "./css/card-08-accordion-01.css",
+        "./css/card-09-accordion-02.css",
+        "./css/card-10-accordion-03.css"
+      ]
+    },
+    "syntaxVerifyQueueAdditions": [
+      {
+        "path": "./css/card-07-service-06.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      },
+      {
+        "path": "./css/card-08-accordion-01.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      },
+      {
+        "path": "./css/card-09-accordion-02.css",
+        "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
+      }
+    ],
+    "safeNextStep": {
+      "name": "PDRS-01.8 — JS Module Inventory",
+      "goal": "Account for JS modules referenced by active index.html without modifying runtime files.",
+      "recommendedUploadBatch": [
+        "./js/modules/tour-card-links.js",
+        "./js/modules/header-menu-state.js",
+        "./js/modules/mobile-story-typewriter.js"
+      ]
+    }
   }
 }
