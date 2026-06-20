@@ -1,437 +1,439 @@
 /* ✅ NEW: CARD 01 CSS - intro + shared mobile feed base
-   This file intentionally contains the shared mobile feed layout because the user requested exactly 10 card CSS files.      
-   Keep generic .mobile-home-feed layout here. Put card-specific overrides at the bottom of each card file.      
-*/      
-/* ✅ NEW: MOBILE HOME FEED SAFE-PAD WEB APP LAYOUT */      
-.mobile-home-feed,      
-.mobile-home-feed-handle {      
-  display: none; /* ✅ NEW */      
-}      
-
-@media (max-width:1024px) {      
-  html.mobile-home-feed-snap,      
-  body.mobile-home-feed-snap {      
-    scroll-snap-type: none; /* ✅ UPDATED: TikTok strict dùng .mobile-home-feed làm scroll owner, tránh double snap trên body */      
-    overscroll-behavior-y: contain; /* ✅ NEW */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready {      
-    height: 100vh; /* ✅ NEW: section chỉ giữ đúng một viewport, feed bên trong tự swipe */      
-    height: 100svh; /* ✅ NEW */      
-    height: 100dvh; /* ✅ NEW */      
-    padding: 0; /* ✅ UPDATED */      
-    overflow: hidden; /* ✅ UPDATED: khóa window scroll trong section, chuyển quyền scroll cho .mobile-home-feed */      
-    background:      
-      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),      
-      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),      
-      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready::before {      
-    display: none; /* ✅ UPDATED: tránh lớp gradient cũ phủ lên safe pad */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {      
-    display: none; /* ✅ UPDATED: mobile/tablet dùng feed card, desktop source vẫn giữ nguyên HTML */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {      
-    position: relative; /* ✅ NEW */      
-    z-index: 1; /* ✅ NEW */      
-    display: block; /* ✅ NEW */      
-    width: 100%; /* ✅ NEW */      
-    height: 100vh; /* ✅ NEW: scroll container chính kiểu TikTok */      
-    height: 100svh; /* ✅ NEW */      
-    height: 100dvh; /* ✅ NEW */      
-    overflow-x: hidden; /* ✅ NEW */      
-    overflow-y: auto; /* ✅ NEW: feed nhận swipe dọc thay vì window/body */      
-    scroll-snap-type: y mandatory; /* ✅ UPDATED: strict snap từng card */      
-    scroll-padding-top: 0; /* ✅ NEW */      
-    overscroll-behavior-y: contain; /* ✅ NEW */      
-    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX: momentum scroll ổn định trên iOS */      
-    touch-action: pan-y; /* ✅ NEW */      
-    scrollbar-width: none; /* ✅ NEW */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {      
-    display: none; /* ✅ NEW */      
-    width: 0; /* ✅ NEW */      
-    height: 0; /* ✅ NEW */      
-  }      
-
-  .mobile-home-feed-panel {      
-    height: 100vh; /* ✅ UPDATED: mỗi panel đúng 1 màn hình để swipe 1 phát / 1 card */      
-    height: 100svh; /* ✅ UPDATED */      
-    height: 100dvh; /* ✅ UPDATED */      
-    min-height: 100vh; /* ✅ NEW */      
-    min-height: 100svh; /* ✅ NEW */      
-    min-height: 100dvh; /* ✅ NEW */      
-    padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 18px); /* ✅ UPDATED: kéo dài toàn bộ more story pads xuống, chỉ chừa 10px trước thanh địa chỉ browser */      
-    display: flex; /* ✅ NEW */      
-    align-items: center; /* ✅ NEW */      
-    justify-content: center; /* ✅ NEW */      
-    scroll-snap-align: start; /* ✅ NEW */      
-    scroll-snap-stop: always; /* ✅ NEW */      
-    overflow: hidden; /* ✅ NEW: panel không tự scroll, chỉ feed scroll */      
-  }      
-
-  .mobile-home-feed-panel-empty {      
-    display: none; /* ✅ UPDATED: bỏ các blank panel để swipe liền mạch như TikTok */      
-  }      
-
-  .mobile-home-feed-card {      
-    position: relative; /* ✅ NEW */      
-    width: min(100%, 700px); /* ✅ NEW */      
-    height: 100%; /* ✅ UPDATED: card dùng toàn bộ vùng panel sau safe padding */      
-    min-height: 0; /* ✅ UPDATED: tránh tràn viewport thấp trên Safari/Android */      
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */      
-    border-radius: 38px; /* ✅ NEW */      
-    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */      
-    color: var(--color-ink); /* ✅ NEW */      
-    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */      
-    overflow: hidden; /* ✅ NEW */      
-    transform: translateZ(0); /* ✅ REQUIRED FIX: ổn định Safari khi snap + fixed header */      
-  }      
-
-  .mobile-home-feed-card-scroll {      
-    height: 100%; /* ✅ NEW */      
-    padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: giảm safe pad để card có nhiều không gian hơn */      
-    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card, tránh gesture bị nuốt */      
-    display: flex; /* ✅ NEW */      
-    flex-direction: column; /* ✅ NEW */      
-    justify-content: center; /* ✅ NEW */      
-    overscroll-behavior: contain; /* ✅ NEW */      
-    touch-action: pan-y; /* ✅ NEW */      
-  }      
-
-  .mobile-home-feed-card-scroll::-webkit-scrollbar {      
-    display: none; /* ✅ NEW */      
-    width: 0; /* ✅ NEW */      
-    height: 0; /* ✅ NEW */      
-  }      
-
-  .mobile-home-feed-card-empty {      
-    background: rgba(255, 255, 255, 0.72); /* ✅ NEW */      
-  }      
-
-  .mobile-home-feed-card-empty::after {      
-    content: ""; /* ✅ REQUIRED FIX */      
-    position: absolute; /* ✅ NEW */      
-    inset: 18px; /* ✅ NEW */      
-    border-radius: 30px; /* ✅ NEW */      
-    background:      
-      radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),      
-      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18)); /* ✅ NEW */      
-    pointer-events: none; /* ✅ NEW */      
-  }      
-
-  .mobile-home-feed .more-stories-kicker {      
-    margin-bottom: 18px; /* ✅ UPDATED */      
-    color: rgba(8, 63, 70, 0.62); /* ✅ UPDATED */      
-    text-align: center; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-stories-title {      
-    max-width: none; /* ✅ UPDATED */      
-    color: #101820; /* ✅ UPDATED */      
-    font-size: clamp(30px, 8vw, 50px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */      
-    line-height: 1.03; /* ✅ UPDATED */      
-    text-align: center; /* ✅ UPDATED */      
-    letter-spacing: -0.045em; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-stories-intro {      
-    margin-top: 20px; /* ✅ UPDATED */      
-    color: rgba(16, 20, 24, 0.64); /* ✅ UPDATED */      
-    font-size: clamp(15px, 3.8vw, 20px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */      
-    line-height: 1.48; /* ✅ UPDATED */      
-    text-align: center; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-service-card {      
-    min-height: 100%; /* ✅ UPDATED */      
-    padding: 0; /* ✅ UPDATED */      
-    border: 0; /* ✅ UPDATED */      
-    background: transparent; /* ✅ UPDATED */      
-    box-shadow: none; /* ✅ UPDATED */      
-    color: var(--color-ink); /* ✅ UPDATED */      
-    display: flex; /* ✅ UPDATED */      
-    align-items: center; /* ✅ UPDATED */      
-    justify-content: center; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-service-card-title {      
-    color: #101820; /* ✅ UPDATED */      
-    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */      
-    line-height: 1.08; /* ✅ UPDATED */      
-    letter-spacing: -0.035em; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-service-card-desc {      
-    margin-top: 16px; /* ✅ UPDATED */      
-    max-width: 520px; /* ✅ UPDATED */      
-    color: rgba(16, 20, 24, 0.62); /* ✅ UPDATED */      
-    font-size: clamp(15px, 3.9vw, 20px); /* ✅ UPDATED: fit strict card */      
-    line-height: 1.4; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-service-card-link {      
-    margin-top: 24px; /* ✅ UPDATED */      
-    color: var(--color-hue-deep); /* ✅ UPDATED */      
-    font-size: 16px; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-accordion-item {      
-    border: 0; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-accordion-summary {      
-    padding: 0 0 14px; /* ✅ UPDATED */      
-    color: #101820; /* ✅ UPDATED */      
-    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */      
-    line-height: 1.08; /* ✅ UPDATED */      
-    letter-spacing: -0.04em; /* ✅ UPDATED */      
-    cursor: default; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-accordion-summary::after {      
-    display: none; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed .more-accordion-panel {      
-    padding: 0; /* ✅ UPDATED */      
-    color: rgba(16, 20, 24, 0.66); /* ✅ UPDATED */      
-    font-size: 14px; /* ✅ UPDATED: fit strict card */      
-    line-height: 1.48; /* ✅ UPDATED */      
-    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card */      
-  }      
-
-  .mobile-home-feed .more-faq-list {      
-    gap: 10px; /* ✅ UPDATED: fit strict card */      
-  }      
-
-  .mobile-home-feed .more-contact-platforms {      
-    justify-content: center; /* ✅ UPDATED */      
-    gap: 10px; /* ✅ UPDATED */      
-  }      
-
-  .mobile-home-feed-handle {      
-    position: fixed; /* ✅ NEW */      
-    left: 50%; /* ✅ NEW */      
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 43px); /* ✅ NEW */      
-    z-index: 1005; /* ✅ NEW */      
-    width: 58px; /* ✅ NEW */      
-    height: 7px; /* ✅ NEW */      
-    border: 0; /* ✅ NEW */      
-    border-radius: 999px; /* ✅ NEW */      
-    background: rgba(5, 6, 8, 0.22); /* ✅ NEW */      
-    transform: translate3d(-50%, 0, 0); /* ✅ NEW */      
-    pointer-events: none; /* ✅ NEW */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-handle {      
-    display: block; /* ✅ NEW */      
-  }      
-}
-
-@media (min-width:1025px) {
-  .more-stories-section.is-mobile-home-feed-ready {
-    min-height: 100vh; /* ✅ NEW: desktop vẫn dùng visual feed */
-    height: auto; /* ✅ NEW: desktop cuộn bình thường */
-    padding: calc(env(safe-area-inset-top, 0px) + 112px) 24px 120px; /* ✅ NEW */
-    overflow: visible; /* ✅ NEW: không khóa scroll desktop */
-    background:
-      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),
-      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),
-      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready::before {
-    display: none; /* ✅ UPDATED */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
-    display: none; /* ✅ UPDATED: desktop dùng generated card feed visual */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
-    position: relative; /* ✅ NEW */
-    z-index: 1; /* ✅ NEW */
-    display: grid; /* ✅ NEW */
-    gap: 28px; /* ✅ NEW */
-    width: min(100%, 760px); /* ✅ NEW */
-    height: auto; /* ✅ NEW */
-    margin: 0 auto; /* ✅ NEW */
-    overflow: visible; /* ✅ NEW */
-    scroll-snap-type: none; /* ✅ REQUIRED FIX: desktop không snap */
-    overscroll-behavior-y: auto; /* ✅ NEW */
-    -webkit-overflow-scrolling: auto; /* ✅ NEW */
-    touch-action: auto; /* ✅ REQUIRED FIX: desktop không swipe feed */
-    scrollbar-width: auto; /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {
-    display: initial; /* ✅ NEW */
-  }
-
-  .mobile-home-feed-panel {
-    height: auto; /* ✅ REQUIRED FIX: desktop panel không full viewport snap */
-    min-height: auto; /* ✅ REQUIRED FIX */
-    padding: 0; /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: stretch; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    scroll-snap-align: none; /* ✅ REQUIRED FIX */
-    scroll-snap-stop: normal; /* ✅ REQUIRED FIX */
-    overflow: visible; /* ✅ NEW */
-  }
-
-  .mobile-home-feed-panel-empty {
-    display: none; /* ✅ UPDATED */
-  }
-
-  .mobile-home-feed-card {
-    position: relative; /* ✅ NEW */
-    width: min(100%, 700px); /* ✅ NEW */
-    height: auto; /* ✅ REQUIRED FIX */
-    min-height: 620px; /* ✅ NEW: giữ visual card mobile */
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
-    border-radius: 38px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */
-    overflow: hidden; /* ✅ NEW */
-    transform: translateZ(0); /* ✅ REQUIRED FIX */
-  }
-
-  .mobile-home-feed-card-scroll {
-    height: auto; /* ✅ REQUIRED FIX */
-    min-height: 620px; /* ✅ NEW */
-    padding: 48px 16px 86px; /* ✅ NEW */
-    overflow: visible; /* ✅ REQUIRED FIX: desktop cuộn page thường */
-    display: flex; /* ✅ NEW */
-    flex-direction: column; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    overscroll-behavior: auto; /* ✅ NEW */
-    touch-action: auto; /* ✅ REQUIRED FIX */
-  }
-
-  .mobile-home-feed .more-stories-kicker {
-    margin-bottom: 18px; /* ✅ NEW */
-    color: rgba(8, 63, 70, 0.62); /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-stories-title {
-    max-width: none; /* ✅ NEW */
-    color: #101820; /* ✅ NEW */
-    font-size: clamp(30px, 8vw, 50px); /* ✅ NEW */
-    line-height: 1.03; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-    letter-spacing: -0.045em; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-stories-intro {
-    margin-top: 20px; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.64); /* ✅ NEW */
-    font-size: clamp(15px, 3.8vw, 20px); /* ✅ NEW */
-    line-height: 1.48; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-service-card {
-    min-height: 100%; /* ✅ NEW */
-    padding: 0; /* ✅ NEW */
-    border: 0; /* ✅ NEW */
-    background: transparent; /* ✅ NEW */
-    box-shadow: none; /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-service-card-title {
-    color: #101820; /* ✅ NEW */
-    font-size: clamp(24px, 7vw, 42px); /* ✅ NEW */
-    line-height: 1.08; /* ✅ NEW */
-    letter-spacing: -0.035em; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-service-card-desc {
-    margin-top: 16px; /* ✅ NEW */
-    max-width: 520px; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.62); /* ✅ NEW */
-    font-size: clamp(15px, 3.9vw, 20px); /* ✅ NEW */
-    line-height: 1.4; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-service-card-link {
-    margin-top: 24px; /* ✅ NEW */
-    color: var(--color-hue-deep); /* ✅ NEW */
-    font-size: 16px; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-accordion-item {
-    border: 0; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-accordion-summary {
-    padding: 0 0 14px; /* ✅ NEW */
-    color: #101820; /* ✅ NEW */
-    font-size: clamp(24px, 7vw, 42px); /* ✅ NEW */
-    line-height: 1.08; /* ✅ NEW */
-    letter-spacing: -0.04em; /* ✅ NEW */
-    cursor: default; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-accordion-summary::after {
-    display: none; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-accordion-panel {
-    padding: 0; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.66); /* ✅ NEW */
-    font-size: 14px; /* ✅ NEW */
-    line-height: 1.48; /* ✅ NEW */
-    overflow: visible; /* ✅ UPDATED: desktop normal scroll */
-  }
-
-  .mobile-home-feed .more-faq-list {
-    gap: 10px; /* ✅ NEW */
-  }
-
-  .mobile-home-feed .more-contact-platforms {
-    justify-content: center; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-  }
-
-  .mobile-home-feed-handle {
-    display: none; /* ✅ REQUIRED FIX: desktop không swipe, không hiện handle */
-  }
-}
-
-.more-stories-side-icons {    
-  display: none; /* ✅ UPDATED: HTML block bị ẩn theo .more-stories-inner, giữ hidden để tránh duplicate */    
+   This file intentionally contains the shared mobile feed layout because the user requested exactly 10 card CSS files.        
+   Keep generic .mobile-home-feed layout here. Put card-specific overrides at the bottom of each card file.        
+*/        
+/* ✅ NEW: MOBILE HOME FEED SAFE-PAD WEB APP LAYOUT */        
+.mobile-home-feed,        
+.mobile-home-feed-handle {        
+  display: none; /* ✅ NEW */        
+}        
+@media (max-width:1024px) {        
+  html.mobile-home-feed-snap,        
+  body.mobile-home-feed-snap {        
+    scroll-snap-type: none; /* ✅ UPDATED: TikTok strict dùng .mobile-home-feed làm scroll owner, tránh double snap trên body */        
+    overscroll-behavior-y: contain; /* ✅ NEW */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready {        
+    height: 100vh; /* ✅ NEW: section chỉ giữ đúng một viewport, feed bên trong tự swipe */        
+    height: 100svh; /* ✅ NEW */        
+    height: 100dvh; /* ✅ NEW */        
+    padding: 0; /* ✅ UPDATED */        
+    overflow: hidden; /* ✅ UPDATED: khóa window scroll trong section, chuyển quyền scroll cho .mobile-home-feed */        
+    background:        
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),        
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),        
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready::before {        
+    display: none; /* ✅ UPDATED: tránh lớp gradient cũ phủ lên safe pad */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {        
+    display: none; /* ✅ UPDATED: mobile/tablet dùng feed card, desktop source vẫn giữ nguyên HTML */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {        
+    position: relative; /* ✅ NEW */        
+    z-index: 1; /* ✅ NEW */        
+    display: block; /* ✅ NEW */        
+    width: 100%; /* ✅ NEW */        
+    height: 100vh; /* ✅ NEW: scroll container chính kiểu TikTok */        
+    height: 100svh; /* ✅ NEW */        
+    height: 100dvh; /* ✅ NEW */        
+    overflow-x: hidden; /* ✅ NEW */        
+    overflow-y: auto; /* ✅ NEW: feed nhận swipe dọc thay vì window/body */        
+    scroll-snap-type: y mandatory; /* ✅ UPDATED: strict snap từng card */        
+    scroll-padding-top: 0; /* ✅ NEW */        
+    overscroll-behavior-y: contain; /* ✅ NEW */        
+    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX: momentum scroll ổn định trên iOS */        
+    touch-action: pan-y; /* ✅ NEW */        
+    scrollbar-width: none; /* ✅ NEW */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {        
+    display: none; /* ✅ NEW */        
+    width: 0; /* ✅ NEW */        
+    height: 0; /* ✅ NEW */        
+  }        
+  .mobile-home-feed-panel {        
+    height: 100vh; /* ✅ UPDATED: mỗi panel đúng 1 màn hình để swipe 1 phát / 1 card */        
+    height: 100svh; /* ✅ UPDATED */        
+    height: 100dvh; /* ✅ UPDATED */        
+    min-height: 100vh; /* ✅ NEW */        
+    min-height: 100svh; /* ✅ NEW */        
+    min-height: 100dvh; /* ✅ NEW */        
+    padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 18px); /* ✅ UPDATED: kéo dài toàn bộ more story pads xuống, chỉ chừa 10px trước thanh địa chỉ browser */        
+    display: flex; /* ✅ NEW */        
+    align-items: center; /* ✅ NEW */        
+    justify-content: center; /* ✅ NEW */        
+    scroll-snap-align: start; /* ✅ NEW */        
+    scroll-snap-stop: always; /* ✅ NEW */        
+    overflow: hidden; /* ✅ NEW: panel không tự scroll, chỉ feed scroll */        
+  }        
+  .mobile-home-feed-panel-empty {        
+    display: none; /* ✅ UPDATED: bỏ các blank panel để swipe liền mạch như TikTok */        
+  }        
+  .mobile-home-feed-card {        
+    position: relative; /* ✅ NEW */        
+    width: min(100%, 700px); /* ✅ NEW */        
+    height: 100%; /* ✅ UPDATED: card dùng toàn bộ vùng panel sau safe padding */        
+    min-height: 0; /* ✅ UPDATED: tránh tràn viewport thấp trên Safari/Android */        
+    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */        
+    border-radius: 38px; /* ✅ NEW */        
+    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */        
+    color: var(--color-ink); /* ✅ NEW */        
+    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */        
+    overflow: hidden; /* ✅ NEW */        
+    transform: translateZ(0); /* ✅ REQUIRED FIX: ổn định Safari khi snap + fixed header */        
+  }        
+  .mobile-home-feed-card-scroll {        
+    height: 100%; /* ✅ NEW */        
+    padding: calc(env(safe-area-inset-top, 0px) + 96px) 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: giảm safe pad để card có nhiều không gian hơn */        
+    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card, tránh gesture bị nuốt */        
+    display: flex; /* ✅ NEW */        
+    flex-direction: column; /* ✅ NEW */        
+    justify-content: center; /* ✅ NEW */        
+    overscroll-behavior: contain; /* ✅ NEW */        
+    touch-action: pan-y; /* ✅ NEW */        
+  }        
+  .mobile-home-feed-card-scroll::-webkit-scrollbar {        
+    display: none; /* ✅ NEW */        
+    width: 0; /* ✅ NEW */        
+    height: 0; /* ✅ NEW */        
+  }        
+  .mobile-home-feed-card-empty {        
+    background: rgba(255, 255, 255, 0.72); /* ✅ NEW */        
+  }        
+  .mobile-home-feed-card-empty::after {        
+    content: ""; /* ✅ REQUIRED FIX */        
+    position: absolute; /* ✅ NEW */        
+    inset: 18px; /* ✅ NEW */        
+    border-radius: 30px; /* ✅ NEW */        
+    background:        
+      radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),        
+      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18)); /* ✅ NEW */        
+    pointer-events: none; /* ✅ NEW */        
+  }        
+  .mobile-home-feed .more-stories-kicker {        
+    margin-bottom: 18px; /* ✅ UPDATED */        
+    color: rgba(8, 63, 70, 0.62); /* ✅ UPDATED */        
+    text-align: center; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-stories-title {        
+    max-width: none; /* ✅ UPDATED */        
+    color: #101820; /* ✅ UPDATED */        
+    font-size: clamp(30px, 8vw, 50px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */        
+    line-height: 1.03; /* ✅ UPDATED */        
+    text-align: center; /* ✅ UPDATED */        
+    letter-spacing: -0.045em; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-stories-intro {        
+    margin-top: 20px; /* ✅ UPDATED */        
+    color: rgba(16, 20, 24, 0.64); /* ✅ UPDATED */        
+    font-size: clamp(15px, 3.8vw, 20px); /* ✅ UPDATED: giảm nhẹ để A1 không cần inner scroll */        
+    line-height: 1.48; /* ✅ UPDATED */        
+    text-align: center; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-service-card {        
+    min-height: 100%; /* ✅ UPDATED */        
+    padding: 0; /* ✅ UPDATED */        
+    border: 0; /* ✅ UPDATED */        
+    background: transparent; /* ✅ UPDATED */        
+    box-shadow: none; /* ✅ UPDATED */        
+    color: var(--color-ink); /* ✅ UPDATED */        
+    display: flex; /* ✅ UPDATED */        
+    align-items: center; /* ✅ UPDATED */        
+    justify-content: center; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-service-card-title {        
+    color: #101820; /* ✅ UPDATED */        
+    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */        
+    line-height: 1.08; /* ✅ UPDATED */        
+    letter-spacing: -0.035em; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-service-card-desc {        
+    margin-top: 16px; /* ✅ UPDATED */        
+    max-width: 520px; /* ✅ UPDATED */        
+    color: rgba(16, 20, 24, 0.62); /* ✅ UPDATED */        
+    font-size: clamp(15px, 3.9vw, 20px); /* ✅ UPDATED: fit strict card */        
+    line-height: 1.4; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-service-card-link {        
+    margin-top: 24px; /* ✅ UPDATED */        
+    color: var(--color-hue-deep); /* ✅ UPDATED */        
+    font-size: 16px; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-accordion-item {        
+    border: 0; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-accordion-summary {        
+    padding: 0 0 14px; /* ✅ UPDATED */        
+    color: #101820; /* ✅ UPDATED */        
+    font-size: clamp(24px, 7vw, 42px); /* ✅ UPDATED: fit strict card */        
+    line-height: 1.08; /* ✅ UPDATED */        
+    letter-spacing: -0.04em; /* ✅ UPDATED */        
+    cursor: default; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-accordion-summary::after {        
+    display: none; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed .more-accordion-panel {        
+    padding: 0; /* ✅ UPDATED */        
+    color: rgba(16, 20, 24, 0.66); /* ✅ UPDATED */        
+    font-size: 14px; /* ✅ UPDATED: fit strict card */        
+    line-height: 1.48; /* ✅ UPDATED */        
+    overflow: hidden; /* ✅ UPDATED: A1 - không scroll bên trong card */        
+  }        
+  .mobile-home-feed .more-faq-list {        
+    gap: 10px; /* ✅ UPDATED: fit strict card */        
+  }        
+  .mobile-home-feed .more-contact-platforms {        
+    justify-content: center; /* ✅ UPDATED */        
+    gap: 10px; /* ✅ UPDATED */        
+  }        
+  .mobile-home-feed-handle {        
+    position: fixed; /* ✅ NEW */        
+    left: 50%; /* ✅ NEW */        
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 43px); /* ✅ NEW */        
+    z-index: 1005; /* ✅ NEW */        
+    width: 58px; /* ✅ NEW */        
+    height: 7px; /* ✅ NEW */        
+    border: 0; /* ✅ NEW */        
+    border-radius: 999px; /* ✅ NEW */        
+    background: rgba(5, 6, 8, 0.22); /* ✅ NEW */        
+    transform: translate3d(-50%, 0, 0); /* ✅ NEW */        
+    pointer-events: none; /* ✅ NEW */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-handle {        
+    display: block; /* ✅ NEW */        
+  }        
 }  
-
-/* ✅ NEW: CARD 01 INTRO OVERRIDES */      
-@media (max-width:1024px) {      
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {      
-    /* ✅ NEW: edit card 01 container styles here */      
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {      
-    padding: 5px 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: nâng cụm text card 01 sát top pad, cách cạnh top 5px */          
-    justify-content: flex-start; /* ✅ UPDATED: đưa cụm text lên đầu card thay vì căn giữa dọc */          
-  }      
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {      
-    font-size: clamp(21px, 5.6vw, 35px); /* ✅ UPDATED: thu nhỏ cụm title 30% từ clamp(30px, 8vw, 50px) */      
-  }      
-
+@media (min-width:1025px) {  
+  .more-stories-section.is-mobile-home-feed-ready {  
+    min-height: 100vh; /* ✅ NEW: desktop vẫn dùng visual feed */  
+    height: auto; /* ✅ NEW: desktop cuộn bình thường */  
+    padding: calc(env(safe-area-inset-top, 0px) + 112px) 24px 120px; /* ✅ NEW */  
+    overflow: visible; /* ✅ NEW: không khóa scroll desktop */  
+    background:  
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),  
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),  
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%); /* ✅ NEW */  
+  }  
+  .more-stories-section.is-mobile-home-feed-ready::before {  
+    display: none; /* ✅ UPDATED */  
+  }  
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {  
+    display: none; /* ✅ UPDATED: desktop dùng generated card feed visual */  
+  }  
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {  
+    position: relative; /* ✅ NEW */  
+    z-index: 1; /* ✅ NEW */  
+    display: grid; /* ✅ NEW */  
+    gap: 28px; /* ✅ NEW */  
+    width: min(100%, 760px); /* ✅ NEW */  
+    height: auto; /* ✅ NEW */  
+    margin: 0 auto; /* ✅ NEW */  
+    overflow: visible; /* ✅ NEW */  
+    scroll-snap-type: none; /* ✅ REQUIRED FIX: desktop không snap */  
+    overscroll-behavior-y: auto; /* ✅ NEW */  
+    -webkit-overflow-scrolling: auto; /* ✅ NEW */  
+    touch-action: auto; /* ✅ REQUIRED FIX: desktop không swipe feed */  
+    scrollbar-width: auto; /* ✅ NEW */  
+  }  
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {  
+    display: initial; /* ✅ NEW */  
+  }  
+  .mobile-home-feed-panel {  
+    height: auto; /* ✅ REQUIRED FIX: desktop panel không full viewport snap */  
+    min-height: auto; /* ✅ REQUIRED FIX */  
+    padding: 0; /* ✅ NEW */  
+    display: flex; /* ✅ NEW */  
+    align-items: stretch; /* ✅ NEW */  
+    justify-content: center; /* ✅ NEW */  
+    scroll-snap-align: none; /* ✅ REQUIRED FIX */  
+    scroll-snap-stop: normal; /* ✅ REQUIRED FIX */  
+    overflow: visible; /* ✅ NEW */  
+  }  
+  .mobile-home-feed-panel-empty {  
+    display: none; /* ✅ UPDATED */  
+  }  
+  .mobile-home-feed-card {  
+    position: relative; /* ✅ NEW */  
+    width: min(100%, 700px); /* ✅ NEW */  
+    height: auto; /* ✅ REQUIRED FIX */  
+    min-height: 620px; /* ✅ NEW: giữ visual card mobile */  
+    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */  
+    border-radius: 38px; /* ✅ NEW */  
+    background: rgba(255, 255, 255, 0.88); /* ✅ NEW */  
+    color: var(--color-ink); /* ✅ NEW */  
+    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62); /* ✅ NEW */  
+    overflow: hidden; /* ✅ NEW */  
+    transform: translateZ(0); /* ✅ REQUIRED FIX */  
+  }  
+  .mobile-home-feed-card-scroll {  
+    height: auto; /* ✅ REQUIRED FIX */  
+    min-height: 620px; /* ✅ NEW */  
+    padding: 48px 16px 86px; /* ✅ NEW */  
+    overflow: visible; /* ✅ REQUIRED FIX: desktop cuộn page thường */  
+    display: flex; /* ✅ NEW */  
+    flex-direction: column; /* ✅ NEW */  
+    justify-content: center; /* ✅ NEW */  
+    overscroll-behavior: auto; /* ✅ NEW */  
+    touch-action: auto; /* ✅ REQUIRED FIX */  
+  }  
+  .mobile-home-feed .more-stories-kicker {  
+    margin-bottom: 18px; /* ✅ NEW */  
+    color: rgba(8, 63, 70, 0.62); /* ✅ NEW */  
+    text-align: center; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-stories-title {  
+    max-width: none; /* ✅ NEW */  
+    color: #101820; /* ✅ NEW */  
+    font-size: clamp(30px, 8vw, 50px); /* ✅ NEW */  
+    line-height: 1.03; /* ✅ NEW */  
+    text-align: center; /* ✅ NEW */  
+    letter-spacing: -0.045em; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-stories-intro {  
+    margin-top: 20px; /* ✅ NEW */  
+    color: rgba(16, 20, 24, 0.64); /* ✅ NEW */  
+    font-size: clamp(15px, 3.8vw, 20px); /* ✅ NEW */  
+    line-height: 1.48; /* ✅ NEW */  
+    text-align: center; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-service-card {  
+    min-height: 100%; /* ✅ NEW */  
+    padding: 0; /* ✅ NEW */  
+    border: 0; /* ✅ NEW */  
+    background: transparent; /* ✅ NEW */  
+    box-shadow: none; /* ✅ NEW */  
+    color: var(--color-ink); /* ✅ NEW */  
+    display: flex; /* ✅ NEW */  
+    align-items: center; /* ✅ NEW */  
+    justify-content: center; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-service-card-title {  
+    color: #101820; /* ✅ NEW */  
+    font-size: clamp(24px, 7vw, 42px); /* ✅ NEW */  
+    line-height: 1.08; /* ✅ NEW */  
+    letter-spacing: -0.035em; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-service-card-desc {  
+    margin-top: 16px; /* ✅ NEW */  
+    max-width: 520px; /* ✅ NEW */  
+    color: rgba(16, 20, 24, 0.62); /* ✅ NEW */  
+    font-size: clamp(15px, 3.9vw, 20px); /* ✅ NEW */  
+    line-height: 1.4; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-service-card-link {  
+    margin-top: 24px; /* ✅ NEW */  
+    color: var(--color-hue-deep); /* ✅ NEW */  
+    font-size: 16px; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-accordion-item {  
+    border: 0; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-accordion-summary {  
+    padding: 0 0 14px; /* ✅ NEW */  
+    color: #101820; /* ✅ NEW */  
+    font-size: clamp(24px, 7vw, 42px); /* ✅ NEW */  
+    line-height: 1.08; /* ✅ NEW */  
+    letter-spacing: -0.04em; /* ✅ NEW */  
+    cursor: default; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-accordion-summary::after {  
+    display: none; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-accordion-panel {  
+    padding: 0; /* ✅ NEW */  
+    color: rgba(16, 20, 24, 0.66); /* ✅ NEW */  
+    font-size: 14px; /* ✅ NEW */  
+    line-height: 1.48; /* ✅ NEW */  
+    overflow: visible; /* ✅ UPDATED: desktop normal scroll */  
+  }  
+  .mobile-home-feed .more-faq-list {  
+    gap: 10px; /* ✅ NEW */  
+  }  
+  .mobile-home-feed .more-contact-platforms {  
+    justify-content: center; /* ✅ NEW */  
+    gap: 10px; /* ✅ NEW */  
+  }  
+  .mobile-home-feed-handle {  
+    display: none; /* ✅ REQUIRED FIX: desktop không swipe, không hiện handle */  
+  }  
+}  
+.more-stories-side-icons {      
+  display: none; /* ✅ UPDATED: HTML block bị ẩn theo .more-stories-inner, giữ hidden để tránh duplicate */      
+}    
+/* ✅ NEW: CARD 01 INTRO OVERRIDES */        
+@media (max-width:1024px) {        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {        
+    /* ✅ NEW: edit card 01 container styles here */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {        
+    padding: 5px 16px calc(env(safe-area-inset-bottom, 0px) + 86px); /* ✅ UPDATED: nâng cụm text card 01 sát top pad, cách cạnh top 5px */            
+    justify-content: flex-start; /* ✅ UPDATED: đưa cụm text lên đầu card thay vì căn giữa dọc */            
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {        
+    font-size: clamp(21px, 5.6vw, 35px); /* ✅ UPDATED: thu nhỏ cụm title 30% từ clamp(30px, 8vw, 50px) */        
+  }        
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-quote {    
+    margin: 14px auto 0; /* ✅ NEW: style quote thật từ index.html, không dùng ::after để tránh duplicate */    
+    max-width: 560px; /* ✅ NEW */    
+    color: rgba(16, 20, 24, 0.58); /* ✅ NEW */    
+    font-size: clamp(13px, 3.4vw, 17px); /* ✅ NEW */    
+    line-height: 1.42; /* ✅ NEW */    
+    font-weight: 600; /* ✅ NEW */    
+    letter-spacing: -0.01em; /* ✅ NEW */    
+    text-align: center; /* ✅ NEW */    
+  }    
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {    
+    content: ""; /* ✅ REQUIRED FIX: tạo pad memo không phụ thuộc HTML clone/runtime JS */    
+    position: absolute; /* ✅ NEW */    
+    left: 15px; /* ✅ UPDATED: cách mép trái card trắng 15px */    
+    right: 15px; /* ✅ UPDATED: cách mép phải card trắng 15px */    
+    top: 0; /* ✅ UPDATED: mở rộng ô đỏ ôm sát mép trên */    
+    bottom: 0; /* ✅ UPDATED: mở rộng ô đỏ ôm sát mép dưới */    
+    z-index: 2; /* ✅ NEW */    
+    height: auto; /* ✅ UPDATED: bỏ chiều cao cố định để top/bottom điều khiển full height */    
+    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ UPDATED: demo giống khung đỏ trong ảnh, muốn bỏ đỏ thì đổi rgba(5, 6, 8, 0.08) */    
+    border-radius: 4px; /* ✅ UPDATED: bo nhẹ 4 cạnh giống ô vuông đỏ */    
+    background-color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */    
+    background-image:    
+      url("../images/1.png"),    
+      url("../images/2.png"),    
+      url("../images/3.png"),    
+      url("../images/4.png"),    
+      url("../images/5.png"),    
+      url("../images/6.png"); /* ✅ NEW: bạn có thể sửa đường dẫn sau */    
+    background-repeat: no-repeat; /* ✅ NEW */    
+    background-size:    
+      71px 71px,    
+      71px 71px,    
+      71px 71px,    
+      71px 71px,    
+      71px 71px,    
+      71px 71px; /* ✅ UPDATED: icon to hơn 70% từ 42px lên ~71px */    
+    background-position:    
+      calc(50% - 82px) 18px,    
+      50% 18px,    
+      calc(50% + 82px) 18px,    
+      calc(50% - 82px) 96px,    
+      50% 96px,    
+      calc(50% + 82px) 96px; /* ✅ UPDATED: 6 icon chia 2 hàng x 3 cột trong pad lớn */    
+    box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */    
+    backdrop-filter: blur(8px); /* ✅ NEW */    
+    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX: Safari iOS */    
+    pointer-events: none; /* ✅ NEW */    
+  }    
+}  
+@media (min-width:1025px) {  
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {  
+    padding: 5px 16px 86px; /* ✅ NEW: desktop visual card 01 giống mobile nhưng không snap */  
+    justify-content: flex-start; /* ✅ NEW */  
+  }  
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {  
+    font-size: clamp(21px, 5.6vw, 35px); /* ✅ NEW */  
+  }  
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-quote {  
-    margin: 14px auto 0; /* ✅ NEW: style quote thật từ index.html, không dùng ::after để tránh duplicate */  
+    margin: 14px auto 0; /* ✅ NEW */  
     max-width: 560px; /* ✅ NEW */  
     color: rgba(16, 20, 24, 0.58); /* ✅ NEW */  
     font-size: clamp(13px, 3.4vw, 17px); /* ✅ NEW */  
@@ -440,25 +442,25 @@
     letter-spacing: -0.01em; /* ✅ NEW */  
     text-align: center; /* ✅ NEW */  
   }  
-
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {  
-    content: ""; /* ✅ REQUIRED FIX: tạo pad memo không phụ thuộc HTML clone/runtime JS */  
+    content: ""; /* ✅ REQUIRED FIX */  
     position: absolute; /* ✅ NEW */  
-    left: 15px; /* ✅ UPDATED: cách mép trái card trắng 15px */  
-    right: 15px; /* ✅ UPDATED: cách mép phải card trắng 15px */  
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 52px); /* ✅ UPDATED: cách vùng bottom/handle khoảng 15px an toàn */  
+    left: 15px; /* ✅ NEW */  
+    right: 15px; /* ✅ NEW */  
+    top: 0; /* ✅ UPDATED: mở rộng ô đỏ ôm sát mép trên */  
+    bottom: 0; /* ✅ UPDATED: mở rộng ô đỏ ôm sát mép dưới */  
     z-index: 2; /* ✅ NEW */  
-    height: 180px; /* ✅ UPDATED: pad memo cao hơn để chứa icon to hơn 70% */  
-    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ UPDATED: demo giống khung đỏ trong ảnh, muốn bỏ đỏ thì đổi rgba(5, 6, 8, 0.08) */  
-    border-radius: 4px; /* ✅ UPDATED: bo nhẹ 4 cạnh giống ô vuông đỏ */  
-    background-color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */  
+    height: auto; /* ✅ UPDATED: bỏ chiều cao cố định để top/bottom điều khiển full height */  
+    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ NEW */  
+    border-radius: 4px; /* ✅ NEW */  
+    background-color: rgba(255, 255, 255, 0.78); /* ✅ NEW */  
     background-image:  
       url("../images/1.png"),  
       url("../images/2.png"),  
       url("../images/3.png"),  
       url("../images/4.png"),  
       url("../images/5.png"),  
-      url("../images/6.png"); /* ✅ NEW: bạn có thể sửa đường dẫn sau */  
+      url("../images/6.png"); /* ✅ NEW */  
     background-repeat: no-repeat; /* ✅ NEW */  
     background-size:  
       71px 71px,  
@@ -466,78 +468,17 @@
       71px 71px,  
       71px 71px,  
       71px 71px,  
-      71px 71px; /* ✅ UPDATED: icon to hơn 70% từ 42px lên ~71px */  
+      71px 71px; /* ✅ NEW */  
     background-position:  
       calc(50% - 82px) 18px,  
       50% 18px,  
       calc(50% + 82px) 18px,  
       calc(50% - 82px) 96px,  
       50% 96px,  
-      calc(50% + 82px) 96px; /* ✅ UPDATED: 6 icon chia 2 hàng x 3 cột trong pad lớn */  
+      calc(50% + 82px) 96px; /* ✅ NEW */  
     box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */  
     backdrop-filter: blur(8px); /* ✅ NEW */  
-    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX: Safari iOS */  
+    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX */  
     pointer-events: none; /* ✅ NEW */  
   }  
-}
-
-@media (min-width:1025px) {
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
-    padding: 5px 16px 86px; /* ✅ NEW: desktop visual card 01 giống mobile nhưng không snap */
-    justify-content: flex-start; /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {
-    font-size: clamp(21px, 5.6vw, 35px); /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-quote {
-    margin: 14px auto 0; /* ✅ NEW */
-    max-width: 560px; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.58); /* ✅ NEW */
-    font-size: clamp(13px, 3.4vw, 17px); /* ✅ NEW */
-    line-height: 1.42; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-    letter-spacing: -0.01em; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {
-    content: ""; /* ✅ REQUIRED FIX */
-    position: absolute; /* ✅ NEW */
-    left: 15px; /* ✅ NEW */
-    right: 15px; /* ✅ NEW */
-    bottom: 52px; /* ✅ NEW */
-    z-index: 2; /* ✅ NEW */
-    height: 180px; /* ✅ NEW */
-    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ NEW */
-    border-radius: 4px; /* ✅ NEW */
-    background-color: rgba(255, 255, 255, 0.78); /* ✅ NEW */
-    background-image:
-      url("../images/1.png"),
-      url("../images/2.png"),
-      url("../images/3.png"),
-      url("../images/4.png"),
-      url("../images/5.png"),
-      url("../images/6.png"); /* ✅ NEW */
-    background-repeat: no-repeat; /* ✅ NEW */
-    background-size:
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px; /* ✅ NEW */
-    background-position:
-      calc(50% - 82px) 18px,
-      50% 18px,
-      calc(50% + 82px) 18px,
-      calc(50% - 82px) 96px,
-      50% 96px,
-      calc(50% + 82px) 96px; /* ✅ NEW */
-    box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */
-    backdrop-filter: blur(8px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX */
-    pointer-events: none; /* ✅ NEW */
-  }
 } /* ✅ REQUIRED FIX: đóng file */
