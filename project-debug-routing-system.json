@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-10-root-legacy-and-snorkeling-page-inventory",
+  "version": "pdrs-01-11-landing-page-html-import-reconciliation",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "snorkeling-page-and-root-legacy-files-accounted-temporary-map-before-final-reconciliation",
-    "note": "PDRS-01.10 đã cập nhật batch snorkeling landing page + root legacy files: coral-snorkeling-phu-quoc.html, snorkeling.css, js/snorkeling.js, style.css, app.js. snorkeling page hiện dùng inline CSS trong HTML và script js/snorkeling.js defer; style.css/app.js được đánh dấu legacy/root-overlap cần hiệu chỉnh sau nếu vẫn được page nào import."
+    "status": "landing-pages-import-reconciled-root-legacy-not-active-in-confirmed-route-pages",
+    "note": "PDRS-01.11 đã cập nhật Landing Page HTML Import Reconciliation. Các root route landing pages đã accounted: diving-island-phu-quoc.html, camping-island-phu-quoc.html, hiking-mountain-phu-quoc.html, propose-island-phu-quoc.html, phu-quoc-tip-and-trick.html, coral-dictionary-at-phu-quoc.html. Không page nào trong batch reconciliation import ./style.css hoặc ./app.js. style.css/app.js giữ trạng thái root legacy/overlap, not active in confirmed current route pages."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -23,7 +23,13 @@
   "knownFiles": {
     "htmlEntry": [
       "index.html",
-      "coral-snorkeling-phu-quoc.html"
+      "coral-snorkeling-phu-quoc.html",
+      "diving-island-phu-quoc.html",
+      "camping-island-phu-quoc.html",
+      "hiking-mountain-phu-quoc.html",
+      "propose-island-phu-quoc.html",
+      "phu-quoc-tip-and-trick.html",
+      "coral-dictionary-at-phu-quoc.html"
     ],
     "cssLoadOrder": [
       "./css/home-hero-tour-popup.css",
@@ -59,7 +65,8 @@
       "./coral-snorkeling-phu-quoc.html",
       "./diving-island-phu-quoc.html",
       "./hiking-mountain-phu-quoc.html",
-      "./propose-island-phu-quoc.html"
+      "./propose-island-phu-quoc.html",
+      "./phu-quoc-tip-and-trick.html"
     ],
     "jsUploadedOrAccounted": [
       "./js/main.js",
@@ -107,7 +114,19 @@
       "snorkelingCssLinkedByCoralSnorkelingHtml": false,
       "snorkelingCssMergedInlineInCoralSnorkelingHtml": true,
       "snorkelingJsLoadedByCoralSnorkelingHtml": "js/snorkeling.js defer",
-      "note": "style.css/app.js are accounted as root legacy/overlap files until a specific HTML import confirms active runtime usage."
+      "note": "PDRS-01.11 confirmed: style.css/app.js are not imported by confirmed current route pages. Keep as root legacy/overlap files; do not delete without explicit user confirmation.",
+      "styleCssImportedByConfirmedRoutePages": false,
+      "appJsImportedByConfirmedRoutePages": false,
+      "confirmedRoutePagesCheckedForLegacyImports": [
+        "index.html",
+        "coral-snorkeling-phu-quoc.html",
+        "diving-island-phu-quoc.html",
+        "camping-island-phu-quoc.html",
+        "hiking-mountain-phu-quoc.html",
+        "propose-island-phu-quoc.html",
+        "phu-quoc-tip-and-trick.html",
+        "coral-dictionary-at-phu-quoc.html"
+      ]
     }
   },
   "uploadPolicyForFutureDebug": {
@@ -122,16 +141,14 @@
       "js/modules/header-menu-state.js",
       "js/modules/mobile-story-typewriter.js"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.10 map updated: snorkeling landing page + root legacy style.css/app.js accounted. Next step should verify which HTML pages import style.css/app.js, then reconcile duplicates.",
+    "currentInventoryCheckpoint": "PDRS-01.11 complete: landing page HTML import reconciliation finished. Confirmed route pages do not import ./style.css or ./app.js. Root legacy files remain accounted but inactive in confirmed current route pages.",
     "nextRecommendedJsBatch": [
       "HTML page importing ./js/ui/brand-logo.js if used",
       "HTML page importing ./js/modules/payment.js if used",
       "HTML page importing ./js/modules/confirmation.js if used"
     ],
     "nextRecommendedUploadBatch": [
-      "diving-island-phu-quoc.html",
-      "hiking-mountain-phu-quoc.html",
-      "camping-island-phu-quoc.html"
+      "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
     ]
   },
   "projectInvariants": [
@@ -1085,7 +1102,7 @@
     },
     "26-root-legacy-runtime-files": {
       "area": "root-level legacy/overlap CSS and JS files pending final active-import reconciliation",
-      "htmlModule": "unknown root or legacy pages; not listed in active index.html load order",
+      "htmlModule": "root legacy files; confirmed not imported by current route pages as of PDRS-01.11",
       "cssFilesPrimary": [
         "./style.css"
       ],
@@ -1182,18 +1199,110 @@
         "app.js is a monolithic IIFE legacy/runtime file overlapping current modular main.js behavior: home popup, availability calendar, contact popup, mobile gestures, carousel, and snorkeling transition.",
         "style.css contains root popup/contact/availability/snorkeling transition styling that overlaps current modular CSS files and should be treated as legacy/pending active import verification.",
         "Neither ./style.css nor ./app.js is listed in active index.html cssLoadOrder/jsLoadOrder in the current PDRS map.",
-        "If any secondary HTML imports style.css or app.js, this module becomes active for that page and must be reconciled before edits."
+        "If any secondary HTML imports style.css or app.js, this module becomes active for that page and must be reconciled before edits.",
+        "PDRS-01.11 reconciliation confirmed no current accounted route page imports ./style.css or ./app.js.",
+        "Root legacy files remain available for reference only unless a future page explicitly imports them."
       ],
       "riskNotes": [
         "High duplication risk with ./js/main.js + ./js/ui/* + ./js/modules/booking.js.",
         "style.css fetch shows CSS comment sanitization/malformed-comment symptoms; verify raw file before editing.",
         "app.js touches the same high-coupling nodes as current modular runtime: #leave-no-trace-popup, #availability-popup, #contact-popup, popup carousel and snorkeling navigation.",
-        "Do not merge or delete app.js/style.css until HTML imports are confirmed."
+        "Do not merge or delete app.js/style.css until HTML imports are confirmed.",
+        "Do not debug current confirmed route page runtime by editing app.js/style.css unless an active import is later found.",
+        "Do not delete app.js/style.css without explicit user confirmation; keep as legacy/reference until cleanup phase."
       ],
       "futureUploadIfBug": [
         "./app.js",
         "./style.css",
         "HTML page importing app.js/style.css"
+      ]
+    },
+    "27-landing-page-import-reconciliation": {
+      "area": "secondary/root landing page HTML import reconciliation and route existence check",
+      "htmlModule": "PDRS-01.11 — Landing Page HTML Import Reconciliation",
+      "htmlFilesPrimary": [
+        "diving-island-phu-quoc.html",
+        "camping-island-phu-quoc.html",
+        "hiking-mountain-phu-quoc.html",
+        "propose-island-phu-quoc.html",
+        "phu-quoc-tip-and-trick.html",
+        "coral-dictionary-at-phu-quoc.html"
+      ],
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [],
+      "confirmedNoLegacyImports": [
+        "./style.css",
+        "./app.js"
+      ],
+      "pageInventory": [
+        {
+          "path": "diving-island-phu-quoc.html",
+          "status": "received-and-source-read-empty-html-shell",
+          "activeCss": "none",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "empty"
+        },
+        {
+          "path": "camping-island-phu-quoc.html",
+          "sourceUploadedAs": "camping.html before user rename",
+          "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+          "activeCss": "inline <style> + Google Font Poppins",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "temporary placeholder card",
+          "routeNote": "User confirmed camping.html was renamed to camping-island-phu-quoc.html."
+        },
+        {
+          "path": "hiking-mountain-phu-quoc.html",
+          "sourceUploadedAs": "hiking.html before user rename",
+          "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+          "activeCss": "inline <style> + Google Font Poppins",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "temporary placeholder card",
+          "routeNote": "User confirmed hiking.html was renamed to hiking-mountain-phu-quoc.html."
+        },
+        {
+          "path": "propose-island-phu-quoc.html",
+          "sourceUploadedAs": "propose-island-phu-quoc.html.html before user rename",
+          "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+          "activeCss": "inline <style> + Google Font Poppins",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "temporary placeholder card",
+          "routeNote": "User confirmed propose-island-phu-quoc.html.html was renamed to propose-island-phu-quoc.html."
+        },
+        {
+          "path": "phu-quoc-tip-and-trick.html",
+          "status": "received-and-source-read-empty-html-shell",
+          "activeCss": "none",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "empty"
+        },
+        {
+          "path": "coral-dictionary-at-phu-quoc.html",
+          "status": "created-empty-html-shell-and-source-read",
+          "activeCss": "none",
+          "activeJs": "none",
+          "importsStyleCss": false,
+          "importsAppJs": false,
+          "bodyContent": "empty"
+        }
+      ],
+      "behavior": [
+        "This reconciliation is metadata-only and does not modify runtime HTML/CSS/JS source files.",
+        "Confirmed root route pages do not import ./style.css or ./app.js.",
+        "style.css and app.js remain accounted as root legacy/overlap files but are inactive in confirmed current route pages."
+      ],
+      "futureUploadIfBug": [
+        "Upload only the specific route page and related CSS/JS identified by debugScenarios."
       ]
     }
   },
@@ -1893,13 +2002,11 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.11 — Landing Page HTML Import Reconciliation",
+    "nextStepName": "PDRS-01.12 — Symptom-Based Debug Routing Only",
     "recommendedUploadBatch": [
-      "diving-island-phu-quoc.html",
-      "hiking-mountain-phu-quoc.html",
-      "camping-island-phu-quoc.html"
+      "Upload only file(s) required by the next concrete bug/symptom."
     ],
-    "goal": "Xác định các landing page còn lại import CSS/JS nào, đặc biệt có dùng ./style.css hoặc ./app.js không. Sau đó mới hiệu chỉnh map legacy/runtime chính xác."
+    "goal": "Landing page import reconciliation is complete. Next work should be bug-driven using debugScenarios routing; no need to upload broad batches unless a new subsystem is introduced."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2465,9 +2572,9 @@
     ]
   },
   "rootLegacyRuntimeInventory": {
-    "step": "PDRS-01.10 — Root Legacy Runtime Inventory",
-    "status": "received-and-accounted-active-import-unknown",
-    "updatedAtLocal": "2026-06-21T00:28:00+07:00",
+    "step": "PDRS-01.11 — Root Legacy Runtime Inventory After Landing Page Reconciliation",
+    "status": "accounted-but-not-active-in-confirmed-current-route-pages",
+    "updatedAtLocal": "2026-06-21T08:42:00+07:00",
     "runtimeChangePolicy": {
       "htmlChanged": false,
       "cssChanged": false,
@@ -2489,10 +2596,116 @@
       }
     ],
     "reconciliationNeeded": [
-      "Find any HTML page that imports ./app.js.",
-      "Find any HTML page that imports ./style.css.",
-      "If unused, keep as legacy reference or remove only after explicit user confirmation.",
-      "If used, reconcile against ./js/main.js, ./js/ui/*, ./js/modules/booking.js and current CSS modules."
+      "No current confirmed route page imports ./app.js or ./style.css.",
+      "If a future/new HTML page imports ./app.js or ./style.css, reconcile against ./js/main.js, ./js/ui/*, ./js/modules/booking.js and current CSS modules before editing.",
+      "If unused long-term, keep as legacy reference or remove only after explicit user confirmation."
+    ],
+    "confirmedNotImportedByRoutePages": [
+      "index.html",
+      "coral-snorkeling-phu-quoc.html",
+      "diving-island-phu-quoc.html",
+      "camping-island-phu-quoc.html",
+      "hiking-mountain-phu-quoc.html",
+      "propose-island-phu-quoc.html",
+      "phu-quoc-tip-and-trick.html",
+      "coral-dictionary-at-phu-quoc.html"
     ]
+  },
+  "landingPageImportReconciliation": {
+    "step": "PDRS-01.11 — Landing Page HTML Import Reconciliation",
+    "status": "PASS — confirmed landing page imports reconciled; root legacy app.js/style.css not active in confirmed route pages",
+    "updatedAtLocal": "2026-06-21T08:42:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "runtimeSourceChanged": false,
+      "note": "PDRS metadata updated only. No runtime HTML/CSS/JS source was modified by this PDRS update."
+    },
+    "filesReceivedOrAccounted": [
+      {
+        "path": "diving-island-phu-quoc.html",
+        "status": "received-and-source-read-empty-html-shell",
+        "activeCss": "none",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "empty"
+      },
+      {
+        "path": "camping-island-phu-quoc.html",
+        "sourceUploadedAs": "camping.html before user rename",
+        "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+        "activeCss": "inline <style> + Google Font Poppins",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "temporary placeholder card",
+        "routeNote": "User confirmed camping.html was renamed to camping-island-phu-quoc.html."
+      },
+      {
+        "path": "hiking-mountain-phu-quoc.html",
+        "sourceUploadedAs": "hiking.html before user rename",
+        "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+        "activeCss": "inline <style> + Google Font Poppins",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "temporary placeholder card",
+        "routeNote": "User confirmed hiking.html was renamed to hiking-mountain-phu-quoc.html."
+      },
+      {
+        "path": "propose-island-phu-quoc.html",
+        "sourceUploadedAs": "propose-island-phu-quoc.html.html before user rename",
+        "status": "received-and-source-read-placeholder-page-renamed-to-route-file",
+        "activeCss": "inline <style> + Google Font Poppins",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "temporary placeholder card",
+        "routeNote": "User confirmed propose-island-phu-quoc.html.html was renamed to propose-island-phu-quoc.html."
+      },
+      {
+        "path": "phu-quoc-tip-and-trick.html",
+        "status": "received-and-source-read-empty-html-shell",
+        "activeCss": "none",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "empty"
+      },
+      {
+        "path": "coral-dictionary-at-phu-quoc.html",
+        "status": "created-empty-html-shell-and-source-read",
+        "activeCss": "none",
+        "activeJs": "none",
+        "importsStyleCss": false,
+        "importsAppJs": false,
+        "bodyContent": "empty"
+      }
+    ],
+    "confirmedRoutePagesAccounted": [
+      "index.html",
+      "coral-snorkeling-phu-quoc.html",
+      "diving-island-phu-quoc.html",
+      "camping-island-phu-quoc.html",
+      "hiking-mountain-phu-quoc.html",
+      "propose-island-phu-quoc.html",
+      "phu-quoc-tip-and-trick.html",
+      "coral-dictionary-at-phu-quoc.html"
+    ],
+    "legacyImportResult": {
+      "./style.css": "not imported by confirmed current route pages",
+      "./app.js": "not imported by confirmed current route pages"
+    },
+    "routeRenameConfirmations": [
+      "camping.html -> camping-island-phu-quoc.html",
+      "hiking.html -> hiking-mountain-phu-quoc.html",
+      "propose-island-phu-quoc.html.html -> propose-island-phu-quoc.html"
+    ],
+    "createdRouteShells": [
+      "coral-dictionary-at-phu-quoc.html"
+    ],
+    "safeConclusion": "style.css/app.js remain root legacy/reference files and should not be edited for current confirmed route page bugs unless an active import is later confirmed."
   }
 }
