@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-11-landing-page-html-import-reconciliation",
+  "version": "pdrs-01-11-1-cross-module-overlay-stack-module-added",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "landing-pages-import-reconciled-root-legacy-not-active-in-confirmed-route-pages",
-    "note": "PDRS-01.11 đã cập nhật Landing Page HTML Import Reconciliation. Các root route landing pages đã accounted: diving-island-phu-quoc.html, camping-island-phu-quoc.html, hiking-mountain-phu-quoc.html, propose-island-phu-quoc.html, phu-quoc-tip-and-trick.html, coral-dictionary-at-phu-quoc.html. Không page nào trong batch reconciliation import ./style.css hoặc ./app.js. style.css/app.js giữ trạng thái root legacy/overlap, not active in confirmed current route pages."
+    "status": "landing-pages-import-reconciled-cross-module-overlay-stack-module-added",
+    "note": "PDRS-01.11 đã cập nhật Landing Page HTML Import Reconciliation. Các root route landing pages đã accounted: diving-island-phu-quoc.html, camping-island-phu-quoc.html, hiking-mountain-phu-quoc.html, propose-island-phu-quoc.html, phu-quoc-tip-and-trick.html, coral-dictionary-at-phu-quoc.html. Không page nào trong batch reconciliation import ./style.css hoặc ./app.js. style.css/app.js giữ trạng thái root legacy/overlap, not active in confirmed current route pages. PDRS-01.11.1 metadata-only patch: added modules.cross-module-overlay-stack so debugScenarios.z-index-overlay-conflict.routeToModule resolves to an existing module. No runtime HTML/CSS/JS source was modified."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -1303,6 +1303,84 @@
       ],
       "futureUploadIfBug": [
         "Upload only the specific route page and related CSS/JS identified by debugScenarios."
+      ]
+    },
+    "cross-module-overlay-stack": {
+      "area": "global overlay / z-index / fixed header / popup backdrop stacking order",
+      "htmlModule": "cross-module overlay stack based on active index.html",
+      "cssFilesPrimary": [
+        "index.html inline <style>",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/08-policy-popup.css",
+        "./css/modules/10-contact-popup.css",
+        "./css/modules/07-mobile-edge-pad.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js",
+        "./js/ui/contact-popup.js",
+        "./js/ui/policy-popup.js",
+        "./js/ui/search-popup.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/modules/booking.js",
+        "./js/ui/tour-carousel.js"
+      ],
+      "selectors": [
+        "header",
+        ".popup-backdrop",
+        ".availability-popup-backdrop",
+        ".contact-popup-backdrop",
+        ".policy-popup-backdrop",
+        ".mobile-search-backdrop",
+        ".mobile-edge-pad"
+      ],
+      "zIndexStackFromIndexHtml": {
+        "header": 1100,
+        ".mobile-edge-pad": 1004,
+        ".mobile-search-backdrop": 1003,
+        ".policy-popup-backdrop": 1002,
+        ".contact-popup-backdrop": 1001,
+        ".popup-backdrop": 1000,
+        ".availability-popup-backdrop": 1000
+      },
+      "states": [
+        ".is-open",
+        "aria-hidden",
+        "aria-expanded",
+        "mobile-popup-scroll-lock",
+        "home-scroll-locked",
+        "pointer-events",
+        "visibility",
+        "opacity",
+        "backdrop-filter",
+        "position: fixed"
+      ],
+      "behavior": [
+        "Header is intentionally above all confirmed overlay layers.",
+        "Tour popup and availability popup use z-index 1000 and remain below header.",
+        "Contact popup uses z-index 1001.",
+        "Policy popup uses z-index 1002.",
+        "Mobile search popup uses z-index 1003.",
+        "Mobile edge pad uses z-index 1004 but still remains below header because header is z-index 1100.",
+        "Do not raise popup z-index above header unless the design invariant is explicitly changed."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "css/home-hero-tour-popup.css",
+        "css/modules/03-mobile-search.css",
+        "css/modules/06-availability-booking.css",
+        "css/modules/08-policy-popup.css",
+        "css/modules/10-contact-popup.css",
+        "css/modules/07-mobile-edge-pad.css",
+        "js/main.js",
+        "specific popup JS module named by the symptom"
+      ],
+      "riskNotes": [
+        "Header must remain visible above every overlay.",
+        "Overlay bugs should be debugged by checking z-index, fixed positioning, pointer-events, visibility, opacity and scroll-lock together.",
+        "Do not edit app.js/style.css for current confirmed route pages unless a new active import is found."
       ]
     }
   },
@@ -2707,5 +2785,22 @@
       "coral-dictionary-at-phu-quoc.html"
     ],
     "safeConclusion": "style.css/app.js remain root legacy/reference files and should not be edited for current confirmed route page bugs unless an active import is later confirmed."
-  }
+  },
+  "pdrsPatchLog": [
+    {
+      "id": "PDRS-01.11.1-cross-module-overlay-stack-module-added",
+      "updatedAtLocal": "2026-06-21T08:42:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Added modules.cross-module-overlay-stack.",
+        "Kept debugScenarios.z-index-overlay-conflict.routeToModule unchanged because it now resolves correctly."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false
+      }
+    }
+  ]
 }
