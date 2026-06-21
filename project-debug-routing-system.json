@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-14-hero-background-module-accounted",
+  "version": "pdrs-01-14-input-modality-module-accounted",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "hero-background-css-module-accounted-metadata-only",
-    "note": "PDRS-01.14 metadata update: accounted ./css/modules/05-hero-background.css as a reserved comment-only CSS module for MODULE 05 hero background image ownership. No active runtime HTML/CSS/JS source is changed by this JSON update. The file is documented as planned/accounted until index.html explicitly links it."
+    "status": "input-modality-js-module-accounted-metadata-only",
+    "note": "PDRS-01.14 metadata update: accounted ./js/modules/input-modality.js as the Input Modality System. It separates display/layout mode from actual input mode and exposes html[data-input-mode=\"mouse|touch\"]. Desktop/touchscreen desktop keeps the 768px app shell; last input wins; wheel/trackpad counts as mouse; touch/pen counts as touch. No active runtime HTML/CSS/JS source is changed by this JSON update."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -20,7 +20,7 @@
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Metadata-only PDRS update for reserved hero background CSS module. Active cssLoadOrder is not changed here unless index.html is updated separately."
+    "note": "Metadata-only PDRS update for reserved/accounted input modality JS module. Active jsLoadOrder is not changed here until main.js imports initInputModality()."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -93,7 +93,8 @@
       "./js/pages/camping.js",
       "./js/pages/general.js",
       "./js/snorkeling.js",
-      "./js/app.js"
+      "./js/app.js",
+      "./js/modules/input-modality.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -103,7 +104,9 @@
       "brandLogoImportedByMain": false,
       "paymentImportedByMain": false,
       "confirmationImportedByMain": false,
-      "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu."
+      "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu.",
+      "inputModalityImportedByMain": false,
+      "inputModalityRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use"
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -178,10 +181,15 @@
       "cssCardHomeFolderConfirmed": "./css/card page home/",
       "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension.",
       "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
-      "heroBackgroundCssRuntimeStatus": "accounted/reserved; link in index.html separately before runtime use"
+      "heroBackgroundCssRuntimeStatus": "accounted/reserved; link in index.html separately before runtime use",
+      "inputModalityJsReservedModule": "./js/modules/input-modality.js",
+      "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use"
     },
     "plannedCssModules": [
       "./css/modules/05-hero-background.css"
+    ],
+    "plannedJsModules": [
+      "./js/modules/input-modality.js"
     ]
   },
   "uploadPolicyForFutureDebug": {
@@ -192,8 +200,9 @@
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
     "nextRecommendedCssBatch": [],
-    "currentInventoryCheckpoint": "PDRS-01.12.1 complete: folder structure reconciled and metadata logic cleaned. Confirmed current route pages remain mapped as not importing ./css/style.css or ./js/app.js unless a future HTML import check proves otherwise.",
+    "currentInventoryCheckpoint": "PDRS-01.14 complete: input modality JS module accounted as planned/not-active until main.js imports initInputModality().",
     "nextRecommendedJsBatch": [
+      "./js/modules/input-modality.js",
       "./js/modules/tour-card-links.js",
       "./js/modules/header-menu-state.js",
       "./js/modules/mobile-story-typewriter.js",
@@ -278,6 +287,24 @@
         "./css/modules/05-hero-background.css",
         "./css/home-hero-tour-popup.css",
         "index.html"
+      ]
+    },
+    {
+      "id": "input-modality-last-input-wins",
+      "rule": "Desktop cảm ứng vẫn giữ app shell 768px. Input mode tách khỏi display mode: wheel/mouse/trackpad => html[data-input-mode=\"mouse\"], touch/pen => html[data-input-mode=\"touch\"]. Last input wins. Keyboard không đổi mode.",
+      "primaryAreas": [
+        "28-input-modality-system",
+        "00-display-shell-system",
+        "24-cross-module-scroll-lock-stack",
+        "23-ui-gesture-navigation-system"
+      ],
+      "firstFilesToInspect": [
+        "./js/modules/input-modality.js",
+        "./js/main.js",
+        "./js/ui/gesture.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js",
+        "./css/modules/00-display-shell.css"
       ]
     }
   ],
@@ -558,9 +585,12 @@
         "IntersectionObserver",
         "MutationObserver",
         "matchMedia.change",
-        "scroll"
+        "scroll",
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]"
       ],
       "futureUploadIfBug": [
+        "./js/modules/input-modality.js",
         "css/modules/07-mobile-edge-pad.css",
         "css/modules/11-scroll-home-composite.css",
         "js/main.js",
@@ -570,6 +600,12 @@
         "Click or upward swipe on .mobile-edge-pad unlocks home scroll and jumps to #more-stories-section.",
         "Edge pad hides when not mobile, when hero is not visible, or when mobile search popup is open.",
         "Uses IntersectionObserver for .hero and MutationObserver for #mobile-search-popup class changes."
+      ],
+      "jsFilesRelated": [
+        "./js/modules/input-modality.js"
+      ],
+      "riskNotes": [
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
       ]
     },
     "08-policy-popup": {
@@ -834,9 +870,12 @@
         "touchmove",
         "scroll",
         "resize",
-        "orientationchange"
+        "orientationchange",
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]"
       ],
       "futureUploadIfBug": [
+        "./js/modules/input-modality.js",
         "css/modules/11-scroll-home-composite.css",
         "js/main.js",
         "./js/main.js",
@@ -848,6 +887,12 @@
         "main.js/initMobileHomeSectionLock guards mobile/tablet users from scrolling above home section after lock activation.",
         "story-expand.js scrolls from tour popup to #more-stories-section and back-to-tours scrolls to .hero.",
         "mobile-edge-pad.js jumps from hero to more stories on mobile."
+      ],
+      "jsFilesRelated": [
+        "./js/modules/input-modality.js"
+      ],
+      "riskNotes": [
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
       ]
     },
     "20-snorkeling-page": {
@@ -1060,7 +1105,17 @@
         "popstate"
       ],
       "futureUploadIfBug": [
-        "./js/main.js"
+        "./js/main.js",
+        "./js/modules/input-modality.js"
+      ],
+      "jsFilesRelated": [
+        "./js/modules/input-modality.js"
+      ],
+      "plannedImports": [
+        "./js/modules/input-modality.js"
+      ],
+      "riskNotes": [
+        "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode]."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -1089,7 +1144,9 @@
         "window.history.back",
         "billy:open-availability-popup",
         "MutationObserver",
-        "window.location.href"
+        "window.location.href",
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]"
       ],
       "behavior": [
         "gesture.js handles mobile popup edge-back and swipe-up to open availability.",
@@ -1097,9 +1154,16 @@
         "navigation.js maps snorkeling popup card to coral-snorkeling-phu-quoc.html."
       ],
       "futureUploadIfBug": [
+        "./js/modules/input-modality.js",
         "./js/ui/gesture.js",
         "./js/ui/navigation.js",
         "./js/main.js"
+      ],
+      "jsFilesRelated": [
+        "./js/modules/input-modality.js"
+      ],
+      "riskNotes": [
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
       ]
     },
     "24-cross-module-scroll-lock-stack": {
@@ -1137,14 +1201,18 @@
         "history.pushState",
         "popstate",
         "wheel",
-        "touchmove"
+        "touchmove",
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]"
       ],
       "riskNotes": [
         "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
         "Header must remain visible and not covered by lock/popup state.",
-        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module.",
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
       ],
       "futureUploadIfBug": [
+        "./js/modules/input-modality.js",
         "./js/main.js",
         "./js/ui/contact-popup.js",
         "./js/ui/story-expand.js",
@@ -1154,6 +1222,9 @@
       "legacyOverlapFiles": [
         "./js/app.js",
         "./css/style.css"
+      ],
+      "jsFilesRelated": [
+        "./js/modules/input-modality.js"
       ]
     },
     "25-secondary-unintegrated-js-stubs": {
@@ -1568,6 +1639,74 @@
         "Do not add an <img> tag into the hero unless explicitly requested; use CSS background ownership first.",
         "If this file loads before another CSS file that also defines .hero background-image, the later file may override it.",
         "If image crop differs between portrait and landscape/desktop, debug this module before changing display-shell width rules."
+      ]
+    },
+    "28-input-modality-system": {
+      "area": "input modality detection / mouse-touch actual input state / hybrid desktop interaction bridge",
+      "htmlModule": "cross-module runtime state layer; html[data-input-mode=\"mouse|touch\"]",
+      "cssFilesPrimary": [],
+      "jsFilesPrimary": [
+        "./js/modules/input-modality.js"
+      ],
+      "jsRuntimeStatus": "accounted/reserved; not active until imported and initialized by ./js/main.js",
+      "expectedMainJsIntegration": [
+        "import { initInputModality } from \"./modules/input-modality.js\";",
+        "safeInit(\"initInputModality\", initInputModality);"
+      ],
+      "selectors": [
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]",
+        "document.documentElement.dataset.inputMode"
+      ],
+      "states": [
+        "data-input-mode=\"mouse\"",
+        "data-input-mode=\"touch\"",
+        "data-input-modality-initialized=\"true\"",
+        "billy:input-modality-change",
+        "last-input-wins",
+        "wheel-trackpad-counts-as-mouse",
+        "touchstart-counts-as-touch",
+        "pointerdown-touch-counts-as-touch",
+        "pointerdown-mouse-counts-as-mouse",
+        "pointerdown-pen-counts-as-touch",
+        "keyboard-does-not-change-mode"
+      ],
+      "behavior": [
+        "Separates display/layout mode from interaction/input mode.",
+        "Desktop and touchscreen desktop continue using the display shell width from ./css/modules/00-display-shell.css.",
+        "Last real input wins: wheel/mouse/trackpad sets mouse mode; touch/pen sets touch mode.",
+        "Trackpad emits wheel and is intentionally treated as mouse mode.",
+        "Touch mode is intended for future A+C+D behavior: scroll/swipe gesture, popup swipe/back gesture, and home feed snap/scroll lock.",
+        "The module only exposes state and event; it does not directly control gestures, popups, home feed, layout width, or component visuals."
+      ],
+      "events": [
+        {
+          "name": "billy:input-modality-change",
+          "detail": {
+            "mode": "mouse|touch",
+            "previousMode": "mouse|touch|empty-string",
+            "source": "pointerdown|touchstart|wheel|unknown",
+            "pointerType": "mouse|touch|pen|empty-string",
+            "timestamp": "number"
+          }
+        }
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/modules/input-modality.js",
+        "./js/main.js",
+        "./js/ui/gesture.js if swipe/popup gesture mode is wrong",
+        "./js/ui/mobile-edge-pad.js if edge pad mode is wrong",
+        "./js/ui/story-expand.js if home snap/scroll lock mode is wrong",
+        "./css/modules/00-display-shell.css if layout width changes incorrectly"
+      ],
+      "riskNotes": [
+        "Do not use CSS media queries alone to decide actual input mode on hybrid devices because desktop can have both mouse and touch.",
+        "Do not change app shell width based on touch input; desktop touch still remains 768px centered shell.",
+        "Do not let keyboard events switch data-input-mode.",
+        "If main.js imports this module later, initialize it early before gesture/home modules consume input mode.",
+        "If another module writes html[data-input-mode], it may conflict with this source of truth."
       ]
     }
   },
@@ -2114,6 +2253,33 @@
         ".hero::after",
         ".overlay"
       ]
+    },
+    "input-modality-loi": {
+      "userDescriptionExamples": [
+        "desktop cảm ứng không đổi sang touch mode",
+        "trackpad bị tính là touch",
+        "wheel không chuyển lại mouse mode",
+        "html data-input-mode sai",
+        "touchscreen desktop mất app shell 768px",
+        "popup swipe không chạy khi touch desktop",
+        "home snap không theo touch mode"
+      ],
+      "routeToModule": "28-input-modality-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/modules/input-modality.js",
+        "./js/main.js",
+        "./js/ui/gesture.js if popup/swipe behavior is involved",
+        "./js/ui/mobile-edge-pad.js if edge-pad behavior is involved",
+        "./js/ui/story-expand.js if home snap/scroll lock is involved",
+        "./css/modules/00-display-shell.css if layout width changes incorrectly"
+      ],
+      "selectors": [
+        "html[data-input-mode=\"mouse\"]",
+        "html[data-input-mode=\"touch\"]",
+        "document.documentElement.dataset.inputMode"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -2320,13 +2486,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.15 — Link Hero Background CSS And Migrate Hero Image Rule",
+    "nextStepName": "PDRS-01.15 — Import Input Modality In Main Runtime",
     "recommendedUploadBatch": [
-      "index.html",
-      "./css/modules/05-hero-background.css",
-      "./css/home-hero-tour-popup.css"
+      "./js/main.js",
+      "./js/modules/input-modality.js",
+      "project-debug-routing-system.json"
     ],
-    "goal": "Add the hero background CSS module link to index.html, then migrate only the main .hero background-image rule into ./css/modules/05-hero-background.css without changing hero text or unrelated component styling."
+    "goal": "Import initInputModality from ./js/modules/input-modality.js into ./js/main.js and initialize it early before gesture/home modules consume html[data-input-mode]."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2847,6 +3013,12 @@
         "status": "received-and-source-read-active-by-coral-snorkeling-html",
         "role": "snorkeling landing page runtime",
         "primaryModule": "20-snorkeling-page"
+      },
+      {
+        "path": "./js/modules/input-modality.js",
+        "status": "created-and-accounted-not-imported-by-main-yet",
+        "role": "input modality detector for mouse/touch/trackpad hybrid devices",
+        "primaryModule": "28-input-modality-system"
       }
     ],
     "criticalCouplingNotes": [
@@ -2855,7 +3027,8 @@
       "cross-module-scroll-lock-stack: home-scroll-locked, mobile-popup-scroll-lock, mobile-home-feed-snap and history guard can interact.",
       "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js.",
       "./js/app.js is an additional legacy monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
-      "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js."
+      "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js.",
+      "./js/modules/input-modality.js should become the source of truth for html[data-input-mode=\"mouse|touch\"] after main.js imports it."
     ],
     "jsPendingForCompleteInventory": [
       {
@@ -2867,7 +3040,7 @@
         "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PASS — current modular UI JS remains accounted; app.js is now accounted as legacy/root-overlap pending import reconciliation; js/snorkeling.js is active for snorkeling landing page."
+    "jsInventoryStatus": "PASS — input-modality.js is accounted as planned/not-active until main.js imports initInputModality()."
   },
   "snorkelingLandingPageInventory": {
     "step": "PDRS-01.10 — Snorkeling Landing Page Inventory",
@@ -3149,6 +3322,27 @@
         "jsChanged": false,
         "runtimeSourceChanged": false,
         "activeCssLoadOrderChanged": false
+      }
+    },
+    {
+      "id": "PDRS-01.14-input-modality-module-accounted",
+      "updatedAtLocal": "2026-06-21T21:41:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Accounted ./js/modules/input-modality.js as a planned/not-active JS module.",
+        "Added modules.28-input-modality-system.",
+        "Added debugScenarios.input-modality-loi.",
+        "Added project invariant input-modality-last-input-wins.",
+        "Recorded rule: desktop touch keeps 768px display shell.",
+        "Recorded rule: last input wins; wheel/mouse/trackpad => mouse; touch/pen => touch.",
+        "Added related references to gesture, mobile-edge-pad, scroll-home, scroll-lock, and main runtime modules."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false,
+        "activeJsLoadOrderChanged": false
       }
     }
   ],
