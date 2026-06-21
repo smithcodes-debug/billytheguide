@@ -104,37 +104,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coral Tour</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="modulepreload" href="./js/main.js"> 
-  <link rel="stylesheet" href="./css/home-hero-tour-popup.css"> 
-  <link rel="stylesheet" href="./css/card page home/card-01-intro.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-02-service-01.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-03-service-02.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-04-service-03.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-05-service-04.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-06-service-05.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-07-service-06.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-08-accordion-01.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-09-accordion-02.css"> <!-- ✅ REQUIRED FIX --> 
-  <link rel="stylesheet" href="./css/card page home/card-10-accordion-03.css"> <!-- ✅ REQUIRED FIX --> 
 
   
-  <link rel="stylesheet" href="./css/modules/06-availability-booking.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/10-contact-popup.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/08-policy-popup.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/11-scroll-home-composite.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/03-mobile-search.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/07-mobile-edge-pad.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/09-tour-snorkeling-transition.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/01-global-motion.css"> <!-- ✅ NEW -->
-  <link rel="stylesheet" href="./css/modules/17-mobile-story-typewriter.css"> <!-- ✅ NEW -->
+  <!-- ✅ UPDATED: MOBILE-ONLY RESET — all CSS/JS runtime imports removed. Mobile HTML remains as source of truth; CSS/JS will be rebuilt from scratch. -->
   <!-- =====================================================
     ✅ UPDATED: MODULE 01.5 — INLINE STYLE REGISTRY REMOVED
     MAP: 01-head-inline-style-registry
     PURPOSE: Inline CSS registry removed after Step 6I. CSS now lives in external module files.
   ===================================================== -->
 </head>
-<body class="js-loading">
+<body> <!-- ✅ UPDATED: js-loading removed because runtime JS imports were removed for rebuild -->
 <!-- =====================================================
   ✅ NEW: MODULE 02 — HEADER SYSTEM
   MAP: 02-header-root / 02-header-logo / 02-header-search / 02-header-menu
@@ -237,11 +216,8 @@
   </button>
   <div class="content">
   <h1 class="title">
-  <span class="title-desktop"> 
-    <span class="title-desktop-line title-desktop-line-1">khám phá</span> 
-    <span class="title-desktop-line title-desktop-line-2">"Phú Quốc Của Tôi"</span> 
-  </span>
-  <span class="title-mobile-line title-mobile-line-1">Khám phá</span> 
+  <!-- ✅ UPDATED: desktop title block removed. Mobile title is source of truth. -->
+<span class="title-mobile-line title-mobile-line-1">Khám phá</span> 
   <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span> 
 </h1>
     <div class="story">
@@ -627,26 +603,23 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
   FILE: ./js/modules/tour-card-links.js
   PURPOSE: External JS module that maps popup tour cards to landing pages. Snorkeling remains handled by external navigation logic.
 ===================================================== -->
-<script type="module" src="./js/modules/tour-card-links.js"></script>
 <!-- =====================================================
   ✅ UPDATED: MODULE 16 — HEADER MENU STATE MODULE
   MAP: 16-script-header-menu-state-root / 16-script-menu-expanded-toggle
   FILE: ./js/modules/header-menu-state.js
   PURPOSE: External JS module that toggles aria-expanded state for the header menu trigger.
 ===================================================== -->
-<script type="module" src="./js/modules/header-menu-state.js"></script>
 <!-- =====================================================
   ✅ UPDATED: MODULE 17 — MOBILE STORY TYPEWRITER MODULE
   MAP: 17-script-mobile-story-typewriter-root / 17-script-typewriter-config / 17-script-typewriter-loop
   FILE: ./js/modules/mobile-story-typewriter.js
   PURPOSE: External JS module that renders the hero story text with a mobile-only typewriter effect.
 ===================================================== -->
-<script type="module" src="./js/modules/mobile-story-typewriter.js"></script>
 <!-- =====================================================
   ✅ NEW: MODULE 18 — MAIN JS ENTRY
   MAP: 18-main-js-entry / 18-main-module-loader
   PURPOSE: External JavaScript module entry point.
 ===================================================== -->
-<script type="module" src="./js/main.js"></script>
+<!-- ✅ UPDATED: MOBILE-ONLY RESET — script imports removed intentionally. -->
 </body>
 </html>
