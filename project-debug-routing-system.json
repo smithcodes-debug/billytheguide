@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-13-display-shell-foundation",
+  "version": "pdrs-01-14-hero-background-module-accounted",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,19 +8,19 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "display-shell-foundation-added",
-    "note": "PDRS-01.13 runtime foundation update: added ./css/modules/00-display-shell.css as the first CSS foundation module. Mobile/tablet portrait remains normal width 100%; landscape mobile/tablet and desktop are constrained to a centered 768px app shell. Header and popup backdrops are constrained only at global shell/fixed-layer boundary level."
+    "status": "hero-background-css-module-accounted-metadata-only",
+    "note": "PDRS-01.14 metadata update: accounted ./css/modules/05-hero-background.css as a reserved comment-only CSS module for MODULE 05 hero background image ownership. No active runtime HTML/CSS/JS source is changed by this JSON update. The file is documented as planned/accounted until index.html explicitly links it."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "added-display-shell-css-link-in-head",
-    "cssAdded": true,
-    "cssChanged": true,
+    "indexHtmlChange": "none-metadata-map-only",
+    "cssAdded": false,
+    "cssChanged": false,
     "jsAdded": false,
     "jsChanged": false,
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Added external CSS module link and new display-shell CSS module only. No HTML body text, class, id, aria, or data attributes were changed."
+    "note": "Metadata-only PDRS update for reserved hero background CSS module. Active cssLoadOrder is not changed here unless index.html is updated separately."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -110,7 +110,8 @@
       "./css/style.css",
       "./css/home-hero-tour-popup.css",
       "./css/card page home/",
-      "./css/modules/00-display-shell.css"
+      "./css/modules/00-display-shell.css",
+      "./css/modules/05-hero-background.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -175,8 +176,13 @@
       "homeHeroTourPopupCssExpectedAt": "./css/home-hero-tour-popup.css",
       "homeHeroTourPopupCssScreenshotRisk": "Downloaded file may appear as home-hero-tour-popup (1).css; rename to exact runtime file name home-hero-tour-popup.css because index.html imports ./css/home-hero-tour-popup.css.",
       "cssCardHomeFolderConfirmed": "./css/card page home/",
-      "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension."
-    }
+      "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension.",
+      "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
+      "heroBackgroundCssRuntimeStatus": "accounted/reserved; link in index.html separately before runtime use"
+    },
+    "plannedCssModules": [
+      "./css/modules/05-hero-background.css"
+    ]
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -260,6 +266,19 @@
         "css/modules/00-display-shell.css",
         "index.html"
       ]
+    },
+    {
+      "id": "hero-background-css-ownership",
+      "rule": "Hình nền main hero thuộc MODULE 05 và được quản lý bởi ./css/modules/05-hero-background.css khi module này được link vào index.html. Không thêm <img> vào HTML body để đổi main hero background nếu không có yêu cầu riêng.",
+      "primaryAreas": [
+        "05-hero-background-system",
+        "05-hero-story-cta"
+      ],
+      "firstFilesToInspect": [
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css",
+        "index.html"
+      ]
     }
   ],
   "modules": {
@@ -300,6 +319,12 @@
       "states": [],
       "futureUploadIfBug": [
         "index.html"
+      ],
+      "cssFilesPlanned": [
+        "./css/modules/05-hero-background.css"
+      ],
+      "notes": [
+        "./css/modules/05-hero-background.css is reserved/accounted but should be added to active cssFiles only after index.html links it."
       ]
     },
     "02-header-system": {
@@ -410,6 +435,7 @@
         "./css/card page home/card-01-intro.css"
       ],
       "cssFilesRelated": [
+        "./css/modules/05-hero-background.css",
         "./css/modules/17-mobile-story-typewriter.css"
       ],
       "jsFilesPrimary": [
@@ -435,10 +461,14 @@
         "storyCaretBlink"
       ],
       "futureUploadIfBug": [
+        "./css/modules/05-hero-background.css",
         "css/home-hero-tour-popup.css",
         "css/card page home/card-01-intro.css",
         "css/modules/17-mobile-story-typewriter.css",
         "js/modules/mobile-story-typewriter.js"
+      ],
+      "riskNotes": [
+        "Hero background image ownership is reserved for ./css/modules/05-hero-background.css; if .hero background-image still exists in ./css/home-hero-tour-popup.css, migrate only the background-image responsibility carefully."
       ]
     },
     "06-booking-availability": {
@@ -1492,6 +1522,53 @@
         "Do not move header/popup HTML into a wrapper unless explicitly planned; current implementation is CSS-only boundary alignment.",
         "If a component module later sets left/right/transform on the same fixed root selectors after this file loads, it may override shell alignment."
       ]
+    },
+    "05-hero-background-system": {
+      "area": "main hero background image / hero image source / responsive crop control",
+      "htmlModule": "MODULE 05 — HERO MODULE",
+      "cssFilesPrimary": [
+        "./css/modules/05-hero-background.css"
+      ],
+      "cssRuntimeStatus": "reserved-comment-only-module; not active until linked by index.html",
+      "cssLoadOrderRecommendation": [
+        "./css/modules/00-display-shell.css",
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css"
+      ],
+      "jsFilesPrimary": [],
+      "selectors": [
+        ".hero",
+        ".hero::before",
+        ".hero::after",
+        ".overlay"
+      ],
+      "states": [
+        "mobile-portrait-background-position",
+        "landscape-desktop-shell-background-position",
+        "background-size-cover",
+        "fallback-background-color",
+        "overlay-contrast-check"
+      ],
+      "behavior": [
+        "Reserved module for the main hero background image source and responsive crop behavior.",
+        "The hero HTML uses <section class=\"hero\"> with an .overlay child; no body text or HTML structure should be changed for normal background image swaps.",
+        "This module should own background-image, background-size, background-position, and fallback background color for the main hero image after it becomes active.",
+        "This module must not own header, popup, booking, contact, search, accordion, service grid, or story typewriter styling.",
+        "If ./css/home-hero-tour-popup.css currently owns .hero background-image, future migration should move only the image-background responsibility here and preserve unrelated hero styles."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/00-display-shell.css if landscape/desktop shell crop is involved"
+      ],
+      "riskNotes": [
+        "Do not change HTML text content for hero image swaps.",
+        "Do not add an <img> tag into the hero unless explicitly requested; use CSS background ownership first.",
+        "If this file loads before another CSS file that also defines .hero background-image, the later file may override it.",
+        "If image crop differs between portrait and landscape/desktop, debug this module before changing display-shell width rules."
+      ]
     }
   },
   "debugScenarios": {
@@ -2013,6 +2090,30 @@
         ".contact-popup-backdrop",
         ".mobile-edge-pad"
       ]
+    },
+    "hero-background-image-loi": {
+      "userDescriptionExamples": [
+        "đổi hình main hero",
+        "hero background không hiện",
+        "hình hero bị crop sai",
+        "hero image lệch trên mobile",
+        "hero image lệch khi xoay ngang",
+        "hero image desktop shell sai"
+      ],
+      "routeToModule": "05-hero-background-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/00-display-shell.css if landscape/desktop shell is part of the symptom"
+      ],
+      "selectors": [
+        ".hero",
+        ".hero::before",
+        ".hero::after",
+        ".overlay"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -2219,13 +2320,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.14 — Verify Display Shell In Browser",
+    "nextStepName": "PDRS-01.15 — Link Hero Background CSS And Migrate Hero Image Rule",
     "recommendedUploadBatch": [
-      "./css/modules/00-display-shell.css",
       "index.html",
-      "specific component CSS if visual conflict appears after shell loads"
+      "./css/modules/05-hero-background.css",
+      "./css/home-hero-tour-popup.css"
     ],
-    "goal": "Verify portrait mobile remains normal width 100%, landscape mobile/tablet uses desktop shell mode, and desktop is centered at max-width 768px with header/backdrops bounded to the shell."
+    "goal": "Add the hero background CSS module link to index.html, then migrate only the main .hero background-image rule into ./css/modules/05-hero-background.css without changing hero text or unrelated component styling."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2299,16 +2400,23 @@
       "./css/modules/09-tour-snorkeling-transition.css",
       "./css/modules/10-contact-popup.css",
       "./css/modules/11-scroll-home-composite.css",
-      "./css/modules/17-mobile-story-typewriter.css"
+      "./css/modules/17-mobile-story-typewriter.css",
+      "./css/modules/05-hero-background.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — display shell CSS module added and accounted as first foundation stylesheet.",
+    "cssModulesStatus": "PASS — display shell active module remains accounted; hero background reserved module is now accounted as planned/not-linked metadata.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
         "status": "received-extra-debug-map-not-loaded-by-index",
         "runtimeRequired": false,
         "note": "Ownership/debug map file. Not required as a runtime stylesheet unless explicitly linked later."
+      },
+      {
+        "path": "./css/modules/05-hero-background.css",
+        "status": "reserved-comment-only-module-accounted-not-linked-by-index-yet",
+        "runtimeRequired": false,
+        "note": "Hero background ownership module. Link in index.html before runtime use; currently metadata/accounting only."
       }
     ],
     "rootCssReceivedOrAccounted": [
@@ -2375,7 +2483,10 @@
       "./css/card page home/card-09-accordion-02.css",
       "./css/card page home/card-10-accordion-03.css"
     ],
-    "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session."
+    "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
+    "cssModulesPlannedNotLinked": [
+      "./css/modules/05-hero-background.css"
+    ]
   },
   "rootCardCssInventory": {
     "step": "PDRS-01.7 — Root Card CSS Inventory",
@@ -3019,6 +3130,25 @@
         "jsChanged": false,
         "htmlBodyTextChanged": false,
         "classIdAttributeChanged": false
+      }
+    },
+    {
+      "id": "PDRS-01.14-hero-background-module-accounted",
+      "updatedAtLocal": "2026-06-21T21:41:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Accounted reserved CSS module ./css/modules/05-hero-background.css.",
+        "Added modules.05-hero-background-system.",
+        "Added debugScenarios.hero-background-image-loi.",
+        "Added project invariant hero-background-css-ownership.",
+        "Added planned/not-linked metadata without changing active knownFiles.cssLoadOrder."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false,
+        "activeCssLoadOrderChanged": false
       }
     }
   ],
