@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-12-1-metadata-logic-cleanup-after-folder-reconciliation",
+  "version": "pdrs-01-12-2-css-folder-file-confirmation",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "actual-folder-structure-reconciled-metadata-logic-cleaned",
-    "note": "PDRS-01.12.1 metadata-only cleanup after folder reconciliation. Fixed stale/debug-routing logic: snorkeling-page-loi now requests active ./js/snorkeling.js and ./css/snorkeling.css; legacy import result keys now use ./css/style.css and ./js/app.js; invalid concatenated path text was normalized to separate ./js/app.js and ./css/style.css references; uploadPolicyForFutureDebug no longer stores JS files inside nextRecommendedCssBatch. No runtime HTML/CSS/JS source was modified."
+    "status": "actual-folder-structure-reconciled-home-hero-css-file-confirmed",
+    "note": "PDRS-01.12.2 metadata-only update: confirmed actual CSS folder contains ./css/card page home/ and ./css/modules/. Confirmed home hero/tour popup CSS should exist at exact runtime path ./css/home-hero-tour-popup.css. If downloaded as home-hero-tour-popup (1).css on Windows, rename to home-hero-tour-popup.css before browser testing. No runtime HTML/CSS/JS source was modified by this PDRS update."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -104,7 +104,9 @@
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
-      "./css/style.css"
+      "./css/style.css",
+      "./css/home-hero-tour-popup.css",
+      "./css/card page home/"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -145,7 +147,8 @@
       "./css/card page home/",
       "./css/modules/",
       "./css/snorkeling.css",
-      "./css/style.css"
+      "./css/style.css",
+      "./css/home-hero-tour-popup.css"
     ],
     "observedJsRootFromUserScreenshots": [
       "./js/modules/",
@@ -164,7 +167,11 @@
       "legacyAppRuntimeRelocatedTo": "./js/app.js",
       "mainJsStillAt": "./js/main.js",
       "snorkelingJsStillAt": "./js/snorkeling.js",
-      "important": "Before editing runtime source, inspect the importing HTML file because link/script paths must match this reorganized folder structure."
+      "important": "Before editing runtime source, inspect the importing HTML file because link/script paths must match this reorganized folder structure.",
+      "homeHeroTourPopupCssExpectedAt": "./css/home-hero-tour-popup.css",
+      "homeHeroTourPopupCssScreenshotRisk": "Downloaded file may appear as home-hero-tour-popup (1).css; rename to exact runtime file name home-hero-tour-popup.css because index.html imports ./css/home-hero-tour-popup.css.",
+      "cssCardHomeFolderConfirmed": "./css/card page home/",
+      "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension."
     }
   },
   "uploadPolicyForFutureDebug": {
@@ -2118,13 +2125,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.13 — Runtime Import Path Verification If Browser 404 Appears",
+    "nextStepName": "PDRS-01.13 — Mobile-only Runtime Foundation After CSS Filename Verification",
     "recommendedUploadBatch": [
-      "index.html",
-      "specific HTML page that shows missing CSS/JS in browser console",
-      "only the CSS/JS file named by the 404 or symptom"
+      "./js/main.js",
+      "./css/home-hero-tour-popup.css",
+      "Only if desktop still does not run mobile modules: ./js/ui/mobile-edge-pad.js or ./js/ui/search-popup.js"
     ],
-    "goal": "After folder reorganization, debug should stay symptom-driven. First verify link/script import paths only when a browser 404 or visual/runtime missing-file symptom appears."
+    "goal": "After confirming ./css/home-hero-tour-popup.css is correctly named and loaded, convert runtime behavior toward mobile-only app container with mobile modules active on desktop."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2879,11 +2886,29 @@
         "jsChanged": false,
         "runtimeSourceChanged": false
       }
+    },
+    {
+      "id": "PDRS-01.12.2-css-folder-file-confirmation",
+      "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Confirmed ./css/card page home/ folder exists; do not create a duplicate card folder.",
+        "Recorded required exact runtime filename ./css/home-hero-tour-popup.css.",
+        "Recorded Windows duplicate download suffix risk: home-hero-tour-popup (1).css must be renamed to home-hero-tour-popup.css.",
+        "Updated actualFolderStructureReconciliation observedCssRoot to include ./css/home-hero-tour-popup.css.",
+        "Added homeHeroTourPopupCssFileConfirmation section and updated nextSteps toward mobile-only runtime foundation."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false
+      }
     }
   ],
   "actualFolderStructureReconciliation": {
     "step": "PDRS-01.12 — Actual Folder Structure Reconciliation",
-    "status": "PASS — metadata updated from user screenshots and confirmation",
+    "status": "PASS — metadata updated from user screenshots, active index, and home-hero CSS file confirmation",
     "updatedAtLocal": "2026-06-21T09:23:00+07:00",
     "runtimeChangePolicy": {
       "htmlChanged": false,
@@ -2910,7 +2935,8 @@
       "./css/card page home/",
       "./css/modules/",
       "./css/snorkeling.css",
-      "./css/style.css"
+      "./css/style.css",
+      "./css/home-hero-tour-popup.css"
     ],
     "observedJsRoot": [
       "./js/modules/",
@@ -2950,9 +2976,20 @@
     ],
     "pendingVerification": [
       "./css/modules/ exact file list should be verified from folder screenshot or uploaded files before module-level path edits.",
-      "./css/card page home/ exact file list should be verified from folder screenshot or uploaded files before card-level visual debug.",
-      "index.html link/script paths should be inspected if browser shows 404 after file relocation."
-    ]
+      "index.html link/script paths should be inspected if browser shows 404 after file relocation.",
+      "Verify the exact Windows filename is home-hero-tour-popup.css, not home-hero-tour-popup (1).css or home-hero-tour-popup.css.css.",
+      "Verify all 10 card CSS files are inside ./css/card page home/ and keep folder name exactly with spaces."
+    ],
+    "homeHeroTourPopupCssConfirmation": {
+      "status": "confirmed-required-runtime-css-file",
+      "expectedRuntimePath": "./css/home-hero-tour-popup.css",
+      "sourceOfTruth": "index.html link rel stylesheet imports ./css/home-hero-tour-popup.css",
+      "folderScreenshotObservation": "css folder shows card page home/, modules/, snorkeling.css, style.css, and a downloaded home-hero-tour-popup file that may include Windows duplicate suffix (1).",
+      "requiredUserActionIfSuffixExists": "Rename home-hero-tour-popup (1).css to home-hero-tour-popup.css before browser testing.",
+      "doNotCreateNewCardFolder": true,
+      "cardFolderAlreadyExists": "./css/card page home/",
+      "runtimeRiskIfWrongName": "Browser will 404 ./css/home-hero-tour-popup.css and header/hero/tour popup CSS will not load."
+    }
   },
   "metadataLogicCleanupAfterFolderReconciliation": {
     "step": "PDRS-01.12.1 — Metadata Logic Cleanup After Folder Reconciliation",
@@ -2997,5 +3034,45 @@
       "For legacy overlap checks, request ./js/app.js, ./css/style.css, and the exact HTML page that imports them.",
       "For folder relocation 404 issues, request index.html or the specific route HTML showing the 404 before changing paths."
     ]
+  },
+  "homeHeroTourPopupCssFileConfirmation": {
+    "step": "PDRS-01.12.2 — Home Hero Tour Popup CSS File Confirmation",
+    "status": "PASS — folder exists and runtime filename requirement recorded",
+    "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "runtimeSourceChanged": false,
+      "note": "PDRS metadata updated only. User must place/rename the CSS file on disk; this JSON update does not modify runtime source."
+    },
+    "confirmedFromIndexHtml": {
+      "importsHomeHeroTourPopupCss": true,
+      "homeHeroTourPopupCssPath": "./css/home-hero-tour-popup.css",
+      "importsCardPageHomeFolder": true,
+      "hasInlineStyleTag": false,
+      "note": "Current index.html is expected to use external CSS. No inline style registry should remain after split."
+    },
+    "confirmedFromUserScreenshot": {
+      "cssFolderExists": "./css/",
+      "cardPageHomeFolderExists": "./css/card page home/",
+      "modulesFolderExists": "./css/modules/",
+      "homeHeroTourPopupDownloadedFileVisible": true,
+      "renameNeededIfWindowsDuplicateSuffixVisible": "home-hero-tour-popup (1).css -> home-hero-tour-popup.css"
+    },
+    "requiredRuntimeDiskState": [
+      "./css/home-hero-tour-popup.css",
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-02-service-01.css",
+      "./css/card page home/card-03-service-02.css",
+      "./css/card page home/card-04-service-03.css",
+      "./css/card page home/card-05-service-04.css",
+      "./css/card page home/card-06-service-05.css",
+      "./css/card page home/card-07-service-06.css",
+      "./css/card page home/card-08-accordion-01.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/card page home/card-10-accordion-03.css"
+    ],
+    "debugRule": "If the page loads without styles or header/hero/popup is broken, first check Network for 404 on ./css/home-hero-tour-popup.css and confirm the filename has no Windows duplicate suffix."
   }
 }
