@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-12-2-css-folder-file-confirmation",
+  "version": "pdrs-01-13-display-shell-foundation",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,17 +8,19 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "actual-folder-structure-reconciled-home-hero-css-file-confirmed",
-    "note": "PDRS-01.12.2 metadata-only update: confirmed actual CSS folder contains ./css/card page home/ and ./css/modules/. Confirmed home hero/tour popup CSS should exist at exact runtime path ./css/home-hero-tour-popup.css. If downloaded as home-hero-tour-popup (1).css on Windows, rename to home-hero-tour-popup.css before browser testing. No runtime HTML/CSS/JS source was modified by this PDRS update."
+    "status": "display-shell-foundation-added",
+    "note": "PDRS-01.13 runtime foundation update: added ./css/modules/00-display-shell.css as the first CSS foundation module. Mobile/tablet portrait remains normal width 100%; landscape mobile/tablet and desktop are constrained to a centered 768px app shell. Header and popup backdrops are constrained only at global shell/fixed-layer boundary level."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "none-metadata-map-only",
-    "cssAdded": false,
+    "indexHtmlChange": "added-display-shell-css-link-in-head",
+    "cssAdded": true,
+    "cssChanged": true,
     "jsAdded": false,
+    "jsChanged": false,
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Only PDRS JSON metadata was updated. No runtime HTML/CSS/JS source was modified."
+    "note": "Added external CSS module link and new display-shell CSS module only. No HTML body text, class, id, aria, or data attributes were changed."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -32,6 +34,7 @@
       "coral-dictionary-at-phu-quoc.html"
     ],
     "cssLoadOrder": [
+      "./css/modules/00-display-shell.css",
       "./css/home-hero-tour-popup.css",
       "./css/card page home/card-01-intro.css",
       "./css/card page home/card-02-service-01.css",
@@ -106,7 +109,8 @@
       "./css/snorkeling.css",
       "./css/style.css",
       "./css/home-hero-tour-popup.css",
-      "./css/card page home/"
+      "./css/card page home/",
+      "./css/modules/00-display-shell.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -244,6 +248,18 @@
         "./css/modules/01-global-motion.css",
         "./css/modules/17-mobile-story-typewriter.css"
       ]
+    },
+    {
+      "id": "display-shell-mobile-container-first",
+      "rule": "Mobile/tablet portrait giữ width 100%; landscape mobile/tablet và desktop dùng app shell centered max-width 768px. Header và popup backdrop chỉ phủ app shell, không full desktop viewport.",
+      "primaryAreas": [
+        "00-display-shell-system",
+        "cross-module-overlay-stack"
+      ],
+      "firstFilesToInspect": [
+        "css/modules/00-display-shell.css",
+        "index.html"
+      ]
     }
   ],
   "modules": {
@@ -251,6 +267,7 @@
       "area": "head/meta/font/preload/css-js asset order",
       "htmlModule": "MODULE 01 — HEAD / ASSET REGISTRY",
       "cssFiles": [
+        "./css/modules/00-display-shell.css",
         "./css/home-hero-tour-popup.css",
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-02-service-01.css",
@@ -1354,6 +1371,7 @@
       "area": "global overlay / z-index / fixed header / popup backdrop stacking order",
       "htmlModule": "cross-module overlay stack based on active index.html",
       "cssFilesPrimary": [
+        "./css/modules/00-display-shell.css",
         "index.html inline <style>",
         "./css/home-hero-tour-popup.css",
         "./css/modules/03-mobile-search.css",
@@ -1425,7 +1443,54 @@
       "riskNotes": [
         "Header must remain visible above every overlay.",
         "Overlay bugs should be debugged by checking z-index, fixed positioning, pointer-events, visibility, opacity and scroll-lock together.",
-        "Do not edit ./js/app.js and ./css/style.css for current confirmed route pages unless a new active import is found."
+        "Do not edit ./js/app.js and ./css/style.css for current confirmed route pages unless a new active import is found.",
+        "Display-shell CSS owns fixed-layer app-shell boundary for header and popup backdrops; component popup/header modules still own internal visual styles."
+      ]
+    },
+    "00-display-shell-system": {
+      "area": "global app display shell / mobile-container-first / desktop constrained tablet shell",
+      "htmlModule": "MODULE 00 — DOCUMENT / APP SHELL + MODULE 01 — HEAD / ASSET REGISTRY",
+      "cssFilesPrimary": [
+        "./css/modules/00-display-shell.css"
+      ],
+      "jsFilesPrimary": [],
+      "selectors": [
+        "html",
+        "body",
+        "header",
+        ".site-content",
+        ".mobile-edge-pad",
+        ".mobile-search-backdrop",
+        ".policy-popup-backdrop",
+        ".popup-backdrop",
+        ".availability-popup-backdrop",
+        ".contact-popup-backdrop"
+      ],
+      "states": [
+        "portrait-mobile-default-width-100",
+        "landscape-mobile-tablet-desktop-mode",
+        "desktop-width-app-shell-centered",
+        "--app-shell-max-width: 768px",
+        "fixed-layer-left-50-transform-translateX(-50%)",
+        "normal-flow-margin-auto"
+      ],
+      "behavior": [
+        "Default portrait mobile/tablet keeps normal width: 100% with no forced desktop shell behavior.",
+        "Landscape mobile/tablet and desktop/laptop use a centered app shell constrained to 768px.",
+        "Header is constrained to the app shell and centered; it must not become full desktop viewport width.",
+        "Popup backdrops are constrained to the app shell and centered; they must not cover the full desktop viewport.",
+        "This module only owns shell/fixed-layer boundary alignment, not internal component visual design."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/00-display-shell.css",
+        "specific component CSS named by the symptom if inner visual styling is affected"
+      ],
+      "riskNotes": [
+        "Do not add transform: scale() or zoom to the full app shell because it can create blurry text, click-target mismatch, and fixed-layer offset bugs.",
+        "Do not move header/popup HTML into a wrapper unless explicitly planned; current implementation is CSS-only boundary alignment.",
+        "If a component module later sets left/right/transform on the same fixed root selectors after this file loads, it may override shell alignment."
       ]
     }
   },
@@ -1919,6 +1984,35 @@
         "#availabilityTourList",
         "#contact-popup"
       ]
+    },
+    "display-shell-layout-loi": {
+      "userDescriptionExamples": [
+        "desktop quá rộng",
+        "web không nằm giữa màn hình desktop",
+        "mobile landscape không giống desktop version",
+        "header full viewport trên desktop",
+        "popup backdrop phủ full màn hình desktop",
+        "app shell 768px bị lệch"
+      ],
+      "routeToModule": "00-display-shell-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/00-display-shell.css",
+        "component CSS file named by symptom if inner component design is affected"
+      ],
+      "selectors": [
+        "html",
+        "body",
+        "header",
+        ".site-content",
+        ".mobile-search-backdrop",
+        ".policy-popup-backdrop",
+        ".popup-backdrop",
+        ".availability-popup-backdrop",
+        ".contact-popup-backdrop",
+        ".mobile-edge-pad"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -2125,13 +2219,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.13 — Mobile-only Runtime Foundation After CSS Filename Verification",
+    "nextStepName": "PDRS-01.14 — Verify Display Shell In Browser",
     "recommendedUploadBatch": [
-      "./js/main.js",
-      "./css/home-hero-tour-popup.css",
-      "Only if desktop still does not run mobile modules: ./js/ui/mobile-edge-pad.js or ./js/ui/search-popup.js"
+      "./css/modules/00-display-shell.css",
+      "index.html",
+      "specific component CSS if visual conflict appears after shell loads"
     ],
-    "goal": "After confirming ./css/home-hero-tour-popup.css is correctly named and loaded, convert runtime behavior toward mobile-only app container with mobile modules active on desktop."
+    "goal": "Verify portrait mobile remains normal width 100%, landscape mobile/tablet uses desktop shell mode, and desktop is centered at max-width 768px with header/backdrops bounded to the shell."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2154,6 +2248,7 @@
     },
     "requiredByActiveIndex": {
       "cssLoadOrder": [
+        "./css/modules/00-display-shell.css",
         "./css/home-hero-tour-popup.css",
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-02-service-01.css",
@@ -2183,6 +2278,7 @@
       ]
     },
     "cssModulesRequiredByIndex": [
+      "./css/modules/00-display-shell.css",
       "./css/modules/06-availability-booking.css",
       "./css/modules/10-contact-popup.css",
       "./css/modules/08-policy-popup.css",
@@ -2194,6 +2290,7 @@
       "./css/modules/17-mobile-story-typewriter.css"
     ],
     "cssModulesReceivedOrAccounted": [
+      "./css/modules/00-display-shell.css",
       "./css/modules/01-global-motion.css",
       "./css/modules/03-mobile-search.css",
       "./css/modules/06-availability-booking.css",
@@ -2205,7 +2302,7 @@
       "./css/modules/17-mobile-story-typewriter.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — all css/modules files required by active index.html have been accounted for in upload sequence.",
+    "cssModulesStatus": "PASS — display shell CSS module added and accounted as first foundation stylesheet.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
@@ -2903,6 +3000,25 @@
         "cssChanged": false,
         "jsChanged": false,
         "runtimeSourceChanged": false
+      }
+    },
+    {
+      "id": "PDRS-01.13-display-shell-foundation-added",
+      "updatedAtLocal": "2026-06-21T21:41:00+07:00",
+      "scope": "runtime-css-link-plus-new-css-module-and-metadata-update",
+      "changed": [
+        "Added ./css/modules/00-display-shell.css to active CSS load order.",
+        "Added display shell rule: default mobile/tablet portrait width 100%.",
+        "Added display shell rule: landscape mobile/tablet and desktop constrained to centered max-width 768px.",
+        "Added fixed-layer shell boundary for header and popup backdrops.",
+        "Added modules.00-display-shell-system and debugScenarios.display-shell-layout-loi."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": true,
+        "cssChanged": true,
+        "jsChanged": false,
+        "htmlBodyTextChanged": false,
+        "classIdAttributeChanged": false
       }
     }
   ],
