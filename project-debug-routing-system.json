@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-11-1-cross-module-overlay-stack-module-added",
+  "version": "pdrs-01-12-1-metadata-logic-cleanup-after-folder-reconciliation",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "landing-pages-import-reconciled-cross-module-overlay-stack-module-added",
-    "note": "PDRS-01.11 đã cập nhật Landing Page HTML Import Reconciliation. Các root route landing pages đã accounted: diving-island-phu-quoc.html, camping-island-phu-quoc.html, hiking-mountain-phu-quoc.html, propose-island-phu-quoc.html, phu-quoc-tip-and-trick.html, coral-dictionary-at-phu-quoc.html. Không page nào trong batch reconciliation import ./style.css hoặc ./app.js. style.css/app.js giữ trạng thái root legacy/overlap, not active in confirmed current route pages. PDRS-01.11.1 metadata-only patch: added modules.cross-module-overlay-stack so debugScenarios.z-index-overlay-conflict.routeToModule resolves to an existing module. No runtime HTML/CSS/JS source was modified."
+    "status": "actual-folder-structure-reconciled-metadata-logic-cleaned",
+    "note": "PDRS-01.12.1 metadata-only cleanup after folder reconciliation. Fixed stale/debug-routing logic: snorkeling-page-loi now requests active ./js/snorkeling.js and ./css/snorkeling.css; legacy import result keys now use ./css/style.css and ./js/app.js; invalid concatenated path text was normalized to separate ./js/app.js and ./css/style.css references; uploadPolicyForFutureDebug no longer stores JS files inside nextRecommendedCssBatch. No runtime HTML/CSS/JS source was modified."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -33,16 +33,16 @@
     ],
     "cssLoadOrder": [
       "./css/home-hero-tour-popup.css",
-      "./css/card-01-intro.css",
-      "./css/card-02-service-01.css",
-      "./css/card-03-service-02.css",
-      "./css/card-04-service-03.css",
-      "./css/card-05-service-04.css",
-      "./css/card-06-service-05.css",
-      "./css/card-07-service-06.css",
-      "./css/card-08-accordion-01.css",
-      "./css/card-09-accordion-02.css",
-      "./css/card-10-accordion-03.css",
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-02-service-01.css",
+      "./css/card page home/card-03-service-02.css",
+      "./css/card page home/card-04-service-03.css",
+      "./css/card page home/card-05-service-04.css",
+      "./css/card page home/card-06-service-05.css",
+      "./css/card page home/card-07-service-06.css",
+      "./css/card page home/card-08-accordion-01.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/card page home/card-10-accordion-03.css",
       "./css/modules/06-availability-booking.css",
       "./css/modules/10-contact-popup.css",
       "./css/modules/08-policy-popup.css",
@@ -90,7 +90,7 @@
       "./js/pages/camping.js",
       "./js/pages/general.js",
       "./js/snorkeling.js",
-      "./app.js"
+      "./js/app.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -103,8 +103,8 @@
       "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu."
     },
     "cssUploadedOrAccounted": [
-      "./snorkeling.css",
-      "./style.css"
+      "./css/snorkeling.css",
+      "./css/style.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -114,7 +114,7 @@
       "snorkelingCssLinkedByCoralSnorkelingHtml": false,
       "snorkelingCssMergedInlineInCoralSnorkelingHtml": true,
       "snorkelingJsLoadedByCoralSnorkelingHtml": "js/snorkeling.js defer",
-      "note": "PDRS-01.11 confirmed: style.css/app.js are not imported by confirmed current route pages. Keep as root legacy/overlap files; do not delete without explicit user confirmation.",
+      "note": "PDRS-01.11 confirmed: ./css/style.css and ./js/app.js are not imported by confirmed current route pages. Keep as root legacy/overlap files; do not delete without explicit user confirmation.",
       "styleCssImportedByConfirmedRoutePages": false,
       "appJsImportedByConfirmedRoutePages": false,
       "confirmedRoutePagesCheckedForLegacyImports": [
@@ -127,6 +127,44 @@
         "phu-quoc-tip-and-trick.html",
         "coral-dictionary-at-phu-quoc.html"
       ]
+    },
+    "observedActualRootFromUserScreenshots": [
+      "./css/",
+      "./images/",
+      "./js/",
+      "./camping-island-phu-quoc.html",
+      "./coral-snorkeling-phu-quoc.html",
+      "./diving-island-phu-quoc.html",
+      "./hiking-mountain-phu-quoc.html",
+      "./index.html",
+      "./phu-quoc-tip-and-trick.html",
+      "./propose-island-phu-quoc.html",
+      "./project-debug-routing-system.json"
+    ],
+    "observedCssRootFromUserScreenshots": [
+      "./css/card page home/",
+      "./css/modules/",
+      "./css/snorkeling.css",
+      "./css/style.css"
+    ],
+    "observedJsRootFromUserScreenshots": [
+      "./js/modules/",
+      "./js/pages/",
+      "./js/ui/",
+      "./js/app.js",
+      "./js/main.js",
+      "./js/snorkeling.js"
+    ],
+    "folderReorganizationNotes": {
+      "status": "user-confirmed-file-relocation-not-extension-hiding",
+      "purpose": "Project is being reorganized to stay clean, scalable, and easier to debug as it grows.",
+      "cssCardHomeFolder": "./css/card page home/",
+      "legacyCssRelocatedTo": "./css/style.css",
+      "snorkelingCssRelocatedTo": "./css/snorkeling.css",
+      "legacyAppRuntimeRelocatedTo": "./js/app.js",
+      "mainJsStillAt": "./js/main.js",
+      "snorkelingJsStillAt": "./js/snorkeling.js",
+      "important": "Before editing runtime source, inspect the importing HTML file because link/script paths must match this reorganized folder structure."
     }
   },
   "uploadPolicyForFutureDebug": {
@@ -136,20 +174,20 @@
     ],
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
-    "nextRecommendedCssBatch": [
-      "js/modules/tour-card-links.js",
-      "js/modules/header-menu-state.js",
-      "js/modules/mobile-story-typewriter.js"
-    ],
-    "currentInventoryCheckpoint": "PDRS-01.11 complete: landing page HTML import reconciliation finished. Confirmed route pages do not import ./style.css or ./app.js. Root legacy files remain accounted but inactive in confirmed current route pages.",
+    "nextRecommendedCssBatch": [],
+    "currentInventoryCheckpoint": "PDRS-01.12.1 complete: folder structure reconciled and metadata logic cleaned. Confirmed current route pages remain mapped as not importing ./css/style.css or ./js/app.js unless a future HTML import check proves otherwise.",
     "nextRecommendedJsBatch": [
+      "./js/modules/tour-card-links.js",
+      "./js/modules/header-menu-state.js",
+      "./js/modules/mobile-story-typewriter.js",
       "HTML page importing ./js/ui/brand-logo.js if used",
       "HTML page importing ./js/modules/payment.js if used",
       "HTML page importing ./js/modules/confirmation.js if used"
     ],
     "nextRecommendedUploadBatch": [
       "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
-    ]
+    ],
+    "nextRecommendedCssBatchNote": "No CSS batch is recommended by default after PDRS-01.12.1. Use debugScenarios routing and request only the symptom-related CSS file."
   },
   "projectInvariants": [
     {
@@ -179,16 +217,16 @@
       "rule": "Inline style registry đã remove. CSS active hiện nằm ở external CSS links.",
       "firstFilesToInspect": [
         "./css/home-hero-tour-popup.css",
-        "./css/card-01-intro.css",
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css",
-        "./css/card-04-service-03.css",
-        "./css/card-05-service-04.css",
-        "./css/card-06-service-05.css",
-        "./css/card-07-service-06.css",
-        "./css/card-08-accordion-01.css",
-        "./css/card-09-accordion-02.css",
-        "./css/card-10-accordion-03.css",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css",
+        "./css/card page home/card-08-accordion-01.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/card page home/card-10-accordion-03.css",
         "./css/modules/06-availability-booking.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/08-policy-popup.css",
@@ -207,16 +245,16 @@
       "htmlModule": "MODULE 01 — HEAD / ASSET REGISTRY",
       "cssFiles": [
         "./css/home-hero-tour-popup.css",
-        "./css/card-01-intro.css",
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css",
-        "./css/card-04-service-03.css",
-        "./css/card-05-service-04.css",
-        "./css/card-06-service-05.css",
-        "./css/card-07-service-06.css",
-        "./css/card-08-accordion-01.css",
-        "./css/card-09-accordion-02.css",
-        "./css/card-10-accordion-03.css",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css",
+        "./css/card page home/card-08-accordion-01.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/card page home/card-10-accordion-03.css",
         "./css/modules/06-availability-booking.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/08-policy-popup.css",
@@ -345,7 +383,7 @@
       "htmlModule": "MODULE 05 — HERO MODULE",
       "cssFilesPrimary": [
         "./css/home-hero-tour-popup.css",
-        "./css/card-01-intro.css"
+        "./css/card page home/card-01-intro.css"
       ],
       "cssFilesRelated": [
         "./css/modules/17-mobile-story-typewriter.css"
@@ -374,7 +412,7 @@
       ],
       "futureUploadIfBug": [
         "css/home-hero-tour-popup.css",
-        "css/card-01-intro.css",
+        "css/card page home/card-01-intro.css",
         "css/modules/17-mobile-story-typewriter.css",
         "js/modules/mobile-story-typewriter.js"
       ]
@@ -429,11 +467,11 @@
         "js/main.js"
       ],
       "legacyOverlapFiles": [
-        "./app.js",
-        "./style.css"
+        "./js/app.js",
+        "./css/style.css"
       ],
       "riskNotes": [
-        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "07-mobile-edge-pad": {
@@ -623,11 +661,11 @@
         "story-expand.js closes tour popup and scrolls to #more-stories-section; back-to-tours scrolls to .hero."
       ],
       "legacyOverlapFiles": [
-        "./app.js",
-        "./style.css"
+        "./js/app.js",
+        "./css/style.css"
       ],
       "riskNotes": [
-        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "10-contact-popup": {
@@ -677,11 +715,11 @@
         "Can be opened externally via billy:open-contact-popup event."
       ],
       "legacyOverlapFiles": [
-        "./app.js",
-        "./style.css"
+        "./js/app.js",
+        "./css/style.css"
       ],
       "riskNotes": [
-        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ]
     },
     "11-scroll-home-composite": {
@@ -691,15 +729,15 @@
         "./css/modules/11-scroll-home-composite.css"
       ],
       "cssFilesRelated": [
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css",
-        "./css/card-04-service-03.css",
-        "./css/card-05-service-04.css",
-        "./css/card-06-service-05.css",
-        "./css/card-07-service-06.css",
-        "./css/card-08-accordion-01.css",
-        "./css/card-09-accordion-02.css",
-        "./css/card-10-accordion-03.css"
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css",
+        "./css/card page home/card-08-accordion-01.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/card page home/card-10-accordion-03.css"
       ],
       "jsFilesPrimary": [
         "./js/main.js",
@@ -768,7 +806,7 @@
         "inline <style> inside coral-snorkeling-phu-quoc.html"
       ],
       "cssFilesRelated": [
-        "./snorkeling.css"
+        "./css/snorkeling.css"
       ],
       "jsFilesPrimary": [
         "./js/snorkeling.js"
@@ -842,7 +880,7 @@
       "futureUploadIfBug": [
         "coral-snorkeling-phu-quoc.html",
         "./js/snorkeling.js",
-        "./snorkeling.css",
+        "./css/snorkeling.css",
         "snorkeling-hero.webm if video 404 appears"
       ]
     },
@@ -1050,7 +1088,7 @@
       "riskNotes": [
         "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
         "Header must remain visible and not covered by lock/popup state.",
-        "app.js/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -1060,8 +1098,8 @@
         "./js/ui/gesture.js"
       ],
       "legacyOverlapFiles": [
-        "./app.js",
-        "./style.css"
+        "./js/app.js",
+        "./css/style.css"
       ]
     },
     "25-secondary-unintegrated-js-stubs": {
@@ -1104,10 +1142,10 @@
       "area": "root-level legacy/overlap CSS and JS files pending final active-import reconciliation",
       "htmlModule": "root legacy files; confirmed not imported by current route pages as of PDRS-01.11",
       "cssFilesPrimary": [
-        "./style.css"
+        "./css/style.css"
       ],
       "jsFilesPrimary": [
-        "./app.js"
+        "./js/app.js"
       ],
       "selectors": [
         ".popup-card",
@@ -1197,24 +1235,24 @@
       ],
       "behavior": [
         "app.js is a monolithic IIFE legacy/runtime file overlapping current modular main.js behavior: home popup, availability calendar, contact popup, mobile gestures, carousel, and snorkeling transition.",
-        "style.css contains root popup/contact/availability/snorkeling transition styling that overlaps current modular CSS files and should be treated as legacy/pending active import verification.",
-        "Neither ./style.css nor ./app.js is listed in active index.html cssLoadOrder/jsLoadOrder in the current PDRS map.",
-        "If any secondary HTML imports style.css or app.js, this module becomes active for that page and must be reconciled before edits.",
-        "PDRS-01.11 reconciliation confirmed no current accounted route page imports ./style.css or ./app.js.",
+        "./css/style.css contains legacy/root popup/contact/availability/snorkeling transition styling that overlaps current modular CSS files and should be treated as legacy/pending active import verification.",
+        "Neither ./css/style.css nor ./js/app.js is listed in active index.html cssLoadOrder/jsLoadOrder in the current PDRS map.",
+        "If any secondary HTML imports ./css/style.css or ./js/app.js, this module becomes active for that page and must be reconciled before edits.",
+        "PDRS-01.11 reconciliation confirmed no current accounted route page imports ./css/style.css or ./js/app.js.",
         "Root legacy files remain available for reference only unless a future page explicitly imports them."
       ],
       "riskNotes": [
         "High duplication risk with ./js/main.js + ./js/ui/* + ./js/modules/booking.js.",
-        "style.css fetch shows CSS comment sanitization/malformed-comment symptoms; verify raw file before editing.",
-        "app.js touches the same high-coupling nodes as current modular runtime: #leave-no-trace-popup, #availability-popup, #contact-popup, popup carousel and snorkeling navigation.",
-        "Do not merge or delete app.js/style.css until HTML imports are confirmed.",
-        "Do not debug current confirmed route page runtime by editing app.js/style.css unless an active import is later found.",
-        "Do not delete app.js/style.css without explicit user confirmation; keep as legacy/reference until cleanup phase."
+        "./css/style.css fetch shows CSS comment sanitization/malformed-comment symptoms; verify raw file before editing.",
+        "./js/app.js touches the same high-coupling nodes as current modular runtime: #leave-no-trace-popup, #availability-popup, #contact-popup, popup carousel and snorkeling navigation.",
+        "Do not merge or delete ./js/app.js and ./css/style.css until HTML imports are confirmed.",
+        "Do not debug current confirmed route page runtime by editing ./js/app.js and ./css/style.css unless an active import is later found.",
+        "Do not delete ./js/app.js and ./css/style.css without explicit user confirmation; keep as legacy/reference until cleanup phase."
       ],
       "futureUploadIfBug": [
-        "./app.js",
-        "./style.css",
-        "HTML page importing app.js/style.css"
+        "./js/app.js",
+        "./css/style.css",
+        "HTML page importing ./js/app.js and ./css/style.css"
       ]
     },
     "27-landing-page-import-reconciliation": {
@@ -1231,8 +1269,8 @@
       "cssFilesPrimary": [],
       "jsFilesPrimary": [],
       "confirmedNoLegacyImports": [
-        "./style.css",
-        "./app.js"
+        "./css/style.css",
+        "./js/app.js"
       ],
       "pageInventory": [
         {
@@ -1298,8 +1336,8 @@
       ],
       "behavior": [
         "This reconciliation is metadata-only and does not modify runtime HTML/CSS/JS source files.",
-        "Confirmed root route pages do not import ./style.css or ./app.js.",
-        "style.css and app.js remain accounted as root legacy/overlap files but are inactive in confirmed current route pages."
+        "Confirmed root route pages do not import ./css/style.css or ./js/app.js.",
+        "./css/style.css and ./js/app.js remain accounted as root legacy/overlap files but are inactive in confirmed current route pages."
       ],
       "futureUploadIfBug": [
         "Upload only the specific route page and related CSS/JS identified by debugScenarios."
@@ -1380,7 +1418,7 @@
       "riskNotes": [
         "Header must remain visible above every overlay.",
         "Overlay bugs should be debugged by checking z-index, fixed positioning, pointer-events, visibility, opacity and scroll-lock together.",
-        "Do not edit app.js/style.css for current confirmed route pages unless a new active import is found."
+        "Do not edit ./js/app.js and ./css/style.css for current confirmed route pages unless a new active import is found."
       ]
     }
   },
@@ -1573,8 +1611,8 @@
       "uploadRequestOrder": [
         "project-debug-routing-system.json",
         "coral-snorkeling-phu-quoc.html",
-        "./js/pages/snorkeling.js",
-        "related snorkeling CSS file if visual/modal issue appears"
+        "./js/snorkeling.js",
+        "./css/snorkeling.css"
       ],
       "selectors": [
         "#snorkelingBackButton",
@@ -1768,7 +1806,7 @@
         "project-debug-routing-system.json",
         "coral-snorkeling-phu-quoc.html",
         "./js/snorkeling.js",
-        "./snorkeling.css"
+        "./css/snorkeling.css"
       ],
       "selectors": [
         "body.snorkeling-page",
@@ -1817,9 +1855,9 @@
       "routeToModule": "26-root-legacy-runtime-files",
       "uploadRequestOrder": [
         "project-debug-routing-system.json",
-        "./app.js",
-        "./style.css",
-        "HTML page importing app.js/style.css"
+        "./js/app.js",
+        "./css/style.css",
+        "HTML page importing ./js/app.js and ./css/style.css"
       ],
       "selectors": [
         ".popup-card",
@@ -2080,11 +2118,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.12 — Symptom-Based Debug Routing Only",
+    "nextStepName": "PDRS-01.13 — Runtime Import Path Verification If Browser 404 Appears",
     "recommendedUploadBatch": [
-      "Upload only file(s) required by the next concrete bug/symptom."
+      "index.html",
+      "specific HTML page that shows missing CSS/JS in browser console",
+      "only the CSS/JS file named by the 404 or symptom"
     ],
-    "goal": "Landing page import reconciliation is complete. Next work should be bug-driven using debugScenarios routing; no need to upload broad batches unless a new subsystem is introduced."
+    "goal": "After folder reorganization, debug should stay symptom-driven. First verify link/script import paths only when a browser 404 or visual/runtime missing-file symptom appears."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2108,16 +2148,16 @@
     "requiredByActiveIndex": {
       "cssLoadOrder": [
         "./css/home-hero-tour-popup.css",
-        "./css/card-01-intro.css",
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css",
-        "./css/card-04-service-03.css",
-        "./css/card-05-service-04.css",
-        "./css/card-06-service-05.css",
-        "./css/card-07-service-06.css",
-        "./css/card-08-accordion-01.css",
-        "./css/card-09-accordion-02.css",
-        "./css/card-10-accordion-03.css",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css",
+        "./css/card page home/card-08-accordion-01.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/card page home/card-10-accordion-03.css",
         "./css/modules/06-availability-booking.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/08-policy-popup.css",
@@ -2198,38 +2238,38 @@
         "reason": "Fetched text showed before/after/details-marker sanitization symptoms; verify raw file before editing."
       },
       {
-        "path": "./css/card-07-service-06.css",
+        "path": "./css/card page home/card-07-service-06.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       },
       {
-        "path": "./css/card-08-accordion-01.css",
+        "path": "./css/card page home/card-08-accordion-01.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       },
       {
-        "path": "./css/card-09-accordion-02.css",
+        "path": "./css/card page home/card-09-accordion-02.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       }
     ],
     "safeNextStep": {
       "name": "PDRS-01.7 — Root Card CSS Inventory",
-      "goal": "Account for ./css/card-01-intro.css through ./css/card-10-accordion-03.css without modifying runtime files.",
+      "goal": "Account for ./css/card page home/card-01-intro.css through ./css/card page home/card-10-accordion-03.css without modifying runtime files.",
       "recommendedUploadBatch": [
-        "./css/card-01-intro.css",
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css"
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css"
       ]
     },
     "rootCardCssReceivedOrAccounted": [
-      "./css/card-01-intro.css",
-      "./css/card-02-service-01.css",
-      "./css/card-03-service-02.css",
-      "./css/card-04-service-03.css",
-      "./css/card-05-service-04.css",
-      "./css/card-06-service-05.css",
-      "./css/card-07-service-06.css",
-      "./css/card-08-accordion-01.css",
-      "./css/card-09-accordion-02.css",
-      "./css/card-10-accordion-03.css"
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-02-service-01.css",
+      "./css/card page home/card-03-service-02.css",
+      "./css/card page home/card-04-service-03.css",
+      "./css/card page home/card-05-service-04.css",
+      "./css/card page home/card-06-service-05.css",
+      "./css/card page home/card-07-service-06.css",
+      "./css/card page home/card-08-accordion-01.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/card page home/card-10-accordion-03.css"
     ],
     "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session."
   },
@@ -2253,72 +2293,72 @@
       "jsLoadOrderMatchesPdrsKnownFiles": true
     },
     "rootCardCssRequiredByIndex": [
-      "./css/card-01-intro.css",
-      "./css/card-02-service-01.css",
-      "./css/card-03-service-02.css",
-      "./css/card-04-service-03.css",
-      "./css/card-05-service-04.css",
-      "./css/card-06-service-05.css",
-      "./css/card-07-service-06.css",
-      "./css/card-08-accordion-01.css",
-      "./css/card-09-accordion-02.css",
-      "./css/card-10-accordion-03.css"
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-02-service-01.css",
+      "./css/card page home/card-03-service-02.css",
+      "./css/card page home/card-04-service-03.css",
+      "./css/card page home/card-05-service-04.css",
+      "./css/card page home/card-06-service-05.css",
+      "./css/card page home/card-07-service-06.css",
+      "./css/card page home/card-08-accordion-01.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/card page home/card-10-accordion-03.css"
     ],
     "rootCardCssReceivedOrAccounted": [
       {
-        "path": "./css/card-01-intro.css",
+        "path": "./css/card page home/card-01-intro.css",
         "status": "received-and-source-read",
         "role": "card-01 intro + shared mobile-home-feed base layout",
         "importantNote": "This file owns shared .mobile-home-feed layout and card-01 overrides."
       },
       {
-        "path": "./css/card-02-service-01.css",
+        "path": "./css/card page home/card-02-service-01.css",
         "status": "received-and-source-read",
         "role": "card-02 service override shell"
       },
       {
-        "path": "./css/card-03-service-02.css",
+        "path": "./css/card page home/card-03-service-02.css",
         "status": "received-and-source-read",
         "role": "card-03 service override shell"
       },
       {
-        "path": "./css/card-04-service-03.css",
+        "path": "./css/card page home/card-04-service-03.css",
         "status": "received-and-source-read",
         "role": "card-04 service override shell"
       },
       {
-        "path": "./css/card-05-service-04.css",
+        "path": "./css/card page home/card-05-service-04.css",
         "status": "received-and-source-read",
         "role": "card-05 service override shell"
       },
       {
-        "path": "./css/card-06-service-05.css",
+        "path": "./css/card page home/card-06-service-05.css",
         "status": "received-and-source-read",
         "role": "card-06 service override shell"
       },
       {
-        "path": "./css/card-07-service-06.css",
+        "path": "./css/card page home/card-07-service-06.css",
         "status": "accounted-by-user-confirmation-fetch-unreadable",
         "role": "card-07 service override shell expected",
         "verifyLater": true,
         "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
       },
       {
-        "path": "./css/card-08-accordion-01.css",
+        "path": "./css/card page home/card-08-accordion-01.css",
         "status": "accounted-by-user-confirmation-fetch-unreadable",
         "role": "card-08 accordion override shell expected",
         "verifyLater": true,
         "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
       },
       {
-        "path": "./css/card-09-accordion-02.css",
+        "path": "./css/card page home/card-09-accordion-02.css",
         "status": "accounted-by-user-confirmation-fetch-unreadable",
         "role": "card-09 accordion override shell expected",
         "verifyLater": true,
         "note": "User confirmed all 10 card CSS files were exported. Fetch returned empty/corrupted for this file in this session, so verify raw source before deep debug."
       },
       {
-        "path": "./css/card-10-accordion-03.css",
+        "path": "./css/card page home/card-10-accordion-03.css",
         "status": "received-and-source-read",
         "role": "card-10 accordion override shell"
       }
@@ -2327,34 +2367,34 @@
     "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
     "cardCssPrimaryDebugRouting": {
       "mobileFeedSwipeOrSnapIssues": [
-        "./css/card-01-intro.css",
+        "./css/card page home/card-01-intro.css",
         "./js/main.js"
       ],
       "individualServiceCardVisualIssues": [
-        "./css/card-02-service-01.css",
-        "./css/card-03-service-02.css",
-        "./css/card-04-service-03.css",
-        "./css/card-05-service-04.css",
-        "./css/card-06-service-05.css",
-        "./css/card-07-service-06.css"
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css"
       ],
       "individualAccordionCardVisualIssues": [
-        "./css/card-08-accordion-01.css",
-        "./css/card-09-accordion-02.css",
-        "./css/card-10-accordion-03.css"
+        "./css/card page home/card-08-accordion-01.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/card page home/card-10-accordion-03.css"
       ]
     },
     "syntaxVerifyQueueAdditions": [
       {
-        "path": "./css/card-07-service-06.css",
+        "path": "./css/card page home/card-07-service-06.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       },
       {
-        "path": "./css/card-08-accordion-01.css",
+        "path": "./css/card page home/card-08-accordion-01.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       },
       {
-        "path": "./css/card-09-accordion-02.css",
+        "path": "./css/card page home/card-09-accordion-02.css",
         "reason": "Fetch returned empty/corrupted even though file is accounted by user confirmation."
       }
     ],
@@ -2582,7 +2622,7 @@
         "primaryModule": "21-page-entry-modules"
       },
       {
-        "path": "./app.js",
+        "path": "./js/app.js",
         "status": "received-and-source-read-legacy-overlap-risk-active-import-unknown",
         "role": "root monolithic runtime overlapping modular UI/booking/popup/carousel behavior",
         "primaryModule": "26-root-legacy-runtime-files"
@@ -2599,7 +2639,7 @@
       "route-handler-overlap-risk: tour-carousel.js, navigation.js and tour-card-links.js overlap around popup tour card navigation.",
       "cross-module-scroll-lock-stack: home-scroll-locked, mobile-popup-scroll-lock, mobile-home-feed-snap and history guard can interact.",
       "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js.",
-      "app.js is an additional root monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
+      "./js/app.js is an additional legacy monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
       "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js."
     ],
     "jsPendingForCompleteInventory": [
@@ -2633,7 +2673,7 @@
         "role": "standalone snorkeling landing page"
       },
       {
-        "path": "./snorkeling.css",
+        "path": "./css/snorkeling.css",
         "status": "received-and-source-read-not-linked-by-current-snorkeling-html",
         "role": "external/source copy of snorkeling landing CSS",
         "note": "Current coral-snorkeling-phu-quoc.html has inline CSS instead of linking this file."
@@ -2661,21 +2701,21 @@
     },
     "filesReceivedOrAccounted": [
       {
-        "path": "./app.js",
+        "path": "./js/app.js",
         "status": "received-and-source-read-legacy-overlap-risk",
         "role": "monolithic root runtime overlapping modular main.js/ui/modules behavior",
         "activeInIndexHtml": false
       },
       {
-        "path": "./style.css",
+        "path": "./css/style.css",
         "status": "received-and-source-read-legacy-overlap-risk-syntax-verify-required",
         "role": "root CSS overlapping modular CSS and popup/contact/availability styles",
         "activeInIndexHtml": false
       }
     ],
     "reconciliationNeeded": [
-      "No current confirmed route page imports ./app.js or ./style.css.",
-      "If a future/new HTML page imports ./app.js or ./style.css, reconcile against ./js/main.js, ./js/ui/*, ./js/modules/booking.js and current CSS modules before editing.",
+      "No current confirmed route page imports ./js/app.js or ./css/style.css.",
+      "If a future/new HTML page imports ./js/app.js or ./css/style.css, reconcile against ./js/main.js, ./js/ui/*, ./js/modules/booking.js and current CSS modules before editing.",
       "If unused long-term, keep as legacy reference or remove only after explicit user confirmation."
     ],
     "confirmedNotImportedByRoutePages": [
@@ -2691,7 +2731,7 @@
   },
   "landingPageImportReconciliation": {
     "step": "PDRS-01.11 — Landing Page HTML Import Reconciliation",
-    "status": "PASS — confirmed landing page imports reconciled; root legacy app.js/style.css not active in confirmed route pages",
+    "status": "PASS — confirmed landing page imports reconciled; root legacy ./js/app.js and ./css/style.css not active in confirmed route pages",
     "updatedAtLocal": "2026-06-21T08:42:00+07:00",
     "runtimeChangePolicy": {
       "htmlChanged": false,
@@ -2773,8 +2813,8 @@
       "coral-dictionary-at-phu-quoc.html"
     ],
     "legacyImportResult": {
-      "./style.css": "not imported by confirmed current route pages",
-      "./app.js": "not imported by confirmed current route pages"
+      "./css/style.css": "not imported by confirmed current route pages",
+      "./js/app.js": "not imported by confirmed current route pages"
     },
     "routeRenameConfirmations": [
       "camping.html -> camping-island-phu-quoc.html",
@@ -2784,7 +2824,7 @@
     "createdRouteShells": [
       "coral-dictionary-at-phu-quoc.html"
     ],
-    "safeConclusion": "style.css/app.js remain root legacy/reference files and should not be edited for current confirmed route page bugs unless an active import is later confirmed."
+    "safeConclusion": "./css/style.css and ./js/app.js remain legacy/reference files and should not be edited for current confirmed route page bugs unless an active import is later confirmed."
   },
   "pdrsPatchLog": [
     {
@@ -2801,6 +2841,161 @@
         "jsChanged": false,
         "runtimeSourceChanged": false
       }
+    },
+    {
+      "id": "PDRS-01.12-actual-folder-structure-reconciliation",
+      "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Updated legacy CSS references from ./style.css to ./css/style.css.",
+        "Updated snorkeling CSS references from ./snorkeling.css to ./css/snorkeling.css.",
+        "Updated legacy app runtime references from ./app.js to ./js/app.js.",
+        "Updated home card CSS path references from ./css/card-*.css to ./css/card page home/card-*.css.",
+        "Added actualFolderStructureReconciliation section with observed root/css/js structure from user screenshots.",
+        "Added knownFiles observed folder structure and folderReorganizationNotes.",
+        "Updated nextSteps for runtime import path verification if browser 404 appears."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false
+      }
+    },
+    {
+      "id": "PDRS-01.12.1-metadata-logic-cleanup-after-folder-reconciliation",
+      "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Fixed debugScenarios.snorkeling-page-loi.uploadRequestOrder to use active ./js/snorkeling.js and ./css/snorkeling.css.",
+        "Fixed invalid concatenated legacy path wording to separate ./js/app.js and ./css/style.css references.",
+        "Fixed landingPageImportReconciliation.legacyImportResult keys from root legacy paths to reorganized paths.",
+        "Moved JS file recommendations out of uploadPolicyForFutureDebug.nextRecommendedCssBatch into nextRecommendedJsBatch.",
+        "Added metadataLogicCleanupAfterFolderReconciliation section documenting fixed issues and remaining warnings."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false
+      }
     }
-  ]
+  ],
+  "actualFolderStructureReconciliation": {
+    "step": "PDRS-01.12 — Actual Folder Structure Reconciliation",
+    "status": "PASS — metadata updated from user screenshots and confirmation",
+    "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "runtimeSourceChanged": false,
+      "note": "PDRS JSON metadata updated only. Runtime source files were not modified."
+    },
+    "userContext": "User is reorganizing the billytheguide project to keep it cleaner and easier to control while expanding.",
+    "observedRoot": [
+      "./css/",
+      "./images/",
+      "./js/",
+      "./camping-island-phu-quoc.html",
+      "./coral-snorkeling-phu-quoc.html",
+      "./diving-island-phu-quoc.html",
+      "./hiking-mountain-phu-quoc.html",
+      "./index.html",
+      "./phu-quoc-tip-and-trick.html",
+      "./propose-island-phu-quoc.html",
+      "./project-debug-routing-system.json"
+    ],
+    "observedCssRoot": [
+      "./css/card page home/",
+      "./css/modules/",
+      "./css/snorkeling.css",
+      "./css/style.css"
+    ],
+    "observedJsRoot": [
+      "./js/modules/",
+      "./js/pages/",
+      "./js/ui/",
+      "./js/app.js",
+      "./js/main.js",
+      "./js/snorkeling.js"
+    ],
+    "pathMigrationsApplied": [
+      {
+        "from": "./style.css",
+        "to": "./css/style.css",
+        "scope": "PDRS metadata path references"
+      },
+      {
+        "from": "./snorkeling.css",
+        "to": "./css/snorkeling.css",
+        "scope": "PDRS metadata path references"
+      },
+      {
+        "from": "./app.js",
+        "to": "./js/app.js",
+        "scope": "PDRS metadata path references"
+      },
+      {
+        "from": "./css/card-*.css",
+        "to": "./css/card page home/card-*.css",
+        "scope": "PDRS metadata path references"
+      }
+    ],
+    "debugPolicyAfterReorganization": [
+      "When a bug appears, request the specific file using the reorganized path map first.",
+      "Do not assume root ./style.css or root ./app.js exists anymore; use ./css/style.css and ./js/app.js.",
+      "Do not assume card CSS is under ./css/ root; use ./css/card page home/.",
+      "Before editing active runtime imports, inspect the relevant HTML file because moved file paths must match link/script imports."
+    ],
+    "pendingVerification": [
+      "./css/modules/ exact file list should be verified from folder screenshot or uploaded files before module-level path edits.",
+      "./css/card page home/ exact file list should be verified from folder screenshot or uploaded files before card-level visual debug.",
+      "index.html link/script paths should be inspected if browser shows 404 after file relocation."
+    ]
+  },
+  "metadataLogicCleanupAfterFolderReconciliation": {
+    "step": "PDRS-01.12.1 — Metadata Logic Cleanup After Folder Reconciliation",
+    "status": "PASS — known metadata logic issues fixed safely",
+    "updatedAtLocal": "2026-06-21T09:23:00+07:00",
+    "runtimeChangePolicy": {
+      "htmlChanged": false,
+      "cssChanged": false,
+      "jsChanged": false,
+      "runtimeSourceChanged": false,
+      "note": "PDRS JSON metadata updated only. Runtime source files were not modified."
+    },
+    "fixedIssues": [
+      {
+        "id": "snorkeling-debug-upload-order-uses-inactive-js",
+        "severityBefore": "HIGH",
+        "fix": "debugScenarios.snorkeling-page-loi.uploadRequestOrder now requests ./js/snorkeling.js and ./css/snorkeling.css."
+      },
+      {
+        "id": "concatenated-legacy-path-text",
+        "severityBefore": "MEDIUM",
+        "fix": "Invalid concatenated legacy path wording was normalized to separate ./js/app.js and ./css/style.css references."
+      },
+      {
+        "id": "stale-root-path-references",
+        "severityBefore": "MEDIUM",
+        "fix": "landingPageImportReconciliation.legacyImportResult keys now use ./css/style.css and ./js/app.js."
+      },
+      {
+        "id": "css-batch-contains-js-files",
+        "severityBefore": "LOW",
+        "fix": "JS files were moved out of nextRecommendedCssBatch and into nextRecommendedJsBatch."
+      }
+    ],
+    "remainingWarnings": [
+      "activeIndexHtmlCheck flags from earlier inventory are historical and should be reverified against current index.html only if browser shows 404 or missing CSS/JS symptoms.",
+      "Non-normalized paths without ./ remain acceptable in human uploadRequestOrder notes, but runtime path edits should inspect the actual importing HTML first."
+    ],
+    "safeDebugPolicy": [
+      "Use debugScenarios first; do not upload broad project batches.",
+      "For snorkeling runtime bugs, request coral-snorkeling-phu-quoc.html, ./js/snorkeling.js, and ./css/snorkeling.css.",
+      "For legacy overlap checks, request ./js/app.js, ./css/style.css, and the exact HTML page that imports them.",
+      "For folder relocation 404 issues, request index.html or the specific route HTML showing the 404 before changing paths."
+    ]
+  }
 }
