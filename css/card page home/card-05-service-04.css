@@ -1,10 +1,76 @@
-/* ✅ NEW: CARD 05 CSS - service card 04 */
-@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 {
-    /* ✅ NEW: edit card 05 container styles here */
-  }
+/* =====================================================
+✅ MODULE 05 — HERO BACKGROUND IMAGE SYSTEM (FIXED)
+===================================================== */
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 05 text/layout spacing here */
+:root {
+  --hero-bg-mobile: url("../../images/hero-768.JPEG"); /* ✅ KEEP */
+  --hero-bg-tablet: url("../../images/hero-1280.PNG"); /* ✅ KEEP */
+  --hero-bg-desktop: url("../../images/hero-1920.PNG"); /* ✅ KEEP */
+
+  --hero-bg-position-mobile: center center;
+  --hero-bg-position-tablet: center center;
+  --hero-bg-position-desktop: center center;
+
+  --hero-bg-fallback: #06111f;
+}
+
+/* ✅ UPDATED — FIX stacking context */
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  background-color: var(--hero-bg-fallback);
+
+  isolation: isolate; /* ✅ KEEP */
+}
+
+/* ✅ UPDATED — FIX invisible background */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  z-index: 0; /* ✅ UPDATED (was -2 → BUG) */
+
+  background-image: var(--hero-bg-mobile);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: var(--hero-bg-position-mobile);
+
+  pointer-events: none;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ✅ UPDATED — overlay above image */
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1; /* ✅ UPDATED */
+
+  pointer-events: none;
+}
+
+/* ✅ UPDATED — content always above */
+.hero > :not(.overlay)::not(::before) {
+  position: relative;
+  z-index: 2; /* ✅ UPDATED */
+}
+
+/* ✅ TABLET */
+@media (min-width: 600px) and (max-width: 768px) and (orientation: portrait) {
+  .hero::before {
+    background-image: var(--hero-bg-tablet);
+    background-position: var(--hero-bg-position-tablet);
   }
-} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
+}
+
+/* ✅ DESKTOP + LANDSCAPE */
+@media (min-width: 769px), (orientation: landscape) {
+  .hero::before {
+    background-image: var(--hero-bg-desktop);
+    background-position: var(--hero-bg-position-desktop);
+  }
+}
