@@ -1,1895 +1,617 @@
-/* ✅ NEW: START MERGED style.css */
-/* ✅ NEW: THEME TOKENS - premium white/black + ocean teal hue */
-    :root {
-      --color-black: #050608;
-      --color-ink: #101418;
-      --color-charcoal: #171c22;
-      --color-white: #ffffff;
-      --color-soft-white: #f6f7f8;
-      --color-muted-light: rgba(255, 255, 255, 0.72);
-      --color-muted-dark: rgba(16, 20, 24, 0.68);
-      --color-hue: #0f6f78;
-      --color-hue-soft: #9fdfe5;
-      --color-hue-deep: #083f46;
-      --color-hue-glow: rgba(77, 216, 226, 0.24);
-      --surface-glass-white: rgba(255, 255, 255, 0.72);
-      --surface-glass-dark: rgba(13, 17, 23, 0.82);
-      --surface-border-white: rgba(255, 255, 255, 0.22);
-      --surface-border-dark: rgba(5, 6, 8, 0.08);
-      --shadow-premium-soft: 0 18px 54px rgba(5, 6, 8, 0.14);
-      --header-pill-x: clamp(12px, 3vw, 28px);
-    }
+/* ✅ UPDATED: CLEAN STRONG — mobile-first component CSS only
+   FILE: ./css/home-hero-tour-popup.css
+   SCOPE KEPT:
+   - theme tokens
+   - header visual basics
+   - logo visual
+   - hero / overlay / tagline
+   - title / story / CTA
+   - Leave no trace tour popup
+   SCOPE REMOVED:
+   - contact popup
+   - policy popup
+   - availability booking
+   - mobile search
+   - mobile edge pad
+   - scroll-home/service/accordion styles
+   NOTE:
+   - Display shell width/centering/fixed-layer boundary belongs to ./css/modules/00-display-shell.css
+   - This file intentionally keeps mobile UI as the component source of truth.
+*/
 
-    /* ✅ RESET */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html, body {
-      overflow-x: hidden;
-    }
-    /* ===== GLOBAL ===== */
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--color-white); /* ✅ UPDATED */
-      -webkit-font-smoothing: antialiased; /* ✅ REQUIRED FIX */
-      -moz-osx-font-smoothing: grayscale; /* ✅ REQUIRED FIX */
-    }
+/* ✅ UPDATED: THEME TOKENS */
+:root {
+  --color-black: #050608;
+  --color-ink: #101418;
+  --color-white: #ffffff;
+  --color-soft-white: #f6f7f8;
+  --color-hue: #0f6f78;
+  --color-hue-deep: #083f46;
+  --color-hue-glow: rgba(77, 216, 226, 0.24);
+  --surface-glass-dark: rgba(13, 17, 23, 0.82);
+  --surface-border-dark: rgba(5, 6, 8, 0.08);
+  --shadow-premium-soft: 0 18px 54px rgba(5, 6, 8, 0.14);
+}
 
-    /* ✅ NEW: PRODUCTION-SAFE LOAD ORDER
-       Header paints immediately. Hero + next sections become visible after JS modules initialize.
-       Fail-safe animation prevents blank content if a module is blocked or delayed. */
-    .site-content {
-      display: block; /* ✅ NEW */
-    }
-    body.js-loading .hero,
-    body.js-loading .more-stories-section {
-      opacity: 0; /* ✅ NEW */
-      transform: translate3d(0, 8px, 0); /* ✅ NEW */
-      pointer-events: none; /* ✅ NEW */
-      animation: appFailSafeReveal 0.001s linear 1.8s forwards; /* ✅ NEW */
-    }
-    body.js-ready .hero,
-    body.js-ready .more-stories-section {
-      opacity: 1; /* ✅ NEW */
-      transform: translate3d(0, 0, 0); /* ✅ NEW */
-      pointer-events: auto; /* ✅ NEW */
-      transition: opacity 0.28s ease, transform 0.28s ease; /* ✅ NEW */
-    }
-    @keyframes appFailSafeReveal {
-      to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-        pointer-events: auto;
-      }
-    }
-    /* ===== HEADER ===== */
-    /* ===== HEADER ===== */
+/* ✅ UPDATED: HEADER VISUAL — shell positioning is owned by 00-display-shell.css */
 header {
-  position: fixed; /* ✅ UPDATED */  
-  top: calc(env(safe-area-inset-top, 0px) + 12px); /* ✅ UPDATED */  
-  left: var(--header-pill-x); /* ✅ NEW */  
-  right: var(--header-pill-x); /* ✅ NEW */  
-  width: auto; /* ✅ NEW */  
-  min-height: 76px; /* ✅ NEW */  
-  padding: 10px 14px; /* ✅ UPDATED */  
-  z-index: 1100; /* ✅ UPDATED: giữ header luôn nổi trên popup tour carousel */  
-  display: flex; /* ✅ NEW */  
-  align-items: center; /* ✅ NEW */  
-  justify-content: space-between; /* ✅ NEW */  
-  gap: 18px; /* ✅ NEW */  
-  border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ UPDATED */  
-  border-radius: 999px; /* ✅ NEW */  
-  background: #ffffff; /* ✅ UPDATED: chuyển header sang màu trắng */  
-  color: var(--color-ink); /* ✅ NEW */  
-  box-shadow: var(--shadow-premium-soft); /* ✅ NEW */  
-  backdrop-filter: none; /* ✅ UPDATED: bỏ glass blur để trắng sạch hơn */  
-  -webkit-backdrop-filter: none; /* ✅ UPDATED */  
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-height: 47px;
+  padding: 5px 10px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid var(--surface-border-dark);
+  border-radius: 0;
+  background: var(--color-white);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-premium-soft);
+  box-sizing: border-box;
 }
-    /* ✅ NEW: MENU TRIGGER */
-    .menu-trigger {
-      flex: 0 0 auto;
-      width: 48px;
-      height: 48px;
-      padding: 5px; /* ✅ UPDATED: cho menu.svg fit đúng size menu button */
-      overflow: hidden; /* ✅ NEW: không cho vector tràn khỏi button */
-      border: 1px solid rgba(5, 6, 8, 0.1);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.54);
-      color: var(--color-ink);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 8px 22px rgba(5, 6, 8, 0.08);
-    }
-    .menu-trigger-icon {
-      display: block; /* ✅ NEW */
-      width: 100%; /* ✅ NEW */
-      height: 100%; /* ✅ NEW */
-      object-fit: contain; /* ✅ NEW: giữ tỉ lệ vector, không méo */
-      pointer-events: none; /* ✅ NEW: click vẫn ăn vào button */
-    }
-    .menu-trigger-lines,
-    .menu-trigger-lines::before,
-    .menu-trigger-lines::after {
-      display: block;
-      width: 22px;
-      height: 2px;
-      border-radius: 999px;
-      background: currentColor;
-    }
-    .menu-trigger-lines {
-      position: relative;
-    }
-    .menu-trigger-lines::before,
-    .menu-trigger-lines::after {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute;
-      left: 0;
-    }
-    .menu-trigger-lines::before {
-      top: -7px;
-    }
-    .menu-trigger-lines::after {
-      top: 7px;
-    }
-    .menu-trigger:focus-visible {
-      outline: 3px solid var(--color-hue-glow);
-      outline-offset: 4px;
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .menu-trigger:hover {
-        background: rgba(255, 255, 255, 0.82);
-        border-color: rgba(15, 111, 120, 0.28);
-      }
-    }
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      background: url("images/a.jpg") center/cover no-repeat;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 120px 40px 40px;
-    }
-    /* ===== OVERLAY ===== */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(5, 6, 8, 0.42); /* ✅ UPDATED */
-    }
-    .hero-guide-tagline {
-      display: none; /* ✅ NEW: mặc định ẩn trên desktop */
-    }
-    /* ===== CONTENT ===== */
-    .content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 20px;
-    }
-    /* ===== TITLE ===== */
-    .title {
-      font-size: clamp(22px, 4vw, 42px);
-      font-weight: 700;
-      max-width: 600px;
-      text-align: right;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* ✅ REQUIRED FIX */
-    }
-    .title-desktop-line {
-      display: block; /* ✅ NEW */
-    }
-    .title-desktop-line-1 {
-      text-transform: lowercase; /* ✅ NEW */
-    }
-    .title-desktop-line-2 {
-      text-transform: none; /* ✅ NEW */
-    }
-    /* ===== STORY ===== */
-    .story {
-      max-width: 420px;
-      font-size: clamp(14px, 2.2vw, 20px);
-      line-height: 1.5;
-      padding: 12px 16px;
-      background: var(--surface-glass-dark); /* ✅ UPDATED */
-      text-align: right;
-    }
-    .story p {
-      margin: 0; /* ✅ REQUIRED FIX */
-    }
-    /* ===== CTA ===== */
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: clamp(16px, 2.5vw, 34px);
-      font-weight: 700;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 2;
-    }
-    /* ===== QUOTE ===== */
-    .quote {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer; /* ✅ NEW */
-    }
-    .thanks {
-      cursor: pointer; /* ✅ NEW */
-    }
-    /* ===== CHECKBOX ===== */
-    .checkbox input {
-      display: none;
-    }
-    .fake-box {
-      width: 20px;
-      height: 20px;
-      border: 2px solid white;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      animation: zoomPulse 1.5s ease-in-out infinite;
-      position: relative;
-      z-index: 3;
-    }
-    .checkbox input:checked + .fake-box::after {
-      content: "✔";
-      font-size: 18px;
-      color: green;
-    }
-    @keyframes zoomPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    /* ===== LOGO ===== */
-    .mask {
-      position: relative;
-      padding: 15px 30px;
-      transform: scale(0.9); /* ✅ UPDATED: thu nhỏ logo 10% */
-      transform-origin: left center; /* ✅ NEW */
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */
-      -webkit-backdrop-filter: blur(4px); /* ✅ UPDATED: giảm blur logo để nhẹ hơn trên mobile */ /* ✅ REQUIRED FIX */
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.25),
-        inset 0 0 10px rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-    }
-    .mask::before {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        120deg,
-        rgba(255, 255, 255, 0.08),
-        rgba(200, 220, 255, 0.15),
-        rgba(255, 255, 255, 0.08)
-      );
-      mix-blend-mode: soft-light;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-    .text {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-    .text div {
-      line-height: 1;
-    }
-    .mask .text1 {
-      display: flex;
-      gap: 6px;
-    }
-    .mask .billy {
-      transform: rotate(-8deg);
-      color: #0a0a0a;
-      font: bold italic 30px 'Poppins', sans-serif;
-    }
-    .mask .and {
-      font-size: 20px;
-    }
-    .mask .friend {
-      transform: rotate(8deg);
-      color: #0d0d0e;
-      font-size: 30px;
-    }
-    .mask .text2 {
-      font-size: 20px;
-    }
-    .mask .text3 {
-      font-size: 25px;
-      color: #000;
-      font-weight: 500;
-      font-style: italic;
-    }
-    /* ===== FISH ===== */
-    .fish {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      font-size: 24px;
-      animation: swim 8s linear infinite;
-      z-index: 3;
-    }
-    @keyframes swim {
-      0% { left: 0; transform: scaleX(1); }
-      50% { left: calc(100% - 30px); transform: scaleX(-1); }
-      100% { left: 0; transform: scaleX(1); }
-    }
-    /* ===== BUBBLE ===== */
-    .bubble {
-      position: absolute;
-      bottom: -10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      animation: rise linear infinite;
-      z-index: 3;
-    }
-    .b1 { left: 20%; width: 6px; height: 6px; animation-duration: 4s; }
-    .b2 { left: 50%; width: 8px; height: 8px; animation-duration: 5s; }
-    .b3 { left: 75%; width: 10px; height: 10px; animation-duration: 6s; }
-    @keyframes rise {
-      0% { transform: translateY(0); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-120px); opacity: 0; }
-    }
-    /* ===================== */
-    /* ✅ NEW: POPUP */
-    /* ===================== */
-    .popup-backdrop {
-  position: fixed;  
-  inset: 0;  
-  background: rgba(0, 0, 0, 0.65);  
-  backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */  
-  -webkit-backdrop-filter: blur(3px); /* ✅ UPDATED: giảm blur popup để nhẹ hơn */ /* ✅ REQUIRED FIX */  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  padding: 24px;  
-  opacity: 0;  
-  visibility: hidden;  
-  pointer-events: none;  
-  transition: opacity 0.25s ease, visibility 0.25s ease;  
-  z-index: 1000; /* ✅ UPDATED: popup tour nằm dưới header */  
-}
-    .popup-backdrop.is-open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-  .popup-card {
-  width: 80vw; /* ✅ UPDATED: cách trái + phải mỗi bên 10% */
-  height: 80vh; /* ✅ NEW: cách trên + dưới mỗi bên 10% */
-  max-width: none; /* ✅ REQUIRED FIX */
-  max-height: none; /* ✅ REQUIRED FIX */
-color: #fff;
-  transform: translateY(0) scale(1); /* ✅ UPDATED */
-}
-    .popup-backdrop.is-open .popup-card {
-      transform: translateY(0) scale(1);
-    }
-    .popup-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .popup-title {
-      font-size: clamp(22px, 3vw, 28px);
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-    .popup-close {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  font-size: 22px;
-  line-height: 1;
+
+/* ✅ UPDATED: LOGO TRIGGER */
+.logo,
+#logoTrigger {
   cursor: pointer;
-  position: absolute; /* ✅ NEW */
-  top: 16px;          /* ✅ NEW */
-  right: 16px;        /* ✅ NEW */
-  z-index: 10;        /* ✅ NEW */
-}      
-    .popup-close:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-    .popup-copy {
-      font-size: 16px;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.92);
-    }
-    .popup-copy strong {
-      color: #ffffff;
-    }
-  /* ✅ REQUIRED FIX: desktop/default phải nằm trước mobile để mobile override đúng */
-.popup-notes-shell {
-  position: relative; /* ✅ NEW */
-  margin-top: 20px; /* ✅ NEW */
-}
-.popup-notes {
-  display: flex; /* ✅ UPDATED */
-  gap: 16px;
-  width: 100%; /* ✅ KEEP */
-  max-width: 100%; /* ✅ KEEP */
-  min-width: 0; /* ✅ NEW: giúp desktop scroll đúng trong popup */
-  overflow-x: auto; /* ✅ UPDATED: scroll bằng arrow + touchpad */
-  overflow-y: hidden; /* ✅ KEEP */
-  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  -ms-overflow-style: none; /* ✅ NEW: ẩn scrollbar IE/Edge legacy */
-  scrollbar-width: none; /* ✅ UPDATED: ẩn scrollbar Firefox */
-  scroll-behavior: smooth; /* ✅ NEW */
-  padding: 12px 56px 22px; /* ✅ NEW: chừa chỗ cho arrow + hover scale */
-  overscroll-behavior-x: contain; /* ✅ NEW */
-}
-.popup-notes::-webkit-scrollbar {
-  display: none; /* ✅ UPDATED: ẩn scrollbar Chrome / Safari / Edge */
-  width: 0; /* ✅ NEW */
-  height: 0; /* ✅ NEW */
-}
-.popup-notes-arrow {
-  position: absolute; /* ✅ NEW */
-  top: calc(50% - 18px); /* ✅ NEW */
-  transform: translateY(-50%); /* ✅ NEW */
-  width: 42px; /* ✅ NEW */
-  height: 42px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(15, 20, 28, 0.82); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  font-size: 28px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  z-index: 4; /* ✅ NEW */
-  backdrop-filter: blur(6px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(6px); /* ✅ REQUIRED FIX */
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28); /* ✅ NEW */
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease; /* ✅ NEW */
-}
-.popup-notes-arrow:hover {
-  background: rgba(22, 28, 38, 0.92); /* ✅ NEW */
-  transform: translateY(-50%) scale(1.06); /* ✅ NEW */
-}
-.popup-notes-arrow:disabled {
-  opacity: 0.34; /* ✅ NEW */
-  cursor: default; /* ✅ NEW */
-  transform: translateY(-50%); /* ✅ NEW */
-}
-.popup-notes-arrow-left {
-  left: 6px; /* ✅ NEW */
-}
-.popup-notes-arrow-right {
-  right: 6px; /* ✅ NEW */
-}
-.popup-note-item {
-  flex: 0 0 257px; /* ✅ UPDATED: thu nhỏ card 5% từ 270px xuống 257px */
-  min-width: 257px; /* ✅ UPDATED: thu nhỏ card 5% từ 270px xuống 257px */
-  display: flex; /* ✅ KEEP */
-  flex-direction: column; /* ✅ KEEP */
-  gap: 10px; /* ✅ KEEP */
-  transition: transform 0.28s ease, filter 0.28s ease; /* ✅ NEW */
-  transform-origin: center center; /* ✅ NEW */
-}
-.popup-note-box {
-  width: 100%; /* ✅ KEEP */
-  aspect-ratio: 1 / 1; /* ✅ KEEP */
-  background: #ffffff; /* ✅ KEEP */
-  border-radius: 12px; /* ✅ KEEP */
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
-  overflow: hidden; /* ✅ NEW: bo góc ảnh theo card */
-  transition: transform 0.28s ease, box-shadow 0.28s ease; /* ✅ NEW */
-}
-.popup-note-img {
-  width: 100%; /* ✅ NEW */
-  height: 100%; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: cover; /* ✅ NEW: ảnh phủ kín card không méo */
-}
-.popup-note-label {
-  color: #ffffff; /* ✅ KEEP */
-  font-size: 15px; /* ✅ KEEP */
-  font-weight: 600; /* ✅ KEEP */
-  line-height: 1.2; /* ✅ KEEP */
-  text-align: center; /* ✅ KEEP */
-  text-transform: lowercase; /* ✅ KEEP */
-  transition: transform 0.28s ease, text-shadow 0.28s ease; /* ✅ NEW */
-}
-@media (hover: hover) and (pointer: fine) {
-  .popup-note-item:hover {
-    transform: translateY(-6px) scale(1.04); /* ✅ NEW */
-    z-index: 2; /* ✅ NEW */
-  }
-  .popup-note-item:hover .popup-note-box {
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3); /* ✅ NEW */
-  }
-  .popup-note-item:hover .popup-note-label {
-    transform: scale(1.02); /* ✅ NEW */
-    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34); /* ✅ NEW */
-  }
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-    /* ===================== */
-    /* ✅ NEW: CHECK AVALIBILITY MEMO */
-    /* ===================== */
-    .availability-memo {
-      position: absolute; /* ✅ NEW */
-      left: 34px; /* ✅ NEW */
-      bottom: 50px; /* ✅ NEW */
-      z-index: 4; /* ✅ NEW */
-      width: 150px; /* ✅ NEW */
-      min-height: 128px; /* ✅ NEW */
-      border: 1px solid rgba(255, 255, 255, 0.58); /* ✅ UPDATED: viền glass mỏng */
-      padding: 0; /* ✅ NEW */
-      background: transparent; /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-family: 'Poppins', sans-serif; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-      -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-      animation: availabilityMemoFloat 3.2s ease-in-out infinite; /* ✅ NEW */
-    }
-    .availability-memo::before {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute; /* ✅ NEW */
-      inset: 7px 5px -7px; /* ✅ NEW */
-      border-radius: 24px; /* ✅ NEW */
-      background: rgba(0, 0, 0, 0.28); /* ✅ NEW */
-      filter: blur(10px); /* ✅ NEW */
-      transform: translateY(10px); /* ✅ NEW */
-    }
-    .availability-memo-card {
-      position: relative; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      flex-direction: column; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      gap: 8px; /* ✅ NEW */
-      width: 100%; /* ✅ NEW */
-      min-height: 128px; /* ✅ NEW */
-      padding: 13px 12px 12px; /* ✅ NEW */
-      border-radius: 22px; /* ✅ NEW */
-      border: 1px solid rgba(255, 255, 255, 0.52); /* ✅ NEW */
-      background: linear-gradient(160deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); /* ✅ NEW */
-      box-shadow: 0 12px 28px rgba(0,0,0,0.28), inset 0 0 16px rgba(255,255,255,0.12); /* ✅ NEW */
-      backdrop-filter: blur(5px); /* ✅ NEW */
-      -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
-      overflow: hidden; /* ✅ NEW */
-    }
-    .availability-memo-card::after {
-      content: ""; /* ✅ REQUIRED FIX */
-      position: absolute; /* ✅ NEW */
-      top: -55%; /* ✅ NEW */
-      left: -65%; /* ✅ NEW */
-      width: 70%; /* ✅ NEW */
-      height: 210%; /* ✅ NEW */
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.46), transparent); /* ✅ NEW */
-      transform: rotate(24deg); /* ✅ NEW */
-      animation: availabilityMemoShine 3.8s ease-in-out infinite; /* ✅ NEW */
-      pointer-events: none; /* ✅ NEW */
-    }
-    .availability-calendar-icon {
-      position: relative; /* ✅ NEW */
-      width: 58px; /* ✅ NEW */
-      height: 60px; /* ✅ NEW */
-      border-radius: 10px 10px 12px 12px; /* ✅ NEW */
-      background: #fff; /* ✅ NEW */
-      box-shadow: 0 10px 18px rgba(0,0,0,0.24); /* ✅ NEW */
-      overflow: hidden; /* ✅ NEW */
-      transform-origin: center bottom; /* ✅ NEW */
-      animation: availabilityCalendarWiggle 2.4s ease-in-out infinite; /* ✅ NEW */
-    }
-    .availability-calendar-top {
-      position: absolute; /* ✅ NEW */
-      top: 0; /* ✅ NEW */
-      left: 0; /* ✅ NEW */
-      right: 0; /* ✅ NEW */
-      height: 18px; /* ✅ NEW */
-      background: #ff5a3d; /* ✅ NEW */
-    }
-    .availability-calendar-rings {
-      position: absolute; /* ✅ NEW */
-      top: -5px; /* ✅ NEW */
-      left: 11px; /* ✅ NEW */
-      right: 11px; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      justify-content: space-between; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
-    }
-    .availability-calendar-rings span {
-      width: 7px; /* ✅ NEW */
-      height: 15px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: #26313a; /* ✅ NEW */
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.72); /* ✅ NEW */
-    }
-    .availability-calendar-grid {
-      position: absolute; /* ✅ NEW */
-      left: 10px; /* ✅ NEW */
-      right: 10px; /* ✅ NEW */
-      bottom: 10px; /* ✅ NEW */
-      display: grid; /* ✅ NEW */
-      grid-template-columns: repeat(3, 1fr); /* ✅ NEW */
-      gap: 5px; /* ✅ NEW */
-    }
-    .availability-calendar-grid span {
-      height: 6px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: #d5dbe1; /* ✅ NEW */
-    }
-    .availability-calendar-grid span:nth-child(2),
-    .availability-calendar-grid span:nth-child(5) {
-      background: #22c55e; /* ✅ NEW */
-      animation: availabilityDatePulse 1.6s ease-in-out infinite; /* ✅ NEW */
-    }
-    .availability-memo-text {
-      position: relative; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
-      display: block; /* ✅ NEW */
-      font-size: 14px; /* ✅ NEW */
-      line-height: 1.12; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      text-align: center; /* ✅ NEW */
-      text-transform: lowercase; /* ✅ NEW */
-      text-shadow: 0 2px 10px rgba(0,0,0,0.72); /* ✅ NEW */
-    }
-    .availability-memo-hint {
-      position: relative; /* ✅ NEW */
-      z-index: 2; /* ✅ NEW */
-      display: inline-flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: center; /* ✅ NEW */
-      min-height: 22px; /* ✅ NEW */
-      padding: 3px 9px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
-      color: #06220f; /* ✅ NEW */
-      font-size: 11px; /* ✅ NEW */
-      line-height: 1; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-    }
-    .availability-memo:focus-visible .availability-memo-card {
-      outline: 3px solid rgba(255,255,255,0.92); /* ✅ NEW */
-      outline-offset: 4px; /* ✅ NEW */
-    }
-    @keyframes availabilityMemoFloat {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50% { transform: translate3d(0, -8px, 0); }
-    }
-    @keyframes availabilityCalendarWiggle {
-      0%, 100% { transform: rotate(-2deg); }
-      50% { transform: rotate(3deg) scale(1.03); }
-    }
-    @keyframes availabilityMemoShine {
-      0% { left: -65%; opacity: 0; }
-      35% { opacity: 0.65; }
-      70%, 100% { left: 115%; opacity: 0; }
-    }
-    @keyframes availabilityDatePulse {
-      0%, 100% { opacity: 0.55; transform: scaleX(0.82); }
-      50% { opacity: 1; transform: scaleX(1); }
-    }
-    .availability-popup-backdrop {
-      position: fixed; /* ✅ NEW */
-      inset: 0; /* ✅ NEW */
-      z-index: 1000; /* ✅ NEW */
-      display: flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: center; /* ✅ NEW */
-      padding: 22px; /* ✅ NEW */
-      background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-      backdrop-filter: blur(4px); /* ✅ NEW */
-      -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-      opacity: 0; /* ✅ NEW */
-      visibility: hidden; /* ✅ NEW */
-      pointer-events: none; /* ✅ NEW */
-      transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
-    }
-    .availability-popup-backdrop.is-open {
-      opacity: 1; /* ✅ NEW */
-      visibility: visible; /* ✅ NEW */
-      pointer-events: auto; /* ✅ NEW */
-    }
-    .availability-popup-card {
-      position: relative; /* ✅ NEW */
-      width: min(94vw, 430px); /* ✅ NEW */
-      max-height: min(86vh, 720px); /* ✅ NEW */
-      max-height: min(86dvh, 720px); /* ✅ NEW */
-      overflow: auto; /* ✅ NEW */
-      padding: 24px 20px 20px; /* ✅ NEW */
-      border-radius: 24px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
-      background: linear-gradient(180deg, rgba(23,29,35,0.96), rgba(10,13,18,0.96)); /* ✅ NEW */
-      box-shadow: 0 24px 70px rgba(0,0,0,0.42); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      transform: translateY(12px) scale(0.98); /* ✅ NEW */
-      transition: transform 0.24s ease; /* ✅ NEW */
-      -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
-    }
-    .availability-popup-backdrop.is-open .availability-popup-card {
-      transform: translateY(0) scale(1); /* ✅ NEW */
-    }
-    .availability-popup-close {
-      position: absolute; /* ✅ NEW */
-      top: 14px; /* ✅ NEW */
-      right: 14px; /* ✅ NEW */
-      width: 36px; /* ✅ NEW */
-      height: 36px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.2); /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-size: 22px; /* ✅ NEW */
-      line-height: 1; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-    }
-    .availability-popup-title {
-      margin: 0 44px 8px 0; /* ✅ NEW */
-      font-size: 25px; /* ✅ NEW */
-      line-height: 1.1; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      text-transform: lowercase; /* ✅ NEW */
-    }
-    .availability-popup-desc {
-      margin: 0 0 16px; /* ✅ NEW */
-      color: rgba(255,255,255,0.78); /* ✅ NEW */
-      font-size: 14px; /* ✅ NEW */
-      line-height: 1.45; /* ✅ NEW */
-    }
-    .availability-calendar-head {
-      display: flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      justify-content: space-between; /* ✅ NEW */
-      gap: 12px; /* ✅ NEW */
-      margin: 14px 0; /* ✅ NEW */
-    }
-    .availability-month-label {
-      font-size: 18px; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-    }
-    .availability-nav {
-      display: flex; /* ✅ NEW */
-      gap: 8px; /* ✅ NEW */
-    }
-    .availability-nav button {
-      width: 34px; /* ✅ NEW */
-      height: 34px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.22); /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-      font-size: 18px; /* ✅ NEW */
-    }
-    .availability-weekdays,
-    .availability-days {
-      display: grid; /* ✅ NEW */
-      grid-template-columns: repeat(7, 1fr); /* ✅ NEW */
-      gap: 7px; /* ✅ NEW */
-    }
-    .availability-weekdays span {
-      color: rgba(255,255,255,0.58); /* ✅ NEW */
-      font-size: 11px; /* ✅ NEW */
-      text-align: center; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-    }
-    .availability-day {
-      min-height: 40px; /* ✅ NEW */
-      border: 1px solid rgba(255,255,255,0.1); /* ✅ NEW */
-      border-radius: 12px; /* ✅ NEW */
-      background: rgba(255,255,255,0.06); /* ✅ NEW */
-      color: rgba(255,255,255,0.92); /* ✅ NEW */
-      font: inherit; /* ✅ NEW */
-      font-size: 13px; /* ✅ NEW */
-      font-weight: 700; /* ✅ NEW */
-      cursor: default; /* ✅ NEW */
-    }
-    .availability-day.is-empty { visibility: hidden; } /* ✅ NEW */
-    .availability-day.is-past {
-      color: rgba(255,255,255,0.32); /* ✅ NEW */
-      background: rgba(255,255,255,0.035); /* ✅ NEW */
-    }
-    .availability-day.is-open-date {
-      background: rgba(34, 197, 94, 0.88); /* ✅ NEW */
-      border-color: rgba(34, 197, 94, 0.95); /* ✅ NEW */
-      color: #06220f; /* ✅ NEW */
-      cursor: pointer; /* ✅ NEW */
-    }
-    .availability-day.is-booked-date {
-      background: rgba(239, 68, 68, 0.82); /* ✅ NEW */
-      border-color: rgba(239, 68, 68, 0.9); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-    }
-    .availability-legend {
-      display: flex; /* ✅ NEW */
-      flex-wrap: wrap; /* ✅ NEW */
-      gap: 8px 12px; /* ✅ NEW */
-      margin-top: 16px; /* ✅ NEW */
-      color: rgba(255,255,255,0.78); /* ✅ NEW */
-      font-size: 12px; /* ✅ NEW */
-    }
-    .availability-legend span {
-      display: inline-flex; /* ✅ NEW */
-      align-items: center; /* ✅ NEW */
-      gap: 6px; /* ✅ NEW */
-    }
-    .availability-legend i {
-      width: 10px; /* ✅ NEW */
-      height: 10px; /* ✅ NEW */
-      border-radius: 999px; /* ✅ NEW */
-      display: inline-block; /* ✅ NEW */
-    }
-    .availability-legend .open-dot { background: #22c55e; } /* ✅ NEW */
-    .availability-legend .booked-dot { background: #ef4444; } /* ✅ NEW */
-    .availability-legend .contact-dot { background: rgba(255,255,255,0.28); } /* ✅ NEW */
-    .availability-contact {
-      display: block; /* ✅ NEW */
-      margin-top: 16px; /* ✅ NEW */
-      padding: 12px 14px; /* ✅ NEW */
-      border-radius: 14px; /* ✅ NEW */
-      background: rgba(255,255,255,0.08); /* ✅ NEW */
-      color: #fff; /* ✅ NEW */
-      font-size: 13px; /* ✅ NEW */
-      line-height: 1.4; /* ✅ NEW */
-      text-decoration: none; /* ✅ NEW */
-    }
-    /* ===================== */
-    /* ✅ NEW: DESKTOP HOVER SAFE */
-    /* ===================== */
-    @media (hover: hover) and (pointer: fine) {
-      .title:hover,
-      .story:hover,
-      .cta-row:hover {
-        transform: translateY(-2px) scale(1.02); /* ✅ UPDATED */
-      }
-      .mask:hover {
-        transform: translateY(-2px) scale(0.918); /* ✅ UPDATED: giữ logo nhỏ hơn 10% khi hover */
-      }
-      .mask:hover {
-        box-shadow:
-          0 12px 40px rgba(0,0,0,0.35),
-          inset 0 0 14px rgba(255,255,255,0.3); /* ✅ NEW */
-      }
-      .story:hover {
-        background: rgba(20,24,30,0.75); /* ✅ NEW */
-      }
-      .fake-box:hover,
-      .quote:hover,
-      .thanks:hover {
-        transform: scale(1.06); /* ✅ NEW */
-      }
-    }
-@media (min-width: 769px) {
-  .title {
-    margin-top: -90px; /* ✅ NEW: kéo title desktop lên cao hơn */
-  }
-  .title-desktop {
-    display: inline-block; /* ✅ NEW: gom 2 dòng desktop thành 1 cụm */
-    text-align: center; /* ✅ NEW: căn giữa chữ khám phá theo dòng "Phú Quốc Của Tôi" */
-  }
-  .title-desktop-line {
-    display: block; /* ✅ NEW */
-  }
+.mask {
+  position: relative;
+  width: max-content;
+  max-width: calc(100vw - 118px);
+  padding: 5px 21px;
+  border-radius: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transform: none;
+  transform-origin: left center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-    .title-mobile-line {
-  display: none; /* ✅ NEW */
-}
-    /* ===================== */
-    /* ✅ MOBILE LAYOUT RESTORE */
-    /* ===================== */
-    @media (max-width:768px) {
-   header {  
-        display: flex; /* ✅ UPDATED */  
-        justify-content: space-between; /* ✅ UPDATED */  
-        width: 100%; /* ✅ UPDATED: header full chiều ngang mobile */  
-        left: 0; /* ✅ UPDATED: sát mép trái */  
-        right: 0; /* ✅ UPDATED: sát mép phải */  
-        top: calc(env(safe-area-inset-top, 0px) + 0px); /* ✅ UPDATED: header full ngang sát top safe-area */  
-        min-height: 47px; /* ✅ UPDATED: scale header thêm 30% theo logo */  
-        padding: 5px 10px; /* ✅ UPDATED: tăng padding theo scale 30% */  
-        gap: 18px; /* ✅ UPDATED: kéo logo và menu header xa nhau hơn */  
-        border-radius: 0; /* ✅ UPDATED: bỏ bo góc header mobile */  
-      }
-      .hero-guide-tagline {
-        display: block; /* ✅ NEW */
-        position: absolute; /* ✅ NEW */
-        top: calc(env(safe-area-inset-top, 0px) + 68px); /* ✅ NEW: nằm ngay dưới header mobile */
-        left: 0; /* ✅ NEW */
-        right: 0; /* ✅ NEW */
-        z-index: 3; /* ✅ NEW: nằm trên overlay hero */
-        padding: 7px 18px; /* ✅ NEW */
-        color: #ffffff; /* ✅ NEW */
-        font-size: 15px; /* ✅ NEW */
-        line-height: 1.25; /* ✅ NEW */
-        font-weight: 600; /* ✅ NEW */
-        letter-spacing: 0.02em; /* ✅ NEW */
-        text-align: left; /* ✅ NEW */
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55); /* ✅ NEW */
-        pointer-events: none; /* ✅ NEW */
-      }  
-      .cta-row > span,
-      .quote > span {
-        text-decoration: underline; /* ✅ NEW */
-        text-underline-offset: 3px; /* ✅ NEW */
-        text-decoration-thickness: 1.5px; /* ✅ NEW */
-      }
-     .mask {  
-        padding: 5px 21px; /* ✅ UPDATED: scale logo thêm 30% trên mobile */  
-        width: max-content;  
-        max-width: calc(100vw - 118px); /* ✅ UPDATED: chừa khoảng cho menu + gap */  
-        transform: none; /* ✅ UPDATED: giữ layout thật, tránh scale ảo gây lệch Safari */  
-        transform-origin: left center; /* ✅ UPDATED */  
-      }  
-      .text {  
-        gap: 0; /* ✅ UPDATED: giảm gap giữa cụm Billy and Friend và adventures trong logo mobile */  
-      }  
-      .text div {  
-        line-height: 0.9; /* ✅ UPDATED: nới chiều cao logo theo scale mới */  
-      }  
-      .mask .text1 {  
-        gap: 4px; /* ✅ UPDATED */  
-      }  
-      .mask .billy {  
-        font-size: 18px; /* ✅ UPDATED: scale logo thêm 30% */  
-      }  
-      .mask .and {  
-        font-size: 12px; /* ✅ UPDATED: scale logo thêm 30% */  
-      }  
-      .mask .friend {  
-        font-size: 18px; /* ✅ UPDATED: scale logo thêm 30% */  
-      }  
-      .mask .text2 {  
-        font-size: 12px; /* ✅ UPDATED: scale logo thêm 30% */  
-        margin-top: -3px; /* ✅ UPDATED: kéo adventures sát hơn với cụm Billy and Friend */  
-      }  
-      .mask .text3 {  
-        font-size: 16px; /* ✅ UPDATED: scale logo thêm 30% */  
-      }  
-      .fish {  
-        font-size: 17px; /* ✅ UPDATED: cá scale theo logo */  
-        bottom: 6px; /* ✅ UPDATED */  
-      }  
-     .menu-trigger {
-        width: 60px; /* ✅ UPDATED: tăng chiều rộng button để hợp với header mobile */    
-        height: 60px; /* ✅ UPDATED: tăng chiều cao button để hợp với header mobile */    
-        padding: 3px; /* ✅ UPDATED: giữ khoảng thở nhỏ quanh vector */    
-        overflow: hidden; /* ✅ NEW */    
-        box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ UPDATED */    
-      }
 
-      .menu-trigger-icon {
-        display: block; /* ✅ UPDATED */
-        width: 42px; /* ✅ UPDATED: tăng chiều rộng thật của menu.svg */
-        height: 42px; /* ✅ UPDATED: tăng chiều cao thật của menu.svg */
-        max-width: none; /* ✅ NEW: tránh bị ép bởi rule khác */
-        max-height: none; /* ✅ NEW: tránh bị ép bởi rule khác */
-        object-fit: contain; /* ✅ UPDATED: giữ tỉ lệ vector, không méo */
-        transform: scale(2.5); /* ✅ UPDATED: bỏ scale để dùng size thật */
-        transform-origin: center center; /* ✅ KEEP */
-      }
-      .menu-trigger-lines,  
-      .menu-trigger-lines::before,  
-      .menu-trigger-lines::after {  
-        width: 18px; /* ✅ UPDATED */  
-        height: 2px; /* ✅ UPDATED */  
-      }  
-      .menu-trigger-lines::before {  
-        top: -6px; /* ✅ UPDATED */  
-      }  
-      .menu-trigger-lines::after {  
-        top: 6px; /* ✅ UPDATED */  
-      }  
-      .hero {
+.mask::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(200, 220, 255, 0.15),
+    rgba(255, 255, 255, 0.08)
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.text {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.text div {
+  line-height: 0.9;
+}
+
+.mask .text1 {
+  display: flex;
+  gap: 4px;
+}
+
+.mask .billy {
+  transform: rotate(-8deg);
+  color: #0a0a0a;
+  font: bold italic 18px 'Poppins', sans-serif;
+}
+
+.mask .and {
+  font-size: 12px;
+}
+
+.mask .friend {
+  transform: rotate(8deg);
+  color: #0d0d0e;
+  font-size: 18px;
+}
+
+.mask .text2 {
+  margin-top: -3px;
+  font-size: 12px;
+}
+
+.mask .text3 {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.fish {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  z-index: 3;
+  font-size: 17px;
+  animation: none;
+}
+
+.bubble {
+  display: none;
+}
+
+/* ✅ UPDATED: HEADER SEARCH PLACEHOLDER — full search popup styling belongs to module CSS */
+.header-search-trigger {
+  flex: 1 1 auto;
+  min-width: 68px;
+  max-width: 112px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08);
+}
+
+.header-search-trigger:focus-visible {
+  outline: 3px solid rgba(15, 111, 120, 0.26);
+  outline-offset: 3px;
+}
+
+.header-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.header-search-dots {
+  display: inline-block;
+  letter-spacing: 0.06em;
+}
+
+/* ✅ UPDATED: MENU TRIGGER */
+.menu-trigger {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  padding: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(5, 6, 8, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.54);
+  color: var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08);
+}
+
+.menu-trigger-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.menu-trigger:focus-visible {
+  outline: 3px solid var(--color-hue-glow);
+  outline-offset: 4px;
+}
+
+/* ✅ UPDATED: HERO */
+.hero {
+  position: relative;
   min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
-  background-color: #0b1118; /* ✅ NEW: fallback màu nền nếu ảnh chưa load */
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
-    url("images/a-mobile.jpeg"),
-    url("none"); /* ✅ UPDATED: mobile ưu tiên a-mobile.jpg, nếu lỗi thì fallback sang a.jpg */
-  background-position: center center; /* ✅ UPDATED */
-  background-size: cover; /* ✅ UPDATED */
-  background-repeat: no-repeat; /* ✅ UPDATED */
-  padding: 145px 28px 28px; /* ✅ KEEP */
+  padding: 145px 28px 28px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background-color: #0b1118;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+    url("images/home/hero-768.jpg"); /* ✅ UPDATED: mobile source */
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
 }
-      .content {
-        align-items: center;
-        text-align: center;
-        gap: 18px; /* ✅ UPDATED */
-        width: 100%;
-        margin-top: 0;
-        transform: translateY(-20px); /* ✅ UPDATED: kéo toàn bộ cụm title + story + CTA lên tổng cộng 20px trên mobile */
-      }
-      .title {
-        text-align: center; /* ✅ UPDATED */
-        font-size: 31px; /* ✅ UPDATED: tăng nhẹ title mobile */
-        transform: translateY(-5px); /* ✅ UPDATED: kéo title mobile lên trên nhẹ */
-      }
-      .story {
-        font-size: 18px;
-        text-align: center; /* ✅ UPDATED */
-        width: 100%; /* ✅ NEW */
-        max-width: 100%; /* ✅ UPDATED */
-        padding: 16px 18px; /* ✅ UPDATED */
-        line-height: 1.52; /* ✅ UPDATED */
-        transition: opacity 0.55s ease, transform 0.55s ease; /* ✅ NEW: story xuất hiện nhẹ nhàng khi typewriter chạy */
-      }
-      .story.is-story-typewriter-pending {
-        opacity: 0; /* ✅ NEW */
-        transform: translateY(8px); /* ✅ NEW */
-      }
-      .story.is-story-typewriter-active {
-        opacity: 1; /* ✅ NEW */
-        transform: translateY(0); /* ✅ NEW */
-      }
-      .story.is-story-typewriter-active p::after {
-        content: ""; /* ✅ NEW */
-        display: inline-block; /* ✅ NEW */
-        width: 2px; /* ✅ NEW */
-        height: 1em; /* ✅ NEW */
-        margin-left: 2px; /* ✅ NEW */
-        background: currentColor; /* ✅ NEW */
-        vertical-align: -0.12em; /* ✅ NEW */
-        animation: storyCaretBlink 0.8s steps(1) infinite; /* ✅ NEW */
-      }
-      .story.is-story-typewriter-done p::after {
-        display: none; /* ✅ NEW */
-      }
-      .cta-row {
-        margin: 4px 0 0 0; /* ✅ KEEP */
-        justify-content: center;
-        gap: 12px; /* ✅ KEEP */
-        flex-wrap: nowrap; /* ✅ KEEP */
-        white-space: nowrap; /* ✅ KEEP */
-        font-size: 18px; /* ✅ UPDATED */
-        width: 100%; /* ✅ KEEP */
-      }
-      .title-desktop {
-  display: none; /* ✅ NEW */
+
+/* ✅ UPDATED: tablet / landscape shell background source */
+@media (min-width: 481px) {
+  .hero {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+      url("images/home/hero-1280.jpg");
+  }
 }
-.title-mobile-line {
-  display: block; /* ✅ NEW */
+
+/* ✅ UPDATED: desktop / high-density shell background source */
+@media (min-width: 769px) {
+  .hero {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+      url("images/home/hero-1920.jpg");
+  }
 }
-.title-mobile-line-1 {
-  text-transform: lowercase; /* ✅ NEW */
+
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 8, 0.42);
 }
-.title-mobile-line-2 {
-  text-transform: none; /* ✅ REQUIRED FIX */
+
+.hero-guide-tagline {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 68px);
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: block;
+  padding: 7px 18px;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: left;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
 }
-      .quote {
-        gap: 8px; /* ✅ KEEP */
-        flex-wrap: nowrap; /* ✅ KEEP */
-        white-space: nowrap; /* ✅ KEEP */
-        font-size: inherit; /* ✅ NEW */
-      }
-      /* ✅ touch feedback */
-      .mask:active,
-      .story:active,
-      .cta-row:active,
-      .quote:active,
-      .thanks:active {
-        opacity: 0.85;
-      }
-     .popup-backdrop {
-  padding: 18px;
-}  
-.popup-card {
-  width: min(94vw, 520px); /* ✅ KEEP */
-  height: min(82dvh, 720px); /* ✅ UPDATED: dùng dvh ổn định hơn trên Brave/Safari mobile */
-  max-height: calc(100dvh - 36px); /* ✅ UPDATED: không vượt viewport mobile */
-  padding: 20px 18px 18px; /* ✅ KEEP */
-  border-radius: 20px; /* ✅ KEEP */
-  display: flex; /* ✅ UPDATED */
-  flex-direction: column; /* ✅ UPDATED */
-  position: relative; /* ✅ KEEP */
-  overflow: hidden; /* ✅ UPDATED: khóa popup để các lớp không tràn đè sai */
-}
-/* ✅ NEW: 5 block grid */
-.popup-notes-shell {
-  order: 3; /* ✅ UPDATED: cards luôn nằm sau title trong mobile flow */
-  width: 100%; /* ✅ NEW */
-  margin-top: 0; /* ✅ UPDATED */
-}
-.popup-notes {
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 0;
   display: flex;
-  gap: 52px;
-  position: relative; /* ✅ UPDATED: bỏ absolute để Brave không đè title/card */
-  bottom: auto; /* ✅ REQUIRED FIX */
-  left: auto; /* ✅ REQUIRED FIX */
-  right: auto; /* ✅ REQUIRED FIX */
-  width: 100%; /* ✅ KEEP */
-  margin-top: 0; /* ✅ UPDATED */
-  overflow-x: auto;              /* ✅ KEEP */
-  overflow-y: hidden;            /* ✅ KEEP */
-  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  padding: 22px 0 24px; /* ✅ UPDATED: mobile không chừa chỗ arrow */
-  scroll-snap-type: x proximity; /* ✅ NEW: cảm giác carousel/web app */
-  scrollbar-width: none;         /* ✅ KEEP */
-  flex: 0 0 auto; /* ✅ UPDATED */
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  transform: translateY(-20px);
 }
-.popup-notes::-webkit-scrollbar {
-  display: none; /* ✅ KEEP */
+
+/* ✅ UPDATED: TITLE */
+.title {
+  max-width: 600px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 31px;
+  line-height: 1.15;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  transform: translateY(-5px);
 }
-.popup-notes-arrow {
-  display: none; /* ✅ UPDATED: mobile ưu tiên swipe, tránh che card */
+
+.title-desktop,
+.title-desktop-line {
+  display: none;
 }
-.popup-note-item {
-  flex: 0 0 219px; /* ✅ UPDATED: thu nhỏ card mobile 5% từ 230px xuống 219px */
-  min-width: 219px; /* ✅ UPDATED: thu nhỏ card mobile 5% từ 230px xuống 219px */
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  gap: 10px; /* ✅ NEW */
-  scroll-snap-align: center; /* ✅ NEW */
-  transition: transform 0.28s ease, filter 0.28s ease; /* ✅ NEW */
-  transform-origin: center center; /* ✅ NEW */
+
+.title-mobile-line {
+  display: block;
 }
-  /* ✅ NEW: mobile reorder + hide */
-.popup-head {
-  display: contents; /* ✅ REQUIRED FIX: cho title tham gia flow, close vẫn absolute */
-  margin: 0;        /* ✅ KEEP */
-  padding: 0;       /* ✅ KEEP */
+
+.title-mobile-line-1 {
+  text-transform: lowercase;
 }
-.popup-copy {
-  order: 1; /* ✅ UPDATED: copy nằm trên title */
-  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè title/cards trên Brave */
-  top: auto; /* ✅ REQUIRED FIX */
-  left: auto; /* ✅ REQUIRED FIX */
-  right: auto; /* ✅ REQUIRED FIX */
-  margin: 54px 0 0; /* ✅ UPDATED: chừa khoảng dưới nút X */
-  font-size: 15px; /* ✅ KEEP */
-  line-height: 1.45; /* ✅ KEEP */
-  max-height: 210px; /* ✅ UPDATED: giữ vùng copy không ăn xuống cards */
-  overflow-y: auto; /* ✅ KEEP */
-  -webkit-overflow-scrolling: touch; /* ✅ KEEP */
-  flex: 0 0 auto; /* ✅ NEW */
+
+.title-mobile-line-2 {
+  text-transform: none;
 }
-.popup-note {
-  display: none; /* ✅ ẨN "tinh thần cốt lõi" trên mobile */
+
+/* ✅ UPDATED: STORY */
+.story {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 18px;
+  background: var(--surface-glass-dark);
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.52;
+  text-align: center;
+  box-sizing: border-box;
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
-/* ✅ NEW: mobile reorder + hide */
-/* ✅ NEW: mobile layout chuẩn */
+
+.story p {
+  margin: 0;
+}
+
+.story.is-story-typewriter-pending {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.story.is-story-typewriter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story.is-story-typewriter-active p::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -0.12em;
+  animation: storyCaretBlink 0.8s steps(1) infinite;
+}
+
+.story.is-story-typewriter-done p::after {
+  display: none;
+}
+
+@keyframes storyCaretBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ✅ UPDATED: CTA */
+.cta-row {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 4px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.quote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.thanks {
+  cursor: pointer;
+}
+
+.cta-row > span,
+.quote > span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.fake-box {
+  position: relative;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: zoomPulse 1.5s ease-in-out infinite;
+  box-sizing: border-box;
+}
+
+.checkbox input:checked + .fake-box::after {
+  content: "✔";
+  color: green;
+  font-size: 18px;
+  line-height: 1;
+}
+
+@keyframes zoomPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.mask:active,
+.story:active,
+.cta-row:active,
+.quote:active,
+.thanks:active {
+  opacity: 0.85;
+}
+
+/* ✅ UPDATED: TOUR POPUP BACKDROP — shell boundary is owned by 00-display-shell.css */
+.popup-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  box-sizing: border-box;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.popup-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .popup-card {
-  display: flex; /* ✅ KEEP */
-  flex-direction: column; /* ✅ KEEP */
-  position: relative; /* ✅ KEEP */
+  position: relative;
+  width: min(94vw, 520px);
+  height: min(82dvh, 720px);
+  max-height: calc(100dvh - 36px);
+  padding: 20px 18px 18px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  transform: translateY(0) scale(1);
 }
-/* ✅ hide */
+
+.popup-backdrop.is-open .popup-card {
+  transform: translateY(0) scale(1);
+}
+
+.popup-head {
+  display: contents;
+  margin: 0;
+  padding: 0;
+}
+
+.popup-title {
+  order: 2;
+  position: relative;
+  z-index: 2;
+  margin: 18px 0 12px;
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  flex: 0 0 auto;
+}
+
+.popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.popup-close:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.84);
+  outline-offset: 4px;
+}
+
+.popup-copy {
+  order: 1;
+  position: relative;
+  margin: 54px 0 0;
+  max-height: 210px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 15px;
+  line-height: 1.45;
+  overflow-y: auto;
+  flex: 0 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .popup-note {
   display: none;
 }
-.popup-note-box {
-  width: 100%; /* ✅ NEW */
-  aspect-ratio: 1 / 1; /* ✅ UPDATED */
-  background: #ffffff; /* ✅ UPDATED */
-  border-radius: 12px; /* ✅ KEEP */
-  border: 1px solid rgba(0, 0, 0, 0.06); /* ✅ KEEP */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ✅ KEEP */
-  transition: transform 0.25s ease, box-shadow 0.25s ease; /* ✅ UPDATED */
-}
-/* ✅ UPDATED: mobile tap / scroll touch effect */
-.popup-note-item:active .popup-note-box,
-.popup-note-item:focus-within .popup-note-box {
-  transform: translateY(-6px) scale(1.04); /* ✅ UPDATED */
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28); /* ✅ UPDATED */
-}
-/* ✅ UPDATED: mobile carousel center active card */
-.popup-note-item.is-center {
-  z-index: 20; /* ✅ UPDATED: cho card giữa overlay lên card khác */
-  gap: 34px; /* ✅ UPDATED: đẩy label xuống theo card khi zoom, tránh bị đè */
-}
-.popup-note-item.is-center .popup-note-box {
-  transform: scale(1.15); /* ✅ UPDATED: phóng to thêm 10%, tổng 15% */
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38); /* ✅ UPDATED */
-}
-.popup-note-item.is-center .popup-note-label {
-  transform: scale(1.08); /* ✅ UPDATED */
-  transform-origin: center top; /* ✅ NEW: label scale từ trên xuống, ổn định hơn */
-  text-shadow: 0 5px 18px rgba(0, 0, 0, 0.5); /* ✅ UPDATED */
-}
-.popup-title {
-  order: 2; /* ✅ UPDATED: title nằm giữa copy và cards */
-  position: relative; /* ✅ REQUIRED FIX: bỏ absolute để không đè card trên Brave/Safari */
-  left: auto; /* ✅ REQUIRED FIX */
-  right: auto; /* ✅ REQUIRED FIX */
-  top: auto; /* ✅ REQUIRED FIX */
-  bottom: auto; /* ✅ REQUIRED FIX */
-  font-size: 22px; /* ✅ KEEP */
-  line-height: 1.15; /* ✅ KEEP */
-  margin: 18px 0 12px; /* ✅ UPDATED: tạo khoảng cách an toàn với cards */
-  z-index: 2; /* ✅ KEEP */
-  flex: 0 0 auto; /* ✅ NEW */
-}
-.availability-memo {
-  display: none; /* ✅ UPDATED: ẩn toàn bộ khối memo lịch trên mobile */
-  left: 18px; /* ✅ NEW */
-  bottom: 112px; /* ✅ NEW */
-  width: 126px; /* ✅ NEW */
-  min-height: 110px; /* ✅ NEW */
-  animation-duration: 3.8s; /* ✅ NEW */
+
+.popup-notes-shell {
+  order: 3;
+  position: relative;
+  width: 100%;
+  margin-top: 0;
 }
 
-.availability-memo-card {
-  min-height: 110px; /* ✅ NEW */
-  padding: 11px 9px 10px; /* ✅ NEW */
-  border-radius: 18px; /* ✅ NEW */
-}
-.availability-calendar-icon {
-  display: none; /* ✅ UPDATED: ẩn logo lịch check availability trên mobile */
-}
-.availability-memo-text {
-  font-size: 12px; /* ✅ NEW */
-}
-.availability-memo-hint {
-  font-size: 10px; /* ✅ NEW */
-  min-height: 20px; /* ✅ NEW */
-  padding: 3px 7px; /* ✅ NEW */
-}
-.availability-popup-card {
-  width: min(94vw, 430px); /* ✅ NEW */
-  max-height: calc(100dvh - 36px); /* ✅ NEW */
-  padding: 22px 16px 18px; /* ✅ NEW */
-}
-.availability-day {
-  min-height: 36px; /* ✅ NEW */
-  border-radius: 10px; /* ✅ NEW */
-  font-size: 12px; /* ✅ NEW */
-}
-.bubble {
-  display: none; /* ✅ UPDATED: tắt bubble trên mobile để giảm animation */
-}
-.fish {
-  animation: none; /* ✅ UPDATED: tắt cá bơi trên mobile để giảm repaint */
-}
-}
-/* ✅ UPDATED: CONTACT POPUP - áp dụng cho cả desktop và mobile */
-.contact-popup-backdrop {
-  position: fixed; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: 1001; /* ✅ NEW */
-  display: flex; /* ✅ UPDATED: desktop cũng có thể mở contact memo */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  padding: 36px; /* ✅ NEW */
-  background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-  backdrop-filter: blur(4px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-  opacity: 0; /* ✅ NEW */
-  visibility: hidden; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
-}
-.contact-popup-backdrop.is-open {
-  opacity: 1; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: auto; /* ✅ NEW */
-}
-.contact-popup-card {
-  position: relative; /* ✅ NEW */
-  width: min(92vw, 560px); /* ✅ NEW */
-  max-height: calc(100dvh - 72px); /* ✅ NEW */
-  padding: 28px 24px 26px; /* ✅ NEW */
-  border-radius: 24px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  backdrop-filter: blur(14px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
-  transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
-  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW */
-  will-change: transform, opacity; /* ✅ NEW */
-  overflow-y: auto; /* ✅ NEW */
-  -webkit-overflow-scrolling: touch; /* ✅ NEW */
-}
-.contact-popup-backdrop.is-open .contact-popup-card {
-  transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-  opacity: 1; /* ✅ NEW */
-}
-.contact-popup-header {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: 46px minmax(0, 1fr) 46px; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  gap: 12px; /* ✅ NEW */
-  margin: 0 0 18px; /* ✅ NEW */
-}
-.contact-popup-header-vector {
-  width: 46px; /* ✅ NEW */
-  height: 46px; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: contain; /* ✅ NEW */
-}
-.contact-popup-close {
-  position: static; /* ✅ UPDATED */
-  flex: 0 0 auto; /* ✅ NEW */
-  width: 46px; /* ✅ UPDATED */
-  height: 46px; /* ✅ UPDATED */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  font-size: 28px; /* ✅ UPDATED */
-  line-height: 1; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-}
-.contact-popup-drag-handle {
-  width: auto; /* ✅ UPDATED */
-  height: auto; /* ✅ UPDATED */
-  margin: 0; /* ✅ UPDATED */
-  padding: 0; /* ✅ UPDATED */
-  border-radius: 0; /* ✅ UPDATED */
-  background: transparent; /* ✅ UPDATED: remove thanh ngang */
-  color: rgba(255, 255, 255, 0.96); /* ✅ UPDATED */
-  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
-  font-weight: 700; /* ✅ NEW */
-  line-height: 1.05; /* ✅ UPDATED */
-  text-align: center; /* ✅ NEW */
-  white-space: nowrap; /* ✅ NEW */
-}
-.contact-phone-link {
-  position: relative; /* ✅ NEW */
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: 100%; /* ✅ NEW */
-  min-height: 54px; /* ✅ UPDATED */
-  margin: 0 auto 24px; /* ✅ NEW */
-  padding: 0 58px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  font-size: 20px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: 0.01em; /* ✅ NEW */
-}
-.contact-phone-icon {
-  position: absolute; /* ✅ NEW */
-  left: 16px; /* ✅ NEW */
-  top: 50%; /* ✅ NEW */
-  width: 38px; /* ✅ NEW */
-  height: 38px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: 21px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  transform: translateY(-50%); /* ✅ NEW */
-}
-.contact-phone-number {
-  display: inline-block; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
-}
-.contact-popup-story {
-  margin: 0 0 18px; /* ✅ NEW */
-  padding: 12px 13px; /* ✅ NEW */
-  border-radius: 16px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.42; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-}
-.contact-social-list {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
-  gap: 12px; /* ✅ NEW */
-  align-items: start; /* ✅ NEW */
-}
-.contact-social-item {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  gap: 8px; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-}
-.contact-social-icon {
-  width: 46px; /* ✅ NEW */
-  height: 46px; /* ✅ NEW */
-  border-radius: 12px; /* ✅ NEW */
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  color: #fff; /* ✅ NEW */
-  font-size: 21px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 800; /* ✅ NEW */
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
-}
-.contact-social-icon.facebook {
-  background: #1877f2; /* ✅ NEW */
-}
-.contact-social-icon.telegram {
-  background: #229ed9; /* ✅ NEW */
-}
-.contact-social-icon.kakao {
-  background: #fee500; /* ✅ NEW */
-  color: #111; /* ✅ NEW */
-}
-.contact-social-icon.zalo {
-  background: #0068ff; /* ✅ NEW */
-}
-.contact-social-icon.tiktok {
-  background: #111111; /* ✅ NEW */
-}
-.contact-social-icon.youtube {
-  background: #ff0033; /* ✅ NEW */
-}
-.contact-social-icon.wechat {
-  background: #19c15f; /* ✅ NEW */
-}
-.contact-social-icon.google-map {
-  background: #34a853; /* ✅ NEW */
-}
-.contact-social-icon.maill {
-  background: #ea4335; /* ✅ NEW */
-}
-.contact-social-icon.line {
-  background: #06c755; /* ✅ NEW */
-}
-.contact-social-label {
-  display: block; /* ✅ NEW */
-  max-width: 68px; /* ✅ NEW */
-  font-size: 11px; /* ✅ NEW */
-  line-height: 1.15; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-  overflow-wrap: anywhere; /* ✅ NEW */
-}
-#logoTrigger {
-  cursor: pointer; /* ✅ NEW */
-  touch-action: manipulation; /* ✅ NEW */
-}
-.mobile-popup-scroll-lock {
-  overflow: hidden; /* ✅ NEW */
-}
-@media (max-width:768px) {
-  .contact-popup-backdrop {
-    position: fixed; /* ✅ NEW */
-    inset: 0; /* ✅ NEW */
-    z-index: 1001; /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: flex-start; /* ✅ UPDATED: đẩy popup lên top */
-    justify-content: center; /* ✅ NEW */
-    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; /* ✅ UPDATED: top safe-area cho iOS */
-    background: rgba(0, 0, 0, 0.66); /* ✅ NEW */
-    backdrop-filter: blur(4px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
-  }
-  .contact-popup-backdrop.is-open {
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    pointer-events: auto; /* ✅ NEW */
-  }
-  .contact-popup-card {
-    position: relative; /* ✅ NEW */
-    width: min(92vw, 420px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); /* ✅ NEW: popup top không vượt màn hình */
-    padding: 24px 18px 22px; /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    backdrop-filter: blur(14px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(14px); /* ✅ REQUIRED FIX */
-    transform: translate3d(0, 18px, 0) scale(0.96); /* ✅ NEW */
-    opacity: 0; /* ✅ NEW */
-    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; /* ✅ NEW: smooth spring */
-    will-change: transform, opacity; /* ✅ NEW */
-    touch-action: pan-y; /* ✅ NEW */
-    overflow-y: auto; /* ✅ NEW: đủ chỗ cho 10 logo + story */
-    -webkit-overflow-scrolling: touch; /* ✅ NEW */
-  }
-  .contact-popup-backdrop.is-open .contact-popup-card {
-    transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
-  }
-  .contact-popup-header {
-    grid-template-columns: 44px minmax(0, 1fr) 44px; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-    margin: 0 0 18px; /* ✅ NEW */
-  }
-  .contact-popup-header-vector {
-    width: 44px; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
-  }
-  .contact-popup-close {
-    position: static; /* ✅ UPDATED */
-    width: 44px; /* ✅ UPDATED */
-    height: 44px; /* ✅ UPDATED */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    font-size: 28px; /* ✅ UPDATED */
-    line-height: 1; /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-  }
-  .contact-popup-drag-handle {
-    width: auto; /* ✅ UPDATED */
-    height: auto; /* ✅ UPDATED */
-    margin: 0; /* ✅ UPDATED */
-    padding: 0; /* ✅ NEW */
-    border-radius: 0; /* ✅ UPDATED */
-    background: transparent; /* ✅ UPDATED: remove thanh ngang */
-    color: rgba(255, 255, 255, 0.96); /* ✅ NEW */
-    font-size: 20px; /* ✅ UPDATED: match số điện thoại */
-    line-height: 1.05; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-    white-space: nowrap; /* ✅ NEW */
-  }
-  .contact-phone-link {
-    position: relative; /* ✅ NEW */
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    width: 100%; /* ✅ NEW */
-    min-height: 54px; /* ✅ UPDATED */
-    margin: 0 auto 24px; /* ✅ NEW */
-    padding: 0 58px; /* ✅ NEW */
-    border-radius: 14px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.26); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    text-decoration: none; /* ✅ NEW */
-    font-size: 20px; /* ✅ NEW */
-    line-height: 1.2; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    letter-spacing: 0.01em; /* ✅ NEW */
-  }
-  .contact-popup-story {
-    margin: 0 0 18px; /* ✅ NEW */
-    padding: 12px 13px; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-    color: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-    font-size: 13px; /* ✅ NEW */
-    line-height: 1.42; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-  }
-  .contact-social-list {
-    display: grid; /* ✅ NEW */
-    grid-template-columns: repeat(5, 1fr); /* ✅ NEW */
-    gap: 12px; /* ✅ NEW */
-    align-items: start; /* ✅ NEW */
-  }
-  .contact-social-item {
-    display: flex; /* ✅ NEW */
-    flex-direction: column; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 8px; /* ✅ NEW */
-    min-width: 0; /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    text-align: center; /* ✅ NEW */
-  }
-  .contact-social-icon {
-    width: 46px; /* ✅ NEW */
-    height: 46px; /* ✅ NEW */
-    border-radius: 12px; /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    color: #fff; /* ✅ NEW */
-    font-size: 21px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 800; /* ✅ NEW */
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); /* ✅ NEW */
-  }
-  .contact-social-icon.youtube {
-    background: #ff0033; /* ✅ NEW */
-  }
-  .contact-social-icon.wechat {
-    background: #19c15f; /* ✅ NEW */
-  }
-  .contact-social-icon.google-map {
-    background: #34a853; /* ✅ NEW */
-  }
-  .contact-social-icon.maill {
-    background: #ea4335; /* ✅ NEW */
-  }
-  .contact-social-icon.line {
-    background: #06c755; /* ✅ NEW */
-  }
-  .contact-social-icon.facebook { background: #1877f2; } /* ✅ NEW */
-  .contact-social-icon.telegram { background: #229ed9; } /* ✅ NEW */
-  .contact-social-icon.kakao { background: #fee500; color: #191600; } /* ✅ NEW */
-  .contact-social-icon.zalo { background: #0068ff; } /* ✅ NEW */
-  .contact-social-icon.tiktok { background: #111111; } /* ✅ NEW */
-  .contact-social-label {
-    display: block; /* ✅ NEW */
-    max-width: 68px; /* ✅ UPDATED */
-    font-size: 11px; /* ✅ UPDATED */
-    line-height: 1.15; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-    overflow-wrap: anywhere; /* ✅ NEW */
-  }
+.popup-notes {
+  position: relative;
+  width: 100%;
+  margin-top: 0;
+  padding: 22px 0 24px;
+  display: flex;
+  gap: 52px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  flex: 0 0 auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ===================== */
-/* ✅ NEW: CHECK AVAILABILITY BOOKING FLOW */
-/* ===================== */
-.availability-day.is-past,
-.availability-day.is-too-soon {
-  opacity: 0.52; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
-}
-.availability-day.is-too-soon {
-  background: rgba(255,255,255,0.045); /* ✅ NEW */
-  border-color: rgba(255,255,255,0.12); /* ✅ NEW */
-  color: rgba(255,255,255,0.42); /* ✅ NEW */
-}
-.availability-day.is-selected-date {
-  outline: 3px solid rgba(255,255,255,0.78); /* ✅ NEW */
-  outline-offset: 2px; /* ✅ NEW */
-}
-.availability-message {
-  display: none; /* ✅ NEW */
-  margin-top: 14px; /* ✅ NEW */
-  padding: 11px 13px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
-  background: rgba(255,255,255,0.1); /* ✅ NEW */
-  color: rgba(255,255,255,0.94); /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.4; /* ✅ NEW */
-}
-.availability-message.is-visible {
-  display: block; /* ✅ NEW */
-}
-.availability-message.is-error {
-  background: rgba(239, 68, 68, 0.18); /* ✅ NEW */
-  border: 1px solid rgba(239, 68, 68, 0.38); /* ✅ NEW */
-}
-.availability-message.is-success {
-  background: rgba(34, 197, 94, 0.16); /* ✅ NEW */
-  border: 1px solid rgba(34, 197, 94, 0.34); /* ✅ NEW */
-}
-.availability-contact {
-  width: 100%; /* ✅ UPDATED */
-  border: 0; /* ✅ UPDATED */
-  cursor: pointer; /* ✅ UPDATED */
-  font-family: 'Poppins', sans-serif; /* ✅ UPDATED */
-  text-align: left; /* ✅ UPDATED */
-}
-.availability-contact:disabled {
-  opacity: 0.55; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
-}
-.availability-tour-list {
-  display: none; /* ✅ NEW */
-  margin-top: 16px; /* ✅ NEW */
-  gap: 14px; /* ✅ NEW */
-}
-.availability-tour-list.is-open {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(5, minmax(0, 1fr)); /* ✅ UPDATED */
-}
-.availability-tour-item {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  gap: 8px; /* ✅ NEW */
-  min-width: 0; /* ✅ NEW */
-}
-.availability-tour-box {
-  width: 100%; /* ✅ NEW */
-  aspect-ratio: 1 / 1; /* ✅ NEW */
-  border-radius: 12px; /* ✅ NEW */
-  background: #fff; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.22); /* ✅ NEW */
-}
-.availability-tour-img {
-  width: 100%; /* ✅ NEW */
-  height: 100%; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: cover; /* ✅ NEW */
-}
-.availability-tour-label {
-  color: #fff; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-transform: lowercase; /* ✅ NEW */
-}
-@media (max-width:768px) {
-  .availability-tour-list.is-open {
-    grid-template-columns: 1fr; /* ✅ NEW: mobile hiển thị từ trên xuống dưới */
-  }
-  .availability-tour-item {
-    flex-direction: row; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 12px; /* ✅ NEW */
-  }
-  .availability-tour-box {
-    width: 72px; /* ✅ NEW */
-    flex: 0 0 72px; /* ✅ NEW */
-  }
-  .availability-tour-label {
-    text-align: left; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-  }
+.popup-notes::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-
-.availability-day.is-today-date {
-  background: #ff4fa3; /* ✅ NEW: today màu hồng */
-  border-color: #ff78bb; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  box-shadow: 0 0 0 2px rgba(255, 79, 163, 0.24), 0 10px 24px rgba(255, 79, 163, 0.28); /* ✅ NEW */
-}
-.availability-day.is-today-date.is-past,
-.availability-day.is-today-date.is-too-soon {
-  opacity: 1; /* ✅ NEW: today vẫn nổi bật dù không book được */
-  color: #ffffff; /* ✅ NEW */
-}
-.availability-nav button:disabled {
-  opacity: 0.35; /* ✅ NEW */
-  cursor: not-allowed; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
+.popup-notes-arrow {
+  display: none;
 }
 
-
-/* ✅ NEW: CONTACT POPUP FOOTER TEXT */
-.contact-footer-text {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 20px; /* ✅ UPDATED: match số điện thoại */
-  line-height: 1.35;
-  font-weight: 700; /* ✅ UPDATED */
-  letter-spacing: 0.02em; /* ✅ UPDATED */
-  color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */
+.popup-note-item {
+  flex: 0 0 219px;
+  min-width: 219px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-snap-align: center;
+  transition: transform 0.28s ease, filter 0.28s ease;
+  transform-origin: center center;
 }
 
-/* ✅ NEW: CONTACT SOCIAL LOGO - 10 subtle animations */
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(1) {
-  animation: contactFadeUp 0.72s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(2) {
-  animation: contactFadeDown 0.78s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(3) {
-  animation: contactScaleIn 0.74s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(4) {
-  animation: contactSoftRotate 0.82s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(5) {
-  animation: contactFadeLeft 0.76s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(6) {
-  animation: contactFadeRight 0.76s ease both;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(7) {
-  animation: contactSoftFloat 2.8s ease-in-out infinite;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(8) {
-  animation: contactScalePulse 3s ease-in-out infinite;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(9) {
-  animation: contactSoftTilt 3.2s ease-in-out infinite;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(10) {
-  animation: contactGlowSoft 3.4s ease-in-out infinite;
-}
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(1) { animation-delay: 0.03s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(2) { animation-delay: 0.06s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(3) { animation-delay: 0.09s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(4) { animation-delay: 0.12s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(5) { animation-delay: 0.15s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(6) { animation-delay: 0.18s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(7) { animation-delay: 0.21s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(8) { animation-delay: 0.24s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(9) { animation-delay: 0.27s; }
-.contact-popup-backdrop.is-open .contact-social-item:nth-child(10) { animation-delay: 0.3s; }
-
-@keyframes contactFadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes contactFadeDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes contactFadeLeft {
-  from { opacity: 0; transform: translateX(9px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes contactFadeRight {
-  from { opacity: 0; transform: translateX(-9px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes contactScaleIn {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes contactSoftRotate {
-  from { opacity: 0; transform: rotate(-4deg) scale(0.96); }
-  to { opacity: 1; transform: rotate(0deg) scale(1); }
-}
-@keyframes contactSoftFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-@keyframes contactScalePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.045); }
-}
-@keyframes contactSoftTilt {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(1.4deg); }
-}
-@keyframes contactGlowSoft {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
-  50% { filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.24)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important; /* ✅ NEW: hỗ trợ máy yếu / reduced motion */
-    animation-iteration-count: 1 !important; /* ✅ NEW */
-    transition-duration: 0.001ms !important; /* ✅ NEW */
-    scroll-behavior: auto !important; /* ✅ NEW */
-  }
-}
-  
-
-.availability-legend {
-  display: none; /* ✅ UPDATED: xóa dòng Available / Booked / Contact first khỏi UI */
-}
-
-/* ✅ NEW: SNORKELING CARD NAVIGATION */
 .popup-note-item[data-tour="snorkeling"] {
   cursor: pointer;
   touch-action: pan-x;
@@ -1899,6 +621,56 @@ color: #fff;
   outline: 2px solid rgba(255, 255, 255, 0.88);
   outline-offset: 7px;
   border-radius: 16px;
+}
+
+.popup-note-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.popup-note-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.popup-note-label {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: lowercase;
+  transition: transform 0.28s ease, text-shadow 0.28s ease;
+}
+
+.popup-note-item:active .popup-note-box,
+.popup-note-item:focus-within .popup-note-box {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+}
+
+.popup-note-item.is-center {
+  z-index: 20;
+  gap: 34px;
+}
+
+.popup-note-item.is-center .popup-note-box {
+  transform: scale(1.15);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38);
+}
+
+.popup-note-item.is-center .popup-note-label {
+  transform: scale(1.08);
+  transform-origin: center top;
+  text-shadow: 0 5px 18px rgba(0, 0, 0, 0.5);
 }
 
 .popup-note-item.is-snorkeling-transition-target {
@@ -1924,860 +696,20 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   background: rgba(0, 0, 0, 0.78);
 }
 
+/* ✅ REQUIRED FIX: accessibility/performance guard, not desktop/mobile branching */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
   body.snorkeling-transition-ready,
   body.is-snorkeling-navigating,
   .popup-note-item.is-snorkeling-transition-target .popup-note-box {
-    transition-duration: 0.001ms !important;
     transform: none !important;
   }
 }
-
-
-/* ===================== */
-/* ✅ NEW: POLICY POPUP */
-/* ===================== */
-.title[role="button"] {
-  cursor: pointer; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-}
-.title[role="button"]:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  outline-offset: 8px; /* ✅ NEW */
-  border-radius: 14px; /* ✅ NEW */
-}
-.policy-popup-backdrop {
-  position: fixed; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: 1002; /* ✅ NEW */
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  padding: 24px; /* ✅ NEW */
-  background: rgba(0, 0, 0, 0.68); /* ✅ NEW */
-  backdrop-filter: blur(5px); /* ✅ NEW */
-  -webkit-backdrop-filter: blur(5px); /* ✅ REQUIRED FIX */
-  opacity: 0; /* ✅ NEW */
-  visibility: hidden; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-  transition: opacity 0.24s ease, visibility 0.24s ease; /* ✅ NEW */
-}
-.policy-popup-backdrop.is-open {
-  opacity: 1; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: auto; /* ✅ NEW */
-}
-.policy-popup-backdrop.is-closing {
-  opacity: 0; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-}
-.policy-popup-card {
-  position: relative; /* ✅ NEW */
-  width: min(92vw, 560px); /* ✅ NEW */
-  max-height: calc(100dvh - 48px); /* ✅ NEW */
-  overflow-y: auto; /* ✅ NEW */
-  -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
-  padding: 34px 28px 30px; /* ✅ NEW */
-  border-radius: 28px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
-  background: linear-gradient(180deg, rgba(25, 31, 39, 0.96), rgba(8, 12, 18, 0.96)); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5), inset 0 0 18px rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  transform: translateY(14px) scale(0.97); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
-  transition: transform 0.28s ease, opacity 0.24s ease; /* ✅ NEW */
-}
-.policy-popup-backdrop.is-open .policy-popup-card {
-  transform: translateY(0) scale(1); /* ✅ NEW */
-  opacity: 1; /* ✅ NEW */
-}
-.policy-popup-backdrop.is-closing .policy-popup-card {
-  transform: translateY(10px) scale(0.98); /* ✅ NEW */
-  opacity: 0; /* ✅ NEW */
-}
-.policy-popup-close {
-  position: absolute; /* ✅ NEW */
-  top: 14px; /* ✅ NEW */
-  right: 14px; /* ✅ NEW */
-  width: 38px; /* ✅ NEW */
-  height: 38px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: 22px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-}
-.policy-popup-close:hover {
-  background: rgba(255, 255, 255, 0.14); /* ✅ NEW */
-}
-
-.policy-popup-media-row {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  gap: 26px; /* ✅ NEW */
-  min-height: 126px; /* ✅ NEW */
-  margin: 0 auto 10px; /* ✅ NEW */
-  overflow: visible; /* ✅ NEW */
-}
-.policy-popup-menu-vector {
-  width: 72px; /* ✅ NEW */
-  height: 72px; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  object-fit: contain; /* ✅ NEW */
-  flex: 0 0 auto; /* ✅ NEW */
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28)); /* ✅ NEW */
-}
-.policy-popup-logo-slot {
-  display: flex; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao */
-  margin: 0; /* ✅ UPDATED: row mới quản lý khoảng cách */
-  overflow: visible; /* ✅ NEW */
-}
-.policy-popup-logo-slot .mask {
-  transform: scale(0.94); /* ✅ UPDATED: scale logo policy popup thêm 15% */
-  transform-origin: center center; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-}
-.policy-popup-logo-slot .mask:hover {
-  transform: scale(0.94); /* ✅ REQUIRED FIX */
-}
-.policy-popup-title {
-  margin: 0 44px 14px; /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font-size: clamp(20px, 4vw, 27px); /* ✅ NEW */
-  line-height: 1.15; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-}
-.policy-popup-copy {
-  margin: 0 auto 22px; /* ✅ NEW */
-  max-width: 480px; /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  font-size: 15px; /* ✅ NEW */
-  line-height: 1.62; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-}
-.policy-popup-action {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: max-content; /* ✅ NEW */
-  max-width: 100%; /* ✅ NEW */
-  margin: 0 auto; /* ✅ NEW */
-  padding: 10px 18px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.24); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.1); /* ✅ NEW */
-  color: #ffffff; /* ✅ NEW */
-  font: inherit; /* ✅ NEW */
-  font-size: clamp(19px, 5vw, 30px); /* ✅ NEW */
-  line-height: 1.1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-}
-.policy-popup-action:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.9); /* ✅ NEW */
-  outline-offset: 5px; /* ✅ NEW */
-}
-.policy-popup-guidelines-toggle {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  width: max-content; /* ✅ NEW */
-  max-width: 100%; /* ✅ NEW */
-  margin: 12px auto 0; /* ✅ NEW */
-  padding: 0; /* ✅ NEW */
-  border: 0; /* ✅ NEW */
-  background: transparent; /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.84); /* ✅ NEW */
-  font: inherit; /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.25; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-decoration: underline; /* ✅ NEW */
-  text-underline-offset: 4px; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-}
-.policy-popup-guidelines-toggle:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.84); /* ✅ NEW */
-  outline-offset: 5px; /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-}
-.policy-popup-guidelines {
-  display: none; /* ✅ NEW */
-  max-width: 430px; /* ✅ NEW */
-  margin: 12px auto 0; /* ✅ NEW */
-  padding: 13px 15px; /* ✅ NEW */
-  border: 1px solid rgba(255, 255, 255, 0.18); /* ✅ NEW */
-  border-radius: 18px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.08); /* ✅ NEW */
-  color: rgba(255, 255, 255, 0.92); /* ✅ NEW */
-  text-align: left; /* ✅ NEW */
-}
-.policy-popup-guidelines.is-open {
-  display: block; /* ✅ NEW */
-}
-.policy-popup-guidelines-list {
-  display: grid; /* ✅ NEW */
-  gap: 7px; /* ✅ NEW */
-  margin: 0; /* ✅ NEW */
-  padding-left: 18px; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1.38; /* ✅ NEW */
-  font-weight: 600; /* ✅ NEW */
-}
-
-.policy-wave-text {
-  display: inline-flex; /* ✅ NEW */
-  align-items: baseline; /* ✅ NEW */
-  white-space: pre; /* ✅ NEW */
-}
-.policy-wave-text span {
-  display: inline-block; /* ✅ NEW */
-  animation: policyWaveText 1.45s ease-in-out infinite; /* ✅ NEW */
-  animation-delay: calc(var(--policy-wave-index, 0) * 0.055s); /* ✅ NEW */
-  will-change: transform; /* ✅ NEW */
-}
-@keyframes policyWaveText {
-  0%, 100% { transform: translateY(0); }
-  35% { transform: translateY(-5px); }
-  70% { transform: translateY(0); }
-}
-.sr-only {
-  position: absolute; /* ✅ NEW */
-  width: 1px; /* ✅ NEW */
-  height: 1px; /* ✅ NEW */
-  padding: 0; /* ✅ NEW */
-  margin: -1px; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
-  clip: rect(0, 0, 0, 0); /* ✅ NEW */
-  white-space: nowrap; /* ✅ NEW */
-  border: 0; /* ✅ NEW */
-}
-@media (max-width:768px) {
-  .policy-popup-backdrop {
-    padding: calc(env(safe-area-inset-top, 0px) + 18px) 18px 18px; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-  }
-  .policy-popup-card {
-    width: min(94vw, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 36px); /* ✅ NEW */
-    padding: 30px 18px 24px; /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
-  }
-
-  .policy-popup-media-row {
-    gap: 18px; /* ✅ NEW */
-    min-height: 112px; /* ✅ NEW */
-    margin-bottom: 4px; /* ✅ NEW */
-  }
-  .policy-popup-menu-vector {
-    width: 72px; /* ✅ NEW */
-    height: 72px; /* ✅ NEW */
-  }
-  .policy-popup-guidelines-toggle {
-    font-size: 13px; /* ✅ NEW */
-  }
-  .policy-popup-guidelines {
-    padding: 12px 13px; /* ✅ NEW */
-  }
-  .policy-popup-guidelines-list {
-    font-size: 12px; /* ✅ NEW */
-  }
-  .policy-popup-logo-slot {
-    min-height: auto; /* ✅ UPDATED: row mới quản lý chiều cao mobile */
-    margin-bottom: 0; /* ✅ UPDATED: row mới quản lý khoảng cách mobile */
-  }
-  .policy-popup-logo-slot .mask {
-    transform: scale(0.78); /* ✅ UPDATED: scale logo policy popup mobile thêm 15% */
-  }
-  .policy-popup-logo-slot .mask:hover {
-    transform: scale(0.78); /* ✅ REQUIRED FIX */
-  }
-  .policy-popup-title {
-    margin: 0 38px 12px; /* ✅ NEW */
-    font-size: 21px; /* ✅ NEW */
-  }
-  .policy-popup-copy {
-    font-size: 14px; /* ✅ NEW */
-    line-height: 1.55; /* ✅ NEW */
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .policy-popup-backdrop,
-  .policy-popup-card,
-  .policy-wave-text span {
-    animation-duration: 0.001ms !important; /* ✅ NEW */
-    animation-iteration-count: 1 !important; /* ✅ NEW */
-    transition-duration: 0.001ms !important; /* ✅ NEW */
-  }
-}
-/* ✅ UPDATED: STORY EXPAND SECTION REBUILD */
-/* ✅ NEW: DESIGNATED SCROLLABLE HOME AREA 
-   IMPORTANT FOR FUTURE AI / DEVELOPERS:
-   This section is intentionally treated as the real scrollable homepage after the intro / hero / tour-selection flow.
-   Do not "fix" this area as a scroll bug.
-   All return-to-home behavior should target this scrollable home area, not only the first locked hero screen.
-*/
-.more-stories-section {
-  position: relative; /* ✅ UPDATED */
-  padding: 96px 24px 120px; /* ✅ UPDATED */
-  background: linear-gradient(180deg, var(--color-soft-white) 0%, var(--color-white) 55%, #f3f6f7 100%); /* ✅ UPDATED */
-  color: var(--color-ink); /* ✅ UPDATED */
-  overflow: hidden; /* ✅ KEEP */
-}
-.more-stories-section::before {
-  content: ""; /* ✅ REQUIRED FIX */
-  position: absolute; /* ✅ KEEP */
-  inset: 0 0 auto; /* ✅ KEEP */
-  height: 160px; /* ✅ KEEP */
-  pointer-events: none; /* ✅ KEEP */
-  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); /* ✅ KEEP */
-}
-.more-stories-inner {
-  position: relative; /* ✅ KEEP */
-  z-index: 1; /* ✅ KEEP */
-  width: min(1120px, 100%); /* ✅ KEEP */
-  margin: 0 auto; /* ✅ KEEP */
-}
-.more-stories-kicker {
-  margin: 0 0 10px; /* ✅ KEEP */
-  color: rgba(28, 40, 51, 0.58); /* ✅ KEEP */
-  font-size: 13px; /* ✅ KEEP */
-  line-height: 1.3; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  letter-spacing: 0.08em; /* ✅ KEEP */
-  text-transform: uppercase; /* ✅ KEEP */
-}
-.more-stories-title {
-  margin: 0; /* ✅ KEEP */
-  max-width: 860px; /* ✅ UPDATED */
-  color: #17202a; /* ✅ KEEP */
-  font-size: clamp(34px, 7vw, 64px); /* ✅ KEEP */
-  line-height: 0.98; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  letter-spacing: -0.04em; /* ✅ KEEP */
-}
-.more-stories-intro {
-  max-width: 780px; /* ✅ UPDATED */
-  margin: 22px 0 0; /* ✅ KEEP */
-  color: rgba(28, 40, 51, 0.72); /* ✅ KEEP */
-  font-size: clamp(16px, 2.2vw, 19px); /* ✅ KEEP */
-  line-height: 1.72; /* ✅ KEEP */
-  font-weight: 500; /* ✅ KEEP */
-}
-.more-stories-back-button {
-  display: inline-flex; /* ✅ KEEP */
-  align-items: center; /* ✅ KEEP */
-  justify-content: center; /* ✅ KEEP */
-  min-height: 42px; /* ✅ KEEP */
-  margin: 28px 0 0; /* ✅ KEEP */
-  padding: 10px 16px; /* ✅ KEEP */
-  border: 1px solid rgba(20, 40, 60, 0.1); /* ✅ KEEP */
-  border-radius: 999px; /* ✅ KEEP */
-  background: rgba(255, 255, 255, 0.72); /* ✅ KEEP */
-  color: #1c2833; /* ✅ KEEP */
-  font: inherit; /* ✅ KEEP */
-  font-size: 14px; /* ✅ KEEP */
-  line-height: 1; /* ✅ KEEP */
-  font-weight: 700; /* ✅ KEEP */
-  cursor: pointer; /* ✅ KEEP */
-  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); /* ✅ KEEP */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-}
-.more-services-block {
-  margin-top: 46px; /* ✅ NEW */
-}
-.more-section-label {
-  margin: 0 0 14px; /* ✅ NEW */
-  color: var(--color-hue-deep); /* ✅ UPDATED */
-  font-size: clamp(22px, 4vw, 32px); /* ✅ NEW */
-  line-height: 1.12; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  letter-spacing: -0.02em; /* ✅ NEW */
-}
-.more-services-grid {
-  display: grid; /* ✅ NEW */
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ NEW */
-  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.45); /* ✅ NEW */
-  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
-}
-.more-service-card {
-  display: flex; /* ✅ NEW */
-  flex-direction: column; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  min-height: 170px; /* ✅ NEW */
-  padding: 24px 22px; /* ✅ NEW */
-  border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  color: #1c2833; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-decoration: none; /* ✅ NEW */
-  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
-  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease; /* ✅ NEW */
-}
-.more-service-card:nth-child(3n) {
-  border-right: 0; /* ✅ NEW */
-}
-.more-service-card:nth-last-child(-n + 3) {
-  border-bottom: 0; /* ✅ NEW */
-}
-.more-service-card-title {
-  margin: 0; /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 16px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-}
-.more-service-card-desc {
-  margin: 12px auto 0; /* ✅ NEW */
-  max-width: 280px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.72); /* ✅ NEW */
-  font-size: 14px; /* ✅ NEW */
-  line-height: 1.45; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
-}
-.more-service-card-link {
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  margin: 18px auto 0; /* ✅ NEW */
-  color: var(--color-hue-deep); /* ✅ UPDATED */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-}
-.more-service-card:focus-visible {
-  outline: 3px solid rgba(15, 76, 92, 0.38); /* ✅ NEW */
-  outline-offset: 4px; /* ✅ NEW */
-}
-@media (hover: hover) and (pointer: fine) {
-  .more-service-card:hover {
-    transform: translateY(-4px); /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.94); /* ✅ NEW */
-    box-shadow: 0 22px 54px rgba(20, 40, 60, 0.1); /* ✅ NEW */
-    z-index: 1; /* ✅ NEW */
-  }
-}
-.more-accordion-block {
-  margin-top: 54px; /* ✅ NEW */
-}
-.more-accordion-list {
-  border: 1px solid rgba(15, 76, 92, 0.16); /* ✅ NEW */
-  background: rgba(247, 251, 252, 0.78); /* ✅ NEW */
-  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); /* ✅ NEW */
-}
-.more-accordion-item {
-  border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-}
-.more-accordion-item:last-child {
-  border-bottom: 0; /* ✅ NEW */
-}
-.more-accordion-summary {
-  display: flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: space-between; /* ✅ NEW */
-  gap: 18px; /* ✅ NEW */
-  min-height: 64px; /* ✅ NEW */
-  padding: 20px 22px; /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 17px; /* ✅ NEW */
-  line-height: 1.2; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  cursor: pointer; /* ✅ NEW */
-  list-style: none; /* ✅ NEW */
-  -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-}
-.more-accordion-summary::-webkit-details-marker {
-  display: none; /* ✅ NEW */
-}
-.more-accordion-summary::after {
-  content: "+"; /* ✅ NEW */
-  flex: 0 0 auto; /* ✅ NEW */
-  color: rgba(18, 48, 68, 0.58); /* ✅ NEW */
-  font-size: 24px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
-}
-.more-accordion-item[open] .more-accordion-summary::after {
-  content: "–"; /* ✅ NEW */
-}
-.more-accordion-panel {
-  padding: 0 22px 22px; /* ✅ NEW */
-  color: rgba(28, 40, 51, 0.74); /* ✅ NEW */
-  font-size: 15px; /* ✅ NEW */
-  line-height: 1.65; /* ✅ NEW */
-  font-weight: 500; /* ✅ NEW */
-}
-.more-accordion-panel p {
-  margin: 0 0 12px; /* ✅ NEW */
-}
-.more-faq-list {
-  display: grid; /* ✅ NEW */
-  gap: 14px; /* ✅ NEW */
-  margin: 0; /* ✅ NEW */
-}
-.more-faq-list dt {
-  color: #123044; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-}
-.more-faq-list dd {
-  margin: 4px 0 0; /* ✅ NEW */
-}
-.more-contact-platforms {
-  display: flex; /* ✅ NEW */
-  flex-wrap: wrap; /* ✅ NEW */
-  gap: 10px; /* ✅ NEW */
-  margin-top: 6px; /* ✅ NEW */
-}
-.more-contact-platform {
-  display: inline-flex; /* ✅ NEW */
-  align-items: center; /* ✅ NEW */
-  justify-content: center; /* ✅ NEW */
-  min-height: 34px; /* ✅ NEW */
-  padding: 7px 12px; /* ✅ NEW */
-  border: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  border-radius: 999px; /* ✅ NEW */
-  background: rgba(255, 255, 255, 0.72); /* ✅ NEW */
-  color: #123044; /* ✅ NEW */
-  font-size: 13px; /* ✅ NEW */
-  line-height: 1; /* ✅ NEW */
-  font-weight: 700; /* ✅ NEW */
-  text-transform: lowercase; /* ✅ NEW */
-}
-@media (max-width: 900px) {
-  .more-services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* ✅ NEW */
-  }
-  .more-service-card:nth-child(3n) {
-    border-right: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  }
-  .more-service-card:nth-child(2n) {
-    border-right: 0; /* ✅ NEW */
-  }
-  .more-service-card:nth-last-child(-n + 3) {
-    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  }
-  .more-service-card:nth-last-child(-n + 2) {
-    border-bottom: 0; /* ✅ NEW */
-  }
-}
-@media (max-width: 768px) {
-  .more-stories-section {
-    padding: 88px 20px 110px; /* ✅ UPDATED */
-  }
-  .more-services-block {
-    margin-top: 42px; /* ✅ NEW */
-  }
-  .more-services-grid {
-    grid-template-columns: 1fr; /* ✅ NEW */
-  }
-  .more-service-card,
-  .more-service-card:nth-child(2n),
-  .more-service-card:nth-child(3n),
-  .more-service-card:nth-last-child(-n + 2),
-  .more-service-card:nth-last-child(-n + 3) {
-    border-right: 0; /* ✅ NEW */
-    border-bottom: 1px solid rgba(15, 76, 92, 0.14); /* ✅ NEW */
-  }
-  .more-service-card:last-child {
-    border-bottom: 0; /* ✅ NEW */
-  }
-  .more-service-card {
-    min-height: 152px; /* ✅ NEW */
-    padding: 22px 18px; /* ✅ NEW */
-  }
-  .more-accordion-block {
-    margin-top: 42px; /* ✅ NEW */
-  }
-  .more-accordion-summary {
-    padding: 18px; /* ✅ NEW */
-  }
-  .more-accordion-panel {
-    padding: 0 18px 20px; /* ✅ NEW */
-  }
-}
-
-
-/* ✅ UPDATED: MOBILE MORE STORY FEED CARD CSS moved to 10 files in ./css/card-01-intro.css through ./css/card-10-accordion-03.css */
-/* ✅ NEW: MOBILE HOME SCROLL LOCK UNTIL LEAVE NO TRACE */
-@media (max-width:768px) {
-  html.home-scroll-locked,
-  body.home-scroll-locked {
-    overflow: hidden; /* ✅ NEW */
-    height: 100%; /* ✅ NEW */
-  }
-}
-
-@keyframes storyCaretBlink {
-  0%, 49% { opacity: 1; } /* ✅ NEW */
-  50%, 100% { opacity: 0; } /* ✅ NEW */
-}
-
-/* ✅ NEW: MOBILE HEADER SEARCH */
-.header-search-trigger {
-  display: none; /* ✅ NEW: chỉ hiện trên mobile */
-}
-.mobile-search-backdrop {
-  display: none; /* ✅ NEW: chỉ dùng khi search popup mở */
-}
-@media (max-width:768px) {
-  .header-search-trigger {
-    flex: 1 1 auto; /* ✅ NEW */
-    min-width: 68px; /* ✅ UPDATED: handle bên trong dài hơn theo pill mới */
-    max-width: 112px; /* ✅ NEW: giữ search nằm gọn giữa logo và menu */
-    height: 38px; /* ✅ NEW */
-    padding: 0 10px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.78); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    gap: 5px; /* ✅ NEW */
-    font: inherit; /* ✅ NEW */
-    font-size: 14px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-    white-space: nowrap; /* ✅ NEW */
-    touch-action: manipulation; /* ✅ NEW */
-    -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-    box-shadow: 0 6px 16px rgba(5, 6, 8, 0.08); /* ✅ NEW */
-  }
-  .header-search-trigger:focus-visible {
-    outline: 3px solid rgba(15, 111, 120, 0.26); /* ✅ NEW */
-    outline-offset: 3px; /* ✅ NEW */
-  }
-  .header-search-icon {
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-  }
-  .header-search-dots {
-    display: inline-block; /* ✅ NEW */
-    letter-spacing: 0.06em; /* ✅ NEW */
-  }
-  .mobile-search-backdrop {
-    position: fixed; /* ✅ NEW */
-    inset: 0; /* ✅ NEW */
-    z-index: 1003; /* ✅ NEW: cao hơn contact/policy popup */
-    display: flex; /* ✅ NEW */
-    align-items: flex-start; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    padding: calc(env(safe-area-inset-top, 0px) + 78px) 14px 18px; /* ✅ NEW: popup trượt xuống dưới header */
-    background: rgba(0, 0, 0, 0.58); /* ✅ NEW */
-    backdrop-filter: blur(4px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(4px); /* ✅ REQUIRED FIX */
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transition: opacity 0.26s ease, visibility 0.26s ease; /* ✅ NEW */
-  }
-  .mobile-search-backdrop.is-open {
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    pointer-events: auto; /* ✅ NEW */
-  }
-  .mobile-search-panel {
-    width: min(100%, 430px); /* ✅ NEW */
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 96px); /* ✅ NEW */
-    overflow-y: auto; /* ✅ NEW */
-    padding: 14px; /* ✅ NEW */
-    border: 1px solid rgba(255, 255, 255, 0.22); /* ✅ NEW */
-    border-radius: 24px; /* ✅ NEW */
-    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(244,247,248,0.92)); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38); /* ✅ NEW */
-    transform: translate3d(0, -12px, 0) scale(0.98); /* ✅ NEW */
-    opacity: 0; /* ✅ NEW */
-    transition: transform 0.32s cubic-bezier(0.2, 1.1, 0.2, 1), opacity 0.24s ease; /* ✅ NEW */
-    -webkit-overflow-scrolling: touch; /* ✅ REQUIRED FIX */
-  }
-  .mobile-search-backdrop.is-open .mobile-search-panel {
-    transform: translate3d(0, 0, 0) scale(1); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
-  }
-  .mobile-search-head {
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: space-between; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-    margin-bottom: 12px; /* ✅ NEW */
-  }
-  .mobile-search-title {
-    margin: 0; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1.2; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-transform: lowercase; /* ✅ NEW */
-  }
-  .mobile-search-close {
-    flex: 0 0 auto; /* ✅ NEW */
-    width: 34px; /* ✅ NEW */
-    height: 34px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.12); /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255,255,255,0.82); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    font-size: 22px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-  }
-  .mobile-search-form {
-    display: flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    gap: 8px; /* ✅ NEW */
-    margin-bottom: 12px; /* ✅ NEW */
-  }
-  .mobile-search-input {
-    flex: 1 1 auto; /* ✅ NEW */
-    min-width: 0; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.12); /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    padding: 0 13px; /* ✅ NEW */
-    background: #ffffff; /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    font: inherit; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    outline: none; /* ✅ NEW */
-  }
-  .mobile-search-input:focus {
-    border-color: rgba(15, 111, 120, 0.42); /* ✅ NEW */
-    box-shadow: 0 0 0 3px rgba(15, 111, 120, 0.12); /* ✅ NEW */
-  }
-  .mobile-search-submit {
-    flex: 0 0 auto; /* ✅ NEW */
-    width: 44px; /* ✅ NEW */
-    height: 44px; /* ✅ NEW */
-    border: 0; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    background: var(--color-hue-deep); /* ✅ NEW */
-    color: #ffffff; /* ✅ NEW */
-    font-size: 18px; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-  }
-  .mobile-search-hint {
-    margin: 0 0 12px; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.62); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1.35; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-  }
-  .mobile-search-results {
-    display: grid; /* ✅ NEW */
-    gap: 10px; /* ✅ NEW */
-  }
-  .mobile-search-card {
-    display: grid; /* ✅ NEW */
-    gap: 6px; /* ✅ NEW */
-    padding: 12px; /* ✅ NEW */
-    border: 1px solid rgba(5, 6, 8, 0.08); /* ✅ NEW */
-    border-radius: 18px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.86); /* ✅ NEW */
-    color: var(--color-ink); /* ✅ NEW */
-    text-decoration: none; /* ✅ NEW */
-    box-shadow: 0 12px 28px rgba(5, 6, 8, 0.08); /* ✅ NEW */
-  }
-  .mobile-search-card-title {
-    margin: 0; /* ✅ NEW */
-    font-size: 15px; /* ✅ NEW */
-    line-height: 1.22; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-    text-transform: lowercase; /* ✅ NEW */
-  }
-  .mobile-search-card-desc {
-    margin: 0; /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.68); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1.42; /* ✅ NEW */
-    font-weight: 500; /* ✅ NEW */
-  }
-  .mobile-search-card-action {
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    width: max-content; /* ✅ NEW */
-    margin-top: 2px; /* ✅ NEW */
-    color: var(--color-hue-deep); /* ✅ NEW */
-    font-size: 12px; /* ✅ NEW */
-    line-height: 1; /* ✅ NEW */
-    font-weight: 700; /* ✅ NEW */
-  }
-  .mobile-search-empty {
-    padding: 12px; /* ✅ NEW */
-    border-radius: 16px; /* ✅ NEW */
-    background: rgba(8, 63, 70, 0.08); /* ✅ NEW */
-    color: rgba(16, 20, 24, 0.78); /* ✅ NEW */
-    font-size: 13px; /* ✅ NEW */
-    line-height: 1.45; /* ✅ NEW */
-    font-weight: 600; /* ✅ NEW */
-  }
-}
-
-/* ✅ NEW: MOBILE EDGE PAD */
-.mobile-edge-pad {
-  display: none; /* ✅ NEW: chỉ hiện trên mobile */
-}
-@media (max-width:768px) {
-  .mobile-edge-pad {
-    position: fixed; /* ✅ NEW */
-    left: 50%; /* ✅ NEW */
-    bottom: calc(env(safe-area-inset-bottom, 0px) - 11.5px); /* ✅ UPDATED: giữ edge pad nhô nửa thân sau khi tăng chiều cao */
-    z-index: 1004; /* ✅ UPDATED: cho edge pad nổi trên popup tour */
-    width: 360px; /* ✅ UPDATED: ngang dài thêm mỗi bên 40px */
-    height: 30px; /* ✅ UPDATED: cao thêm 5px */
-    padding: 0; /* ✅ NEW */
-    border: 0; /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(255, 255, 255, 0.58); /* ✅ UPDATED: glass pill trắng mờ */
-    backdrop-filter: blur(10px); /* ✅ UPDATED: glass blur cho edge pad */
-    -webkit-backdrop-filter: blur(10px); /* ✅ REQUIRED FIX */
-    box-shadow: 0 -2px 18px rgba(255, 255, 255, 0.22), 0 10px 30px rgba(0, 0, 0, 0.24); /* ✅ UPDATED: bóng mềm kiểu floating edge */
-    display: inline-flex; /* ✅ NEW */
-    align-items: center; /* ✅ NEW */
-    justify-content: center; /* ✅ NEW */
-    cursor: pointer; /* ✅ NEW */
-    touch-action: none; /* ✅ NEW: bắt swipe ổn định */
-    -webkit-tap-highlight-color: transparent; /* ✅ REQUIRED FIX */
-    transform: translate3d(-50%, 0, 0); /* ✅ NEW */
-    opacity: 1; /* ✅ NEW */
-    visibility: visible; /* ✅ NEW */
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; /* ✅ NEW */
-  }
-  .mobile-edge-pad::before {
-    content: ""; /* ✅ REQUIRED FIX */
-    width: 54px; /* ✅ NEW */
-    height: 5px; /* ✅ NEW */
-    border-radius: 999px; /* ✅ NEW */
-    background: rgba(5, 6, 8, 0.32); /* ✅ UPDATED: thanh trong mềm hơn */
-  }
-  .mobile-edge-pad.is-hidden {
-    opacity: 0; /* ✅ NEW */
-    visibility: hidden; /* ✅ NEW */
-    pointer-events: none; /* ✅ NEW */
-    transform: translate3d(-50%, 10px, 0); /* ✅ UPDATED: ẩn nhẹ theo edge pad mỏng */
-  }
-  .mobile-edge-pad:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.86); /* ✅ NEW */
-    outline-offset: 5px; /* ✅ NEW */
-  }
-  .more-stories-back-button {
-    display: none; /* ✅ UPDATED: ẩn Back to tours trên mobile, giữ HTML để an toàn */
-  }
-}
-/* ✅ NEW: END MERGED style.css */
