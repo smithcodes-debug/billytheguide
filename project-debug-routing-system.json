@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-14-input-modality-module-accounted",
+  "version": "pdrs-01-15-mobile-ui-for-all-with-768-shell-and-no-fake-policy",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "input-modality-js-module-accounted-metadata-only",
-    "note": "PDRS-01.14 metadata update: accounted ./js/modules/input-modality.js as the Input Modality System. It separates display/layout mode from actual input mode and exposes html[data-input-mode=\"mouse|touch\"]. Desktop/touchscreen desktop keeps the 768px app shell; last input wins; wheel/trackpad counts as mouse; touch/pen counts as touch. No active runtime HTML/CSS/JS source is changed by this JSON update."
+    "status": "mobile-ui-for-all-with-768-shell-and-no-fake-policy-accounted",
+    "note": "PDRS-01.15 metadata update: mobile UI is the source of truth for all breakpoints. Mobile/tablet portrait keeps width 100%; landscape mobile/tablet and desktop use centered app shell max-width 768px. Desktop/tablet/landscape may only change outer shell boundary, not component identity/visual ownership. Before creating any fake UI/component, inspect/search existing CSS/JS module ownership first; fake/temporary component is allowed only after explicit user permission."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -20,7 +20,7 @@
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Metadata-only PDRS update for reserved/accounted input modality JS module. Active jsLoadOrder is not changed here until main.js imports initInputModality()."
+    "note": "Metadata-only PDRS update for unified mobile-ui-for-all + 768 shell rule and no-fake-before-module-search policy. No active runtime HTML/CSS/JS source is changed by this JSON update."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -183,7 +183,9 @@
       "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
       "heroBackgroundCssRuntimeStatus": "accounted/reserved; link in index.html separately before runtime use",
       "inputModalityJsReservedModule": "./js/modules/input-modality.js",
-      "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use"
+      "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
+      "mobileUiForAllWith768ShellRule": "Mobile UI/component structure and behavior are source of truth for every breakpoint. Only the outer display shell may change: portrait mobile/tablet width 100%; landscape mobile/tablet and desktop centered max-width 768px.",
+      "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it."
     },
     "plannedCssModules": [
       "./css/modules/05-hero-background.css"
@@ -265,15 +267,19 @@
       ]
     },
     {
-      "id": "display-shell-mobile-container-first",
-      "rule": "Mobile/tablet portrait giữ width 100%; landscape mobile/tablet và desktop dùng app shell centered max-width 768px. Header và popup backdrop chỉ phủ app shell, không full desktop viewport.",
+      "id": "display-shell-mobile-ui-for-all-with-768-shell",
+      "rule": "Mobile UI is source of truth. Mobile/tablet portrait keeps width 100%; landscape mobile/tablet and desktop use centered app shell max-width 768px. Header and popup backdrop only follow shell boundary; component visual/behavior must remain the same mobile-designed UI unless explicitly requested.",
       "primaryAreas": [
         "00-display-shell-system",
-        "cross-module-overlay-stack"
+        "cross-module-overlay-stack",
+        "02-header-system",
+        "03-mobile-search"
       ],
       "firstFilesToInspect": [
         "css/modules/00-display-shell.css",
-        "index.html"
+        "index.html",
+        "css/home-hero-tour-popup.css",
+        "css/modules/03-mobile-search.css"
       ]
     },
     {
@@ -305,6 +311,47 @@
         "./js/ui/mobile-edge-pad.js",
         "./js/ui/story-expand.js",
         "./css/modules/00-display-shell.css"
+      ]
+    },
+    {
+      "id": "mobile-ui-for-all-with-768-shell",
+      "rule": "Mobile UI is the source of truth for all breakpoints. All devices must use the same mobile-designed component structure, visual ownership, and behavior. Mobile/tablet portrait uses width: 100%. Landscape mobile/tablet and desktop/laptop use centered app shell max-width: 768px. Desktop/tablet landscape may only change the outer shell boundary; they must not introduce separate desktop variants for header, search, hero, popup, cards, CTA, or navigation unless explicitly requested.",
+      "primaryAreas": [
+        "00-display-shell-system",
+        "02-header-system",
+        "03-mobile-search",
+        "05-hero-story-cta",
+        "05-hero-background-system",
+        "cross-module-overlay-stack"
+      ],
+      "firstFilesToInspect": [
+        "index.html",
+        "./css/modules/00-display-shell.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/03-mobile-search.css",
+        "./css/modules/05-hero-background.css",
+        "./js/ui/search-popup.js",
+        "./js/main.js"
+      ]
+    },
+    {
+      "id": "no-fake-component-before-module-search",
+      "rule": "Do not create fake, duplicate, placeholder, or temporary UI components when a mapped CSS/JS module already exists or may exist. Before implementing any visual/control behavior, search PDRS ownership first, then inspect the owning CSS/JS/HTML source. Fake components are allowed only after explicit user permission.",
+      "primaryAreas": [
+        "03-mobile-search",
+        "02-header-system",
+        "05-hero-story-cta",
+        "06-booking-availability",
+        "08-policy-popup",
+        "09-tour-popup",
+        "10-contact-popup",
+        "11-scroll-home-composite"
+      ],
+      "firstFilesToInspect": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "owning CSS file from modules.*.cssFilesPrimary/cssFilesRelated",
+        "owning JS file from modules.*.jsFilesPrimary/jsFilesRelated"
       ]
     }
   ],
@@ -396,7 +443,7 @@
       ]
     },
     "03-mobile-search": {
-      "area": "mobile search trigger/dialog/form/results",
+      "area": "mobile-designed search trigger/dialog/form/results used for all display modes",
       "htmlModule": "MODULE 03 — MOBILE SEARCH MODULE + MODULE 02.2",
       "cssFilesPrimary": [
         "./css/modules/03-mobile-search.css"
@@ -437,10 +484,12 @@
         "./js/ui/search-popup.js"
       ],
       "behavior": [
-        "Mobile-only search popup controlled by .header-search-trigger and #mobile-search-popup.",
+        "Mobile-designed search system is the source of truth for all breakpoints under the mobile-ui-for-all rule.",
+        "Search popup is controlled by .header-search-trigger and #mobile-search-popup.",
         "Search data maps keywords to route cards or anchor targets.",
         "Open state uses .is-open, aria-hidden=false and trigger aria-expanded=true.",
-        "Close by close button, backdrop click, Escape, or leaving mobile media query."
+        "Close by close button, backdrop click, Escape, or approved responsive state change.",
+        "Do not create a fake or separate desktop search box unless the user explicitly permits fake UI."
       ],
       "routes": [
         "./coral-snorkeling-phu-quoc.html",
@@ -452,6 +501,10 @@
         "#leave-no-trace-popup",
         "#contact-popup",
         "#more-stories-section"
+      ],
+      "riskNotes": [
+        "If header search visual differs between desktop and mobile, inspect .header-search-trigger ownership in ./css/home-hero-tour-popup.css and ./css/modules/03-mobile-search.css before editing.",
+        "Do not add a separate desktop/fake searcher; the mapped search module already owns search behavior and popup state."
       ]
     },
     "05-hero-story-cta": {
@@ -1549,7 +1602,7 @@
       ]
     },
     "00-display-shell-system": {
-      "area": "global app display shell / mobile-container-first / desktop constrained tablet shell",
+      "area": "global app display shell / mobile-ui-for-all / centered 768px shell boundary",
       "htmlModule": "MODULE 00 — DOCUMENT / APP SHELL + MODULE 01 — HEAD / ASSET REGISTRY",
       "cssFilesPrimary": [
         "./css/modules/00-display-shell.css"
@@ -1576,11 +1629,13 @@
         "normal-flow-margin-auto"
       ],
       "behavior": [
+        "Mobile UI/component structure and behavior are source of truth for all breakpoints.",
         "Default portrait mobile/tablet keeps normal width: 100% with no forced desktop shell behavior.",
-        "Landscape mobile/tablet and desktop/laptop use a centered app shell constrained to 768px.",
+        "Landscape mobile/tablet and desktop/laptop use a centered app shell constrained to max-width 768px.",
         "Header is constrained to the app shell and centered; it must not become full desktop viewport width.",
         "Popup backdrops are constrained to the app shell and centered; they must not cover the full desktop viewport.",
-        "This module only owns shell/fixed-layer boundary alignment, not internal component visual design."
+        "This module only owns shell/fixed-layer boundary alignment, not internal component visual design.",
+        "Desktop/tablet landscape must not introduce separate desktop visual variants for header, search, hero, popup, cards, CTA, or navigation unless explicitly requested."
       ],
       "futureUploadIfBug": [
         "project-debug-routing-system.json",
@@ -1591,7 +1646,9 @@
       "riskNotes": [
         "Do not add transform: scale() or zoom to the full app shell because it can create blurry text, click-target mismatch, and fixed-layer offset bugs.",
         "Do not move header/popup HTML into a wrapper unless explicitly planned; current implementation is CSS-only boundary alignment.",
-        "If a component module later sets left/right/transform on the same fixed root selectors after this file loads, it may override shell alignment."
+        "If a component module later sets left/right/transform on the same fixed root selectors after this file loads, it may override shell alignment.",
+        "Do not solve desktop/mobile differences by creating duplicate desktop components; inspect existing module ownership first.",
+        "Do not fake header/search/hero controls when mapped CSS/JS modules exist; use the owning module unless user explicitly permits fake UI."
       ]
     },
     "05-hero-background-system": {
@@ -2208,7 +2265,12 @@
         "mobile landscape không giống desktop version",
         "header full viewport trên desktop",
         "popup backdrop phủ full màn hình desktop",
-        "app shell 768px bị lệch"
+        "app shell 768px bị lệch",
+        "desktop khác mobile dù đã mobile-for-all",
+        "component desktop bị đổi khác mobile",
+        "search/header desktop khác mobile",
+        "desktop tạo fake component",
+        "mobile UI không đồng nhất trên desktop"
       ],
       "routeToModule": "00-display-shell-system",
       "uploadRequestOrder": [
@@ -2486,13 +2548,16 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.15 — Import Input Modality In Main Runtime",
+    "nextStepName": "PDRS-01.16 — Runtime Audit For Mobile UI For All",
     "recommendedUploadBatch": [
-      "./js/main.js",
-      "./js/modules/input-modality.js",
-      "project-debug-routing-system.json"
+      "index.html",
+      "./css/modules/00-display-shell.css",
+      "./css/home-hero-tour-popup.css",
+      "./css/modules/03-mobile-search.css",
+      "./js/ui/search-popup.js",
+      "./js/main.js"
     ],
-    "goal": "Import initInputModality from ./js/modules/input-modality.js into ./js/main.js and initialize it early before gesture/home modules consume html[data-input-mode]."
+    "goal": "Audit runtime source for desktop/mobile component differences, fake search/header UI, and hero background black fallback while preserving mobile-ui-for-all + 768 shell rule."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -3344,6 +3409,28 @@
         "runtimeSourceChanged": false,
         "activeJsLoadOrderChanged": false
       }
+    },
+    {
+      "id": "PDRS-01.15-mobile-ui-for-all-with-768-shell-and-no-fake-policy",
+      "updatedAtLocal": "2026-06-24T19:21:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Added unified invariant mobile-ui-for-all-with-768-shell.",
+        "Added no-fake-component-before-module-search invariant.",
+        "Updated display shell invariant to mobile UI for all + 768 shell boundary.",
+        "Updated 00-display-shell-system behavior to clarify component visual remains mobile-designed while shell is responsive.",
+        "Updated 03-mobile-search behavior to clarify search is the mobile-designed source-of-truth search system for all display modes.",
+        "Added debugImplementationPolicies.mobileUiForAllWith768Shell.",
+        "Added debugImplementationPolicies.noFakeBeforeModuleSearch."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false,
+        "activeCssLoadOrderChanged": false,
+        "activeJsLoadOrderChanged": false
+      }
     }
   ],
   "actualFolderStructureReconciliation": {
@@ -3514,5 +3601,42 @@
       "./css/card page home/card-10-accordion-03.css"
     ],
     "debugRule": "If the page loads without styles or header/hero/popup is broken, first check Network for 404 on ./css/home-hero-tour-popup.css and confirm the filename has no Windows duplicate suffix."
+  },
+  "debugImplementationPolicies": {
+    "mobileUiForAllWith768Shell": {
+      "status": "active-project-rule",
+      "rule": "Mobile component for all; responsive shell only.",
+      "componentPolicy": [
+        "Use the same mobile-designed DOM/component/module across mobile, tablet, desktop, and hybrid/touch desktop.",
+        "Do not create desktop-only variants for header, search, hero, popup, cards, CTA, navigation, or booking unless explicitly requested.",
+        "If a component appears different across devices, debug CSS/JS ownership and media-query overrides before adding new UI."
+      ],
+      "shellPolicy": [
+        "Mobile/tablet portrait: width 100%.",
+        "Landscape mobile/tablet + desktop/laptop: centered app shell max-width 768px.",
+        "Header, popup backdrops, mobile edge pad, and fixed layers must follow the same shell boundary."
+      ]
+    },
+    "noFakeBeforeModuleSearch": {
+      "status": "active-project-rule",
+      "rule": "Search module ownership before fake implementation.",
+      "requiredWorkflow": [
+        "Search project-debug-routing-system.json for the affected component/module.",
+        "Identify owning HTML module, primary CSS files, related CSS files, primary JS files, related JS files, selectors, and states.",
+        "Inspect/request only those source files before patching.",
+        "Use existing module implementation when available.",
+        "Only create fake/temporary/duplicate UI if the user explicitly says fake is allowed."
+      ],
+      "exampleSearchOwnership": {
+        "searcher": {
+          "module": "03-mobile-search",
+          "trigger": ".header-search-trigger",
+          "popup": "#mobile-search-popup",
+          "cssOwner": "./css/modules/03-mobile-search.css",
+          "jsOwner": "./js/ui/search-popup.js + ./js/main.js",
+          "relatedHeaderCss": "./css/home-hero-tour-popup.css"
+        }
+      }
+    }
   }
 }

@@ -1,134 +1,360 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coral Tour</title>
+/* =====================================================
+✅ UPDATED: MODULE 03 — SEARCH SYSTEM
+FILE: ./css/modules/03-mobile-search.css
 
-  <!-- core -->
-  <link rel="stylesheet" href="./css/modules/00-display-shell.css">
+PURPOSE:
+- Mobile-designed search trigger + popup system.
+- Mobile UI is source of truth for all display modes.
+- Desktop/tablet/landscape must use the same search component.
+- No fake desktop search box.
 
-  <!-- hero -->
-  <link rel="stylesheet" href="./css/modules/05-hero-background.css">
-  <link rel="stylesheet" href="./css/home-hero-tour-popup.css">
+OWNERSHIP:
+- Header trigger visual: .header-search-trigger, .header-search-icon, .header-search-dots
+- Search popup visual: #mobile-search-popup, .mobile-search-panel
+- Search form/result visual: .mobile-search-form, .mobile-search-input, .mobile-search-submit, .mobile-search-results
 
-  <!-- cards -->
-  <link rel="stylesheet" href="./css/card page home/card-01-intro.css">
-  <link rel="stylesheet" href="./css/card page home/card-02-service-01.css">
-  <link rel="stylesheet" href="./css/card page home/card-03-service-02.css">
-  <link rel="stylesheet" href="./css/card page home/card-04-service-03.css">
-  <link rel="stylesheet" href="./css/card page home/card-05-service-04.css">
-  <link rel="stylesheet" href="./css/card page home/card-06-service-05.css">
-  <link rel="stylesheet" href="./css/card page home/card-07-service-06.css">
-  <link rel="stylesheet" href="./css/card page home/card-08-accordion-01.css">
-  <link rel="stylesheet" href="./css/card page home/card-09-accordion-02.css">
-  <link rel="stylesheet" href="./css/card page home/card-10-accordion-03.css">
+STATE:
+- Closed by default: aria-hidden="true"
+- Open state: .mobile-search-backdrop.is-open
+- JS owner expected: ./js/ui/search-popup.js via ./js/main.js
 
-  <!-- modules -->
-  <link rel="stylesheet" href="./css/modules/06-availability-booking.css">
-  <link rel="stylesheet" href="./css/modules/10-contact-popup.css">
-  <link rel="stylesheet" href="./css/modules/08-policy-popup.css">
-  <link rel="stylesheet" href="./css/modules/11-scroll-home-composite.css">
-  <link rel="stylesheet" href="./css/modules/03-mobile-search.css"> <!-- ✅ KEEP but no longer mobile-only -->
-  <link rel="stylesheet" href="./css/modules/07-mobile-edge-pad.css">
-  <link rel="stylesheet" href="./css/modules/09-tour-snorkeling-transition.css">
-  <link rel="stylesheet" href="./css/modules/01-global-motion.css">
-  <link rel="stylesheet" href="./css/modules/17-mobile-story-typewriter.css">
-</head>
+RULE:
+- Do not create separate/fake search UI unless user explicitly permits fake UI.
+===================================================== */
 
-<body>
 
-<!-- ================= HEADER ================= -->
-<header>
+/* ✅ UPDATED: header search trigger — single source of truth */
+.header-search-trigger {
+  flex: 0 0 auto;
+  min-width: 112px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #101418;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow:
+    0 8px 22px rgba(5, 6, 8, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
-  <div class="logo" id="logoTrigger">
-    <div class="mask">
-      <div class="fish">🐠</div>
+.header-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  line-height: 1;
+  transform: translateY(1px);
+  pointer-events: none;
+}
 
-      <div class="text">
-        <div class="text1">
-          <span>"Billy</span>
-          <span>and</span>
-          <span>Friend"</span>
-        </div>
-        <div class="text2">adventures</div>
-        <div class="text3">The private guide</div>
-      </div>
-    </div>
-  </div>
+.header-search-dots {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  transform: translateY(-1px);
+  pointer-events: none;
+}
 
-  <!-- ✅ SEARCH = GLOBAL COMPONENT -->
-  <button class="header-search-trigger">
-    <span>🔍</span>
-    <span>......</span>
-  </button>
+.header-search-trigger:focus-visible {
+  outline: 3px solid rgba(77, 216, 226, 0.32);
+  outline-offset: 4px;
+}
 
-  <button class="menu-trigger">
-    <img src="images/common/menu.png"> <!-- ✅ YOU FIXED -->
-  </button>
+.header-search-trigger[aria-expanded="true"] {
+  border-color: rgba(15, 111, 120, 0.3);
+  box-shadow:
+    0 10px 26px rgba(5, 6, 8, 0.12),
+    0 0 0 4px rgba(77, 216, 226, 0.12);
+}
 
-</header>
 
-<!-- ✅ SEARCH POPUP (NO LONGER MOBILE-ONLY) -->
-<div class="mobile-search-backdrop" id="mobile-search-popup">
-  <div class="mobile-search-panel">
+/* ✅ UPDATED: search backdrop — closed by default */
+.mobile-search-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1003;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 96px) 14px 24px;
+  background: rgba(255, 255, 255, 0.94);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    visibility 0.22s ease;
+}
 
-    <div class="mobile-search-head">
-      <h2>hãy thử tìm một trải nghiệm</h2>
-      <button>×</button>
-    </div>
 
-    <form>
-      <input type="search" placeholder="snorkeling, diving, hiking...">
-      <button>🔍</button>
-    </form>
+/* ✅ UPDATED: open state */
+.mobile-search-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
-    <p>search nhanh: snorkeling, diving, hiking, camping, contact</p>
 
-    <div class="mobile-search-results"></div>
+/* ✅ UPDATED: search panel */
+.mobile-search-panel {
+  width: min(100%, 560px);
+  max-height: calc(100dvh - 128px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 14px 18px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 24px;
+  background: #ffffff;
+  color: #101418;
+  box-shadow: 0 18px 54px rgba(5, 6, 8, 0.16);
+  transform: translateY(-8px);
+  transition: transform 0.22s ease;
+}
 
-  </div>
-</div>
+.mobile-search-backdrop.is-open .mobile-search-panel {
+  transform: translateY(0);
+}
 
-<!-- ================= MAIN ================= -->
-<main>
 
-<section class="hero">
+/* ✅ UPDATED: panel header */
+.mobile-search-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
 
-  <div class="overlay"></div>
+.mobile-search-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #101418;
+}
 
-  <div class="hero-guide-tagline">
-    • professional Phu Quoc local guide team.
-  </div>
+.mobile-search-close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(5, 6, 8, 0.08);
+  color: #1d4ed8;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  <button class="availability-memo">
-    <span>check availability</span>
-  </button>
+.mobile-search-close:focus-visible {
+  outline: 3px solid rgba(77, 216, 226, 0.32);
+  outline-offset: 3px;
+}
 
-  <div class="content">
 
-    <h1>
-      <span>Khám phá</span>
-      <span>"Phú Quốc Của Tôi"</span>
-    </h1>
+/* ✅ UPDATED: form */
+.mobile-search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+}
 
-    <div class="story">
-      <p>
-Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc...
-      </p>
-    </div>
+.mobile-search-input {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(5, 6, 8, 0.12);
+  border-radius: 10px;
+  background: rgba(5, 6, 8, 0.08);
+  color: #101418;
+  font-size: 17px;
+  line-height: 1;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
 
-    <div class="cta-row">
-      <span>let's...</span>
-      <span>"Leave no trace"</span>
-      <span>Cảm ơn bạn ❤️</span>
-    </div>
+.mobile-search-input::placeholder {
+  color: rgba(16, 20, 24, 0.42);
+}
 
-  </div>
+.mobile-search-input:focus {
+  border-color: rgba(15, 111, 120, 0.42);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(77, 216, 226, 0.14);
+}
 
-</section>
+.mobile-search-submit {
+  width: 58px;
+  height: 42px;
+  border: 0;
+  border-radius: 999px;
+  background: #0f4bd8;
+  color: #ffffff;
+  font-size: 21px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
-</main>
+.mobile-search-submit:focus-visible {
+  outline: 3px solid rgba(77, 216, 226, 0.32);
+  outline-offset: 3px;
+}
 
-</body>
-</html>
+
+/* ✅ UPDATED: hint + results */
+.mobile-search-hint {
+  margin: 0 0 16px;
+  color: #101418;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.mobile-search-results {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-search-card {
+  display: block;
+  padding: 13px 14px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 16px;
+  background: rgba(5, 6, 8, 0.035);
+  color: inherit;
+  text-decoration: none;
+}
+
+.mobile-search-card-title {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.mobile-search-card-desc {
+  display: block;
+  margin: 0 0 8px;
+  color: rgba(16, 20, 24, 0.72);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.mobile-search-card-action {
+  display: inline-flex;
+  color: #0f4bd8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mobile-search-empty {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(5, 6, 8, 0.05);
+  color: rgba(16, 20, 24, 0.72);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+
+/* ✅ UPDATED: mobile sizing */
+@media (max-width: 768px) {
+  .header-search-trigger {
+    min-width: 106px;
+    height: 42px;
+    padding: 0 15px;
+    gap: 8px;
+  }
+
+  .header-search-icon {
+    font-size: 20px;
+  }
+
+  .header-search-dots {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .mobile-search-backdrop {
+    padding: calc(env(safe-area-inset-top, 0px) + 96px) 2px 24px;
+  }
+
+  .mobile-search-panel {
+    width: 100%;
+    max-height: calc(100dvh - 104px);
+    border-radius: 0 0 22px 22px;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+
+/* ✅ REQUIRED FIX: keep popup inside 768px shell because this file loads after 00-display-shell.css */
+@media (min-width: 769px), (orientation: landscape) {
+  .mobile-search-backdrop {
+    width: min(100%, var(--app-shell-max-width, 768px));
+    max-width: var(--app-shell-max-width, 768px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+
+/* ✅ UPDATED: desktop uses same mobile-designed component, hover only */
+@media (hover: hover) and (pointer: fine) {
+  .header-search-trigger:hover {
+    border-color: rgba(15, 111, 120, 0.28);
+    box-shadow:
+      0 10px 28px rgba(5, 6, 8, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .mobile-search-close:hover {
+    background: rgba(5, 6, 8, 0.12);
+  }
+
+  .mobile-search-submit:hover {
+    background: #123fb2;
+  }
+
+  .mobile-search-card:hover {
+    border-color: rgba(15, 111, 120, 0.22);
+    background: rgba(15, 111, 120, 0.06);
+  }
+}
+
+
+/* ✅ UPDATED: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-search-backdrop,
+  .mobile-search-panel {
+    transition: none;
+  }
+}

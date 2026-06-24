@@ -1,4 +1,4 @@
-const MOBILE_SEARCH_QUERY = '(max-width: 768px)'; /* ✅ NEW */
+const SEARCH_POPUP_SCOPE = 'all-viewports'; /* ✅ UPDATED: mobile UI for all, no mobile-only lock */
 const SNORKELING_LINK = './coral-snorkeling-phu-quoc.html'; /* ✅ NEW */
 
 const SEARCH_DATA = [ /* ✅ NEW */
@@ -185,19 +185,14 @@ export function initSearchPopup() { /* ✅ NEW */
   const form = popup ? popup.querySelector('.mobile-search-form') : null;
   const input = popup ? popup.querySelector('.mobile-search-input') : null;
   const results = popup ? popup.querySelector('.mobile-search-results') : null;
-  const mobileMedia = window.matchMedia(MOBILE_SEARCH_QUERY);
   if (!trigger || !popup || !panel || !closeBtn || !form || !input || !results) return; /* ✅ REQUIRED FIX */
 
-  function isMobile() { /* ✅ NEW */
-    return mobileMedia.matches;
-  }
-
-  function openSearch() { /* ✅ NEW */
-    if (!isMobile()) return;
+  function openSearch() { /* ✅ UPDATED */
     popup.classList.add('is-open');
     popup.setAttribute('aria-hidden', 'false');
     trigger.setAttribute('aria-expanded', 'true');
     renderResults(results, input.value);
+
     window.setTimeout(() => {
       input.focus({ preventScroll: true });
     }, 220);
@@ -226,11 +221,6 @@ export function initSearchPopup() { /* ✅ NEW */
   });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && popup.classList.contains('is-open')) {
-      closeSearch();
-    }
-  });
-  mobileMedia.addEventListener('change', () => {
-    if (!isMobile() && popup.classList.contains('is-open')) {
       closeSearch();
     }
   });
