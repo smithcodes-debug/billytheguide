@@ -308,3 +308,322 @@ CONFLICT RULE:
     opacity 0.24s ease,
     visibility 0.24s ease;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-sizing: border-box;
+}
+
+.availability-popup-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
+/* ✅ UPDATED: popup card */
+.availability-popup-card {
+  position: relative;
+  width: min(94vw, 430px);
+  max-height: min(86vh, 720px);
+  max-height: min(86dvh, 720px);
+  padding: 24px 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(23, 29, 35, 0.96), rgba(10, 13, 18, 0.96));
+  color: #ffffff;
+  overflow: auto;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.24s ease;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+.availability-popup-backdrop.is-open .availability-popup-card {
+  transform: translateY(0) scale(1);
+}
+
+.availability-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.availability-popup-close:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.84);
+  outline-offset: 4px;
+}
+
+.availability-popup-title {
+  margin: 0 44px 8px 0;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.availability-popup-desc {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+
+/* ✅ UPDATED: calendar head */
+.availability-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.availability-month-label {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.availability-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.availability-nav button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.availability-nav button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* ✅ UPDATED: calendar grid */
+.availability-weekdays,
+.availability-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px;
+}
+
+.availability-weekdays span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.availability-day {
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.availability-day.is-empty {
+  visibility: hidden;
+}
+
+.availability-day.is-past,
+.availability-day.is-too-soon {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.availability-day.is-past {
+  color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.availability-day.is-too-soon {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.availability-day.is-open-date {
+  border-color: rgba(34, 197, 94, 0.95);
+  background: rgba(34, 197, 94, 0.88);
+  color: #06220f;
+  cursor: pointer;
+}
+
+.availability-day.is-booked-date {
+  border-color: rgba(239, 68, 68, 0.9);
+  background: rgba(239, 68, 68, 0.82);
+  color: #ffffff;
+}
+
+.availability-day.is-selected-date {
+  outline: 3px solid rgba(255, 255, 255, 0.78);
+  outline-offset: 2px;
+}
+
+.availability-day.is-today-date {
+  border-color: #ff78bb;
+  background: #ff4fa3;
+  color: #ffffff;
+  box-shadow:
+    0 0 0 2px rgba(255, 79, 163, 0.24),
+    0 10px 24px rgba(255, 79, 163, 0.28);
+}
+
+.availability-day.is-today-date.is-past,
+.availability-day.is-today-date.is-too-soon {
+  opacity: 1;
+  color: #ffffff;
+}
+
+
+/* ✅ UPDATED: legend */
+.availability-legend {
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+}
+
+.availability-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.availability-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.availability-legend .open-dot {
+  background: rgba(34, 197, 94, 0.88);
+}
+
+.availability-legend .booked-dot {
+  background: rgba(239, 68, 68, 0.82);
+}
+
+.availability-legend .contact-dot {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+
+/* ✅ UPDATED: message + contact action */
+.availability-message {
+  display: none;
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.availability-message.is-visible {
+  display: block;
+}
+
+.availability-message.is-error {
+  border: 1px solid rgba(239, 68, 68, 0.38);
+  background: rgba(239, 68, 68, 0.18);
+}
+
+.availability-message.is-success {
+  border: 1px solid rgba(34, 197, 94, 0.34);
+  background: rgba(34, 197, 94, 0.16);
+}
+
+.availability-contact {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.availability-contact:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* ✅ UPDATED: availability tour list */
+.availability-tour-list {
+  display: none;
+  margin-top: 16px;
+  gap: 14px;
+}
+
+.availability-tour-list.is-open {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.availability-tour-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.availability-tour-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.availability-tour-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.availability-tour-label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: lowercase;
+}
