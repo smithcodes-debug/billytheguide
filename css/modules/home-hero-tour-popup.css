@@ -689,7 +689,7 @@ header {
   background-color: #0b1118; 
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
-    url("images/a-mobile.jpeg"),
+    url("images/home/hero-768.jpg"),
     url("none"); 
   background-position: center center; 
   background-size: cover; 
