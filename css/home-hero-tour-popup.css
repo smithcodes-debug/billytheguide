@@ -234,7 +234,7 @@ width: 100%; /* ✅ NEW */
 height: 100%; /* ✅ NEW */
 object-fit: contain; /* ✅ NEW: giữ tỉ lệ vector, không méo */
 pointer-events: none; /* ✅ NEW: click vẫn ăn vào button */
-transform: scale(2.5); /* ✅ UPDATED: everywhere same vector scale */
+transform: scale(2.3); /* ✅ UPDATED: everywhere same vector scale */
 transform-origin: center center; /* ✅ UPDATED */
 }
 
