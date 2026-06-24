@@ -49,6 +49,8 @@ IMAGE PATH NOTE:
 
 
 /* ✅ UPDATED: hero background variables */
+/* ✅ UPDATED: hero background variables */
+/* ✅ UPDATED: hero background variables */
 :root {
   --hero-bg-mobile: url("../../images/home/hero-768.JPEG"); /* ✅ UPDATED: mobile portrait */
   --hero-bg-tablet: url("../../images/home/hero-1280.PNG"); /* ✅ UPDATED: tablet portrait */
@@ -62,16 +64,14 @@ IMAGE PATH NOTE:
   --hero-bg-fallback: #06111f; /* ✅ UPDATED */
 }
 
-
 /* ✅ UPDATED: hero background host only */
 .hero {
-  position: relative; /* ✅ UPDATED: required for ::before background layer */
+  position: relative; /* ✅ UPDATED: required for before background layer */
   overflow: hidden; /* ✅ UPDATED: keep image layer inside hero shell */
   background-color: var(--hero-bg-fallback); /* ✅ UPDATED */
   background-image: none; /* ✅ UPDATED: image owner is .hero::before */
   isolation: isolate; /* ✅ UPDATED: stable local stacking context */
 }
-
 
 /* ✅ UPDATED: main hero image layer — default mobile portrait */
 .hero::before {
@@ -89,7 +89,6 @@ IMAGE PATH NOTE:
   backface-visibility: hidden; /* ✅ UPDATED */
 }
 
-
 /* ✅ UPDATED: overlay layer order only, visual color remains component-owned */
 .hero .overlay {
   position: absolute; /* ✅ UPDATED */
@@ -98,7 +97,6 @@ IMAGE PATH NOTE:
   pointer-events: none; /* ✅ UPDATED */
 }
 
-
 /* ✅ UPDATED: tablet portrait image source only */
 @media (min-width: 600px) and (max-width: 768px) and (orientation: portrait) {
   .hero::before {
@@ -106,7 +104,6 @@ IMAGE PATH NOTE:
     background-position: var(--hero-bg-position-tablet); /* ✅ UPDATED */
   }
 }
-
 
 /* ✅ UPDATED: landscape mobile/tablet + desktop image source only */
 @media (min-width: 769px), (orientation: landscape) {
