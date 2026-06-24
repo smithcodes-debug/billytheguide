@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-17-responsive-hero-background-source-exception",
+  "version": "pdrs-01-18-hero-background-runtime-verified-card05-cleanup",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,19 +8,24 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "responsive-hero-background-source-exception-locked",
-    "note": "PDRS-01.17 metadata update: keeps everywhere-same component/layout/behavior rule active, but adds an explicit allowed exception for MODULE 05 hero background image source only. Hero background may load different image assets for mobile portrait, tablet portrait, and landscape/desktop shell. No separate desktop/tablet/mobile component, visual layout, tagline, availability, header, CTA, popup, or JS behavior is allowed by this exception."
+    "status": "responsive-hero-background-runtime-verified-card05-cleanup",
+    "note": "PDRS-01.18 update: keeps everywhere-same component/layout/behavior rule active, keeps MODULE 05 hero background image source exception, and records runtime verification after card-05 overlap cleanup. Hero background source is owned only by ./css/modules/05-hero-background.css. GitHub Pages runtime verified hero-1920.jpg loads with status 200. card-05-service-04.css was cleaned because it previously duplicated hero background ownership."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "none-metadata-map-only",
+    "indexHtmlChange": "none",
     "cssAdded": false,
-    "cssChanged": false,
+    "cssChanged": true,
+    "cssChangedFiles": [
+      "./css/card page home/card-05-service-04.css",
+      "./css/modules/05-hero-background.css"
+    ],
     "jsAdded": false,
     "jsChanged": false,
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Metadata-only PDRS update. No runtime HTML/CSS/JS source is changed by this JSON update. Runtime CSS already allowed to implement responsive hero background image source inside ./css/modules/05-hero-background.css only."
+    "metadataUpdated": true,
+    "note": "PDRS-01.18 records completed runtime CSS cleanup and verification. card-05-service-04.css was cleaned to remove duplicated hero background ownership. 05-hero-background.css now points to lowercase GitHub Pages asset names under ./images/home/. No runtime HTML, JS, body text, class, id, or attribute changes."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -182,7 +187,7 @@
       "cssCardHomeFolderConfirmed": "./css/card page home/",
       "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension.",
       "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
-      "heroBackgroundCssRuntimeStatus": "active/owner after PDRS-01.17: ./css/modules/05-hero-background.css owns hero background image source/layer/crop only. It may use responsive image sources for mobile portrait, tablet portrait, and landscape/desktop shell. ./css/home-hero-tour-popup.css must not define .hero background-image after runtime cleanup.",
+      "heroBackgroundCssRuntimeStatus": "active/owner after PDRS-01.18: ./css/modules/05-hero-background.css owns hero background image source/layer/crop only. Current GitHub Pages asset names are lowercase: ../../images/home/hero-768.jpeg, ../../images/home/hero-1280.png, ../../images/home/hero-1920.jpg. card-05-service-04.css was cleaned and must not define .hero, .hero::before, .hero .overlay, .overlay, or --hero-bg-* variables.",
       "inputModalityJsReservedModule": "./js/modules/input-modality.js",
       "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
       "mobileUiForAllWith768ShellRule": "Mobile UI/component structure and behavior are source of truth for every breakpoint. Only the outer display shell may change: portrait mobile/tablet width 100%; landscape mobile/tablet and desktop centered max-width 768px.",
@@ -1725,7 +1730,7 @@
       "cssFilesPrimary": [
         "./css/modules/05-hero-background.css"
       ],
-      "cssRuntimeStatus": "active-owner-for-responsive-hero-background-source-after-pdrs-01-17",
+      "cssRuntimeStatus": "active-owner-for-responsive-hero-background-source-after-pdrs-01-18-runtime-verified",
       "cssLoadOrderRecommendation": [
         "./css/modules/00-display-shell.css",
         "./css/modules/05-hero-background.css",
@@ -1751,7 +1756,7 @@
         "Owns only main hero background image source, background layer, background-size, background-position, background-repeat, and fallback background color.",
         "Allowed responsive image source exception: mobile portrait, tablet portrait, and landscape/desktop shell may load different image assets.",
         "This exception changes only image source/crop; it must not create different hero components, HTML, typography, tagline, CTA, story, availability, header, popup, or behavior per device.",
-        "Expected current image paths from ./css/modules/05-hero-background.css: ../../images/home/hero-768.jpg, ../../images/home/hero-1280.jpg, ../../images/home/hero-1920.jpg unless user changes asset names.",
+        "Expected current image paths from ./css/modules/05-hero-background.css: ../../images/home/hero-768.jpeg, ../../images/home/hero-1280.png, ../../images/home/hero-1920.jpg. These lowercase extensions are required for GitHub Pages runtime path matching.",
         "Must not own header, logo, search, booking, availability memo, contact, policy, tour popup, service grid, accordion, story typewriter, hero title, hero story, CTA, or hero tagline typography/position.",
         "Must not use broad child selector .hero > :not(.overlay) to set position/z-index on children owned by other modules."
       ],
@@ -1768,7 +1773,8 @@
         "Responsive background image source is allowed only inside ./css/modules/05-hero-background.css.",
         "Remove competing .hero background-image from ./css/home-hero-tour-popup.css during runtime cleanup.",
         "If a hero background file 404 appears, check exact image path and extension under ./images/home/.",
-        "Do not use .hero > :not(.overlay) because it can override .hero-guide-tagline and .availability-memo positioning/layer ownership."
+        "Do not use .hero > :not(.overlay) because it can override .hero-guide-tagline and .availability-memo positioning/layer ownership.",
+        "GitHub Pages is case-sensitive for asset paths. Keep hero asset extensions lowercase to match repo files: hero-768.jpeg, hero-1280.png, hero-1920.jpg."
       ]
     },
     "28-input-modality-system": {
@@ -2679,13 +2685,12 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.18 — Verify Responsive Hero Background Source Runtime",
+    "nextStepName": "PDRS-01.19 — Continue Asset 404 Cleanup Outside Hero Background",
     "recommendedUploadBatch": [
-      "./css/modules/05-hero-background.css",
-      "./css/modules/00-display-shell.css",
-      "./css/home-hero-tour-popup.css if competing .hero background-image appears"
+      "Browser Network screenshot for remaining non-hero asset 404s",
+      "specific CSS/HTML file shown as Initiator for each remaining asset 404"
     ],
-    "goal": "Verify that hero background image source changes only by mobile/tablet/desktop display category while the same hero component/layout/behavior and 768px shell remain intact."
+    "goal": "Hero background runtime is verified. Continue cleanup only for remaining non-hero asset 404s such as menu, tour card images, or card feed images, using Network Initiator before editing."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2765,7 +2770,7 @@
       "./css/modules/05-hero-background.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — hero background module is active owner and now allows responsive image source mapping only; runtime should preserve same component/layout behavior.",
+    "cssModulesStatus": "PASS — hero background module is active owner and responsive image source mapping is verified on GitHub Pages. Current asset names are lowercase: hero-768.jpeg, hero-1280.png, hero-1920.jpg. Runtime preserves same component/layout behavior.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
@@ -2902,8 +2907,11 @@
       },
       {
         "path": "./css/card page home/card-05-service-04.css",
-        "status": "received-and-source-read",
-        "role": "card-05 service override shell"
+        "status": "received-cleaned-and-source-read",
+        "role": "card-05 service override shell",
+        "cleanupNote": "PDRS-01.18: This file previously contained duplicated hero background ownership and caused GitHub Pages hero image requests to use the wrong path/extension. It was cleaned to remove :root --hero-bg-* variables, .hero, .hero::before, .hero .overlay, and invalid broad hero child selector rules.",
+        "ownershipBoundary": "This card CSS file must not define .hero, .hero::before, .hero .overlay, .overlay, or --hero-bg-* variables. Hero background image/layer/crop remains owned only by ./css/modules/05-hero-background.css.",
+        "runtimeCleanupConfirmed": true
       },
       {
         "path": "./css/card page home/card-06-service-05.css",
@@ -2956,6 +2964,23 @@
         "./css/card page home/card-08-accordion-01.css",
         "./css/card page home/card-09-accordion-02.css",
         "./css/card page home/card-10-accordion-03.css"
+      ],
+      "knownCardCssOwnershipConflictsCleaned": [
+        {
+          "path": "./css/card page home/card-05-service-04.css",
+          "cleanupId": "PDRS-01.18-card-05-hero-overlap-cleanup-and-asset-casefix",
+          "conflict": "Duplicated hero background system inside card CSS file.",
+          "resolvedBy": "Removed cross-owner hero background rules from card-05-service-04.css and restored ./css/modules/05-hero-background.css as sole hero background owner.",
+          "doNotReintroduceSelectors": [
+            ".hero",
+            ".hero::before",
+            ".hero .overlay",
+            ".overlay",
+            "--hero-bg-mobile",
+            "--hero-bg-tablet",
+            "--hero-bg-desktop"
+          ]
+        }
       ]
     },
     "syntaxVerifyQueueAdditions": [
@@ -3601,6 +3626,31 @@
         "jsChanged": false,
         "runtimeSourceChanged": false,
         "metadataOnly": true
+      }
+    },
+    {
+      "id": "PDRS-01.18-card-05-hero-overlap-cleanup-and-asset-casefix",
+      "updatedAtLocal": "2026-06-25T00:00:00+07:00",
+      "scope": "runtime-css-cleanup-plus-metadata-update",
+      "changed": [
+        "Cleaned ./css/card page home/card-05-service-04.css after discovering duplicated hero background ownership inside this card CSS file.",
+        "Removed cross-owner hero background rules from card-05-service-04.css, including :root --hero-bg-* variables, .hero, .hero::before, .hero .overlay, and invalid broad hero child selector.",
+        "Confirmed hero background image/layer/crop ownership remains locked to ./css/modules/05-hero-background.css only.",
+        "Updated ./css/modules/05-hero-background.css hero asset references to lowercase GitHub Pages paths: ../../images/home/hero-768.jpeg, ../../images/home/hero-1280.png, ../../images/home/hero-1920.jpg.",
+        "Verified GitHub Pages runtime Network status: 05-hero-background.css 200, home-hero-tour-popup.css 200, hero-1920.jpg 200.",
+        "Confirmed the original hero background 404 was not caused by main.js."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": true,
+        "cssChangedFiles": [
+          "./css/card page home/card-05-service-04.css",
+          "./css/modules/05-hero-background.css"
+        ],
+        "jsChanged": false,
+        "htmlTextChanged": false,
+        "classIdAttributeChanged": false,
+        "metadataUpdated": true
       }
     }
   ],
