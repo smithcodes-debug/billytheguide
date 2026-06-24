@@ -3,16 +3,19 @@
 FILE: ./css/modules/05-hero-background.css
 
 PURPOSE:
-- Own only the main hero background image source, background layer, crop, and fallback color.
+- Own only the main hero background image source, image layer, crop, and fallback color.
 - Keep HTML/body/text untouched.
-- Keep hero background everywhere same by default.
-- Prevent conflict with header, tagline, availability memo, title/story/CTA, and popup modules.
+- Allow responsive image source only:
+  - mobile portrait image
+  - tablet portrait image
+  - desktop / landscape image
+- Keep the same hero component, same layout, same behavior everywhere.
 
 OWNERSHIP:
 - Owns:
   - .hero background fallback color
   - .hero::before image layer
-  - background-image
+  - background-image source
   - background-size
   - background-position
   - background-repeat
@@ -30,22 +33,31 @@ OWNERSHIP:
   - scroll-home / service grid / accordion
 
 PROJECT RULE:
-- Everywhere same.
-- No desktop/tablet/mobile hero image variants unless user explicitly requests.
+- Same component everywhere.
+- Only hero background image source changes by display category.
+- No separate desktop/tablet/mobile component.
 - No broad child selector like .hero > :not(.overlay).
 - Shell/layout boundary belongs to ./css/modules/00-display-shell.css.
 
-IMAGE SOURCE:
+IMAGE PATH NOTE:
 - This CSS file lives at ./css/modules/05-hero-background.css
-- Correct image path from this file:
+- Image paths go up 2 levels to project root:
   ../../images/home/hero-768.jpg
+  ../../images/home/hero-1280.jpg
+  ../../images/home/hero-1920.jpg
 ===================================================== */
 
 
 /* ✅ UPDATED: hero background variables */
 :root {
-  --hero-bg-image: url("../../images/home/hero-768.jpg"); /* ✅ UPDATED: everywhere same confirmed image */
-  --hero-bg-position: center center; /* ✅ UPDATED */
+  --hero-bg-mobile: url("../../images/home/hero-768.jpg"); /* ✅ UPDATED: mobile portrait */
+  --hero-bg-tablet: url("../../images/home/hero-1280.jpg"); /* ✅ UPDATED: tablet portrait */
+  --hero-bg-desktop: url("../../images/home/hero-1920.jpg"); /* ✅ UPDATED: desktop + landscape */
+
+  --hero-bg-position-mobile: center center; /* ✅ UPDATED */
+  --hero-bg-position-tablet: center center; /* ✅ UPDATED */
+  --hero-bg-position-desktop: center center; /* ✅ UPDATED */
+
   --hero-bg-size: cover; /* ✅ UPDATED */
   --hero-bg-fallback: #06111f; /* ✅ UPDATED */
 }
@@ -54,24 +66,24 @@ IMAGE SOURCE:
 /* ✅ UPDATED: hero background host only */
 .hero {
   position: relative; /* ✅ UPDATED: required for ::before background layer */
-  overflow: hidden; /* ✅ UPDATED: keep image layer inside hero boundary */
+  overflow: hidden; /* ✅ UPDATED: keep image layer inside hero shell */
   background-color: var(--hero-bg-fallback); /* ✅ UPDATED */
-  background-image: none; /* ✅ UPDATED: background image owner is ::before */
+  background-image: none; /* ✅ UPDATED: image owner is .hero::before */
   isolation: isolate; /* ✅ UPDATED: stable local stacking context */
 }
 
 
-/* ✅ UPDATED: main hero image layer */
+/* ✅ UPDATED: main hero image layer — default mobile portrait */
 .hero::before {
   content: ""; /* ✅ UPDATED */
   position: absolute; /* ✅ UPDATED */
   inset: 0; /* ✅ UPDATED */
   z-index: 0; /* ✅ UPDATED: image base layer */
   display: block; /* ✅ UPDATED */
-  background-image: var(--hero-bg-image); /* ✅ UPDATED */
+  background-image: var(--hero-bg-mobile); /* ✅ UPDATED: default mobile image */
   background-repeat: no-repeat; /* ✅ UPDATED */
   background-size: var(--hero-bg-size); /* ✅ UPDATED */
-  background-position: var(--hero-bg-position); /* ✅ UPDATED */
+  background-position: var(--hero-bg-position-mobile); /* ✅ UPDATED */
   pointer-events: none; /* ✅ UPDATED */
   transform: translateZ(0); /* ✅ UPDATED: rendering stability */
   backface-visibility: hidden; /* ✅ UPDATED */
@@ -84,4 +96,22 @@ IMAGE SOURCE:
   inset: 0; /* ✅ UPDATED */
   z-index: 1; /* ✅ UPDATED: overlay above background image */
   pointer-events: none; /* ✅ UPDATED */
+}
+
+
+/* ✅ UPDATED: tablet portrait image source only */
+@media (min-width: 600px) and (max-width: 768px) and (orientation: portrait) {
+  .hero::before {
+    background-image: var(--hero-bg-tablet); /* ✅ UPDATED */
+    background-position: var(--hero-bg-position-tablet); /* ✅ UPDATED */
+  }
+}
+
+
+/* ✅ UPDATED: landscape mobile/tablet + desktop image source only */
+@media (min-width: 769px), (orientation: landscape) {
+  .hero::before {
+    background-image: var(--hero-bg-desktop); /* ✅ UPDATED */
+    background-position: var(--hero-bg-position-desktop); /* ✅ UPDATED */
+  }
 }
