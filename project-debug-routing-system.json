@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-16-hero-background-tagline-availability-ownership-locked",
+  "version": "pdrs-01-17-responsive-hero-background-source-exception",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "hero-background-tagline-availability-ownership-locked",
-    "note": "PDRS-01.16 metadata update: locked ownership to remove runtime CSS conflict around hero background, hero tagline, and availability memo. 05-hero-background-system owns only hero background image/layer/crop. 05-hero-story-cta via ./css/home-hero-tour-popup.css owns header visual, hero layout/text/tagline/title/story/CTA/tour popup visual, but must not own hero background-image. 06-booking-availability owns availability memo/popup/calendar/tour list and must not overlap header/tagline. Everywhere same remains active: no component desktop/mobile variants unless explicitly requested."
+    "status": "responsive-hero-background-source-exception-locked",
+    "note": "PDRS-01.17 metadata update: keeps everywhere-same component/layout/behavior rule active, but adds an explicit allowed exception for MODULE 05 hero background image source only. Hero background may load different image assets for mobile portrait, tablet portrait, and landscape/desktop shell. No separate desktop/tablet/mobile component, visual layout, tagline, availability, header, CTA, popup, or JS behavior is allowed by this exception."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -20,7 +20,7 @@
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Metadata-only PDRS update. No runtime source is modified by this JSON update. Runtime cleanup should follow this ownership map."
+    "note": "Metadata-only PDRS update. No runtime HTML/CSS/JS source is changed by this JSON update. Runtime CSS already allowed to implement responsive hero background image source inside ./css/modules/05-hero-background.css only."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -182,12 +182,13 @@
       "cssCardHomeFolderConfirmed": "./css/card page home/",
       "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension.",
       "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
-      "heroBackgroundCssRuntimeStatus": "active/owner after PDRS-01.16 ownership lock: ./css/modules/05-hero-background.css owns hero background image source/layer/crop only. ./css/home-hero-tour-popup.css must not define .hero background-image after runtime cleanup.",
+      "heroBackgroundCssRuntimeStatus": "active/owner after PDRS-01.17: ./css/modules/05-hero-background.css owns hero background image source/layer/crop only. It may use responsive image sources for mobile portrait, tablet portrait, and landscape/desktop shell. ./css/home-hero-tour-popup.css must not define .hero background-image after runtime cleanup.",
       "inputModalityJsReservedModule": "./js/modules/input-modality.js",
       "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
       "mobileUiForAllWith768ShellRule": "Mobile UI/component structure and behavior are source of truth for every breakpoint. Only the outer display shell may change: portrait mobile/tablet width 100%; landscape mobile/tablet and desktop centered max-width 768px.",
       "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it.",
-      "heroOwnershipConflictPolicy": "Hero background belongs to ./css/modules/05-hero-background.css. Hero layout/text/tagline belongs to ./css/home-hero-tour-popup.css. Availability floating memo belongs to ./css/modules/06-availability-booking.css. Do not duplicate ownership across these files."
+      "heroOwnershipConflictPolicy": "Hero background belongs to ./css/modules/05-hero-background.css. Hero layout/text/tagline belongs to ./css/home-hero-tour-popup.css. Availability floating memo belongs to ./css/modules/06-availability-booking.css. Do not duplicate ownership across these files.",
+      "heroResponsiveImageExceptionPolicy": "Allowed exception to everywhere same: only the hero background image source may differ by display category. The hero component DOM, layout, tagline, story, CTA, header, availability, popup behavior, and shell rule remain same everywhere."
     },
     "plannedCssModules": [],
     "plannedJsModules": [
@@ -284,13 +285,15 @@
     },
     {
       "id": "hero-background-css-ownership",
-      "rule": "Hero background image/layer/crop is owned only by ./css/modules/05-hero-background.css when linked. ./css/home-hero-tour-popup.css must not define .hero background-image or competing hero image pseudo-layer after cleanup. Do not add <img> into HTML body to change main hero background unless explicitly requested.",
+      "rule": "Hero background image/layer/crop is owned only by ./css/modules/05-hero-background.css when linked. This module is allowed to use responsive image sources for mobile portrait, tablet portrait, and landscape/desktop shell only. ./css/home-hero-tour-popup.css must not define .hero background-image or competing hero image pseudo-layer after cleanup. Do not add <img> into HTML body to change main hero background unless explicitly requested.",
       "primaryAreas": [
         "05-hero-background-system",
-        "05-hero-story-cta"
+        "05-hero-story-cta",
+        "00-display-shell-system"
       ],
       "firstFilesToInspect": [
         "./css/modules/05-hero-background.css",
+        "./css/modules/00-display-shell.css",
         "./css/home-hero-tour-popup.css",
         "index.html"
       ]
@@ -315,7 +318,7 @@
     },
     {
       "id": "mobile-ui-for-all-with-768-shell",
-      "rule": "Mobile UI is the source of truth for all breakpoints. All devices must use the same mobile-designed component structure, visual ownership, and behavior. Mobile/tablet portrait uses width: 100%. Landscape mobile/tablet and desktop/laptop use centered app shell max-width: 768px. Desktop/tablet landscape may only change the outer shell boundary; they must not introduce separate desktop variants for header, search, hero, popup, cards, CTA, or navigation unless explicitly requested.",
+      "rule": "Mobile UI is the source of truth for all breakpoints. All devices must use the same mobile-designed component structure, visual ownership, and behavior. Mobile/tablet portrait uses width: 100%. Landscape mobile/tablet and desktop/laptop use centered app shell max-width: 768px. Desktop/tablet landscape may only change the outer shell boundary; they must not introduce separate desktop variants for header, search, hero, popup, cards, CTA, or navigation unless explicitly requested. Allowed exception: MODULE 05 hero background image source may change by mobile/tablet/desktop display category while the hero component/layout/behavior stays the same.",
       "primaryAreas": [
         "00-display-shell-system",
         "02-header-system",
@@ -381,6 +384,20 @@
         "./css/modules/05-hero-background.css",
         "./css/home-hero-tour-popup.css",
         "./css/modules/06-availability-booking.css"
+      ]
+    },
+    {
+      "id": "hero-responsive-background-source-exception",
+      "rule": "Allowed exception to everywhere same: only the hero background image source may change by display category. Mobile portrait, tablet portrait, and landscape/desktop shell may load different background image assets. This exception does not allow separate hero DOM, component visual layout, title/story/CTA behavior, tagline positioning, availability positioning, header behavior, or popup behavior.",
+      "primaryAreas": [
+        "05-hero-background-system",
+        "00-display-shell-system",
+        "05-hero-story-cta"
+      ],
+      "firstFilesToInspect": [
+        "./css/modules/05-hero-background.css",
+        "./css/modules/00-display-shell.css",
+        "./css/home-hero-tour-popup.css"
       ]
     }
   ],
@@ -1703,12 +1720,12 @@
       ]
     },
     "05-hero-background-system": {
-      "area": "main hero background image / image layer / crop only",
+      "area": "main hero background image / responsive image source / image layer / crop only",
       "htmlModule": "MODULE 05 — HERO MODULE",
       "cssFilesPrimary": [
         "./css/modules/05-hero-background.css"
       ],
-      "cssRuntimeStatus": "active-owner-for-hero-background-after-pdrs-01-16",
+      "cssRuntimeStatus": "active-owner-for-responsive-hero-background-source-after-pdrs-01-17",
       "cssLoadOrderRecommendation": [
         "./css/modules/00-display-shell.css",
         "./css/modules/05-hero-background.css",
@@ -1722,19 +1739,21 @@
         ".overlay"
       ],
       "states": [
-        "background-image-source",
+        "mobile-portrait-background-image-source",
+        "tablet-portrait-background-image-source",
+        "landscape-desktop-background-image-source",
         "background-size-cover",
         "background-position",
         "fallback-background-color",
         "overlay-layer-order"
       ],
       "behavior": [
-        "Owns only main hero background image source, background layer, background-size, background-position, and fallback background color.",
-        "Use the confirmed everywhere-same image source unless the user explicitly requests responsive image variants.",
-        "Expected current image source for runtime cleanup: ../../images/home/hero-768.jpg because this CSS file is inside ./css/modules/.",
+        "Owns only main hero background image source, background layer, background-size, background-position, background-repeat, and fallback background color.",
+        "Allowed responsive image source exception: mobile portrait, tablet portrait, and landscape/desktop shell may load different image assets.",
+        "This exception changes only image source/crop; it must not create different hero components, HTML, typography, tagline, CTA, story, availability, header, popup, or behavior per device.",
+        "Expected current image paths from ./css/modules/05-hero-background.css: ../../images/home/hero-768.jpg, ../../images/home/hero-1280.jpg, ../../images/home/hero-1920.jpg unless user changes asset names.",
         "Must not own header, logo, search, booking, availability memo, contact, policy, tour popup, service grid, accordion, story typewriter, hero title, hero story, CTA, or hero tagline typography/position.",
-        "Must not use broad child selector .hero > :not(.overlay) to set position/z-index on children owned by other modules.",
-        "Must not create desktop/tablet/mobile background variants unless the user explicitly requests them; everywhere same is default."
+        "Must not use broad child selector .hero > :not(.overlay) to set position/z-index on children owned by other modules."
       ],
       "futureUploadIfBug": [
         "project-debug-routing-system.json",
@@ -1746,8 +1765,9 @@
       "riskNotes": [
         "Do not change HTML text content for hero image swaps.",
         "Do not add an <img> tag into the hero unless explicitly requested; use CSS background ownership first.",
+        "Responsive background image source is allowed only inside ./css/modules/05-hero-background.css.",
         "Remove competing .hero background-image from ./css/home-hero-tour-popup.css during runtime cleanup.",
-        "Remove old path variants such as ../../images/hero-768.JPEG, ../../images/hero-1280.PNG, ../../images/hero-1920.PNG unless user explicitly confirms those exact assets.",
+        "If a hero background file 404 appears, check exact image path and extension under ./images/home/.",
         "Do not use .hero > :not(.overlay) because it can override .hero-guide-tagline and .availability-memo positioning/layer ownership."
       ]
     },
@@ -2351,23 +2371,26 @@
         "hero background không hiện",
         "hình hero bị crop sai",
         "hero image lệch trên mobile",
+        "hero image lệch trên tablet",
         "hero image lệch khi xoay ngang",
-        "hero image desktop shell sai"
+        "hero image desktop shell sai",
+        "mobile/tablet/desktop hero background không đúng ảnh"
       ],
       "routeToModule": "05-hero-background-system",
       "uploadRequestOrder": [
         "project-debug-routing-system.json",
         "index.html",
         "./css/modules/05-hero-background.css",
-        "./css/home-hero-tour-popup.css",
-        "./css/modules/00-display-shell.css if landscape/desktop shell is part of the symptom"
+        "./css/modules/00-display-shell.css",
+        "./css/home-hero-tour-popup.css if hero layout/tagline is also affected"
       ],
       "selectors": [
         ".hero",
         ".hero::before",
         ".hero::after",
         ".overlay"
-      ]
+      ],
+      "ownershipRule": "Only ./css/modules/05-hero-background.css may change hero background image source; responsive source is allowed for mobile portrait, tablet portrait, and landscape/desktop shell."
     },
     "input-modality-loi": {
       "userDescriptionExamples": [
@@ -2424,6 +2447,32 @@
         "header"
       ],
       "ownershipRule": "05 background owns image only; home-hero owns tagline/layout; 06 booking owns availability memo and must not overlap tagline/header."
+    },
+    "hero-responsive-background-source-loi": {
+      "userDescriptionExamples": [
+        "desktop hero background sai ảnh",
+        "tablet hero background sai ảnh",
+        "mobile hero background sai ảnh",
+        "hero background không đổi theo thiết bị",
+        "hero background không theo shell desktop",
+        "hero background desktop bị tràn ngoài shell"
+      ],
+      "routeToModule": "05-hero-background-system + 00-display-shell-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/05-hero-background.css",
+        "./css/modules/00-display-shell.css",
+        "Browser Network screenshot if any hero image 404 appears"
+      ],
+      "selectors": [
+        ".hero",
+        ".hero::before",
+        ".site-content",
+        "html",
+        "body"
+      ],
+      "ownershipRule": "05 owns image source/layer/crop; 00 owns shell width/centering. Do not modify hero layout/tagline to fix image source bugs."
     }
   },
   "registriesFromIndexHtml": {
@@ -2630,13 +2679,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.17 — Runtime CSS Conflict Cleanup By Ownership",
+    "nextStepName": "PDRS-01.18 — Verify Responsive Hero Background Source Runtime",
     "recommendedUploadBatch": [
       "./css/modules/05-hero-background.css",
-      "./css/home-hero-tour-popup.css",
-      "./css/modules/06-availability-booking.css"
+      "./css/modules/00-display-shell.css",
+      "./css/home-hero-tour-popup.css if competing .hero background-image appears"
     ],
-    "goal": "Clean runtime CSS conflicts according to PDRS-01.16 ownership: hero background module owns image only, home-hero owns hero layout/tagline, booking module owns availability memo without overlap."
+    "goal": "Verify that hero background image source changes only by mobile/tablet/desktop display category while the same hero component/layout/behavior and 768px shell remain intact."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2716,7 +2765,7 @@
       "./css/modules/05-hero-background.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — hero background module is now treated as active owner in PDRS-01.16 metadata; runtime cleanup should remove competing background ownership.",
+    "cssModulesStatus": "PASS — hero background module is active owner and now allows responsive image source mapping only; runtime should preserve same component/layout behavior.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
@@ -3532,6 +3581,27 @@
         "runtimeSourceChanged": false,
         "activeCssLoadOrderMetadataUpdated": true
       }
+    },
+    {
+      "id": "PDRS-01.17-responsive-hero-background-source-exception",
+      "updatedAtLocal": "2026-06-24T19:21:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Added explicit allowed exception for responsive hero background image source only.",
+        "Updated 05-hero-background-system to allow mobile portrait, tablet portrait, and landscape/desktop background image assets.",
+        "Clarified that responsive image source does not allow separate components, layout, tagline, CTA, availability, header, popup, or JS behavior.",
+        "Added project invariant hero-responsive-background-source-exception.",
+        "Added debugImplementationPolicies.heroResponsiveBackgroundSource.",
+        "Added debug scenario hero-responsive-background-source-loi.",
+        "Updated nextSteps to verify responsive hero background source runtime."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false,
+        "metadataOnly": true
+      }
     }
   ],
   "actualFolderStructureReconciliation": {
@@ -3740,13 +3810,14 @@
       }
     },
     "heroBackgroundTaglineAvailabilityOwnership": {
-      "status": "active-project-rule",
-      "rule": "Resolve hero conflicts by module ownership, not by ad-hoc overrides.",
+      "status": "active-project-rule-with-responsive-hero-background-source-exception",
+      "rule": "Resolve hero conflicts by module ownership; hero background image source may be responsive, but component/layout/behavior remains everywhere same.",
       "ownership": {
         "05-hero-background-system": {
           "file": "./css/modules/05-hero-background.css",
           "owns": [
             "hero background image source",
+            "responsive image source mapping for mobile portrait / tablet portrait / landscape+desktop",
             "hero background layer",
             "background-size",
             "background-position",
@@ -3759,7 +3830,8 @@
             "availability memo",
             "hero tagline text/position",
             "title/story/CTA",
-            "tour popup internals"
+            "tour popup internals",
+            "separate device-specific hero components"
           ]
         },
         "05-hero-story-cta": {
@@ -3798,15 +3870,59 @@
         }
       },
       "cleanupOrder": [
-        "Clean ./css/modules/05-hero-background.css first: one background owner, valid path, no broad child z-index selector, no component media variants by default.",
-        "Clean ./css/home-hero-tour-popup.css second: remove .hero background-image, keep hero layout/tagline/header/tour popup only.",
-        "Clean ./css/modules/06-availability-booking.css third: valid pseudo selectors, no <br>, no mobile/desktop split by default, position memo without covering tagline/header."
+        "Keep ./css/modules/05-hero-background.css as the only hero image source owner.",
+        "Use responsive image-source variables/media queries only inside ./css/modules/05-hero-background.css.",
+        "Keep ./css/home-hero-tour-popup.css free of .hero background-image and pseudo image layer ownership.",
+        "Keep ./css/modules/00-display-shell.css responsible only for shell width/centering and fixed-layer boundaries."
+      ],
+      "responsiveImageException": {
+        "status": "allowed",
+        "scope": "image-source-only",
+        "allowedDisplayCategories": [
+          "mobile portrait",
+          "tablet portrait",
+          "landscape mobile/tablet + desktop/laptop shell"
+        ],
+        "doesNotAllow": [
+          "separate DOM",
+          "separate component",
+          "separate hero layout",
+          "separate tagline behavior",
+          "separate CTA/story behavior",
+          "separate availability/header/popup behavior"
+        ]
+      }
+    },
+    "heroResponsiveBackgroundSource": {
+      "status": "active-project-rule",
+      "rule": "Hero background can load different image assets by display category while everything else stays same everywhere.",
+      "owner": "./css/modules/05-hero-background.css",
+      "displayCategories": {
+        "mobilePortrait": {
+          "defaultCssSource": "--hero-bg-mobile",
+          "expectedAssetPath": "../../images/home/hero-768.jpg"
+        },
+        "tabletPortrait": {
+          "mediaQuery": "(min-width: 600px) and (max-width: 768px) and (orientation: portrait)",
+          "defaultCssSource": "--hero-bg-tablet",
+          "expectedAssetPath": "../../images/home/hero-1280.jpg"
+        },
+        "landscapeAndDesktop": {
+          "mediaQuery": "(min-width: 769px), (orientation: landscape)",
+          "defaultCssSource": "--hero-bg-desktop",
+          "expectedAssetPath": "../../images/home/hero-1920.jpg"
+        }
+      },
+      "immutables": [
+        "Do not edit HTML text.",
+        "Do not create desktop/tablet/mobile hero components.",
+        "Do not change header, tagline, availability, title/story/CTA, search, popup, or JS behavior for this image-source task."
       ]
     }
   },
   "heroRuntimeConflictOwnershipResolution": {
-    "step": "PDRS-01.16 — Hero Background / Tagline / Availability Ownership Resolution",
-    "status": "ownership-locked-runtime-cleanup-next",
+    "step": "PDRS-01.17 — Responsive Hero Background Source Exception",
+    "status": "responsive-image-source-exception-locked",
     "runtimeChangePolicy": "metadata-only; no CSS/HTML/JS source changed by this JSON update",
     "conflictsIdentified": [
       {
@@ -3828,6 +3944,13 @@
       "./css/modules/06-availability-booking.css: fix pseudo syntax, remove <br>, remove mobile/desktop split unless requested, position availability memo so it does not cover tagline/header."
     ],
     "expectedImagePathForModule05": "../../images/home/hero-768.jpg",
-    "everywhereSame": true
+    "everywhereSame": true,
+    "responsiveImageSourceAllowed": true,
+    "allowedImageSourceMapping": {
+      "mobilePortrait": "../../images/home/hero-768.jpg",
+      "tabletPortrait": "../../images/home/hero-1280.jpg",
+      "landscapeAndDesktop": "../../images/home/hero-1920.jpg"
+    },
+    "constraint": "Only image source/crop may change. Hero component, layout, text, tagline, availability, header, CTA, popup, and JS behavior remain same everywhere."
   }
 }
