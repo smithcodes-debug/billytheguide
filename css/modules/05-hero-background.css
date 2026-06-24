@@ -42,16 +42,16 @@ PROJECT RULE:
 IMAGE PATH NOTE:
 - This CSS file lives at ./css/modules/05-hero-background.css
 - Image paths go up 2 levels to project root:
-  ../../images/home/hero-768.jpg
-  ../../images/home/hero-1280.jpg
+  ../../images/home/hero-768.jpeg
+  ../../images/home/hero-1280.png
   ../../images/home/hero-1920.jpg
 ===================================================== */
 
 
 /* ✅ UPDATED: hero background variables */
 :root {
-  --hero-bg-mobile: url("../../images/home/hero-768.jpg"); /* ✅ UPDATED: mobile portrait */
-  --hero-bg-tablet: url("../../images/home/hero-1280.jpg"); /* ✅ UPDATED: tablet portrait */
+  --hero-bg-mobile: url("../../images/home/hero-768.jpeg"); /* ✅ UPDATED: mobile portrait */
+  --hero-bg-tablet: url("../../images/home/hero-1280.png"); /* ✅ UPDATED: tablet portrait */
   --hero-bg-desktop: url("../../images/home/hero-1920.jpg"); /* ✅ UPDATED: desktop + landscape */
 
   --hero-bg-position-mobile: center center; /* ✅ UPDATED */
