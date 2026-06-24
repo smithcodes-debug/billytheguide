@@ -271,20 +271,20 @@ header {
 .hero-guide-tagline {
   display: block;
   position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 96px); /* ✅ UPDATED: move below fixed header */
+  top: calc(env(safe-area-inset-top, 0px) + 78px); /* ✅ UPDATED: sát ngay dưới header */
   left: 50%;
   right: auto;
   width: min(100%, var(--app-shell-max-width, 768px));
   max-width: var(--app-shell-max-width, 768px);
   z-index: 1099;
-  padding: 7px 18px;
+  padding: 0 34px 4px; /* ✅ UPDATED: giống ảnh mẫu, lệch trái vừa phải */
   color: #ffffff;
-  font-size: 15px;
-  line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-size: 28px; /* ✅ UPDATED: giống ảnh mẫu */
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.01em;
   text-align: left;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
   pointer-events: none;
   box-sizing: border-box;
   transform: translateX(-50%);
