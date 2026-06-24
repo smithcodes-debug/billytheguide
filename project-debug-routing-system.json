@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-15-mobile-ui-for-all-with-768-shell-and-no-fake-policy",
+  "version": "pdrs-01-16-hero-background-tagline-availability-ownership-locked",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "mobile-ui-for-all-with-768-shell-and-no-fake-policy-accounted",
-    "note": "PDRS-01.15 metadata update: mobile UI is the source of truth for all breakpoints. Mobile/tablet portrait keeps width 100%; landscape mobile/tablet and desktop use centered app shell max-width 768px. Desktop/tablet/landscape may only change outer shell boundary, not component identity/visual ownership. Before creating any fake UI/component, inspect/search existing CSS/JS module ownership first; fake/temporary component is allowed only after explicit user permission."
+    "status": "hero-background-tagline-availability-ownership-locked",
+    "note": "PDRS-01.16 metadata update: locked ownership to remove runtime CSS conflict around hero background, hero tagline, and availability memo. 05-hero-background-system owns only hero background image/layer/crop. 05-hero-story-cta via ./css/home-hero-tour-popup.css owns header visual, hero layout/text/tagline/title/story/CTA/tour popup visual, but must not own hero background-image. 06-booking-availability owns availability memo/popup/calendar/tour list and must not overlap header/tagline. Everywhere same remains active: no component desktop/mobile variants unless explicitly requested."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none-metadata-map-only",
@@ -20,7 +20,7 @@
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
-    "note": "Metadata-only PDRS update for unified mobile-ui-for-all + 768 shell rule and no-fake-before-module-search policy. No active runtime HTML/CSS/JS source is changed by this JSON update."
+    "note": "Metadata-only PDRS update. No runtime source is modified by this JSON update. Runtime cleanup should follow this ownership map."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -35,6 +35,7 @@
     ],
     "cssLoadOrder": [
       "./css/modules/00-display-shell.css",
+      "./css/modules/05-hero-background.css",
       "./css/home-hero-tour-popup.css",
       "./css/card page home/card-01-intro.css",
       "./css/card page home/card-02-service-01.css",
@@ -181,15 +182,14 @@
       "cssCardHomeFolderConfirmed": "./css/card page home/",
       "importantRuntimeFilenameRule": "Folder and file names must match index.html link href exactly, including spaces and extension.",
       "heroBackgroundCssReservedModule": "./css/modules/05-hero-background.css",
-      "heroBackgroundCssRuntimeStatus": "accounted/reserved; link in index.html separately before runtime use",
+      "heroBackgroundCssRuntimeStatus": "active/owner after PDRS-01.16 ownership lock: ./css/modules/05-hero-background.css owns hero background image source/layer/crop only. ./css/home-hero-tour-popup.css must not define .hero background-image after runtime cleanup.",
       "inputModalityJsReservedModule": "./js/modules/input-modality.js",
       "inputModalityJsRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
       "mobileUiForAllWith768ShellRule": "Mobile UI/component structure and behavior are source of truth for every breakpoint. Only the outer display shell may change: portrait mobile/tablet width 100%; landscape mobile/tablet and desktop centered max-width 768px.",
-      "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it."
+      "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it.",
+      "heroOwnershipConflictPolicy": "Hero background belongs to ./css/modules/05-hero-background.css. Hero layout/text/tagline belongs to ./css/home-hero-tour-popup.css. Availability floating memo belongs to ./css/modules/06-availability-booking.css. Do not duplicate ownership across these files."
     },
-    "plannedCssModules": [
-      "./css/modules/05-hero-background.css"
-    ],
+    "plannedCssModules": [],
     "plannedJsModules": [
       "./js/modules/input-modality.js"
     ]
@@ -284,7 +284,7 @@
     },
     {
       "id": "hero-background-css-ownership",
-      "rule": "Hình nền main hero thuộc MODULE 05 và được quản lý bởi ./css/modules/05-hero-background.css khi module này được link vào index.html. Không thêm <img> vào HTML body để đổi main hero background nếu không có yêu cầu riêng.",
+      "rule": "Hero background image/layer/crop is owned only by ./css/modules/05-hero-background.css when linked. ./css/home-hero-tour-popup.css must not define .hero background-image or competing hero image pseudo-layer after cleanup. Do not add <img> into HTML body to change main hero background unless explicitly requested.",
       "primaryAreas": [
         "05-hero-background-system",
         "05-hero-story-cta"
@@ -353,6 +353,35 @@
         "owning CSS file from modules.*.cssFilesPrimary/cssFilesRelated",
         "owning JS file from modules.*.jsFilesPrimary/jsFilesRelated"
       ]
+    },
+    {
+      "id": "hero-tagline-availability-no-overlap",
+      "rule": "Hero tagline is owned by 05-hero-story-cta in ./css/home-hero-tour-popup.css. Availability floating memo is owned by 06-booking-availability in ./css/modules/06-availability-booking.css. Availability memo must not visually overlap, cover, or force repositioning of .hero-guide-tagline or header. Resolve overlap inside the availability module, not by fake tagline/header variants.",
+      "primaryAreas": [
+        "05-hero-story-cta",
+        "06-booking-availability",
+        "cross-module-overlay-stack"
+      ],
+      "firstFilesToInspect": [
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/00-display-shell.css"
+      ]
+    },
+    {
+      "id": "component-css-no-cross-owner-rules",
+      "rule": "A component CSS module must not style selectors owned by another component module except for explicitly documented related/fallback selectors. No broad selector like .hero > :not(.overlay) may alter positioning/z-index of children owned by other modules. Shell boundary remains owned by 00-display-shell-system.",
+      "primaryAreas": [
+        "05-hero-background-system",
+        "05-hero-story-cta",
+        "06-booking-availability",
+        "00-display-shell-system"
+      ],
+      "firstFilesToInspect": [
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/06-availability-booking.css"
+      ]
     }
   ],
   "modules": {
@@ -361,6 +390,7 @@
       "htmlModule": "MODULE 01 — HEAD / ASSET REGISTRY",
       "cssFiles": [
         "./css/modules/00-display-shell.css",
+        "./css/modules/05-hero-background.css",
         "./css/home-hero-tour-popup.css",
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-02-service-01.css",
@@ -394,11 +424,9 @@
       "futureUploadIfBug": [
         "index.html"
       ],
-      "cssFilesPlanned": [
-        "./css/modules/05-hero-background.css"
-      ],
+      "cssFilesPlanned": [],
       "notes": [
-        "./css/modules/05-hero-background.css is reserved/accounted but should be added to active cssFiles only after index.html links it."
+        "./css/modules/05-hero-background.css is active owner for hero background image/layer/crop after PDRS-01.16 ownership lock."
       ]
     },
     "02-header-system": {
@@ -508,7 +536,7 @@
       ]
     },
     "05-hero-story-cta": {
-      "area": "hero/overlay/title/story/cta/Leave no trace trigger",
+      "area": "hero layout / overlay visual / title / story / CTA / tagline; no background-image ownership",
       "htmlModule": "MODULE 05 — HERO MODULE",
       "cssFilesPrimary": [
         "./css/home-hero-tour-popup.css",
@@ -548,11 +576,19 @@
         "js/modules/mobile-story-typewriter.js"
       ],
       "riskNotes": [
-        "Hero background image ownership is reserved for ./css/modules/05-hero-background.css; if .hero background-image still exists in ./css/home-hero-tour-popup.css, migrate only the background-image responsibility carefully."
+        "If .hero background-image exists in ./css/home-hero-tour-popup.css, remove it during runtime cleanup and preserve non-background hero layout rules.",
+        "Do not move .hero-guide-tagline HTML; position/style it in this module CSS only.",
+        "If .hero-guide-tagline is visually covered, inspect ./css/modules/06-availability-booking.css before changing tagline semantics."
+      ],
+      "behavior": [
+        "Owns hero layout, overlay visual, title, story, CTA, and .hero-guide-tagline typography/position.",
+        "Does not own hero background-image source after PDRS-01.16; background source/layer belongs to ./css/modules/05-hero-background.css.",
+        "Must not create separate desktop/mobile hero visual variants unless explicitly requested.",
+        "Must keep HTML text immutable unless user asks to change text."
       ]
     },
     "06-booking-availability": {
-      "area": "availability memo/calendar popup/date state/tour list",
+      "area": "availability memo / calendar popup / date state / tour list; no header/tagline ownership",
       "htmlModule": "MODULE 06.1 + MODULE 06.2",
       "cssFilesPrimary": [
         "./css/modules/06-availability-booking.css"
@@ -580,7 +616,11 @@
         ".is-booked-date",
         ".is-past",
         ".is-too-soon",
-        ".is-selected-date"
+        ".is-selected-date",
+        ".availability-memo",
+        ".availability-memo-card",
+        ".availability-memo-text",
+        ".availability-memo-hint"
       ],
       "states": [
         ".is-open",
@@ -605,7 +645,16 @@
         "./css/style.css"
       ],
       "riskNotes": [
-        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module.",
+        "If availability memo covers tagline/title, fix position/z-index/size inside ./css/modules/06-availability-booking.css, not inside tagline/header CSS.",
+        "Remove corrupt CSS artifacts such as <br>, .availability-memobefore, .availability-memo-cardafter during runtime cleanup; use valid ::before/::after syntax.",
+        "Remove component media query split such as @media (max-width:768px) unless user explicitly requests different device behavior."
+      ],
+      "behavior": [
+        "Owns #availabilityMemo, .availability-memo, availability popup, calendar, date state, availability message, contact action, and availability tour list.",
+        "Availability floating memo must not overlap header or .hero-guide-tagline.",
+        "Must follow everywhere same: no mobile-only hide/show or desktop-only variant unless explicitly requested.",
+        "Must not style .hero-guide-tagline, header, .hero background-image, search popup, policy popup, contact popup, or tour popup internals."
       ]
     },
     "07-mobile-edge-pad": {
@@ -1598,7 +1647,9 @@
         "Header must remain visible above every overlay.",
         "Overlay bugs should be debugged by checking z-index, fixed positioning, pointer-events, visibility, opacity and scroll-lock together.",
         "Do not edit ./js/app.js and ./css/style.css for current confirmed route pages unless a new active import is found.",
-        "Display-shell CSS owns fixed-layer app-shell boundary for header and popup backdrops; component popup/header modules still own internal visual styles."
+        "Display-shell CSS owns fixed-layer app-shell boundary for header and popup backdrops; component popup/header modules still own internal visual styles.",
+        "Hero background module must not change z-index/position of all .hero children; this can conflict with .hero-guide-tagline and .availability-memo.",
+        "Availability memo must remain below header and must not cover hero tagline."
       ]
     },
     "00-display-shell-system": {
@@ -1652,12 +1703,12 @@
       ]
     },
     "05-hero-background-system": {
-      "area": "main hero background image / hero image source / responsive crop control",
+      "area": "main hero background image / image layer / crop only",
       "htmlModule": "MODULE 05 — HERO MODULE",
       "cssFilesPrimary": [
         "./css/modules/05-hero-background.css"
       ],
-      "cssRuntimeStatus": "reserved-comment-only-module; not active until linked by index.html",
+      "cssRuntimeStatus": "active-owner-for-hero-background-after-pdrs-01-16",
       "cssLoadOrderRecommendation": [
         "./css/modules/00-display-shell.css",
         "./css/modules/05-hero-background.css",
@@ -1671,31 +1722,33 @@
         ".overlay"
       ],
       "states": [
-        "mobile-portrait-background-position",
-        "landscape-desktop-shell-background-position",
+        "background-image-source",
         "background-size-cover",
+        "background-position",
         "fallback-background-color",
-        "overlay-contrast-check"
+        "overlay-layer-order"
       ],
       "behavior": [
-        "Reserved module for the main hero background image source and responsive crop behavior.",
-        "The hero HTML uses <section class=\"hero\"> with an .overlay child; no body text or HTML structure should be changed for normal background image swaps.",
-        "This module should own background-image, background-size, background-position, and fallback background color for the main hero image after it becomes active.",
-        "This module must not own header, popup, booking, contact, search, accordion, service grid, or story typewriter styling.",
-        "If ./css/home-hero-tour-popup.css currently owns .hero background-image, future migration should move only the image-background responsibility here and preserve unrelated hero styles."
+        "Owns only main hero background image source, background layer, background-size, background-position, and fallback background color.",
+        "Use the confirmed everywhere-same image source unless the user explicitly requests responsive image variants.",
+        "Expected current image source for runtime cleanup: ../../images/home/hero-768.jpg because this CSS file is inside ./css/modules/.",
+        "Must not own header, logo, search, booking, availability memo, contact, policy, tour popup, service grid, accordion, story typewriter, hero title, hero story, CTA, or hero tagline typography/position.",
+        "Must not use broad child selector .hero > :not(.overlay) to set position/z-index on children owned by other modules.",
+        "Must not create desktop/tablet/mobile background variants unless the user explicitly requests them; everywhere same is default."
       ],
       "futureUploadIfBug": [
         "project-debug-routing-system.json",
         "index.html",
         "./css/modules/05-hero-background.css",
         "./css/home-hero-tour-popup.css",
-        "./css/modules/00-display-shell.css if landscape/desktop shell crop is involved"
+        "./css/modules/00-display-shell.css if shell crop/boundary is involved"
       ],
       "riskNotes": [
         "Do not change HTML text content for hero image swaps.",
         "Do not add an <img> tag into the hero unless explicitly requested; use CSS background ownership first.",
-        "If this file loads before another CSS file that also defines .hero background-image, the later file may override it.",
-        "If image crop differs between portrait and landscape/desktop, debug this module before changing display-shell width rules."
+        "Remove competing .hero background-image from ./css/home-hero-tour-popup.css during runtime cleanup.",
+        "Remove old path variants such as ../../images/hero-768.JPEG, ../../images/hero-1280.PNG, ../../images/hero-1920.PNG unless user explicitly confirms those exact assets.",
+        "Do not use .hero > :not(.overlay) because it can override .hero-guide-tagline and .availability-memo positioning/layer ownership."
       ]
     },
     "28-input-modality-system": {
@@ -2342,6 +2395,35 @@
         "html[data-input-mode=\"touch\"]",
         "document.documentElement.dataset.inputMode"
       ]
+    },
+    "hero-tagline-availability-conflict": {
+      "userDescriptionExamples": [
+        "tagline không di chuyển dưới header",
+        "availability che tagline",
+        "hero background đen và booking che chữ",
+        "hero layer conflict",
+        "hero background và tagline bị conflict module"
+      ],
+      "routeToModule": "05-hero-story-cta + 05-hero-background-system + 06-booking-availability",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/05-hero-background.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/06-availability-booking.css",
+        "./css/modules/00-display-shell.css"
+      ],
+      "selectors": [
+        ".hero",
+        ".hero::before",
+        ".overlay",
+        ".hero-guide-tagline",
+        "#availabilityMemo",
+        ".availability-memo",
+        ".availability-memo-card",
+        "header"
+      ],
+      "ownershipRule": "05 background owns image only; home-hero owns tagline/layout; 06 booking owns availability memo and must not overlap tagline/header."
     }
   },
   "registriesFromIndexHtml": {
@@ -2548,16 +2630,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.16 — Runtime Audit For Mobile UI For All",
+    "nextStepName": "PDRS-01.17 — Runtime CSS Conflict Cleanup By Ownership",
     "recommendedUploadBatch": [
-      "index.html",
-      "./css/modules/00-display-shell.css",
+      "./css/modules/05-hero-background.css",
       "./css/home-hero-tour-popup.css",
-      "./css/modules/03-mobile-search.css",
-      "./js/ui/search-popup.js",
-      "./js/main.js"
+      "./css/modules/06-availability-booking.css"
     ],
-    "goal": "Audit runtime source for desktop/mobile component differences, fake search/header UI, and hero background black fallback while preserving mobile-ui-for-all + 768 shell rule."
+    "goal": "Clean runtime CSS conflicts according to PDRS-01.16 ownership: hero background module owns image only, home-hero owns hero layout/tagline, booking module owns availability memo without overlap."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2581,6 +2660,7 @@
     "requiredByActiveIndex": {
       "cssLoadOrder": [
         "./css/modules/00-display-shell.css",
+        "./css/modules/05-hero-background.css",
         "./css/home-hero-tour-popup.css",
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-02-service-01.css",
@@ -2619,7 +2699,8 @@
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/09-tour-snorkeling-transition.css",
       "./css/modules/01-global-motion.css",
-      "./css/modules/17-mobile-story-typewriter.css"
+      "./css/modules/17-mobile-story-typewriter.css",
+      "./css/modules/05-hero-background.css"
     ],
     "cssModulesReceivedOrAccounted": [
       "./css/modules/00-display-shell.css",
@@ -2635,7 +2716,7 @@
       "./css/modules/05-hero-background.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — display shell active module remains accounted; hero background reserved module is now accounted as planned/not-linked metadata.",
+    "cssModulesStatus": "PASS — hero background module is now treated as active owner in PDRS-01.16 metadata; runtime cleanup should remove competing background ownership.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
@@ -2715,9 +2796,7 @@
       "./css/card page home/card-10-accordion-03.css"
     ],
     "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
-    "cssModulesPlannedNotLinked": [
-      "./css/modules/05-hero-background.css"
-    ]
+    "cssModulesPlannedNotLinked": []
   },
   "rootCardCssInventory": {
     "step": "PDRS-01.7 — Root Card CSS Inventory",
@@ -3431,6 +3510,28 @@
         "activeCssLoadOrderChanged": false,
         "activeJsLoadOrderChanged": false
       }
+    },
+    {
+      "id": "PDRS-01.16-hero-background-tagline-availability-ownership-locked",
+      "updatedAtLocal": "2026-06-24T19:21:00+07:00",
+      "scope": "metadata-only",
+      "changed": [
+        "Locked hero background ownership to ./css/modules/05-hero-background.css only.",
+        "Locked hero layout/tagline/title/story/CTA ownership to ./css/home-hero-tour-popup.css and explicitly removed hero background-image ownership from that module after cleanup.",
+        "Locked availability memo/popup/calendar/tour list ownership to ./css/modules/06-availability-booking.css and added no-overlap rule against header/tagline.",
+        "Added component-css-no-cross-owner-rules invariant.",
+        "Added hero-tagline-availability-no-overlap invariant.",
+        "Added debugImplementationPolicies.heroBackgroundTaglineAvailabilityOwnership.",
+        "Added debug scenario hero-tagline-availability-conflict.",
+        "Updated cleanup order for the next runtime step."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsChanged": false,
+        "runtimeSourceChanged": false,
+        "activeCssLoadOrderMetadataUpdated": true
+      }
     }
   ],
   "actualFolderStructureReconciliation": {
@@ -3637,6 +3738,96 @@
           "relatedHeaderCss": "./css/home-hero-tour-popup.css"
         }
       }
+    },
+    "heroBackgroundTaglineAvailabilityOwnership": {
+      "status": "active-project-rule",
+      "rule": "Resolve hero conflicts by module ownership, not by ad-hoc overrides.",
+      "ownership": {
+        "05-hero-background-system": {
+          "file": "./css/modules/05-hero-background.css",
+          "owns": [
+            "hero background image source",
+            "hero background layer",
+            "background-size",
+            "background-position",
+            "fallback background color"
+          ],
+          "mustNotOwn": [
+            "header",
+            "logo",
+            "search",
+            "availability memo",
+            "hero tagline text/position",
+            "title/story/CTA",
+            "tour popup internals"
+          ]
+        },
+        "05-hero-story-cta": {
+          "file": "./css/home-hero-tour-popup.css",
+          "owns": [
+            "hero layout",
+            "overlay visual",
+            ".hero-guide-tagline",
+            "title",
+            "story",
+            "CTA",
+            "tour popup visual"
+          ],
+          "mustNotOwn": [
+            "hero background-image source after cleanup",
+            "availability memo",
+            "search popup panel"
+          ]
+        },
+        "06-booking-availability": {
+          "file": "./css/modules/06-availability-booking.css",
+          "owns": [
+            "#availabilityMemo",
+            ".availability-memo",
+            "availability popup",
+            "calendar",
+            "tour list"
+          ],
+          "mustNotOwn": [
+            "hero background",
+            "hero tagline",
+            "header",
+            "search popup",
+            "tour popup visual"
+          ]
+        }
+      },
+      "cleanupOrder": [
+        "Clean ./css/modules/05-hero-background.css first: one background owner, valid path, no broad child z-index selector, no component media variants by default.",
+        "Clean ./css/home-hero-tour-popup.css second: remove .hero background-image, keep hero layout/tagline/header/tour popup only.",
+        "Clean ./css/modules/06-availability-booking.css third: valid pseudo selectors, no <br>, no mobile/desktop split by default, position memo without covering tagline/header."
+      ]
     }
+  },
+  "heroRuntimeConflictOwnershipResolution": {
+    "step": "PDRS-01.16 — Hero Background / Tagline / Availability Ownership Resolution",
+    "status": "ownership-locked-runtime-cleanup-next",
+    "runtimeChangePolicy": "metadata-only; no CSS/HTML/JS source changed by this JSON update",
+    "conflictsIdentified": [
+      {
+        "conflict": "hero background defined by multiple files",
+        "ownerAfterUpdate": "./css/modules/05-hero-background.css"
+      },
+      {
+        "conflict": ".hero-guide-tagline visually affected by broad hero child/layer rules or availability overlap",
+        "ownerAfterUpdate": "./css/home-hero-tour-popup.css"
+      },
+      {
+        "conflict": ".availability-memo covers hero tagline/title area",
+        "ownerAfterUpdate": "./css/modules/06-availability-booking.css"
+      }
+    ],
+    "runtimeCleanupRules": [
+      "./css/modules/05-hero-background.css: keep only background-image/layer/crop/fallback; remove responsive variants unless explicitly requested; remove .hero > :not(.overlay).",
+      "./css/home-hero-tour-popup.css: remove .hero background-image; keep .hero layout, .hero-guide-tagline, title/story/CTA/header/tour popup.",
+      "./css/modules/06-availability-booking.css: fix pseudo syntax, remove <br>, remove mobile/desktop split unless requested, position availability memo so it does not cover tagline/header."
+    ],
+    "expectedImagePathForModule05": "../../images/home/hero-768.jpg",
+    "everywhereSame": true
   }
 }

@@ -1,261 +1,87 @@
 /* =====================================================
-  ✅ NEW: MODULE 05 — HERO BACKGROUND IMAGE SYSTEM
-  FILE: ./css/modules/05-hero-background.css
+✅ UPDATED: MODULE 05 — HERO BACKGROUND IMAGE SYSTEM
+FILE: ./css/modules/05-hero-background.css
 
-  PURPOSE:
-  - Reserved CSS module for controlling the main hero background image.
-  - This module belongs to MODULE 05 — HERO MODULE in index.html.
-  - The hero HTML source is:
-    - <section class="hero">
-    - <div class="overlay"></div>
-  - The main hero image should be controlled from CSS, not by adding an <img> tag into the HTML body.
+PURPOSE:
+- Own only the main hero background image source, background layer, crop, and fallback color.
+- Keep HTML/body/text untouched.
+- Keep hero background everywhere same by default.
+- Prevent conflict with header, tagline, availability memo, title/story/CTA, and popup modules.
 
-  MAIN RESPONSIBILITIES:
-  - Define the hero background image source.
-  - Control hero background sizing behavior.
-  - Control hero background positioning per viewport mode.
-  - Keep image display stable across mobile portrait, mobile/tablet landscape, tablet, and desktop app-shell mode.
-  - Support future image swap without touching HTML text/content.
+OWNERSHIP:
+- Owns:
+  - .hero background fallback color
+  - .hero::before image layer
+  - background-image
+  - background-size
+  - background-position
+  - background-repeat
 
-  EXPECTED FUTURE SELECTOR SCOPE:
-  - .hero
-  - .hero::before
-  - .hero::after
-  - .overlay
+- Does NOT own:
+  - header
+  - logo
+  - search
+  - .hero-guide-tagline
+  - title / story / CTA typography
+  - availability memo / calendar
+  - policy popup
+  - contact popup
+  - tour popup internals
+  - scroll-home / service grid / accordion
 
-  ALLOWED FUTURE CSS TASKS:
-  - Set background-image for .hero or a pseudo layer.
-  - Set background-size: cover or a more controlled responsive value.
-  - Set background-position for portrait and landscape modes.
-  - Add image-rendering safety rules if needed.
-  - Add fallback background color while image loads.
-  - Add media-query overrides for landscape/desktop display shell.
+PROJECT RULE:
+- Everywhere same.
+- No desktop/tablet/mobile hero image variants unless user explicitly requests.
+- No broad child selector like .hero > :not(.overlay).
+- Shell/layout boundary belongs to ./css/modules/00-display-shell.css.
 
-  RESPONSIBILITY BOUNDARY:
-  - This module owns only the main hero background image layer.
-  - This module must not style header, popup, booking, contact, search, accordion, service grid, or story typewriter logic.
-  - This module must not change text content.
-  - This module must not rename classes, IDs, attributes, aria attributes, or data attributes.
-  - This module must not move HTML nodes.
-
-  IMMUTABLE RULES:
-  - Do not edit hero title text.
-  - Do not edit hero story text.
-  - Do not edit CTA text.
-  - Do not edit policy/tour/contact popup text.
-  - Do not replace real content with placeholder text.
-
-  RELATIONSHIP WITH OTHER MODULES:
-  - ./css/modules/00-display-shell.css owns app shell width, centering, landscape/desktop mode, and fixed-layer boundaries.
-  - This file must not redefine the app shell width or fixed-layer centering rules.
-  - Component layout or typography should remain in the relevant hero/component CSS file unless explicitly moved here later.
-  - If a background rule already exists in ./css/home-hero-tour-popup.css, future migration should move only the hero background-image responsibility here and leave unrelated hero styles untouched.
-
-  DEBUG NOTES:
-  - If the hero image does not show, check this file first.
-  - If the hero image crops badly on mobile portrait, check background-position in this file first.
-  - If the hero image crops badly on landscape or desktop shell, check landscape/desktop media overrides in this file first.
-  - If overlay darkness/contrast is wrong, verify whether the issue belongs to .overlay design or the image layer before editing.
-  - If the page layout width is wrong, do not debug here; debug ./css/modules/00-display-shell.css instead.
-
-  LOAD ORDER RECOMMENDATION:
-  - Load after ./css/modules/00-display-shell.css.
-  - Load before or near hero component styling if this file becomes the source of truth for the hero image.
-  - If another CSS file currently defines .hero background-image and loads after this file, that later file may override this module.
-
-  CURRENT STATE:
-  - Reserved comment-only module.
-  - No runtime CSS rules are active yet.
-  - Safe to add to the project folder without changing current page rendering.
-===================================================== */
-/* =====================================================
-  ✅ NEW: MODULE 05 — HERO BACKGROUND IMAGE SYSTEM
-  FILE: ./css/modules/05-hero-background.css
-
-  PURPOSE:
-  - Controls the main hero background image for MODULE 05 — HERO MODULE.
-  - Uses .hero::before as the image layer.
-  - Keeps HTML body/text untouched.
-  - Supports 3 dedicated image assets:
-    - Mobile portrait image
-    - Tablet portrait image
-    - Desktop / landscape image
-
-  CONFIRMED IMAGE ASSETS:
-  - Mobile image: hero-768.JPEG
-  - Tablet image: hero-1280.PNG
-  - Desktop image: hero-1920.PNG
-
-  ASSUMED IMAGE LOCATION:
-  - ./images/hero-768.JPEG
-  - ./images/hero-1280.PNG
-  - ./images/hero-1920.PNG
-
-  IMPORTANT PATH NOTE:
-  - This CSS file lives at:
-    ./css/modules/05-hero-background.css
-  - Therefore image URLs must go up 2 levels:
-    ../../images/hero-768.JPEG
-    ../../images/hero-1280.PNG
-    ../../images/hero-1920.PNG
-
-  RESPONSIVE IMAGE MAPPING:
-  - mobile portrait under 600px:
-    -> hero-768.JPEG
-  - tablet portrait from 600px to 768px:
-    -> hero-1280.PNG
-  - mobile landscape:
-    -> hero-1920.PNG
-  - tablet landscape:
-    -> hero-1920.PNG
-  - desktop/laptop:
-    -> hero-1920.PNG
-
-  DISPLAY RELATIONSHIP:
-  - ./css/modules/00-display-shell.css owns:
-    - app shell width
-    - desktop/tablet centering
-    - landscape desktop-mode behavior
-  - This module owns only:
-    - hero background image source
-    - hero background crop behavior
-    - hero image layer positioning
-
-  IMMUTABLE RULES:
-  - Do not edit hero title text.
-  - Do not edit hero story text.
-  - Do not edit CTA text.
-  - Do not edit popup/header/contact/search/calendar content.
-  - Do not add <img> into hero HTML for normal background image changes.
-
-  DEBUG FIRST HERE IF:
-  - Hero image does not show.
-  - Hero image is using the wrong file.
-  - Hero image crops badly on mobile portrait.
-  - Hero image crops badly on tablet portrait.
-  - Hero image crops badly on landscape/desktop shell.
-  - Overlay is visible but background image is missing.
-
-  LOAD ORDER RECOMMENDATION:
-  - Load after:
-    ./css/modules/00-display-shell.css
-  - Load after or before ./css/home-hero-tour-popup.css depending on migration strategy.
-  - If ./css/home-hero-tour-popup.css still defines .hero background-image and loads after this file,
-    it may override this module.
-  - Best long-term setup:
-    1. ./css/modules/00-display-shell.css
-    2. ./css/home-hero-tour-popup.css
-    3. ./css/modules/05-hero-background.css
-
-  CURRENT STRATEGY:
-  - Use .hero::before as isolated image layer.
-  - Keep .overlay as existing visual overlay layer.
-  - Keep .content and hero children above image layer.
+IMAGE SOURCE:
+- This CSS file lives at ./css/modules/05-hero-background.css
+- Correct image path from this file:
+  ../../images/home/hero-768.jpg
 ===================================================== */
 
 
-/* =====================================================
-  ✅ NEW: HERO BACKGROUND VARIABLES
-  PURPOSE:
-  - Centralize image URLs and crop position.
-  - Make future image replacement safer.
-===================================================== */
-
+/* ✅ UPDATED: hero background variables */
 :root {
-  --hero-bg-mobile: url("../../images/hero-768.JPEG"); /* ✅ NEW */
-  --hero-bg-tablet: url("../../images/hero-1280.PNG"); /* ✅ NEW */
-  --hero-bg-desktop: url("../../images/hero-1920.PNG"); /* ✅ NEW */
-
-  --hero-bg-position-mobile: center center; /* ✅ NEW */
-  --hero-bg-position-tablet: center center; /* ✅ NEW */
-  --hero-bg-position-desktop: center center; /* ✅ NEW */
-
-  --hero-bg-fallback: #06111f; /* ✅ NEW */
+  --hero-bg-image: url("../../images/home/hero-768.jpg"); /* ✅ UPDATED: everywhere same confirmed image */
+  --hero-bg-position: center center; /* ✅ UPDATED */
+  --hero-bg-size: cover; /* ✅ UPDATED */
+  --hero-bg-fallback: #06111f; /* ✅ UPDATED */
 }
 
 
-/* =====================================================
-  ✅ NEW: HERO IMAGE LAYER FOUNDATION
-  PURPOSE:
-  - Create an isolated image layer behind hero content.
-  - Avoid changing HTML structure.
-  - Avoid placing image directly on .hero when overlay/content stacking needs control.
-===================================================== */
-
+/* ✅ UPDATED: hero background host only */
 .hero {
-  position: relative; /* ✅ NEW */
-  overflow: hidden; /* ✅ NEW */
-  background-color: var(--hero-bg-fallback); /* ✅ NEW */
-  isolation: isolate; /* ✅ NEW */
+  position: relative; /* ✅ UPDATED: required for ::before background layer */
+  overflow: hidden; /* ✅ UPDATED: keep image layer inside hero boundary */
+  background-color: var(--hero-bg-fallback); /* ✅ UPDATED */
+  background-image: none; /* ✅ UPDATED: background image owner is ::before */
+  isolation: isolate; /* ✅ UPDATED: stable local stacking context */
 }
 
+
+/* ✅ UPDATED: main hero image layer */
 .hero::before {
-  content: ""; /* ✅ NEW */
-  position: absolute; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: -2; /* ✅ NEW */
-
-  background-image: var(--hero-bg-mobile); /* ✅ NEW */
-  background-repeat: no-repeat; /* ✅ NEW */
-  background-size: cover; /* ✅ NEW */
-  background-position: var(--hero-bg-position-mobile); /* ✅ NEW */
-
-  pointer-events: none; /* ✅ NEW */
-  transform: translateZ(0); /* ✅ NEW */
-  backface-visibility: hidden; /* ✅ NEW */
+  content: ""; /* ✅ UPDATED */
+  position: absolute; /* ✅ UPDATED */
+  inset: 0; /* ✅ UPDATED */
+  z-index: 0; /* ✅ UPDATED: image base layer */
+  display: block; /* ✅ UPDATED */
+  background-image: var(--hero-bg-image); /* ✅ UPDATED */
+  background-repeat: no-repeat; /* ✅ UPDATED */
+  background-size: var(--hero-bg-size); /* ✅ UPDATED */
+  background-position: var(--hero-bg-position); /* ✅ UPDATED */
+  pointer-events: none; /* ✅ UPDATED */
+  transform: translateZ(0); /* ✅ UPDATED: rendering stability */
+  backface-visibility: hidden; /* ✅ UPDATED */
 }
 
 
-/* =====================================================
-  ✅ NEW: HERO OVERLAY STACK SAFETY
-  PURPOSE:
-  - Keep existing .overlay above image layer.
-  - Keep hero content above overlay.
-  - This does not redesign overlay color; it only protects layer order.
-===================================================== */
-
+/* ✅ UPDATED: overlay layer order only, visual color remains component-owned */
 .hero .overlay {
-  position: absolute; /* ✅ NEW */
-  inset: 0; /* ✅ NEW */
-  z-index: -1; /* ✅ NEW */
-  pointer-events: none; /* ✅ NEW */
-}
-
-.hero > :not(.overlay) {
-  position: relative; /* ✅ NEW */
-  z-index: 1; /* ✅ NEW */
-}
-
-
-/* =====================================================
-  ✅ NEW: TABLET PORTRAIT IMAGE
-  RULE:
-  - From 600px to 768px.
-  - Portrait only.
-  - Uses tablet image.
-===================================================== */
-
-@media (min-width: 600px) and (max-width: 768px) and (orientation: portrait) {
-  .hero::before {
-    background-image: var(--hero-bg-tablet); /* ✅ NEW */
-    background-position: var(--hero-bg-position-tablet); /* ✅ NEW */
-  }
-}
-
-
-/* =====================================================
-  ✅ NEW: LANDSCAPE + DESKTOP IMAGE
-  RULE:
-  - Mobile landscape = desktop image.
-  - Tablet landscape = desktop image.
-  - Desktop/laptop width >= 769px = desktop image.
-  - Matches the display-shell strategy:
-    landscape or desktop width uses desktop version.
-===================================================== */
-
-@media (min-width: 769px), (orientation: landscape) {
-  .hero::before {
-    background-image: var(--hero-bg-desktop); /* ✅ NEW */
-    background-position: var(--hero-bg-position-desktop); /* ✅ NEW */
-  }
+  position: absolute; /* ✅ UPDATED */
+  inset: 0; /* ✅ UPDATED */
+  z-index: 1; /* ✅ UPDATED: overlay above background image */
+  pointer-events: none; /* ✅ UPDATED */
 }
