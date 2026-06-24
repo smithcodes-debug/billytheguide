@@ -268,7 +268,7 @@ header {
   background: rgba(5, 6, 8, 0.42);
 }
 
-/* ✅ UPDATED: TAGLINE — fixed directly under header, everywhere same */
+/* ✅ REQUIRED FIX: TAGLINE — fixed directly under header, everywhere same */
 .hero-guide-tagline {
   display: block;
   position: fixed;
