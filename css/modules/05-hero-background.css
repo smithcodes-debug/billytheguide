@@ -52,9 +52,9 @@ IMAGE PATH NOTE:
 /* ✅ UPDATED: hero background variables */
 /* ✅ UPDATED: hero background variables */
 :root {
-  --hero-bg-mobile: url("../../images/home/hero-768.JPEG"); /* ✅ UPDATED: mobile portrait */
-  --hero-bg-tablet: url("../../images/home/hero-1280.PNG"); /* ✅ UPDATED: tablet portrait */
-  --hero-bg-desktop: url("../../images/home/hero-1920.JPG"); /* ✅ UPDATED: desktop + landscape */
+  --hero-bg-mobile: url("../../images/home/hero-768.jpeg"); /* ✅ UPDATED: mobile portrait */
+  --hero-bg-tablet: url("../../images/home/hero-1280.png"); /* ✅ UPDATED: tablet portrait */
+  --hero-bg-desktop: url("../../images/home/hero-1920.jpg"); /* ✅ UPDATED: desktop + landscape */
 
   --hero-bg-position-mobile: center center; /* ✅ UPDATED */
   --hero-bg-position-tablet: center center; /* ✅ UPDATED */
