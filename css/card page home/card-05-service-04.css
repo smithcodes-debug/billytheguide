@@ -1,88 +1,20 @@
 /* =====================================================
-✅ MODULE 05 — HERO BACKGROUND IMAGE SYSTEM (FIXED)
+✅ UPDATED: CARD 05 — SERVICE 04 OVERRIDE SHELL
+FILE: ./css/card page home/card-05-service-04.css
+
+PURPOSE:
+- Runtime cleanup after hero-background ownership conflict.
+- This file intentionally contains no hero rules.
+- Hero background image/layer/crop belongs only to ./css/modules/05-hero-background.css.
+- Card 05 service visual rules may be added here later only if they target card/service-owned selectors.
+
+REMOVED:
+- :root --hero-bg-* variables
+- .hero rules
+- .hero::before rules
+- .hero .overlay rules
+- invalid .hero > :not(.overlay)::not(::before) selector
+
+OWNERSHIP:
+- Do not define .hero, .hero::before, .overlay, or --hero-bg-* in this file.
 ===================================================== */
-
-:root {
-  --hero-bg-mobile: url("../../images/hero-768.JPEG"); /* ✅ KEEP */
-  --hero-bg-tablet: url("../../images/hero-1280.PNG"); /* ✅ KEEP */
-  --hero-bg-desktop: url("../../images/hero-1920.PNG"); /* ✅ KEEP */
-
-  --hero-bg-position-mobile: center center;
-  --hero-bg-position-tablet: center center;
-  --hero-bg-position-desktop: center center;
-
-  --hero-bg-fallback: #06111f;
-}
-
-/* ✅ UPDATED — FIX stacking context */
-.hero {
-  position: relative;
-  overflow: hidden;
-
-  background-color: var(--hero-bg-fallback);
-
-  isolation: isolate; /* ✅ KEEP */
-}
-
-/* ✅ UPDATED — FIX invisible background */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  z-index: 0; /* ✅ UPDATED (was -2 → BUG) */
-
-  background-image: var(--hero-bg-mobile);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: var(--hero-bg-position-mobile);
-
-  pointer-events: none;
-
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* ✅ UPDATED — overlay above image */
-.hero .overlay {
-  position: absolute;
-  inset: 0;
-
-  z-index: 1; /* ✅ UPDATED */
-
-  pointer-events: none;
-}
-
-/* ✅ UPDATED — content always above */
-.hero > :not(.overlay)::not(::before) {
-  position: relative;
-  z-index: 2; /* ✅ UPDATED */
-}
-
-/* ✅ TABLET */
-@media (min-width: 600px) and (max-width: 768px) and (orientation: portrait) {
-  .hero::before {
-    background-image: var(--hero-bg-tablet);
-    background-position: var(--hero-bg-position-tablet);
-  }
-}
-
-/* ✅ DESKTOP + LANDSCAPE */
-@media (min-width: 769px), (orientation: landscape) {
-  .hero::before {
-    background-image: var(--hero-bg-desktop);
-    background-position: var(--hero-bg-position-desktop);
-  }
-}
-.hero {
-  position: relative;
-  overflow: hidden;
-
-  background-color: var(--hero-bg-fallback);
-
-  isolation: isolate;
-
-  min-height: 100vh; /* ✅ NEW — FIX mất hero */
-
-  padding-top: 90px; /* ✅ NEW — tránh header đè (adjust nếu header khác) */
-}
