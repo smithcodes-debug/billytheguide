@@ -5,7 +5,7 @@ SCOPE KEPT:
 - theme tokens
 - header visual basics
 - logo visual
-- hero / overlay / tagline
+- hero layout / overlay / tagline
 - title / story / CTA
 - Leave no trace tour popup
 
@@ -17,11 +17,13 @@ SCOPE REMOVED:
 - mobile edge pad
 - scroll-home/service/accordion styles
 - component desktop/mobile media branching
+- hero background-image ownership
 
 PROJECT RULE:
 - Everywhere same.
 - Mobile-designed component visual is source of truth for all devices.
 - Desktop/tablet/landscape may only differ by outer shell boundary.
+- Hero background image/layer/crop belongs to ./css/modules/05-hero-background.css.
 - This file does not create desktop component variants.
 */
 
@@ -242,7 +244,7 @@ header {
   outline-offset: 4px;
 }
 
-/* ✅ UPDATED: HERO — everywhere same image source */
+/* ✅ UPDATED: HERO — layout only, background owned by ./css/modules/05-hero-background.css */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -252,16 +254,10 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: #0b1118;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
-    url("../images/home/hero-768.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
   box-sizing: border-box;
 }
 
+/* ✅ UPDATED: OVERLAY — visual color only, layer order owned by 05-hero-background.css */
 .overlay {
   position: absolute;
   inset: 0;
@@ -654,9 +650,9 @@ header {
 }
 
 .popup-note-img {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
 }
 
