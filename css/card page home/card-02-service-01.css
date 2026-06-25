@@ -8,3 +8,17 @@
     /* ✅ NEW: edit card 02 text/layout spacing here */
   }
 } /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
+
+/* ✅ UPDATED: snorkeling low-res background + progressive high-res source */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
+  background-image: url("../../images/home/tour/snorkeling-low.jpg"); /* ✅ UPDATED */
+  --progressive-highres: url("../../images/home/tour/snorkeling.jpg"); /* ✅ NEW */
+  background-size: cover; /* ✅ NEW */
+  background-position: center; /* ✅ NEW */
+  background-repeat: no-repeat; /* ✅ NEW */
+}
+
+/* ✅ NEW: high-res loaded state */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02.is-highres {
+  background-image: var(--progressive-highres); /* ✅ NEW */
+}

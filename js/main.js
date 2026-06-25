@@ -6,7 +6,8 @@ import { initTourCarousel } from './ui/tour-carousel.js'; /* ✅ NEW */
 import { initStoryExpand } from './ui/story-expand.js'; /* ✅ NEW */  
 import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */  
 import { initSearchPopup } from './ui/search-popup.js'; /* ✅ NEW */  
-import { initMobileEdgePad } from './ui/mobile-edge-pad.js'; /* ✅ NEW */  
+import { initMobileEdgePad } from './ui/mobile-edge-pad.js'; /* ✅ NEW */
+import { initProgressiveImageLoader } from './modules/progressive-image-loader.js'; /* ✅ NEW */  
 
 function initHomePopup() { /* ✅ NEW */  
   const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */  
@@ -457,7 +458,8 @@ safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation'); /* ✅ U
 safeInit(initAvailabilityPopup, 'initAvailabilityPopup'); /* ✅ UPDATED */  
 safeInit(initSearchPopup, 'initSearchPopup'); /* ✅ UPDATED */  
 safeInit(initMobileEdgePad, 'initMobileEdgePad'); /* ✅ UPDATED */  
-safeInit(initMobileHomeFeed, 'initMobileHomeFeed'); /* ✅ UPDATED */  
+safeInit(initMobileHomeFeed, 'initMobileHomeFeed'); /* ✅ UPDATED */
+safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader'); /* ✅ NEW */  
 safeInit(initMobileHomeSectionLock, 'initMobileHomeSectionLock'); /* ✅ UPDATED */  
 safeInit(initHome, 'initHome'); /* ✅ UPDATED */  
 markAppReadyOnNextPaint(); /* ✅ NEW */

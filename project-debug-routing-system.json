@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-18-hero-background-runtime-verified-card05-cleanup",
+  "version": "pdrs-01-19-progressive-image-loader-module-accounted",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,24 +8,23 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "responsive-hero-background-runtime-verified-card05-cleanup",
-    "note": "PDRS-01.18 update: keeps everywhere-same component/layout/behavior rule active, keeps MODULE 05 hero background image source exception, and records runtime verification after card-05 overlap cleanup. Hero background source is owned only by ./css/modules/05-hero-background.css. GitHub Pages runtime verified hero-1920.jpg loads with status 200. card-05-service-04.css was cleaned because it previously duplicated hero background ownership."
+    "status": "progressive-image-loader-module-accounted",
+    "note": "PDRS-01.19 update: created/accounted reusable progressive image loader module. CSS card/page modules own low-res background-image and --progressive-highres URL; JS owns only visibility-triggered preload and .is-highres state. No HTML/body text/class/id/attribute changes recorded in this metadata update."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "none",
     "cssAdded": false,
-    "cssChanged": true,
-    "cssChangedFiles": [
-      "./css/card page home/card-05-service-04.css",
-      "./css/modules/05-hero-background.css"
-    ],
-    "jsAdded": false,
+    "cssChanged": false,
+    "jsAdded": true,
     "jsChanged": false,
+    "jsAddedFiles": [
+      "./js/modules/progressive-image-loader.js"
+    ],
     "bodyChanged": false,
     "textChanged": false,
     "classIdAttributeChanged": false,
     "metadataUpdated": true,
-    "note": "PDRS-01.18 records completed runtime CSS cleanup and verification. card-05-service-04.css was cleaned to remove duplicated hero background ownership. 05-hero-background.css now points to lowercase GitHub Pages asset names under ./images/home/. No runtime HTML, JS, body text, class, id, or attribute changes."
+    "note": "PDRS-01.19 creates/accounts ./js/modules/progressive-image-loader.js. Module is reusable but not active until imported/initialized by the relevant page entry such as ./js/main.js or a page JS file."
   },
   "knownFiles": {
     "htmlEntry": [
@@ -100,7 +99,8 @@
       "./js/pages/general.js",
       "./js/snorkeling.js",
       "./js/app.js",
-      "./js/modules/input-modality.js"
+      "./js/modules/input-modality.js",
+      "./js/modules/progressive-image-loader.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -112,7 +112,8 @@
       "confirmationImportedByMain": false,
       "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu.",
       "inputModalityImportedByMain": false,
-      "inputModalityRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use"
+      "inputModalityRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
+      "progressiveImageLoaderRuntimeStatus": "created/accounted; not active until imported and initialized by page entry JS"
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -193,11 +194,13 @@
       "mobileUiForAllWith768ShellRule": "Mobile UI/component structure and behavior are source of truth for every breakpoint. Only the outer display shell may change: portrait mobile/tablet width 100%; landscape mobile/tablet and desktop centered max-width 768px.",
       "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it.",
       "heroOwnershipConflictPolicy": "Hero background belongs to ./css/modules/05-hero-background.css. Hero layout/text/tagline belongs to ./css/home-hero-tour-popup.css. Availability floating memo belongs to ./css/modules/06-availability-booking.css. Do not duplicate ownership across these files.",
-      "heroResponsiveImageExceptionPolicy": "Allowed exception to everywhere same: only the hero background image source may differ by display category. The hero component DOM, layout, tagline, story, CTA, header, availability, popup behavior, and shell rule remain same everywhere."
+      "heroResponsiveImageExceptionPolicy": "Allowed exception to everywhere same: only the hero background image source may differ by display category. The hero component DOM, layout, tagline, story, CTA, header, availability, popup behavior, and shell rule remain same everywhere.",
+      "progressiveImageLoaderJsRuntimeStatus": "Reusable module at ./js/modules/progressive-image-loader.js. CSS owns image URLs via background-image low-res and --progressive-highres high-res. JS only preloads and toggles .is-highres."
     },
     "plannedCssModules": [],
     "plannedJsModules": [
-      "./js/modules/input-modality.js"
+      "./js/modules/input-modality.js",
+      "./js/modules/progressive-image-loader.js"
     ]
   },
   "uploadPolicyForFutureDebug": {
@@ -208,8 +211,9 @@
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
     "nextRecommendedCssBatch": [],
-    "currentInventoryCheckpoint": "PDRS-01.14 complete: input modality JS module accounted as planned/not-active until main.js imports initInputModality().",
+    "currentInventoryCheckpoint": "PDRS-01.19 complete: progressive-image-loader.js created/accounted as planned/not-active until imported by page entry JS.",
     "nextRecommendedJsBatch": [
+      "./js/modules/progressive-image-loader.js",
       "./js/modules/input-modality.js",
       "./js/modules/tour-card-links.js",
       "./js/modules/header-menu-state.js",
@@ -403,6 +407,20 @@
         "./css/modules/05-hero-background.css",
         "./css/modules/00-display-shell.css",
         "./css/home-hero-tour-popup.css"
+      ]
+    },
+    {
+      "id": "progressive-image-loader-css-owns-image-source",
+      "rule": "Progressive image loading uses CSS ownership for image sources: component/card/page CSS sets low-res background-image and --progressive-highres. ./js/modules/progressive-image-loader.js owns only lazy/preload behavior and toggles .is-highres after high-res has loaded. Do not hardcode tour/page image URLs in shared JS unless explicitly requested.",
+      "primaryAreas": [
+        "29-progressive-image-loader-system",
+        "11-scroll-home-composite",
+        "20-snorkeling-page"
+      ],
+      "firstFilesToInspect": [
+        "./js/modules/progressive-image-loader.js",
+        "./js/main.js",
+        "owning component CSS file such as ./css/card page home/card-02-service-01.css"
       ]
     }
   ],
@@ -1013,7 +1031,8 @@
         "mobile-edge-pad.js jumps from hero to more stories on mobile."
       ],
       "jsFilesRelated": [
-        "./js/modules/input-modality.js"
+        "./js/modules/input-modality.js",
+        "./js/modules/progressive-image-loader.js"
       ],
       "riskNotes": [
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
@@ -1230,13 +1249,15 @@
       ],
       "futureUploadIfBug": [
         "./js/main.js",
-        "./js/modules/input-modality.js"
+        "./js/modules/input-modality.js",
+        "./js/modules/progressive-image-loader.js"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
       ],
       "plannedImports": [
-        "./js/modules/input-modality.js"
+        "./js/modules/input-modality.js",
+        "./js/modules/progressive-image-loader.js"
       ],
       "riskNotes": [
         "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode]."
@@ -1843,6 +1864,69 @@
         "Do not let keyboard events switch data-input-mode.",
         "If main.js imports this module later, initialize it early before gesture/home modules consume input mode.",
         "If another module writes html[data-input-mode], it may conflict with this source of truth."
+      ]
+    },
+    "29-progressive-image-loader-system": {
+      "area": "shared progressive image loading / low-res immediate / high-res preload upgrade",
+      "htmlModule": "cross-page shared image loading behavior layer",
+      "cssFilesPrimary": [],
+      "cssFilesRelated": [
+        "./css/card page home/card-02-service-01.css",
+        "./css/card page home/card-03-service-02.css",
+        "./css/card page home/card-04-service-03.css",
+        "./css/card page home/card-05-service-04.css",
+        "./css/card page home/card-06-service-05.css",
+        "./css/card page home/card-07-service-06.css",
+        "page/component CSS that defines background-image and --progressive-highres"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/progressive-image-loader.js"
+      ],
+      "jsRuntimeStatus": "created/accounted; not active until imported and initialized by ./js/main.js or page entry JS",
+      "expectedMainJsIntegration": [
+        "import { initProgressiveImageLoader } from \"./modules/progressive-image-loader.js\";",
+        "safeInit(\"initProgressiveImageLoader\", initProgressiveImageLoader);"
+      ],
+      "selectors": [
+        "[data-progressive-image]",
+        ".js-progressive-image",
+        ".mobile-home-feed-card",
+        ".is-highres",
+        ".is-highres-loading",
+        ".is-highres-error"
+      ],
+      "states": [
+        "CSS low-res background-image already visible",
+        "--progressive-highres CSS custom property",
+        "IntersectionObserver visible state",
+        "data-progressive-image-loaded=\"true\"",
+        "data-progressive-image-loaded=\"error\"",
+        ".is-highres-loading",
+        ".is-highres",
+        ".is-highres-error",
+        "billy:progressive-image-loaded",
+        "billy:progressive-image-error"
+      ],
+      "behavior": [
+        "Low-res image is loaded immediately by the owning CSS file, not by JS.",
+        "High-res image URL is read from CSS custom property --progressive-highres or optional data-highres-src fallback.",
+        "When the target element approaches/enters viewport, JS preloads high-res image using Image().",
+        "After preload success, JS toggles .is-highres so the owning CSS swaps to high-res background.",
+        "JS does not hardcode snorkeling/diving/camping image paths by default, preserving component CSS ownership.",
+        "Fallback for browsers without IntersectionObserver upgrades all matching elements immediately."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "./js/modules/progressive-image-loader.js",
+        "./js/main.js or page entry JS importing this module",
+        "owning CSS file that defines background-image and --progressive-highres",
+        "Browser Network screenshot if high-res image 404 appears"
+      ],
+      "riskNotes": [
+        "Do not put JS inside .css files; CSS owns image source and JS module owns behavior.",
+        "If a target never upgrades, inspect whether CSS defines --progressive-highres and whether the module is imported/initialized.",
+        "If a high-res image 404 appears, fix the URL in the owning CSS, not inside shared JS.",
+        "Do not add image path maps into this shared module unless user explicitly changes ownership model."
       ]
     }
   },
@@ -2479,6 +2563,32 @@
         "body"
       ],
       "ownershipRule": "05 owns image source/layer/crop; 00 owns shell width/centering. Do not modify hero layout/tagline to fix image source bugs."
+    },
+    "progressive-image-loader-loi": {
+      "userDescriptionExamples": [
+        "low-res hiện nhưng high-res không upgrade",
+        "ảnh card không đổi sang high-res",
+        "progressive image không chạy",
+        "card image 404 highres",
+        "is-highres không được add"
+      ],
+      "routeToModule": "29-progressive-image-loader-system",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/modules/progressive-image-loader.js",
+        "./js/main.js or page entry JS importing this module",
+        "owning CSS file that defines background-image and --progressive-highres",
+        "Browser Network screenshot if image 404 appears"
+      ],
+      "selectors": [
+        "[data-progressive-image]",
+        ".js-progressive-image",
+        ".mobile-home-feed-card",
+        ".is-highres",
+        ".is-highres-loading",
+        ".is-highres-error"
+      ],
+      "ownershipRule": "CSS owns low-res and high-res image URLs; progressive-image-loader.js owns only IntersectionObserver/preload/class state behavior."
     }
   },
   "registriesFromIndexHtml": {
@@ -2685,12 +2795,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.19 — Continue Asset 404 Cleanup Outside Hero Background",
+    "nextStepName": "PDRS-01.20 — Integrate Progressive Image Loader Into main.js And First Card CSS",
     "recommendedUploadBatch": [
-      "Browser Network screenshot for remaining non-hero asset 404s",
-      "specific CSS/HTML file shown as Initiator for each remaining asset 404"
+      "./js/main.js",
+      "./css/card page home/card-02-service-01.css",
+      "./js/modules/progressive-image-loader.js"
     ],
-    "goal": "Hero background runtime is verified. Continue cleanup only for remaining non-hero asset 404s such as menu, tour card images, or card feed images, using Network Initiator before editing."
+    "goal": "Import/init progressive-image-loader.js in main.js, then update card-02 CSS to define low-res background-image and --progressive-highres high-res source with .is-highres swap state."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -3237,6 +3348,12 @@
         "status": "created-and-accounted-not-imported-by-main-yet",
         "role": "input modality detector for mouse/touch/trackpad hybrid devices",
         "primaryModule": "28-input-modality-system"
+      },
+      {
+        "path": "./js/modules/progressive-image-loader.js",
+        "status": "created-and-accounted-not-imported-by-main-yet",
+        "role": "shared progressive image loader for low-res CSS + high-res preload upgrade",
+        "primaryModule": "29-progressive-image-loader-system"
       }
     ],
     "criticalCouplingNotes": [
@@ -3246,7 +3363,8 @@
       "brand-logo.js/payment.js/confirmation.js are accounted but not imported by current main.js.",
       "./js/app.js is an additional legacy monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
       "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js.",
-      "./js/modules/input-modality.js should become the source of truth for html[data-input-mode=\"mouse|touch\"] after main.js imports it."
+      "./js/modules/input-modality.js should become the source of truth for html[data-input-mode=\"mouse|touch\"] after main.js imports it.",
+      "./js/modules/progressive-image-loader.js is shared behavior only; CSS modules keep ownership of low-res and high-res image URLs."
     ],
     "jsPendingForCompleteInventory": [
       {
@@ -3258,7 +3376,7 @@
         "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PASS — input-modality.js is accounted as planned/not-active until main.js imports initInputModality()."
+    "jsInventoryStatus": "PASS — progressive-image-loader.js is accounted as planned/not-active until imported and initialized by page entry JS."
   },
   "snorkelingLandingPageInventory": {
     "step": "PDRS-01.10 — Snorkeling Landing Page Inventory",
@@ -3650,6 +3768,28 @@
         "jsChanged": false,
         "htmlTextChanged": false,
         "classIdAttributeChanged": false,
+        "metadataUpdated": true
+      }
+    },
+    {
+      "id": "PDRS-01.19-progressive-image-loader-module-accounted",
+      "updatedAtLocal": "2026-06-25T12:17:00+07:00",
+      "scope": "new-js-module-plus-metadata-update",
+      "changed": [
+        "Created/accounted ./js/modules/progressive-image-loader.js as a reusable shared JS behavior module.",
+        "Added modules.29-progressive-image-loader-system.",
+        "Added debugScenarios.progressive-image-loader-loi.",
+        "Added project invariant progressive-image-loader-css-owns-image-source.",
+        "Recorded that CSS owns image URLs through low-res background-image and --progressive-highres; JS only preloads and toggles .is-highres.",
+        "Kept active index.html jsLoadOrder unchanged until main.js imports/init this module."
+      ],
+      "runtimeChangePolicy": {
+        "htmlChanged": false,
+        "cssChanged": false,
+        "jsAdded": true,
+        "jsChanged": false,
+        "runtimeSourceChanged": true,
+        "activeJsLoadOrderChanged": false,
         "metadataUpdated": true
       }
     }
