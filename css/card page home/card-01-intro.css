@@ -439,46 +439,7 @@
     font-weight: 600; /* ✅ NEW */  
     letter-spacing: -0.01em; /* ✅ NEW */  
     text-align: center; /* ✅ NEW */  
-  }  
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {  
-    content: ""; /* ✅ REQUIRED FIX: tạo pad memo không phụ thuộc HTML clone/runtime JS */  
-    position: absolute; /* ✅ NEW */  
-    left: 15px; /* ✅ UPDATED: cách mép trái card trắng 15px */  
-    right: 15px; /* ✅ UPDATED: cách mép phải card trắng 15px */  
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 52px); /* ✅ UPDATED: cách vùng bottom/handle khoảng 15px an toàn */  
-    z-index: 2; /* ✅ NEW */  
-    height: 180px; /* ✅ UPDATED: pad memo cao hơn để chứa icon to hơn 70% */  
-    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ UPDATED: demo giống khung đỏ trong ảnh, muốn bỏ đỏ thì đổi rgba(5, 6, 8, 0.08) */  
-    border-radius: 4px; /* ✅ UPDATED: bo nhẹ 4 cạnh giống ô vuông đỏ */  
-    background-color: rgba(255, 255, 255, 0.78); /* ✅ UPDATED */  
-    background-image:  
-      url("../images/1.png"),  
-      url("../images/2.png"),  
-      url("../images/3.png"),  
-      url("../images/4.png"),  
-      url("../images/5.png"),  
-      url("../images/6.png"); /* ✅ NEW: bạn có thể sửa đường dẫn sau */  
-    background-repeat: no-repeat; /* ✅ NEW */  
-    background-size:  
-      71px 71px,  
-      71px 71px,  
-      71px 71px,  
-      71px 71px,  
-      71px 71px,  
-      71px 71px; /* ✅ UPDATED: icon to hơn 70% từ 42px lên ~71px */  
-    background-position:  
-      calc(50% - 82px) 18px,  
-      50% 18px,  
-      calc(50% + 82px) 18px,  
-      calc(50% - 82px) 96px,  
-      50% 96px,  
-      calc(50% + 82px) 96px; /* ✅ UPDATED: 6 icon chia 2 hàng x 3 cột trong pad lớn */  
-    box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */  
-    backdrop-filter: blur(8px); /* ✅ NEW */  
-    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX: Safari iOS */  
-    pointer-events: none; /* ✅ NEW */  
-  }  
+  }
 }
 
 @media (min-width:1025px) {
@@ -500,44 +461,5 @@
     font-weight: 600; /* ✅ NEW */
     letter-spacing: -0.01em; /* ✅ NEW */
     text-align: center; /* ✅ NEW */
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {
-    content: ""; /* ✅ REQUIRED FIX */
-    position: absolute; /* ✅ NEW */
-    left: 15px; /* ✅ NEW */
-    right: 15px; /* ✅ NEW */
-    bottom: 52px; /* ✅ NEW */
-    z-index: 2; /* ✅ NEW */
-    height: 180px; /* ✅ NEW */
-    border: 2px solid rgba(255, 0, 0, 0.92); /* ✅ NEW */
-    border-radius: 4px; /* ✅ NEW */
-    background-color: rgba(255, 255, 255, 0.78); /* ✅ NEW */
-    background-image:
-      url("../images/1.png"),
-      url("../images/2.png"),
-      url("../images/3.png"),
-      url("../images/4.png"),
-      url("../images/5.png"),
-      url("../images/6.png"); /* ✅ NEW */
-    background-repeat: no-repeat; /* ✅ NEW */
-    background-size:
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px,
-      71px 71px; /* ✅ NEW */
-    background-position:
-      calc(50% - 82px) 18px,
-      50% 18px,
-      calc(50% + 82px) 18px,
-      calc(50% - 82px) 96px,
-      50% 96px,
-      calc(50% + 82px) 96px; /* ✅ NEW */
-    box-shadow: 0 12px 30px rgba(8, 63, 70, 0.08); /* ✅ NEW */
-    backdrop-filter: blur(8px); /* ✅ NEW */
-    -webkit-backdrop-filter: blur(8px); /* ✅ REQUIRED FIX */
-    pointer-events: none; /* ✅ NEW */
   }
 } /* ✅ REQUIRED FIX: đóng file */
