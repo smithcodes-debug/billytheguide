@@ -749,11 +749,11 @@ transform: none !important;
   }
 
   .popup-notes-arrow-left {
-    left: 30px;
+    left: -30px;
   }
 
   .popup-notes-arrow-right {
-    right: 30px;
+    right: -30px;
   }
 
   .popup-notes-arrow:focus-visible {
