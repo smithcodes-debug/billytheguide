@@ -1,8 +1,28 @@
-
-@media (max-width:1024px) { 
+@media (max-width:1024px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
   }
-} 
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card {
+  flex-direction: column; /* ✅ NEW */
+  text-align: center; /* ✅ NEW */
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card::before {
+  content: ""; /* ✅ NEW */
+  display: block; /* ✅ NEW */
+  width: min(100%, 490px); /* ✅ NEW */
+  aspect-ratio: 16 / 10; /* ✅ NEW */
+  margin: 0 auto 16px; /* ✅ NEW */
+  border: 1px solid rgba(5, 6, 8, 0.10); /* ✅ NEW */
+  border-radius: 18px; /* ✅ NEW */
+  background-image: url("../../images/comon/1.png"); /* ✅ NEW */
+  background-repeat: no-repeat; /* ✅ NEW */
+  background-position: center; /* ✅ NEW */
+  background-size: cover; /* ✅ NEW */
+  box-shadow: 0 12px 30px rgba(5, 6, 8, 0.10); /* ✅ NEW */
+  box-sizing: border-box; /* ✅ NEW */
+}
