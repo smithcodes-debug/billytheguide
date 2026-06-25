@@ -49,6 +49,19 @@ function preloadImage(src) { /* ✅ UPDATED */
   });
 }
 
+function applyHighResImage(element, highResSrc) { /* ✅ UPDATED */
+  if (!element || !highResSrc) return;
+
+  if (element.tagName === 'IMG') {
+    if (element.getAttribute('src') !== highResSrc) {
+      element.setAttribute('src', highResSrc);
+    }
+    return;
+  }
+
+  element.classList.add('is-highres');
+}
+
 function upgradeElement(element, options) { /* ✅ UPDATED */
   if (!element) return;
   if (element.dataset.progressiveImageLoaded === 'true') return;
@@ -68,6 +81,7 @@ function upgradeElement(element, options) { /* ✅ UPDATED */
   preloadImage(highResSrc)
     .then(() => {
       element.classList.remove(loadingClass);
+      applyHighResImage(element, highResSrc); /* ✅ UPDATED */
       element.classList.add(loadedClass);
       element.dataset.progressiveImageLoaded = 'true'; /* ✅ UPDATED */
 
