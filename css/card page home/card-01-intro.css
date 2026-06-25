@@ -380,7 +380,7 @@
   display: block; /* ✅ NEW */
   margin: 0 0 2px; /* ✅ NEW */
   color: rgba(5, 6, 8, 0.58); /* ✅ NEW */
-  font-size: clamp(11px, 2.8vw, 14px); /* ✅ NEW */
+  font-size: clamp(15px, 3vw, 17px); /* ✅ NEW */
   line-height: 1.25; /* ✅ NEW */
   font-weight: 650; /* ✅ NEW */
   letter-spacing: -0.01em; /* ✅ NEW */
