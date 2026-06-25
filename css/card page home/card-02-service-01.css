@@ -6,14 +6,3 @@
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
   }
 } 
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
-  background-image: url("../../images/home/tour/snorkeling-low.png"); 
-  --progressive-highres: url("../../images/home/tour/snorkeling.jpg"); 
-  background-size: cover;
-  background-position: center; 
-  background-repeat: no-repeat; 
-}
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02.is-highres {
-  background-image: var(--progressive-highres); 
-}
