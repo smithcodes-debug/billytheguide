@@ -375,7 +375,7 @@
   transform: translateY(10px); /* ✅ NEW */
 }
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes::before {
-  content: "stay chill with us , few thing make up your time."; /* ✅ NEW */
+  content: "Stay chill with us , few thing make up your time."; /* ✅ NEW */
   grid-column: 1 / -1; /* ✅ NEW */
   display: block; /* ✅ NEW */
   margin: 0 0 2px; /* ✅ NEW */
