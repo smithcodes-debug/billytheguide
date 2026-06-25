@@ -1,528 +1,412 @@
-/* =====================================================
-  ✅ NEW: CSS MODULE 10 — CONTACT / ABOUT POPUP
-  FILE: ./css/modules/10-contact-popup.css
-
-  SYSTEM MAP POSITION:
-  - PROJECT MODULE INDEX: 10-contact-popup
-  - HTML module: MODULE 10 — CONTACT / ABOUT MODULE
-  - HTML sub-modules:
-    - 10-contact-popup
-    - 10-contact-phone
-    - 10-contact-story
-    - 10-contact-social-list
-
-  SOURCE LOCATION BEFORE EXTRACTION:
-  - index.html
-  - MODULE 01.5 — INLINE STYLE REGISTRY
-  - This file was extracted during Step 6C.
-
-  RELATED HTML SELECTORS / IDS:
-  - #contact-popup
-  - #contactPopupTitle
-  - #contactPhoneLink
-  - #logoTrigger
-  - .contact-popup-backdrop
-  - .contact-popup-card
-  - .contact-popup-header
-  - .contact-popup-header-vector
-  - .contact-popup-close
-  - .contact-popup-drag-handle
-  - .contact-phone-link
-  - .contact-phone-icon
-  - .contact-phone-number
-  - .contact-popup-story
-  - .contact-social-list
-  - .contact-social-item
-  - .contact-social-icon
-  - .contact-social-label
-  - .contact-footer-text
-
-  RELATED JS / BEHAVIOR MAP:
-  - Open trigger: #logoTrigger
-  - Dialog root: #contact-popup
-  - Close trigger: .contact-popup-close
-  - Drag surface: .contact-popup-card
-  - Scroll lock class: .mobile-popup-scroll-lock
-  - Current behavior source: ./js/main.js or current main JS entry behavior bundle
-  - Functions to inspect during debug:
-    - openContactPopup
-    - closeContactPopup
-    - lockMobilePopupScroll
-    - unlockMobilePopupScroll
-    - handleContactDragStart
-    - handleContactDragMove
-    - handleContactDragEnd
-
-  RELATED HTML MODULE COMMENT:
-  - MODULE 10 — CONTACT / ABOUT MODULE
-  - MAP: 10-contact-popup / 10-contact-phone / 10-contact-story / 10-contact-social-list
-
-  PURPOSE:
-  - Owns visual styling for About Us / Contact popup opened from the header logo.
-  - Keeps contact popup CSS separate from booking, policy, tour popup, mobile search, and scroll-home CSS.
-  - Leaves enough trace for future debugging: if contact popup layout, drag, scroll lock, z-index, social icon, or open/close animation breaks, inspect this file first.
-
-  OWNS:
-  - .contact-popup-backdrop
-  - .contact-popup-card
-  - .contact-popup-header
-  - .contact-popup-header-vector
-  - .contact-popup-close
-  - .contact-popup-drag-handle
-  - .contact-phone-link
-  - .contact-phone-icon
-  - .contact-phone-number
-  - .contact-popup-story
-  - .contact-social-list
-  - .contact-social-item
-  - .contact-social-icon
-  - .contact-social-icon.facebook
-  - .contact-social-icon.telegram
-  - .contact-social-icon.kakao
-  - .contact-social-icon.zalo
-  - .contact-social-icon.tiktok
-  - .contact-social-icon.youtube
-  - .contact-social-icon.wechat
-  - .contact-social-icon.google-map
-  - .contact-social-icon.maill
-  - .contact-social-icon.line
-  - .contact-social-label
-  - .contact-footer-text
-  - #logoTrigger
-  - .mobile-popup-scroll-lock
-
-  STATE CLASSES:
-  - .is-open
-
-  KEYFRAMES:
-  - contactFadeUp
-  - contactFadeDown
-  - contactFadeLeft
-  - contactFadeRight
-  - contactScaleIn
-  - contactSoftRotate
-  - contactSoftFloat
-  - contactScalePulse
-  - contactSoftTilt
-  - contactGlowSoft
-
-  MEDIA:
-  - @media (max-width:768px)
-
-  DEBUG ROUTING:
-  - Visual position / size / backdrop / z-index issue: edit ./css/modules/10-contact-popup.css
-  - Logo trigger click/key issue: inspect #logoTrigger HTML + JS openContactPopup binding
-  - Scroll lock issue: inspect .mobile-popup-scroll-lock in this file + lockMobilePopupScroll/unlockMobilePopupScroll in JS
-  - Mobile drag-close issue: inspect .contact-popup-card touch-action/transform here + handleContactDrag* in JS
-  - Social icon color/grid issue: edit this file only
-
-  IMMUTABLE / SAFETY RULES:
-  - Do not rename contact selectors unless the matching HTML and JS are explicitly updated.
-  - Do not move booking, policy, mobile search, tour popup, or scroll-home CSS into this file.
-  - Keep contact-specific keyframes close to this module.
-  - Keep global prefers-reduced-motion override outside this file unless a later confirmed step moves global motion rules.
-  - This extraction is mechanical-only: original selector names and CSS values are preserved.
-===================================================== */
-
 .contact-popup-backdrop {
-  position: fixed; 
-  inset: 0; 
-  z-index: 1001; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  padding: 36px; 
-  background: rgba(0, 0, 0, 0.66); 
-  backdrop-filter: blur(4px); 
-  -webkit-backdrop-filter: blur(4px); 
-  opacity: 0; 
-  visibility: hidden; 
-  pointer-events: none; 
-  transition: opacity 0.24s ease, visibility 0.24s ease; 
+position: fixed;
+top: calc(env(safe-area-inset-top, 0px) + 93px);
+bottom: 0;
+left: 50%;
+right: auto;
+width: min(100%, var(--app-shell-max-width, 768px));
+max-width: var(--app-shell-max-width, 768px);
+z-index: 1001;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px 36px 28px;
+background: rgba(0, 0, 0, 0.66);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+transition: opacity 0.24s ease, visibility 0.24s ease;
+box-sizing: border-box;
+transform: translateX(-50%);
 }
 .contact-popup-backdrop.is-open {
-  opacity: 1; 
-  visibility: visible; 
-  pointer-events: auto; 
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 .contact-popup-card {
-  position: relative; 
-  width: min(92vw, 560px); 
-  max-height: calc(100dvh - 72px); 
-  padding: 28px 24px 26px; 
-  border-radius: 24px; 
-  border: 1px solid rgba(255, 255, 255, 0.22); 
-  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); 
-  color: #fff; 
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); 
-  backdrop-filter: blur(14px); 
-  -webkit-backdrop-filter: blur(14px); 
-  transform: translate3d(0, 18px, 0) scale(0.96); 
-  opacity: 0; 
-  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; 
-  will-change: transform, opacity; 
-  overflow-y: auto; 
-  -webkit-overflow-scrolling: touch; 
+  position: relative;
+  width: min(92vw, 560px);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 145px);
+  padding: 28px 24px 26px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94));
+  color: #fff;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform: translate3d(0, 18px, 0) scale(0.96);
+  opacity: 0;
+  transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease;
+  will-change: transform, opacity;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .contact-popup-backdrop.is-open .contact-popup-card {
-  transform: translate3d(0, 0, 0) scale(1); 
-  opacity: 1; 
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
 }
 .contact-popup-header {
-  display: grid; 
-  grid-template-columns: 46px minmax(0, 1fr) 46px; 
-  align-items: center; 
-  gap: 12px; 
-  margin: 0 0 18px; 
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 46px;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
 }
 .contact-popup-header-vector {
-  width: 46px; 
-  height: 46px; 
-  display: block; 
-  object-fit: contain; 
+  width: 46px;
+  height: 46px;
+  display: block;
+  object-fit: contain;
 }
 .contact-popup-close {
-  position: static; 
-  flex: 0 0 auto; 
-  width: 46px; 
-  height: 46px; 
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  border-radius: 999px; 
-  background: rgba(255, 255, 255, 0.08); 
-  color: #fff; 
-  font-size: 28px; 
-  line-height: 1; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
-  cursor: pointer; 
+  position: static;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 .contact-popup-drag-handle {
-  width: auto; 
-  height: auto; 
-  margin: 0; 
-  padding: 0; 
-  border-radius: 0; 
-  background: transparent; 
-  color: rgba(255, 255, 255, 0.96); 
-  font-size: 20px; 
-  font-weight: 700; 
-  line-height: 1.05; 
-  text-align: center; 
-  white-space: nowrap; 
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  white-space: nowrap;
 }
 .contact-phone-link {
-  position: relative; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  width: 100%; 
-  min-height: 54px; 
-  margin: 0 auto 24px; 
-  padding: 0 58px; 
-  border-radius: 14px; 
-  border: 1px solid rgba(255, 255, 255, 0.26); 
-  background: rgba(255, 255, 255, 0.1); 
-  color: #fff; 
-  text-decoration: none; 
-  font-size: 20px; 
-  line-height: 1.2; 
-  font-weight: 700; 
-  letter-spacing: 0.01em; 
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  margin: 0 auto 24px;
+  padding: 0 58px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 .contact-phone-icon {
-  position: absolute; 
-  left: 16px; 
-  top: 50%; 
-  width: 38px; 
-  height: 38px; 
-  border-radius: 999px; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
-  color: #ffffff; 
-  font-size: 21px; 
-  line-height: 1; 
-  background: rgba(255, 255, 255, 0.08); 
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  transform: translateY(-50%); 
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%);
 }
 .contact-phone-number {
-  display: inline-block; 
-  min-width: 0; 
+  display: inline-block;
+  min-width: 0;
 }
 .contact-popup-story {
-  margin: 0 0 18px; 
-  padding: 12px 13px; 
-  border-radius: 16px; 
-  border: 1px solid rgba(255, 255, 255, 0.18); 
-  background: rgba(255, 255, 255, 0.08); 
-  color: rgba(255, 255, 255, 0.94); 
-  font-size: 13px; 
-  line-height: 1.42; 
-  font-weight: 600; 
-  text-align: center; 
+  margin: 0 0 18px;
+  padding: 12px 13px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 13px;
+  line-height: 1.42;
+  font-weight: 600;
+  text-align: center;
 }
 .contact-social-list {
-  display: grid; 
-  grid-template-columns: repeat(5, 1fr); 
-  gap: 12px; 
-  align-items: start; 
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  align-items: start;
 }
 .contact-social-item {
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  gap: 8px; 
-  min-width: 0; 
-  color: #fff; 
-  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #fff;
+  text-align: center;
 }
 .contact-social-icon {
-  width: 46px; 
-  height: 46px; 
-  border-radius: 12px; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
-  color: #fff; 
-  font-size: 21px; 
-  line-height: 1; 
-  font-weight: 800; 
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); 
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1;
+  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
 }
 .contact-social-icon.facebook {
-  background: #1877f2; 
+  background: #1877f2;
 }
 .contact-social-icon.telegram {
-  background: #229ed9; 
+  background: #229ed9;
 }
 .contact-social-icon.kakao {
-  background: #fee500; 
-  color: #111; 
+  background: #fee500;
+  color: #111;
 }
 .contact-social-icon.zalo {
-  background: #0068ff; 
+  background: #0068ff;
 }
 .contact-social-icon.tiktok {
-  background: #111111; 
+  background: #111111;
 }
 .contact-social-icon.youtube {
-  background: #ff0033; 
+  background: #ff0033;
 }
 .contact-social-icon.wechat {
-  background: #19c15f; 
+  background: #19c15f;
 }
 .contact-social-icon.google-map {
-  background: #34a853; 
+  background: #34a853;
 }
 .contact-social-icon.maill {
-  background: #ea4335; 
+  background: #ea4335;
 }
 .contact-social-icon.line {
-  background: #06c755; 
+  background: #06c755;
 }
 .contact-social-label {
-  display: block; 
-  max-width: 68px; 
-  font-size: 11px; 
-  line-height: 1.15; 
-  font-weight: 600; 
-  overflow-wrap: anywhere; 
+  display: block;
+  max-width: 68px;
+  font-size: 11px;
+  line-height: 1.15;
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 #logoTrigger {
-  cursor: pointer; 
-  touch-action: manipulation; 
+  cursor: pointer;
+  touch-action: manipulation;
 }
 .mobile-popup-scroll-lock {
-  overflow: hidden; 
+  overflow: hidden;
 }
 @media (max-width:768px) {
   .contact-popup-backdrop {
-    position: fixed; 
-    inset: 0; 
-    z-index: 1001; 
-    display: flex; 
-    align-items: flex-start; 
-    justify-content: center; 
-    padding: calc(env(safe-area-inset-top, 0px) + 28px) 22px 22px; 
-    background: rgba(0, 0, 0, 0.66); 
-    backdrop-filter: blur(4px); 
-    -webkit-backdrop-filter: blur(4px); 
-    opacity: 0; 
-    visibility: hidden; 
-    pointer-events: none; 
-    transition: opacity 0.24s ease, visibility 0.24s ease; 
-  }
+position: fixed;
+top: calc(env(safe-area-inset-top, 0px) + 93px);
+bottom: 0;
+left: 50%;
+right: auto;
+width: min(100%, var(--app-shell-max-width, 768px));
+max-width: var(--app-shell-max-width, 768px);
+z-index: 1001;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+padding: 18px 22px 22px;
+background: rgba(0, 0, 0, 0.66);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+transition: opacity 0.24s ease, visibility 0.24s ease;
+box-sizing: border-box;
+transform: translateX(-50%);
+}
   .contact-popup-backdrop.is-open {
-    opacity: 1; 
-    visibility: visible; 
-    pointer-events: auto; 
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   .contact-popup-card {
-    position: relative; 
-    width: min(92vw, 420px); 
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 56px); 
-    padding: 24px 18px 22px; 
-    border-radius: 24px; 
-    border: 1px solid rgba(255, 255, 255, 0.22); 
-    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94)); 
-    color: #fff; 
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08); 
-    backdrop-filter: blur(14px); 
-    -webkit-backdrop-filter: blur(14px); 
-    transform: translate3d(0, 18px, 0) scale(0.96); 
-    opacity: 0; 
-    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease; 
-    will-change: transform, opacity; 
-    touch-action: pan-y; 
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; 
+    position: relative;
+    width: min(92vw, 420px);
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 133px);
+    padding: 24px 18px 22px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: linear-gradient(180deg, rgba(28, 34, 42, 0.92), rgba(11, 14, 20, 0.94));
+    color: #fff;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48), inset 0 0 18px rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transform: translate3d(0, 18px, 0) scale(0.96);
+    opacity: 0;
+    transition: transform 0.42s cubic-bezier(0.2, 1.2, 0.2, 1), opacity 0.24s ease;
+    will-change: transform, opacity;
+    touch-action: pan-y;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .contact-popup-backdrop.is-open .contact-popup-card {
-    transform: translate3d(0, 0, 0) scale(1); 
-    opacity: 1; 
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
   }
   .contact-popup-header {
-    grid-template-columns: 44px minmax(0, 1fr) 44px; 
-    gap: 10px; 
-    margin: 0 0 18px; 
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 10px;
+    margin: 0 0 18px;
   }
   .contact-popup-header-vector {
-    width: 44px; 
-    height: 44px; 
+    width: 44px;
+    height: 44px;
   }
   .contact-popup-close {
-    position: static; 
-    width: 44px; 
-    height: 44px; 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    border-radius: 999px; 
-    background: rgba(255, 255, 255, 0.08); 
-    color: #fff; 
-    font-size: 28px; 
-    line-height: 1; 
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    cursor: pointer; 
+    position: static;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
   .contact-popup-drag-handle {
-    width: auto; 
-    height: auto; 
-    margin: 0; 
-    padding: 0; 
-    border-radius: 0; 
-    background: transparent; 
-    color: rgba(255, 255, 255, 0.96); 
-    font-size: 20px; 
-    line-height: 1.05; 
-    font-weight: 700; 
-    text-align: center; 
-    white-space: nowrap; 
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 20px;
+    line-height: 1.05;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
   }
   .contact-phone-link {
-    position: relative; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    width: 100%; 
-    min-height: 54px; 
-    margin: 0 auto 24px; 
-    padding: 0 58px; 
-    border-radius: 14px; 
-    border: 1px solid rgba(255, 255, 255, 0.26); 
-    background: rgba(255, 255, 255, 0.1); 
-    color: #fff; 
-    text-decoration: none; 
-    font-size: 20px; 
-    line-height: 1.2; 
-    font-weight: 700; 
-    letter-spacing: 0.01em; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 54px;
+    margin: 0 auto 24px;
+    padding: 0 58px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.01em;
   }
   .contact-popup-story {
-    margin: 0 0 18px; 
-    padding: 12px 13px; 
-    border-radius: 16px; 
-    border: 1px solid rgba(255, 255, 255, 0.18); 
-    background: rgba(255, 255, 255, 0.08); 
-    color: rgba(255, 255, 255, 0.94); 
-    font-size: 13px; 
-    line-height: 1.42; 
-    font-weight: 600; 
-    text-align: center; 
+    margin: 0 0 18px;
+    padding: 12px 13px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 13px;
+    line-height: 1.42;
+    font-weight: 600;
+    text-align: center;
   }
   .contact-social-list {
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 12px; 
-    align-items: start; 
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    align-items: start;
   }
   .contact-social-item {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 8px; 
-    min-width: 0; 
-    color: #fff; 
-    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: #fff;
+    text-align: center;
   }
   .contact-social-icon {
-    width: 46px; 
-    height: 46px; 
-    border-radius: 12px; 
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #fff; 
-    font-size: 21px; 
-    line-height: 1; 
-    font-weight: 800; 
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); 
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 21px;
+    line-height: 1;
+    font-weight: 800;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
   }
   .contact-social-icon.youtube {
-    background: #ff0033; 
+    background: #ff0033;
   }
   .contact-social-icon.wechat {
-    background: #19c15f; 
+    background: #19c15f;
   }
   .contact-social-icon.google-map {
-    background: #34a853; 
+    background: #34a853;
   }
   .contact-social-icon.maill {
-    background: #ea4335; 
+    background: #ea4335;
   }
   .contact-social-icon.line {
-    background: #06c755; 
+    background: #06c755;
   }
-  .contact-social-icon.facebook { background: #1877f2; } 
-  .contact-social-icon.telegram { background: #229ed9; } 
-  .contact-social-icon.kakao { background: #fee500; color: #191600; } 
-  .contact-social-icon.zalo { background: #0068ff; } 
-  .contact-social-icon.tiktok { background: #111111; } 
+  .contact-social-icon.facebook { background: #1877f2; }
+  .contact-social-icon.telegram { background: #229ed9; }
+  .contact-social-icon.kakao { background: #fee500; color: #191600; }
+  .contact-social-icon.zalo { background: #0068ff; }
+  .contact-social-icon.tiktok { background: #111111; }
   .contact-social-label {
-    display: block; 
-    max-width: 68px; 
-    font-size: 11px; 
-    line-height: 1.15; 
-    font-weight: 600; 
-    overflow-wrap: anywhere; 
+    display: block;
+    max-width: 68px;
+    font-size: 11px;
+    line-height: 1.15;
+    font-weight: 600;
+    overflow-wrap: anywhere;
   }
 }
 
-/* ===================== */
-
-/* ===================== */
 .contact-footer-text {
   margin-top: 18px;
   text-align: center;
-  font-size: 20px; 
+  font-size: 20px;
   line-height: 1.35;
-  font-weight: 700; 
-  letter-spacing: 0.02em; 
-  color: rgba(255, 255, 255, 0.78); 
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.78);
 }
-
 
 .contact-popup-backdrop.is-open .contact-social-item:nth-child(1) {
   animation: contactFadeUp 0.72s ease both;
