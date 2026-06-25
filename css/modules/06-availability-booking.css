@@ -1,76 +1,3 @@
-/* =====================================================
-✅ UPDATED: CSS MODULE 06 — BOOKING / AVAILABILITY
-FILE: ./css/modules/06-availability-booking.css
-
-HTML MODULE:
-- 06-booking
-- 06-booking-floating-trigger
-- 06-booking-popup
-- 06-booking-calendar
-- 06-booking-message
-- 06-booking-tour-list
-
-PURPOSE:
-- Own booking availability UI only.
-- Own floating availability memo, availability popup, calendar, date state, contact action, and availability tour list.
-- Follow everywhere same: same component, same visual, same behavior across mobile/tablet/desktop.
-- Do not hide/show or create separate mobile/desktop variants unless user explicitly requests.
-
-OWNS:
-- #availabilityMemo
-- .availability-memo
-- .availability-memo-card
-- .availability-calendar-icon
-- .availability-calendar-rings
-- .availability-calendar-top
-- .availability-calendar-grid
-- .availability-memo-text
-- .availability-memo-hint
-- .availability-popup-backdrop
-- .availability-popup-card
-- .availability-popup-close
-- .availability-popup-title
-- .availability-popup-desc
-- .availability-calendar-head
-- .availability-month-label
-- .availability-nav
-- .availability-weekdays
-- .availability-days
-- .availability-day
-- .availability-message
-- .availability-contact
-- .availability-tour-list
-- .availability-tour-item
-- .availability-tour-box
-- .availability-tour-img
-- .availability-tour-label
-- .availability-legend
-
-DOES NOT OWN:
-- header
-- logo
-- search
-- hero background image
-- .hero-guide-tagline
-- title / story / CTA
-- policy popup
-- contact popup
-- tour popup visual
-- scroll-home / service grid / accordion
-
-PROJECT RULE:
-- Everywhere same.
-- Mobile UI is source of truth.
-- Responsive shell only.
-- No fake component.
-- No desktop/mobile split unless explicitly requested.
-
-CONFLICT RULE:
-- .availability-memo must not overlap header or .hero-guide-tagline.
-===================================================== */
-
-
-/* ✅ UPDATED: floating availability memo */
 .availability-memo {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 128px);
@@ -137,8 +64,6 @@ CONFLICT RULE:
   pointer-events: none;
 }
 
-
-/* ✅ UPDATED: calendar icon */
 .availability-calendar-icon {
   position: relative;
   width: 52px;
@@ -200,8 +125,6 @@ CONFLICT RULE:
   animation: availabilityDatePulse 1.6s ease-in-out infinite;
 }
 
-
-/* ✅ UPDATED: memo text */
 .availability-memo-text {
   position: relative;
   z-index: 2;
@@ -236,8 +159,6 @@ CONFLICT RULE:
   outline-offset: 4px;
 }
 
-
-/* ✅ UPDATED: memo animations */
 @keyframes availabilityMemoFloat {
   0%,
   100% {
@@ -290,26 +211,30 @@ CONFLICT RULE:
   }
 }
 
-
-/* ✅ UPDATED: popup backdrop */
 .availability-popup-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  background: rgba(0, 0, 0, 0.66);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition:
-    opacity 0.24s ease,
-    visibility 0.24s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-sizing: border-box;
+position: fixed;
+top: calc(env(safe-area-inset-top, 0px) + 93px);
+bottom: 0;
+left: 50%;
+right: auto;
+width: min(100%, var(--app-shell-max-width, 768px));
+max-width: var(--app-shell-max-width, 768px);
+z-index: 1000;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 18px 22px 22px;
+background: rgba(0, 0, 0, 0.66);
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+transition:
+opacity 0.24s ease,
+visibility 0.24s ease;
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+box-sizing: border-box;
+transform: translateX(-50%);
 }
 
 .availability-popup-backdrop.is-open {
@@ -318,13 +243,10 @@ CONFLICT RULE:
   pointer-events: auto;
 }
 
-
-/* ✅ UPDATED: popup card */
 .availability-popup-card {
   position: relative;
   width: min(94vw, 430px);
-  max-height: min(86vh, 720px);
-  max-height: min(86dvh, 720px);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 133px);
   padding: 24px 20px 20px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 24px;
@@ -378,8 +300,6 @@ CONFLICT RULE:
   line-height: 1.45;
 }
 
-
-/* ✅ UPDATED: calendar head */
 .availability-calendar-head {
   display: flex;
   align-items: center;
@@ -416,8 +336,6 @@ CONFLICT RULE:
   pointer-events: none;
 }
 
-
-/* ✅ UPDATED: calendar grid */
 .availability-weekdays,
 .availability-days {
   display: grid;
@@ -498,8 +416,6 @@ CONFLICT RULE:
   color: #ffffff;
 }
 
-
-/* ✅ UPDATED: legend */
 .availability-legend {
   display: none;
   flex-wrap: wrap;
@@ -534,8 +450,6 @@ CONFLICT RULE:
   background: rgba(255, 255, 255, 0.28);
 }
 
-
-/* ✅ UPDATED: message + contact action */
 .availability-message {
   display: none;
   margin-top: 14px;
@@ -583,8 +497,6 @@ CONFLICT RULE:
   cursor: not-allowed;
 }
 
-
-/* ✅ UPDATED: availability tour list */
 .availability-tour-list {
   display: none;
   margin-top: 16px;
