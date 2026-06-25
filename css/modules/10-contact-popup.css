@@ -57,10 +57,12 @@ transform: translateX(-50%);
   margin: 0 0 18px;
 }
 .contact-popup-header-vector {
-  width: 46px;
-  height: 46px;
-  display: block;
-  object-fit: contain;
+width: 46px;
+height: 46px;
+display: block;
+object-fit: contain;
+transform: scale(1);
+transform-origin: center center;
 }
 .contact-popup-close {
   position: static;
