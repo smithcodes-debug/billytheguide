@@ -1,25 +1,19 @@
-/* ✅ NEW: CARD 02 CSS - service card 01 */
 
-@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
+@media (max-width:1024px) { 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
-    /* ✅ NEW: edit card 02 container styles here */
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 02 text/layout spacing here */
   }
-} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
+} 
 
-/* ✅ UPDATED: snorkeling low-res background + progressive high-res source */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
-  background-image: url("../../images/home/tour/snorkeling-low.png"); /* ✅ UPDATED */
-  --progressive-highres: url("../../images/home/tour/snorkeling.jpg"); /* ✅ NEW */
-  background-size: cover; /* ✅ NEW */
-  background-position: center; /* ✅ NEW */
-  background-repeat: no-repeat; /* ✅ NEW */
+  background-image: url("../../images/home/tour/snorkeling-low.png"); 
+  --progressive-highres: url("../../images/home/tour/snorkeling.jpg"); 
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat; 
 }
-
-/* ✅ NEW: high-res loaded state */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02.is-highres {
-  background-image: var(--progressive-highres); /* ✅ NEW */
+  background-image: var(--progressive-highres); 
 }
