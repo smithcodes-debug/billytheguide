@@ -179,11 +179,20 @@ function initMobileHomeFeed() { /* ✅ NEW */
     const title = sourceInner.querySelector('.more-stories-title'); /* ✅ NEW */  
     const quote = sourceInner.querySelector('.more-stories-quote'); /* ✅ NEW */  
     const copy = sourceInner.querySelector('.more-stories-intro'); /* ✅ NEW */  
+    const notes = sourceInner.querySelector('.more-stories-notes');
 
     if (kicker) intro.appendChild(cloneForMobileFeed(kicker)); /* ✅ NEW */  
     if (title) intro.appendChild(cloneForMobileFeed(title)); /* ✅ NEW */  
     if (quote) intro.appendChild(cloneForMobileFeed(quote)); /* ✅ NEW */  
-    if (copy) intro.appendChild(cloneForMobileFeed(copy)); /* ✅ NEW */  
+    if (copy) intro.appendChild(cloneForMobileFeed(copy)); /* ✅ NEW */
+    if (notes) {
+      const notesClone = cloneForMobileFeed(notes);
+      notesClone.classList.add('mobile-home-feed-card-01-notes');
+      notesClone.querySelectorAll('.more-stories-note').forEach(function (note) {
+        note.classList.add('mobile-home-feed-card-01-note');
+      });
+      intro.appendChild(notesClone);
+    }
 
     return intro; /* ✅ NEW */  
   }  
