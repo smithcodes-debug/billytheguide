@@ -11,7 +11,7 @@
 
 /* ✅ UPDATED: snorkeling low-res background + progressive high-res source */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
-  background-image: url("../../images/home/tour/snorkeling-low.jpg"); /* ✅ UPDATED */
+  background-image: url("../../images/home/tour/snorkeling-low.png"); /* ✅ UPDATED */
   --progressive-highres: url("../../images/home/tour/snorkeling.jpg"); /* ✅ NEW */
   background-size: cover; /* ✅ NEW */
   background-position: center; /* ✅ NEW */
