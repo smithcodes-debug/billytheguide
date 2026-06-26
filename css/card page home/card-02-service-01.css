@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: flex-start; /* ✅ UPDATED */
   text-align: center;
-  transform: translateY(-48px); /* ✅ UPDATED */
+  transform: translateY(-34px); /* ✅ UPDATED */
 }
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card::before {
   content: "";
