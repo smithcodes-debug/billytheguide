@@ -23,7 +23,7 @@
   flex: 0 0 auto;
   order: -2;
   width: min(100%, 420px);
-  max-height: 135px;
+  height: 185px;
   aspect-ratio: 16 / 7;
   margin: 0 auto 8px;
   border: 1px solid rgba(5, 6, 8, 0.10);
