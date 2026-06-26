@@ -14,7 +14,7 @@
   gap: 0;
   text-align: center;
   overflow: hidden;
-  transform: translateY(15px); /* ✅ UPDATED */
+  transform: translateY(15px);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card::before {
@@ -25,7 +25,7 @@
   width: min(100%, 320px);
   max-height: 135px;
   aspect-ratio: 16 / 7;
-  margin: 0 auto 7px;
+  margin: 0 auto 8px;
   border: 1px solid rgba(5, 6, 8, 0.10);
   border-radius: 16px;
   background-image: url("../../images/comon/1.png");
@@ -39,28 +39,29 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-title {
   flex: 0 0 auto;
   order: -4;
-  margin: 0 0 4px;
-  font-size: clamp(21px, 5vw, 32px);
-  line-height: 1;
+  margin: 0 0 5px;
+  font-size: clamp(21px, 5.6vw, 35px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
-  max-width: 480px;
-  margin: 0 auto 7px;
-  font-size: clamp(12px, 2.9vw, 15px);
-  line-height: 1.2;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-size: clamp(13px, 3.4vw, 17px);
+  line-height: 1.32;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-extra {
   flex: 0 0 auto;
   order: -1;
-  max-width: 500px;
-  margin: 0 auto 6px;
+  max-width: 540px;
+  margin: 0 auto 7px;
   color: rgba(16, 20, 24, 0.72);
-  font-size: clamp(9px, 2.15vw, 11.5px);
-  line-height: 1.14;
+  font-size: clamp(12px, 3vw, 15px);
+  line-height: 1.24;
   font-weight: 500;
   letter-spacing: -0.01em;
   text-align: center;
@@ -70,6 +71,6 @@
   flex: 0 0 auto;
   order: 0;
   margin-top: 0;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.1;
 }
