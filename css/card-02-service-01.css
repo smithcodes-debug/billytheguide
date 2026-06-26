@@ -1,13 +1,27 @@
 @media (max-width:768px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
+    height: auto;
+    max-height: var(--mobile-feed-card-max-height);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
+    height: auto;
+    justify-content: flex-start;
+  }
+
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card {
+    height: auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-link {
-    margin-top: 2px;
-    transform: translateY(-14px);
+    margin-top: 10px;
+    margin-bottom: 0;
+    align-self: center;
+    transform: none;
   }
 }
