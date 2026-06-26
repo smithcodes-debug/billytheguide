@@ -1,10 +1,11 @@
-/* ✅ NEW: CARD 02 CSS - service card 01 */
 @media (max-width:768px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 {
-    /* ✅ NEW: edit card 02 container styles here */
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 02 text/layout spacing here */
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-link {
+    margin-top: 8px;
   }
 }
