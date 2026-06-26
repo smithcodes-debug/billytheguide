@@ -1,456 +1,351 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coral Tour</title>
-  <link rel="stylesheet" href="./css/modules/00-display-shell.css">
-  <link rel="stylesheet" href="./css/modules/05-hero-background.css">
-  <link rel="stylesheet" href="./css/home-hero-tour-popup.css">
-  <link rel="stylesheet" href="./css/card page home/card-01-intro.css">
-  <link rel="stylesheet" href="./css/card page home/card-02-service-01.css">
-  <link rel="stylesheet" href="./css/card page home/card-03-service-02.css">
-  <link rel="stylesheet" href="./css/card page home/card-04-service-03.css">
-  <link rel="stylesheet" href="./css/card page home/card-05-service-04.css">
-  <link rel="stylesheet" href="./css/card page home/card-06-service-05.css">
-  <link rel="stylesheet" href="./css/card page home/card-07-service-06.css">
-  <link rel="stylesheet" href="./css/card page home/card-08-accordion-01.css">
-  <link rel="stylesheet" href="./css/card page home/card-09-accordion-02.css">
-  <link rel="stylesheet" href="./css/card page home/card-10-accordion-03.css">
-  <link rel="stylesheet" href="./css/modules/06-availability-booking.css">
-  <link rel="stylesheet" href="./css/modules/10-contact-popup.css">
-  <link rel="stylesheet" href="./css/modules/08-policy-popup.css">
-  <link rel="stylesheet" href="./css/modules/11-scroll-home-composite.css">
-  <link rel="stylesheet" href="./css/modules/03-mobile-search.css">
-  <link rel="stylesheet" href="./css/modules/07-mobile-edge-pad.css">
-  <link rel="stylesheet" href="./css/modules/09-tour-snorkeling-transition.css">
-  <link rel="stylesheet" href="./css/modules/01-global-motion.css">
-  <link rel="stylesheet" href="./css/modules/17-mobile-story-typewriter.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>English Story Lessons for Kids</title>
+
+  <meta
+    name="description"
+    content="Fun English lessons for children, primary students, and lower-secondary students through storytelling, games, and interactive activities."
+  />
+
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
-<header>
-  <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false">
-    <div class="mask">
-      <div class="fish">🐠</div>
-      <div class="bubble b1"></div>
-      <div class="bubble b2"></div>
-      <div class="bubble b3"></div>
-      <div class="text">
-        <div class="text1">
-          <span class="billy">"Billy</span>
-          <span class="and">and</span>
-          <span class="friend">Friend"</span>
-        </div>
-        <div class="text2">adventures</div>
-        <div class="text3">The private guide</div>
-      </div>
-    </div>
-  </div>
-  <button class="header-search-trigger" type="button" aria-label="Open search" aria-controls="mobile-search-popup" aria-expanded="false">
-    <span class="header-search-icon" aria-hidden="true">🔍</span>
-    <span class="header-search-dots" aria-hidden="true">......</span>
-  </button>
-  <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
-    <img class="menu-trigger-icon" src="images/comon/menu.svg" alt="" aria-hidden="true" loading="eager" decoding="async">
-  </button>
-</header>
-
-<div class="mobile-search-backdrop" id="mobile-search-popup" aria-hidden="true">
-  <div class="mobile-search-panel" role="dialog" aria-modal="true" aria-labelledby="mobileSearchTitle">
-    <div class="mobile-search-head">
-      <h2 class="mobile-search-title" id="mobileSearchTitle">hãy thử tìm một trải nghiệm</h2>
-      <button class="mobile-search-close" type="button" aria-label="Đóng search">×</button>
-    </div>
-    <form class="mobile-search-form" role="search">
-      <input class="mobile-search-input" type="search" placeholder="snorkeling, diving, hiking..." aria-label="Tìm kiếm trải nghiệm" autocomplete="off">
-      <button class="mobile-search-submit" type="submit" aria-label="Tìm kiếm">🔍</button>
-    </form>
-    <p class="mobile-search-hint">search nhanh: snorkeling, diving, hiking, camping, contact</p>
-    <div class="mobile-search-results" aria-live="polite"></div>
-  </div>
-</div>
-
-<main id="site-content" class="site-content">
-<section class="hero">
-  <div class="overlay"></div>
-  <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div>
-  <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
-    <span class="availability-memo-card" aria-hidden="true">
-      <span class="availability-calendar-icon">
-        <span class="availability-calendar-rings"><span></span><span></span></span>
-        <span class="availability-calendar-top"></span>
-        <span class="availability-calendar-grid">
-          <span></span><span></span><span></span>
-          <span></span><span></span><span></span>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="English Story Lessons home">
+        <span class="brand-mark">ABC</span>
+        <span class="brand-text">
+          <strong>English Story Lessons</strong>
+          <small>Storytelling English for Kids</small>
         </span>
-      </span>
-      <span class="availability-memo-text">check avalibility</span>
-      <span class="availability-memo-hint">open dates</span>
-    </span>
-  </button>
+      </a>
 
-  <div class="content">
-    <h1 class="title">
-      <span class="title-mobile-line title-mobile-line-1">Khám phá</span>
-      <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span>
-    </h1>
-    <div class="story">
-      <p>
-Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
-    </div>
-    <div class="cta-row">
-      <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">
-        <span>let's...</span>
-        <label class="checkbox">
-          <input type="checkbox" id="leaveNoTraceCheckbox">
-          <span class="fake-box"></span>
-        </label>
-        <span>"Leave no trace"</span>
-      </span>
-      <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span>
-    </div>
-  </div>
-</section>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-<button class="mobile-edge-pad" type="button" aria-label="Mở phần thông tin bên dưới" aria-controls="more-stories-section"></button>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#method">Method</a>
+        <a href="#programs">Programs</a>
+        <a href="#sample">Sample Lesson</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-<div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
-  <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
-    <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
-    <div class="policy-popup-media-row" aria-hidden="true">
-      <div class="policy-popup-logo-slot"></div>
-      <img class="policy-popup-menu-vector" src="images/menu.png" alt="" loading="lazy" decoding="async">
-    </div>
-    <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
-    <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
-    <button class="policy-popup-action" type="button" aria-label="Mở chính sách Leave no trace">
-      <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
-      <span class="sr-only">"Leave no trace"</span>
-    </button>
-    <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button>
-    <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true">
-      <ul class="policy-popup-guidelines-list">
-        <li>do not step on coral</li>
-        <li>do not litter</li>
-        <li>do not bring back coral, even dead coral</li>
-        <li>together clean up everything after your tour</li>
-        <li>try to stay organic</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
-  <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <div class="popup-head">
-      <h2 class="popup-title" id="popupTitle">Bạn đang tìm kiếm điều gì ở Phú Quốc?</h2>
-      <button class="popup-close" type="button" aria-label="Đóng popup">×</button>
-    </div>
-    <div class="popup-copy">
-      <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.
-      Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.
-    </div>
-    <div class="popup-note">
-  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
-</div>
-<div class="popup-notes-shell">
-  <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button>
-  <div class="popup-notes">
-    <div class="popup-note-item" data-tour="snorkeling" role="button" tabindex="0" aria-label="Open snorkeling experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">snorkeling</span>
-    </div>
-    <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">diving</span>
-    </div>
-    <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">hiking</span>
-    </div>
-    <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">camping</span>
-    </div>
-    <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">propose</span>
-    </div>
-    <div class="popup-note-item" data-tour="phuQuocTipAndTrick" role="button" tabindex="0" aria-label="Open Phu Quoc tip and trick page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/phuquoctipandtrick-low.png" alt="phu quoc tip and trick" data-progressive-image="true" data-highres-src="images/home/tour/phuquoctipandtrick.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">phu quoc tip and trick</span>
-    </div>
-    <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/coral-dictionary-low.jpg" alt="coral dictionary" data-progressive-image="true" data-highres-src="images/home/tour/coral-dictionary.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">coral dictionary</span>
-    </div>
-  </div>
-  <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button>
-</div>
-</div>
-</div>
-
-<div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
-  <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
-    <button class="availability-popup-close" type="button" aria-label="Đóng lịch">×</button>
-    <h2 class="availability-popup-title" id="availabilityPopupTitle">check avalibility</h2>
-    <p class="availability-popup-desc">Chọn ngày còn trống để nhắn Billy and Friend Adventures kiểm tra và giữ lịch tour cho bạn.</p>
-    <div class="availability-calendar-head">
-      <div class="availability-month-label" id="availabilityMonthLabel"></div>
-      <div class="availability-nav" aria-label="Đổi tháng">
-        <button type="button" id="availabilityPrevMonth" aria-label="Tháng trước">‹</button>
-        <button type="button" id="availabilityNextMonth" aria-label="Tháng sau">›</button>
-      </div>
-    </div>
-    <div class="availability-weekdays" aria-hidden="true">
-      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-    </div>
-    <div class="availability-days" id="availabilityDays"></div>
-    <div class="availability-message" id="availabilityMessage" role="status" aria-live="polite"></div>
-    <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button>
-    <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true">
-      <div class="availability-tour-item" data-tour="snorkeling">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
+    <main id="top">
+      <section class="hero-section">
+        <div class="hero-badge">
+          <span>TESOL Certified Teacher</span>
+          <span>Kids • Primary • Lower Secondary</span>
         </div>
-        <span class="availability-tour-label">snorkeling</span>
-      </div>
-      <div class="availability-tour-item" data-tour="diving">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">diving</span>
-      </div>
-      <div class="availability-tour-item" data-tour="hiking">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">hiking</span>
-      </div>
-      <div class="availability-tour-item" data-tour="camping">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">camping</span>
-      </div>
-      <div class="availability-tour-item" data-tour="propose">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">propose</span>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
-  <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
-    <div class="contact-popup-header">
-      <img class="contact-popup-header-vector" src="images/comon/menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true">
-      <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div>
-      <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
-    </div>
-    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398"><span class="contact-phone-icon" aria-hidden="true">☎</span><span class="contact-phone-number">+84 812233398</span></a>
-    <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p>
-    <div class="contact-social-list" aria-label="Kênh liên hệ">
-      <span class="contact-social-item" aria-label="facebook">
-        <span class="contact-social-icon facebook" aria-hidden="true">f</span>
-        <span class="contact-social-label">facebook</span>
-      </span>
-      <span class="contact-social-item" aria-label="telegram">
-        <span class="contact-social-icon telegram" aria-hidden="true">↗</span>
-        <span class="contact-social-label">telegram</span>
-      </span>
-      <span class="contact-social-item" aria-label="kakao">
-        <span class="contact-social-icon kakao" aria-hidden="true">K</span>
-        <span class="contact-social-label">kakao</span>
-      </span>
-      <span class="contact-social-item" aria-label="zalo">
-        <span class="contact-social-icon zalo" aria-hidden="true">Z</span>
-        <span class="contact-social-label">zalo</span>
-      </span>
-      <span class="contact-social-item" aria-label="tiktok">
-        <span class="contact-social-icon tiktok" aria-hidden="true">♪</span>
-        <span class="contact-social-label">tiktok</span>
-      </span>
-      <span class="contact-social-item" aria-label="youtube">
-        <span class="contact-social-icon youtube" aria-hidden="true">▶</span>
-        <span class="contact-social-label">youtube</span>
-      </span>
-      <span class="contact-social-item" aria-label="wechat">
-        <span class="contact-social-icon wechat" aria-hidden="true">💬</span>
-        <span class="contact-social-label">wechat</span>
-      </span>
-      <span class="contact-social-item" aria-label="google map">
-        <span class="contact-social-icon google-map" aria-hidden="true">⌖</span>
-        <span class="contact-social-label">google map</span>
-      </span>
-      <span class="contact-social-item" aria-label="maill">
-        <span class="contact-social-icon maill" aria-hidden="true">@</span>
-        <span class="contact-social-label">maill</span>
-      </span>
-      <span class="contact-social-item" aria-label="line">
-        <span class="contact-social-icon line" aria-hidden="true">L</span>
-        <span class="contact-social-label">line</span>
-      </span>
-    </div>
-    <div class="contact-footer-text">find me on what you have</div>
-  </div>
-</div>
+        <div class="hero-grid">
+          <div class="hero-content">
+            <p class="section-kicker">Learning English through stories</p>
 
-<section
-  class="more-stories-section"
-  id="more-stories-section"
-  aria-labelledby="moreStoriesTitle"
-  data-home-root="scrollable-home"
-  data-home-behavior="scrollable"
-  data-return-target="true"
->
-  <div class="more-stories-inner">
-    <p class="more-stories-kicker">Billy and Friend Adventures</p>
-    <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
-    <p class="more-stories-quote">"Some laugh because we are different.<br>We smile because we choose not to be the same."</p>
-    <p class="more-stories-intro">We choose a slower, a more personal way to discover Phú Quốc through coral-friendly snorkeling or diving, with quiet island camping sometimes, and live a life shaped by a Leave no trace mindset.that's it.</p>
-    <div class="more-stories-notes" aria-label="Snorkeling service notes">
-      <span class="more-stories-note">no crowd</span>
-      <span class="more-stories-note">underwater guide</span>
-      <span class="more-stories-note">kid + disabled friendly</span>
-      <span class="more-stories-note">HD glass</span>
-      <span class="more-stories-note">current controlled</span>
-      <span class="more-stories-note">media with you</span>
-    </div>
-    <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Back to tour choices">Back to tours</button>
+            <h1>English Through Stories, Games & Confidence</h1>
 
-    <div class="more-services-block" aria-labelledby="moreServicesTitle">
-      <h3 class="more-section-label" id="moreServicesTitle">Compact semantic layer</h3>
-      <div class="more-services-grid" aria-label="Private Phú Quốc tour landing pages">
-        <a class="more-service-card" href="./coral-snorkeling-phu-quoc.html">
-          <h4 class="more-service-card-title">Snorkeling in Phú Quốc</h4>
-          <p class="more-service-card-desc">Private coral-friendly snorkeling with a local guide and slower, cleaner travel.</p>
-          <p class="more-service-card-extra">We understand that every family and traveler seeks the perfect getaway—a journey thoughtfully tailored so that every member can fully enjoy the experience and no one is left behind. That is exactly why we have crafted the following exclusive, customized tour programs just for you:</p>
-<span class="more-service-card-pads" aria-label="Snorkeling program options">
-  <span class="more-service-card-pad">
-    <strong>snorkeling and relax 4 hours</strong>
-    <em>for check out or fly home</em>
-  </span>
-  <span class="more-service-card-pad">
-    <strong>snorkeling and relax 4 hours with kid</strong>
-    <em>desiged emphasie for kid safe and fly</em>
-  </span>
-  <span class="more-service-card-pad">
-    <strong>snorkeling relax 6 hourse</strong>
-    <em>freediving advanced</em>
-  </span>
-  <span class="more-service-card-pad">
-    <strong>snorkeling stay chill + BBQ</strong>
-    <em>6 hours · sunset hoping</em>
-  </span>
-</span>
-<span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./diving-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Diving in Phú Quốc</h4>
-          <p class="more-service-card-desc">A calm private diving experience for guests who want deeper island water stories.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./hiking-mountain-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Hiking in Phú Quốc</h4>
-          <p class="more-service-card-desc">Quiet local routes for guests who want to see another side of Phú Quốc.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./camping-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Camping in Phú Quốc</h4>
-          <p class="more-service-card-desc">Simple outdoor time focused on nature, quiet places, and Leave no trace.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./propose-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Proposal Getaway in Phú Quốc</h4>
-          <p class="more-service-card-desc">A quiet private setup for couples visiting the island and planning a memory.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./coral-dictionary-at-phu-quoc.html">
-          <h4 class="more-service-card-title">Coral Dictionary at Phú Quốc</h4>
-          <p class="more-service-card-desc">Simple coral notes to help guests understand, respect, and protect reef life.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-      </div>
-    </div>
+            <p class="hero-subtitle">
+              Fun English lessons for primary and lower-secondary students,
+              designed with storytelling, games, and interactive activities.
+            </p>
 
-    <div class="more-accordion-block" aria-labelledby="moreAccordionTitle">
-      <h3 class="more-section-label" id="moreAccordionTitle">Accordion</h3>
-      <div class="more-accordion-list">
-        <details class="more-accordion-item" open>
-          <summary class="more-accordion-summary">Leave no trace</summary>
-          <div class="more-accordion-panel">
-            <p>Leave no trace is the travel promise behind Billy and Friend Adventures: enjoy Phú Quốc without damaging coral reefs, beaches, forest paths, or the quiet local places that make the island worth visiting.</p>
-            <p>Guests are guided to move slowly, avoid touching coral, reduce waste, respect local routes, and leave each place as natural as possible for the people who arrive after them.</p>
-          </div>
-        </details>
-        <details class="more-accordion-item">
-          <summary class="more-accordion-summary">FAQ</summary>
-          <div class="more-accordion-panel">
-            <dl class="more-faq-list">
-              <div>
-                <dt>Are these private experiences?</dt>
-                <dd>Yes. The focus is on private, slower, and more personal Phú Quốc experiences instead of crowded standard tours.</dd>
-              </div>
-              <div>
-                <dt>Is snorkeling beginner-friendly?</dt>
-                <dd>Yes. The snorkeling experience is designed to be calm, guided, and respectful of coral safety.</dd>
-              </div>
-              <div>
-                <dt>How does the tour protect coral reefs?</dt>
-                <dd>The guide explains safe movement, no-touch reef behavior, cleaner travel habits, and why coral needs distance and respect.</dd>
-              </div>
-              <div>
-                <dt>How can guests book?</dt>
-                <dd>Guests can use the contact popup, choose an available date, or open a specific landing page for the experience they want.</dd>
-              </div>
-              <div>
-                <dt>Which experience should first-time visitors choose?</dt>
-                <dd>Snorkeling is usually the easiest first choice, while hiking, camping, diving, and proposal getaways fit more specific travel plans.</dd>
-              </div>
-            </dl>
-          </div>
-        </details>
-        <details class="more-accordion-item">
-          <summary class="more-accordion-summary">Contact platforms</summary>
-          <div class="more-accordion-panel">
-            <p>Find Billy and Friend Adventures on the contact platform you already use. Direct links will be mapped after the official channels are ready.</p>
-            <div class="more-contact-platforms" aria-label="Contact platform names">
-              <span class="more-contact-platform">facebook</span>
-              <span class="more-contact-platform">telegram</span>
-              <span class="more-contact-platform">kakao</span>
-              <span class="more-contact-platform">zalo</span>
-              <span class="more-contact-platform">tiktok</span>
-              <span class="more-contact-platform">youtube</span>
-              <span class="more-contact-platform">wechat</span>
-              <span class="more-contact-platform">google map</span>
-              <span class="more-contact-platform">maill</span>
-              <span class="more-contact-platform">line</span>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#contact">Book a Trial Lesson</a>
+              <a class="btn btn-secondary" href="#sample">View Sample Lesson</a>
             </div>
           </div>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
 
-<script type="module" src="./js/main.js"></script>
+          <div class="hero-card" aria-label="Learning outcome card">
+            <div class="card-number">01</div>
+            <h2>Learning Outcome</h2>
+            <p>
+              Children learn to speak, listen, read, and write English naturally
+              through meaningful stories and guided activities.
+            </p>
+
+            <ul class="check-list">
+              <li>Speak with more confidence</li>
+              <li>Learn vocabulary in context</li>
+              <li>Practice grammar through stories</li>
+              <li>Enjoy English without pressure</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="poster-strip" aria-label="Learning highlights">
+        <article>
+          <span class="icon-bubble">📚</span>
+          <strong>Storytelling</strong>
+          <p>Lessons built around short, memorable stories.</p>
+        </article>
+
+        <article>
+          <span class="icon-bubble">🎲</span>
+          <strong>Games</strong>
+          <p>Fun activities that help children practice naturally.</p>
+        </article>
+
+        <article>
+          <span class="icon-bubble">💬</span>
+          <strong>Interaction</strong>
+          <p>Students speak, ask, answer, and share ideas.</p>
+        </article>
+      </section>
+
+      <section id="about" class="section-block about-section">
+        <div class="section-heading">
+          <p class="section-kicker">02. About Teacher</p>
+          <h2>A warm and student-centered English learning experience</h2>
+        </div>
+
+        <div class="two-column">
+          <div class="info-card green-card">
+            <h3>Teacher Profile</h3>
+            <p>
+              I am an English teacher with a TESOL 120-hour certification from
+              ALAP UK. My teaching direction focuses on young learners, using
+              creative lessons, storytelling, games, and interaction to help
+              children learn English naturally.
+            </p>
+          </div>
+
+          <div class="info-card blue-card">
+            <h3>Education & Certification</h3>
+            <ul class="simple-list">
+              <li>
+                <strong>TESOL Certification</strong><br />
+                ALAP UK – June 2026
+              </li>
+              <li>
+                <strong>Bachelor of International Economic Relations</strong><br />
+                University of Economics and Law – Vietnam National University HCMC, 2013
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="method" class="section-block method-section">
+        <div class="section-heading">
+          <p class="section-kicker">03. Teaching Method</p>
+          <h2>How children learn in each lesson</h2>
+        </div>
+
+        <div class="method-grid">
+          <article class="method-card">
+            <span class="method-number">1</span>
+            <h3>Story First</h3>
+            <p>
+              Students meet vocabulary and grammar inside a simple story, not as
+              isolated rules.
+            </p>
+          </article>
+
+          <article class="method-card">
+            <span class="method-number">2</span>
+            <h3>Play & Practice</h3>
+            <p>
+              Games, role-play, picture prompts, and mini tasks help children
+              repeat English with purpose.
+            </p>
+          </article>
+
+          <article class="method-card">
+            <span class="method-number">3</span>
+            <h3>Speak with Confidence</h3>
+            <p>
+              Students ask questions, answer, describe, and retell stories step
+              by step.
+            </p>
+          </article>
+
+          <article class="method-card">
+            <span class="method-number">4</span>
+            <h3>Review Naturally</h3>
+            <p>
+              New language is reviewed through short missions, storytelling
+              challenges, and friendly feedback.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="programs" class="section-block programs-section">
+        <div class="section-heading">
+          <p class="section-kicker">04. Programs</p>
+          <h2>English programs for young learners</h2>
+        </div>
+
+        <div class="program-grid">
+          <article class="program-card orange-card">
+            <h3>Starter Story English</h3>
+            <p class="program-age">For beginners</p>
+            <ul>
+              <li>Basic vocabulary</li>
+              <li>Simple sentences</li>
+              <li>Picture-based speaking</li>
+              <li>Fun listening activities</li>
+            </ul>
+          </article>
+
+          <article class="program-card purple-card">
+            <h3>Primary English Adventure</h3>
+            <p class="program-age">For primary students</p>
+            <ul>
+              <li>Story-based grammar</li>
+              <li>Speaking games</li>
+              <li>Reading short texts</li>
+              <li>Confidence-building tasks</li>
+            </ul>
+          </article>
+
+          <article class="program-card pink-card">
+            <h3>Lower Secondary Booster</h3>
+            <p class="program-age">For lower-secondary students</p>
+            <ul>
+              <li>Grammar in context</li>
+              <li>Question and answer practice</li>
+              <li>Short writing tasks</li>
+              <li>Presentation confidence</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="sample" class="section-block sample-section">
+        <div class="section-heading">
+          <p class="section-kicker">05. Sample Story Activity</p>
+          <h2>Weekend Detective Game</h2>
+          <p>
+            A storytelling activity where students share three sentences about
+            their weekend. Two are true. One is a lie. Friends ask questions to
+            find the lie.
+          </p>
+        </div>
+
+        <div class="lesson-board">
+          <article class="lesson-card lesson-green">
+            <h3>1. What is it?</h3>
+            <p>
+              Students tell a short weekend story using simple past tense.
+              The class listens carefully and becomes detectives.
+            </p>
+          </article>
+
+          <article class="lesson-card lesson-orange">
+            <h3>2. Sentence Rules</h3>
+            <ul>
+              <li>Write three clear sentences.</li>
+              <li>Two sentences are true.</li>
+              <li>One sentence is a lie.</li>
+              <li>Use past simple tense.</li>
+              <li>Tell the story in order.</li>
+            </ul>
+          </article>
+
+          <article class="lesson-card lesson-blue">
+            <h3>3. Example</h3>
+            <p><strong>Student A:</strong></p>
+            <ol>
+              <li>I went to the cinema on Saturday.</li>
+              <li>I played pickleball for two hours.</li>
+              <li>Then I bought milk tea.</li>
+            </ol>
+            <p>
+              Friends ask questions to find which sentence is the lie.
+            </p>
+          </article>
+
+          <article class="lesson-card lesson-purple">
+            <h3>4. How to Play</h3>
+            <ol>
+              <li>Write your sentences.</li>
+              <li>Read them aloud.</li>
+              <li>Ask follow-up questions.</li>
+              <li>Vote for the lie.</li>
+              <li>Reveal the truth.</li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="goal-card">
+          <span>🏆</span>
+          <div>
+            <h3>Your Goal</h3>
+            <p>Be a great storyteller. Be a smart detective. Have fun!</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block trust-section">
+        <div class="section-heading">
+          <p class="section-kicker">06. Why Parents Can Trust This Class</p>
+          <h2>Designed for children, explained clearly to parents</h2>
+        </div>
+
+        <div class="trust-grid">
+          <article>
+            <h3>Child-friendly lessons</h3>
+            <p>
+              Lessons are designed to match children’s ages, learning styles,
+              and attention span.
+            </p>
+          </article>
+
+          <article>
+            <h3>Clear communication</h3>
+            <p>
+              Parents can understand what children learn and how children are
+              improving.
+            </p>
+          </article>
+
+          <article>
+            <h3>Positive learning space</h3>
+            <p>
+              Children are encouraged to speak, try, make mistakes, and grow
+              with confidence.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <div class="contact-card">
+          <p class="section-kicker">07. Contact</p>
+          <h2>Ready to help your child enjoy English?</h2>
+          <p>
+            Book a trial lesson and let your child experience English through
+            stories, games, and interactive learning.
+          </p>
+
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="tel:+84000000000">Call Now</a>
+            <a class="btn btn-secondary" href="mailto:hello@example.com">Send Email</a>
+          </div>
+
+          <p class="contact-note">
+            Replace phone number and email with your real contact information.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 English Story Lessons. Helping children love English through storytelling.</p>
+    </footer>
+  </div>
+
+  <script src="./js/main.js"></script>
 </body>
 </html>
