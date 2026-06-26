@@ -5,8 +5,8 @@
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card {
-  min-height: 0;
-  height: auto;
+  min-height: 100%;
+  height: 100%;
   padding: 0;
   flex-direction: column;
   justify-content: flex-start;
@@ -22,9 +22,8 @@
   display: block;
   flex: 0 0 auto;
   order: -2;
-  width: min(100%, 420px);
-  height: 200px;
-  aspect-ratio: 16 / 7;
+  width: min(calc(100% - 20px), 340px);
+  height: 155px;
   margin: 0 auto 8px;
   border: 1px solid rgba(5, 6, 8, 0.10);
   border-radius: 16px;
@@ -58,7 +57,7 @@
   flex: 0 0 auto;
   order: -1;
   max-width: 540px;
-  margin: 0 auto 7px;
+  margin: 0 auto 8px;
   color: rgba(16, 20, 24, 0.72);
   font-size: clamp(12px, 3vw, 15px);
   line-height: 1.24;
@@ -67,10 +66,56 @@
   text-align: center;
 }
 
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-pads {
+  order: 0;
+  width: min(calc(100% - 20px), 540px);
+  margin: 0 auto 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-pad {
+  min-height: 40px;
+  padding: 7px 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid rgba(8, 63, 70, 0.14);
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(232, 249, 249, 0.82), rgba(255, 255, 255, 0.70)),
+    rgba(221, 245, 246, 0.72);
+  box-shadow: 0 7px 18px rgba(8, 63, 70, 0.07);
+  color: rgba(9, 31, 36, 0.88);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-pad strong {
+  display: block;
+  color: rgba(8, 38, 44, 0.94);
+  font-size: clamp(11px, 2.65vw, 13.5px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-pad em {
+  display: block;
+  color: rgba(8, 63, 70, 0.66);
+  font-size: clamp(9px, 2.2vw, 11px);
+  line-height: 1.18;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-service-card-link {
   flex: 0 0 auto;
-  order: 0;
-  margin-top: 0;
+  order: 1;
+  margin-top: auto;
+  padding-top: 8px;
+  padding-bottom: 6px;
   font-size: 15px;
   line-height: 1.1;
 }
