@@ -450,7 +450,7 @@
   }
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-quote {
     margin: 14px auto 0;
-    max-width: 560px;
+    max-width: 260px;
     color: rgba(16, 20, 24, 0.58);
     font-size: clamp(13px, 3.4vw, 17px);
     line-height: 1.42;
