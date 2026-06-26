@@ -570,6 +570,105 @@ h1 {
   background: var(--color-white);
 }
 
+/* ✅ NEW */
+.interactive-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    filter 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ✅ NEW */
+.interactive-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at top right, rgba(255, 216, 77, 0.35), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 52%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+/* ✅ NEW */
+.interactive-card:hover,
+.interactive-card:focus-visible,
+.interactive-card.is-preview {
+  transform: translateY(-6px) scale(1.015);
+  border-color: var(--color-navy);
+  box-shadow: 0 22px 52px rgba(8, 41, 107, 0.22);
+}
+
+/* ✅ NEW */
+.interactive-card:hover::after,
+.interactive-card:focus-visible::after,
+.interactive-card.is-preview::after {
+  opacity: 1;
+}
+
+/* ✅ NEW */
+.interactive-card:focus-visible {
+  outline: 4px solid rgba(255, 216, 77, 0.85);
+  outline-offset: 4px;
+}
+
+/* ✅ NEW */
+.preview-hint {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+/* ✅ NEW */
+.interactive-card:hover .preview-hint,
+.interactive-card:focus-visible .preview-hint,
+.interactive-card.is-preview .preview-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ✅ NEW */
+.interactive-card.is-preview {
+  animation: previewPulse 520ms ease;
+}
+
+/* ✅ NEW */
+@keyframes previewPulse {
+  0% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.04);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
 .contact-section {
   padding: 28px 16px 40px;
 }

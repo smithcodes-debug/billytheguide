@@ -11,7 +11,7 @@
     content="Fun English lessons for children, primary students, and lower-secondary students through storytelling, games, and interactive activities."
   />
 
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
@@ -187,7 +187,13 @@
         </div>
 
         <div class="program-grid">
-          <article class="program-card orange-card">
+          <article
+            class="program-card orange-card interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="View Starter Story English program"
+          >
             <h3>Starter Story English</h3>
             <p class="program-age">For beginners</p>
             <ul>
@@ -196,9 +202,16 @@
               <li>Picture-based speaking</li>
               <li>Fun listening activities</li>
             </ul>
+            <span class="preview-hint">Tap again to book this program</span>
           </article>
 
-          <article class="program-card purple-card">
+          <article
+            class="program-card purple-card interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="View Primary English Adventure program"
+          >
             <h3>Primary English Adventure</h3>
             <p class="program-age">For primary students</p>
             <ul>
@@ -207,9 +220,16 @@
               <li>Reading short texts</li>
               <li>Confidence-building tasks</li>
             </ul>
+            <span class="preview-hint">Tap again to book this program</span>
           </article>
 
-          <article class="program-card pink-card">
+          <article
+            class="program-card pink-card interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="View Lower Secondary Booster program"
+          >
             <h3>Lower Secondary Booster</h3>
             <p class="program-age">For lower-secondary students</p>
             <ul>
@@ -218,6 +238,7 @@
               <li>Short writing tasks</li>
               <li>Presentation confidence</li>
             </ul>
+            <span class="preview-hint">Tap again to book this program</span>
           </article>
         </div>
       </section>
@@ -234,15 +255,28 @@
         </div>
 
         <div class="lesson-board">
-          <article class="lesson-card lesson-green">
+          <article
+            class="lesson-card lesson-green interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Book a trial lesson for Weekend Detective Game"
+          >
             <h3>1. What is it?</h3>
             <p>
               Students tell a short weekend story using simple past tense.
               The class listens carefully and becomes detectives.
             </p>
+            <span class="preview-hint">Tap again to try this lesson</span>
           </article>
 
-          <article class="lesson-card lesson-orange">
+          <article
+            class="lesson-card lesson-orange interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Book a trial lesson for sentence rules"
+          >
             <h3>2. Sentence Rules</h3>
             <ul>
               <li>Write three clear sentences.</li>
@@ -251,9 +285,16 @@
               <li>Use past simple tense.</li>
               <li>Tell the story in order.</li>
             </ul>
+            <span class="preview-hint">Tap again to try this lesson</span>
           </article>
 
-          <article class="lesson-card lesson-blue">
+          <article
+            class="lesson-card lesson-blue interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Book a trial lesson for Weekend Detective example"
+          >
             <h3>3. Example</h3>
             <p><strong>Student A:</strong></p>
             <ol>
@@ -264,9 +305,16 @@
             <p>
               Friends ask questions to find which sentence is the lie.
             </p>
+            <span class="preview-hint">Tap again to try this lesson</span>
           </article>
 
-          <article class="lesson-card lesson-purple">
+          <article
+            class="lesson-card lesson-purple interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Book a trial lesson for how to play"
+          >
             <h3>4. How to Play</h3>
             <ol>
               <li>Write your sentences.</li>
@@ -275,6 +323,7 @@
               <li>Vote for the lie.</li>
               <li>Reveal the truth.</li>
             </ol>
+            <span class="preview-hint">Tap again to try this lesson</span>
           </article>
         </div>
 
@@ -294,28 +343,49 @@
         </div>
 
         <div class="trust-grid">
-          <article>
+          <article
+            class="interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Contact teacher about child-friendly lessons"
+          >
             <h3>Child-friendly lessons</h3>
             <p>
               Lessons are designed to match children’s ages, learning styles,
               and attention span.
             </p>
+            <span class="preview-hint">Tap again to ask about lessons</span>
           </article>
 
-          <article>
+          <article
+            class="interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Contact teacher about parent communication"
+          >
             <h3>Clear communication</h3>
             <p>
               Parents can understand what children learn and how children are
               improving.
             </p>
+            <span class="preview-hint">Tap again to contact teacher</span>
           </article>
 
-          <article>
+          <article
+            class="interactive-card js-preview-card"
+            role="button"
+            tabindex="0"
+            data-preview-target="#contact"
+            aria-label="Contact teacher about positive learning space"
+          >
             <h3>Positive learning space</h3>
             <p>
               Children are encouraged to speak, try, make mistakes, and grow
               with confidence.
             </p>
+            <span class="preview-hint">Tap again to book a trial</span>
           </article>
         </div>
       </section>
@@ -346,6 +416,6 @@
     </footer>
   </div>
 
-  <script src="./js/main.js"></script>
+  <script src="./main.js"></script>
 </body>
 </html>
