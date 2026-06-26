@@ -1,184 +1,191 @@
-import { initGesture } from './ui/gesture.js'; /* ✅ UPDATED */
-import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js'; /* ✅ UPDATED */
-import { initContactPopup } from './ui/contact-popup.js'; /* ✅ NEW */
-import { initPolicyPopup } from './ui/policy-popup.js'; /* ✅ NEW */
-import { initTourCarousel } from './ui/tour-carousel.js'; /* ✅ NEW */
-import { initStoryExpand } from './ui/story-expand.js'; /* ✅ NEW */
-import { initAvailabilityPopup } from './modules/booking.js'; /* ✅ NEW */
-import { initSearchPopup } from './ui/search-popup.js'; /* ✅ NEW */
-import { initMobileEdgePad } from './ui/mobile-edge-pad.js'; /* ✅ NEW */
-import { initProgressiveImageLoader } from './modules/progressive-image-loader.js'; /* ✅ NEW */
+import { initGesture } from './ui/gesture.js';
+import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js';
+import { initContactPopup } from './ui/contact-popup.js';
+import { initPolicyPopup } from './ui/policy-popup.js';
+import { initTourCarousel } from './ui/tour-carousel.js';
+import { initStoryExpand } from './ui/story-expand.js';
+import { initAvailabilityPopup } from './modules/booking.js';
+import { initSearchPopup } from './ui/search-popup.js';
+import { initMobileEdgePad } from './ui/mobile-edge-pad.js';
+import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 
-function initHomePopup() { /* ✅ NEW */
-  const checkbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
-  const popup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
-  const popupCard = popup ? popup.querySelector('.popup-card') : null; /* ✅ NEW */
-  const closeBtn = popup ? popup.querySelector('.popup-close') : null; /* ✅ NEW */
-  const triggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
-  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
-  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup'; /* ✅ NEW */
-  const MOBILE_TABLET_MAX_WIDTH = 1024; /* ✅ UPDATED: mobile + tablet dùng cùng rule */
-  let homeScrollUnlocked = false; /* ✅ NEW */
+function initHomePopup() {
+  const checkbox = document.getElementById('leaveNoTraceCheckbox');
+  const popup = document.getElementById('leave-no-trace-popup');
+  const popupCard = popup ? popup.querySelector('.popup-card') : null;
+  const closeBtn = popup ? popup.querySelector('.popup-close') : null;
+  const triggers = document.querySelectorAll('.cta-trigger');
+  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
+  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup';
+  const MOBILE_TABLET_MAX_WIDTH = 1024;
+  let homeScrollUnlocked = false;
 
-  if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return; /* ✅ REQUIRED FIX */
+  if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return;
 
-  function isMobileHomeScrollLockViewport() { /* ✅ UPDATED */
-    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH; /* ✅ UPDATED */
+  function isMobileHomeScrollLockViewport() {
+    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
   }
 
-  function lockHomeScrollIfNeeded() { /* ✅ NEW */
-    if (homeScrollUnlocked) return; /* ✅ NEW */
+  function lockHomeScrollIfNeeded() {
+    if (homeScrollUnlocked) return;
 
-    if (isMobileHomeScrollLockViewport()) { /* ✅ UPDATED */
-      document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-      document.body.classList.add(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-      return; /* ✅ NEW */
+    if (isMobileHomeScrollLockViewport()) {
+      document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS);
+      document.body.classList.add(HOME_SCROLL_LOCK_CLASS);
+      return;
     }
 
-    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
+    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
   }
 
-  function unlockHomeScroll() { /* ✅ NEW */
-    homeScrollUnlocked = true; /* ✅ NEW */
-    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+  function unlockHomeScroll() {
+    homeScrollUnlocked = true;
+    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
+    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
   }
 
-  lockHomeScrollIfNeeded(); /* ✅ NEW */
-  window.addEventListener('resize', lockHomeScrollIfNeeded); /* ✅ NEW */
+  lockHomeScrollIfNeeded();
+  window.addEventListener('resize', lockHomeScrollIfNeeded);
 
-  function openPopup() { /* ✅ NEW */
-    unlockHomeScroll(); /* ✅ NEW */
-    checkbox.checked = true; /* ✅ NEW */
-    popup.classList.add('is-open'); /* ✅ NEW */
-    popup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+  function openPopup() {
+    unlockHomeScroll();
+    checkbox.checked = true;
+    popup.classList.add('is-open');
+    popup.setAttribute('aria-hidden', 'false');
 
-    triggers.forEach(function (el) { /* ✅ NEW */
-      el.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
+    triggers.forEach(function (el) {
+      el.setAttribute('aria-expanded', 'true');
     });
   }
 
-  function closePopup() { /* ✅ NEW */
-    popup.classList.remove('is-open'); /* ✅ NEW */
-    popup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+  function closePopup() {
+    popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden', 'true');
 
-    triggers.forEach(function (el) { /* ✅ NEW */
-      el.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
+    triggers.forEach(function (el) {
+      el.setAttribute('aria-expanded', 'false');
     });
   }
 
-  triggers.forEach(function (trigger) { /* ✅ NEW */
-    trigger.addEventListener('click', function (event) { /* ✅ NEW */
-      event.preventDefault(); /* ✅ NEW */
-      openPopup(); /* ✅ NEW */
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function (event) {
+      event.preventDefault();
+      openPopup();
     });
 
-    trigger.addEventListener('keydown', function (event) { /* ✅ NEW */
-      if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
-        event.preventDefault(); /* ✅ NEW */
-        openPopup(); /* ✅ NEW */
+    trigger.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPopup();
       }
     });
   });
 
-  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, function () { /* ✅ NEW */
-    openPopup(); /* ✅ NEW */
+  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, function () {
+    openPopup();
   });
 
-  closeBtn.addEventListener('click', closePopup); /* ✅ NEW */
+  closeBtn.addEventListener('click', closePopup);
 
-  popup.addEventListener('click', function (event) { /* ✅ NEW */
-    if (!popupCard.contains(event.target)) { /* ✅ NEW */
-      closePopup(); /* ✅ NEW */
+  popup.addEventListener('click', function (event) {
+    if (!popupCard.contains(event.target)) {
+      closePopup();
     }
   });
 
-  document.addEventListener('keydown', function (event) { /* ✅ NEW */
-    if (event.key === 'Escape' && popup.classList.contains('is-open')) { /* ✅ NEW */
-      closePopup(); /* ✅ NEW */
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && popup.classList.contains('is-open')) {
+      closePopup();
     }
   });
 
-  console.log('Home popup initialized'); /* ✅ NEW */
+  console.log('Home popup initialized');
 }
 
-function initMobileHomeFeed() { /* ✅ NEW */
-  const MOBILE_TABLET_MAX_WIDTH = 1024; /* ✅ UPDATED: mobile + tablet giống nhau 100% */
-  const DESKTOP_MIN_WIDTH = 1025; /* ✅ NEW: desktop cuộn bình thường */
-  const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
-  const SOURCE_INNER_SELECTOR = '.more-stories-inner'; /* ✅ NEW */
-  const FEED_CLASS = 'mobile-home-feed'; /* ✅ NEW */
-  const FEED_READY_CLASS = 'is-mobile-home-feed-ready'; /* ✅ NEW */
-  const DESKTOP_NORMAL_SCROLL_CLASS = 'is-desktop-home-feed-normal-scroll'; /* ✅ NEW */
-  const SNAP_CLASS = 'mobile-home-feed-snap'; /* ✅ NEW */
-  const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
-  const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null; /* ✅ NEW */
+function initMobileHomeFeed() {
+  const MOBILE_TABLET_MAX_WIDTH = 1024;
+  const DESKTOP_MIN_WIDTH = 1025;
+  const HOME_SECTION_SELECTOR = '.more-stories-section';
+  const SOURCE_INNER_SELECTOR = '.more-stories-inner';
+  const HEADER_SELECTOR = 'header';
+  const FEED_CLASS = 'mobile-home-feed';
+  const FEED_READY_CLASS = 'is-mobile-home-feed-ready';
+  const DESKTOP_NORMAL_SCROLL_CLASS = 'is-desktop-home-feed-normal-scroll';
+  const SNAP_CLASS = 'mobile-home-feed-snap';
+  const HEADER_GAP = 10;
+  const BOTTOM_GAP = 15;
+  const DEFAULT_HEADER_HEIGHT = 78;
+  const SNAP_RELOCATE_DELAY = 120;
 
-  if (!homeSection || !sourceInner) return; /* ✅ REQUIRED FIX */
-  if (homeSection.querySelector('.' + FEED_CLASS)) return; /* ✅ REQUIRED FIX */
+  const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
+  const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
 
-  function isMobileTabletViewport() { /* ✅ UPDATED */
-    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH; /* ✅ UPDATED */
+  if (!homeSection || !sourceInner) return;
+  if (homeSection.querySelector('.' + FEED_CLASS)) return;
+
+  function isMobileTabletViewport() {
+    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
   }
 
-  function isDesktopViewport() { /* ✅ NEW */
-    return window.innerWidth >= DESKTOP_MIN_WIDTH; /* ✅ NEW */
+  function isDesktopViewport() {
+    return window.innerWidth >= DESKTOP_MIN_WIDTH;
   }
 
-  function cloneForMobileFeed(sourceNode) { /* ✅ NEW */
-    const clone = sourceNode.cloneNode(true); /* ✅ NEW */
+  function cloneForMobileFeed(sourceNode) {
+    const clone = sourceNode.cloneNode(true);
 
-    clone.querySelectorAll('[id]').forEach(function (node) { /* ✅ NEW */
-      node.removeAttribute('id'); /* ✅ REQUIRED FIX: tránh duplicate id với desktop source */
+    clone.querySelectorAll('[id]').forEach(function (node) {
+      node.removeAttribute('id');
     });
 
-    if (clone.hasAttribute && clone.hasAttribute('id')) { /* ✅ NEW */
-      clone.removeAttribute('id'); /* ✅ REQUIRED FIX */
+    if (clone.hasAttribute && clone.hasAttribute('id')) {
+      clone.removeAttribute('id');
     }
 
-    clone.querySelectorAll('details').forEach(function (details) { /* ✅ NEW */
-      details.setAttribute('open', ''); /* ✅ NEW */
+    clone.querySelectorAll('details').forEach(function (details) {
+      details.setAttribute('open', '');
     });
 
-    return clone; /* ✅ NEW */
+    return clone;
   }
 
-  function createContentPanel(sourceNode, cardIndex) { /* ✅ UPDATED */
-    const panel = document.createElement('section'); /* ✅ NEW */
-    const card = document.createElement('div'); /* ✅ NEW */
-    const scroll = document.createElement('div'); /* ✅ NEW */
-    const cardNumber = String(cardIndex + 1).padStart(2, '0'); /* ✅ NEW */
+  function createContentPanel(sourceNode, cardIndex) {
+    const panel = document.createElement('section');
+    const card = document.createElement('div');
+    const scroll = document.createElement('div');
+    const cardNumber = String(cardIndex + 1).padStart(2, '0');
 
-    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber; /* ✅ UPDATED */
-    card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber; /* ✅ UPDATED */
-    scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber; /* ✅ UPDATED */
+    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber;
+    card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber;
+    scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber;
 
-    panel.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
-    card.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
+    panel.setAttribute('data-mobile-feed-card', cardNumber);
+    card.setAttribute('data-mobile-feed-card', cardNumber);
 
-    scroll.appendChild(cloneForMobileFeed(sourceNode)); /* ✅ NEW */
-    card.appendChild(scroll); /* ✅ NEW */
-    panel.appendChild(card); /* ✅ NEW */
+    scroll.appendChild(cloneForMobileFeed(sourceNode));
+    card.appendChild(scroll);
+    panel.appendChild(card);
 
-    return panel; /* ✅ NEW */
+    return panel;
   }
 
-  function createIntroNode() { /* ✅ NEW */
-    const intro = document.createElement('div'); /* ✅ NEW */
-    const kicker = sourceInner.querySelector('.more-stories-kicker'); /* ✅ NEW */
-    const title = sourceInner.querySelector('.more-stories-title'); /* ✅ NEW */
-    const quote = sourceInner.querySelector('.more-stories-quote'); /* ✅ NEW */
-    const copy = sourceInner.querySelector('.more-stories-intro'); /* ✅ NEW */
+  function createIntroNode() {
+    const intro = document.createElement('div');
+    const kicker = sourceInner.querySelector('.more-stories-kicker');
+    const title = sourceInner.querySelector('.more-stories-title');
+    const quote = sourceInner.querySelector('.more-stories-quote');
+    const copy = sourceInner.querySelector('.more-stories-intro');
     const notes = sourceInner.querySelector('.more-stories-notes');
 
-    if (kicker) intro.appendChild(cloneForMobileFeed(kicker)); /* ✅ NEW */
-    if (title) intro.appendChild(cloneForMobileFeed(title)); /* ✅ NEW */
-    if (quote) intro.appendChild(cloneForMobileFeed(quote)); /* ✅ NEW */
-    if (copy) intro.appendChild(cloneForMobileFeed(copy)); /* ✅ NEW */
+    if (kicker) intro.appendChild(cloneForMobileFeed(kicker));
+    if (title) intro.appendChild(cloneForMobileFeed(title));
+    if (quote) intro.appendChild(cloneForMobileFeed(quote));
+    if (copy) intro.appendChild(cloneForMobileFeed(copy));
 
     if (notes) {
       const notesClone = cloneForMobileFeed(notes);
+
       notesClone.classList.add('mobile-home-feed-card-01-notes');
 
       notesClone.querySelectorAll('.more-stories-note').forEach(function (note) {
@@ -188,289 +195,395 @@ function initMobileHomeFeed() { /* ✅ NEW */
       intro.appendChild(notesClone);
     }
 
-    return intro; /* ✅ NEW */
+    return intro;
   }
 
-  const feed = document.createElement('div'); /* ✅ NEW */
-  const handle = document.createElement('span'); /* ✅ NEW */
-  const contentNodes = []; /* ✅ NEW */
-  let isSnapActivated = false; /* ✅ NEW */
+  const feed = document.createElement('div');
+  const handle = document.createElement('span');
+  const contentNodes = [];
+  let isSnapActivated = false;
+  let relocateTimer = 0;
+  let isProgrammaticFeedRelocate = false;
 
-  feed.className = FEED_CLASS; /* ✅ NEW */
-  feed.setAttribute('aria-label', 'Mobile home feed'); /* ✅ NEW */
+  feed.className = FEED_CLASS;
+  feed.setAttribute('aria-label', 'Mobile home feed');
 
-  handle.className = 'mobile-home-feed-handle'; /* ✅ NEW */
-  handle.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
+  handle.className = 'mobile-home-feed-handle';
+  handle.setAttribute('aria-hidden', 'true');
 
-  contentNodes.push(createIntroNode()); /* ✅ NEW */
+  contentNodes.push(createIntroNode());
 
-  sourceInner.querySelectorAll('.more-service-card').forEach(function (card) { /* ✅ NEW */
-    contentNodes.push(card); /* ✅ NEW */
+  sourceInner.querySelectorAll('.more-service-card').forEach(function (card) {
+    contentNodes.push(card);
   });
 
-  sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) { /* ✅ NEW */
-    contentNodes.push(item); /* ✅ NEW */
+  sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) {
+    contentNodes.push(item);
   });
 
-  contentNodes.slice(0, 10).forEach(function (node, index) { /* ✅ UPDATED: limit to 10 maintainable mobile feed cards */
-    feed.appendChild(createContentPanel(node, index)); /* ✅ UPDATED */
+  contentNodes.slice(0, 10).forEach(function (node, index) {
+    feed.appendChild(createContentPanel(node, index));
   });
 
-  homeSection.appendChild(feed); /* ✅ NEW */
-  homeSection.appendChild(handle); /* ✅ NEW */
+  homeSection.appendChild(feed);
+  homeSection.appendChild(handle);
 
-  function applySnapStateIfNeeded() { /* ✅ UPDATED */
-    if (isMobileTabletViewport() && isSnapActivated) { /* ✅ UPDATED */
-      document.documentElement.classList.add(SNAP_CLASS); /* ✅ NEW */
-      document.body.classList.add(SNAP_CLASS); /* ✅ NEW */
-      return; /* ✅ NEW */
-    }
+  function getHeaderHeight() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    const rect = header ? header.getBoundingClientRect() : null;
+    const measuredHeight = rect ? Math.ceil(rect.height) : 0;
 
-    document.documentElement.classList.remove(SNAP_CLASS); /* ✅ NEW */
-    document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
+    return measuredHeight > 0 ? measuredHeight : DEFAULT_HEADER_HEIGHT;
   }
 
-  function activateSnapWhenHomeReached() { /* ✅ UPDATED */
-    if (!isMobileTabletViewport() || isSnapActivated) return; /* ✅ UPDATED */
+  function syncMobileFeedMetrics() {
+    const headerHeight = getHeaderHeight();
 
-    if (homeSection.getBoundingClientRect().top <= 8) { /* ✅ NEW */
-      isSnapActivated = true; /* ✅ NEW */
-      applySnapStateIfNeeded(); /* ✅ NEW */
-    }
+    feed.style.setProperty('--mobile-feed-header-height', headerHeight + 'px');
+    feed.style.setProperty('--mobile-feed-header-gap', HEADER_GAP + 'px');
+    feed.style.setProperty('--mobile-feed-bottom-gap', BOTTOM_GAP + 'px');
   }
 
-  function syncMobileFeedState() { /* ✅ UPDATED */
-    homeSection.classList.add(FEED_READY_CLASS); /* ✅ UPDATED: desktop cũng dùng visual card feed */
+  function getNearestPanel() {
+    const panels = Array.prototype.slice.call(feed.querySelectorAll('.mobile-home-feed-panel'));
 
-    if (isDesktopViewport()) { /* ✅ NEW */
-      homeSection.classList.add(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
-      applySnapStateIfNeeded(); /* ✅ NEW */
-      return; /* ✅ NEW */
-    }
+    if (!panels.length) return null;
 
-    homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
-    activateSnapWhenHomeReached(); /* ✅ UPDATED */
-    applySnapStateIfNeeded(); /* ✅ NEW */
-  }
+    let nearestPanel = panels[0];
+    let nearestDistance = Infinity;
 
-  syncMobileFeedState(); /* ✅ NEW */
+    panels.forEach(function (panel) {
+      const distance = Math.abs(panel.offsetTop - feed.scrollTop);
 
-  window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true }); /* ✅ NEW */
-  window.addEventListener('resize', syncMobileFeedState); /* ✅ NEW */
-
-  window.addEventListener('orientationchange', function () { /* ✅ NEW */
-    window.setTimeout(syncMobileFeedState, 220); /* ✅ NEW */
-  }); /* ✅ NEW */
-
-  console.log('Mobile home feed initialized'); /* ✅ NEW */
-}
-
-function initMobileHomeSectionLock() { /* ✅ NEW */
-  const MOBILE_TABLET_MAX_WIDTH = 1024; /* ✅ UPDATED: mobile + tablet lock giống nhau */
-  const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
-  const HOME_SECTION_LOCK_TOP_OFFSET = 8; /* ✅ NEW */
-  const HOME_SECTION_CURRENT_TOP_TOLERANCE = 14; /* ✅ NEW */
-  const HOME_SECTION_FORCE_SCROLL_DELAY = 16; /* ✅ NEW */
-  const logoTrigger = document.getElementById('logoTrigger'); /* ✅ NEW */
-  const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
-  let isLocked = false; /* ✅ NEW */
-  let isProgrammaticScroll = false; /* ✅ NEW */
-  let lastTouchY = 0; /* ✅ NEW */
-  let hasHistoryGuard = false; /* ✅ NEW */
-
-  if (!homeSection) return; /* ✅ REQUIRED FIX */
-
-  function isMobileTabletViewport() { /* ✅ UPDATED */
-    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH; /* ✅ UPDATED */
-  }
-
-  function getHomeSectionTop() { /* ✅ NEW */
-    return Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY)); /* ✅ NEW */
-  }
-
-  function getCurrentScrollY() { /* ✅ NEW */
-    return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0; /* ✅ NEW */
-  }
-
-  function isAtHomeSectionTop() { /* ✅ NEW */
-    const homeTop = getHomeSectionTop(); /* ✅ NEW */
-    return Math.abs(getCurrentScrollY() - homeTop) <= HOME_SECTION_CURRENT_TOP_TOLERANCE; /* ✅ NEW */
-  }
-
-  function isBeforeHomeSection() { /* ✅ NEW */
-    const homeTop = getHomeSectionTop(); /* ✅ NEW */
-    return getCurrentScrollY() < homeTop - HOME_SECTION_CURRENT_TOP_TOLERANCE; /* ✅ NEW */
-  }
-
-  function scrollToHomeSection(behavior) { /* ✅ NEW */
-    const homeTop = getHomeSectionTop(); /* ✅ NEW */
-    isProgrammaticScroll = true; /* ✅ NEW */
-
-    window.scrollTo({ /* ✅ NEW */
-      top: homeTop, /* ✅ NEW */
-      left: 0, /* ✅ NEW */
-      behavior: behavior || 'auto' /* ✅ NEW */
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestPanel = panel;
+      }
     });
 
-    window.setTimeout(function () { /* ✅ NEW */
-      isProgrammaticScroll = false; /* ✅ NEW */
-    }, HOME_SECTION_FORCE_SCROLL_DELAY); /* ✅ NEW */
+    return nearestPanel;
   }
 
-  function pushHistoryGuard() { /* ✅ NEW */
-    if (hasHistoryGuard || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function relocateToNearestPanel(behavior) {
+    if (!isMobileTabletViewport() || !isSnapActivated) return;
+    if (isProgrammaticFeedRelocate) return;
 
-    try { /* ✅ NEW */
-      window.history.pushState({ mobileHomeSectionLocked: true }, document.title, window.location.href); /* ✅ NEW */
-      hasHistoryGuard = true; /* ✅ NEW */
-    } catch (error) { /* ✅ NEW */
-      hasHistoryGuard = false; /* ✅ NEW */
+    const nearestPanel = getNearestPanel();
+
+    if (!nearestPanel) return;
+
+    const targetTop = nearestPanel.offsetTop;
+
+    if (Math.abs(feed.scrollTop - targetTop) <= 2) return;
+
+    isProgrammaticFeedRelocate = true;
+
+    feed.scrollTo({
+      top: targetTop,
+      left: 0,
+      behavior: behavior || 'auto'
+    });
+
+    window.setTimeout(function () {
+      isProgrammaticFeedRelocate = false;
+    }, 180);
+  }
+
+  function scheduleFeedRelocate() {
+    if (!isMobileTabletViewport() || !isSnapActivated) return;
+    if (isProgrammaticFeedRelocate) return;
+
+    window.clearTimeout(relocateTimer);
+
+    relocateTimer = window.setTimeout(function () {
+      syncMobileFeedMetrics();
+      relocateToNearestPanel('auto');
+    }, SNAP_RELOCATE_DELAY);
+  }
+
+  function applySnapStateIfNeeded() {
+    if (isMobileTabletViewport() && isSnapActivated) {
+      document.documentElement.classList.add(SNAP_CLASS);
+      document.body.classList.add(SNAP_CLASS);
+      syncMobileFeedMetrics();
+      return;
+    }
+
+    document.documentElement.classList.remove(SNAP_CLASS);
+    document.body.classList.remove(SNAP_CLASS);
+  }
+
+  function activateSnapWhenHomeReached() {
+    if (!isMobileTabletViewport() || isSnapActivated) return;
+
+    if (homeSection.getBoundingClientRect().top <= 8) {
+      isSnapActivated = true;
+      syncMobileFeedMetrics();
+      applySnapStateIfNeeded();
+
+      window.requestAnimationFrame(function () {
+        relocateToNearestPanel('auto');
+      });
     }
   }
 
-  function activateLock() { /* ✅ NEW */
-    if (isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function syncMobileFeedState() {
+    homeSection.classList.add(FEED_READY_CLASS);
+    syncMobileFeedMetrics();
 
-    isLocked = true; /* ✅ NEW */
-    pushHistoryGuard(); /* ✅ NEW */
+    if (isDesktopViewport()) {
+      homeSection.classList.add(DESKTOP_NORMAL_SCROLL_CLASS);
+      applySnapStateIfNeeded();
+      return;
+    }
 
-    if (isBeforeHomeSection()) { /* ✅ NEW */
-      scrollToHomeSection('auto'); /* ✅ NEW */
+    homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS);
+    activateSnapWhenHomeReached();
+    applySnapStateIfNeeded();
+    scheduleFeedRelocate();
+  }
+
+  syncMobileFeedState();
+
+  feed.addEventListener('scroll', scheduleFeedRelocate, { passive: true });
+
+  feed.addEventListener('touchend', function () {
+    scheduleFeedRelocate();
+  }, { passive: true });
+
+  feed.addEventListener('wheel', function () {
+    scheduleFeedRelocate();
+  }, { passive: true });
+
+  window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
+
+  window.addEventListener('resize', function () {
+    syncMobileFeedState();
+    scheduleFeedRelocate();
+  });
+
+  window.addEventListener('orientationchange', function () {
+    window.setTimeout(function () {
+      syncMobileFeedState();
+      relocateToNearestPanel('auto');
+    }, 220);
+  });
+
+  console.log('Mobile home feed initialized');
+}
+
+function initMobileHomeSectionLock() {
+  const MOBILE_TABLET_MAX_WIDTH = 1024;
+  const HOME_SECTION_SELECTOR = '.more-stories-section';
+  const HOME_SECTION_LOCK_TOP_OFFSET = 8;
+  const HOME_SECTION_CURRENT_TOP_TOLERANCE = 14;
+  const HOME_SECTION_FORCE_SCROLL_DELAY = 16;
+  const logoTrigger = document.getElementById('logoTrigger');
+  const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
+  let isLocked = false;
+  let isProgrammaticScroll = false;
+  let lastTouchY = 0;
+  let hasHistoryGuard = false;
+
+  if (!homeSection) return;
+
+  function isMobileTabletViewport() {
+    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
+  }
+
+  function getHomeSectionTop() {
+    return Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY));
+  }
+
+  function getCurrentScrollY() {
+    return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+
+  function isAtHomeSectionTop() {
+    const homeTop = getHomeSectionTop();
+
+    return Math.abs(getCurrentScrollY() - homeTop) <= HOME_SECTION_CURRENT_TOP_TOLERANCE;
+  }
+
+  function isBeforeHomeSection() {
+    const homeTop = getHomeSectionTop();
+
+    return getCurrentScrollY() < homeTop - HOME_SECTION_CURRENT_TOP_TOLERANCE;
+  }
+
+  function scrollToHomeSection(behavior) {
+    const homeTop = getHomeSectionTop();
+
+    isProgrammaticScroll = true;
+
+    window.scrollTo({
+      top: homeTop,
+      left: 0,
+      behavior: behavior || 'auto'
+    });
+
+    window.setTimeout(function () {
+      isProgrammaticScroll = false;
+    }, HOME_SECTION_FORCE_SCROLL_DELAY);
+  }
+
+  function pushHistoryGuard() {
+    if (hasHistoryGuard || !isMobileTabletViewport()) return;
+
+    try {
+      window.history.pushState({ mobileHomeSectionLocked: true }, document.title, window.location.href);
+      hasHistoryGuard = true;
+    } catch (error) {
+      hasHistoryGuard = false;
     }
   }
 
-  function shouldActivateFromViewport() { /* ✅ NEW */
-    if (!isMobileTabletViewport()) return false; /* ✅ UPDATED */
+  function activateLock() {
+    if (isLocked || !isMobileTabletViewport()) return;
 
-    const rect = homeSection.getBoundingClientRect(); /* ✅ NEW */
-    return rect.top <= HOME_SECTION_LOCK_TOP_OFFSET; /* ✅ NEW */
-  }
+    isLocked = true;
+    pushHistoryGuard();
 
-  function guardHomeSectionBoundary() { /* ✅ NEW */
-    if (!isMobileTabletViewport()) return; /* ✅ UPDATED */
-
-    if (!isLocked && shouldActivateFromViewport()) { /* ✅ NEW */
-      activateLock(); /* ✅ NEW */
-    }
-
-    if (!isLocked || isProgrammaticScroll) return; /* ✅ NEW */
-
-    if (isBeforeHomeSection()) { /* ✅ NEW */
-      scrollToHomeSection('auto'); /* ✅ NEW */
+    if (isBeforeHomeSection()) {
+      scrollToHomeSection('auto');
     }
   }
 
-  function handleWheel(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function shouldActivateFromViewport() {
+    if (!isMobileTabletViewport()) return false;
 
-    if (event.deltaY < 0 && isAtHomeSectionTop()) { /* ✅ NEW */
-      event.preventDefault(); /* ✅ NEW */
-      scrollToHomeSection('auto'); /* ✅ NEW */
+    const rect = homeSection.getBoundingClientRect();
+
+    return rect.top <= HOME_SECTION_LOCK_TOP_OFFSET;
+  }
+
+  function guardHomeSectionBoundary() {
+    if (!isMobileTabletViewport()) return;
+
+    if (!isLocked && shouldActivateFromViewport()) {
+      activateLock();
+    }
+
+    if (!isLocked || isProgrammaticScroll) return;
+
+    if (isBeforeHomeSection()) {
+      scrollToHomeSection('auto');
     }
   }
 
-  function handleTouchStart(event) { /* ✅ NEW */
-    if (!event.touches || !event.touches.length) return; /* ✅ NEW */
-    lastTouchY = event.touches[0].clientY; /* ✅ NEW */
-  }
+  function handleWheel(event) {
+    if (!isLocked || !isMobileTabletViewport()) return;
 
-  function handleTouchMove(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
-    if (!event.touches || !event.touches.length) return; /* ✅ NEW */
-
-    const currentTouchY = event.touches[0].clientY; /* ✅ NEW */
-    const isTryingToScrollAboveHome = currentTouchY > lastTouchY && isAtHomeSectionTop(); /* ✅ NEW */
-    lastTouchY = currentTouchY; /* ✅ NEW */
-
-    if (isTryingToScrollAboveHome) { /* ✅ NEW */
-      event.preventDefault(); /* ✅ NEW */
-      scrollToHomeSection('auto'); /* ✅ NEW */
+    if (event.deltaY < 0 && isAtHomeSectionTop()) {
+      event.preventDefault();
+      scrollToHomeSection('auto');
     }
   }
 
-  function handlePopState() { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handleTouchStart(event) {
+    if (!event.touches || !event.touches.length) return;
 
-    pushHistoryGuard(); /* ✅ NEW */
-    scrollToHomeSection('auto'); /* ✅ NEW */
+    lastTouchY = event.touches[0].clientY;
   }
 
-  function handleLogoHomeAction(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handleTouchMove(event) {
+    if (!isLocked || !isMobileTabletViewport()) return;
+    if (!event.touches || !event.touches.length) return;
 
-    if (!isAtHomeSectionTop()) { /* ✅ NEW */
-      event.preventDefault(); /* ✅ NEW */
-      event.stopImmediatePropagation(); /* ✅ NEW */
-      scrollToHomeSection('smooth'); /* ✅ NEW */
+    const currentTouchY = event.touches[0].clientY;
+    const isTryingToScrollAboveHome = currentTouchY > lastTouchY && isAtHomeSectionTop();
+
+    lastTouchY = currentTouchY;
+
+    if (isTryingToScrollAboveHome) {
+      event.preventDefault();
+      scrollToHomeSection('auto');
     }
   }
 
-  window.addEventListener('scroll', guardHomeSectionBoundary, { passive: true }); /* ✅ NEW */
-  window.addEventListener('resize', guardHomeSectionBoundary); /* ✅ NEW */
+  function handlePopState() {
+    if (!isLocked || !isMobileTabletViewport()) return;
 
-  window.addEventListener('orientationchange', function () { /* ✅ NEW */
-    window.setTimeout(guardHomeSectionBoundary, 220); /* ✅ NEW */
-  }); /* ✅ NEW */
+    pushHistoryGuard();
+    scrollToHomeSection('auto');
+  }
 
-  window.addEventListener('wheel', handleWheel, { passive: false }); /* ✅ NEW */
-  window.addEventListener('touchstart', handleTouchStart, { passive: true }); /* ✅ NEW */
-  window.addEventListener('touchmove', handleTouchMove, { passive: false }); /* ✅ NEW */
-  window.addEventListener('popstate', handlePopState); /* ✅ NEW */
+  function handleLogoHomeAction(event) {
+    if (!isLocked || !isMobileTabletViewport()) return;
 
-  if (logoTrigger) { /* ✅ NEW */
-    logoTrigger.addEventListener('click', handleLogoHomeAction, true); /* ✅ NEW */
+    if (!isAtHomeSectionTop()) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      scrollToHomeSection('smooth');
+    }
+  }
 
-    logoTrigger.addEventListener('keydown', function (event) { /* ✅ NEW */
-      if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
-        handleLogoHomeAction(event); /* ✅ NEW */
+  window.addEventListener('scroll', guardHomeSectionBoundary, { passive: true });
+  window.addEventListener('resize', guardHomeSectionBoundary);
+
+  window.addEventListener('orientationchange', function () {
+    window.setTimeout(guardHomeSectionBoundary, 220);
+  });
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+  window.addEventListener('touchstart', handleTouchStart, { passive: true });
+  window.addEventListener('touchmove', handleTouchMove, { passive: false });
+  window.addEventListener('popstate', handlePopState);
+
+  if (logoTrigger) {
+    logoTrigger.addEventListener('click', handleLogoHomeAction, true);
+
+    logoTrigger.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        handleLogoHomeAction(event);
       }
-    }, true); /* ✅ NEW */
+    }, true);
   }
 
-  guardHomeSectionBoundary(); /* ✅ NEW */
-  console.log('Mobile home section lock initialized'); /* ✅ NEW */
+  guardHomeSectionBoundary();
+
+  console.log('Mobile home section lock initialized');
 }
 
-const APP_LOADING_CLASS = 'js-loading'; /* ✅ NEW */
-const APP_READY_CLASS = 'js-ready'; /* ✅ NEW */
+const APP_LOADING_CLASS = 'js-loading';
+const APP_READY_CLASS = 'js-ready';
 
-function markAppReady() { /* ✅ NEW */
-  document.body.classList.remove(APP_LOADING_CLASS); /* ✅ NEW */
-  document.body.classList.add(APP_READY_CLASS); /* ✅ NEW */
-} /* ✅ NEW */
-
-function markAppReadyOnNextPaint() { /* ✅ NEW */
-  window.requestAnimationFrame(function () { /* ✅ NEW */
-    markAppReady(); /* ✅ NEW */
-  }); /* ✅ NEW */
-} /* ✅ NEW */
-
-function safeInit(initFn, initName) { /* ✅ NEW */
-  try { /* ✅ NEW */
-    initFn(); /* ✅ NEW */
-  } catch (error) { /* ✅ NEW */
-    console.error(initName + ' failed', error); /* ✅ NEW */
-  } /* ✅ NEW */
-} /* ✅ NEW */
-
-function initHome() { /* ✅ UPDATED */
-  console.log('Home initialized'); /* ✅ UPDATED */
+function markAppReady() {
+  document.body.classList.remove(APP_LOADING_CLASS);
+  document.body.classList.add(APP_READY_CLASS);
 }
 
-safeInit(initGesture, 'initGesture'); /* ✅ UPDATED */
-safeInit(initNavigation, 'initNavigation'); /* ✅ UPDATED */
-safeInit(initHomePopup, 'initHomePopup'); /* ✅ UPDATED */
-safeInit(initPolicyPopup, 'initPolicyPopup'); /* ✅ UPDATED */
-safeInit(initContactPopup, 'initContactPopup'); /* ✅ UPDATED */
-safeInit(initTourCarousel, 'initTourCarousel'); /* ✅ UPDATED */
-safeInit(initStoryExpand, 'initStoryExpand'); /* ✅ UPDATED */
-safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation'); /* ✅ UPDATED */
-safeInit(initAvailabilityPopup, 'initAvailabilityPopup'); /* ✅ UPDATED */
-safeInit(initSearchPopup, 'initSearchPopup'); /* ✅ UPDATED */
-safeInit(initMobileEdgePad, 'initMobileEdgePad'); /* ✅ UPDATED */
-safeInit(initMobileHomeFeed, 'initMobileHomeFeed'); /* ✅ UPDATED */
-safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader'); /* ✅ NEW */
-safeInit(initMobileHomeSectionLock, 'initMobileHomeSectionLock'); /* ✅ UPDATED */
-safeInit(initHome, 'initHome'); /* ✅ UPDATED */
+function markAppReadyOnNextPaint() {
+  window.requestAnimationFrame(function () {
+    markAppReady();
+  });
+}
 
-markAppReadyOnNextPaint(); /* ✅ NEW */
+function safeInit(initFn, initName) {
+  try {
+    initFn();
+  } catch (error) {
+    console.error(initName + ' failed', error);
+  }
+}
+
+function initHome() {
+  console.log('Home initialized');
+}
+
+safeInit(initGesture, 'initGesture');
+safeInit(initNavigation, 'initNavigation');
+safeInit(initHomePopup, 'initHomePopup');
+safeInit(initPolicyPopup, 'initPolicyPopup');
+safeInit(initContactPopup, 'initContactPopup');
+safeInit(initTourCarousel, 'initTourCarousel');
+safeInit(initStoryExpand, 'initStoryExpand');
+safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
+safeInit(initAvailabilityPopup, 'initAvailabilityPopup');
+safeInit(initSearchPopup, 'initSearchPopup');
+safeInit(initMobileEdgePad, 'initMobileEdgePad');
+safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
+safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
+safeInit(initMobileHomeSectionLock, 'initMobileHomeSectionLock');
+safeInit(initHome, 'initHome');
+markAppReadyOnNextPaint();
