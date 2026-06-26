@@ -1,0 +1,10 @@
+/* ✅ NEW: CARD 09 CSS - accordion card 02 */
+@media (max-width:768px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 {
+    /* ✅ NEW: edit card 09 container styles here */
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+    /* ✅ NEW: edit card 09 text/layout spacing here */
+  }
+}
