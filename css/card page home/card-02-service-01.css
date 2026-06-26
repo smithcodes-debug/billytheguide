@@ -22,7 +22,7 @@
   display: block;
   flex: 0 0 auto;
   order: -2;
-  width: min(100%, 380px);
+  width: min(100%, 420px);
   max-height: 135px;
   aspect-ratio: 16 / 7;
   margin: 0 auto 8px;
