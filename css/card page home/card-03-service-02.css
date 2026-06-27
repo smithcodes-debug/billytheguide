@@ -23,8 +23,8 @@
   display: block;
   flex: 0 0 auto;
   order: -2;
-  width: min(calc(100% - 20px), 340px);
-  height: 155px;
+  width: min(calc(95% - 19px), 323px); /* ✅ UPDATED */
+  height: 147.25px; /* ✅ UPDATED */
   margin: 0 auto 8px;
   border: 1px solid rgba(5, 6, 8, 0.10);
   border-radius: 16px;
