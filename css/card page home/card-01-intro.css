@@ -12,7 +12,7 @@
 
   .more-stories-section.is-mobile-home-feed-ready {
     --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px); /* ✅ UPDATED */
-    --mobile-home-feed-locked-gap: 15px; /* ✅ NEW */
+    --mobile-home-feed-locked-gap: 10px; /* ✅ NEW */
     --mobile-home-feed-side-gap: 16px; /* ✅ NEW */
     height: 100vh;
     height: 100svh; /* ✅ UPDATED: stable snap height for Android */
