@@ -1,19 +1,32 @@
-/* ✅ NEW: CARD 08 CSS - accordion card 01 */
-@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 {
-    /* ✅ NEW: edit card 08 container styles here */
-  }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 08 text/layout spacing here */
-  }
+
+
+/* ✅ UPDATED: Card 08 order = memo note → Leave no trace → text */
+.more-accordion-list > .more-accordion-item:first-child[open] {
+  display: flex;
+  flex-direction: column;
 }
 
-/* ✅ NEW: Leave no trace Excel-style memo note */
+/* ✅ UPDATED: memo note stays first */
+.more-accordion-list > .more-accordion-item:first-child[open] .leave-no-trace-memo-note {
+  order: 1;
+}
+
+/* ✅ UPDATED: Leave no trace title after memo */
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-summary {
+  order: 2;
+}
+
+/* ✅ UPDATED: Leave no trace text after title */
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-panel {
+  order: 3;
+}
+
+/* ✅ UPDATED: Leave no trace Excel-style memo note */
 .leave-no-trace-memo-note {
   position: relative;
   width: min(calc(100% - 32px), 720px);
-  margin: 0 auto 30px;
+  margin: -18px auto 34px;
   padding: 14px 16px 15px;
   color: #2f2a12;
   font-size: 13px;
@@ -26,19 +39,18 @@
   box-sizing: border-box;
 }
 
-/* ✅ NEW: note tail points upward toward menu/avatar side */
+/* ✅ UPDATED: simple tail points toward avatar/menu mouth area */
 .leave-no-trace-memo-note::before {
   content: "";
   position: absolute;
   top: -12px;
-  right: 38px;
+  right: 42px;
   width: 22px;
   height: 22px;
   background: #fff3a6;
   border-top: 1px solid #e4c64f;
   border-left: 1px solid #e4c64f;
   transform: rotate(45deg);
-  box-shadow: -5px -5px 12px rgba(5, 6, 8, 0.04);
   box-sizing: border-box;
 }
 
