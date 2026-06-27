@@ -18,3 +18,43 @@ REMOVED:
 OWNERSHIP:
 - Do not define .hero, .hero::before, .overlay, or --hero-bg-* in this file.
 ===================================================== */
+/* ✅ NEW: Proposal card image after story text */
+.more-service-card[href="./propose-island-phu-quoc.html"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-title {
+  order: 1;
+}
+
+.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-desc {
+  order: 2;
+}
+
+.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-extra {
+  order: 3;
+  margin-bottom: 8px;
+}
+
+.more-service-card[href="./propose-island-phu-quoc.html"]::after {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: 4;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 0 auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/16.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-link {
+  order: 5;
+}
