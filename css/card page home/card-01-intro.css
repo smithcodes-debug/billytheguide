@@ -16,8 +16,7 @@
     --mobile-home-feed-side-gap: 16px; /* ✅ NEW */
 
     height: 100vh;
-    height: 100svh;
-    height: 100dvh;
+    height: 100svh; /* ✅ UPDATED: stable snap height for Android */
     padding: 0;
     overflow: hidden;
     background:
@@ -40,8 +39,7 @@
     display: block;
     width: 100%;
     height: 100vh;
-    height: 100svh;
-    height: 100dvh;
+    height: 100svh; /* ✅ UPDATED: avoid Android dynamic toolbar jank */
     overflow-x: hidden;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
@@ -60,11 +58,9 @@
 
   .mobile-home-feed-panel {
     height: 100vh;
-    height: 100svh;
-    height: 100dvh;
+    height: 100svh; /* ✅ UPDATED */
     min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
+    min-height: 100svh; /* ✅ UPDATED */
     padding:
       calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
       var(--mobile-home-feed-side-gap)
@@ -101,8 +97,7 @@
     height: 100%;
     min-height: 0; /* ✅ NEW */
     padding: 18px 16px; /* ✅ UPDATED */
-    overflow-x: hidden; /* ✅ UPDATED */
-    overflow-y: auto; /* ✅ UPDATED */
+    overflow: hidden; /* ✅ UPDATED: outer feed owns swipe on Android */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -520,8 +515,7 @@
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
     padding: 5px 16px 12px; /* ✅ UPDATED */
     justify-content: flex-start;
-    overflow-x: hidden; /* ✅ NEW */
-    overflow-y: auto; /* ✅ UPDATED */
+    overflow: hidden; /* ✅ UPDATED: prevent Android nested scroll conflict */
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {
@@ -541,8 +535,8 @@
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes {
     margin: auto auto 0;
-    padding: clamp(8px, 1.8dvh, 12px) 12px clamp(10px, 2dvh, 16px); /* ✅ UPDATED */
-    row-gap: clamp(8px, 1.8dvh, 16px); /* ✅ UPDATED */
+    padding: clamp(8px, 1.8svh, 12px) 12px clamp(10px, 2svh, 16px); /* ✅ UPDATED */
+    row-gap: clamp(8px, 1.8svh, 16px); /* ✅ UPDATED */
     transform: none; /* ✅ UPDATED */
   }
 
@@ -552,8 +546,8 @@
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-note::before {
-    height: clamp(58px, 11.5dvh, 100px); /* ✅ UPDATED */
-    margin-bottom: clamp(4px, 1dvh, 7px); /* ✅ UPDATED */
+    height: clamp(58px, 11.5svh, 100px); /* ✅ UPDATED */
+    margin-bottom: clamp(4px, 1svh, 7px); /* ✅ UPDATED */
   }
 }
 
