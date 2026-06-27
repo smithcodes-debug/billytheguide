@@ -7,4 +7,52 @@
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .mobile-home-feed-card-scroll {
     /* ✅ NEW: edit card 08 text/layout spacing here */
   }
-} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
+}
+
+/* ✅ NEW: Leave no trace Excel-style memo note */
+.leave-no-trace-memo-note {
+  position: relative;
+  width: min(calc(100% - 32px), 720px);
+  margin: 0 auto 30px;
+  padding: 14px 16px 15px;
+  color: #2f2a12;
+  font-size: 13px;
+  line-height: 1.32;
+  text-align: left;
+  background: #fff3a6;
+  border: 1px solid #e4c64f;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(5, 6, 8, 0.16);
+  box-sizing: border-box;
+}
+
+/* ✅ NEW: note tail points upward toward menu/avatar side */
+.leave-no-trace-memo-note::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 38px;
+  width: 22px;
+  height: 22px;
+  background: #fff3a6;
+  border-top: 1px solid #e4c64f;
+  border-left: 1px solid #e4c64f;
+  transform: rotate(45deg);
+  box-shadow: -5px -5px 12px rgba(5, 6, 8, 0.04);
+  box-sizing: border-box;
+}
+
+.leave-no-trace-memo-note p {
+  margin: 0;
+}
+
+.leave-no-trace-memo-note p + p {
+  margin-top: 6px;
+}
+
+.leave-no-trace-memo-note strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+  line-height: 1.2;
+}
