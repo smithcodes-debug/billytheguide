@@ -1,0 +1,435 @@
+/* =====================================================
+  ✅ NEW: CSS MODULE 11 — SCROLL-HOME COMPOSITE
+  FILE: ./css/modules/11-scroll-home-composite.css
+
+  SYSTEM MAP POSITION:
+  - PROJECT MODULE INDEX: 11-scroll-home / 12-service-grid / 13-accordion / 14-platform-chips
+  - HTML modules:
+    - MODULE 11 — SCROLLABLE HOME MODULE
+    - MODULE 12 — SERVICE LINK GRID MODULE
+    - MODULE 13 — HOME ACCORDION MODULE
+    - MODULE 14 — CONTACT PLATFORM CHIPS MODULE
+
+  SOURCE LOCATION BEFORE EXTRACTION:
+  - index.html
+  - MODULE 01.5 — INLINE STYLE REGISTRY
+  - This file was extracted during Step 6E.
+
+  COMPOSITE REASON:
+  - MODULE 11/12/13/14 CSS was adjacent in the inline registry.
+  - .more-section-label is shared by service grid and accordion headings.
+  - Responsive media blocks currently mix scroll-home, service-grid, and accordion selectors.
+  - This composite file preserves cascade order and avoids premature split risk.
+  - Future split target can be:
+    - ./css/modules/11-scroll-home.css
+    - ./css/modules/12-service-grid.css
+    - ./css/modules/13-home-accordion.css
+    - ./css/modules/14-platform-chips.css
+
+  RELATED HTML SELECTORS / IDS:
+  - #more-stories-section
+  - #moreStoriesTitle
+  - #moreServicesTitle
+  - #moreAccordionTitle
+  - .more-stories-section
+  - .more-stories-inner
+  - .more-stories-kicker
+  - .more-stories-title
+  - .more-stories-intro
+  - .more-stories-back-button
+  - .more-services-block
+  - .more-section-label
+  - .more-services-grid
+  - .more-service-card
+  - .more-service-card-title
+  - .more-service-card-desc
+  - .more-service-card-link
+  - .more-accordion-block
+  - .more-accordion-list
+  - .more-accordion-item
+  - .more-accordion-summary
+  - .more-accordion-panel
+  - .more-faq-list
+  - .more-contact-platforms
+  - .more-contact-platform
+
+  RELATED JS / BEHAVIOR MAP:
+  - Scrollable home root: #more-stories-section
+  - Return/back trigger: .more-stories-back-button / [data-story-back-to-tours]
+  - Scroll lock class: .home-scroll-locked
+  - Current behavior source: ./js/main.js or current main JS entry behavior bundle
+  - Functions / logic to inspect during debug:
+    - scroll-home open/return behavior
+    - mobile edge pad show/hide behavior
+    - home-scroll-locked class toggle
+    - Back to tours button binding
+
+  RELATED HTML MODULE COMMENTS:
+  - MODULE 11 — SCROLLABLE HOME MODULE
+  - MODULE 12 — SERVICE LINK GRID MODULE
+  - MODULE 13 — HOME ACCORDION MODULE
+  - MODULE 14 — CONTACT PLATFORM CHIPS MODULE
+
+  PURPOSE:
+  - Owns visual styling for the scrollable home content area.
+  - Owns compact semantic service grid styling.
+  - Owns home accordion styling.
+  - Owns contact platform chips inside the accordion.
+  - Keeps this content-layer CSS separate from booking, contact, policy, tour popup, mobile search, and mobile edge pad CSS.
+
+  OWNS MODULE 11:
+  - .more-stories-section
+  - .more-stories-section::before
+  - .more-stories-inner
+  - .more-stories-kicker
+  - .more-stories-title
+  - .more-stories-intro
+  - .more-stories-back-button
+  - html.home-scroll-locked
+  - body.home-scroll-locked
+
+  OWNS MODULE 12:
+  - .more-services-block
+  - .more-section-label if shared with section headings
+  - .more-services-grid
+  - .more-service-card
+  - .more-service-card-title
+  - .more-service-card-desc
+  - .more-service-card-link
+
+  OWNS MODULE 13:
+  - .more-accordion-block
+  - .more-accordion-list
+  - .more-accordion-item
+  - .more-accordion-summary
+  - .more-accordion-summary::-webkit-details-marker
+  - .more-accordion-summary::after
+  - .more-accordion-item[open] .more-accordion-summary::after
+  - .more-accordion-panel
+  - .more-faq-list
+
+  OWNS MODULE 14:
+  - .more-contact-platforms
+  - .more-contact-platform
+
+  STATE CLASSES:
+  - .home-scroll-locked
+  - details[open] through .more-accordion-item[open]
+
+  MEDIA:
+  - @media (hover: hover) and (pointer: fine)
+  - @media (max-width: 900px)
+  - @media (max-width: 768px)
+  - @media (max-width:768px)
+
+  DEBUG ROUTING:
+  - Scroll-home spacing/background/content width issue: edit ./css/modules/11-scroll-home-composite.css
+  - Service grid columns/cards issue: inspect .more-services-grid and .more-service-card in this file
+  - Accordion spacing/summary/icon issue: inspect .more-accordion-* in this file
+  - Platform chip visual issue: inspect .more-contact-platforms and .more-contact-platform in this file
+  - Home scroll lock issue: inspect html.home-scroll-locked/body.home-scroll-locked here + JS class toggle
+  - Back to tours button behavior issue: inspect JS binding for [data-story-back-to-tours]
+  - Back to tours button mobile visibility issue may also involve mobile edge pad CSS because .more-stories-back-button has one remaining mobile rule in MODULE 07.
+
+  KNOWN CROSS-MODULE NOTE:
+  - .more-stories-back-button has an additional mobile visibility rule inside the MODULE 07 mobile edge pad CSS block.
+  - Do not move that MODULE 07 rule in Step 6E. It belongs to the later mobile-edge-pad extraction/debug step.
+  - .more-stories-quote exists in HTML, but no matching rule was found in this inline block during Step 6E. Do not add a new rule here unless explicitly requested.
+
+  IMMUTABLE / SAFETY RULES:
+  - Do not rename scroll-home/service-grid/accordion/platform selectors unless the matching HTML and JS are explicitly updated.
+  - Do not move booking, contact, policy, mobile search, mobile edge pad, or tour popup CSS into this file.
+  - Preserve the original cascade order inside this composite file.
+  - This extraction is mechanical-only: original selector names and CSS values are preserved.
+===================================================== */
+
+.more-stories-section {
+  position: relative; 
+  padding: 96px 24px 120px; 
+  background: linear-gradient(180deg, var(--color-soft-white) 0%, var(--color-white) 55%, #f3f6f7 100%); 
+  color: var(--color-ink); 
+  overflow: hidden; 
+}
+.more-stories-section::before {
+  content: ""; 
+  position: absolute; 
+  inset: 0 0 auto; 
+  height: 160px; 
+  pointer-events: none; 
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.16), rgba(248, 251, 253, 0)); 
+}
+.more-stories-inner {
+  position: relative; 
+  z-index: 1; 
+  width: min(1120px, 100%); 
+  margin: 0 auto; 
+}
+.more-stories-kicker {
+  margin: 0 0 10px; 
+  color: rgba(28, 40, 51, 0.58); 
+  font-size: 13px; 
+  line-height: 1.3; 
+  font-weight: 700; 
+  letter-spacing: 0.08em; 
+  text-transform: uppercase; 
+}
+.more-stories-title {
+  margin: 0; 
+  max-width: 860px; 
+  color: #17202a; 
+  font-size: clamp(34px, 7vw, 64px); 
+  line-height: 0.98; 
+  font-weight: 700; 
+  letter-spacing: -0.04em; 
+}
+.more-stories-intro {
+  max-width: 780px; 
+  margin: 22px 0 0; 
+  color: rgba(28, 40, 51, 0.72); 
+  font-size: clamp(16px, 2.2vw, 19px); 
+  line-height: 1.72; 
+  font-weight: 500; 
+}
+.more-stories-back-button {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 42px; 
+  margin: 28px 0 0; 
+  padding: 10px 16px; 
+  border: 1px solid rgba(20, 40, 60, 0.1); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.72); 
+  color: #1c2833; 
+  font: inherit; 
+  font-size: 14px; 
+  line-height: 1; 
+  font-weight: 700; 
+  cursor: pointer; 
+  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08); 
+  -webkit-tap-highlight-color: transparent; 
+}
+.more-services-block {
+  margin-top: 46px; 
+}
+.more-section-label {
+  margin: 0 0 14px; 
+  color: var(--color-hue-deep); 
+  font-size: clamp(22px, 4vw, 32px); 
+  line-height: 1.12; 
+  font-weight: 700; 
+  letter-spacing: -0.02em; 
+}
+.more-services-grid {
+  display: grid; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  border: 1px solid rgba(15, 76, 92, 0.16); 
+  background: rgba(255, 255, 255, 0.45); 
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); 
+}
+.more-service-card {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  min-height: 170px; 
+  padding: 24px 22px; 
+  border-right: 1px solid rgba(15, 76, 92, 0.14); 
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
+  color: #1c2833; 
+  text-align: center; 
+  text-decoration: none; 
+  background: rgba(247, 251, 252, 0.78); 
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease; 
+}
+.more-service-card:nth-child(3n) {
+  border-right: 0; 
+}
+.more-service-card:nth-last-child(-n + 3) {
+  border-bottom: 0; 
+}
+.more-service-card-title {
+  margin: 0; 
+  color: #123044; 
+  font-size: 16px; 
+  line-height: 1.2; 
+  font-weight: 700; 
+}
+.more-service-card-desc {
+  margin: 12px auto 0; 
+  max-width: 280px; 
+  color: rgba(28, 40, 51, 0.72); 
+  font-size: 14px; 
+  line-height: 1.45; 
+  font-weight: 500; 
+}
+.more-service-card-link {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin: 18px auto 0; 
+  color: var(--color-hue-deep); 
+  font-size: 13px; 
+  line-height: 1; 
+  font-weight: 700; 
+}
+.more-service-card:focus-visible {
+  outline: 3px solid rgba(15, 76, 92, 0.38); 
+  outline-offset: 4px; 
+}
+@media (hover: hover) and (pointer: fine) {
+  .more-service-card:hover {
+    transform: translateY(-4px); 
+    background: rgba(255, 255, 255, 0.94); 
+    box-shadow: 0 22px 54px rgba(20, 40, 60, 0.1); 
+    z-index: 1; 
+  }
+}
+.more-accordion-block {
+  margin-top: 54px; 
+}
+.more-accordion-list {
+  border: 1px solid rgba(15, 76, 92, 0.16); 
+  background: rgba(247, 251, 252, 0.78); 
+  box-shadow: 0 18px 50px rgba(20, 40, 60, 0.06); 
+}
+.more-accordion-item {
+  border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
+}
+.more-accordion-item:last-child {
+  border-bottom: 0; 
+}
+.more-accordion-summary {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 18px; 
+  min-height: 64px; 
+  padding: 20px 22px; 
+  color: #123044; 
+  font-size: 17px; 
+  line-height: 1.2; 
+  font-weight: 700; 
+  cursor: pointer; 
+  list-style: none; 
+  -webkit-tap-highlight-color: transparent; 
+}
+.more-accordion-summary::-webkit-details-marker {
+  display: none; 
+}
+.more-accordion-summary::after {
+  content: "+"; 
+  flex: 0 0 auto; 
+  color: rgba(18, 48, 68, 0.58); 
+  font-size: 24px; 
+  line-height: 1; 
+  font-weight: 500; 
+}
+.more-accordion-item[open] .more-accordion-summary::after {
+  content: "–"; 
+}
+.more-accordion-panel {
+  padding: 0 22px 22px; 
+  color: rgba(28, 40, 51, 0.74); 
+  font-size: 15px; 
+  line-height: 1.65; 
+  font-weight: 500; 
+}
+.more-accordion-panel p {
+  margin: 0 0 12px; 
+}
+.more-faq-list {
+  display: grid; 
+  gap: 14px; 
+  margin: 0; 
+}
+.more-faq-list dt {
+  color: #123044; 
+  font-weight: 700; 
+}
+.more-faq-list dd {
+  margin: 4px 0 0; 
+}
+.more-contact-platforms {
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin-top: 6px; 
+}
+.more-contact-platform {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 34px; 
+  padding: 7px 12px; 
+  border: 1px solid rgba(15, 76, 92, 0.14); 
+  border-radius: 999px; 
+  background: rgba(255, 255, 255, 0.72); 
+  color: #123044; 
+  font-size: 13px; 
+  line-height: 1; 
+  font-weight: 700; 
+  text-transform: lowercase; 
+}
+@media (max-width: 900px) {
+  .more-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  }
+  .more-service-card:nth-child(3n) {
+    border-right: 1px solid rgba(15, 76, 92, 0.14); 
+  }
+  .more-service-card:nth-child(2n) {
+    border-right: 0; 
+  }
+  .more-service-card:nth-last-child(-n + 3) {
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
+  }
+  .more-service-card:nth-last-child(-n + 2) {
+    border-bottom: 0; 
+  }
+}
+@media (max-width: 768px) {
+  .more-stories-section {
+    padding: 88px 20px 110px; 
+  }
+  .more-services-block {
+    margin-top: 42px; 
+  }
+  .more-services-grid {
+    grid-template-columns: 1fr; 
+  }
+  .more-service-card,
+  .more-service-card:nth-child(2n),
+  .more-service-card:nth-child(3n),
+  .more-service-card:nth-last-child(-n + 2),
+  .more-service-card:nth-last-child(-n + 3) {
+    border-right: 0; 
+    border-bottom: 1px solid rgba(15, 76, 92, 0.14); 
+  }
+  .more-service-card:last-child {
+    border-bottom: 0; 
+  }
+  .more-service-card {
+    min-height: 152px; 
+    padding: 22px 18px; 
+  }
+  .more-accordion-block {
+    margin-top: 42px; 
+  }
+  .more-accordion-summary {
+    padding: 18px; 
+  }
+  .more-accordion-panel {
+    padding: 0 18px 20px; 
+  }
+}
+
+
+
+
+@media (max-width:768px) {
+  html.home-scroll-locked,
+  body.home-scroll-locked {
+    overflow: hidden; 
+    height: 100%; 
+  }
+}

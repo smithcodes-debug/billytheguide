@@ -1,0 +1,20 @@
+/* =====================================================
+✅ UPDATED: CARD 05 — SERVICE 04 OVERRIDE SHELL
+FILE: ./css/card page home/card-05-service-04.css
+
+PURPOSE:
+- Runtime cleanup after hero-background ownership conflict.
+- This file intentionally contains no hero rules.
+- Hero background image/layer/crop belongs only to ./css/modules/05-hero-background.css.
+- Card 05 service visual rules may be added here later only if they target card/service-owned selectors.
+
+REMOVED:
+- :root --hero-bg-* variables
+- .hero rules
+- .hero::before rules
+- .hero .overlay rules
+- invalid .hero > :not(.overlay)::not(::before) selector
+
+OWNERSHIP:
+- Do not define .hero, .hero::before, .overlay, or --hero-bg-* in this file.
+===================================================== */

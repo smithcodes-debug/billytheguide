@@ -1,0 +1,127 @@
+/* =====================================================
+  ✅ NEW: MODULE 00 — DISPLAY SHELL SYSTEM
+  FILE: ./css/modules/00-display-shell.css
+
+  PURPOSE:
+  - Global display-shell foundation for the website.
+  - Mobile portrait remains the source of truth.
+  - Mobile/tablet portrait keeps normal width: 100% behavior.
+  - Mobile/tablet landscape is treated as desktop display mode.
+  - Desktop/laptop display mode is constrained to tablet-sized app shell.
+  - Desktop shell width is fixed at 768px max and centered.
+
+  CONFIRMED DISPLAY DECISIONS:
+  - App shell max width: 768px.
+  - Landscape mobile/tablet: desktop version, constrained to 768px.
+  - Desktop/laptop: app shell centered, not full viewport.
+  - Outer desktop background: temporary black/gradient app-preview background.
+  - Header: constrained to app shell, centered, not full desktop viewport.
+  - Popup backdrops: constrained to app shell, centered, not full desktop viewport.
+
+  RESPONSIBILITY BOUNDARY:
+  - This module owns global shell width, shell centering, viewport background,
+    and fixed-layer boundary alignment.
+  - This module does NOT own internal component design.
+  - Header visual design belongs to the header/component CSS.
+  - Popup card/backdrop visual design belongs to each popup module.
+
+  DEBUG FIRST HERE IF:
+  - Desktop layout becomes too wide.
+  - Header is full viewport instead of app-shell width.
+  - Popup backdrop covers full desktop viewport instead of app shell.
+  - Fixed layers are horizontally misaligned on desktop/landscape.
+  - Content is wider than the intended app shell.
+
+  LOAD ORDER:
+  - Load this module before component-level CSS modules.
+  - Component CSS can assume shell variables already exist.
+===================================================== */
+
+/* ✅ NEW: shell variables */
+:root {
+  --app-shell-max-width: 768px;
+  --app-shell-width: 100%;
+  --app-shell-bg: #ffffff;
+  --app-outer-bg: #05070b;
+  --app-outer-bg-gradient:
+    radial-gradient(circle at 50% 0%, rgba(0, 186, 255, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(0, 95, 160, 0.22), transparent 38%),
+    linear-gradient(180deg, #02040a 0%, #07111f 46%, #02040a 100%);
+}
+
+/* ✅ NEW: stable viewport base */
+html {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--app-shell-bg);
+}
+
+/* ✅ NEW: default portrait/mobile-first behavior */
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--app-shell-bg);
+}
+
+/* ✅ NEW: keep normal-flow app content centered only when width is constrained */
+.site-content {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* ✅ NEW: desktop-mode trigger
+   - Real desktop/laptop by width.
+   - Mobile/tablet landscape by orientation.
+*/
+@media (min-width: 769px), (orientation: landscape) {
+  html {
+    background: var(--app-outer-bg);
+    background-image: var(--app-outer-bg-gradient);
+  }
+
+  body {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    background: var(--app-outer-bg);
+    background-image: var(--app-outer-bg-gradient);
+  }
+
+  /* ✅ NEW: normal-flow shell layers */
+  .site-content {
+    width: min(100%, var(--app-shell-max-width));
+    max-width: var(--app-shell-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--app-shell-bg);
+  }
+
+  /* ✅ NEW: fixed shell layers
+     Scope is intentionally limited to global fixed boundaries only.
+     Internal header/popup/card design remains owned by component modules.
+  */
+  header,
+  .mobile-search-backdrop,
+  .policy-popup-backdrop,
+  .popup-backdrop,
+  .availability-popup-backdrop,
+  .contact-popup-backdrop,
+  .mobile-edge-pad {
+    width: min(100%, var(--app-shell-max-width));
+    max-width: var(--app-shell-max-width);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}

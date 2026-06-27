@@ -1,0 +1,17 @@
+/* ✅ NEW: CARD 04 CSS - service card 03 */
+@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
+    /* ✅ NEW: edit card 04 container styles here */
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
+    /* ✅ NEW: edit card 04 text/layout spacing here */
+  }
+} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
+/* ✅ NEW: low-res background image */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
+  background-image: url("../images/diving-low.jpg"); /* ✅ NEW */
+  background-size: cover; /* ✅ NEW */
+  background-position: center; /* ✅ NEW */
+  background-repeat: no-repeat; /* ✅ NEW */
+}
