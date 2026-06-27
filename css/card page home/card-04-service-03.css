@@ -1,17 +1,51 @@
-/* ✅ NEW: CARD 04 CSS - service card 03 */
-@media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
+@media (max-width:1024px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
-    /* ✅ NEW: edit card 04 container styles here */
+    background-image: none;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 04 text/layout spacing here */
+    justify-content: flex-start;
   }
-} /* ✅ REQUIRED FIX: xóa dấu phẩy lỗi cú pháp cuối file */
-/* ✅ NEW: low-res background image */
+}
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
-  background-image: url("../images/diving-low.jpg"); /* ✅ NEW */
-  background-size: cover; /* ✅ NEW */
-  background-position: center; /* ✅ NEW */
-  background-repeat: no-repeat; /* ✅ NEW */
+  background-image: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100%;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
+  order: 0;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
+  order: 1;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: 2;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 12px auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/15.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
+  order: 3;
 }
