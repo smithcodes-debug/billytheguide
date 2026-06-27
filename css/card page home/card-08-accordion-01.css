@@ -61,3 +61,21 @@
   font-size: 14px;
   line-height: 1.2;
 }
+/* ✅ UPDATED */
+.mobile-home-feed .more-accordion-item[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-home-feed .more-accordion-item[open] .leave-no-trace-memo-note {
+  order: 1;
+  margin: 0 auto 18px;
+}
+
+.mobile-home-feed .more-accordion-item[open] .more-accordion-summary {
+  order: 2;
+}
+
+.mobile-home-feed .more-accordion-item[open] .more-accordion-panel {
+  order: 3;
+}
