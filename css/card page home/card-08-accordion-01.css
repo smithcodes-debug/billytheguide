@@ -1,28 +1,22 @@
 
 
-
-/* ✅ UPDATED: Card 08 order = memo note → Leave no trace → text */
 .more-accordion-list > .more-accordion-item:first-child[open] {
   display: flex;
   flex-direction: column;
 }
 
-/* ✅ UPDATED: memo note stays first */
 .more-accordion-list > .more-accordion-item:first-child[open] .leave-no-trace-memo-note {
   order: 1;
 }
 
-/* ✅ UPDATED: Leave no trace title after memo */
 .more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-summary {
   order: 2;
 }
 
-/* ✅ UPDATED: Leave no trace text after title */
 .more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-panel {
   order: 3;
 }
 
-/* ✅ UPDATED: Leave no trace Excel-style memo note */
 .leave-no-trace-memo-note {
   position: relative;
   width: min(calc(100% - 32px), 720px);
@@ -39,7 +33,6 @@
   box-sizing: border-box;
 }
 
-/* ✅ UPDATED: simple tail points toward avatar/menu mouth area */
 .leave-no-trace-memo-note::before {
   content: "";
   position: absolute;
