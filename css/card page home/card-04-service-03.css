@@ -1,51 +1,44 @@
-@media (max-width:1024px) {
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
-    background-image: none;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
-    justify-content: flex-start;
-  }
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 {
-  background-image: none;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100%;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
-  order: 0;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
-  order: 1;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
+/* ✅ UPDATED */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc::after {
   content: "";
   display: block;
-  flex: 0 0 auto;
-  order: 2;
   width: min(calc(95% - 19px), 323px);
-  height: 147.25px;
-  margin: 12px auto 8px;
-  border: 1px solid rgba(5, 6, 8, 0.10);
-  border-radius: 16px;
+  aspect-ratio: 993 / 619;
+  margin: 12px auto 10px;
+  border-radius: 18px;
   background-image: url("../../images/comon/15.png");
-  background-repeat: no-repeat;
-  background-position: center;
   background-size: cover;
-  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
-  box-sizing: border-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 16px 34px rgba(5, 6, 8, 0.14);
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
-  order: 3;
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
+  width: min(calc(95% - 19px), 323px);
+  margin: 10px auto 10px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  text-align: center;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 14px 30px rgba(5, 6, 8, 0.08);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad {
+  display: block;
+  padding: 6px 10px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(16, 20, 24, 0.68);
+  font-size: clamp(11px, 2.8vw, 14px);
+  line-height: 1.18;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
+  font: inherit;
 }
