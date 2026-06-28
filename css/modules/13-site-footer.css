@@ -1,11 +1,12 @@
 /* ✅ NEW: MODULE 13 — SITE FOOTER */
 
-/* ✅ UPDATED: fixed bottom dock shell */
+/* ✅ UPDATED: refined SVG fixed bottom dock */
 :root {
-  --site-footer-dock-height: 86px;
-  --site-footer-dock-bg: rgba(255, 255, 255, 0.96);
-  --site-footer-dock-border: rgba(5, 6, 8, 0.12);
-  --site-footer-dock-ink: rgba(16, 20, 24, 0.62);
+  --site-footer-dock-height: 64px;
+  --site-footer-dock-bg: rgba(255, 255, 255, 0.97);
+  --site-footer-dock-border: rgba(5, 6, 8, 0.14);
+  --site-footer-dock-ink: rgba(25, 29, 33, 0.58);
+  --site-footer-dock-ink-strong: rgba(25, 29, 33, 0.74);
   --site-footer-dock-accent: #083f46;
 }
 
@@ -18,7 +19,7 @@ body {
   left: 50%; /* ✅ UPDATED */
   right: auto; /* ✅ UPDATED */
   bottom: 0; /* ✅ UPDATED */
-  z-index: 1006; /* ✅ UPDATED: below header 1100, above mobile edge pad */
+  z-index: 1006; /* ✅ UPDATED: below header 1100 */
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -35,207 +36,115 @@ body {
   width: 100%;
   min-height: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
   margin: 0 auto;
-  padding: 8px 10px calc(env(safe-area-inset-bottom, 0px) + 8px); /* ✅ UPDATED */
+  padding: 4px 8px calc(env(safe-area-inset-bottom, 0px) + 5px); /* ✅ UPDATED */
   border: 1px solid var(--site-footer-dock-border); /* ✅ UPDATED */
-  border-left: 0; /* ✅ UPDATED */
-  border-right: 0; /* ✅ UPDATED */
-  border-bottom: 0; /* ✅ UPDATED */
-  border-radius: 0; /* ✅ UPDATED */
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
   background: var(--site-footer-dock-bg); /* ✅ UPDATED */
-  box-shadow: 0 -12px 34px rgba(5, 6, 8, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.78); /* ✅ UPDATED */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 -8px 26px rgba(5, 6, 8, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88); /* ✅ UPDATED */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   display: grid; /* ✅ UPDATED */
   grid-template-columns: repeat(5, minmax(0, 1fr)); /* ✅ UPDATED */
   align-items: end; /* ✅ UPDATED */
-  gap: 0; /* ✅ UPDATED */
+  gap: 0;
   pointer-events: auto; /* ✅ UPDATED */
   box-sizing: border-box;
 }
 
-/* ✅ UPDATED: keep current HTML, hide long footer content in dock mode */
-.site-footer-brand,
-.site-footer-note {
-  display: none;
-}
-
-.site-footer-nav,
-.site-footer-actions {
-  display: contents; /* ✅ UPDATED: flatten existing HTML into 5 dock slots */
-}
-
-/* ✅ UPDATED: hide extra legacy footer links, keep first two as dock tabs */
-.site-footer-nav .site-footer-link:nth-child(n + 3) {
-  display: none;
-}
-
-.site-footer-link,
-.site-footer-button,
-.site-footer-text-button {
+.site-footer-dock-item {
   position: relative;
-  width: 100%;
   min-width: 0;
-  min-height: 58px;
+  min-height: 52px; /* ✅ UPDATED */
   margin: 0;
-  padding: 29px 2px 0;
+  padding: 4px 2px 0; /* ✅ UPDATED */
   border: 0;
-  border-radius: 0;
+  border-radius: 14px;
   background: transparent;
-  color: transparent; /* ✅ UPDATED: labels are controlled by pseudo content */
+  color: var(--site-footer-dock-ink);
   font: inherit;
-  font-size: 0;
-  line-height: 1;
-  font-weight: 700;
-  text-decoration: none;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  box-shadow: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
   cursor: pointer;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-.site-footer-link::before,
-.site-footer-button::before,
-.site-footer-text-button::before {
-  position: absolute;
-  top: 5px;
-  left: 50%;
+.site-footer-icon {
   width: 24px;
   height: 24px;
-  color: rgba(5, 6, 8, 0.58);
-  font-size: 23px;
-  line-height: 24px;
-  font-weight: 500;
-  text-align: center;
-  transform: translateX(-50%);
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.site-footer-link::after,
-.site-footer-button::after,
-.site-footer-text-button::after {
-  position: absolute;
-  left: 50%;
-  bottom: 2px;
-  color: var(--site-footer-dock-ink);
-  font-size: 12px;
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+.site-footer-label {
+  max-width: 100%;
+  color: var(--site-footer-dock-ink-strong);
+  font-size: 11.5px;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.015em;
   white-space: nowrap;
-  transform: translateX(-50%);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ✅ UPDATED: dock tab 01 */
-.site-footer-nav .site-footer-link:nth-child(1) {
-  grid-column: 1;
+.site-footer-icon-shorts {
+  width: 26px;
+  height: 26px;
+  margin-top: -1px;
+  transform: rotate(-14deg); /* ✅ UPDATED */
 }
 
-.site-footer-nav .site-footer-link:nth-child(1)::before {
-  content: "☰";
+.site-footer-dock-main {
+  z-index: 2;
+  transform: translateY(-16px); /* ✅ UPDATED */
 }
 
-.site-footer-nav .site-footer-link:nth-child(1)::after {
-  content: "Tours";
-}
-
-/* ✅ UPDATED: dock tab 02 */
-.site-footer-nav .site-footer-link:nth-child(2) {
-  grid-column: 2;
-}
-
-.site-footer-nav .site-footer-link:nth-child(2)::before {
-  content: "◇";
-}
-
-.site-footer-nav .site-footer-link:nth-child(2)::after {
-  content: "Stories";
-}
-
-/* ✅ UPDATED: dock center contact button */
-.site-footer-button[data-footer-contact] {
-  grid-column: 3;
-  width: 62px;
-  height: 62px;
-  min-height: 62px;
-  margin: -24px auto 18px;
-  padding: 0;
+.site-footer-main-circle {
+  width: 54px;
+  height: 54px;
   border-radius: 999px;
   background: var(--site-footer-dock-accent);
-  color: transparent;
-  box-shadow: 0 13px 32px rgba(8, 63, 70, 0.28), 0 0 0 6px rgba(255, 255, 255, 0.78);
-  z-index: 2;
-}
-
-.site-footer-button[data-footer-contact]::before {
-  content: "☎"; /* ✅ UPDATED: user selected icon option B */
-  top: 50%;
   color: #ffffff;
-  font-size: 25px;
-  line-height: 1;
-  font-weight: 800;
-  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 12px 26px rgba(8, 63, 70, 0.25),
+    0 0 0 5px rgba(255, 255, 255, 0.86),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
-.site-footer-button[data-footer-contact]::after {
-  content: "Contact";
-  bottom: -22px;
-  color: var(--site-footer-dock-ink);
-  font-size: 12px;
-  font-weight: 750;
+.site-footer-icon-main {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1.8;
 }
 
-/* ✅ UPDATED: dock tab 04 uses existing phone CTA as Tips */
-.site-footer-button-secondary {
-  grid-column: 4;
-  min-height: 58px;
-  padding: 29px 2px 0;
-  background: transparent;
-  border: 0;
-  color: transparent;
+.site-footer-dock-main .site-footer-label {
+  margin-top: 2px;
 }
 
-.site-footer-button-secondary::before {
-  content: "✦";
-}
-
-.site-footer-button-secondary::after {
-  content: "Tips";
-}
-
-/* ✅ UPDATED: dock tab 05 uses existing back-top button as Map placeholder */
-.site-footer-text-button {
-  grid-column: 5;
-}
-
-.site-footer-text-button::before {
-  content: "⌖";
-}
-
-.site-footer-text-button::after {
-  content: "Map";
-}
-
-.site-footer-link:focus-visible,
-.site-footer-button:focus-visible,
-.site-footer-text-button:focus-visible {
-  outline: 3px solid rgba(8, 63, 70, 0.26);
+.site-footer-dock-item:focus-visible {
+  outline: 3px solid rgba(8, 63, 70, 0.24);
   outline-offset: -4px;
-  border-radius: 16px;
 }
 
-.site-footer-link:active::before,
-.site-footer-link:active::after,
-.site-footer-button-secondary:active::before,
-.site-footer-button-secondary:active::after,
-.site-footer-text-button:active::before,
-.site-footer-text-button:active::after {
+.site-footer-dock-item:active {
   color: var(--site-footer-dock-accent);
 }
 
-.site-footer-button[data-footer-contact]:active {
-  transform: translateY(1px);
+.site-footer-dock-main:active {
+  transform: translateY(-15px);
 }
 
 @media (min-width: 769px), (orientation: landscape) {
@@ -247,6 +156,6 @@ body {
   .site-footer-inner {
     border-left: 1px solid var(--site-footer-dock-border);
     border-right: 1px solid var(--site-footer-dock-border);
-    border-radius: 28px 28px 0 0;
+    border-radius: 24px 24px 0 0;
   }
 }

@@ -4,26 +4,23 @@ export function initSiteFooter() {
   const footer = document.querySelector('.site-footer');
   if (!footer || footer.dataset.siteFooterInitialized === 'true') return;
 
-  const dockLinks = footer.querySelectorAll('.site-footer-nav .site-footer-link');
-  const toursButton = dockLinks[0] || null;
-  const storiesButton = dockLinks[1] || null;
+  const categoryButton = footer.querySelector('[data-footer-category]');
+  const shortsButton = footer.querySelector('[data-footer-shorts]');
   const contactButton = footer.querySelector('[data-footer-contact]');
-  const tipsButton = footer.querySelector('.site-footer-button-secondary');
-  const mapButton = footer.querySelector('[data-footer-back-top]');
+  const viewedButton = footer.querySelector('[data-footer-viewed]');
+  const storeButton = footer.querySelector('[data-footer-store]');
   const moreStoriesSection = document.getElementById('more-stories-section');
 
   footer.dataset.siteFooterInitialized = 'true';
 
-  if (toursButton) { /* ✅ UPDATED */
-    toursButton.addEventListener('click', function (event) {
-      event.preventDefault();
+  if (categoryButton) { /* ✅ UPDATED */
+    categoryButton.addEventListener('click', function () {
       window.dispatchEvent(new CustomEvent('billy:open-home-tour-popup'));
     });
   }
 
-  if (storiesButton) { /* ✅ UPDATED */
-    storiesButton.addEventListener('click', function (event) {
-      event.preventDefault();
+  if (shortsButton) { /* ✅ UPDATED */
+    shortsButton.addEventListener('click', function () {
       if (moreStoriesSection) {
         moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -36,15 +33,14 @@ export function initSiteFooter() {
     });
   }
 
-  if (tipsButton) { /* ✅ UPDATED */
-    tipsButton.addEventListener('click', function (event) {
-      event.preventDefault();
+  if (viewedButton) { /* ✅ UPDATED: temporary route until viewed-products module exists */
+    viewedButton.addEventListener('click', function () {
       window.location.href = './phu-quoc-tip-and-trick.html';
     });
   }
 
-  if (mapButton) { /* ✅ UPDATED: placeholder until official map link is ready */
-    mapButton.addEventListener('click', function () {
+  if (storeButton) { /* ✅ UPDATED: placeholder until official store/map link is ready */
+    storeButton.addEventListener('click', function () {
       window.dispatchEvent(new CustomEvent('billy:open-contact-popup'));
     });
   }
