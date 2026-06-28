@@ -117,6 +117,7 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
   const READING_MODE_CLASS = 'is-home-reading-mode'; /* ✅ NEW */
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last'; /* ✅ NEW */
   const LAST_CARD_VISIBLE_RATIO = 0.62; /* ✅ NEW */
+  const READING_MODE_EXIT_OFFSET = 48; /* ✅ NEW: exit reading mode before card 09 so card 08 can snap/hook again */
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null; /* ✅ NEW */
   if (!homeSection || !sourceInner) return; /* ✅ REQUIRED FIX */
@@ -258,12 +259,27 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
     applySnapStateIfNeeded(); /* ✅ NEW */
   }
 
-  function exitReadingModeIfDesktop() { /* ✅ NEW */
-    if (!isReadingMode || !isDesktopViewport()) return; /* ✅ NEW */
+  function exitReadingModeOnBackscroll() { /* ✅ NEW: restore snap/hook when user scrolls back above FAQ */
+    if (!isReadingMode) return; /* ✅ NEW */
     isReadingMode = false; /* ✅ NEW */
-    setFeedEndingMode(false); /* ✅ NEW */
+    isSnapActivated = true; /* ✅ NEW */
     setRootReadingMode(false); /* ✅ NEW */
+    setFeedEndingMode(false); /* ✅ NEW */
     applySnapStateIfNeeded(); /* ✅ NEW */
+  }
+
+  function syncReadingModeBackscroll() { /* ✅ NEW */
+    if (!isMobileTabletViewport() || !isReadingMode || !lastPanel) return; /* ✅ NEW */
+    const lastPanelTop = lastPanel.offsetTop || 0; /* ✅ NEW */
+    const currentFeedScrollTop = feed.scrollTop || 0; /* ✅ NEW */
+    if (currentFeedScrollTop < lastPanelTop - READING_MODE_EXIT_OFFSET) { /* ✅ NEW */
+      exitReadingModeOnBackscroll(); /* ✅ NEW */
+    }
+  }
+
+  function exitReadingModeIfDesktop() { /* ✅ UPDATED */
+    if (!isReadingMode || !isDesktopViewport()) return; /* ✅ NEW */
+    exitReadingModeOnBackscroll(); /* ✅ UPDATED */
   }
 
   function activateSnapWhenHomeReached() { /* ✅ UPDATED */
@@ -332,7 +348,10 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
   syncMobileFeedState(); /* ✅ NEW */
   initLastPanelObserver(); /* ✅ NEW */
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true }); /* ✅ NEW */
-  feed.addEventListener('scroll', checkLastPanelHandoff, { passive: true }); /* ✅ NEW */
+  feed.addEventListener('scroll', function () { /* ✅ UPDATED */
+    checkLastPanelHandoff(); /* ✅ NEW */
+    syncReadingModeBackscroll(); /* ✅ NEW */
+  }, { passive: true }); /* ✅ UPDATED */
   window.addEventListener('resize', syncMobileFeedState); /* ✅ NEW */
   window.addEventListener('orientationchange', function () { /* ✅ NEW */
     window.setTimeout(syncMobileFeedState, 220); /* ✅ NEW */

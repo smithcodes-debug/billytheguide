@@ -712,3 +712,15 @@
     padding: 34px 16px 36px !important;
   }
 }
+
+/* ✅ NEW: EXIT READING MODE SNAP RESTORE GUARD */
+@media (max-width:1024px) {
+  .more-stories-section.is-mobile-home-feed-ready:not(.is-home-reading-mode) .mobile-home-feed {
+    scroll-snap-type: y mandatory;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready:not(.is-home-reading-mode) .mobile-home-feed-panel {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
