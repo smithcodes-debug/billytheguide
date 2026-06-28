@@ -623,7 +623,7 @@
   html.is-home-reading-mode,
   body.is-home-reading-mode {
     scroll-snap-type: none !important;
-    overscroll-behavior-y: auto !important;
+    overscroll-behavior-y: contain !important;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle,
@@ -633,25 +633,29 @@
     transition: opacity 180ms ease, visibility 180ms ease;
   }
 
+  /* ✅ UPDATED: keep the same 100svh feed shell to avoid document-scroll jump/hero rollback */
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode {
+    height: 100vh;
+    height: 100svh;
     min-height: 100svh;
-    height: auto;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed {
     display: block;
-    height: auto;
+    height: 100vh;
+    height: 100svh;
     min-height: 100svh;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
     scroll-snap-type: none;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
   }
 
-  /* ✅ UPDATED: keep cards 1-8 in flow so user can scroll back up from FAQ to card 8 */
+  /* ✅ UPDATED: keep cards 1-8 scrollable inside the same feed container */
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel {
     display: flex;
     height: 100svh;
@@ -668,6 +672,7 @@
     box-sizing: border-box;
   }
 
+  /* ✅ UPDATED: only card 09 becomes taller/natural inside feed, not document */
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel-last {
     height: auto;
     min-height: 100svh;
@@ -691,7 +696,6 @@
     justify-content: center;
   }
 
-  /* ✅ UPDATED: only FAQ/card 09 becomes natural reading content */
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 {
     height: auto;
     min-height: calc(100svh - var(--mobile-home-feed-header-height) - var(--mobile-home-feed-locked-gap));

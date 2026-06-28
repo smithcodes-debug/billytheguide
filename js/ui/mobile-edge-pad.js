@@ -21,18 +21,21 @@ export function initMobileEdgePad() { /* ✅ NEW */
   function isMobile() { /* ✅ NEW */
     return mobileMedia.matches; /* ✅ NEW */
   }
+  function isHomeReadingModeActive() { /* ✅ NEW */
+    return document.body.classList.contains('is-home-reading-mode'); /* ✅ NEW */
+  }
 
   function isSearchOpen() { /* ✅ NEW */
     return Boolean(searchPopup && searchPopup.classList.contains('is-open')); /* ✅ NEW */
   }
 
   function updateEdgePadVisibility() { /* ✅ NEW */
-    const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen(); /* ✅ NEW */
+    const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen() || isHomeReadingModeActive(); /* ✅ UPDATED */
     edgePad.classList.toggle('is-hidden', shouldHide); /* ✅ NEW */
   }
 
   function goToMoreStories() { /* ✅ NEW */
-    if (!isMobile()) return; /* ✅ NEW */
+    if (!isMobile() || isHomeReadingModeActive()) return; /* ✅ UPDATED */
     unlockHomeScroll(); /* ✅ NEW */
     edgePad.classList.add('is-hidden'); /* ✅ NEW */
     targetSection.scrollIntoView({ behavior: 'auto', block: 'start' }); /* ✅ UPDATED: nhảy ngay tới section */

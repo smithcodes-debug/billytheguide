@@ -249,22 +249,13 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
     document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
   }
 
-  function enterReadingMode() { /* ✅ UPDATED: preserve card position when switching from inner feed scroll to document scroll */
+  function enterReadingMode() { /* ✅ UPDATED: container-only reading mode; do not remap document scroll */
     if (isReadingMode || !isMobileTabletViewport() || !lastPanel) return; /* ✅ NEW */
-    const homeTop = Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY)); /* ✅ NEW */
-    const feedScrollTop = feed.scrollTop || 0; /* ✅ NEW */
     isReadingMode = true; /* ✅ NEW */
     isSnapActivated = false; /* ✅ NEW */
     setFeedEndingMode(true); /* ✅ NEW */
     setRootReadingMode(true); /* ✅ NEW */
     applySnapStateIfNeeded(); /* ✅ NEW */
-    window.requestAnimationFrame(function () { /* ✅ UPDATED */
-      window.scrollTo({ /* ✅ UPDATED */
-        top: homeTop + feedScrollTop, /* ✅ UPDATED */
-        left: 0, /* ✅ NEW */
-        behavior: 'auto' /* ✅ UPDATED */
-      });
-    });
   }
 
   function exitReadingModeIfDesktop() { /* ✅ NEW */
