@@ -30,9 +30,9 @@
 }
 
 .leave-no-trace-gallery__slide {
-  flex: 0 0 clamp(180px, 62vw, 280px);
-  width: clamp(180px, 62vw, 280px);
-  min-width: clamp(180px, 62vw, 280px);
+  flex: 0 0 clamp(126px, 43vw, 196px); /* ✅ UPDATED */
+  width: clamp(126px, 43vw, 196px); /* ✅ UPDATED */
+  min-width: clamp(126px, 43vw, 196px); /* ✅ UPDATED */
   margin: 0;
   scroll-snap-align: start;
   box-sizing: border-box;
