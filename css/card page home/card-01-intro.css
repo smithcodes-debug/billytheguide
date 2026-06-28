@@ -618,7 +618,7 @@
   }
 }
 
-/* ✅ NEW: SNAP FEED -> FAQ READING MODE HANDOFF */
+/* ✅ UPDATED: SNAP FEED -> FAQ READING MODE HANDOFF */
 @media (max-width:1024px) {
   html.is-home-reading-mode,
   body.is-home-reading-mode {
@@ -630,6 +630,7 @@
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-handle {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 180ms ease, visibility 180ms ease;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode {
@@ -650,42 +651,60 @@
     touch-action: pan-y;
   }
 
+  /* ✅ UPDATED: keep cards 1-8 in flow so user can scroll back up from FAQ to card 8 */
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel {
-    display: none;
-    height: auto;
-    min-height: 0;
+    display: flex;
+    height: 100svh;
+    min-height: 100svh;
     padding:
       calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
       var(--mobile-home-feed-side-gap)
-      calc(env(safe-area-inset-bottom, 0px) + var(--site-footer-dock-height, 44px) + 28px);
-    overflow: visible;
+      calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden;
     scroll-snap-align: none;
     scroll-snap-stop: normal;
+    box-sizing: border-box;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel-last {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
+    height: auto;
+    min-height: 100svh;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--site-footer-dock-height, 44px) + 28px);
+    overflow: visible;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card {
     width: min(100%, 700px);
-    height: auto;
-    min-height: calc(100svh - var(--mobile-home-feed-header-height) - var(--mobile-home-feed-locked-gap));
-    overflow: visible;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-scroll {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ✅ UPDATED: only FAQ/card 09 becomes natural reading content */
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 {
+    height: auto;
+    min-height: calc(100svh - var(--mobile-home-feed-header-height) - var(--mobile-home-feed-locked-gap));
+    border-radius: 34px;
+    background: rgba(255, 255, 255, 0.94);
+    overflow: visible;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
     height: auto;
     min-height: 0;
     overflow: visible;
     display: block;
     padding: 34px 16px 36px !important;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 {
-    border-radius: 34px;
-    background: rgba(255, 255, 255, 0.94);
   }
 }

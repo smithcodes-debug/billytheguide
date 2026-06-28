@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-21-site-footer-module-added",
+  "version": "pdrs-01-22-snap-reading-handoff-card09-faq-footer",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,13 +8,13 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "site-footer-module-added",
-    "note": "PDRS-01.21 update: added/accounted site footer module with external CSS and JS module. Footer owns visual footer links/contact/back-to-top only."
+    "status": "snap-reading-handoff-card09-faq-footer",
+    "note": "PDRS-01.22 update: Contact platforms accordion/card 10 removed; FAQ is now card 09/final card; mobile home feed uses card 1-8 snap/swipe and hands off to FAQ reading mode at card 09; footer dock is hidden by default and appears in feed-ending/reading mode."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "added CSS link and footer HTML block after </main>",
+    "indexHtmlChange": "removed Contact platforms accordion block and removed card-10-accordion-03.css link from index.html",
     "cssAdded": true,
-    "cssChanged": false,
+    "cssChanged": true,
     "jsAdded": true,
     "jsChanged": true,
     "jsAddedFiles": [
@@ -22,13 +22,27 @@
       "./js/modules/site-footer.js"
     ],
     "bodyChanged": true,
-    "textChanged": true,
+    "textChanged": false,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.21 adds ./css/modules/13-site-footer.css, ./js/modules/site-footer.js, footer HTML in index.html, and initSiteFooter import/init in ./js/main.js.",
+    "note": "PDRS-01.22 accounts snap-to-reading-mode handoff: ./js/main.js limits mobile feed to 9 cards, ./css/card page home/card-01-intro.css owns reading-mode feed shell override, ./css/card page home/card-09-accordion-02.css owns FAQ reading-card visual, ./css/modules/13-site-footer.css hides dock until .is-feed-ending/.is-home-reading-mode.",
     "cssAddedFiles": [
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css"
+    ],
+    "cssRemovedFilesFromIndex": [
+      "./css/card page home/card-10-accordion-03.css"
+    ],
+    "cssChangedFiles": [
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/modules/13-site-footer.css"
+    ],
+    "jsChangedFiles": [
+      "./js/main.js"
+    ],
+    "htmlRemovedBlocks": [
+      "Contact platforms accordion item inside .more-accordion-list"
     ]
   },
   "knownFiles": {
@@ -55,7 +69,6 @@
       "./css/card page home/card-07-service-06.css",
       "./css/card page home/card-08-accordion-01.css",
       "./css/card page home/card-09-accordion-02.css",
-      "./css/card page home/card-10-accordion-03.css",
       "./css/modules/06-availability-booking.css",
       "./css/modules/10-contact-popup.css",
       "./css/modules/08-policy-popup.css",
@@ -207,12 +220,17 @@
       "noFakeComponentPolicy": "Before creating fake/temporary UI such as fake search box, fake header control, fake popup, or fake visual component, first inspect/search PDRS module ownership and existing CSS/JS. Fake is allowed only if the user explicitly permits it.",
       "heroOwnershipConflictPolicy": "Hero background belongs to ./css/modules/05-hero-background.css. Hero layout/text/tagline belongs to ./css/home-hero-tour-popup.css. Availability floating memo belongs to ./css/modules/06-availability-booking.css. Do not duplicate ownership across these files.",
       "heroResponsiveImageExceptionPolicy": "Allowed exception to everywhere same: only the hero background image source may differ by display category. The hero component DOM, layout, tagline, story, CTA, header, availability, popup behavior, and shell rule remain same everywhere.",
-      "progressiveImageLoaderJsRuntimeStatus": "Reusable module at ./js/modules/progressive-image-loader.js. CSS owns image URLs via background-image low-res and --progressive-highres high-res. JS only preloads and toggles .is-highres."
+      "progressiveImageLoaderJsRuntimeStatus": "Reusable module at ./js/modules/progressive-image-loader.js. CSS owns image URLs via background-image low-res and --progressive-highres high-res. JS only preloads and toggles .is-highres.",
+      "snapReadingHandoffRuntimeStatus": "active/accounted after PDRS-01.22: card 09 FAQ is final mobile feed card; card 1-8 remain snap/swipe; card 09 enters .is-feed-ending/.is-home-reading-mode and footer dock appears. card-10 accordion/contact platform CSS link removed from index.html."
     },
     "plannedCssModules": [],
     "plannedJsModules": [
       "./js/modules/input-modality.js",
       "./js/modules/progressive-image-loader.js"
+    ],
+    "currentActiveCardCount": 9,
+    "removedRuntimeCssFiles": [
+      "./css/card page home/card-10-accordion-03.css"
     ]
   },
   "uploadPolicyForFutureDebug": {
@@ -223,18 +241,14 @@
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
     "nextRecommendedCssBatch": [
-      "./css/modules/12-leave-no-trace-gallery.css"
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/modules/13-site-footer.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.20 complete: leave-no-trace-gallery CSS-only swipe module added/accounted and linked by index.html.",
+    "currentInventoryCheckpoint": "PDRS-01.22 complete: card 09 FAQ reading-mode handoff and footer reveal accounted.",
     "nextRecommendedJsBatch": [
-      "./js/modules/progressive-image-loader.js",
-      "./js/modules/input-modality.js",
-      "./js/modules/tour-card-links.js",
-      "./js/modules/header-menu-state.js",
-      "./js/modules/mobile-story-typewriter.js",
-      "HTML page importing ./js/ui/brand-logo.js if used",
-      "HTML page importing ./js/modules/payment.js if used",
-      "HTML page importing ./js/modules/confirmation.js if used"
+      "./js/main.js",
+      "./js/modules/site-footer.js"
     ],
     "nextRecommendedUploadBatch": [
       "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
@@ -449,6 +463,22 @@
         "./css/modules/12-leave-no-trace-gallery.css",
         "./css/modules/11-scroll-home-composite.css"
       ]
+    },
+    {
+      "id": "card09-faq-reading-mode-handoff",
+      "rule": "Mobile home feed cards 1-8 remain snap/swipe. Card 09 (FAQ) is the final card and the handoff point into natural FAQ reading mode. Footer dock is hidden until .is-feed-ending or .is-home-reading-mode. Do not reintroduce card 10 Contact platforms unless explicitly requested.",
+      "primaryAreas": [
+        "11-scroll-home-composite",
+        "13-site-footer",
+        "18-main-js-entry"
+      ],
+      "firstFilesToInspect": [
+        "index.html",
+        "./js/main.js",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css"
+      ]
     }
   ],
   "modules": {
@@ -468,7 +498,6 @@
         "./css/card page home/card-07-service-06.css",
         "./css/card page home/card-08-accordion-01.css",
         "./css/card page home/card-09-accordion-02.css",
-        "./css/card page home/card-10-accordion-03.css",
         "./css/modules/06-availability-booking.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/08-policy-popup.css",
@@ -494,7 +523,8 @@
       ],
       "cssFilesPlanned": [],
       "notes": [
-        "./css/modules/05-hero-background.css is active owner for hero background image/layer/crop after PDRS-01.16 ownership lock."
+        "./css/modules/05-hero-background.css is active owner for hero background image/layer/crop after PDRS-01.16 ownership lock.",
+        "PDRS-01.22: ./css/card page home/card-10-accordion-03.css removed from index.html after Contact platforms/card 10 deletion."
       ]
     },
     "02-header-system": {
@@ -983,7 +1013,7 @@
       ]
     },
     "11-scroll-home-composite": {
-      "area": "scroll-home/service grid/accordion/platform chips",
+      "area": "scroll-home/service grid/accordion/mobile feed/card09 FAQ reading handoff",
       "htmlModule": "MODULE 11 + MODULE 12 + MODULE 13 + MODULE 14",
       "cssFilesPrimary": [
         "./css/modules/11-scroll-home-composite.css"
@@ -996,8 +1026,7 @@
         "./css/card page home/card-06-service-05.css",
         "./css/card page home/card-07-service-06.css",
         "./css/card page home/card-08-accordion-01.css",
-        "./css/card page home/card-09-accordion-02.css",
-        "./css/card page home/card-10-accordion-03.css"
+        "./css/card page home/card-09-accordion-02.css"
       ],
       "jsFilesPrimary": [
         "./js/main.js",
@@ -1021,7 +1050,11 @@
         ".mobile-home-feed-panel",
         ".mobile-home-feed-card",
         ".mobile-home-feed-handle",
-        "#logoTrigger"
+        "#logoTrigger",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-last",
+        ".mobile-home-feed-card-09",
+        ".mobile-home-feed-card-scroll-last"
       ],
       "states": [
         "details[open]",
@@ -1042,28 +1075,40 @@
         "resize",
         "orientationchange",
         "html[data-input-mode=\"mouse\"]",
-        "html[data-input-mode=\"touch\"]"
+        "html[data-input-mode=\"touch\"]",
+        ".is-feed-ending",
+        ".is-home-reading-mode",
+        "data-mobile-feed-last-card",
+        "IntersectionObserver(root: .mobile-home-feed)",
+        "card09-faq-reading-mode-handoff"
       ],
       "futureUploadIfBug": [
-        "./js/modules/input-modality.js",
-        "css/modules/11-scroll-home-composite.css",
-        "js/main.js",
+        "project-debug-routing-system.json",
+        "index.html",
         "./js/main.js",
-        "./js/ui/story-expand.js",
-        "./js/ui/mobile-edge-pad.js"
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js"
       ],
       "behavior": [
         "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
         "main.js/initMobileHomeSectionLock guards mobile/tablet users from scrolling above home section after lock activation.",
         "story-expand.js scrolls from tour popup to #more-stories-section and back-to-tours scrolls to .hero.",
-        "mobile-edge-pad.js jumps from hero to more stories on mobile."
+        "mobile-edge-pad.js jumps from hero to more stories on mobile.",
+        "PDRS-01.22: main.js/initMobileHomeFeed limits active mobile feed to 9 cards; card 09 FAQ is the final card.",
+        "PDRS-01.22: Cards 1-8 use snap/swipe feed behavior. When card 09 reaches the visible threshold, main.js adds .is-feed-ending and .is-home-reading-mode to html/body/.more-stories-section.",
+        "PDRS-01.22: In reading mode, card 09 becomes the natural FAQ reading section; card 10 Contact platforms is removed."
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js",
         "./js/modules/progressive-image-loader.js"
       ],
       "riskNotes": [
-        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
+        "PDRS-01.22: Do not restore nested FAQ-only scroll unless reading-mode handoff is intentionally removed.",
+        "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored."
       ]
     },
     "20-snorkeling-page": {
@@ -1265,7 +1310,10 @@
         "#logoTrigger",
         ".site-footer",
         "[data-footer-contact]",
-        "[data-footer-back-top]"
+        "[data-footer-back-top]",
+        ".mobile-home-feed",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-09"
       ],
       "states": [
         "body.js-loading",
@@ -1280,14 +1328,19 @@
         "history.pushState",
         "popstate",
         "data-site-footer-initialized",
-        "billy:open-contact-popup"
+        "billy:open-contact-popup",
+        ".is-feed-ending",
+        ".is-home-reading-mode",
+        "data-mobile-feed-last-card",
+        ".mobile-home-feed-panel-last"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
-        "./js/modules/input-modality.js",
-        "./js/modules/progressive-image-loader.js",
-        "./js/modules/site-footer.js",
-        "./css/modules/13-site-footer.css"
+        "index.html",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css",
+        "./js/modules/site-footer.js"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1298,6 +1351,10 @@
       ],
       "riskNotes": [
         "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode]."
+      ],
+      "behavior": [
+        "PDRS-01.22: initMobileHomeFeed creates 9 mobile feed cards and marks the final card with .mobile-home-feed-panel-last / data-mobile-feed-last-card=true.",
+        "PDRS-01.22: initMobileHomeFeed observes card 09 visibility and enters FAQ reading mode by toggling .is-feed-ending and .is-home-reading-mode."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -2026,7 +2083,7 @@
       ]
     },
     "13-site-footer": {
-      "area": "global site footer / footer links / footer contact action / back to top",
+      "area": "global site footer / footer dock hidden until FAQ reading mode / footer contact actions",
       "htmlModule": "MODULE 13 — SITE FOOTER",
       "htmlFilesPrimary": [
         "index.html"
@@ -2053,25 +2110,35 @@
         ".site-footer-text-button",
         ".site-footer-note",
         "[data-footer-contact]",
-        "[data-footer-back-top]"
+        "[data-footer-back-top]",
+        "body.is-feed-ending .site-footer",
+        "body.is-home-reading-mode .site-footer"
       ],
       "states": [
         "data-site-footer-initialized",
         "billy:open-contact-popup",
         "window.scrollTo({ top: 0, behavior: smooth })",
-        "focus-visible"
+        "focus-visible",
+        ".is-feed-ending",
+        ".is-home-reading-mode",
+        "footer-hidden-default",
+        "footer-visible-after-card09-faq"
       ],
       "behavior": [
         "Footer provides final site navigation links, contact CTA, phone CTA, trust note, and back-to-top action.",
         "site-footer.js opens the existing contact popup by dispatching billy:open-contact-popup.",
         "site-footer.js scrolls to top when [data-footer-back-top] is clicked.",
-        "Footer follows mobile UI source of truth and desktop/landscape 768px app shell boundary."
+        "Footer follows mobile UI source of truth and desktop/landscape 768px app shell boundary.",
+        "PDRS-01.22: Footer dock is hidden by default and revealed only when body has .is-feed-ending or .is-home-reading-mode.",
+        "PDRS-01.22: Footer remains fixed-bottom dock within app shell; visibility is controlled by CSS state from main.js reading-mode handoff."
       ],
       "riskNotes": [
         "Footer CSS must not style header, hero, availability, popup internals, or mobile home feed.",
         "Footer JS must not duplicate contact popup logic; it only dispatches the existing contact popup event.",
         "If Contact Billy does not open popup, inspect ./js/modules/site-footer.js, ./js/ui/contact-popup.js, and ./js/main.js import/init order.",
-        "Footer links must use route filenames that exist in knownFiles.knownRoutePagesFromIndex."
+        "Footer links must use route filenames that exist in knownFiles.knownRoutePagesFromIndex.",
+        "PDRS-01.22: If footer appears too early, inspect main.js card09 observer and body .is-feed-ending/.is-home-reading-mode state.",
+        "PDRS-01.22: Footer CSS may style body padding-bottom only in reading mode; do not restore global body padding-bottom unless footer should always be visible."
       ],
       "futureUploadIfBug": [
         "index.html",
@@ -2079,6 +2146,61 @@
         "./js/modules/site-footer.js",
         "./js/main.js",
         "./js/ui/contact-popup.js"
+      ]
+    },
+    "30-snap-reading-handoff": {
+      "area": "mobile feed snap-to-FAQ-reading-mode handoff",
+      "htmlModule": "index.html — more-stories-section / mobile cloned feed",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#more-stories-section",
+        ".more-stories-section",
+        ".mobile-home-feed",
+        ".mobile-home-feed-panel",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-09",
+        ".mobile-home-feed-handle",
+        ".site-footer"
+      ],
+      "states": [
+        ".is-mobile-home-feed-ready",
+        ".mobile-home-feed-snap",
+        ".is-feed-ending",
+        ".is-home-reading-mode",
+        "data-mobile-feed-card=\"09\"",
+        "data-mobile-feed-last-card=\"true\"",
+        "IntersectionObserver(root: .mobile-home-feed)"
+      ],
+      "behavior": [
+        "Cards 1-8 keep snap/swipe feed behavior on mobile/tablet.",
+        "Card 09 is FAQ and final mobile feed card.",
+        "When card 09 becomes visible past threshold, main.js enters reading mode by adding .is-feed-ending and .is-home-reading-mode to html/body/.more-stories-section.",
+        "Reading mode hides the mobile feed handle, disables snap for the FAQ reading area, and reveals the fixed footer dock.",
+        "Contact platforms/card 10 was removed from HTML; card-10-accordion-03.css is no longer linked by index.html."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css"
+      ],
+      "riskNotes": [
+        "If user cannot reach footer, inspect .is-home-reading-mode state on body/html and card 09 observer threshold in main.js.",
+        "If snap stops before card 09, inspect .mobile-home-feed-snap and .is-feed-ending state toggling.",
+        "If FAQ content is cramped or nested-scroll appears, inspect card-09-accordion-02.css and card-01-intro.css reading-mode overrides.",
+        "If footer appears before FAQ, inspect 13-site-footer.css selectors body.is-feed-ending/body.is-home-reading-mode."
       ]
     }
   },
@@ -2220,15 +2342,21 @@
       "uploadRequestOrder": [
         "project-debug-routing-system.json",
         "index.html",
+        "./js/main.js",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css",
         "css/modules/11-scroll-home-composite.css",
-        "css/modules/07-mobile-edge-pad.css",
-        "js/main.js"
+        "css/modules/07-mobile-edge-pad.css"
       ],
       "selectors": [
         "#more-stories-section",
         ".more-services-grid",
         ".more-accordion-item",
-        ".mobile-edge-pad"
+        ".mobile-edge-pad",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-09",
+        "body.is-home-reading-mode"
       ]
     },
     "z-index-overlay-conflict": {
@@ -2780,16 +2908,48 @@
         "project-debug-routing-system.json",
         "index.html",
         "./css/modules/13-site-footer.css",
-        "./js/modules/site-footer.js",
         "./js/main.js",
+        "./js/modules/site-footer.js",
         "./js/ui/contact-popup.js"
       ],
       "selectors": [
         ".site-footer",
         ".site-footer-link",
         "[data-footer-contact]",
-        "[data-footer-back-top]"
+        "[data-footer-back-top]",
+        "body.is-feed-ending",
+        "body.is-home-reading-mode"
       ]
+    },
+    "card09-faq-reading-mode-loi": {
+      "userDescriptionExamples": [
+        "FAQ không scroll tự nhiên",
+        "tới card 9 bị kẹt",
+        "footer không hiện khi tới FAQ",
+        "footer hiện quá sớm",
+        "swipe pad không chuyển sang reading mode",
+        "card 9 không phải card cuối",
+        "address bar không hide khi đọc FAQ"
+      ],
+      "routeToModule": "30-snap-reading-handoff",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css"
+      ],
+      "selectors": [
+        ".mobile-home-feed",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-09",
+        ".mobile-home-feed-handle",
+        ".site-footer",
+        "body.is-feed-ending",
+        "body.is-home-reading-mode"
+      ],
+      "ownershipRule": "main.js owns state handoff; card-01-intro.css owns feed shell reading-mode override; card-09-accordion-02.css owns FAQ reading visual; 13-site-footer.css owns footer reveal."
     }
   },
   "registriesFromIndexHtml": {
@@ -2908,8 +3068,6 @@
       "more-accordion-list",
       "more-accordion-panel",
       "more-accordion-summary",
-      "more-contact-platform",
-      "more-contact-platforms",
       "more-faq-list",
       "more-section-label",
       "more-service-card",
@@ -2993,7 +3151,13 @@
       "site-footer-button",
       "site-footer-button-secondary",
       "site-footer-text-button",
-      "site-footer-note"
+      "site-footer-note",
+      "is-feed-ending",
+      "is-home-reading-mode",
+      "mobile-home-feed-panel-last",
+      "mobile-home-feed-card-last",
+      "mobile-home-feed-card-09",
+      "mobile-home-feed-card-scroll-last"
     ],
     "dataAttributes": [
       "data-home-behavior",
@@ -3002,7 +3166,9 @@
       "data-story-back-to-tours",
       "data-tour",
       "data-footer-contact",
-      "data-footer-back-top"
+      "data-footer-back-top",
+      "data-mobile-feed-card",
+      "data-mobile-feed-last-card"
     ],
     "ariaAttributes": [
       "aria-controls",
@@ -3016,14 +3182,16 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.22 — Verify Site Footer Runtime",
+    "nextStepName": "PDRS-01.23 — Test Card 09 FAQ Reading Mode",
     "recommendedUploadBatch": [
-      "Browser screenshot of footer on mobile and desktop shell if visual issue appears",
-      "./css/modules/13-site-footer.css",
-      "./js/modules/site-footer.js",
-      "./js/main.js"
+      "Mobile screenshot/video from card 8 -> card 9 -> footer if bug appears",
+      "Browser console screenshot if JS error appears",
+      "./js/main.js",
+      "./css/card page home/card-01-intro.css",
+      "./css/card page home/card-09-accordion-02.css",
+      "./css/modules/13-site-footer.css"
     ],
-    "goal": "Verify footer visual, route links, Contact Billy event bridge, and Back to top action across mobile/tablet/desktop shell."
+    "goal": "Verify card 1-8 snap/swipe behavior, card 09 FAQ reading-mode handoff, footer reveal timing, and mobile address-bar behavior."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -3058,7 +3226,6 @@
         "./css/card page home/card-07-service-06.css",
         "./css/card page home/card-08-accordion-01.css",
         "./css/card page home/card-09-accordion-02.css",
-        "./css/card page home/card-10-accordion-03.css",
         "./css/modules/06-availability-booking.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/08-policy-popup.css",
@@ -3182,15 +3349,14 @@
       "./css/card page home/card-06-service-05.css",
       "./css/card page home/card-07-service-06.css",
       "./css/card page home/card-08-accordion-01.css",
-      "./css/card page home/card-09-accordion-02.css",
-      "./css/card page home/card-10-accordion-03.css"
+      "./css/card page home/card-09-accordion-02.css"
     ],
     "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
     "cssModulesPlannedNotLinked": []
   },
   "rootCardCssInventory": {
     "step": "PDRS-01.7 — Root Card CSS Inventory",
-    "status": "root-card-css-accounted",
+    "status": "root-card-css-accounted-card10-removed-from-active-index",
     "updatedAtLocal": "2026-06-20T20:48:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": false,
@@ -3216,8 +3382,7 @@
       "./css/card page home/card-06-service-05.css",
       "./css/card page home/card-07-service-06.css",
       "./css/card page home/card-08-accordion-01.css",
-      "./css/card page home/card-09-accordion-02.css",
-      "./css/card page home/card-10-accordion-03.css"
+      "./css/card page home/card-09-accordion-02.css"
     ],
     "rootCardCssReceivedOrAccounted": [
       {
@@ -3277,12 +3442,13 @@
       },
       {
         "path": "./css/card page home/card-10-accordion-03.css",
-        "status": "received-and-source-read",
-        "role": "card-10 accordion override shell"
+        "status": "inactive-removed-from-index-after-contact-platforms-delete",
+        "role": "legacy card-10 contact-platforms accordion CSS; keep only as reference unless card 10 is restored",
+        "activeInIndexHtml": false
       }
     ],
     "rootCardCssMissingFromInventory": [],
-    "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
+    "rootCardCssStatus": "PASS — active index now uses 9 card CSS files; card-10-accordion-03.css is removed from index.html after Contact platforms deletion.",
     "cardCssPrimaryDebugRouting": {
       "mobileFeedSwipeOrSnapIssues": [
         "./css/card page home/card-01-intro.css",
@@ -3298,8 +3464,7 @@
       ],
       "individualAccordionCardVisualIssues": [
         "./css/card page home/card-08-accordion-01.css",
-        "./css/card page home/card-09-accordion-02.css",
-        "./css/card page home/card-10-accordion-03.css"
+        "./css/card page home/card-09-accordion-02.css"
       ],
       "knownCardCssOwnershipConflictsCleaned": [
         {
@@ -3317,6 +3482,12 @@
             "--hero-bg-desktop"
           ]
         }
+      ],
+      "faqReadingModeIssues": [
+        "./css/card page home/card-01-intro.css",
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/13-site-footer.css",
+        "./js/main.js"
       ]
     },
     "syntaxVerifyQueueAdditions": [
@@ -3341,7 +3512,10 @@
         "./js/modules/header-menu-state.js",
         "./js/modules/mobile-story-typewriter.js"
       ]
-    }
+    },
+    "removedFromActiveIndex": [
+      "./css/card page home/card-10-accordion-03.css"
+    ]
   },
   "jsModuleInventory": {
     "step": "PDRS-01.10 — JS + Root Legacy Runtime Inventory",
@@ -3416,7 +3590,10 @@
         ".cta-trigger",
         ".more-stories-section",
         ".more-stories-inner",
-        "#logoTrigger"
+        "#logoTrigger",
+        ".mobile-home-feed-panel-last",
+        ".mobile-home-feed-card-09",
+        ".site-footer"
       ],
       "states": [
         "body.js-loading",
@@ -3429,10 +3606,16 @@
         ".is-desktop-home-feed-normal-scroll",
         ".mobile-home-feed-snap",
         "history.pushState",
-        "popstate"
+        "popstate",
+        ".is-feed-ending",
+        ".is-home-reading-mode",
+        "data-mobile-feed-last-card"
       ],
       "futureUploadIfBug": [
         "./js/main.js"
+      ],
+      "behavior": [
+        "PDRS-01.22: initMobileHomeFeed now limits the active mobile feed to 9 cards and transitions card 09 FAQ into reading mode."
       ]
     },
     "uploadedJsReceivedOrAccounted": [
@@ -3608,7 +3791,7 @@
         "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PASS — site-footer.js is accounted and active after main.js import/init."
+    "jsInventoryStatus": "PASS — main.js accounted with card 09 FAQ reading-mode handoff and footer reveal states."
   },
   "snorkelingLandingPageInventory": {
     "step": "PDRS-01.10 — Snorkeling Landing Page Inventory",

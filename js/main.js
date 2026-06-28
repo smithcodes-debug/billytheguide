@@ -249,15 +249,21 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
     document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
   }
 
-  function enterReadingMode() { /* ✅ NEW */
+  function enterReadingMode() { /* ✅ UPDATED: preserve card position when switching from inner feed scroll to document scroll */
     if (isReadingMode || !isMobileTabletViewport() || !lastPanel) return; /* ✅ NEW */
+    const homeTop = Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY)); /* ✅ NEW */
+    const feedScrollTop = feed.scrollTop || 0; /* ✅ NEW */
     isReadingMode = true; /* ✅ NEW */
     isSnapActivated = false; /* ✅ NEW */
     setFeedEndingMode(true); /* ✅ NEW */
     setRootReadingMode(true); /* ✅ NEW */
     applySnapStateIfNeeded(); /* ✅ NEW */
-    window.requestAnimationFrame(function () { /* ✅ NEW */
-      homeSection.scrollIntoView({ behavior: 'auto', block: 'start' }); /* ✅ NEW */
+    window.requestAnimationFrame(function () { /* ✅ UPDATED */
+      window.scrollTo({ /* ✅ UPDATED */
+        top: homeTop + feedScrollTop, /* ✅ UPDATED */
+        left: 0, /* ✅ NEW */
+        behavior: 'auto' /* ✅ UPDATED */
+      });
     });
   }
 
@@ -362,6 +368,10 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH; /* ✅ UPDATED */
   }
 
+  function isReadingModeActive() { /* ✅ NEW: reading mode must not be forced back to hero/home boundary */
+    return document.body.classList.contains('is-home-reading-mode'); /* ✅ NEW */
+  }
+
   function getHomeSectionTop() { /* ✅ NEW */
     return Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY)); /* ✅ NEW */
   }
@@ -395,8 +405,8 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     }, HOME_SECTION_FORCE_SCROLL_DELAY); /* ✅ NEW */
   }
 
-  function pushHistoryGuard() { /* ✅ NEW */
-    if (hasHistoryGuard || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function pushHistoryGuard() { /* ✅ UPDATED */
+    if (isReadingModeActive() || hasHistoryGuard || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     try { /* ✅ NEW */
       window.history.pushState({ mobileHomeSectionLocked: true }, document.title, window.location.href); /* ✅ NEW */
@@ -406,8 +416,8 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     }
   }
 
-  function activateLock() { /* ✅ NEW */
-    if (isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function activateLock() { /* ✅ UPDATED */
+    if (isReadingModeActive() || isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     isLocked = true; /* ✅ NEW */
     pushHistoryGuard(); /* ✅ NEW */
@@ -417,15 +427,15 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     }
   }
 
-  function shouldActivateFromViewport() { /* ✅ NEW */
-    if (!isMobileTabletViewport()) return false; /* ✅ UPDATED */
+  function shouldActivateFromViewport() { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isMobileTabletViewport()) return false; /* ✅ UPDATED */
 
     const rect = homeSection.getBoundingClientRect(); /* ✅ NEW */
     return rect.top <= HOME_SECTION_LOCK_TOP_OFFSET; /* ✅ NEW */
   }
 
-  function guardHomeSectionBoundary() { /* ✅ NEW */
-    if (!isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function guardHomeSectionBoundary() { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     if (!isLocked && shouldActivateFromViewport()) { /* ✅ NEW */
       activateLock(); /* ✅ NEW */
@@ -438,8 +448,8 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     }
   }
 
-  function handleWheel(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handleWheel(event) { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     if (event.deltaY < 0 && isAtHomeSectionTop()) { /* ✅ NEW */
       event.preventDefault(); /* ✅ NEW */
@@ -452,8 +462,8 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     lastTouchY = event.touches[0].clientY; /* ✅ NEW */
   }
 
-  function handleTouchMove(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handleTouchMove(event) { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
     if (!event.touches || !event.touches.length) return; /* ✅ NEW */
 
     const currentTouchY = event.touches[0].clientY; /* ✅ NEW */
@@ -466,15 +476,15 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     }
   }
 
-  function handlePopState() { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handlePopState() { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     pushHistoryGuard(); /* ✅ NEW */
     scrollToHomeSection('auto'); /* ✅ NEW */
   }
 
-  function handleLogoHomeAction(event) { /* ✅ NEW */
-    if (!isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+  function handleLogoHomeAction(event) { /* ✅ UPDATED */
+    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
 
     if (!isAtHomeSectionTop()) { /* ✅ NEW */
       event.preventDefault(); /* ✅ NEW */
