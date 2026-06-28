@@ -521,68 +521,39 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
 </section>
 </main>
 
-<!-- ✅ UPDATED: MODULE 13 — SITE FOOTER SVG DOCK -->
-<footer class="site-footer" aria-label="Bottom navigation">
-  <nav class="site-footer-inner" aria-label="Footer navigation">
-    <button class="site-footer-dock-item" type="button" data-footer-category aria-label="Mở danh mục tour">
-      <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M8 5h10"></path>
-        <path d="M8 12h10"></path>
-        <path d="M8 19h10"></path>
-        <path d="M4.5 5h.01"></path>
-        <path d="M4.5 12h.01"></path>
-        <path d="M4.5 19h.01"></path>
-      </svg>
-      <span class="site-footer-label">Danh mục</span>
-    </button>
+<!-- ✅ NEW: MODULE 13 — SITE FOOTER -->
+<footer class="site-footer" aria-labelledby="siteFooterTitle">
+  <div class="site-footer-inner">
+    <section class="site-footer-brand" aria-labelledby="siteFooterTitle">
+      <p class="site-footer-kicker">Billy and Friend Adventures</p>
+      <h2 class="site-footer-title" id="siteFooterTitle">Phú Quốc local guide team</h2>
+      <p class="site-footer-copy">
+        Private, slower and more personal Phú Quốc experiences guided by local knowledge, coral safety and a Leave no trace mindset.
+      </p>
+    </section>
 
-    <button class="site-footer-dock-item" type="button" data-footer-shorts aria-label="Mở stories">
-      <svg class="site-footer-icon site-footer-icon-shorts" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M9 4.5l7.5 4.35L9 13.2V4.5z"></path>
-        <path d="M8 14.8l7 4.05-7 4.05v-8.1z"></path>
-      </svg>
-      <span class="site-footer-label">Shorts</span>
-    </button>
+    <nav class="site-footer-nav" aria-label="Footer tour links">
+      <a class="site-footer-link" href="./coral-snorkeling-phu-quoc.html">Snorkeling</a>
+      <a class="site-footer-link" href="./diving-island-phu-quoc.html">Diving</a>
+      <a class="site-footer-link" href="./camping-island-phu-quoc.html">Camping</a>
+      <a class="site-footer-link" href="./hiking-mountain-phu-quoc.html">Fishing</a>
+      <a class="site-footer-link" href="./propose-island-phu-quoc.html">Proposal</a>
+      <a class="site-footer-link" href="./coral-dictionary-at-phu-quoc.html">Coral dictionary</a>
+    </nav>
 
-    <button class="site-footer-dock-item site-footer-dock-main" type="button" data-footer-contact aria-label="Mở liên hệ">
-      <span class="site-footer-main-circle" aria-hidden="true">
-        <svg class="site-footer-icon site-footer-icon-main" viewBox="0 0 24 24" focusable="false">
-          <path d="M5.5 11a6.5 6.5 0 0 1 13 0"></path>
-          <path d="M5.5 11v3.25A2.25 2.25 0 0 0 7.75 16.5H9"></path>
-          <path d="M18.5 11v3.25a2.25 2.25 0 0 1-2.25 2.25H15"></path>
-          <path d="M14.25 18.75h-4.5"></path>
-          <path d="M12 17v3.25"></path>
-          <path d="M8.25 10.75v4"></path>
-          <path d="M15.75 10.75v4"></path>
-        </svg>
-      </span>
-      <span class="site-footer-label">Liên hệ</span>
-    </button>
+    <div class="site-footer-actions" aria-label="Footer actions">
+      <button class="site-footer-button" type="button" data-footer-contact>Contact Billy</button>
+      <a class="site-footer-button site-footer-button-secondary" href="tel:+84812233398">Call +84 812233398</a>
+      <button class="site-footer-text-button" type="button" data-footer-back-top>Back to top</button>
+    </div>
 
-    <button class="site-footer-dock-item" type="button" data-footer-viewed aria-label="Mở nội dung đã xem">
-      <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M4.5 5.5h15v10h-15z"></path>
-        <path d="M9.25 19.5h5.5"></path>
-        <path d="M12 15.5v4"></path>
-      </svg>
-      <span class="site-footer-label">SP đã xem</span>
-    </button>
-
-    <button class="site-footer-dock-item" type="button" data-footer-store aria-label="Mở cửa hàng hoặc bản đồ">
-      <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M5.5 10.5h13"></path>
-        <path d="M6.75 10.5v8h10.5v-8"></path>
-        <path d="M8.25 10.5l.65-5h6.2l.65 5"></path>
-        <path d="M9 18.5v-4h6v4"></path>
-        <path d="M8 10.5c0 1.15.9 2.05 2.05 2.05s1.95-.9 1.95-2.05"></path>
-        <path d="M12 10.5c0 1.15.8 2.05 1.95 2.05S16 11.65 16 10.5"></path>
-        <path d="M12 3.75v1.6"></path>
-      </svg>
-      <span class="site-footer-label">Cửa hàng</span>
-    </button>
-  </nav>
+    <p class="site-footer-note">
+      No shopping stops. No commission route. Just honest local advice and cleaner travel around Phú Quốc.
+    </p>
+  </div>
 </footer>
 
 <script type="module" src="./js/main.js"></script>
+<script type="module" src="./js/modules/address-bar-autohide.js"></script>
 </body>
 </html>
