@@ -29,16 +29,16 @@
 
 .leave-no-trace-gallery__slide {
   flex: 0 0 48px;
-  width: 170px;
-  min-width: 170px;
+  width: 120px;
+  min-width: 120px;
   margin: 0;
   scroll-snap-align: start;
 }
 
 .leave-no-trace-gallery__image {
   display: block;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto;
   object-fit: cover;
   border: 1px solid rgba(5, 6, 8, 0.10);
