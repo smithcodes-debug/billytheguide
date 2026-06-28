@@ -1,43 +1,3 @@
-/* =====================================================
-  ✅ NEW: MODULE 00 — DISPLAY SHELL SYSTEM
-  FILE: ./css/modules/00-display-shell.css
-
-  PURPOSE:
-  - Global display-shell foundation for the website.
-  - Mobile portrait remains the source of truth.
-  - Mobile/tablet portrait keeps normal width: 100% behavior.
-  - Mobile/tablet landscape is treated as desktop display mode.
-  - Desktop/laptop display mode is constrained to tablet-sized app shell.
-  - Desktop shell width is fixed at 768px max and centered.
-
-  CONFIRMED DISPLAY DECISIONS:
-  - App shell max width: 768px.
-  - Landscape mobile/tablet: desktop version, constrained to 768px.
-  - Desktop/laptop: app shell centered, not full viewport.
-  - Outer desktop background: temporary black/gradient app-preview background.
-  - Header: constrained to app shell, centered, not full desktop viewport.
-  - Popup backdrops: constrained to app shell, centered, not full desktop viewport.
-
-  RESPONSIBILITY BOUNDARY:
-  - This module owns global shell width, shell centering, viewport background,
-    and fixed-layer boundary alignment.
-  - This module does NOT own internal component design.
-  - Header visual design belongs to the header/component CSS.
-  - Popup card/backdrop visual design belongs to each popup module.
-
-  DEBUG FIRST HERE IF:
-  - Desktop layout becomes too wide.
-  - Header is full viewport instead of app-shell width.
-  - Popup backdrop covers full desktop viewport instead of app shell.
-  - Fixed layers are horizontally misaligned on desktop/landscape.
-  - Content is wider than the intended app shell.
-
-  LOAD ORDER:
-  - Load this module before component-level CSS modules.
-  - Component CSS can assume shell variables already exist.
-===================================================== */
-
-/* ✅ NEW: shell variables */
 :root {
   --app-shell-max-width: 768px;
   --app-shell-width: 100%;
@@ -49,7 +9,6 @@
     linear-gradient(180deg, #02040a 0%, #07111f 46%, #02040a 100%);
 }
 
-/* ✅ NEW: stable viewport base */
 html {
   width: 100%;
   min-height: 100%;
@@ -60,7 +19,6 @@ html {
   background: var(--app-shell-bg);
 }
 
-/* ✅ NEW: default portrait/mobile-first behavior */
 body {
   width: 100%;
   min-width: 320px;
@@ -72,7 +30,6 @@ body {
   background: var(--app-shell-bg);
 }
 
-/* ✅ NEW: keep normal-flow app content centered only when width is constrained */
 .site-content {
   width: 100%;
   max-width: none;
@@ -80,10 +37,6 @@ body {
   margin-right: 0;
 }
 
-/* ✅ NEW: desktop-mode trigger
-   - Real desktop/laptop by width.
-   - Mobile/tablet landscape by orientation.
-*/
 @media (min-width: 769px), (orientation: landscape) {
   html {
     background: var(--app-outer-bg);
@@ -98,7 +51,6 @@ body {
     background-image: var(--app-outer-bg-gradient);
   }
 
-  /* ✅ NEW: normal-flow shell layers */
   .site-content {
     width: min(100%, var(--app-shell-max-width));
     max-width: var(--app-shell-max-width);
@@ -107,10 +59,6 @@ body {
     background: var(--app-shell-bg);
   }
 
-  /* ✅ NEW: fixed shell layers
-     Scope is intentionally limited to global fixed boundaries only.
-     Internal header/popup/card design remains owned by component modules.
-  */
   header,
   .mobile-search-backdrop,
   .policy-popup-backdrop,
