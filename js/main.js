@@ -330,6 +330,32 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     return document.body.classList.contains('is-home-reading-mode'); /* ✅ NEW */
   }
 
+  function getMobileHomeFeed() { /* ✅ NEW: nested feed owns card scrolling */
+    return homeSection.querySelector('.mobile-home-feed'); /* ✅ NEW */
+  }
+
+  function isEventInsideMobileHomeFeed(event) { /* ✅ NEW */
+    return Boolean( /* ✅ NEW */
+      event &&
+      event.target &&
+      event.target.closest &&
+      event.target.closest('.mobile-home-feed')
+    ); /* ✅ NEW */
+  }
+
+  function getClosestFeedScrollNode(event) { /* ✅ NEW */
+    if (!event || !event.target || !event.target.closest) return null; /* ✅ NEW */
+    return event.target.closest('.mobile-home-feed-card-scroll'); /* ✅ NEW */
+  }
+
+  function shouldAllowNestedFeedScrollUp(event) { /* ✅ NEW: do not block swipe-up/back inside feed when feed can scroll */
+    const feed = getMobileHomeFeed(); /* ✅ NEW */
+    const scrollNode = getClosestFeedScrollNode(event); /* ✅ NEW */
+    if (!feed || !isEventInsideMobileHomeFeed(event)) return false; /* ✅ NEW */
+    if (scrollNode && scrollNode.scrollTop > 0) return true; /* ✅ NEW */
+    return feed.scrollTop > 0; /* ✅ NEW */
+  }
+
   function getHomeSectionTop() { /* ✅ NEW */
     return Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY)); /* ✅ NEW */
   }
@@ -408,6 +434,7 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
 
   function handleWheel(event) { /* ✅ UPDATED */
     if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return; /* ✅ UPDATED */
+    if (event.deltaY < 0 && shouldAllowNestedFeedScrollUp(event)) return; /* ✅ NEW */
 
     if (event.deltaY < 0 && isAtHomeSectionTop()) { /* ✅ NEW */
       event.preventDefault(); /* ✅ NEW */
@@ -425,8 +452,11 @@ function initMobileHomeSectionLock() { /* ✅ NEW */
     if (!event.touches || !event.touches.length) return; /* ✅ NEW */
 
     const currentTouchY = event.touches[0].clientY; /* ✅ NEW */
+    const isSwipingBackUpInsideFeed = currentTouchY > lastTouchY && shouldAllowNestedFeedScrollUp(event); /* ✅ NEW */
     const isTryingToScrollAboveHome = currentTouchY > lastTouchY && isAtHomeSectionTop(); /* ✅ NEW */
-    lastTouchY = currentTouchY; /* ✅ NEW */
+    lastTouchY = currentTouchY; /* ✅ UPDATED */
+
+    if (isSwipingBackUpInsideFeed) return; /* ✅ NEW */
 
     if (isTryingToScrollAboveHome) { /* ✅ NEW */
       event.preventDefault(); /* ✅ NEW */
