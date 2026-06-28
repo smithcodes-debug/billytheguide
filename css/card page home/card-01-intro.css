@@ -571,3 +571,49 @@
     text-align: center;
   }
 }
+/* ✅ REQUIRED FIX: keep cloned mobile-home-feed centered inside app shell */
+@media (min-width: 769px), (orientation: landscape) {
+  .more-stories-section.is-mobile-home-feed-ready {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    width: 100%;
+    max-width: var(--app-shell-max-width, 768px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card {
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
