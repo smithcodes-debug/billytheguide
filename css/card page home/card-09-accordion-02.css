@@ -1,38 +1,88 @@
-/* ✅ NEW: CARD 09 CSS - accordion card 02 */
+/* ✅ NEW: CARD 09 CSS - FAQ accordion card */
 
-/* ✅ UPDATED: keep accordion title above its content */
-.more-accordion-item {
-  display: flex;
-  flex-direction: column;
+/* ✅ UPDATED: scoped overwrite only for card 09 / FAQ */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+  justify-content: flex-start !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
-.more-accordion-summary {
-  order: 1;
-  display: block;
-  cursor: pointer;
+/* ✅ UPDATED: card 09 clone is visually reversed, so reverse it back */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  width: 100%;
+}
+/* ✅ UPDATED: FAQ title always first */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
+  order: 1 !important;
+  display: block !important;
+  padding: 0 0 18px !important;
+  margin: 0 !important;
+  color: #101820;
+  font-size: clamp(34px, 9vw, 54px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  cursor: default;
   list-style: none;
 }
 
-.more-accordion-summary::-webkit-details-marker {
+/* ✅ UPDATED: hide default browser marker */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary::-webkit-details-marker {
   display: none;
 }
 
-.more-accordion-summary::marker {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary::marker {
   content: "";
 }
 
-.more-accordion-panel,
-.leave-no-trace-memo-note,
-.leave-no-trace-gallery {
-  order: 2;
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary::after {
+  display: none !important;
+}
+
+/* ✅ UPDATED: FAQ content always below title */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
+  order: 2 !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+/* ✅ UPDATED: make FAQ list readable inside card 09 */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-faq-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ UPDATED: FAQ question style */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-faq-list dt {
+  margin: 0 0 6px;
+  color: #101820;
+  font-size: 14px;
+  line-height: 1.28;
+  font-weight: 800;
+}
+
+/* ✅ UPDATED: FAQ answer style */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-faq-list dd {
+  margin: 0;
+  color: rgba(16, 20, 24, 0.68);
+  font-size: 13px;
+  line-height: 1.48;
 }
 
 @media (max-width:1024px) { /* ✅ UPDATED: mobile + tablet giống nhau 100% */
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 {
-    /* ✅ NEW: edit card 09 container styles here */
+    width: 100%; /* ✅ UPDATED */
+    max-width: 700px; /* ✅ UPDATED */
+    margin-left: auto; /* ✅ UPDATED */
+    margin-right: auto; /* ✅ UPDATED */
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
-    /* ✅ NEW: edit card 09 text/layout spacing here */
+    padding: 34px 16px 28px !important; /* ✅ UPDATED */
   }
 }
