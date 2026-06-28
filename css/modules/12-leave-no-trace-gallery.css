@@ -1,13 +1,14 @@
 /* ✅ UPDATED — MODULE 12: Leave no trace gallery */
 .leave-no-trace-gallery {
   width: 100%;
-  margin: 14px 0 16px;
+  margin: 18px 0 20px;
+  box-sizing: border-box;
 }
 
 .leave-no-trace-gallery__track {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -15,7 +16,8 @@
   scroll-padding-inline: 0;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  padding: 2px 0 10px;
+  padding: 4px 0 14px;
+  box-sizing: border-box;
 }
 
 .leave-no-trace-gallery__track::-webkit-scrollbar {
@@ -28,22 +30,24 @@
 }
 
 .leave-no-trace-gallery__slide {
-  flex: 0 0 48px;
-  width: 120px;
-  min-width: 120px;
+  flex: 0 0 clamp(180px, 62vw, 280px);
+  width: clamp(180px, 62vw, 280px);
+  min-width: clamp(180px, 62vw, 280px);
   margin: 0;
   scroll-snap-align: start;
+  box-sizing: border-box;
 }
 
 .leave-no-trace-gallery__image {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
   margin: 0 auto;
   object-fit: cover;
   border: 1px solid rgba(5, 6, 8, 0.10);
-  border-radius: 10px;
+  border-radius: 16px;
   background: #eef2f7;
-  box-shadow: 0 6px 12px rgba(5, 6, 8, 0.08);
+  box-shadow: 0 10px 24px rgba(5, 6, 8, 0.10);
   box-sizing: border-box;
 }
