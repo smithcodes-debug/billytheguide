@@ -618,109 +618,30 @@
   }
 }
 
-/* ✅ UPDATED: SNAP FEED -> FAQ READING MODE HANDOFF */
+/* ✅ UPDATED: STABLE CARD 09 INTERNAL SCROLL MODE */
 @media (max-width:1024px) {
-  html.is-home-reading-mode,
-  body.is-home-reading-mode {
-    scroll-snap-type: none !important;
-    overscroll-behavior-y: contain !important;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle,
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-handle {
+  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle {
     opacity: 0;
     visibility: hidden;
     transition: opacity 180ms ease, visibility 180ms ease;
   }
 
-  /* ✅ UPDATED: keep the same 100svh feed shell to avoid document-scroll jump/hero rollback */
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-last {
     height: 100vh;
     height: 100svh;
+    min-height: 100vh;
     min-height: 100svh;
-    padding: 0;
     overflow: hidden;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed {
-    display: block;
-    height: 100vh;
-    height: 100svh;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-snap-type: none;
-    overscroll-behavior-y: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-last {
+    height: min(90svh, 100%); /* ✅ UPDATED */
+    max-height: 90svh; /* ✅ NEW */
+    align-self: center; /* ✅ NEW */
   }
 
-  /* ✅ UPDATED: keep cards 1-8 scrollable inside the same feed container */
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel {
-    display: flex;
-    height: 100svh;
-    min-height: 100svh;
-    padding:
-      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
-      var(--mobile-home-feed-side-gap)
-      calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
-    align-items: stretch;
-    justify-content: center;
-    overflow: hidden;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    box-sizing: border-box;
-  }
-
-  /* ✅ UPDATED: only card 09 becomes taller/natural inside feed, not document */
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel-last {
-    height: auto;
-    min-height: 100svh;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--site-footer-dock-height, 44px) + 28px);
-    overflow: visible;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card {
-    width: min(100%, 700px);
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-scroll {
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 {
-    height: auto;
-    min-height: calc(100svh - var(--mobile-home-feed-header-height) - var(--mobile-home-feed-locked-gap));
-    border-radius: 34px;
-    background: rgba(255, 255, 255, 0.94);
-    overflow: visible;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
-    height: auto;
-    min-height: 0;
-    overflow: visible;
-    display: block;
-    padding: 34px 16px 36px !important;
-  }
-}
-
-/* ✅ NEW: EXIT READING MODE SNAP RESTORE GUARD */
-@media (max-width:1024px) {
-  .more-stories-section.is-mobile-home-feed-ready:not(.is-home-reading-mode) .mobile-home-feed {
-    scroll-snap-type: y mandatory;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready:not(.is-home-reading-mode) .mobile-home-feed-panel {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
+    height: 100%; /* ✅ UPDATED */
+    min-height: 0; /* ✅ UPDATED */
   }
 }

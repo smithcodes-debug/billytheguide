@@ -104,7 +104,7 @@ function initHomePopup() { /* ✅ NEW */
   console.log('Home popup initialized'); /* ✅ NEW */
 }
 
-function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode handoff */
+function initMobileHomeFeed() { /* ✅ UPDATED: stable snap feed; card 09 uses internal FAQ scroll */
   const MOBILE_TABLET_MAX_WIDTH = 1024; /* ✅ UPDATED: mobile + tablet giống nhau 100% */
   const DESKTOP_MIN_WIDTH = 1025; /* ✅ NEW: desktop cuộn bình thường */
   const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
@@ -114,12 +114,11 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
   const DESKTOP_NORMAL_SCROLL_CLASS = 'is-desktop-home-feed-normal-scroll'; /* ✅ NEW */
   const SNAP_CLASS = 'mobile-home-feed-snap'; /* ✅ NEW */
   const FEED_ENDING_CLASS = 'is-feed-ending'; /* ✅ NEW */
-  const READING_MODE_CLASS = 'is-home-reading-mode'; /* ✅ NEW */
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last'; /* ✅ NEW */
-  const LAST_CARD_VISIBLE_RATIO = 0.62; /* ✅ NEW */
-  const READING_MODE_EXIT_OFFSET = 48; /* ✅ NEW: exit reading mode before card 09 so card 08 can snap/hook again */
+  const LAST_CARD_VISIBLE_RATIO = 0.58; /* ✅ UPDATED: footer/ending state when FAQ is mostly visible */
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null; /* ✅ NEW */
+
   if (!homeSection || !sourceInner) return; /* ✅ REQUIRED FIX */
   if (homeSection.querySelector('.' + FEED_CLASS)) return; /* ✅ REQUIRED FIX */
 
@@ -199,7 +198,6 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
   const handle = document.createElement('span'); /* ✅ NEW */
   const contentNodes = []; /* ✅ NEW */
   let isSnapActivated = false; /* ✅ NEW */
-  let isReadingMode = false; /* ✅ NEW */
   let lastPanel = null; /* ✅ NEW */
   let lastPanelObserver = null; /* ✅ NEW */
 
@@ -228,20 +226,14 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
   homeSection.appendChild(feed); /* ✅ NEW */
   homeSection.appendChild(handle); /* ✅ NEW */
 
-  function setRootReadingMode(enabled) { /* ✅ NEW */
-    document.documentElement.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
-    document.body.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
-    homeSection.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
-  }
-
-  function setFeedEndingMode(enabled) { /* ✅ NEW */
+  function setFeedEndingMode(enabled) { /* ✅ UPDATED */
     document.documentElement.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
     document.body.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
     homeSection.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
   }
 
   function applySnapStateIfNeeded() { /* ✅ UPDATED */
-    if (isMobileTabletViewport() && isSnapActivated && !isReadingMode) { /* ✅ UPDATED */
+    if (isMobileTabletViewport() && isSnapActivated) { /* ✅ UPDATED */
       document.documentElement.classList.add(SNAP_CLASS); /* ✅ NEW */
       document.body.classList.add(SNAP_CLASS); /* ✅ NEW */
       return; /* ✅ NEW */
@@ -250,40 +242,8 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
     document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
   }
 
-  function enterReadingMode() { /* ✅ UPDATED: container-only reading mode; do not remap document scroll */
-    if (isReadingMode || !isMobileTabletViewport() || !lastPanel) return; /* ✅ NEW */
-    isReadingMode = true; /* ✅ NEW */
-    isSnapActivated = false; /* ✅ NEW */
-    setFeedEndingMode(true); /* ✅ NEW */
-    setRootReadingMode(true); /* ✅ NEW */
-    applySnapStateIfNeeded(); /* ✅ NEW */
-  }
-
-  function exitReadingModeOnBackscroll() { /* ✅ NEW: restore snap/hook when user scrolls back above FAQ */
-    if (!isReadingMode) return; /* ✅ NEW */
-    isReadingMode = false; /* ✅ NEW */
-    isSnapActivated = true; /* ✅ NEW */
-    setRootReadingMode(false); /* ✅ NEW */
-    setFeedEndingMode(false); /* ✅ NEW */
-    applySnapStateIfNeeded(); /* ✅ NEW */
-  }
-
-  function syncReadingModeBackscroll() { /* ✅ NEW */
-    if (!isMobileTabletViewport() || !isReadingMode || !lastPanel) return; /* ✅ NEW */
-    const lastPanelTop = lastPanel.offsetTop || 0; /* ✅ NEW */
-    const currentFeedScrollTop = feed.scrollTop || 0; /* ✅ NEW */
-    if (currentFeedScrollTop < lastPanelTop - READING_MODE_EXIT_OFFSET) { /* ✅ NEW */
-      exitReadingModeOnBackscroll(); /* ✅ NEW */
-    }
-  }
-
-  function exitReadingModeIfDesktop() { /* ✅ UPDATED */
-    if (!isReadingMode || !isDesktopViewport()) return; /* ✅ NEW */
-    exitReadingModeOnBackscroll(); /* ✅ UPDATED */
-  }
-
   function activateSnapWhenHomeReached() { /* ✅ UPDATED */
-    if (!isMobileTabletViewport() || isSnapActivated || isReadingMode) return; /* ✅ UPDATED */
+    if (!isMobileTabletViewport() || isSnapActivated) return; /* ✅ UPDATED */
     if (homeSection.getBoundingClientRect().top <= 8) { /* ✅ NEW */
       isSnapActivated = true; /* ✅ NEW */
       applySnapStateIfNeeded(); /* ✅ NEW */
@@ -300,58 +260,46 @@ function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode ha
     return panelRect.height > 0 ? visibleHeight / panelRect.height : 0; /* ✅ NEW */
   }
 
-  function checkLastPanelHandoff() { /* ✅ NEW */
-    if (!isMobileTabletViewport() || isReadingMode || !lastPanel) return; /* ✅ NEW */
-    const ratio = getLastPanelVisibleRatio(); /* ✅ NEW */
-    const isLastCardVisible = ratio >= LAST_CARD_VISIBLE_RATIO; /* ✅ NEW */
-    setFeedEndingMode(isLastCardVisible); /* ✅ NEW */
-    if (isLastCardVisible) { /* ✅ NEW */
-      window.setTimeout(function () { /* ✅ NEW */
-        if (!isReadingMode && getLastPanelVisibleRatio() >= LAST_CARD_VISIBLE_RATIO) { /* ✅ NEW */
-          enterReadingMode(); /* ✅ NEW */
-        }
-      }, 180); /* ✅ NEW */
+  function syncFeedEndingState() { /* ✅ UPDATED */
+    if (!isMobileTabletViewport() || !lastPanel) { /* ✅ UPDATED */
+      setFeedEndingMode(false); /* ✅ UPDATED */
+      return; /* ✅ UPDATED */
     }
+    setFeedEndingMode(getLastPanelVisibleRatio() >= LAST_CARD_VISIBLE_RATIO); /* ✅ UPDATED */
   }
 
-  function initLastPanelObserver() { /* ✅ NEW */
+  function initLastPanelObserver() { /* ✅ UPDATED */
     if (!lastPanel || typeof IntersectionObserver === 'undefined') return; /* ✅ NEW */
     lastPanelObserver = new IntersectionObserver(function (entries) { /* ✅ NEW */
       entries.forEach(function (entry) { /* ✅ NEW */
-        if (!isMobileTabletViewport() || isReadingMode) return; /* ✅ NEW */
-        setFeedEndingMode(entry.intersectionRatio >= 0.45); /* ✅ NEW */
-        if (entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO) { /* ✅ NEW */
-          enterReadingMode(); /* ✅ NEW */
-        }
+        if (!isMobileTabletViewport()) return; /* ✅ NEW */
+        setFeedEndingMode(entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO); /* ✅ UPDATED */
       });
     }, { /* ✅ NEW */
       root: feed, /* ✅ NEW */
-      threshold: [0.45, LAST_CARD_VISIBLE_RATIO, 0.82] /* ✅ NEW */
+      threshold: [0, 0.45, LAST_CARD_VISIBLE_RATIO, 0.82] /* ✅ UPDATED */
     });
     lastPanelObserver.observe(lastPanel); /* ✅ NEW */
   }
 
   function syncMobileFeedState() { /* ✅ UPDATED */
     homeSection.classList.add(FEED_READY_CLASS); /* ✅ UPDATED: desktop cũng dùng visual card feed */
-    exitReadingModeIfDesktop(); /* ✅ NEW */
     if (isDesktopViewport()) { /* ✅ NEW */
       homeSection.classList.add(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
+      setFeedEndingMode(false); /* ✅ UPDATED */
       applySnapStateIfNeeded(); /* ✅ NEW */
       return; /* ✅ NEW */
     }
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
     activateSnapWhenHomeReached(); /* ✅ UPDATED */
     applySnapStateIfNeeded(); /* ✅ NEW */
-    checkLastPanelHandoff(); /* ✅ NEW */
+    syncFeedEndingState(); /* ✅ UPDATED */
   }
 
   syncMobileFeedState(); /* ✅ NEW */
   initLastPanelObserver(); /* ✅ NEW */
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true }); /* ✅ NEW */
-  feed.addEventListener('scroll', function () { /* ✅ UPDATED */
-    checkLastPanelHandoff(); /* ✅ NEW */
-    syncReadingModeBackscroll(); /* ✅ NEW */
-  }, { passive: true }); /* ✅ UPDATED */
+  feed.addEventListener('scroll', syncFeedEndingState, { passive: true }); /* ✅ UPDATED */
   window.addEventListener('resize', syncMobileFeedState); /* ✅ NEW */
   window.addEventListener('orientationchange', function () { /* ✅ NEW */
     window.setTimeout(syncMobileFeedState, 220); /* ✅ NEW */
