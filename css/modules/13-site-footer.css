@@ -14,6 +14,11 @@ body {
   padding-bottom: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
 }
 
+/* ✅ UPDATED: remove footer reserve gap on cards 1-8 */
+body.mobile-home-feed-snap:not(.is-feed-ending) {
+  padding-bottom: 0;
+}
+
 .site-footer {
   position: fixed; /* ✅ UPDATED */
   left: 50%; /* ✅ UPDATED */
@@ -145,6 +150,30 @@ body {
 
 .site-footer-dock-main:active {
   transform: translateY(-10px); /* ✅ UPDATED */
+}
+
+/* ✅ UPDATED: FOOTER VISIBILITY STATE — HERO + CARD 09 ONLY */
+html.mobile-home-feed-snap:not(.is-feed-ending) .site-footer,
+body.mobile-home-feed-snap:not(.is-feed-ending) .site-footer {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(-50%, 110%, 0);
+  pointer-events: none;
+}
+
+html.is-feed-ending .site-footer,
+body.is-feed-ending .site-footer {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(-50%, 0, 0);
+  pointer-events: none;
+}
+
+.site-footer {
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease,
+    transform 260ms cubic-bezier(.2,.8,.2,1);
 }
 
 @media (min-width: 769px), (orientation: landscape) {
