@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-19-progressive-image-loader-module-accounted",
+  "version": "pdrs-01-20-leave-no-trace-gallery-module-added",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,23 +8,26 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "progressive-image-loader-module-accounted",
-    "note": "PDRS-01.19 update: created/accounted reusable progressive image loader module. CSS card/page modules own low-res background-image and --progressive-highres URL; JS owns only visibility-triggered preload and .is-highres state. No HTML/body text/class/id/attribute changes recorded in this metadata update."
+    "status": "leave-no-trace-gallery-module-added",
+    "note": "PDRS-01.20 update: added/accounted CSS-only Leave no trace swipe gallery module between memo note and Leave no trace accordion paragraph. CSS owns visual/swipe layout; no JS required."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "none",
-    "cssAdded": false,
+    "indexHtmlChange": "added CSS link and gallery HTML block inside Leave no trace accordion",
+    "cssAdded": true,
     "cssChanged": false,
-    "jsAdded": true,
+    "jsAdded": false,
     "jsChanged": false,
     "jsAddedFiles": [
       "./js/modules/progressive-image-loader.js"
     ],
-    "bodyChanged": false,
+    "bodyChanged": true,
     "textChanged": false,
-    "classIdAttributeChanged": false,
+    "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.19 creates/accounts ./js/modules/progressive-image-loader.js. Module is reusable but not active until imported/initialized by the relevant page entry such as ./js/main.js or a page JS file."
+    "note": "PDRS-01.20 adds ./css/modules/12-leave-no-trace-gallery.css and inserts a CSS-only swipe gallery in index.html. Existing memo note and Leave no trace paragraph text are unchanged.",
+    "cssAddedFiles": [
+      "./css/modules/12-leave-no-trace-gallery.css"
+    ]
   },
   "knownFiles": {
     "htmlEntry": [
@@ -55,6 +58,7 @@
       "./css/modules/10-contact-popup.css",
       "./css/modules/08-policy-popup.css",
       "./css/modules/11-scroll-home-composite.css",
+      "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/03-mobile-search.css",
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/09-tour-snorkeling-transition.css",
@@ -121,7 +125,8 @@
       "./css/home-hero-tour-popup.css",
       "./css/card page home/",
       "./css/modules/00-display-shell.css",
-      "./css/modules/05-hero-background.css"
+      "./css/modules/05-hero-background.css",
+      "./css/modules/12-leave-no-trace-gallery.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -210,8 +215,10 @@
     ],
     "batchLimitPreference": "2-3 files/lần",
     "rule": "Khi user mô tả lỗi, Copilot dùng PDRS để yêu cầu đúng file CSS/JS/HTML cần thiết, không yêu cầu upload toàn bộ project.",
-    "nextRecommendedCssBatch": [],
-    "currentInventoryCheckpoint": "PDRS-01.19 complete: progressive-image-loader.js created/accounted as planned/not-active until imported by page entry JS.",
+    "nextRecommendedCssBatch": [
+      "./css/modules/12-leave-no-trace-gallery.css"
+    ],
+    "currentInventoryCheckpoint": "PDRS-01.20 complete: leave-no-trace-gallery CSS-only swipe module added/accounted and linked by index.html.",
     "nextRecommendedJsBatch": [
       "./js/modules/progressive-image-loader.js",
       "./js/modules/input-modality.js",
@@ -421,6 +428,19 @@
         "./js/modules/progressive-image-loader.js",
         "./js/main.js",
         "owning component CSS file such as ./css/card page home/card-02-service-01.css"
+      ]
+    },
+    {
+      "id": "leave-no-trace-gallery-css-only-swipe",
+      "rule": "Leave no trace gallery is a CSS-only horizontal swipe/snap gallery inserted between .leave-no-trace-memo-note and the Leave no trace accordion paragraph. No JS is required. Mobile UI is source of truth; desktop/tablet only follow the app shell.",
+      "primaryAreas": [
+        "12-leave-no-trace-gallery",
+        "11-scroll-home-composite"
+      ],
+      "firstFilesToInspect": [
+        "index.html",
+        "./css/modules/12-leave-no-trace-gallery.css",
+        "./css/modules/11-scroll-home-composite.css"
       ]
     }
   ],
@@ -1928,6 +1948,65 @@
         "If a high-res image 404 appears, fix the URL in the owning CSS, not inside shared JS.",
         "Do not add image path maps into this shared module unless user explicitly changes ownership model."
       ]
+    },
+    "12-leave-no-trace-gallery": {
+      "area": "Leave no trace memo-to-paragraph swipe image gallery",
+      "htmlModule": "MODULE 12 — LEAVE NO TRACE GALLERY",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/modules/12-leave-no-trace-gallery.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/11-scroll-home-composite.css"
+      ],
+      "jsFilesPrimary": [],
+      "selectors": [
+        ".leave-no-trace-gallery",
+        ".leave-no-trace-gallery__track",
+        ".leave-no-trace-gallery__slide",
+        ".leave-no-trace-gallery__image",
+        ".leave-no-trace-memo-note",
+        ".more-accordion-panel"
+      ],
+      "states": [
+        "native-horizontal-scroll",
+        "scroll-snap-type-x-mandatory",
+        "scroll-snap-align-center",
+        "-webkit-overflow-scrolling-touch",
+        "loading=lazy",
+        "decoding=async"
+      ],
+      "assets": [
+        "./images/leave no trace/1.png",
+        "./images/leave no trace/2.png",
+        "./images/leave no trace/3.png",
+        "./images/leave no trace/4.png",
+        "./images/leave no trace/5.png",
+        "./images/leave no trace/6.png"
+      ],
+      "behavior": [
+        "CSS-only shopping-style horizontal swipe gallery.",
+        "Swipe behavior uses native browser horizontal scrolling and scroll-snap.",
+        "No JavaScript owner is required for the first implementation.",
+        "Gallery is inserted after .leave-no-trace-memo-note and before the Leave no trace accordion paragraph.",
+        "Mobile component visual is source of truth; desktop/tablet only follow the existing shell boundary."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/12-leave-no-trace-gallery.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "Browser Network screenshot if any gallery image 404 appears",
+        "Screenshot of ./images/leave no trace/ folder with file extensions visible"
+      ],
+      "riskNotes": [
+        "Image folder name contains spaces: ./images/leave no trace/. Keep the path exact in index.html.",
+        "Windows may hide extensions; if images 404, verify actual file extensions are lowercase .png.",
+        "Do not add JS carousel logic unless dots/buttons/autoplay are explicitly requested later.",
+        "Do not move or edit existing memo note text or Leave no trace paragraph text."
+      ]
     }
   },
   "debugScenarios": {
@@ -2589,6 +2668,30 @@
         ".is-highres-error"
       ],
       "ownershipRule": "CSS owns low-res and high-res image URLs; progressive-image-loader.js owns only IntersectionObserver/preload/class state behavior."
+    },
+    "leave-no-trace-gallery-loi": {
+      "userDescriptionExamples": [
+        "gallery leave no trace lỗi",
+        "slide ảnh không swipe",
+        "ảnh leave no trace không hiện",
+        "ảnh gallery bị méo",
+        "gallery nằm sai vị trí"
+      ],
+      "routeToModule": "12-leave-no-trace-gallery",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/12-leave-no-trace-gallery.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "Browser Network screenshot if image 404 appears"
+      ],
+      "selectors": [
+        ".leave-no-trace-gallery",
+        ".leave-no-trace-gallery__track",
+        ".leave-no-trace-gallery__slide",
+        ".leave-no-trace-gallery__image"
+      ],
+      "ownershipRule": "index.html owns gallery markup; ./css/modules/12-leave-no-trace-gallery.css owns visual/swipe layout; no JS owner for initial CSS-only gallery."
     }
   },
   "registriesFromIndexHtml": {
@@ -2774,7 +2877,11 @@
       "title-mobile-line-2",
       "wechat",
       "youtube",
-      "zalo"
+      "zalo",
+      "leave-no-trace-gallery",
+      "leave-no-trace-gallery__track",
+      "leave-no-trace-gallery__slide",
+      "leave-no-trace-gallery__image"
     ],
     "dataAttributes": [
       "data-home-behavior",
@@ -2795,13 +2902,13 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.20 — Integrate Progressive Image Loader Into main.js And First Card CSS",
+    "nextStepName": "PDRS-01.21 — Verify Leave No Trace Gallery Runtime Assets",
     "recommendedUploadBatch": [
-      "./js/main.js",
-      "./css/card page home/card-02-service-01.css",
-      "./js/modules/progressive-image-loader.js"
+      "Browser Network screenshot if any gallery image 404 appears",
+      "./css/modules/12-leave-no-trace-gallery.css",
+      "index.html"
     ],
-    "goal": "Import/init progressive-image-loader.js in main.js, then update card-02 CSS to define low-res background-image and --progressive-highres high-res source with .is-highres swap state."
+    "goal": "Verify all six gallery images load from ./images/leave no trace/*.png and confirm swipe/snap behavior on mobile, tablet, and desktop shell."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
