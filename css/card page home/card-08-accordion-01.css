@@ -60,7 +60,6 @@
   line-height: 1.2;
 }
 
-/* ✅ UPDATED */
 .mobile-home-feed .more-accordion-item {
   display: flex;
   flex-direction: column;
@@ -68,7 +67,7 @@
 
 .mobile-home-feed .more-accordion-item .leave-no-trace-memo-note {
   order: 1;
-  margin: 0 auto 18px;
+  margin: -34px auto 18px;
 }
 
 .mobile-home-feed .more-accordion-item .more-accordion-summary {
@@ -80,7 +79,6 @@
   order: 3;
 }
 
-/* ✅ REQUIRED FIX */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .leave-no-trace-memo-note {
   order: 1;
 }
