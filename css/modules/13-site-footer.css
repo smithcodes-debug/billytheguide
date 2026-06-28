@@ -1,5 +1,6 @@
-/* ✅ UPDATED: MODULE 13 — SITE FOOTER */
-/* ✅ UPDATED: fixed bottom dock is hidden until FAQ / reading mode */
+/* ✅ NEW: MODULE 13 — SITE FOOTER */
+
+/* ✅ UPDATED: thin SVG fixed bottom dock */
 :root {
   --site-footer-dock-height: 44px; /* ✅ UPDATED: thin dock */
   --site-footer-dock-bg: rgba(255, 255, 255, 0.97);
@@ -10,11 +11,7 @@
 }
 
 body {
-  padding-bottom: 0; /* ✅ UPDATED: footer only reserves space in reading mode */
-}
-
-body.is-home-reading-mode {
-  padding-bottom: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ NEW */
+  padding-bottom: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
 }
 
 .site-footer {
@@ -29,22 +26,9 @@ body.is-home-reading-mode {
   padding: 0;
   background: transparent;
   color: #101820;
-  opacity: 0; /* ✅ NEW */
-  visibility: hidden; /* ✅ NEW */
-  transform: translate3d(-50%, 110%, 0); /* ✅ UPDATED */
+  transform: translateX(-50%); /* ✅ UPDATED */
   pointer-events: none; /* ✅ UPDATED */
-  transition:
-    opacity 220ms ease,
-    visibility 220ms ease,
-    transform 260ms cubic-bezier(.2,.8,.2,1); /* ✅ NEW */
   box-sizing: border-box;
-}
-
-body.is-home-reading-mode .site-footer,
-body.is-feed-ending .site-footer {
-  opacity: 1; /* ✅ NEW */
-  visibility: visible; /* ✅ NEW */
-  transform: translate3d(-50%, 0, 0); /* ✅ NEW */
 }
 
 .site-footer-inner {
