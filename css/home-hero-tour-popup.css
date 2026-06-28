@@ -294,7 +294,7 @@ flex-direction: column;
 align-items: center;
 gap: 18px;
 text-align: center;
-transform: translateY(-20px);
+transform: translateY(-30px); /* ✅ UPDATED: move hero content group up 10px above footer */
 }
 
 /* ✅ UPDATED: TITLE */
