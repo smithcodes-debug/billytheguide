@@ -1,8 +1,8 @@
 /* ✅ NEW: MODULE 13 — SITE FOOTER */
 
-/* ✅ UPDATED: refined SVG fixed bottom dock */
+/* ✅ UPDATED: thin SVG fixed bottom dock */
 :root {
-  --site-footer-dock-height: 64px;
+  --site-footer-dock-height: 44px; /* ✅ UPDATED: thin dock */
   --site-footer-dock-bg: rgba(255, 255, 255, 0.97);
   --site-footer-dock-border: rgba(5, 6, 8, 0.14);
   --site-footer-dock-ink: rgba(25, 29, 33, 0.58);
@@ -36,13 +36,13 @@ body {
   width: 100%;
   min-height: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
   margin: 0 auto;
-  padding: 4px 8px calc(env(safe-area-inset-bottom, 0px) + 5px); /* ✅ UPDATED */
+  padding: 2px 8px calc(env(safe-area-inset-bottom, 0px) + 3px); /* ✅ UPDATED */
   border: 1px solid var(--site-footer-dock-border); /* ✅ UPDATED */
   border-left: 0;
   border-right: 0;
   border-bottom: 0;
   background: var(--site-footer-dock-bg); /* ✅ UPDATED */
-  box-shadow: 0 -8px 26px rgba(5, 6, 8, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88); /* ✅ UPDATED */
+  box-shadow: 0 -6px 18px rgba(5, 6, 8, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.88); /* ✅ UPDATED */
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: grid; /* ✅ UPDATED */
@@ -56,11 +56,11 @@ body {
 .site-footer-dock-item {
   position: relative;
   min-width: 0;
-  min-height: 52px; /* ✅ UPDATED */
+  min-height: 39px; /* ✅ UPDATED */
   margin: 0;
-  padding: 4px 2px 0; /* ✅ UPDATED */
+  padding: 1px 2px 0; /* ✅ UPDATED */
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: transparent;
   color: var(--site-footer-dock-ink);
   font: inherit;
@@ -68,19 +68,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 3px;
+  gap: 1px; /* ✅ UPDATED */
   cursor: pointer;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
 .site-footer-icon {
-  width: 24px;
-  height: 24px;
+  width: 18px; /* ✅ UPDATED */
+  height: 18px; /* ✅ UPDATED */
   flex: 0 0 auto;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.65;
+  stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -88,8 +88,8 @@ body {
 .site-footer-label {
   max-width: 100%;
   color: var(--site-footer-dock-ink-strong);
-  font-size: 11.5px;
-  line-height: 1.1;
+  font-size: 9.5px; /* ✅ UPDATED */
+  line-height: 1.05;
   font-weight: 650;
   letter-spacing: -0.015em;
   white-space: nowrap;
@@ -98,20 +98,20 @@ body {
 }
 
 .site-footer-icon-shorts {
-  width: 26px;
-  height: 26px;
+  width: 20px; /* ✅ UPDATED */
+  height: 20px; /* ✅ UPDATED */
   margin-top: -1px;
   transform: rotate(-14deg); /* ✅ UPDATED */
 }
 
 .site-footer-dock-main {
   z-index: 2;
-  transform: translateY(-16px); /* ✅ UPDATED */
+  transform: translateY(-11px); /* ✅ UPDATED */
 }
 
 .site-footer-main-circle {
-  width: 54px;
-  height: 54px;
+  width: 42px; /* ✅ UPDATED */
+  height: 42px; /* ✅ UPDATED */
   border-radius: 999px;
   background: var(--site-footer-dock-accent);
   color: #ffffff;
@@ -119,19 +119,19 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 12px 26px rgba(8, 63, 70, 0.25),
-    0 0 0 5px rgba(255, 255, 255, 0.86),
+    0 9px 20px rgba(8, 63, 70, 0.22),
+    0 0 0 4px rgba(255, 255, 255, 0.88),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .site-footer-icon-main {
-  width: 25px;
-  height: 25px;
-  stroke-width: 1.8;
+  width: 19px; /* ✅ UPDATED */
+  height: 19px; /* ✅ UPDATED */
+  stroke-width: 1.85;
 }
 
 .site-footer-dock-main .site-footer-label {
-  margin-top: 2px;
+  margin-top: 1px; /* ✅ UPDATED */
 }
 
 .site-footer-dock-item:focus-visible {
@@ -144,7 +144,7 @@ body {
 }
 
 .site-footer-dock-main:active {
-  transform: translateY(-15px);
+  transform: translateY(-10px); /* ✅ UPDATED */
 }
 
 @media (min-width: 769px), (orientation: landscape) {
@@ -156,6 +156,6 @@ body {
   .site-footer-inner {
     border-left: 1px solid var(--site-footer-dock-border);
     border-right: 1px solid var(--site-footer-dock-border);
-    border-radius: 24px 24px 0 0;
+    border-radius: 20px 20px 0 0; /* ✅ UPDATED */
   }
 }
