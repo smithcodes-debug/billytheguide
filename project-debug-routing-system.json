@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-20-leave-no-trace-gallery-module-added",
+  "version": "pdrs-01-21-site-footer-module-added",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,25 +8,27 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "leave-no-trace-gallery-module-added",
-    "note": "PDRS-01.20 update: added/accounted CSS-only Leave no trace swipe gallery module between memo note and Leave no trace accordion paragraph. CSS owns visual/swipe layout; no JS required."
+    "status": "site-footer-module-added",
+    "note": "PDRS-01.21 update: added/accounted site footer module with external CSS and JS module. Footer owns visual footer links/contact/back-to-top only."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "added CSS link and gallery HTML block inside Leave no trace accordion",
+    "indexHtmlChange": "added CSS link and footer HTML block after </main>",
     "cssAdded": true,
     "cssChanged": false,
-    "jsAdded": false,
-    "jsChanged": false,
+    "jsAdded": true,
+    "jsChanged": true,
     "jsAddedFiles": [
-      "./js/modules/progressive-image-loader.js"
+      "./js/modules/progressive-image-loader.js",
+      "./js/modules/site-footer.js"
     ],
     "bodyChanged": true,
-    "textChanged": false,
+    "textChanged": true,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.20 adds ./css/modules/12-leave-no-trace-gallery.css and inserts a CSS-only swipe gallery in index.html. Existing memo note and Leave no trace paragraph text are unchanged.",
+    "note": "PDRS-01.21 adds ./css/modules/13-site-footer.css, ./js/modules/site-footer.js, footer HTML in index.html, and initSiteFooter import/init in ./js/main.js.",
     "cssAddedFiles": [
-      "./css/modules/12-leave-no-trace-gallery.css"
+      "./css/modules/12-leave-no-trace-gallery.css",
+      "./css/modules/13-site-footer.css"
     ]
   },
   "knownFiles": {
@@ -59,6 +61,7 @@
       "./css/modules/08-policy-popup.css",
       "./css/modules/11-scroll-home-composite.css",
       "./css/modules/12-leave-no-trace-gallery.css",
+      "./css/modules/13-site-footer.css",
       "./css/modules/03-mobile-search.css",
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/09-tour-snorkeling-transition.css",
@@ -104,7 +107,8 @@
       "./js/snorkeling.js",
       "./js/app.js",
       "./js/modules/input-modality.js",
-      "./js/modules/progressive-image-loader.js"
+      "./js/modules/progressive-image-loader.js",
+      "./js/modules/site-footer.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -117,7 +121,9 @@
       "note": "knownFiles.jsLoadOrder vẫn phản ánh script tags trong active index.html. jsUploadedOrAccounted là inventory layer cho các JS files đã upload/được tham chiếu.",
       "inputModalityImportedByMain": false,
       "inputModalityRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
-      "progressiveImageLoaderRuntimeStatus": "created/accounted; not active until imported and initialized by page entry JS"
+      "progressiveImageLoaderRuntimeStatus": "created/accounted; not active until imported and initialized by page entry JS",
+      "siteFooterImportedByMain": true,
+      "siteFooterRuntimeStatus": "active after import/init in ./js/main.js; opens existing contact popup event and handles back-to-top button"
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -126,7 +132,8 @@
       "./css/card page home/",
       "./css/modules/00-display-shell.css",
       "./css/modules/05-hero-background.css",
-      "./css/modules/12-leave-no-trace-gallery.css"
+      "./css/modules/12-leave-no-trace-gallery.css",
+      "./css/modules/13-site-footer.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -470,7 +477,8 @@
         "./css/modules/07-mobile-edge-pad.css",
         "./css/modules/09-tour-snorkeling-transition.css",
         "./css/modules/01-global-motion.css",
-        "./css/modules/17-mobile-story-typewriter.css"
+        "./css/modules/17-mobile-story-typewriter.css",
+        "./css/modules/13-site-footer.css"
       ],
       "jsFiles": [
         "./js/main.js"
@@ -1216,7 +1224,8 @@
         "./js/ui/story-expand.js",
         "./js/modules/booking.js",
         "./js/ui/search-popup.js",
-        "./js/ui/mobile-edge-pad.js"
+        "./js/ui/mobile-edge-pad.js",
+        "./js/modules/site-footer.js"
       ],
       "internalFunctions": [
         "initHomePopup",
@@ -1241,6 +1250,7 @@
         "initMobileEdgePad",
         "initMobileHomeFeed",
         "initMobileHomeSectionLock",
+        "initSiteFooter",
         "initHome",
         "markAppReadyOnNextPaint"
       ],
@@ -1252,7 +1262,10 @@
         ".cta-trigger",
         ".more-stories-section",
         ".more-stories-inner",
-        "#logoTrigger"
+        "#logoTrigger",
+        ".site-footer",
+        "[data-footer-contact]",
+        "[data-footer-back-top]"
       ],
       "states": [
         "body.js-loading",
@@ -1265,12 +1278,16 @@
         ".is-desktop-home-feed-normal-scroll",
         ".mobile-home-feed-snap",
         "history.pushState",
-        "popstate"
+        "popstate",
+        "data-site-footer-initialized",
+        "billy:open-contact-popup"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
         "./js/modules/input-modality.js",
-        "./js/modules/progressive-image-loader.js"
+        "./js/modules/progressive-image-loader.js",
+        "./js/modules/site-footer.js",
+        "./css/modules/13-site-footer.css"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -2007,6 +2024,62 @@
         "Do not add JS carousel logic unless dots/buttons/autoplay are explicitly requested later.",
         "Do not move or edit existing memo note text or Leave no trace paragraph text."
       ]
+    },
+    "13-site-footer": {
+      "area": "global site footer / footer links / footer contact action / back to top",
+      "htmlModule": "MODULE 13 — SITE FOOTER",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/modules/13-site-footer.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/site-footer.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".site-footer",
+        ".site-footer-inner",
+        ".site-footer-brand",
+        ".site-footer-kicker",
+        ".site-footer-title",
+        ".site-footer-copy",
+        ".site-footer-nav",
+        ".site-footer-link",
+        ".site-footer-actions",
+        ".site-footer-button",
+        ".site-footer-button-secondary",
+        ".site-footer-text-button",
+        ".site-footer-note",
+        "[data-footer-contact]",
+        "[data-footer-back-top]"
+      ],
+      "states": [
+        "data-site-footer-initialized",
+        "billy:open-contact-popup",
+        "window.scrollTo({ top: 0, behavior: smooth })",
+        "focus-visible"
+      ],
+      "behavior": [
+        "Footer provides final site navigation links, contact CTA, phone CTA, trust note, and back-to-top action.",
+        "site-footer.js opens the existing contact popup by dispatching billy:open-contact-popup.",
+        "site-footer.js scrolls to top when [data-footer-back-top] is clicked.",
+        "Footer follows mobile UI source of truth and desktop/landscape 768px app shell boundary."
+      ],
+      "riskNotes": [
+        "Footer CSS must not style header, hero, availability, popup internals, or mobile home feed.",
+        "Footer JS must not duplicate contact popup logic; it only dispatches the existing contact popup event.",
+        "If Contact Billy does not open popup, inspect ./js/modules/site-footer.js, ./js/ui/contact-popup.js, and ./js/main.js import/init order.",
+        "Footer links must use route filenames that exist in knownFiles.knownRoutePagesFromIndex."
+      ],
+      "futureUploadIfBug": [
+        "index.html",
+        "./css/modules/13-site-footer.css",
+        "./js/modules/site-footer.js",
+        "./js/main.js",
+        "./js/ui/contact-popup.js"
+      ]
     }
   },
   "debugScenarios": {
@@ -2692,6 +2765,31 @@
         ".leave-no-trace-gallery__image"
       ],
       "ownershipRule": "index.html owns gallery markup; ./css/modules/12-leave-no-trace-gallery.css owns visual/swipe layout; no JS owner for initial CSS-only gallery."
+    },
+    "site-footer-loi": {
+      "userDescriptionExamples": [
+        "footer lỗi",
+        "footer không hiện",
+        "nút Contact Billy không mở popup",
+        "Back to top không chạy",
+        "footer link sai",
+        "footer lệch app shell"
+      ],
+      "routeToModule": "13-site-footer",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/13-site-footer.css",
+        "./js/modules/site-footer.js",
+        "./js/main.js",
+        "./js/ui/contact-popup.js"
+      ],
+      "selectors": [
+        ".site-footer",
+        ".site-footer-link",
+        "[data-footer-contact]",
+        "[data-footer-back-top]"
+      ]
     }
   },
   "registriesFromIndexHtml": {
@@ -2722,7 +2820,8 @@
       "policyGuidelines",
       "policyPopupTitle",
       "popupTitle",
-      "site-content"
+      "site-content",
+      "siteFooterTitle"
     ],
     "classes": [
       "and",
@@ -2881,14 +2980,29 @@
       "leave-no-trace-gallery",
       "leave-no-trace-gallery__track",
       "leave-no-trace-gallery__slide",
-      "leave-no-trace-gallery__image"
+      "leave-no-trace-gallery__image",
+      "site-footer",
+      "site-footer-inner",
+      "site-footer-brand",
+      "site-footer-kicker",
+      "site-footer-title",
+      "site-footer-copy",
+      "site-footer-nav",
+      "site-footer-link",
+      "site-footer-actions",
+      "site-footer-button",
+      "site-footer-button-secondary",
+      "site-footer-text-button",
+      "site-footer-note"
     ],
     "dataAttributes": [
       "data-home-behavior",
       "data-home-root",
       "data-return-target",
       "data-story-back-to-tours",
-      "data-tour"
+      "data-tour",
+      "data-footer-contact",
+      "data-footer-back-top"
     ],
     "ariaAttributes": [
       "aria-controls",
@@ -2902,13 +3016,14 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.21 — Verify Leave No Trace Gallery Runtime Assets",
+    "nextStepName": "PDRS-01.22 — Verify Site Footer Runtime",
     "recommendedUploadBatch": [
-      "Browser Network screenshot if any gallery image 404 appears",
-      "./css/modules/12-leave-no-trace-gallery.css",
-      "index.html"
+      "Browser screenshot of footer on mobile and desktop shell if visual issue appears",
+      "./css/modules/13-site-footer.css",
+      "./js/modules/site-footer.js",
+      "./js/main.js"
     ],
-    "goal": "Verify all six gallery images load from ./images/leave no trace/*.png and confirm swipe/snap behavior on mobile, tablet, and desktop shell."
+    "goal": "Verify footer visual, route links, Contact Billy event bridge, and Back to top action across mobile/tablet/desktop shell."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -2952,7 +3067,8 @@
         "./css/modules/07-mobile-edge-pad.css",
         "./css/modules/09-tour-snorkeling-transition.css",
         "./css/modules/01-global-motion.css",
-        "./css/modules/17-mobile-story-typewriter.css"
+        "./css/modules/17-mobile-story-typewriter.css",
+        "./css/modules/13-site-footer.css"
       ],
       "jsLoadOrder": [
         "./js/modules/tour-card-links.js",
@@ -2972,7 +3088,8 @@
       "./css/modules/09-tour-snorkeling-transition.css",
       "./css/modules/01-global-motion.css",
       "./css/modules/17-mobile-story-typewriter.css",
-      "./css/modules/05-hero-background.css"
+      "./css/modules/05-hero-background.css",
+      "./css/modules/13-site-footer.css"
     ],
     "cssModulesReceivedOrAccounted": [
       "./css/modules/00-display-shell.css",
@@ -2985,10 +3102,11 @@
       "./css/modules/10-contact-popup.css",
       "./css/modules/11-scroll-home-composite.css",
       "./css/modules/17-mobile-story-typewriter.css",
-      "./css/modules/05-hero-background.css"
+      "./css/modules/05-hero-background.css",
+      "./css/modules/13-site-footer.css"
     ],
     "cssModulesMissingFromUploadSequence": [],
-    "cssModulesStatus": "PASS — hero background module is active owner and responsive image source mapping is verified on GitHub Pages. Current asset names are lowercase: hero-768.jpeg, hero-1280.png, hero-1920.jpg. Runtime preserves same component/layout behavior.",
+    "cssModulesStatus": "PASS — site footer CSS module is now accounted together with existing active CSS modules.",
     "extraDebugFilesReceived": [
       {
         "path": "./css/modules/_css-module-map.css",
@@ -3461,6 +3579,12 @@
         "status": "created-and-accounted-not-imported-by-main-yet",
         "role": "shared progressive image loader for low-res CSS + high-res preload upgrade",
         "primaryModule": "29-progressive-image-loader-system"
+      },
+      {
+        "path": "./js/modules/site-footer.js",
+        "status": "created-and-source-read-active-by-main-import",
+        "role": "site footer contact and back-to-top controller",
+        "primaryModule": "13-site-footer"
       }
     ],
     "criticalCouplingNotes": [
@@ -3471,7 +3595,8 @@
       "./js/app.js is an additional legacy monolith that overlaps modular main.js/ui runtime; treat as legacy until HTML imports are confirmed.",
       "coral-snorkeling-phu-quoc.html loads js/snorkeling.js, not ./js/pages/snorkeling.js.",
       "./js/modules/input-modality.js should become the source of truth for html[data-input-mode=\"mouse|touch\"] after main.js imports it.",
-      "./js/modules/progressive-image-loader.js is shared behavior only; CSS modules keep ownership of low-res and high-res image URLs."
+      "./js/modules/progressive-image-loader.js is shared behavior only; CSS modules keep ownership of low-res and high-res image URLs.",
+      "site-footer.js only dispatches billy:open-contact-popup and does not duplicate contact popup logic."
     ],
     "jsPendingForCompleteInventory": [
       {
@@ -3483,7 +3608,7 @@
         "reason": "Only needed if payment/confirmation stubs are actually used on another page."
       }
     ],
-    "jsInventoryStatus": "PASS — progressive-image-loader.js is accounted as planned/not-active until imported and initialized by page entry JS."
+    "jsInventoryStatus": "PASS — site-footer.js is accounted and active after main.js import/init."
   },
   "snorkelingLandingPageInventory": {
     "step": "PDRS-01.10 — Snorkeling Landing Page Inventory",
