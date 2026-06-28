@@ -617,3 +617,75 @@
     box-sizing: border-box;
   }
 }
+
+/* ✅ NEW: SNAP FEED -> FAQ READING MODE HANDOFF */
+@media (max-width:1024px) {
+  html.is-home-reading-mode,
+  body.is-home-reading-mode {
+    scroll-snap-type: none !important;
+    overscroll-behavior-y: auto !important;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle,
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-handle {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode {
+    min-height: 100svh;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed {
+    display: block;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    scroll-snap-type: none;
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel {
+    display: none;
+    height: auto;
+    min-height: 0;
+    padding:
+      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
+      var(--mobile-home-feed-side-gap)
+      calc(env(safe-area-inset-bottom, 0px) + var(--site-footer-dock-height, 44px) + 28px);
+    overflow: visible;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-panel-last {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card {
+    width: min(100%, 700px);
+    height: auto;
+    min-height: calc(100svh - var(--mobile-home-feed-header-height) - var(--mobile-home-feed-locked-gap));
+    overflow: visible;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-scroll {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: block;
+    padding: 34px 16px 36px !important;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-home-reading-mode .mobile-home-feed-card-09 {
+    border-radius: 34px;
+    background: rgba(255, 255, 255, 0.94);
+  }
+}

@@ -104,7 +104,7 @@ function initHomePopup() { /* ✅ NEW */
   console.log('Home popup initialized'); /* ✅ NEW */
 }
 
-function initMobileHomeFeed() { /* ✅ NEW */
+function initMobileHomeFeed() { /* ✅ UPDATED: snap feed -> FAQ reading mode handoff */
   const MOBILE_TABLET_MAX_WIDTH = 1024; /* ✅ UPDATED: mobile + tablet giống nhau 100% */
   const DESKTOP_MIN_WIDTH = 1025; /* ✅ NEW: desktop cuộn bình thường */
   const HOME_SECTION_SELECTOR = '.more-stories-section'; /* ✅ NEW */
@@ -113,9 +113,12 @@ function initMobileHomeFeed() { /* ✅ NEW */
   const FEED_READY_CLASS = 'is-mobile-home-feed-ready'; /* ✅ NEW */
   const DESKTOP_NORMAL_SCROLL_CLASS = 'is-desktop-home-feed-normal-scroll'; /* ✅ NEW */
   const SNAP_CLASS = 'mobile-home-feed-snap'; /* ✅ NEW */
+  const FEED_ENDING_CLASS = 'is-feed-ending'; /* ✅ NEW */
+  const READING_MODE_CLASS = 'is-home-reading-mode'; /* ✅ NEW */
+  const LAST_CARD_CLASS = 'mobile-home-feed-panel-last'; /* ✅ NEW */
+  const LAST_CARD_VISIBLE_RATIO = 0.62; /* ✅ NEW */
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR); /* ✅ NEW */
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null; /* ✅ NEW */
-
   if (!homeSection || !sourceInner) return; /* ✅ REQUIRED FIX */
   if (homeSection.querySelector('.' + FEED_CLASS)) return; /* ✅ REQUIRED FIX */
 
@@ -129,39 +132,42 @@ function initMobileHomeFeed() { /* ✅ NEW */
 
   function cloneForMobileFeed(sourceNode) { /* ✅ NEW */
     const clone = sourceNode.cloneNode(true); /* ✅ NEW */
-
     clone.querySelectorAll('[id]').forEach(function (node) { /* ✅ NEW */
       node.removeAttribute('id'); /* ✅ REQUIRED FIX: tránh duplicate id với desktop source */
     });
-
     if (clone.hasAttribute && clone.hasAttribute('id')) { /* ✅ NEW */
       clone.removeAttribute('id'); /* ✅ REQUIRED FIX */
     }
-
     clone.querySelectorAll('details').forEach(function (details) { /* ✅ NEW */
       details.setAttribute('open', ''); /* ✅ NEW */
     });
-
     return clone; /* ✅ NEW */
   }
 
-  function createContentPanel(sourceNode, cardIndex) { /* ✅ UPDATED */
+  function createContentPanel(sourceNode, cardIndex, totalCards) { /* ✅ UPDATED */
     const panel = document.createElement('section'); /* ✅ NEW */
     const card = document.createElement('div'); /* ✅ NEW */
     const scroll = document.createElement('div'); /* ✅ NEW */
     const cardNumber = String(cardIndex + 1).padStart(2, '0'); /* ✅ NEW */
+    const isLastCard = cardIndex === totalCards - 1; /* ✅ NEW */
 
     panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber; /* ✅ UPDATED */
     card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber; /* ✅ UPDATED */
     scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber; /* ✅ UPDATED */
 
+    if (isLastCard) { /* ✅ NEW */
+      panel.classList.add(LAST_CARD_CLASS); /* ✅ NEW */
+      card.classList.add('mobile-home-feed-card-last'); /* ✅ NEW */
+      scroll.classList.add('mobile-home-feed-card-scroll-last'); /* ✅ NEW */
+      panel.setAttribute('data-mobile-feed-last-card', 'true'); /* ✅ NEW */
+      card.setAttribute('data-mobile-feed-last-card', 'true'); /* ✅ NEW */
+    }
+
     panel.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
     card.setAttribute('data-mobile-feed-card', cardNumber); /* ✅ NEW */
-
     scroll.appendChild(cloneForMobileFeed(sourceNode)); /* ✅ NEW */
     card.appendChild(scroll); /* ✅ NEW */
     panel.appendChild(card); /* ✅ NEW */
-
     return panel; /* ✅ NEW */
   }
 
@@ -171,24 +177,20 @@ function initMobileHomeFeed() { /* ✅ NEW */
     const title = sourceInner.querySelector('.more-stories-title'); /* ✅ NEW */
     const quote = sourceInner.querySelector('.more-stories-quote'); /* ✅ NEW */
     const copy = sourceInner.querySelector('.more-stories-intro'); /* ✅ NEW */
-    const notes = sourceInner.querySelector('.more-stories-notes');
+    const notes = sourceInner.querySelector('.more-stories-notes'); /* ✅ NEW */
 
     if (kicker) intro.appendChild(cloneForMobileFeed(kicker)); /* ✅ NEW */
     if (title) intro.appendChild(cloneForMobileFeed(title)); /* ✅ NEW */
     if (quote) intro.appendChild(cloneForMobileFeed(quote)); /* ✅ NEW */
     if (copy) intro.appendChild(cloneForMobileFeed(copy)); /* ✅ NEW */
-
-    if (notes) {
-      const notesClone = cloneForMobileFeed(notes);
-      notesClone.classList.add('mobile-home-feed-card-01-notes');
-
-      notesClone.querySelectorAll('.more-stories-note').forEach(function (note) {
-        note.classList.add('mobile-home-feed-card-01-note');
+    if (notes) { /* ✅ NEW */
+      const notesClone = cloneForMobileFeed(notes); /* ✅ NEW */
+      notesClone.classList.add('mobile-home-feed-card-01-notes'); /* ✅ NEW */
+      notesClone.querySelectorAll('.more-stories-note').forEach(function (note) { /* ✅ NEW */
+        note.classList.add('mobile-home-feed-card-01-note'); /* ✅ NEW */
       });
-
-      intro.appendChild(notesClone);
+      intro.appendChild(notesClone); /* ✅ NEW */
     }
-
     return intro; /* ✅ NEW */
   }
 
@@ -196,73 +198,148 @@ function initMobileHomeFeed() { /* ✅ NEW */
   const handle = document.createElement('span'); /* ✅ NEW */
   const contentNodes = []; /* ✅ NEW */
   let isSnapActivated = false; /* ✅ NEW */
+  let isReadingMode = false; /* ✅ NEW */
+  let lastPanel = null; /* ✅ NEW */
+  let lastPanelObserver = null; /* ✅ NEW */
 
   feed.className = FEED_CLASS; /* ✅ NEW */
   feed.setAttribute('aria-label', 'Mobile home feed'); /* ✅ NEW */
-
   handle.className = 'mobile-home-feed-handle'; /* ✅ NEW */
   handle.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
 
   contentNodes.push(createIntroNode()); /* ✅ NEW */
-
   sourceInner.querySelectorAll('.more-service-card').forEach(function (card) { /* ✅ NEW */
     contentNodes.push(card); /* ✅ NEW */
   });
-
   sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) { /* ✅ NEW */
     contentNodes.push(item); /* ✅ NEW */
   });
 
-  contentNodes.slice(0, 10).forEach(function (node, index) { /* ✅ UPDATED: limit to 10 maintainable mobile feed cards */
-    feed.appendChild(createContentPanel(node, index)); /* ✅ UPDATED */
+  const feedNodes = contentNodes.slice(0, 9); /* ✅ UPDATED: card 09 / FAQ is the final mobile feed card */
+  feedNodes.forEach(function (node, index) { /* ✅ UPDATED */
+    const panel = createContentPanel(node, index, feedNodes.length); /* ✅ UPDATED */
+    feed.appendChild(panel); /* ✅ UPDATED */
+    if (index === feedNodes.length - 1) { /* ✅ NEW */
+      lastPanel = panel; /* ✅ NEW */
+    }
   });
 
   homeSection.appendChild(feed); /* ✅ NEW */
   homeSection.appendChild(handle); /* ✅ NEW */
 
+  function setRootReadingMode(enabled) { /* ✅ NEW */
+    document.documentElement.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
+    document.body.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
+    homeSection.classList.toggle(READING_MODE_CLASS, enabled); /* ✅ NEW */
+  }
+
+  function setFeedEndingMode(enabled) { /* ✅ NEW */
+    document.documentElement.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
+    document.body.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
+    homeSection.classList.toggle(FEED_ENDING_CLASS, enabled); /* ✅ NEW */
+  }
+
   function applySnapStateIfNeeded() { /* ✅ UPDATED */
-    if (isMobileTabletViewport() && isSnapActivated) { /* ✅ UPDATED */
+    if (isMobileTabletViewport() && isSnapActivated && !isReadingMode) { /* ✅ UPDATED */
       document.documentElement.classList.add(SNAP_CLASS); /* ✅ NEW */
       document.body.classList.add(SNAP_CLASS); /* ✅ NEW */
       return; /* ✅ NEW */
     }
-
     document.documentElement.classList.remove(SNAP_CLASS); /* ✅ NEW */
     document.body.classList.remove(SNAP_CLASS); /* ✅ NEW */
   }
 
-  function activateSnapWhenHomeReached() { /* ✅ UPDATED */
-    if (!isMobileTabletViewport() || isSnapActivated) return; /* ✅ UPDATED */
+  function enterReadingMode() { /* ✅ NEW */
+    if (isReadingMode || !isMobileTabletViewport() || !lastPanel) return; /* ✅ NEW */
+    isReadingMode = true; /* ✅ NEW */
+    isSnapActivated = false; /* ✅ NEW */
+    setFeedEndingMode(true); /* ✅ NEW */
+    setRootReadingMode(true); /* ✅ NEW */
+    applySnapStateIfNeeded(); /* ✅ NEW */
+    window.requestAnimationFrame(function () { /* ✅ NEW */
+      homeSection.scrollIntoView({ behavior: 'auto', block: 'start' }); /* ✅ NEW */
+    });
+  }
 
+  function exitReadingModeIfDesktop() { /* ✅ NEW */
+    if (!isReadingMode || !isDesktopViewport()) return; /* ✅ NEW */
+    isReadingMode = false; /* ✅ NEW */
+    setFeedEndingMode(false); /* ✅ NEW */
+    setRootReadingMode(false); /* ✅ NEW */
+    applySnapStateIfNeeded(); /* ✅ NEW */
+  }
+
+  function activateSnapWhenHomeReached() { /* ✅ UPDATED */
+    if (!isMobileTabletViewport() || isSnapActivated || isReadingMode) return; /* ✅ UPDATED */
     if (homeSection.getBoundingClientRect().top <= 8) { /* ✅ NEW */
       isSnapActivated = true; /* ✅ NEW */
       applySnapStateIfNeeded(); /* ✅ NEW */
     }
   }
 
+  function getLastPanelVisibleRatio() { /* ✅ NEW */
+    if (!lastPanel) return 0; /* ✅ NEW */
+    const feedRect = feed.getBoundingClientRect(); /* ✅ NEW */
+    const panelRect = lastPanel.getBoundingClientRect(); /* ✅ NEW */
+    const visibleTop = Math.max(feedRect.top, panelRect.top); /* ✅ NEW */
+    const visibleBottom = Math.min(feedRect.bottom, panelRect.bottom); /* ✅ NEW */
+    const visibleHeight = Math.max(0, visibleBottom - visibleTop); /* ✅ NEW */
+    return panelRect.height > 0 ? visibleHeight / panelRect.height : 0; /* ✅ NEW */
+  }
+
+  function checkLastPanelHandoff() { /* ✅ NEW */
+    if (!isMobileTabletViewport() || isReadingMode || !lastPanel) return; /* ✅ NEW */
+    const ratio = getLastPanelVisibleRatio(); /* ✅ NEW */
+    const isLastCardVisible = ratio >= LAST_CARD_VISIBLE_RATIO; /* ✅ NEW */
+    setFeedEndingMode(isLastCardVisible); /* ✅ NEW */
+    if (isLastCardVisible) { /* ✅ NEW */
+      window.setTimeout(function () { /* ✅ NEW */
+        if (!isReadingMode && getLastPanelVisibleRatio() >= LAST_CARD_VISIBLE_RATIO) { /* ✅ NEW */
+          enterReadingMode(); /* ✅ NEW */
+        }
+      }, 180); /* ✅ NEW */
+    }
+  }
+
+  function initLastPanelObserver() { /* ✅ NEW */
+    if (!lastPanel || typeof IntersectionObserver === 'undefined') return; /* ✅ NEW */
+    lastPanelObserver = new IntersectionObserver(function (entries) { /* ✅ NEW */
+      entries.forEach(function (entry) { /* ✅ NEW */
+        if (!isMobileTabletViewport() || isReadingMode) return; /* ✅ NEW */
+        setFeedEndingMode(entry.intersectionRatio >= 0.45); /* ✅ NEW */
+        if (entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO) { /* ✅ NEW */
+          enterReadingMode(); /* ✅ NEW */
+        }
+      });
+    }, { /* ✅ NEW */
+      root: feed, /* ✅ NEW */
+      threshold: [0.45, LAST_CARD_VISIBLE_RATIO, 0.82] /* ✅ NEW */
+    });
+    lastPanelObserver.observe(lastPanel); /* ✅ NEW */
+  }
+
   function syncMobileFeedState() { /* ✅ UPDATED */
     homeSection.classList.add(FEED_READY_CLASS); /* ✅ UPDATED: desktop cũng dùng visual card feed */
-
+    exitReadingModeIfDesktop(); /* ✅ NEW */
     if (isDesktopViewport()) { /* ✅ NEW */
       homeSection.classList.add(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
       applySnapStateIfNeeded(); /* ✅ NEW */
       return; /* ✅ NEW */
     }
-
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS); /* ✅ NEW */
     activateSnapWhenHomeReached(); /* ✅ UPDATED */
     applySnapStateIfNeeded(); /* ✅ NEW */
+    checkLastPanelHandoff(); /* ✅ NEW */
   }
 
   syncMobileFeedState(); /* ✅ NEW */
-
+  initLastPanelObserver(); /* ✅ NEW */
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true }); /* ✅ NEW */
+  feed.addEventListener('scroll', checkLastPanelHandoff, { passive: true }); /* ✅ NEW */
   window.addEventListener('resize', syncMobileFeedState); /* ✅ NEW */
-
   window.addEventListener('orientationchange', function () { /* ✅ NEW */
     window.setTimeout(syncMobileFeedState, 220); /* ✅ NEW */
   }); /* ✅ NEW */
-
   console.log('Mobile home feed initialized'); /* ✅ NEW */
 }
 
