@@ -1,52 +1,10 @@
-/* =====================================================
-  ✅ NEW: CSS MODULE 01 — GLOBAL MOTION
-  FILE: ./css/modules/01-global-motion.css
-
-  SYSTEM MAP POSITION:
-  - PROJECT MODULE INDEX: 01-head / 01-head-inline-style-registry
-  - Cross-page/global CSS policy module
-
-  SOURCE LOCATION BEFORE EXTRACTION:
-  - index.html
-  - MODULE 01.5 — INLINE STYLE REGISTRY
-  - This file was extracted during Step 6I.
-
-  RELATED SELECTORS:
-  - *
-  - *::before
-  - *::after
-
-  PURPOSE:
-  - Owns global reduced-motion safety policy.
-  - Keeps global motion behavior separate from feature modules.
-  - Applies site-wide motion reduction when the browser/user requests reduced motion.
-
-  OWNS:
-  - @media (prefers-reduced-motion: reduce)
-  - animation-duration global override
-  - animation-iteration-count global override
-  - transition-duration global override
-  - scroll-behavior global override
-
-  DEBUG ROUTING:
-  - If all animations/transitions become too fast or disabled under reduced-motion settings: inspect this file.
-  - If a specific module needs a module-scoped reduced-motion override: inspect that module CSS first, then this global file.
-  - If scroll behavior changes under reduced-motion settings: inspect scroll-behavior override in this file.
-
-  IMMUTABLE / SAFETY RULES:
-  - Do not move module-specific animations into this file.
-  - Do not rename or modify global selectors unless explicitly requested.
-  - Preserve original CSS values.
-  - This extraction is mechanical-only: original selector names and CSS values are preserved.
-===================================================== */
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important; 
-    animation-iteration-count: 1 !important; 
-    transition-duration: 0.001ms !important; 
-    scroll-behavior: auto !important; 
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
