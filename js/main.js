@@ -77,7 +77,6 @@ function initHomePopup() {
   });
 
   window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, openPopup);
-
   closeBtn.addEventListener('click', closePopup);
 
   popup.addEventListener('click', function (event) {
@@ -102,7 +101,6 @@ function initMobileHomeFeed() {
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
-  const heroSection = document.getElementById('hero-source-template');
 
   if (!homeSection || !sourceInner) return;
   if (homeSection.querySelector('.' + FEED_CLASS)) return;
@@ -113,6 +111,20 @@ function initMobileHomeFeed() {
 
   function isDesktopViewport() {
     return window.innerWidth >= DESKTOP_MIN_WIDTH;
+  }
+
+  function createElement(tagName, className, textContent) {
+    const element = document.createElement(tagName);
+
+    if (className) {
+      element.className = className;
+    }
+
+    if (typeof textContent === 'string') {
+      element.textContent = textContent;
+    }
+
+    return element;
   }
 
   function cloneForMobileFeed(sourceNode) {
@@ -133,31 +145,49 @@ function initMobileHomeFeed() {
     return clone;
   }
 
-  function appendCloneIfExists(parent, sourceNode, extraClassName) {
-    if (!sourceNode) return;
-
-    const clone = cloneForMobileFeed(sourceNode);
-
-    if (extraClassName) {
-      clone.classList.add(extraClassName);
-    }
-
-    parent.appendChild(clone);
-  }
-
   function createMainHeroNode() {
-    const heroNode = document.createElement('div');
-    const tagline = heroSection ? heroSection.querySelector('.hero-guide-tagline') : null;
-    const title = heroSection ? heroSection.querySelector('.title') : null;
-    const story = heroSection ? heroSection.querySelector('.story') : null;
-    const ctaRow = heroSection ? heroSection.querySelector('.cta-row') : null;
+    const heroNode = createElement('div', 'mobile-home-feed-main-hero');
+    const tagline = createElement('div', 'hero-guide-tagline mobile-home-feed-main-hero-tagline', '• professional Phu Quoc local guide team.');
+    const title = createElement('h1', 'title mobile-home-feed-main-hero-title');
+    const titleLineOne = createElement('span', 'title-mobile-line title-mobile-line-1', 'Khám phá');
+    const titleLineTwo = createElement('span', 'title-mobile-line title-mobile-line-2', '"Phú Quốc Của Tôi"');
+    const story = createElement('div', 'story mobile-home-feed-main-hero-story');
+    const storyText = createElement('p');
+    const ctaRow = createElement('div', 'cta-row mobile-home-feed-main-hero-cta');
+    const quote = createElement('span', 'quote cta-trigger');
+    const quoteStart = createElement('span', '', "let's...");
+    const checkboxLabel = createElement('label', 'checkbox');
+    const checkboxInput = document.createElement('input');
+    const fakeBox = createElement('span', 'fake-box');
+    const quoteEnd = createElement('span', '', '"Leave no trace"');
+    const thanks = createElement('span', 'thanks cta-trigger', 'Cảm ơn bạn ❤️');
 
-    heroNode.className = 'mobile-home-feed-main-hero';
+    storyText.textContent = 'Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..';
 
-    appendCloneIfExists(heroNode, tagline, 'mobile-home-feed-main-hero-tagline');
-    appendCloneIfExists(heroNode, title, 'mobile-home-feed-main-hero-title');
-    appendCloneIfExists(heroNode, story, 'mobile-home-feed-main-hero-story');
-    appendCloneIfExists(heroNode, ctaRow, 'mobile-home-feed-main-hero-cta');
+    checkboxInput.type = 'checkbox';
+    quote.setAttribute('role', 'button');
+    quote.setAttribute('tabindex', '0');
+    quote.setAttribute('aria-controls', 'leave-no-trace-popup');
+    quote.setAttribute('aria-expanded', 'false');
+    thanks.setAttribute('role', 'button');
+    thanks.setAttribute('tabindex', '0');
+    thanks.setAttribute('aria-controls', 'leave-no-trace-popup');
+    thanks.setAttribute('aria-expanded', 'false');
+
+    title.appendChild(titleLineOne);
+    title.appendChild(titleLineTwo);
+    story.appendChild(storyText);
+    checkboxLabel.appendChild(checkboxInput);
+    checkboxLabel.appendChild(fakeBox);
+    quote.appendChild(quoteStart);
+    quote.appendChild(checkboxLabel);
+    quote.appendChild(quoteEnd);
+    ctaRow.appendChild(quote);
+    ctaRow.appendChild(thanks);
+    heroNode.appendChild(tagline);
+    heroNode.appendChild(title);
+    heroNode.appendChild(story);
+    heroNode.appendChild(ctaRow);
 
     return heroNode;
   }
@@ -197,17 +227,9 @@ function initMobileHomeFeed() {
     const cardNumber = String(cardIndex + 1).padStart(2, '0');
     const isLastCard = cardIndex === totalCards - 1;
 
-    panel.className =
-      'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' +
-      cardNumber;
-
-    card.className =
-      'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' +
-      cardNumber;
-
-    scroll.className =
-      'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' +
-      cardNumber;
+    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber;
+    card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber;
+    scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber;
 
     if (isLastCard) {
       panel.classList.add(LAST_CARD_CLASS);
@@ -236,7 +258,6 @@ function initMobileHomeFeed() {
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
-
   handle.className = 'mobile-home-feed-handle';
   handle.setAttribute('aria-hidden', 'true');
 
