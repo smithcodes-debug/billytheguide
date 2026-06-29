@@ -13,77 +13,67 @@ const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
 
 function initHomePopup() {
-  const checkbox = document.getElementById('leaveNoTraceCheckbox');
   const popup = document.getElementById('leave-no-trace-popup');
   const popupCard = popup ? popup.querySelector('.popup-card') : null;
   const closeBtn = popup ? popup.querySelector('.popup-close') : null;
-  const triggers = document.querySelectorAll('.cta-trigger');
-  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
   const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup';
-  const MOBILE_TABLET_MAX_WIDTH = 1024;
 
-  let homeScrollUnlocked = false;
+  if (!popup || !popupCard || !closeBtn) return;
 
-  if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return;
-
-  function isMobileHomeScrollLockViewport() {
-    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
+  function getTriggers() {
+    return Array.prototype.slice.call(document.querySelectorAll('.cta-trigger'));
   }
 
-  function lockHomeScrollIfNeeded() {
-    if (homeScrollUnlocked) return;
+  function syncTriggerState(expanded) {
+    getTriggers().forEach(function (trigger) {
+      trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
 
-    if (isMobileHomeScrollLockViewport()) {
-      document.documentElement.classList.add(HOME_SCROLL_LOCK_CLASS);
-      document.body.classList.add(HOME_SCROLL_LOCK_CLASS);
-      return;
-    }
-
-    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
-    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
-  }
-
-  function unlockHomeScroll() {
-    homeScrollUnlocked = true;
-    document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
-    document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
+      trigger.querySelectorAll('input[type="checkbox"]').forEach(function (input) {
+        input.checked = expanded;
+      });
+    });
   }
 
   function openPopup() {
-    unlockHomeScroll();
-    checkbox.checked = true;
     popup.classList.add('is-open');
     popup.setAttribute('aria-hidden', 'false');
-
-    triggers.forEach(function (el) {
-      el.setAttribute('aria-expanded', 'true');
-    });
+    syncTriggerState(true);
   }
 
   function closePopup() {
     popup.classList.remove('is-open');
     popup.setAttribute('aria-hidden', 'true');
-
-    triggers.forEach(function (el) {
-      el.setAttribute('aria-expanded', 'false');
-    });
+    syncTriggerState(false);
   }
 
-  lockHomeScrollIfNeeded();
-  window.addEventListener('resize', lockHomeScrollIfNeeded);
+  document.addEventListener('click', function (event) {
+    const trigger = event.target && event.target.closest
+      ? event.target.closest('.cta-trigger')
+      : null;
 
-  triggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function (event) {
+    if (!trigger) return;
+
+    event.preventDefault();
+    openPopup();
+  });
+
+  document.addEventListener('keydown', function (event) {
+    const trigger = event.target && event.target.closest
+      ? event.target.closest('.cta-trigger')
+      : null;
+
+    if (!trigger) {
+      if (event.key === 'Escape' && popup.classList.contains('is-open')) {
+        closePopup();
+      }
+
+      return;
+    }
+
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       openPopup();
-    });
-
-    trigger.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openPopup();
-      }
-    });
+    }
   });
 
   window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, openPopup);
@@ -92,12 +82,6 @@ function initHomePopup() {
 
   popup.addEventListener('click', function (event) {
     if (!popupCard.contains(event.target)) {
-      closePopup();
-    }
-  });
-
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && popup.classList.contains('is-open')) {
       closePopup();
     }
   });
@@ -118,7 +102,7 @@ function initMobileHomeFeed() {
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
-  const heroSection = document.querySelector('.hero');
+  const heroSection = document.getElementById('hero-source-template');
 
   if (!homeSection || !sourceInner) return;
   if (homeSection.querySelector('.' + FEED_CLASS)) return;
