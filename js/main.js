@@ -9,6 +9,7 @@ import { initSearchPopup } from './ui/search-popup.js';
 import { initMobileEdgePad } from './ui/mobile-edge-pad.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initSiteFooter } from './modules/site-footer.js';
+import { initDebugSiteReset } from './modules/debug-site-reset.js';
 
 function initHomePopup() {
   const checkbox = document.getElementById('leaveNoTraceCheckbox');
@@ -116,6 +117,7 @@ function initMobileHomeFeed() {
   const FEED_ENDING_CLASS = 'is-feed-ending';
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last';
   const LAST_CARD_VISIBLE_RATIO = 0.58;
+
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
 
@@ -169,6 +171,7 @@ function initMobileHomeFeed() {
 
     panel.setAttribute('data-mobile-feed-card', cardNumber);
     card.setAttribute('data-mobile-feed-card', cardNumber);
+
     scroll.appendChild(cloneForMobileFeed(sourceNode));
     card.appendChild(scroll);
     panel.appendChild(card);
@@ -206,12 +209,14 @@ function initMobileHomeFeed() {
   const feed = document.createElement('div');
   const handle = document.createElement('span');
   const contentNodes = [];
+
   let isSnapActivated = false;
   let lastPanel = null;
   let lastPanelObserver = null;
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
+
   handle.className = 'mobile-home-feed-handle';
   handle.setAttribute('aria-hidden', 'true');
 
@@ -292,6 +297,7 @@ function initMobileHomeFeed() {
     lastPanelObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!isMobileTabletViewport()) return;
+
         setFeedEndingMode(entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO);
       });
     }, {
@@ -338,8 +344,10 @@ function initMobileHomeSectionLock() {
   const HOME_SECTION_LOCK_TOP_OFFSET = 8;
   const HOME_SECTION_CURRENT_TOP_TOLERANCE = 14;
   const HOME_SECTION_FORCE_SCROLL_DELAY = 16;
+
   const logoTrigger = document.getElementById('logoTrigger');
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
+
   let isLocked = false;
   let isProgrammaticScroll = false;
   let lastTouchY = 0;
@@ -370,6 +378,7 @@ function initMobileHomeSectionLock() {
 
   function getClosestFeedScrollNode(event) {
     if (!event || !event.target || !event.target.closest) return null;
+
     return event.target.closest('.mobile-home-feed-card-scroll');
   }
 
@@ -393,16 +402,19 @@ function initMobileHomeSectionLock() {
 
   function isAtHomeSectionTop() {
     const homeTop = getHomeSectionTop();
+
     return Math.abs(getCurrentScrollY() - homeTop) <= HOME_SECTION_CURRENT_TOP_TOLERANCE;
   }
 
   function isBeforeHomeSection() {
     const homeTop = getHomeSectionTop();
+
     return getCurrentScrollY() < homeTop - HOME_SECTION_CURRENT_TOP_TOLERANCE;
   }
 
   function scrollToHomeSection(behavior) {
     const homeTop = getHomeSectionTop();
+
     isProgrammaticScroll = true;
 
     window.scrollTo({
@@ -442,6 +454,7 @@ function initMobileHomeSectionLock() {
     if (isReadingModeActive() || !isMobileTabletViewport()) return false;
 
     const rect = homeSection.getBoundingClientRect();
+
     return rect.top <= HOME_SECTION_LOCK_TOP_OFFSET;
   }
 
@@ -471,6 +484,7 @@ function initMobileHomeSectionLock() {
 
   function handleTouchStart(event) {
     if (!event.touches || !event.touches.length) return;
+
     lastTouchY = event.touches[0].clientY;
   }
 
@@ -494,6 +508,7 @@ function initMobileHomeSectionLock() {
 
   function handlePopState() {
     if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return;
+
     pushHistoryGuard();
     scrollToHomeSection('auto');
   }
@@ -522,6 +537,7 @@ function initMobileHomeSectionLock() {
 
   if (logoTrigger) {
     logoTrigger.addEventListener('click', handleLogoHomeAction, true);
+
     logoTrigger.addEventListener('keydown', function (event) {
       if (event.key === 'Enter' || event.key === ' ') {
         handleLogoHomeAction(event);
@@ -530,6 +546,7 @@ function initMobileHomeSectionLock() {
   }
 
   guardHomeSectionBoundary();
+
   console.log('Mobile home section lock initialized');
 }
 
@@ -573,5 +590,7 @@ safeInit(initMobileEdgePad, 'initMobileEdgePad');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
+safeInit(initDebugSiteReset, 'initDebugSiteReset');
 safeInit(initHome, 'initHome');
+
 markAppReadyOnNextPaint();
