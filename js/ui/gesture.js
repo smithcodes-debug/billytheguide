@@ -51,8 +51,10 @@ export function initGesture() {
 
   document.addEventListener('touchstart', (e) => {
     if (!e.touches || e.touches.length !== 1) return;
+
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+
     disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
   }, { passive: true });
 
@@ -82,16 +84,16 @@ export function initGesture() {
     }
 
     if (!isMobile) return; /* ✅ KEEP: mobile only */
+
     if (hasTourCardPopupOpen()) { /* ✅ UPDATED */
       availabilitySwipeDisabled = true; /* ✅ NEW */
       return; /* ✅ REQUIRED FIX */
     }
-    if (popupIsOpen) return; /* ✅ KEEP: swipe up chỉ chạy khi chưa có popup nào mở */
+
+    if (popupIsOpen) return; /* ✅ KEEP: swipe up đã bị remove, popup mở thì không làm gì */
     if (availabilitySwipeDisabled) return; /* ✅ NEW */
     if (!isAvailabilitySwipeAllowedAtCurrentScroll()) return; /* ✅ NEW */
 
-    if (deltaY < -30 && absDeltaY > 30) { /* ✅ UPDATED */
-      window.dispatchEvent(new CustomEvent('billy:open-availability-popup')); /* ✅ NEW */
-    }
+    /* ✅ UPDATED: removed swipe-up booking/availability trigger */
   }, { passive: true });
 }
