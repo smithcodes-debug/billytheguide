@@ -6,10 +6,12 @@ import { initTourCarousel } from './ui/tour-carousel.js';
 import { initStoryExpand } from './ui/story-expand.js';
 import { initAvailabilityPopup } from './modules/booking.js';
 import { initSearchPopup } from './ui/search-popup.js';
-import { initMobileEdgePad } from './ui/mobile-edge-pad.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initSiteFooter } from './modules/site-footer.js';
 import { initDebugSiteReset } from './modules/debug-site-reset.js';
+
+const APP_LOADING_CLASS = 'js-loading';
+const APP_READY_CLASS = 'js-ready';
 
 function initHomePopup() {
   const checkbox = document.getElementById('leaveNoTraceCheckbox');
@@ -48,9 +50,6 @@ function initHomePopup() {
     document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
   }
 
-  lockHomeScrollIfNeeded();
-  window.addEventListener('resize', lockHomeScrollIfNeeded);
-
   function openPopup() {
     unlockHomeScroll();
     checkbox.checked = true;
@@ -71,6 +70,9 @@ function initHomePopup() {
     });
   }
 
+  lockHomeScrollIfNeeded();
+  window.addEventListener('resize', lockHomeScrollIfNeeded);
+
   triggers.forEach(function (trigger) {
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
@@ -85,9 +87,7 @@ function initHomePopup() {
     });
   });
 
-  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, function () {
-    openPopup();
-  });
+  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, openPopup);
 
   closeBtn.addEventListener('click', closePopup);
 
@@ -102,8 +102,6 @@ function initHomePopup() {
       closePopup();
     }
   });
-
-  console.log('Home popup initialized');
 }
 
 function initMobileHomeFeed() {
@@ -118,7 +116,6 @@ function initMobileHomeFeed() {
   const FEED_ENDING_CLASS = 'is-feed-ending';
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last';
   const LAST_CARD_VISIBLE_RATIO = 0.58;
-  const PREPARE_MORE_STORIES_SNAP_EVENT = 'billy:prepare-more-stories-snap';
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
@@ -159,9 +156,15 @@ function initMobileHomeFeed() {
     const cardNumber = String(cardIndex + 1).padStart(2, '0');
     const isLastCard = cardIndex === totalCards - 1;
 
-    panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber;
-    card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber;
-    scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber;
+    panel.className =
+      'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' +
+      cardNumber;
+    card.className =
+      'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' +
+      cardNumber;
+    scroll.className =
+      'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' +
+      cardNumber;
 
     if (isLastCard) {
       panel.classList.add(LAST_CARD_CLASS);
@@ -214,7 +217,6 @@ function initMobileHomeFeed() {
 
   let isSnapActivated = false;
   let lastPanel = null;
-  let lastPanelObserver = null;
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
@@ -263,31 +265,18 @@ function initMobileHomeFeed() {
     document.body.classList.remove(SNAP_CLASS);
   }
 
-  function activateSnapState(resetFeedPosition) {
+  function activateSnapState() {
     if (!isMobileTabletViewport()) return;
 
     isSnapActivated = true;
     applySnapStateIfNeeded();
-
-    if (resetFeedPosition && typeof feed.scrollTo === 'function') {
-      feed.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'auto'
-      });
-      return;
-    }
-
-    if (resetFeedPosition) {
-      feed.scrollTop = 0;
-    }
   }
 
   function activateSnapWhenHomeReached() {
     if (!isMobileTabletViewport() || isSnapActivated) return;
 
     if (homeSection.getBoundingClientRect().top <= 8) {
-      activateSnapState(false);
+      activateSnapState();
     }
   }
 
@@ -315,10 +304,9 @@ function initMobileHomeFeed() {
   function initLastPanelObserver() {
     if (!lastPanel || typeof IntersectionObserver === 'undefined') return;
 
-    lastPanelObserver = new IntersectionObserver(function (entries) {
+    const lastPanelObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!isMobileTabletViewport()) return;
-
         setFeedEndingMode(entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO);
       });
     }, {
@@ -341,16 +329,11 @@ function initMobileHomeFeed() {
     }
 
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS);
-    activateSnapState(false);
     syncFeedEndingState();
   }
 
   syncMobileFeedState();
   initLastPanelObserver();
-
-  window.addEventListener(PREPARE_MORE_STORIES_SNAP_EVENT, function () {
-    activateSnapState(true);
-  });
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
@@ -359,225 +342,7 @@ function initMobileHomeFeed() {
   window.addEventListener('orientationchange', function () {
     window.setTimeout(syncMobileFeedState, 220);
   });
-
-  console.log('Mobile home feed initialized');
 }
-
-function initMobileHomeSectionLock() {
-  const MOBILE_TABLET_MAX_WIDTH = 1024;
-  const HOME_SECTION_SELECTOR = '.more-stories-section';
-  const HOME_SECTION_LOCK_TOP_OFFSET = 8;
-  const HOME_SECTION_CURRENT_TOP_TOLERANCE = 14;
-  const HOME_SECTION_FORCE_SCROLL_DELAY = 16;
-
-  const logoTrigger = document.getElementById('logoTrigger');
-  const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
-
-  let isLocked = false;
-  let isProgrammaticScroll = false;
-  let lastTouchY = 0;
-  let hasHistoryGuard = false;
-
-  if (!homeSection) return;
-
-  function isMobileTabletViewport() {
-    return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
-  }
-
-  function isReadingModeActive() {
-    return document.body.classList.contains('is-home-reading-mode');
-  }
-
-  function getMobileHomeFeed() {
-    return homeSection.querySelector('.mobile-home-feed');
-  }
-
-  function isEventInsideMobileHomeFeed(event) {
-    return Boolean(
-      event &&
-        event.target &&
-        event.target.closest &&
-        event.target.closest('.mobile-home-feed')
-    );
-  }
-
-  function getClosestFeedScrollNode(event) {
-    if (!event || !event.target || !event.target.closest) return null;
-
-    return event.target.closest('.mobile-home-feed-card-scroll');
-  }
-
-  function shouldAllowNestedFeedScrollUp(event) {
-    const feed = getMobileHomeFeed();
-    const scrollNode = getClosestFeedScrollNode(event);
-
-    if (!feed || !isEventInsideMobileHomeFeed(event)) return false;
-    if (scrollNode && scrollNode.scrollTop > 0) return true;
-
-    return feed.scrollTop > 0;
-  }
-
-  function getHomeSectionTop() {
-    return Math.max(0, Math.round(homeSection.getBoundingClientRect().top + window.scrollY));
-  }
-
-  function getCurrentScrollY() {
-    return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-  }
-
-  function isAtHomeSectionTop() {
-    const homeTop = getHomeSectionTop();
-
-    return Math.abs(getCurrentScrollY() - homeTop) <= HOME_SECTION_CURRENT_TOP_TOLERANCE;
-  }
-
-  function isBeforeHomeSection() {
-    const homeTop = getHomeSectionTop();
-
-    return getCurrentScrollY() < homeTop - HOME_SECTION_CURRENT_TOP_TOLERANCE;
-  }
-
-  function scrollToHomeSection(behavior) {
-    const homeTop = getHomeSectionTop();
-
-    isProgrammaticScroll = true;
-
-    window.scrollTo({
-      top: homeTop,
-      left: 0,
-      behavior: behavior || 'auto'
-    });
-
-    window.setTimeout(function () {
-      isProgrammaticScroll = false;
-    }, HOME_SECTION_FORCE_SCROLL_DELAY);
-  }
-
-  function pushHistoryGuard() {
-    if (isReadingModeActive() || hasHistoryGuard || !isMobileTabletViewport()) return;
-
-    try {
-      window.history.pushState({ mobileHomeSectionLocked: true }, document.title, window.location.href);
-      hasHistoryGuard = true;
-    } catch (error) {
-      hasHistoryGuard = false;
-    }
-  }
-
-  function activateLock() {
-    if (isReadingModeActive() || isLocked || !isMobileTabletViewport()) return;
-
-    isLocked = true;
-    pushHistoryGuard();
-
-    if (isBeforeHomeSection()) {
-      scrollToHomeSection('auto');
-    }
-  }
-
-  function shouldActivateFromViewport() {
-    if (isReadingModeActive() || !isMobileTabletViewport()) return false;
-
-    const rect = homeSection.getBoundingClientRect();
-
-    return rect.top <= HOME_SECTION_LOCK_TOP_OFFSET;
-  }
-
-  function guardHomeSectionBoundary() {
-    if (isReadingModeActive() || !isMobileTabletViewport()) return;
-
-    if (!isLocked && shouldActivateFromViewport()) {
-      activateLock();
-    }
-
-    if (!isLocked || isProgrammaticScroll) return;
-
-    if (isBeforeHomeSection()) {
-      scrollToHomeSection('auto');
-    }
-  }
-
-  function handleWheel(event) {
-    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return;
-    if (event.deltaY < 0 && shouldAllowNestedFeedScrollUp(event)) return;
-
-    if (event.deltaY < 0 && isAtHomeSectionTop()) {
-      event.preventDefault();
-      scrollToHomeSection('auto');
-    }
-  }
-
-  function handleTouchStart(event) {
-    if (!event.touches || !event.touches.length) return;
-
-    lastTouchY = event.touches[0].clientY;
-  }
-
-  function handleTouchMove(event) {
-    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return;
-    if (!event.touches || !event.touches.length) return;
-
-    const currentTouchY = event.touches[0].clientY;
-    const isSwipingBackUpInsideFeed =
-      currentTouchY > lastTouchY && shouldAllowNestedFeedScrollUp(event);
-    const isTryingToScrollAboveHome =
-      currentTouchY > lastTouchY && isAtHomeSectionTop();
-
-    lastTouchY = currentTouchY;
-
-    if (isSwipingBackUpInsideFeed) return;
-
-    if (isTryingToScrollAboveHome) {
-      event.preventDefault();
-      scrollToHomeSection('auto');
-    }
-  }
-
-  function handlePopState() {
-    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return;
-
-    pushHistoryGuard();
-    scrollToHomeSection('auto');
-  }
-
-  function handleLogoHomeAction(event) {
-    if (isReadingModeActive() || !isLocked || !isMobileTabletViewport()) return;
-
-    if (!isAtHomeSectionTop()) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      scrollToHomeSection('smooth');
-    }
-  }
-
-  window.addEventListener('scroll', guardHomeSectionBoundary, { passive: true });
-  window.addEventListener('resize', guardHomeSectionBoundary);
-
-  window.addEventListener('orientationchange', function () {
-    window.setTimeout(guardHomeSectionBoundary, 220);
-  });
-
-  window.addEventListener('wheel', handleWheel, { passive: false });
-  window.addEventListener('touchstart', handleTouchStart, { passive: true });
-  window.addEventListener('touchmove', handleTouchMove, { passive: false });
-  window.addEventListener('popstate', handlePopState);
-
-  if (logoTrigger) {
-    logoTrigger.addEventListener('click', handleLogoHomeAction, true);
-
-    logoTrigger.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        handleLogoHomeAction(event);
-      }
-    }, true);
-  }
-
-  guardHomeSectionBoundary();
-  console.log('Mobile home section lock initialized');
-}
-
-const APP_LOADING_CLASS = 'js-loading';
-const APP_READY_CLASS = 'js-ready';
 
 function markAppReady() {
   document.body.classList.remove(APP_LOADING_CLASS);
@@ -585,9 +350,7 @@ function markAppReady() {
 }
 
 function markAppReadyOnNextPaint() {
-  window.requestAnimationFrame(function () {
-    markAppReady();
-  });
+  window.requestAnimationFrame(markAppReady);
 }
 
 function safeInit(initFn, initName) {
@@ -598,9 +361,7 @@ function safeInit(initFn, initName) {
   }
 }
 
-function initHome() {
-  console.log('Home initialized');
-}
+function initHome() {}
 
 safeInit(initGesture, 'initGesture');
 safeInit(initNavigation, 'initNavigation');
@@ -612,7 +373,6 @@ safeInit(initStoryExpand, 'initStoryExpand');
 safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
 safeInit(initAvailabilityPopup, 'initAvailabilityPopup');
 safeInit(initSearchPopup, 'initSearchPopup');
-safeInit(initMobileEdgePad, 'initMobileEdgePad');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
