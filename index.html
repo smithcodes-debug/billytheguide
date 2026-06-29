@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="./css/modules/12-leave-no-trace-gallery.css">
   <link rel="stylesheet" href="./css/modules/13-site-footer.css">
   <link rel="stylesheet" href="./css/modules/03-mobile-search.css">
+  <link rel="stylesheet" href="./css/modules/07-mobile-edge-pad.css">
   <link rel="stylesheet" href="./css/modules/09-tour-snorkeling-transition.css">
   <link rel="stylesheet" href="./css/modules/01-global-motion.css">
   <link rel="stylesheet" href="./css/modules/17-mobile-story-typewriter.css">
@@ -108,6 +109,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
     </div>
   </div>
 </section>
+<button class="mobile-edge-pad" type="button" aria-label="Open stories" aria-controls="more-stories-section"></button>
 <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
   <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
     <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
@@ -140,11 +142,11 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
       <button class="popup-close" type="button" aria-label="Đóng popup">×</button>
     </div>
     <div class="popup-copy">
-      <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.              
-      Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.              
+      <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.                
+      Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.                
     </div>
     <div class="popup-note">
-  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.              
+  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.                
 </div>
 <div class="popup-notes-shell">
   <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button>
@@ -436,7 +438,7 @@ Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đ�
           <div class="leave-no-trace-memo-note" aria-label="Welcome note">
             <p><strong>Dear Guest,</strong></p>
             <p>
-I really appreciate you being here, as it means you’ve spent a lot of time getting to know who we are and what we do. I don't know when we will meet each other, or whether you will choose to stay with us or not, but we are always willing to support you and give you advice from a local's perspective. Please don't hesitate to keep in touch. Billy and Friend Adventures is a small team of local guides.  
+I really appreciate you being here, as it means you've spent a lot of time getting to know who we are and what we do. I don't know when we will meet each other, or whether you will choose to stay with us or not, but we are always willing to support you and give you advice from a local's perspective. Please don't hesitate to keep in touch. Billy and Friend Adventures is a small team of local guides.    
 .</p>
             <p>Xin chào!</p>
           </div>
@@ -499,7 +501,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
   </div>
 </section>
 </main>
-
 <!-- ✅ UPDATED: MODULE 13 — SITE FOOTER SVG DOCK -->
 <footer class="site-footer" aria-label="Bottom navigation">
   <nav class="site-footer-inner" aria-label="Footer navigation">
@@ -514,7 +515,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
       </svg>
       <span class="site-footer-label">Danh mục</span>
     </button>
-
     <button class="site-footer-dock-item" type="button" data-footer-shorts aria-label="Mở stories">
       <svg class="site-footer-icon site-footer-icon-shorts" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M9 4.5l7.5 4.35L9 13.2V4.5z"></path>
@@ -522,7 +522,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
       </svg>
       <span class="site-footer-label">Shorts</span>
     </button>
-
     <button class="site-footer-dock-item site-footer-dock-main" type="button" data-footer-contact aria-label="Mở liên hệ">
       <span class="site-footer-main-circle" aria-hidden="true">
         <svg class="site-footer-icon site-footer-icon-main" viewBox="0 0 24 24" focusable="false">
@@ -537,7 +536,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
       </span>
       <span class="site-footer-label">Liên hệ</span>
     </button>
-
     <button class="site-footer-dock-item" type="button" data-footer-viewed aria-label="Mở nội dung đã xem">
       <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M4.5 5.5h15v10h-15z"></path>
@@ -546,7 +544,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
       </svg>
       <span class="site-footer-label">SP đã xem</span>
     </button>
-
     <button class="site-footer-dock-item" type="button" data-footer-store aria-label="Mở cửa hàng hoặc bản đồ">
       <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M5.5 10.5h13"></path>
@@ -561,7 +558,6 @@ I really appreciate you being here, as it means you’ve spent a lot of time get
     </button>
   </nav>
 </footer>
-
 <script type="module" src="./js/main.js"></script>
 </body>
 </html>
