@@ -1,107 +1,96 @@
-export function initStoryExpand() { /* ✅ NEW */
-  const tourPopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
-  const moreStoriesSection = document.getElementById('more-stories-section'); /* ✅ NEW */
-  const moreStoriesTitle = document.getElementById('moreStoriesTitle'); /* ✅ NEW */
-  const backToToursBtn = document.querySelector('[data-story-back-to-tours]'); /* ✅ NEW */
-  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)'); /* ✅ NEW */
+import { openMoreStoriesHandoff, resetHeroToMoreStoriesState } from '../modules/home-to-more-stories.js';
 
-  if (!tourPopup || !moreStoriesSection) return; /* ✅ REQUIRED FIX */
-  if (tourPopup.dataset.storyExpandInitialized === 'true') return; /* ✅ REQUIRED FIX */
-  tourPopup.dataset.storyExpandInitialized = 'true'; /* ✅ NEW */
+export function initStoryExpand() {
+  const tourPopup = document.getElementById('leave-no-trace-popup');
+  const moreStoriesSection = document.getElementById('more-stories-section');
+  const backToToursBtn = document.querySelector('[data-story-back-to-tours]');
 
-  const BOTTOM_ZONE_HEIGHT = 160; /* ✅ NEW */
-  const MIN_VERTICAL_SWIPE = 60; /* ✅ NEW */
-  const VERTICAL_DOMINANCE_RATIO = 1.2; /* ✅ NEW */
-  const SOFT_LANDING_DELAY = 140; /* ✅ NEW */
+  if (!tourPopup || !moreStoriesSection) return;
+  if (tourPopup.dataset.storyExpandInitialized === 'true') return;
 
-  let startX = 0; /* ✅ NEW */
-  let startY = 0; /* ✅ NEW */
-  let isBottomGesture = false; /* ✅ NEW */
+  tourPopup.dataset.storyExpandInitialized = 'true';
 
-  function isTourPopupOpen() { /* ✅ NEW */
-    return tourPopup.classList.contains('is-open'); /* ✅ NEW */
+  const BOTTOM_ZONE_HEIGHT = 160;
+  const MIN_VERTICAL_SWIPE = 60;
+  const VERTICAL_DOMINANCE_RATIO = 1.2;
+
+  let startX = 0;
+  let startY = 0;
+  let isBottomGesture = false;
+
+  function isTourPopupOpen() {
+    return tourPopup.classList.contains('is-open');
   }
 
-  function getScrollBehavior() { /* ✅ NEW */
-    return reduceMotionQuery.matches ? 'auto' : 'smooth'; /* ✅ NEW */
-  }
+  function syncTourPopupClosedState() {
+    const ctaTriggers = document.querySelectorAll('.cta-trigger');
 
-  function syncTourPopupClosedState() { /* ✅ NEW */
-    const ctaTriggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
+    tourPopup.classList.remove('is-open');
+    tourPopup.setAttribute('aria-hidden', 'true');
 
-    tourPopup.classList.remove('is-open'); /* ✅ NEW */
-    tourPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-    document.documentElement.classList.remove('mobile-popup-scroll-lock'); /* ✅ REQUIRED FIX */
-    document.body.classList.remove('mobile-popup-scroll-lock'); /* ✅ REQUIRED FIX */
+    document.documentElement.classList.remove('mobile-popup-scroll-lock');
+    document.body.classList.remove('mobile-popup-scroll-lock');
 
-    ctaTriggers.forEach(function (trigger) { /* ✅ NEW */
-      trigger.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
+    ctaTriggers.forEach(function (trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
     });
   }
 
-  function scrollToMoreStories() { /* ✅ NEW */
-    moreStoriesSection.scrollIntoView({ /* ✅ NEW */
-      behavior: getScrollBehavior(), /* ✅ NEW */
-      block: 'start' /* ✅ NEW */
+  function openMoreStoriesFromTourPopup() {
+    if (!isTourPopupOpen()) return;
+
+    openMoreStoriesHandoff({
+      targetSection: moreStoriesSection,
+      focusTitle: true,
+      lockMs: 680,
+      beforeScroll: syncTourPopupClosedState
     });
-
-    if (moreStoriesTitle && !reduceMotionQuery.matches) { /* ✅ NEW */
-      window.setTimeout(function () { /* ✅ NEW */
-        moreStoriesTitle.focus({ preventScroll: true }); /* ✅ NEW */
-      }, 420); /* ✅ NEW */
-    }
   }
 
-  function openMoreStoriesFromTourPopup() { /* ✅ NEW */
-    if (!isTourPopupOpen()) return; /* ✅ REQUIRED FIX */
+  tourPopup.addEventListener('touchstart', function (event) {
+    if (!isTourPopupOpen()) return;
+    if (!event.touches || event.touches.length !== 1) return;
 
-    syncTourPopupClosedState(); /* ✅ NEW */
+    const touch = event.touches[0];
 
-    window.setTimeout(function () { /* ✅ NEW */
-      scrollToMoreStories(); /* ✅ NEW */
-      window.dispatchEvent(new CustomEvent('billy:open-more-stories')); /* ✅ NEW */
-    }, reduceMotionQuery.matches ? 20 : SOFT_LANDING_DELAY); /* ✅ NEW */
-  }
+    startX = touch.clientX;
+    startY = touch.clientY;
+    isBottomGesture = startY >= window.innerHeight - BOTTOM_ZONE_HEIGHT;
+  }, { passive: true });
 
-  tourPopup.addEventListener('touchstart', function (event) { /* ✅ NEW */
-    if (!isTourPopupOpen()) return; /* ✅ REQUIRED FIX */
-    if (!event.touches || event.touches.length !== 1) return; /* ✅ REQUIRED FIX */
+  tourPopup.addEventListener('touchend', function (event) {
+    if (!isTourPopupOpen()) return;
+    if (!isBottomGesture) return;
+    if (!event.changedTouches || event.changedTouches.length !== 1) return;
 
-    const touch = event.touches[0]; /* ✅ NEW */
-    startX = touch.clientX; /* ✅ NEW */
-    startY = touch.clientY; /* ✅ NEW */
-    isBottomGesture = startY >= window.innerHeight - BOTTOM_ZONE_HEIGHT; /* ✅ NEW */
-  }, { passive: true }); /* ✅ NEW */
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
+    const isVerticalSwipeUp = deltaY < -MIN_VERTICAL_SWIPE && absDeltaY > absDeltaX * VERTICAL_DOMINANCE_RATIO;
 
-  tourPopup.addEventListener('touchend', function (event) { /* ✅ NEW */
-    if (!isTourPopupOpen()) return; /* ✅ REQUIRED FIX */
-    if (!isBottomGesture) return; /* ✅ REQUIRED FIX */
-    if (!event.changedTouches || event.changedTouches.length !== 1) return; /* ✅ REQUIRED FIX */
+    if (!isVerticalSwipeUp) return;
 
-    const touch = event.changedTouches[0]; /* ✅ NEW */
-    const deltaX = touch.clientX - startX; /* ✅ NEW */
-    const deltaY = touch.clientY - startY; /* ✅ NEW */
-    const absDeltaX = Math.abs(deltaX); /* ✅ NEW */
-    const absDeltaY = Math.abs(deltaY); /* ✅ NEW */
-    const isVerticalSwipeUp = deltaY < -MIN_VERTICAL_SWIPE && absDeltaY > absDeltaX * VERTICAL_DOMINANCE_RATIO; /* ✅ NEW */
+    openMoreStoriesFromTourPopup();
+  }, { passive: true });
 
-    if (!isVerticalSwipeUp) return; /* ✅ REQUIRED FIX */
+  if (backToToursBtn) {
+    backToToursBtn.addEventListener('click', function () {
+      const hero = document.querySelector('.hero');
 
-    openMoreStoriesFromTourPopup(); /* ✅ NEW */
-  }, { passive: true }); /* ✅ NEW */
+      if (!hero) return;
 
-  if (backToToursBtn) { /* ✅ NEW */
-    backToToursBtn.addEventListener('click', function () { /* ✅ NEW */
-      const hero = document.querySelector('.hero'); /* ✅ NEW */
-      if (!hero) return; /* ✅ REQUIRED FIX */
+      resetHeroToMoreStoriesState();
 
-      hero.scrollIntoView({ /* ✅ NEW */
-        behavior: getScrollBehavior(), /* ✅ NEW */
-        block: 'start' /* ✅ NEW */
+      hero.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
     });
   }
 
-  window.addEventListener('billy:open-more-stories-from-tour-popup', openMoreStoriesFromTourPopup); /* ✅ NEW */
-  console.log('Story expand initialized'); /* ✅ NEW */
+  window.addEventListener('billy:open-more-stories-from-tour-popup', openMoreStoriesFromTourPopup);
+
+  console.log('Story expand initialized');
 }
