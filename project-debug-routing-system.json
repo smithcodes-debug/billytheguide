@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-23-logo-home-navigation-cleanup",
+  "version": "pdrs-01-24-home-to-more-stories-handoff-unified",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "logo-home-navigation-cleanup",
-    "note": "PDRS-01.23 update: Logo navigation is cleaned up. #logoTrigger is no longer a contact popup trigger. ./js/ui/navigation.js owns logo click/key navigation back to the home hero. ./js/main.js no longer initializes initMobileHomeSectionLock to avoid feed-lock/logo/history conflict. Contact popup opens only from [data-contact-popup-trigger] or billy:open-contact-popup."
+    "status": "home-to-more-stories-handoff-unified",
+    "note": "PDRS-01.24 update: H1/Hero to H2/More Stories transition now has a single shared handoff owner. ./js/modules/home-to-more-stories.js owns the unified openMoreStoriesHandoff() flow used by both ./js/ui/mobile-edge-pad.js and ./js/ui/story-expand.js. This reduces conflict between edge-pad swipe and tour-popup swipe flow, clears home/popup scroll locks, applies is-hero-exited during handoff, and retries scroll positioning for Safari/Chrome iOS dynamic viewport behavior."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "removed Contact platforms accordion block and removed card-10-accordion-03.css link from index.html",
@@ -19,13 +19,14 @@
     "jsChanged": true,
     "jsAddedFiles": [
       "./js/modules/progressive-image-loader.js",
-      "./js/modules/site-footer.js"
+      "./js/modules/site-footer.js",
+      "./js/modules/home-to-more-stories.js"
     ],
     "bodyChanged": true,
     "textChanged": false,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.23 accounts logo-home cleanup: contact-popup.js removes #logoTrigger from contact triggers; navigation.js becomes the owner for logo -> home hero behavior across homepage and landing pages; main.js disables initMobileHomeSectionLock initialization to remove feed-lock/logo conflict.",
+    "note": "PDRS-01.24 accounts unified Hero/H1 to More Stories/H2 handoff: created ./js/modules/home-to-more-stories.js; ./js/ui/mobile-edge-pad.js and ./js/ui/story-expand.js now delegate to shared openMoreStoriesHandoff(); ./css/modules/07-mobile-edge-pad.css changes touch-action from none to pan-y for iOS vertical gesture compatibility.",
     "cssAddedFiles": [
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css"
@@ -36,12 +37,15 @@
     "cssChangedFiles": [
       "./css/card page home/card-01-intro.css",
       "./css/card page home/card-09-accordion-02.css",
-      "./css/modules/13-site-footer.css"
+      "./css/modules/13-site-footer.css",
+      "./css/modules/07-mobile-edge-pad.css"
     ],
     "jsChangedFiles": [
       "./js/main.js",
       "./js/ui/contact-popup.js",
-      "./js/ui/navigation.js"
+      "./js/ui/navigation.js",
+      "./js/ui/mobile-edge-pad.js",
+      "./js/ui/story-expand.js"
     ],
     "htmlRemovedBlocks": [
       "Contact platforms accordion item inside .more-accordion-list"
@@ -65,6 +69,31 @@
         "home-scroll-locked",
         ".is-open popup state"
       ]
+    },
+    "homeToMoreStoriesHandoffUnified": {
+      "status": "accounted",
+      "owner": "./js/modules/home-to-more-stories.js",
+      "exportedFunctions": [
+        "openMoreStoriesHandoff",
+        "resetHeroToMoreStoriesState"
+      ],
+      "callingModules": [
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js"
+      ],
+      "cssState": "html/body.is-hero-exited",
+      "target": "#more-stories-section",
+      "goals": [
+        "Use one shared transition logic for H1/Hero to H2/More Stories.",
+        "Keep both flows active: edge-pad swipe/click and tour-popup bottom swipe.",
+        "Reduce Safari/Chrome iOS dynamic viewport/address-bar scroll offset errors.",
+        "Avoid duplicate scroll/handoff logic between mobile-edge-pad.js and story-expand.js."
+      ],
+      "scrollLockStatesCleared": [
+        "home-scroll-locked",
+        "mobile-popup-scroll-lock"
+      ],
+      "handoffEvent": "billy:open-more-stories"
     }
   },
   "knownFiles": {
@@ -143,7 +172,8 @@
       "./js/app.js",
       "./js/modules/input-modality.js",
       "./js/modules/progressive-image-loader.js",
-      "./js/modules/site-footer.js"
+      "./js/modules/site-footer.js",
+      "./js/modules/home-to-more-stories.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -159,7 +189,8 @@
       "progressiveImageLoaderRuntimeStatus": "created/accounted; not active until imported and initialized by page entry JS",
       "siteFooterImportedByMain": true,
       "siteFooterRuntimeStatus": "active after import/init in ./js/main.js; opens existing contact popup event and handles back-to-top button",
-      "logoHomeNavigationRuntimeStatus": "active/accounted after PDRS-01.23: ./js/ui/navigation.js owns #logoTrigger/.logo click and Enter/Space to return to index.html hero. ./js/ui/contact-popup.js no longer treats #logoTrigger as a contact trigger. initMobileHomeSectionLock is not initialized by main.js."
+      "logoHomeNavigationRuntimeStatus": "active/accounted after PDRS-01.23: ./js/ui/navigation.js owns #logoTrigger/.logo click and Enter/Space to return to index.html hero. ./js/ui/contact-popup.js no longer treats #logoTrigger as a contact trigger. initMobileHomeSectionLock is not initialized by main.js.",
+      "homeToMoreStoriesHandoffRuntimeStatus": "active/accounted after PDRS-01.24: ./js/modules/home-to-more-stories.js owns unified H1/Hero to H2/More Stories handoff; mobile-edge-pad.js and story-expand.js call openMoreStoriesHandoff rather than maintaining separate scroll logic."
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -169,7 +200,8 @@
       "./css/modules/00-display-shell.css",
       "./css/modules/05-hero-background.css",
       "./css/modules/12-leave-no-trace-gallery.css",
-      "./css/modules/13-site-footer.css"
+      "./css/modules/13-site-footer.css",
+      "./css/modules/07-mobile-edge-pad.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -254,7 +286,8 @@
     "currentActiveCardCount": 9,
     "removedRuntimeCssFiles": [
       "./css/card page home/card-10-accordion-03.css"
-    ]
+    ],
+    "currentInventoryCheckpoint": "PDRS-01.24 complete: unified H1/Hero to H2/More Stories handoff accounted."
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -501,6 +534,24 @@
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-09-accordion-02.css",
         "./css/modules/13-site-footer.css"
+      ]
+    },
+    {
+      "id": "home-to-more-stories-unified-handoff",
+      "rule": "Both H1/Hero to H2/More Stories flows must use the same shared handoff module. Edge-pad swipe/click and tour-popup bottom swipe must delegate to ./js/modules/home-to-more-stories.js instead of owning separate scrollIntoView/window.scrollTo logic.",
+      "primaryAreas": [
+        "07-mobile-edge-pad",
+        "09-tour-popup",
+        "11-scroll-home-composite",
+        "32-home-to-more-stories-handoff"
+      ],
+      "firstFilesToInspect": [
+        "./js/modules/home-to-more-stories.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/home-hero-tour-popup.css",
+        "./css/card page home/card-01-intro.css"
       ]
     }
   ],
@@ -821,25 +872,33 @@
         "matchMedia.change",
         "scroll",
         "html[data-input-mode=\"mouse\"]",
-        "html[data-input-mode=\"touch\"]"
+        "html[data-input-mode=\"touch\"]",
+        "is-hero-exited",
+        "billy:open-more-stories",
+        "openMoreStoriesHandoff"
       ],
       "futureUploadIfBug": [
         "./js/modules/input-modality.js",
         "css/modules/07-mobile-edge-pad.css",
         "css/modules/11-scroll-home-composite.css",
         "js/main.js",
-        "./js/ui/mobile-edge-pad.js"
+        "./js/ui/mobile-edge-pad.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "behavior": [
         "Click or upward swipe on .mobile-edge-pad unlocks home scroll and jumps to #more-stories-section.",
         "Edge pad hides when not mobile, when hero is not visible, or when mobile search popup is open.",
-        "Uses IntersectionObserver for .hero and MutationObserver for #mobile-search-popup class changes."
+        "Uses IntersectionObserver for .hero and MutationObserver for #mobile-search-popup class changes.",
+        "After PDRS-01.24, click/upward swipe on .mobile-edge-pad delegates to ./js/modules/home-to-more-stories.js openMoreStoriesHandoff().",
+        "Edge pad no longer owns separate scrollTo/scrollIntoView handoff logic; it owns gesture detection and visibility only."
       ],
       "jsFilesRelated": [
-        "./js/modules/input-modality.js"
+        "./js/modules/input-modality.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "riskNotes": [
-        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
+        "If H1 to H2 transition is jerky or leaves Hero strip on Safari/Chrome iOS, inspect ./js/modules/home-to-more-stories.js first, then mobile-edge-pad.js gesture detection."
       ]
     },
     "08-policy-popup": {
@@ -914,7 +973,8 @@
         "./js/ui/story-expand.js",
         "./js/ui/policy-popup.js",
         "./js/modules/booking.js",
-        "./js/modules/tour-card-links.js"
+        "./js/modules/tour-card-links.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "#leave-no-trace-popup",
@@ -957,7 +1017,9 @@
         "mobile-popup-scroll-lock",
         "billy:open-home-tour-popup",
         "billy:open-more-stories-from-tour-popup",
-        "billy:open-more-stories"
+        "billy:open-more-stories",
+        "is-hero-exited",
+        "openMoreStoriesHandoff"
       ],
       "futureUploadIfBug": [
         "css/home-hero-tour-popup.css",
@@ -968,7 +1030,8 @@
         "./js/ui/navigation.js",
         "./js/ui/story-expand.js",
         "./js/ui/policy-popup.js",
-        "./js/modules/booking.js"
+        "./js/modules/booking.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "routes": [
         "./coral-snorkeling-phu-quoc.html",
@@ -982,7 +1045,8 @@
       "couplingNotes": [
         "High-coupling node: #leave-no-trace-popup is touched by main.js/initHomePopup, policy-popup.js, booking.js, story-expand.js, gesture.js, tour-carousel.js, navigation.js.",
         "route-handler-overlap-risk: tour-carousel.js handles .popup-note-item[data-tour], navigation.js handles snorkeling card, and tour-card-links.js is an incomplete legacy mapping module.",
-        "story-expand.js closes tour popup and scrolls to #more-stories-section; back-to-tours scrolls to .hero."
+        "story-expand.js closes tour popup and scrolls to #more-stories-section; back-to-tours scrolls to .hero.",
+        "After PDRS-01.24, story-expand.js no longer owns independent scrollIntoView to #more-stories-section; it closes popup and delegates H1/H2 handoff to ./js/modules/home-to-more-stories.js."
       ],
       "legacyOverlapFiles": [
         "./js/app.js",
@@ -990,6 +1054,9 @@
       ],
       "riskNotes": [
         "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+      ],
+      "behavior": [
+        "Tour popup bottom swipe to More Stories uses the same shared handoff as mobile edge pad."
       ]
     },
     "10-contact-popup": {
@@ -1067,7 +1134,8 @@
       "jsFilesPrimary": [
         "./js/main.js",
         "./js/ui/story-expand.js",
-        "./js/ui/mobile-edge-pad.js"
+        "./js/ui/mobile-edge-pad.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "#more-stories-section",
@@ -1116,7 +1184,10 @@
         ".is-home-reading-mode",
         "data-mobile-feed-last-card",
         "IntersectionObserver(root: .mobile-home-feed)",
-        "card09-faq-reading-mode-handoff"
+        "card09-faq-reading-mode-handoff",
+        "is-hero-exited",
+        "billy:open-more-stories",
+        "openMoreStoriesHandoff"
       ],
       "futureUploadIfBug": [
         "project-debug-routing-system.json",
@@ -1126,7 +1197,8 @@
         "./css/card page home/card-09-accordion-02.css",
         "./css/modules/13-site-footer.css",
         "./js/ui/mobile-edge-pad.js",
-        "./js/ui/story-expand.js"
+        "./js/ui/story-expand.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "behavior": [
         "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
@@ -1135,7 +1207,8 @@
         "PDRS-01.22: main.js/initMobileHomeFeed limits active mobile feed to 9 cards; card 09 FAQ is the final card.",
         "PDRS-01.22: Cards 1-8 use snap/swipe feed behavior. When card 09 reaches the visible threshold, main.js adds .is-feed-ending and .is-home-reading-mode to html/body/.more-stories-section.",
         "PDRS-01.22: In reading mode, card 09 becomes the natural FAQ reading section; card 10 Contact platforms is removed.",
-        "PDRS-01.23: initMobileHomeSectionLock is disabled/not initialized to avoid conflict with logo-home navigation and feed boundary lock."
+        "PDRS-01.23: initMobileHomeSectionLock is disabled/not initialized to avoid conflict with logo-home navigation and feed boundary lock.",
+        "PDRS-01.24: H1/Hero to H2/More Stories entry is unified by ./js/modules/home-to-more-stories.js and called by both edge-pad and tour-popup flows."
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js",
@@ -1145,7 +1218,8 @@
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
         "PDRS-01.22: Do not restore nested FAQ-only scroll unless reading-mode handoff is intentionally removed.",
         "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored.",
-        "PDRS-01.23: initMobileHomeSectionLock is not initialized by main.js during logo-home cleanup. Do not assume feed boundary lock is active unless safeInit(initMobileHomeSectionLock, ...) is restored deliberately."
+        "PDRS-01.23: initMobileHomeSectionLock is not initialized by main.js during logo-home cleanup. Do not assume feed boundary lock is active unless safeInit(initMobileHomeSectionLock, ...) is restored deliberately.",
+        "Do not reintroduce separate H1/H2 scroll handoff logic inside story-expand.js or mobile-edge-pad.js; debug shared handoff module first."
       ]
     },
     "20-snorkeling-page": {
@@ -1308,7 +1382,8 @@
         "./js/ui/search-popup.js",
         "./js/ui/mobile-edge-pad.js",
         "./js/modules/site-footer.js",
-        "./js/modules/progressive-image-loader.js"
+        "./js/modules/progressive-image-loader.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "internalFunctions": [
         "initHomePopup",
@@ -1369,7 +1444,9 @@
         ".is-feed-ending",
         ".is-home-reading-mode",
         "data-mobile-feed-last-card",
-        ".mobile-home-feed-panel-last"
+        ".mobile-home-feed-panel-last",
+        "is-hero-exited",
+        "billy:open-more-stories"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -1379,7 +1456,10 @@
         "./css/modules/13-site-footer.css",
         "./js/modules/site-footer.js",
         "./js/ui/navigation.js",
-        "./js/ui/contact-popup.js"
+        "./js/ui/contact-popup.js",
+        "./js/modules/home-to-more-stories.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1391,13 +1471,15 @@
       "riskNotes": [
         "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode].",
         "PDRS-01.23: initMobileHomeSectionLock may remain in source as inactive rollback/reference code, but it must not be initialized unless the feed-lock behavior is intentionally restored.",
-        "Do not restore safeInit(initMobileHomeSectionLock, ...) while logo-home navigation is being debugged because it can reintroduce #logoTrigger and .more-stories-section conflict."
+        "Do not restore safeInit(initMobileHomeSectionLock, ...) while logo-home navigation is being debugged because it can reintroduce #logoTrigger and .more-stories-section conflict.",
+        "If a module 404 appears for ../modules/home-to-more-stories.js, verify the file exists at ./js/modules/home-to-more-stories.js and relative imports from ./js/ui/*.js use ../modules/home-to-more-stories.js."
       ],
       "behavior": [
         "PDRS-01.22: initMobileHomeFeed creates 9 mobile feed cards and marks the final card with .mobile-home-feed-panel-last / data-mobile-feed-last-card=true.",
         "PDRS-01.22: initMobileHomeFeed observes card 09 visibility and enters FAQ reading mode by toggling .is-feed-ending and .is-home-reading-mode.",
         "PDRS-01.23: main.js does not initialize initMobileHomeSectionLock; this removes mobile feed boundary/logo/history conflict.",
-        "PDRS-01.23: logo-home navigation is delegated to ./js/ui/navigation.js."
+        "PDRS-01.23: logo-home navigation is delegated to ./js/ui/navigation.js.",
+        "PDRS-01.24: home-to-more-stories handoff is imported transitively by mobile-edge-pad.js and story-expand.js; main.js initializes both callers."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -1479,7 +1561,8 @@
         "./js/ui/contact-popup.js",
         "./js/ui/story-expand.js",
         "./js/ui/mobile-edge-pad.js",
-        "./js/ui/gesture.js"
+        "./js/ui/gesture.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "html",
@@ -1504,7 +1587,9 @@
         "wheel",
         "touchmove",
         "html[data-input-mode=\"mouse\"]",
-        "html[data-input-mode=\"touch\"]"
+        "html[data-input-mode=\"touch\"]",
+        "is-hero-exited",
+        "billy:open-more-stories"
       ],
       "riskNotes": [
         "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
@@ -1512,7 +1597,8 @@
         "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module.",
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
         "PDRS-01.23: logo-home navigation clears major lock states before scrolling/routing home; if scroll remains locked, inspect navigation.js, contact-popup.js, and main.js init order.",
-        "PDRS-01.23: inactive initMobileHomeSectionLock should not be counted as active scroll-lock owner unless initialized again."
+        "PDRS-01.23: inactive initMobileHomeSectionLock should not be counted as active scroll-lock owner unless initialized again.",
+        "PDRS-01.24: H1/H2 handoff clears home-scroll-locked and mobile-popup-scroll-lock in the shared handoff module."
       ],
       "futureUploadIfBug": [
         "./js/modules/input-modality.js",
@@ -1520,7 +1606,8 @@
         "./js/ui/contact-popup.js",
         "./js/ui/story-expand.js",
         "./js/ui/mobile-edge-pad.js",
-        "./js/ui/gesture.js"
+        "./js/ui/gesture.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "legacyOverlapFiles": [
         "./js/app.js",
@@ -2329,6 +2416,77 @@
         "If logo does nothing on landing pages, confirm the landing page loads ./js/main.js or another entry that imports ./js/ui/navigation.js, and confirm the header uses #logoTrigger or .logo.",
         "If popup remains open after logo click, inspect navigation.js clearHomeConflictState and popup .is-open/aria-hidden cleanup."
       ]
+    },
+    "32-home-to-more-stories-handoff": {
+      "area": "unified H1/Hero to H2/More Stories handoff for edge-pad and tour-popup flows",
+      "htmlModule": "cross-module runtime handoff layer between MODULE 05 Hero and MODULE 11 More Stories",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/07-mobile-edge-pad.css"
+      ],
+      "cssFilesRelated": [
+        "./css/card page home/card-01-intro.css",
+        "./css/modules/11-scroll-home-composite.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/home-to-more-stories.js"
+      ],
+      "jsFilesRelated": [
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        ".hero",
+        ".hero-guide-tagline",
+        ".mobile-edge-pad",
+        "#leave-no-trace-popup",
+        "#more-stories-section",
+        "#moreStoriesTitle"
+      ],
+      "states": [
+        "is-hero-exited",
+        "home-scroll-locked",
+        "mobile-popup-scroll-lock",
+        "billy:open-more-stories",
+        "billy:open-more-stories-from-tour-popup",
+        "aria-hidden",
+        "aria-expanded",
+        "touchstart",
+        "touchmove",
+        "touchend",
+        "requestAnimationFrame",
+        "window.scrollTo"
+      ],
+      "exports": [
+        "openMoreStoriesHandoff(options)",
+        "resetHeroToMoreStoriesState()"
+      ],
+      "behavior": [
+        "openMoreStoriesHandoff() is the single source of truth for H1/Hero to H2/More Stories transition.",
+        "mobile-edge-pad.js detects click/upward swipe and delegates handoff to openMoreStoriesHandoff().",
+        "story-expand.js closes the tour popup and delegates bottom-swipe handoff to openMoreStoriesHandoff().",
+        "The shared handoff clears scroll-lock states, applies html/body.is-hero-exited, performs repeated auto scrollTo calls to #more-stories-section, then dispatches billy:open-more-stories.",
+        "resetHeroToMoreStoriesState() removes is-hero-exited before navigating back to Hero."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "./js/modules/home-to-more-stories.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/card page home/card-01-intro.css"
+      ],
+      "riskNotes": [
+        "Do not keep independent scrollIntoView/window.scrollTo H1-H2 logic inside story-expand.js or mobile-edge-pad.js after this module is active.",
+        "If address bar behavior differs across Safari/Chrome/Brave iOS, compare native gesture timing versus programmatic handoff timing in this shared module.",
+        "If Hero strip remains visible above More Stories, inspect is-hero-exited CSS guard in ./css/home-hero-tour-popup.css and repeated scroll timing in this module.",
+        "If back-to-Hero leaves Hero hidden, inspect resetHeroToMoreStoriesState() usage in story-expand.js and navigation.js conflict-state cleanup."
+      ]
     }
   },
   "debugScenarios": {
@@ -2429,7 +2587,8 @@
         "css/home-hero-tour-popup.css",
         "css/modules/09-tour-snorkeling-transition.css",
         "js/modules/tour-card-links.js",
-        "js/main.js"
+        "js/main.js",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "#leave-no-trace-popup",
@@ -2474,7 +2633,8 @@
         "./css/card page home/card-09-accordion-02.css",
         "./css/modules/13-site-footer.css",
         "css/modules/11-scroll-home-composite.css",
-        "css/modules/07-mobile-edge-pad.css"
+        "css/modules/07-mobile-edge-pad.css",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "#more-stories-section",
@@ -2644,7 +2804,8 @@
         "./js/ui/story-expand.js",
         "./js/ui/mobile-edge-pad.js",
         "./js/ui/gesture.js",
-        "css/modules/11-scroll-home-composite.css"
+        "css/modules/11-scroll-home-composite.css",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         "html",
@@ -2697,7 +2858,8 @@
         "project-debug-routing-system.json",
         "./js/ui/mobile-edge-pad.js",
         "css/modules/07-mobile-edge-pad.css",
-        "css/modules/11-scroll-home-composite.css"
+        "css/modules/11-scroll-home-composite.css",
+        "./js/modules/home-to-more-stories.js"
       ],
       "selectors": [
         ".mobile-edge-pad",
@@ -3103,6 +3265,35 @@
         ".more-stories-section"
       ],
       "ownershipRule": "navigation.js owns logo-home; contact-popup.js must not include #logoTrigger; main.js must not initialize feed lock that hijacks logo to .more-stories-section."
+    },
+    "home-to-more-stories-handoff-loi": {
+      "userDescriptionExamples": [
+        "swipe từ H1 xuống H2 không mượt",
+        "Hero còn sót strip khi xuống More Stories",
+        "Safari Chrome iOS bị kẹt Hero khi swipe xuống H2",
+        "popup flow xuống H2 mượt nhưng edge pad không mượt",
+        "address bar không hide khi xuống More Stories",
+        "2 flow H1 H2 conflict"
+      ],
+      "routeToModule": "32-home-to-more-stories-handoff",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "./js/modules/home-to-more-stories.js",
+        "./js/ui/mobile-edge-pad.js",
+        "./js/ui/story-expand.js",
+        "./css/home-hero-tour-popup.css",
+        "./css/modules/07-mobile-edge-pad.css",
+        "./css/card page home/card-01-intro.css",
+        "short screen recording on affected browser if timing issue is browser-specific"
+      ],
+      "selectors": [
+        ".hero",
+        ".mobile-edge-pad",
+        "#leave-no-trace-popup",
+        "#more-stories-section",
+        ".mobile-home-feed"
+      ],
+      "ownershipRule": "H1/Hero to H2/More Stories transition belongs to ./js/modules/home-to-more-stories.js. Edge pad and popup flow must call the shared handoff, not own separate scroll logic."
     }
   },
   "registriesFromIndexHtml": {
@@ -3310,7 +3501,8 @@
       "mobile-home-feed-panel-last",
       "mobile-home-feed-card-last",
       "mobile-home-feed-card-09",
-      "mobile-home-feed-card-scroll-last"
+      "mobile-home-feed-card-scroll-last",
+      "is-hero-exited"
     ],
     "dataAttributes": [
       "data-home-behavior",
@@ -3335,26 +3527,27 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.24 — Test Logo Home Navigation Across Routes",
+    "nextStepName": "PDRS-01.25 — Test Unified H1/H2 Handoff on iOS Browsers",
     "recommendedUploadBatch": [
-      "Browser console screenshot if JS error appears",
-      "./js/ui/navigation.js",
-      "./js/ui/contact-popup.js",
-      "./js/main.js",
-      "affected landing page header block if logo fails outside index.html"
+      "Short video of Safari iOS H1 to H2 edge-pad flow",
+      "Short video of Chrome iOS H1 to H2 edge-pad flow",
+      "./js/modules/home-to-more-stories.js",
+      "./js/ui/mobile-edge-pad.js",
+      "./js/ui/story-expand.js",
+      "./css/home-hero-tour-popup.css"
     ],
-    "goal": "Verify logo click/key returns to home hero from index feed/footer, open popups, and landing pages without opening contact popup or being hijacked by feed lock."
+    "goal": "Verify both H1/Hero to H2/More Stories flows use the shared handoff and compare address-bar behavior on Safari/Chrome/Brave iOS."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
-    "status": "css-modules-accounted-index-and-pdrs-synced",
-    "updatedAtLocal": "2026-06-20T20:48:00+07:00",
+    "status": "css-js-modules-accounted-index-and-pdrs-synced-pdrs-01-24",
+    "updatedAtLocal": "2026-06-29T21:14:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": false,
-      "runtimeCssChanged": false,
-      "runtimeJsChanged": false,
+      "runtimeCssChanged": true,
+      "runtimeJsChanged": true,
       "htmlTextChanged": false,
-      "note": "PDRS metadata updated only. No index.html / CSS / JS runtime source was modified."
+      "note": "PDRS metadata updated to account for runtime JS/CSS changes in PDRS-01.24 unified H1/H2 handoff."
     },
     "activeIndexHtmlCheck": {
       "hasInlineStyleTag": false,
