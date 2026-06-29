@@ -1,73 +1,99 @@
-const MOBILE_EDGE_QUERY = '(max-width: 768px)'; /* ✅ NEW */
-const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
-const SWIPE_UP_THRESHOLD = 34; /* ✅ NEW */
+const MOBILE_EDGE_QUERY = '(max-width: 768px)';
+const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
+const SWIPE_UP_THRESHOLD = 34;
+const JUMP_LOCK_MS = 520;
 
-function unlockHomeScroll() { /* ✅ NEW */
-  document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
-  document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ NEW */
+function unlockHomeScroll() {
+  document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
+  document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
 }
 
-export function initMobileEdgePad() { /* ✅ NEW */
-  const edgePad = document.querySelector('.mobile-edge-pad'); /* ✅ NEW */
-  const hero = document.querySelector('.hero'); /* ✅ NEW */
-  const targetSection = document.getElementById('more-stories-section'); /* ✅ NEW */
-  const searchPopup = document.getElementById('mobile-search-popup'); /* ✅ NEW */
-  const mobileMedia = window.matchMedia(MOBILE_EDGE_QUERY); /* ✅ NEW */
-  let touchStartY = 0; /* ✅ NEW */
-  let heroIsVisible = true; /* ✅ NEW */
+export function initMobileEdgePad() {
+  const edgePad = document.querySelector('.mobile-edge-pad');
+  const hero = document.querySelector('.hero');
+  const targetSection = document.getElementById('more-stories-section');
+  const searchPopup = document.getElementById('mobile-search-popup');
+  const mobileMedia = window.matchMedia(MOBILE_EDGE_QUERY);
 
-  if (!edgePad || !hero || !targetSection) return; /* ✅ REQUIRED FIX */
+  let touchStartY = 0;
+  let heroIsVisible = true;
+  let isJumping = false;
 
-  function isMobile() { /* ✅ NEW */
-    return mobileMedia.matches; /* ✅ NEW */
+  if (!edgePad || !hero || !targetSection) return;
+
+  function isMobile() {
+    return mobileMedia.matches;
   }
 
-  function isSearchOpen() { /* ✅ NEW */
-    return Boolean(searchPopup && searchPopup.classList.contains('is-open')); /* ✅ NEW */
+  function isSearchOpen() {
+    return Boolean(searchPopup && searchPopup.classList.contains('is-open'));
   }
 
-  function updateEdgePadVisibility() { /* ✅ NEW */
-    const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen(); /* ✅ NEW */
-    edgePad.classList.toggle('is-hidden', shouldHide); /* ✅ NEW */
+  function updateEdgePadVisibility() {
+    const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen();
+    edgePad.classList.toggle('is-hidden', shouldHide);
   }
 
-  function goToMoreStories() { /* ✅ NEW */
-    if (!isMobile()) return; /* ✅ NEW */
-    unlockHomeScroll(); /* ✅ NEW */
-    edgePad.classList.add('is-hidden'); /* ✅ NEW */
-    targetSection.scrollIntoView({ behavior: 'auto', block: 'start' }); /* ✅ UPDATED: nhảy ngay tới section */
+  function getTargetTop() {
+    return Math.max(0, Math.round(targetSection.getBoundingClientRect().top + window.scrollY));
   }
 
-  edgePad.addEventListener('click', goToMoreStories); /* ✅ NEW */
+  function goToMoreStories() {
+    if (!isMobile() || isJumping) return;
 
-  edgePad.addEventListener('touchstart', function (event) { /* ✅ NEW */
-    if (!event.touches || !event.touches.length) return; /* ✅ REQUIRED FIX */
-    touchStartY = event.touches[0].clientY; /* ✅ NEW */
+    isJumping = true;
+    unlockHomeScroll();
+    edgePad.classList.add('is-hidden');
+
+    window.requestAnimationFrame(function () {
+      window.scrollTo({
+        top: getTargetTop(),
+        left: 0,
+        behavior: 'auto'
+      });
+
+      window.setTimeout(function () {
+        isJumping = false;
+        updateEdgePadVisibility();
+      }, JUMP_LOCK_MS);
+    });
+  }
+
+  edgePad.addEventListener('click', goToMoreStories);
+
+  edgePad.addEventListener('touchstart', function (event) {
+    if (!event.touches || event.touches.length !== 1) return;
+    touchStartY = event.touches[0].clientY;
   }, { passive: true });
 
-  edgePad.addEventListener('touchmove', function (event) { /* ✅ NEW */
-    if (!event.touches || !event.touches.length) return; /* ✅ REQUIRED FIX */
-    const touchCurrentY = event.touches[0].clientY; /* ✅ NEW */
-    if (touchStartY - touchCurrentY >= SWIPE_UP_THRESHOLD) { /* ✅ NEW */
-      goToMoreStories(); /* ✅ NEW */
+  edgePad.addEventListener('touchmove', function (event) {
+    if (!event.touches || event.touches.length !== 1) return;
+
+    const touchCurrentY = event.touches[0].clientY;
+
+    if (touchStartY - touchCurrentY >= SWIPE_UP_THRESHOLD) {
+      event.preventDefault();
+      goToMoreStories();
     }
-  }, { passive: true });
+  }, { passive: false });
 
-  if ('IntersectionObserver' in window) { /* ✅ NEW */
-    const observer = new IntersectionObserver(function (entries) { /* ✅ NEW */
-      const heroEntry = entries[0]; /* ✅ NEW */
-      heroIsVisible = Boolean(heroEntry && heroEntry.isIntersecting && heroEntry.intersectionRatio > 0.22); /* ✅ NEW */
-      updateEdgePadVisibility(); /* ✅ NEW */
-    }, { threshold: [0, 0.22, 0.5] }); /* ✅ NEW */
-    observer.observe(hero); /* ✅ NEW */
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      const heroEntry = entries[0];
+      heroIsVisible = Boolean(heroEntry && heroEntry.isIntersecting && heroEntry.intersectionRatio > 0.22);
+      updateEdgePadVisibility();
+    }, { threshold: [0, 0.22, 0.5] });
+
+    observer.observe(hero);
   }
 
-  if (searchPopup && 'MutationObserver' in window) { /* ✅ NEW */
-    const searchObserver = new MutationObserver(updateEdgePadVisibility); /* ✅ NEW */
-    searchObserver.observe(searchPopup, { attributes: true, attributeFilter: ['class'] }); /* ✅ NEW */
+  if (searchPopup && 'MutationObserver' in window) {
+    const searchObserver = new MutationObserver(updateEdgePadVisibility);
+    searchObserver.observe(searchPopup, { attributes: true, attributeFilter: ['class'] });
   }
 
-  mobileMedia.addEventListener('change', updateEdgePadVisibility); /* ✅ NEW */
-  window.addEventListener('scroll', updateEdgePadVisibility, { passive: true }); /* ✅ NEW */
-  updateEdgePadVisibility(); /* ✅ NEW */
+  mobileMedia.addEventListener('change', updateEdgePadVisibility);
+  window.addEventListener('scroll', updateEdgePadVisibility, { passive: true });
+
+  updateEdgePadVisibility();
 }
