@@ -1,30 +1,3 @@
-/* ✅ UPDATED: CLEAN STRONG — everywhere same component CSS only
-FILE: ./css/home-hero-tour-popup.css
-SCOPE KEPT:
-- theme tokens
-- header visual basics
-- logo visual
-- hero layout / overlay / tagline
-- title / story / CTA
-- Leave no trace tour popup
-SCOPE REMOVED:
-- contact popup
-- policy popup
-- availability booking
-- mobile search popup panel
-- mobile edge pad
-- scroll-home/service/accordion styles
-- component desktop/mobile media branching
-- hero background-image ownership
-PROJECT RULE:
-- Everywhere same.
-- Mobile-designed component visual is source of truth for all devices.
-- Desktop/tablet/landscape may only differ by outer shell boundary.
-- Hero background image/layer/crop belongs to ./css/modules/05-hero-background.css.
-- This file does not create desktop component variants.
-*/
-
-/* ✅ UPDATED: THEME TOKENS */
 :root {
   --color-black: #050608;
   --color-ink: #101418;
@@ -38,7 +11,6 @@ PROJECT RULE:
   --shadow-premium-soft: 0 18px 54px rgba(5, 6, 8, 0.14);
 }
 
-/* ✅ UPDATED: HEADER VISUAL — everywhere same shell-safe positioning */
 header {
   position: fixed;
   top: env(safe-area-inset-top, 0px);
@@ -46,13 +18,13 @@ header {
   right: auto;
   width: min(100%, var(--app-shell-max-width, 768px));
   max-width: var(--app-shell-max-width, 768px);
-  min-height: 78px;
-  padding: 5px 10px;
+  min-height: 62px;
+  padding: 4px 8px;
   z-index: 1100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 10px;
   border: 1px solid var(--surface-border-dark);
   border-radius: 0;
   background: var(--color-white);
@@ -62,7 +34,6 @@ header {
   transform: translateX(-50%);
 }
 
-/* ✅ UPDATED: LOGO TRIGGER */
 .logo,
 #logoTrigger {
   cursor: pointer;
@@ -73,8 +44,8 @@ header {
 .mask {
   position: relative;
   width: max-content;
-  max-width: calc(100vw - 138px);
-  padding: 5px 21px;
+  max-width: calc(100vw - 118px);
+  padding: 3px 15px;
   border-radius: 50px;
   border: 2px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.15);
@@ -124,37 +95,37 @@ header {
 .mask .billy {
   transform: rotate(-8deg);
   color: #0a0a0a;
-  font: bold italic 18px "Poppins", sans-serif;
+  font: bold italic 15px "Poppins", sans-serif;
 }
 
 .mask .and {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .mask .friend {
   transform: rotate(8deg);
   color: #0d0d0e;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .mask .text2 {
   margin-top: -3px;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .mask .text3 {
   color: #000;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 500;
   font-style: italic;
 }
 
 .fish {
   position: absolute;
-  bottom: 6px;
+  bottom: 5px;
   left: 0;
   z-index: 3;
-  font-size: 17px;
+  font-size: 14px;
   animation: none;
 }
 
@@ -162,13 +133,12 @@ header {
   display: none;
 }
 
-/* ✅ UPDATED: HEADER SEARCH FALLBACK — detailed search styling belongs to ./css/modules/03-mobile-search.css */
 .header-search-trigger {
   flex: 1 1 auto;
-  min-width: 68px;
-  max-width: 112px;
-  height: 38px;
-  padding: 0 10px;
+  min-width: 58px;
+  max-width: 96px;
+  height: 32px;
+  padding: 0 8px;
   border: 1px solid rgba(5, 6, 8, 0.08);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
@@ -176,9 +146,9 @@ header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   font: inherit;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
   font-weight: 700;
   cursor: pointer;
@@ -197,7 +167,7 @@ header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1;
 }
 
@@ -206,12 +176,11 @@ header {
   letter-spacing: 0.06em;
 }
 
-/* ✅ UPDATED: MENU TRIGGER */
 .menu-trigger {
   flex: 0 0 auto;
-  width: 60px;
-  height: 60px;
-  padding: 3px;
+  width: 44px;
+  height: 44px;
+  padding: 2px;
   overflow: hidden;
   border: 1px solid rgba(5, 6, 8, 0.1);
   border-radius: 999px;
@@ -232,7 +201,7 @@ header {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  transform: scale(2.3);
+  transform: scale(2.25);
   transform-origin: center center;
 }
 
@@ -241,31 +210,28 @@ header {
   outline-offset: 4px;
 }
 
-/* ✅ UPDATED: HERO — layout only, background owned by ./css/modules/05-hero-background.css */
 .hero {
   position: relative;
   min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
-  padding: 145px 28px 28px;
+  padding: 128px 28px 28px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
 }
 
-/* ✅ UPDATED: OVERLAY — visual color only, layer order owned by 05-hero-background.css */
 .overlay {
   position: absolute;
   inset: 0;
   background: rgba(5, 6, 8, 0.42);
 }
 
-/* ✅ UPDATED: TAGLINE belongs to hero, not fixed header */
 .hero-guide-tagline {
   display: block;
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 78px);
+  top: calc(env(safe-area-inset-top, 0px) + 77px);
   left: 0;
   right: 0;
   width: 100%;
@@ -294,10 +260,9 @@ header {
   align-items: center;
   gap: 18px;
   text-align: center;
-  transform: translateY(-45px); /* ✅ UPDATED: move hero content group up 15px more */
+  transform: translateY(-45px);
 }
 
-/* ✅ UPDATED: TITLE */
 .title {
   max-width: 600px;
   margin: 0;
@@ -327,7 +292,6 @@ header {
   text-transform: none;
 }
 
-/* ✅ UPDATED: STORY */
 .story {
   width: 100%;
   max-width: 100%;
@@ -382,7 +346,6 @@ header {
   }
 }
 
-/* ✅ UPDATED: CTA */
 .cta-row {
   position: relative;
   z-index: 2;
@@ -468,7 +431,6 @@ header {
   opacity: 0.85;
 }
 
-/* ✅ UPDATED: TOUR POPUP BACKDROP — everywhere same shell-safe boundary */
 .popup-backdrop {
   position: fixed;
   top: 0;
@@ -590,7 +552,7 @@ header {
   position: relative;
   width: 100%;
   margin-top: 0;
-  padding: 28px 58px 30px; /* ✅ UPDATED */
+  padding: 28px 58px 30px;
   display: flex;
   gap: 52px;
   overflow-x: auto;
@@ -601,8 +563,8 @@ header {
   overscroll-behavior-x: contain;
   flex: 0 0 auto;
   -webkit-overflow-scrolling: touch;
-  scroll-padding-inline: 58px; /* ✅ UPDATED */
-  box-sizing: border-box; /* ✅ UPDATED */
+  scroll-padding-inline: 58px;
+  box-sizing: border-box;
 }
 
 .popup-notes::-webkit-scrollbar {
@@ -710,7 +672,6 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   background: rgba(0, 0, 0, 0.78);
 }
 
-/* ✅ REQUIRED FIX: accessibility/performance guard, not desktop/mobile branching */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -762,7 +723,7 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     outline-offset: 4px;
   }
 }
-/* ✅ UPDATED: Strong Hero exit guard for Safari/Chrome iOS */
+
 html.is-hero-exited .hero,
 body.is-hero-exited .hero {
   visibility: hidden;
