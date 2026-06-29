@@ -16,6 +16,8 @@ export function initMobileEdgePad() {
   const mobileMedia = window.matchMedia(MOBILE_EDGE_QUERY);
 
   let touchStartY = 0;
+  let touchStartX = 0;
+  let hasSwipeUpIntent = false;
   let heroIsVisible = true;
   let isJumping = false;
 
@@ -31,6 +33,7 @@ export function initMobileEdgePad() {
 
   function updateEdgePadVisibility() {
     const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen();
+
     edgePad.classList.toggle('is-hidden', shouldHide);
   }
 
@@ -46,40 +49,62 @@ export function initMobileEdgePad() {
     edgePad.classList.add('is-hidden');
 
     window.requestAnimationFrame(function () {
-      window.scrollTo({
-        top: getTargetTop(),
-        left: 0,
-        behavior: 'auto'
-      });
+      window.requestAnimationFrame(function () {
+        window.scrollTo({
+          top: getTargetTop(),
+          left: 0,
+          behavior: 'auto'
+        });
 
-      window.setTimeout(function () {
-        isJumping = false;
-        updateEdgePadVisibility();
-      }, JUMP_LOCK_MS);
+        window.setTimeout(function () {
+          isJumping = false;
+          updateEdgePadVisibility();
+        }, JUMP_LOCK_MS);
+      });
     });
   }
 
-  edgePad.addEventListener('click', goToMoreStories);
+  edgePad.addEventListener('click', function () {
+    goToMoreStories();
+  });
 
   edgePad.addEventListener('touchstart', function (event) {
     if (!event.touches || event.touches.length !== 1) return;
-    touchStartY = event.touches[0].clientY;
+
+    const touch = event.touches[0];
+
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    hasSwipeUpIntent = false;
   }, { passive: true });
 
   edgePad.addEventListener('touchmove', function (event) {
     if (!event.touches || event.touches.length !== 1) return;
 
-    const touchCurrentY = event.touches[0].clientY;
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
 
-    if (touchStartY - touchCurrentY >= SWIPE_UP_THRESHOLD) {
-      event.preventDefault();
-      goToMoreStories();
-    }
-  }, { passive: false });
+    hasSwipeUpIntent = deltaY <= -SWIPE_UP_THRESHOLD && absDeltaY > absDeltaX;
+  }, { passive: true });
+
+  edgePad.addEventListener('touchend', function () {
+    if (!hasSwipeUpIntent) return;
+
+    hasSwipeUpIntent = false;
+    goToMoreStories();
+  }, { passive: true });
+
+  edgePad.addEventListener('touchcancel', function () {
+    hasSwipeUpIntent = false;
+  }, { passive: true });
 
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(function (entries) {
       const heroEntry = entries[0];
+
       heroIsVisible = Boolean(heroEntry && heroEntry.isIntersecting && heroEntry.intersectionRatio > 0.22);
       updateEdgePadVisibility();
     }, { threshold: [0, 0.22, 0.5] });
@@ -89,6 +114,7 @@ export function initMobileEdgePad() {
 
   if (searchPopup && 'MutationObserver' in window) {
     const searchObserver = new MutationObserver(updateEdgePadVisibility);
+
     searchObserver.observe(searchPopup, { attributes: true, attributeFilter: ['class'] });
   }
 

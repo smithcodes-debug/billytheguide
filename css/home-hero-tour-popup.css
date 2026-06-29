@@ -261,28 +261,27 @@ header {
   background: rgba(5, 6, 8, 0.42);
 }
 
-/* ✅ REQUIRED FIX: TAGLINE — fixed directly under header, everywhere same */
-/* ✅ UPDATED: TAGLINE scrolls with hero to avoid leftover strip during hero-to-feed transition */
+/* ✅ UPDATED: TAGLINE belongs to hero, not fixed header */
 .hero-guide-tagline {
-display: block;
-position: absolute;
-top: calc(env(safe-area-inset-top, 0px) + 78px);
-left: 0;
-right: 0;
-width: 100%;
-max-width: none;
-z-index: 3;
-padding: 0 34px 4px;
-color: #ffffff;
-font-size: 14px;
-line-height: 1.1;
-font-weight: 800;
-letter-spacing: 0.01em;
-text-align: left;
-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
-pointer-events: none;
-box-sizing: border-box;
-transform: none;
+  display: block;
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 78px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  z-index: 3;
+  padding: 0 34px 4px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+  box-sizing: border-box;
+  transform: none;
 }
 
 .content {
