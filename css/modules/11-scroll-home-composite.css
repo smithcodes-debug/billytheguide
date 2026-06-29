@@ -52,23 +52,7 @@
 }
 
 .more-stories-back-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  margin: 28px 0 0;
-  padding: 10px 16px;
-  border: 1px solid rgba(20, 40, 60, 0.1);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: #1c2833;
-  font: inherit;
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 14px 34px rgba(20, 40, 60, 0.08);
-  -webkit-tap-highlight-color: transparent;
+  display: none;
 }
 
 .more-services-block {
@@ -321,13 +305,5 @@
 
   .more-accordion-panel {
     padding: 0 18px 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  html.home-scroll-locked,
-  body.home-scroll-locked {
-    overflow: hidden;
-    height: 100%;
   }
 }

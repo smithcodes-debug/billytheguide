@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-22-snap-reading-handoff-card09-faq-footer",
+  "version": "pdrs-01-23-logo-home-navigation-cleanup",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "snap-reading-handoff-card09-faq-footer",
-    "note": "PDRS-01.22 update: Contact platforms accordion/card 10 removed; FAQ is now card 09/final card; mobile home feed uses card 1-8 snap/swipe and hands off to FAQ reading mode at card 09; footer dock is hidden by default and appears in feed-ending/reading mode."
+    "status": "logo-home-navigation-cleanup",
+    "note": "PDRS-01.23 update: Logo navigation is cleaned up. #logoTrigger is no longer a contact popup trigger. ./js/ui/navigation.js owns logo click/key navigation back to the home hero. ./js/main.js no longer initializes initMobileHomeSectionLock to avoid feed-lock/logo/history conflict. Contact popup opens only from [data-contact-popup-trigger] or billy:open-contact-popup."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "removed Contact platforms accordion block and removed card-10-accordion-03.css link from index.html",
@@ -25,7 +25,7 @@
     "textChanged": false,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.22 accounts snap-to-reading-mode handoff: ./js/main.js limits mobile feed to 9 cards, ./css/card page home/card-01-intro.css owns reading-mode feed shell override, ./css/card page home/card-09-accordion-02.css owns FAQ reading-card visual, ./css/modules/13-site-footer.css hides dock until .is-feed-ending/.is-home-reading-mode.",
+    "note": "PDRS-01.23 accounts logo-home cleanup: contact-popup.js removes #logoTrigger from contact triggers; navigation.js becomes the owner for logo -> home hero behavior across homepage and landing pages; main.js disables initMobileHomeSectionLock initialization to remove feed-lock/logo conflict.",
     "cssAddedFiles": [
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css"
@@ -39,11 +39,33 @@
       "./css/modules/13-site-footer.css"
     ],
     "jsChangedFiles": [
-      "./js/main.js"
+      "./js/main.js",
+      "./js/ui/contact-popup.js",
+      "./js/ui/navigation.js"
     ],
     "htmlRemovedBlocks": [
       "Contact platforms accordion item inside .more-accordion-list"
-    ]
+    ],
+    "logoHomeNavigationCleanup": {
+      "status": "accounted",
+      "contactPopupTriggerCleanup": "Removed #logoTrigger from ./js/ui/contact-popup.js trigger selector; contact popup now uses [data-contact-popup-trigger] and billy:open-contact-popup only.",
+      "navigationOwner": "./js/ui/navigation.js",
+      "logoSelectors": [
+        "#logoTrigger",
+        ".logo"
+      ],
+      "homeTarget": ".hero",
+      "crossPageRoute": "index.html#home",
+      "mainJsConflictCleanup": "safeInit(initMobileHomeSectionLock, ...) is removed/disabled; function may remain as inactive rollback/reference code.",
+      "statesClearedOnLogoHome": [
+        "is-feed-ending",
+        "mobile-home-feed-snap",
+        "is-home-reading-mode",
+        "mobile-popup-scroll-lock",
+        "home-scroll-locked",
+        ".is-open popup state"
+      ]
+    }
   },
   "knownFiles": {
     "htmlEntry": [
@@ -136,7 +158,8 @@
       "inputModalityRuntimeStatus": "accounted/reserved; import in ./js/main.js separately before runtime use",
       "progressiveImageLoaderRuntimeStatus": "created/accounted; not active until imported and initialized by page entry JS",
       "siteFooterImportedByMain": true,
-      "siteFooterRuntimeStatus": "active after import/init in ./js/main.js; opens existing contact popup event and handles back-to-top button"
+      "siteFooterRuntimeStatus": "active after import/init in ./js/main.js; opens existing contact popup event and handles back-to-top button",
+      "logoHomeNavigationRuntimeStatus": "active/accounted after PDRS-01.23: ./js/ui/navigation.js owns #logoTrigger/.logo click and Enter/Space to return to index.html hero. ./js/ui/contact-popup.js no longer treats #logoTrigger as a contact trigger. initMobileHomeSectionLock is not initialized by main.js."
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -540,7 +563,8 @@
       "jsFilesPrimary": [
         "./js/modules/header-menu-state.js",
         "./js/main.js",
-        "./js/ui/brand-logo.js"
+        "./js/ui/brand-logo.js",
+        "./js/ui/navigation.js"
       ],
       "selectors": [
         "header",
@@ -558,14 +582,24 @@
         "aria-haspopup",
         "role",
         "tabindex",
-        "data-contact-popup-trigger"
+        "data-contact-popup-trigger",
+        "logo-home-navigation",
+        "index.html#home"
       ],
       "futureUploadIfBug": [
         "css/home-hero-tour-popup.css",
         "js/modules/header-menu-state.js",
         "js/main.js",
         "./js/ui/brand-logo.js",
-        "./js/ui/contact-popup.js"
+        "./js/ui/contact-popup.js",
+        "./js/ui/navigation.js"
+      ],
+      "behavior": [
+        "Header contains the brand logo trigger #logoTrigger/.logo, search trigger, and menu trigger.",
+        "After PDRS-01.23, #logoTrigger is not a contact popup trigger.",
+        "./js/ui/navigation.js owns logo click/keyboard navigation back to the home hero.",
+        "Logo on index.html scrolls to .hero; logo on landing pages routes to index.html#home.",
+        "Contact popup must be opened by [data-contact-popup-trigger], footer contact event, or billy:open-contact-popup, not by #logoTrigger."
       ]
     },
     "03-mobile-search": {
@@ -974,7 +1008,6 @@
         ".contact-popup-backdrop",
         ".contact-popup-card",
         ".contact-popup-close",
-        "#logoTrigger",
         "#contactPhoneLink",
         ".contact-social-list",
         ".contact-social-item",
@@ -999,17 +1032,20 @@
         "./js/ui/brand-logo.js"
       ],
       "behavior": [
-        "Contact popup opens from #logoTrigger or [data-contact-popup-trigger].",
+        "Contact popup opens from [data-contact-popup-trigger] or billy:open-contact-popup event.",
+        "#logoTrigger is intentionally not a contact popup trigger after PDRS-01.23.",
         "Open/close state uses .is-open, aria-hidden, trigger aria-expanded and mobile-popup-scroll-lock.",
         "Closes via close button, backdrop click, Escape, or billy:close-contact-popup event.",
-        "Can be opened externally via billy:open-contact-popup event."
+        "Can be opened externally via billy:open-contact-popup event, used by footer/contact actions."
       ],
       "legacyOverlapFiles": [
         "./js/app.js",
         "./css/style.css"
       ],
       "riskNotes": [
-        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module."
+        "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module.",
+        "If clicking logo opens contact popup, inspect ./js/ui/contact-popup.js and ensure its trigger selector is only [data-contact-popup-trigger].",
+        "Do not re-add #logoTrigger to contact popup triggers; logo navigation is owned by ./js/ui/navigation.js after PDRS-01.23."
       ]
     },
     "11-scroll-home-composite": {
@@ -1094,12 +1130,12 @@
       ],
       "behavior": [
         "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
-        "main.js/initMobileHomeSectionLock guards mobile/tablet users from scrolling above home section after lock activation.",
         "story-expand.js scrolls from tour popup to #more-stories-section and back-to-tours scrolls to .hero.",
         "mobile-edge-pad.js jumps from hero to more stories on mobile.",
         "PDRS-01.22: main.js/initMobileHomeFeed limits active mobile feed to 9 cards; card 09 FAQ is the final card.",
         "PDRS-01.22: Cards 1-8 use snap/swipe feed behavior. When card 09 reaches the visible threshold, main.js adds .is-feed-ending and .is-home-reading-mode to html/body/.more-stories-section.",
-        "PDRS-01.22: In reading mode, card 09 becomes the natural FAQ reading section; card 10 Contact platforms is removed."
+        "PDRS-01.22: In reading mode, card 09 becomes the natural FAQ reading section; card 10 Contact platforms is removed.",
+        "PDRS-01.23: initMobileHomeSectionLock is disabled/not initialized to avoid conflict with logo-home navigation and feed boundary lock."
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js",
@@ -1108,7 +1144,8 @@
       "riskNotes": [
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
         "PDRS-01.22: Do not restore nested FAQ-only scroll unless reading-mode handoff is intentionally removed.",
-        "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored."
+        "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored.",
+        "PDRS-01.23: initMobileHomeSectionLock is not initialized by main.js during logo-home cleanup. Do not assume feed boundary lock is active unless safeInit(initMobileHomeSectionLock, ...) is restored deliberately."
       ]
     },
     "20-snorkeling-page": {
@@ -1270,7 +1307,8 @@
         "./js/modules/booking.js",
         "./js/ui/search-popup.js",
         "./js/ui/mobile-edge-pad.js",
-        "./js/modules/site-footer.js"
+        "./js/modules/site-footer.js",
+        "./js/modules/progressive-image-loader.js"
       ],
       "internalFunctions": [
         "initHomePopup",
@@ -1294,7 +1332,6 @@
         "initSearchPopup",
         "initMobileEdgePad",
         "initMobileHomeFeed",
-        "initMobileHomeSectionLock",
         "initSiteFooter",
         "initHome",
         "markAppReadyOnNextPaint"
@@ -1340,7 +1377,9 @@
         "./css/card page home/card-01-intro.css",
         "./css/card page home/card-09-accordion-02.css",
         "./css/modules/13-site-footer.css",
-        "./js/modules/site-footer.js"
+        "./js/modules/site-footer.js",
+        "./js/ui/navigation.js",
+        "./js/ui/contact-popup.js"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1350,11 +1389,15 @@
         "./js/modules/progressive-image-loader.js"
       ],
       "riskNotes": [
-        "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode]."
+        "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode].",
+        "PDRS-01.23: initMobileHomeSectionLock may remain in source as inactive rollback/reference code, but it must not be initialized unless the feed-lock behavior is intentionally restored.",
+        "Do not restore safeInit(initMobileHomeSectionLock, ...) while logo-home navigation is being debugged because it can reintroduce #logoTrigger and .more-stories-section conflict."
       ],
       "behavior": [
         "PDRS-01.22: initMobileHomeFeed creates 9 mobile feed cards and marks the final card with .mobile-home-feed-panel-last / data-mobile-feed-last-card=true.",
-        "PDRS-01.22: initMobileHomeFeed observes card 09 visibility and enters FAQ reading mode by toggling .is-feed-ending and .is-home-reading-mode."
+        "PDRS-01.22: initMobileHomeFeed observes card 09 visibility and enters FAQ reading mode by toggling .is-feed-ending and .is-home-reading-mode.",
+        "PDRS-01.23: main.js does not initialize initMobileHomeSectionLock; this removes mobile feed boundary/logo/history conflict.",
+        "PDRS-01.23: logo-home navigation is delegated to ./js/ui/navigation.js."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -1372,7 +1415,10 @@
         ".contact-popup-backdrop.is-open",
         "#leave-no-trace-popup",
         "[data-nav]",
-        ".popup-note-item[data-tour=\"snorkeling\"]"
+        ".popup-note-item[data-tour=\"snorkeling\"]",
+        "#logoTrigger",
+        ".logo",
+        ".hero"
       ],
       "states": [
         "availabilitySwipeDisabled",
@@ -1385,18 +1431,31 @@
         "MutationObserver",
         "window.location.href",
         "html[data-input-mode=\"mouse\"]",
-        "html[data-input-mode=\"touch\"]"
+        "html[data-input-mode=\"touch\"]",
+        "#home",
+        "index.html#home",
+        "home-scroll-locked",
+        "mobile-popup-scroll-lock",
+        "is-feed-ending",
+        "mobile-home-feed-snap",
+        "is-home-reading-mode"
       ],
       "behavior": [
         "gesture.js handles mobile popup edge-back and swipe-up to open availability.",
         "navigation.js maps [data-nav] elements to window.location.href.",
-        "navigation.js maps snorkeling popup card to coral-snorkeling-phu-quoc.html."
+        "navigation.js maps snorkeling popup card to coral-snorkeling-phu-quoc.html.",
+        "PDRS-01.23: navigation.js owns global logo-home behavior for #logoTrigger/.logo.",
+        "On index.html, logo click/key scrolls to .hero without reloading.",
+        "On landing pages, logo click/key routes to index.html#home.",
+        "On index.html#home load, navigation.js resolves #home to .hero and can clean the hash afterward.",
+        "Before returning to hero, navigation.js clears popup/feed/scroll-lock conflict classes such as is-feed-ending, mobile-home-feed-snap, is-home-reading-mode, mobile-popup-scroll-lock, and home-scroll-locked."
       ],
       "futureUploadIfBug": [
         "./js/modules/input-modality.js",
         "./js/ui/gesture.js",
         "./js/ui/navigation.js",
-        "./js/main.js"
+        "./js/main.js",
+        "index.html"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1428,7 +1487,10 @@
         "#leave-no-trace-popup",
         "#contact-popup",
         "#mobile-search-popup",
-        ".more-stories-section"
+        ".more-stories-section",
+        "#logoTrigger",
+        ".logo",
+        ".hero"
       ],
       "states": [
         "home-scroll-locked",
@@ -1448,7 +1510,9 @@
         "Multiple scroll lock sources exist. Debug lock bugs by checking this stack before editing individual visual CSS.",
         "Header must remain visible and not covered by lock/popup state.",
         "./js/app.js and ./css/style.css contain overlapping legacy logic/styles; verify active HTML imports before debugging this module.",
-        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js."
+        "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
+        "PDRS-01.23: logo-home navigation clears major lock states before scrolling/routing home; if scroll remains locked, inspect navigation.js, contact-popup.js, and main.js init order.",
+        "PDRS-01.23: inactive initMobileHomeSectionLock should not be counted as active scroll-lock owner unless initialized again."
       ],
       "futureUploadIfBug": [
         "./js/modules/input-modality.js",
@@ -2138,7 +2202,8 @@
         "If Contact Billy does not open popup, inspect ./js/modules/site-footer.js, ./js/ui/contact-popup.js, and ./js/main.js import/init order.",
         "Footer links must use route filenames that exist in knownFiles.knownRoutePagesFromIndex.",
         "PDRS-01.22: If footer appears too early, inspect main.js card09 observer and body .is-feed-ending/.is-home-reading-mode state.",
-        "PDRS-01.22: Footer CSS may style body padding-bottom only in reading mode; do not restore global body padding-bottom unless footer should always be visible."
+        "PDRS-01.22: Footer CSS may style body padding-bottom only in reading mode; do not restore global body padding-bottom unless footer should always be visible.",
+        "After PDRS-01.23, footer contact should still use billy:open-contact-popup or [data-contact-popup-trigger]; logo must not be used as the contact trigger."
       ],
       "futureUploadIfBug": [
         "index.html",
@@ -2201,6 +2266,68 @@
         "If snap stops before card 09, inspect .mobile-home-feed-snap and .is-feed-ending state toggling.",
         "If FAQ content is cramped or nested-scroll appears, inspect card-09-accordion-02.css and card-01-intro.css reading-mode overrides.",
         "If footer appears before FAQ, inspect 13-site-footer.css selectors body.is-feed-ending/body.is-home-reading-mode."
+      ]
+    },
+    "31-logo-home-navigation": {
+      "area": "global logo navigation back to home hero across homepage and landing pages",
+      "htmlModule": "MODULE 02 — HEADER SYSTEM / shared landing-page header logo",
+      "htmlFilesPrimary": [
+        "index.html",
+        "landing pages with #logoTrigger or .logo"
+      ],
+      "cssFilesPrimary": [
+        "./css/home-hero-tour-popup.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/10-contact-popup.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/ui/navigation.js"
+      ],
+      "jsFilesRelated": [
+        "./js/main.js",
+        "./js/ui/contact-popup.js"
+      ],
+      "selectors": [
+        "#logoTrigger",
+        ".logo",
+        ".hero",
+        "[data-nav]",
+        "[data-contact-popup-trigger]"
+      ],
+      "states": [
+        "#home",
+        "index.html#home",
+        "aria-label=Back to home hero",
+        "is-feed-ending",
+        "mobile-home-feed-snap",
+        "is-home-reading-mode",
+        "mobile-popup-scroll-lock",
+        "home-scroll-locked",
+        ".is-open"
+      ],
+      "behavior": [
+        "Logo click and Enter/Space are owned by ./js/ui/navigation.js.",
+        "If current route is index.html or root, logo scrolls to .hero without page reload.",
+        "If current route is a landing page, logo routes to index.html#home.",
+        "On homepage load with #home, navigation.js resolves the hash to .hero and may clean the hash via history.replaceState.",
+        "Before returning to hero, navigation.js clears known popup/feed/scroll-lock conflict states.",
+        "#logoTrigger must not open contact popup; contact popup triggers are [data-contact-popup-trigger] and billy:open-contact-popup."
+      ],
+      "ownershipRule": "Logo-home navigation belongs to ./js/ui/navigation.js. Contact popup must not own #logoTrigger. main.js feed lock must not hijack logo route to .more-stories-section.",
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/ui/navigation.js",
+        "./js/ui/contact-popup.js",
+        "./js/main.js",
+        "one affected landing page header block if logo fails outside index.html"
+      ],
+      "riskNotes": [
+        "If logo opens contact popup, inspect ./js/ui/contact-popup.js trigger selector and remove #logoTrigger.",
+        "If logo goes to .more-stories-section, inspect ./js/main.js and ensure initMobileHomeSectionLock is not initialized.",
+        "If logo does nothing on landing pages, confirm the landing page loads ./js/main.js or another entry that imports ./js/ui/navigation.js, and confirm the header uses #logoTrigger or .logo.",
+        "If popup remains open after logo click, inspect navigation.js clearHomeConflictState and popup .is-open/aria-hidden cleanup."
       ]
     }
   },
@@ -2326,8 +2453,8 @@
       ],
       "selectors": [
         "#contact-popup",
-        "#logoTrigger",
-        ".contact-social-list"
+        ".contact-social-list",
+        "[data-contact-popup-trigger]"
       ]
     },
     "scroll-home-loi": {
@@ -2950,6 +3077,32 @@
         "body.is-home-reading-mode"
       ],
       "ownershipRule": "main.js owns state handoff; card-01-intro.css owns feed shell reading-mode override; card-09-accordion-02.css owns FAQ reading visual; 13-site-footer.css owns footer reveal."
+    },
+    "logo-home-navigation-loi": {
+      "userDescriptionExamples": [
+        "click logo không về hero",
+        "logo mở contact popup",
+        "logo ở page con không về home",
+        "logo kéo về more stories thay vì hero",
+        "logo bị conflict popup/feed lock"
+      ],
+      "routeToModule": "31-logo-home-navigation",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/ui/navigation.js",
+        "./js/ui/contact-popup.js",
+        "./js/main.js",
+        "affected landing page header block if bug occurs outside index.html"
+      ],
+      "selectors": [
+        "#logoTrigger",
+        ".logo",
+        ".hero",
+        "#contact-popup",
+        ".more-stories-section"
+      ],
+      "ownershipRule": "navigation.js owns logo-home; contact-popup.js must not include #logoTrigger; main.js must not initialize feed lock that hijacks logo to .more-stories-section."
     }
   },
   "registriesFromIndexHtml": {
@@ -3182,16 +3335,15 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.23 — Test Card 09 FAQ Reading Mode",
+    "nextStepName": "PDRS-01.24 — Test Logo Home Navigation Across Routes",
     "recommendedUploadBatch": [
-      "Mobile screenshot/video from card 8 -> card 9 -> footer if bug appears",
       "Browser console screenshot if JS error appears",
+      "./js/ui/navigation.js",
+      "./js/ui/contact-popup.js",
       "./js/main.js",
-      "./css/card page home/card-01-intro.css",
-      "./css/card page home/card-09-accordion-02.css",
-      "./css/modules/13-site-footer.css"
+      "affected landing page header block if logo fails outside index.html"
     ],
-    "goal": "Verify card 1-8 snap/swipe behavior, card 09 FAQ reading-mode handoff, footer reveal timing, and mobile address-bar behavior."
+    "goal": "Verify logo click/key returns to home hero from index feed/footer, open popups, and landing pages without opening contact popup or being hijacked by feed lock."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
@@ -3519,14 +3671,14 @@
   },
   "jsModuleInventory": {
     "step": "PDRS-01.10 — JS + Root Legacy Runtime Inventory",
-    "status": "pass-ui-js-accounted-plus-root-appjs-temporary-legacy-overlap-accounted",
+    "status": "pass-ui-js-accounted-logo-home-navigation-cleanup",
     "updatedAtLocal": "2026-06-21T00:28:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": false,
       "runtimeCssChanged": false,
       "runtimeJsChanged": false,
       "htmlTextChanged": false,
-      "note": "PDRS metadata updated only. No runtime JS/CSS/HTML source was modified."
+      "note": "PDRS metadata updated for logo-home navigation cleanup. Runtime JS expected changes: navigation.js owns logo-home, contact-popup.js removes #logoTrigger trigger, main.js does not initialize initMobileHomeSectionLock."
     },
     "activeIndexHtmlCheck": {
       "jsModuleScriptCount": 4,
