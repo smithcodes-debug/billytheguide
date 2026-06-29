@@ -20,6 +20,7 @@ function initHomePopup() {
   const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
   const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup';
   const MOBILE_TABLET_MAX_WIDTH = 1024;
+
   let homeScrollUnlocked = false;
 
   if (!checkbox || !popup || !popupCard || !closeBtn || !triggers.length) return;
@@ -117,6 +118,7 @@ function initMobileHomeFeed() {
   const FEED_ENDING_CLASS = 'is-feed-ending';
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last';
   const LAST_CARD_VISIBLE_RATIO = 0.58;
+  const PREPARE_MORE_STORIES_SNAP_EVENT = 'billy:prepare-more-stories-snap';
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
@@ -261,12 +263,31 @@ function initMobileHomeFeed() {
     document.body.classList.remove(SNAP_CLASS);
   }
 
+  function activateSnapState(resetFeedPosition) {
+    if (!isMobileTabletViewport()) return;
+
+    isSnapActivated = true;
+    applySnapStateIfNeeded();
+
+    if (resetFeedPosition && typeof feed.scrollTo === 'function') {
+      feed.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto'
+      });
+      return;
+    }
+
+    if (resetFeedPosition) {
+      feed.scrollTop = 0;
+    }
+  }
+
   function activateSnapWhenHomeReached() {
     if (!isMobileTabletViewport() || isSnapActivated) return;
 
     if (homeSection.getBoundingClientRect().top <= 8) {
-      isSnapActivated = true;
-      applySnapStateIfNeeded();
+      activateSnapState(false);
     }
   }
 
@@ -313,19 +334,23 @@ function initMobileHomeFeed() {
 
     if (isDesktopViewport()) {
       homeSection.classList.add(DESKTOP_NORMAL_SCROLL_CLASS);
+      isSnapActivated = false;
       setFeedEndingMode(false);
       applySnapStateIfNeeded();
       return;
     }
 
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS);
-    activateSnapWhenHomeReached();
-    applySnapStateIfNeeded();
+    activateSnapState(false);
     syncFeedEndingState();
   }
 
   syncMobileFeedState();
   initLastPanelObserver();
+
+  window.addEventListener(PREPARE_MORE_STORIES_SNAP_EVENT, function () {
+    activateSnapState(true);
+  });
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
@@ -370,9 +395,9 @@ function initMobileHomeSectionLock() {
   function isEventInsideMobileHomeFeed(event) {
     return Boolean(
       event &&
-      event.target &&
-      event.target.closest &&
-      event.target.closest('.mobile-home-feed')
+        event.target &&
+        event.target.closest &&
+        event.target.closest('.mobile-home-feed')
     );
   }
 
@@ -493,8 +518,10 @@ function initMobileHomeSectionLock() {
     if (!event.touches || !event.touches.length) return;
 
     const currentTouchY = event.touches[0].clientY;
-    const isSwipingBackUpInsideFeed = currentTouchY > lastTouchY && shouldAllowNestedFeedScrollUp(event);
-    const isTryingToScrollAboveHome = currentTouchY > lastTouchY && isAtHomeSectionTop();
+    const isSwipingBackUpInsideFeed =
+      currentTouchY > lastTouchY && shouldAllowNestedFeedScrollUp(event);
+    const isTryingToScrollAboveHome =
+      currentTouchY > lastTouchY && isAtHomeSectionTop();
 
     lastTouchY = currentTouchY;
 
@@ -546,7 +573,6 @@ function initMobileHomeSectionLock() {
   }
 
   guardHomeSectionBoundary();
-
   console.log('Mobile home section lock initialized');
 }
 

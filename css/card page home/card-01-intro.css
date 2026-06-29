@@ -3,19 +3,26 @@
   display: none;
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   html.mobile-home-feed-snap,
   body.mobile-home-feed-snap {
-    scroll-snap-type: none;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
     overscroll-behavior-y: contain;
   }
 
+  body.mobile-home-feed-snap .hero,
+  body.mobile-home-feed-snap .more-stories-section.is-mobile-home-feed-ready {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
   .more-stories-section.is-mobile-home-feed-ready {
-    --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px); /* ✅ UPDATED */
-    --mobile-home-feed-locked-gap: 10px; /* ✅ NEW */
-    --mobile-home-feed-side-gap: 16px; /* ✅ NEW */
+    --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px);
+    --mobile-home-feed-locked-gap: 10px;
+    --mobile-home-feed-side-gap: 16px;
     height: 100vh;
-    height: 100svh; /* ✅ UPDATED: stable snap height for Android */
+    height: 100svh;
     padding: 0;
     overflow: hidden;
     background:
@@ -38,7 +45,7 @@
     display: block;
     width: 100%;
     height: 100vh;
-    height: 100svh; /* ✅ UPDATED: avoid Android dynamic toolbar jank */
+    height: 100svh;
     overflow-x: hidden;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
@@ -57,20 +64,20 @@
 
   .mobile-home-feed-panel {
     height: 100vh;
-    height: 100svh; /* ✅ UPDATED */
+    height: 100svh;
     min-height: 100vh;
-    min-height: 100svh; /* ✅ UPDATED */
+    min-height: 100svh;
     padding:
       calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
       var(--mobile-home-feed-side-gap)
-      calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap)); /* ✅ UPDATED */
+      calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
     display: flex;
-    align-items: stretch; /* ✅ UPDATED */
+    align-items: stretch;
     justify-content: center;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     overflow: hidden;
-    box-sizing: border-box; /* ✅ NEW */
+    box-sizing: border-box;
   }
 
   .mobile-home-feed-panel-empty {
@@ -86,24 +93,26 @@
     border-radius: 38px;
     background: rgba(255, 255, 255, 0.88);
     color: var(--color-ink);
-    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+    box-shadow:
+      0 24px 70px rgba(8, 63, 70, 0.11),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.62);
     overflow: hidden;
     transform: translateZ(0);
-    box-sizing: border-box; /* ✅ NEW */
+    box-sizing: border-box;
   }
 
   .mobile-home-feed-card-scroll {
     height: 100%;
-    min-height: 0; /* ✅ NEW */
-    padding: 18px 16px; /* ✅ UPDATED */
-    overflow: hidden; /* ✅ UPDATED: outer feed owns swipe on Android */
+    min-height: 0;
+    padding: 18px 16px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     overscroll-behavior: contain;
     touch-action: pan-y;
-    box-sizing: border-box; /* ✅ NEW */
-    scrollbar-width: none; /* ✅ NEW */
+    box-sizing: border-box;
+    scrollbar-width: none;
   }
 
   .mobile-home-feed-card-scroll::-webkit-scrollbar {
@@ -123,7 +132,7 @@
     border-radius: 30px;
     background:
       radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),
-      linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18));
+      linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.18));
     pointer-events: none;
   }
 
@@ -236,7 +245,7 @@
   }
 }
 
-@media (min-width:1025px) {
+@media (min-width: 1025px) {
   .more-stories-section.is-mobile-home-feed-ready {
     min-height: 100vh;
     height: auto;
@@ -301,7 +310,9 @@
     border-radius: 38px;
     background: rgba(255, 255, 255, 0.88);
     color: var(--color-ink);
-    box-shadow: 0 24px 70px rgba(8, 63, 70, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+    box-shadow:
+      0 24px 70px rgba(8, 63, 70, 0.11),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.62);
     overflow: hidden;
     transform: translateZ(0);
   }
@@ -420,33 +431,35 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes {
   width: min(100%, 560px);
   margin: auto auto 0;
-  padding: 12px 12px 16px; /* ✅ UPDATED */
+  padding: 12px 12px 16px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: 10px;
-  row-gap: 16px; /* ✅ UPDATED */
+  row-gap: 16px;
   border: 1px solid rgba(5, 6, 8, 0.08);
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.74);
-  box-shadow: 0 18px 50px rgba(5, 6, 8, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 18px 50px rgba(5, 6, 8, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-sizing: border-box;
-  transform: translateY(10px); /* ✅ NEW */
+  transform: translateY(10px);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes::before {
-  content: "Stay chill with us , few thing make up your time."; /* ✅ NEW */
-  grid-column: 1 / -1; /* ✅ NEW */
-  display: block; /* ✅ NEW */
-  margin: 0 0 2px; /* ✅ NEW */
-  color: rgba(5, 6, 8, 0.58); /* ✅ NEW */
-  font-size: clamp(15px, 3vw, 17px); /* ✅ NEW */
-  line-height: 1.25; /* ✅ NEW */
-  font-weight: 650; /* ✅ NEW */
-  letter-spacing: -0.01em; /* ✅ NEW */
-  text-align: center; /* ✅ NEW */
-  text-transform: none; /* ✅ NEW */
+  content: "Stay chill with us , few thing make up your time.";
+  grid-column: 1 / -1;
+  display: block;
+  margin: 0 0 2px;
+  color: rgba(5, 6, 8, 0.58);
+  font-size: clamp(15px, 3vw, 17px);
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: none;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-note {
@@ -455,7 +468,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgba(5, 6, 8, 0.72); /* ✅ UPDATED */
+  color: rgba(5, 6, 8, 0.72);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -463,8 +476,8 @@
   text-align: center;
   font-size: clamp(10px, 2.7vw, 13px);
   line-height: 1.15;
-  font-weight: 750; /* ✅ UPDATED */
-  letter-spacing: -0.01em; /* ✅ NEW */
+  font-weight: 750;
+  letter-spacing: -0.01em;
   text-transform: lowercase;
   box-shadow: none;
   box-sizing: border-box;
@@ -476,13 +489,13 @@
   width: 100%;
   height: 100px;
   margin: 0 0 7px;
-  border: 1px solid rgba(5, 6, 8, 0.10); /* ✅ UPDATED */
+  border: 1px solid rgba(5, 6, 8, 0.10);
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.82); /* ✅ UPDATED */
+  background-color: rgba(255, 255, 255, 0.82);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  box-shadow: 0 8px 22px rgba(5, 6, 8, 0.07); /* ✅ UPDATED */
+  box-shadow: 0 8px 22px rgba(5, 6, 8, 0.07);
   box-sizing: border-box;
 }
 
@@ -510,11 +523,11 @@
   background-image: url("../../images/note/9.png");
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
-    padding: 5px 16px 12px; /* ✅ UPDATED */
+    padding: 5px 16px 12px;
     justify-content: flex-start;
-    overflow: hidden; /* ✅ UPDATED: prevent Android nested scroll conflict */
+    overflow: hidden;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .more-stories-title {
@@ -534,23 +547,23 @@
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes {
     margin: auto auto 0;
-    padding: clamp(8px, 1.8svh, 12px) 12px clamp(10px, 2svh, 16px); /* ✅ UPDATED */
-    row-gap: clamp(8px, 1.8svh, 16px); /* ✅ UPDATED */
-    transform: none; /* ✅ UPDATED */
+    padding: clamp(8px, 1.8svh, 12px) 12px clamp(10px, 2svh, 16px);
+    row-gap: clamp(8px, 1.8svh, 16px);
+    transform: none;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-notes::before {
-    font-size: clamp(13px, 3vw, 17px); /* ✅ UPDATED */
-    line-height: 1.2; /* ✅ UPDATED */
+    font-size: clamp(13px, 3vw, 17px);
+    line-height: 1.2;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01-note::before {
-    height: clamp(58px, 11.5svh, 100px); /* ✅ UPDATED */
-    margin-bottom: clamp(4px, 1svh, 7px); /* ✅ UPDATED */
+    height: clamp(58px, 11.5svh, 100px);
+    margin-bottom: clamp(4px, 1svh, 7px);
   }
 }
 
-@media (min-width:1025px) {
+@media (min-width: 1025px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
     padding: 5px 16px 86px;
     justify-content: flex-start;
@@ -571,7 +584,7 @@
     text-align: center;
   }
 }
-/* ✅ REQUIRED FIX: keep cloned mobile-home-feed centered inside app shell */
+
 @media (min-width: 769px), (orientation: landscape) {
   .more-stories-section.is-mobile-home-feed-ready {
     width: 100%;
@@ -618,8 +631,7 @@
   }
 }
 
-/* ✅ UPDATED: STABLE CARD 09 INTERNAL SCROLL MODE */
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle {
     opacity: 0;
     visibility: hidden;
@@ -635,13 +647,13 @@
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-last {
-    height: min(90svh, 100%); /* ✅ UPDATED */
-    max-height: 90svh; /* ✅ NEW */
-    align-self: center; /* ✅ NEW */
+    height: min(90svh, 100%);
+    max-height: 90svh;
+    align-self: center;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
-    height: 100%; /* ✅ UPDATED */
-    min-height: 0; /* ✅ UPDATED */
+    height: 100%;
+    min-height: 0;
   }
 }

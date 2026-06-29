@@ -1,15 +1,21 @@
 const HERO_EXITED_CLASS = 'is-hero-exited';
 const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
 const MOBILE_POPUP_SCROLL_LOCK_CLASS = 'mobile-popup-scroll-lock';
+const HERO_TO_MORE_SNAP_ACTIVE_CLASS = 'is-hero-to-more-snap-active';
+const PREPARE_MORE_STORIES_SNAP_EVENT = 'billy:prepare-more-stories-snap';
 const OPEN_MORE_STORIES_EVENT = 'billy:open-more-stories';
 const DEFAULT_HANDOFF_LOCK_MS = 520;
 
 let handoffTimer = 0;
-let handoffRetryTimers = [];
 
 function setHeroExitedState(enabled) {
   document.documentElement.classList.toggle(HERO_EXITED_CLASS, enabled);
   document.body.classList.toggle(HERO_EXITED_CLASS, enabled);
+}
+
+function setHeroToMoreSnapState(enabled) {
+  document.documentElement.classList.toggle(HERO_TO_MORE_SNAP_ACTIVE_CLASS, enabled);
+  document.body.classList.toggle(HERO_TO_MORE_SNAP_ACTIVE_CLASS, enabled);
 }
 
 function clearScrollLocks() {
@@ -22,14 +28,6 @@ function clearScrollLocks() {
     HOME_SCROLL_LOCK_CLASS,
     MOBILE_POPUP_SCROLL_LOCK_CLASS
   );
-}
-
-function clearHandoffRetryTimers() {
-  handoffRetryTimers.forEach(function (timerId) {
-    window.clearTimeout(timerId);
-  });
-
-  handoffRetryTimers = [];
 }
 
 function getMoreStoriesSection() {
@@ -46,36 +44,22 @@ function focusMoreStoriesTitle() {
   }, 120);
 }
 
-function getTargetTop(targetSection) {
-  const rect = targetSection.getBoundingClientRect();
-  const currentScrollY =
-    window.scrollY ||
-    window.pageYOffset ||
-    document.documentElement.scrollTop ||
-    0;
-
-  return Math.max(0, Math.round(rect.top + currentScrollY));
+function dispatchPrepareSnap(targetSection) {
+  window.dispatchEvent(new CustomEvent(PREPARE_MORE_STORIES_SNAP_EVENT, {
+    detail: {
+      targetId: targetSection ? targetSection.id : '',
+      source: 'home-to-more-stories'
+    }
+  }));
 }
 
-function scrollToMoreStories(targetSection, behavior) {
-  const top = getTargetTop(targetSection);
+function requestNativeSnapToMoreStories(targetSection, behavior) {
+  if (!targetSection) return;
 
-  window.scrollTo({
-    top: top,
-    left: 0,
-    behavior: behavior || 'auto'
-  });
-}
-
-function runStableMoreStoriesScroll(targetSection, behavior) {
-  scrollToMoreStories(targetSection, behavior);
-
-  [48, 120, 260].forEach(function (delay) {
-    const timerId = window.setTimeout(function () {
-      scrollToMoreStories(targetSection, 'auto');
-    }, delay);
-
-    handoffRetryTimers.push(timerId);
+  targetSection.scrollIntoView({
+    behavior: behavior || 'smooth',
+    block: 'start',
+    inline: 'nearest'
   });
 }
 
@@ -101,7 +85,7 @@ export function resetHeroToMoreStoriesState() {
   window.clearTimeout(handoffTimer);
   handoffTimer = 0;
 
-  clearHandoffRetryTimers();
+  setHeroToMoreSnapState(false);
   setHeroExitedState(false);
 }
 
@@ -123,21 +107,20 @@ export function openMoreStoriesHandoff(options) {
   window.clearTimeout(handoffTimer);
   handoffTimer = 0;
 
-  clearHandoffRetryTimers();
   clearScrollLocks();
 
   if (beforeScroll) {
     beforeScroll();
   }
 
-  setHeroExitedState(true);
+  setHeroToMoreSnapState(true);
+  setHeroExitedState(false);
+  dispatchPrepareSnap(targetSection);
 
   window.requestAnimationFrame(function () {
-    runStableMoreStoriesScroll(targetSection, behavior);
+    requestNativeSnapToMoreStories(targetSection, behavior);
 
     handoffTimer = window.setTimeout(function () {
-      scrollToMoreStories(targetSection, 'auto');
-
       if (shouldFocusTitle) {
         focusMoreStoriesTitle();
       }
