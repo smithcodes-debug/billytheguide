@@ -1,48 +1,60 @@
-/* =====================================================
-✅ UPDATED: CARD 05 — SERVICE 04 OVERRIDE SHELL
-FILE: ./css/card page home/card-05-service-04.css
-PURPOSE:
-- Runtime cleanup after hero-background ownership conflict.
-- This file intentionally contains no hero rules.
-- Hero background image/layer/crop belongs only to ./css/modules/05-hero-background.css.
-- Card 05 service visual rules may be added here later only if they target card/service-owned selectors.
-REMOVED:
-- :root --hero-bg-* variables
-- .hero rules
-- .hero::before rules
-- .hero .overlay rules
-- invalid .hero > :not(.overlay)::not(::before) selector
-OWNERSHIP:
-- Do not define .hero, .hero::before, .overlay, or --hero-bg-* in this file.
-===================================================== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
 
-/* ✅ NEW: Proposal card image after story text */
-.more-service-card[href="./propose-island-phu-quoc.html"] {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-title {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-title {
+  flex: 0 0 auto;
   order: 1;
+  margin: 0 0 5px;
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-desc {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-desc {
+  flex: 0 0 auto;
   order: 2;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-extra {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-extra {
+  flex: 0 0 auto;
   order: 3;
   max-width: 92%;
   margin: 0 auto 5px;
+  color: rgba(16, 20, 24, 0.72);
+  font-size: clamp(13.2px, 3.3vw, 16.5px);
   line-height: 1.32;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: center;
   font-style: italic;
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-extra + .more-service-card-extra {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-extra + .more-service-card-extra {
   margin-top: 0;
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"]::after {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card::after {
   content: "";
   display: block;
   flex: 0 0 auto;
@@ -60,6 +72,13 @@ OWNERSHIP:
   box-sizing: border-box;
 }
 
-.more-service-card[href="./propose-island-phu-quoc.html"] .more-service-card-link {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-link {
+  flex: 0 0 auto;
   order: 5;
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-size: 16.5px;
+  line-height: 1.1;
 }
