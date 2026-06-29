@@ -1,0 +1,109 @@
+.more-accordion-list > .more-accordion-item:first-child[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .leave-no-trace-memo-note {
+  order: 1;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-summary {
+  order: 2;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-panel {
+  order: 3;
+}
+
+.leave-no-trace-memo-note {
+  position: relative;
+  width: min(calc(100% - 32px), 720px);
+  margin: -18px auto 34px;
+  padding: 14px 16px 15px;
+  color: #2f2a12;
+  font-size: 13px;
+  line-height: 1.32;
+  text-align: left;
+  background: #fff3a6;
+  border: 1px solid #e4c64f;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(5, 6, 8, 0.16);
+  box-sizing: border-box;
+}
+
+.leave-no-trace-memo-note::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 42px;
+  width: 22px;
+  height: 22px;
+  background: #fff3a6;
+  border-top: 1px solid #e4c64f;
+  border-left: 1px solid #e4c64f;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+
+.leave-no-trace-memo-note p {
+  margin: 0;
+}
+
+.leave-no-trace-memo-note p + p {
+  margin-top: 6px;
+}
+
+.leave-no-trace-memo-note strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.mobile-home-feed .more-accordion-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-home-feed .more-accordion-item .leave-no-trace-memo-note {
+  order: 1;
+  margin: -34px auto 18px;
+}
+
+.mobile-home-feed .more-accordion-item .more-accordion-summary {
+  order: 2;
+  padding: 0 0 14px;
+}
+
+.mobile-home-feed .more-accordion-item .more-accordion-panel {
+  order: 3;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .leave-no-trace-memo-note {
+  order: 1;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-summary {
+  order: 2;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-panel {
+  order: 3;
+}
+
+/* ✅ UPDATED: push whole Leave no trace card content down, reduce bottom gap */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .mobile-home-feed-card-scroll {
+  justify-content: flex-end;
+  padding-bottom: 10px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-summary {
+  margin-top: 22px;
+  padding-bottom: 0;
+}

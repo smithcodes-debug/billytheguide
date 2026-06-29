@@ -1,0 +1,75 @@
+:root {
+  --app-shell-max-width: 768px;
+  --app-shell-width: 100%;
+  --app-shell-bg: #ffffff;
+  --app-outer-bg: #05070b;
+  --app-outer-bg-gradient:
+    radial-gradient(circle at 50% 0%, rgba(0, 186, 255, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(0, 95, 160, 0.22), transparent 38%),
+    linear-gradient(180deg, #02040a 0%, #07111f 46%, #02040a 100%);
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--app-shell-bg);
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--app-shell-bg);
+}
+
+.site-content {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 769px), (orientation: landscape) {
+  html {
+    background: var(--app-outer-bg);
+    background-image: var(--app-outer-bg-gradient);
+  }
+
+  body {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    background: var(--app-outer-bg);
+    background-image: var(--app-outer-bg-gradient);
+  }
+
+  .site-content {
+    width: min(100%, var(--app-shell-max-width));
+    max-width: var(--app-shell-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--app-shell-bg);
+  }
+
+  header,
+  .mobile-search-backdrop,
+  .policy-popup-backdrop,
+  .popup-backdrop,
+  .availability-popup-backdrop,
+  .contact-popup-backdrop,
+  .mobile-edge-pad {
+    width: min(100%, var(--app-shell-max-width));
+    max-width: var(--app-shell-max-width);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}

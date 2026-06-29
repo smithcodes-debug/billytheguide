@@ -1,0 +1,31 @@
+/* ✅ NEW: Coral Dictionary card text spacing */
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-title {
+  order: 1;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-desc {
+  order: 2;
+  margin-bottom: 7px;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra {
+  order: 3;
+  max-width: 94%;
+  margin: 0 auto 5px;
+  line-height: 1.32;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra + .more-service-card-extra {
+  margin-top: 0;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-link {
+  order: 5;
+  margin-top: 4px;
+}
