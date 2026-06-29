@@ -6,6 +6,7 @@ export function initNavigation() {
 
   function isHomePage() {
     const path = window.location.pathname;
+
     return (
       path === '/' ||
       path.endsWith('/') ||
@@ -15,7 +16,9 @@ export function initNavigation() {
   }
 
   function clearHomeConflictState() {
+    /* ✅ UPDATED */
     document.documentElement.classList.remove(
+      'is-hero-exited',
       'is-feed-ending',
       'mobile-home-feed-snap',
       'is-home-reading-mode',
@@ -24,6 +27,7 @@ export function initNavigation() {
     );
 
     document.body.classList.remove(
+      'is-hero-exited',
       'is-feed-ending',
       'mobile-home-feed-snap',
       'is-home-reading-mode',
@@ -33,6 +37,7 @@ export function initNavigation() {
 
     document.querySelectorAll('.is-open').forEach(function (node) {
       node.classList.remove('is-open');
+
       if (node.hasAttribute('aria-hidden')) {
         node.setAttribute('aria-hidden', 'true');
       }
@@ -49,6 +54,7 @@ export function initNavigation() {
         behavior: behavior || 'smooth',
         block: 'start'
       });
+
       return;
     }
 
@@ -71,6 +77,7 @@ export function initNavigation() {
   document.querySelectorAll('[data-nav]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       const url = btn.getAttribute('data-nav');
+
       if (url) window.location.href = url;
     });
   });
@@ -123,3 +130,4 @@ export function initSnorkelingCardNavigation() {
 
   console.log('Snorkeling card navigation initialized');
 }
+``
