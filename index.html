@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coral Tour</title>
   <link rel="stylesheet" href="./css/modules/00-display-shell.css">
-  <link rel="stylesheet" href="./css/modules/05-hero-background.css">
   <link rel="stylesheet" href="./css/home-hero-tour-popup.css">
   <link rel="stylesheet" href="./css/card page home/card-01-intro.css">
   <link rel="stylesheet" href="./css/card page home/card-02-service-01.css">
@@ -23,11 +22,11 @@
   <link rel="stylesheet" href="./css/modules/12-leave-no-trace-gallery.css">
   <link rel="stylesheet" href="./css/modules/13-site-footer.css">
   <link rel="stylesheet" href="./css/modules/03-mobile-search.css">
-  <link rel="stylesheet" href="./css/modules/07-mobile-edge-pad.css">
   <link rel="stylesheet" href="./css/modules/09-tour-snorkeling-transition.css">
   <link rel="stylesheet" href="./css/modules/01-global-motion.css">
   <link rel="stylesheet" href="./css/modules/17-mobile-story-typewriter.css">
 </head>
+
 <body>
 <header>
   <div class="logo" id="logoTrigger" role="button" tabindex="0" aria-controls="contact-popup" aria-expanded="false">
@@ -47,461 +46,439 @@
       </div>
     </div>
   </div>
+
   <button class="header-search-trigger" type="button" aria-label="Open search" aria-controls="mobile-search-popup" aria-expanded="false">
     <span class="header-search-icon" aria-hidden="true">🔍</span>
     <span class="header-search-dots" aria-hidden="true">......</span>
   </button>
+
   <button class="menu-trigger" type="button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
     <img class="menu-trigger-icon" src="images/comon/menu.svg" alt="" aria-hidden="true" loading="eager" decoding="async">
   </button>
 </header>
+
 <div class="mobile-search-backdrop" id="mobile-search-popup" aria-hidden="true">
   <div class="mobile-search-panel" role="dialog" aria-modal="true" aria-labelledby="mobileSearchTitle">
     <div class="mobile-search-head">
       <h2 class="mobile-search-title" id="mobileSearchTitle">hãy thử tìm một trải nghiệm</h2>
       <button class="mobile-search-close" type="button" aria-label="Đóng search">×</button>
     </div>
+
     <form class="mobile-search-form" role="search">
       <input class="mobile-search-input" type="search" placeholder="snorkeling, diving, hiking..." aria-label="Tìm kiếm trải nghiệm" autocomplete="off">
       <button class="mobile-search-submit" type="submit" aria-label="Tìm kiếm">🔍</button>
     </form>
+
     <p class="mobile-search-hint">search nhanh: snorkeling, diving, hiking, camping, contact</p>
     <div class="mobile-search-results" aria-live="polite"></div>
   </div>
 </div>
+
 <main id="site-content" class="site-content">
-<section class="hero">
-  <div class="overlay"></div>
-  <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div>
-  <button class="availability-memo" type="button" id="availabilityMemo" aria-controls="availability-popup" aria-expanded="false">
-    <span class="availability-memo-card" aria-hidden="true">
-      <span class="availability-calendar-icon">
-        <span class="availability-calendar-rings"><span></span><span></span></span>
-        <span class="availability-calendar-top"></span>
-        <span class="availability-calendar-grid">
-          <span></span><span></span><span></span>
-          <span></span><span></span><span></span>
+  <section class="hero" id="hero-source-template" hidden aria-hidden="true">
+    <div class="hero-guide-tagline">• professional Phu Quoc local guide team.</div>
+
+    <div class="content">
+      <h1 class="title">
+        <span class="title-mobile-line title-mobile-line-1">Khám phá</span>
+        <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span>
+      </h1>
+
+      <div class="story">
+        <p>
+Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..
+        </p>
+      </div>
+
+      <div class="cta-row">
+        <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">
+          <span>let's...</span>
+          <label class="checkbox">
+            <input type="checkbox" id="leaveNoTraceCheckbox">
+            <span class="fake-box"></span>
+          </label>
+          <span>"Leave no trace"</span>
         </span>
-      </span>
-      <span class="availability-memo-text">check avalibility</span>
-      <span class="availability-memo-hint">open dates</span>
-    </span>
-  </button>
-  <div class="content">
-    <h1 class="title">
-      <span class="title-mobile-line title-mobile-line-1">Khám phá</span>
-      <span class="title-mobile-line title-mobile-line-2">"Phú Quốc Của Tôi"</span>
-    </h1>
-    <div class="story">
-      <p>
-Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..      </p>
-    </div>
-    <div class="cta-row">
-      <span class="quote cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">
-        <span>let's...</span>
-        <label class="checkbox">
-          <input type="checkbox" id="leaveNoTraceCheckbox">
-          <span class="fake-box"></span>
-        </label>
-        <span>"Leave no trace"</span>
-      </span>
-      <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span>
-    </div>
-  </div>
-</section>
-<button class="mobile-edge-pad" type="button" aria-label="Open stories" aria-controls="more-stories-section"></button>
-<div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
-  <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
-    <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
-    <div class="policy-popup-media-row" aria-hidden="true">
-      <div class="policy-popup-logo-slot"></div>
-      <img class="policy-popup-menu-vector" src="images/menu.png" alt="" loading="lazy" decoding="async">
-    </div>
-    <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
-    <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
-    <button class="policy-popup-action" type="button" aria-label="Mở chính sách Leave no trace">
-      <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
-      <span class="sr-only">"Leave no trace"</span>
-    </button>
-    <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button>
-    <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true">
-      <ul class="policy-popup-guidelines-list">
-        <li>do not step on coral</li>
-        <li>do not litter</li>
-        <li>do not bring back coral, even dead coral</li>
-        <li>together clean up everything after your tour</li>
-        <li>try to stay organic</li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
-  <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <div class="popup-head">
-      <h2 class="popup-title" id="popupTitle">Bạn đang tìm kiếm điều gì ở Phú Quốc?</h2>
-      <button class="popup-close" type="button" aria-label="Đóng popup">×</button>
-    </div>
-    <div class="popup-copy">
-      <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.                
-      Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.                
-    </div>
-    <div class="popup-note">
-  Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.                
-</div>
-<div class="popup-notes-shell">
-  <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button>
-  <div class="popup-notes">
-    <div class="popup-note-item" data-tour="snorkeling" role="button" tabindex="0" aria-label="Open snorkeling experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">snorkeling</span>
-    </div>
-    <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">diving</span>
-    </div>
-    <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">hiking</span>
-    </div>
-    <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">camping</span>
-    </div>
-    <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">propose</span>
-    </div>
-    <div class="popup-note-item" data-tour="phuQuocTipAndTrick" role="button" tabindex="0" aria-label="Open Phu Quoc tip and trick page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/phuquoctipandtrick-low.png" alt="phu quoc tip and trick" data-progressive-image="true" data-highres-src="images/home/tour/phuquoctipandtrick.png" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">phu quoc tip and trick</span>
-    </div>
-    <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page">
-      <div class="popup-note-box">
-        <img class="popup-note-img" src="images/home/tour/coral-dictionary-low.jpg" alt="coral dictionary" data-progressive-image="true" data-highres-src="images/home/tour/coral-dictionary.jpg" loading="lazy" decoding="async">
-      </div>
-      <span class="popup-note-label">coral dictionary</span>
-    </div>
-  </div>
-  <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button>
-</div>
-</div>
-</div>
-<div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
-  <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
-    <button class="availability-popup-close" type="button" aria-label="Đóng lịch">×</button>
-    <h2 class="availability-popup-title" id="availabilityPopupTitle">check avalibility</h2>
-    <p class="availability-popup-desc">Chọn ngày còn trống để nhắn Billy and Friend Adventures kiểm tra và giữ lịch tour cho bạn.</p>
-    <div class="availability-calendar-head">
-      <div class="availability-month-label" id="availabilityMonthLabel"></div>
-      <div class="availability-nav" aria-label="Đổi tháng">
-        <button type="button" id="availabilityPrevMonth" aria-label="Tháng trước">‹</button>
-        <button type="button" id="availabilityNextMonth" aria-label="Tháng sau">›</button>
+
+        <span class="thanks cta-trigger" role="button" tabindex="0" aria-controls="leave-no-trace-popup" aria-expanded="false">Cảm ơn bạn ❤️</span>
       </div>
     </div>
-    <div class="availability-weekdays" aria-hidden="true">
-      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-    </div>
-    <div class="availability-days" id="availabilityDays"></div>
-    <div class="availability-message" id="availabilityMessage" role="status" aria-live="polite"></div>
-    <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button>
-    <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true">
-      <div class="availability-tour-item" data-tour="snorkeling">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">snorkeling</span>
+  </section>
+
+  <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
+    <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
+      <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
+
+      <div class="policy-popup-media-row" aria-hidden="true">
+        <div class="policy-popup-logo-slot"></div>
+        <img class="policy-popup-menu-vector" src="images/comon/menu.svg" alt="" loading="lazy" decoding="async">
       </div>
-      <div class="availability-tour-item" data-tour="diving">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">diving</span>
-      </div>
-      <div class="availability-tour-item" data-tour="hiking">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">hiking</span>
-      </div>
-      <div class="availability-tour-item" data-tour="camping">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">camping</span>
-      </div>
-      <div class="availability-tour-item" data-tour="propose">
-        <div class="availability-tour-box">
-          <img class="availability-tour-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
-        </div>
-        <span class="availability-tour-label">propose</span>
+
+      <h2 class="policy-popup-title" id="policyPopupTitle">Billy and Friend Adventures</h2>
+      <p class="policy-popup-copy">Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau. bạn vui lòng click vào chính sách:</p>
+
+      <button class="policy-popup-action" type="button" aria-label="Mở chính sách Leave no trace">
+        <span class="policy-wave-text" aria-hidden="true">"Leave no trace"</span>
+        <span class="sr-only">"Leave no trace"</span>
+      </button>
+
+      <button class="policy-popup-guidelines-toggle" type="button" aria-expanded="false" aria-controls="policyGuidelines">Read our Leave no trace policy</button>
+
+      <div class="policy-popup-guidelines" id="policyGuidelines" aria-hidden="true">
+        <ul class="policy-popup-guidelines-list">
+          <li>do not step on coral</li>
+          <li>do not litter</li>
+          <li>do not bring back coral, even dead coral</li>
+          <li>together clean up everything after your tour</li>
+          <li>try to stay organic</li>
+        </ul>
       </div>
     </div>
   </div>
-</div>
-<div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
-  <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
-    <div class="contact-popup-header">
-      <img class="contact-popup-header-vector" src="images/comon/menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true">
-      <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div>
-      <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
-    </div>
-    <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398"><span class="contact-phone-icon" aria-hidden="true">☎</span><span class="contact-phone-number">+84 812233398</span></a>
-    <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p>
-    <div class="contact-social-list" aria-label="Kênh liên hệ">
-      <span class="contact-social-item" aria-label="facebook">
-        <span class="contact-social-icon facebook" aria-hidden="true">f</span>
-        <span class="contact-social-label">facebook</span>
-      </span>
-      <span class="contact-social-item" aria-label="telegram">
-        <span class="contact-social-icon telegram" aria-hidden="true">↗</span>
-        <span class="contact-social-label">telegram</span>
-      </span>
-      <span class="contact-social-item" aria-label="kakao">
-        <span class="contact-social-icon kakao" aria-hidden="true">K</span>
-        <span class="contact-social-label">kakao</span>
-      </span>
-      <span class="contact-social-item" aria-label="zalo">
-        <span class="contact-social-icon zalo" aria-hidden="true">Z</span>
-        <span class="contact-social-label">zalo</span>
-      </span>
-      <span class="contact-social-item" aria-label="tiktok">
-        <span class="contact-social-icon tiktok" aria-hidden="true">♪</span>
-        <span class="contact-social-label">tiktok</span>
-      </span>
-      <span class="contact-social-item" aria-label="youtube">
-        <span class="contact-social-icon youtube" aria-hidden="true">▶</span>
-        <span class="contact-social-label">youtube</span>
-      </span>
-      <span class="contact-social-item" aria-label="wechat">
-        <span class="contact-social-icon wechat" aria-hidden="true">💬</span>
-        <span class="contact-social-label">wechat</span>
-      </span>
-      <span class="contact-social-item" aria-label="google map">
-        <span class="contact-social-icon google-map" aria-hidden="true">⌖</span>
-        <span class="contact-social-label">google map</span>
-      </span>
-      <span class="contact-social-item" aria-label="maill">
-        <span class="contact-social-icon maill" aria-hidden="true">@</span>
-        <span class="contact-social-label">maill</span>
-      </span>
-      <span class="contact-social-item" aria-label="line">
-        <span class="contact-social-icon line" aria-hidden="true">L</span>
-        <span class="contact-social-label">line</span>
-      </span>
-    </div>
-    <div class="contact-footer-text">find me on what you have</div>
-  </div>
-</div>
-<section
-  class="more-stories-section"
-  id="more-stories-section"
-  aria-labelledby="moreStoriesTitle"
-  data-home-root="scrollable-home"
-  data-home-behavior="scrollable"
-  data-return-target="true"
->
-  <div class="more-stories-inner">
-    <p class="more-stories-kicker">Billy and Friend Adventures</p>
-    <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
-    <p class="more-stories-quote">"Some laugh because we are different.<br>We smile because we choose not to be the same."</p>
-    <p class="more-stories-intro">We choose a slower, a more personal way to discover Phú Quốc through coral-friendly snorkeling or diving, with quiet island camping sometimes, and live a life shaped by a Leave no trace mindset.that's it.</p>
-    <div class="more-stories-notes" aria-label="Snorkeling service notes">
-      <span class="more-stories-note">no crowd</span>
-      <span class="more-stories-note">underwater guide</span>
-      <span class="more-stories-note">kid + disabled friendly</span>
-      <span class="more-stories-note">HD glass</span>
-      <span class="more-stories-note">current controlled</span>
-      <span class="more-stories-note">media with you</span>
-    </div>
-    <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Back to tour choices">Back to tours</button>
-    <div class="more-services-block" aria-labelledby="moreServicesTitle">
-      <h3 class="more-section-label" id="moreServicesTitle">Compact semantic layer</h3>
-      <div class="more-services-grid" aria-label="Private Phú Quốc tour landing pages">
-        <a class="more-service-card" href="./coral-snorkeling-phu-quoc.html">
-          <h4 class="more-service-card-title">Snorkeling in Phu Quoc island </h4>
-          <p class="more-service-card-desc">Private coral-friendly snorkeling with a local guide and slower, cleaner travel.</p>
-          <p class="more-service-card-extra">We understand that every family and traveler seeks the perfect getaway—a journey thoughtfully tailored so that every member can fully enjoy the experience and no one is left behind. That is exactly why we have crafted the following exclusive, customized tour programs just for you:</p>
-          <span class="more-service-card-pads" aria-label="Snorkeling program options">
-            <span class="more-service-card-pad">
-              <strong>snorkeling and relax 4 hours</strong>
-              <em>for check out or fly home</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>snorkeling and relax 4 hours with kid</strong>
-              <em>desiged emphasie for kid safe and fly</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>snorkeling relax 6 hourse</strong>
-              <em>freediving advanced</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>snorkeling stay chill + BBQ</strong>
-              <em>6 hours · sunset hoping</em>
-            </span>
-          </span>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./diving-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Diving in Phu Quoc Island</h4>
-          <p class="more-service-card-desc">If you are open water diver ? 4 to 10M ? no doubt - this's right fit for you.</p>
-          <p class="more-service-card-extra">Diving in Phu Quoc is not just about seeing beautiful corals — it is about discovering one of Vietnam’s rich marine ecosystems, connected to the wider Indo-Pacific biodiversity region. Around Phu Quoc’s small islands, especially in the south, divers can find diverse coral reefs, reef fish, sponges, and other marine life. The best experience depends on local knowledge: choosing the right reef, the right season, and the right water conditions for a safe and meaningful dive.</p>
-          <span class="more-service-card-pads" aria-label="Diving program options">
-            <span class="more-service-card-pad">
-              <strong>diving and relax north site</strong>
-              <em>4 hours</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>diving and relax south site</strong>
-              <em>4 hours trip</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>diving relax north site + BBQ</strong>
-              <em>5 hours. sunset hoping</em>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>diving relax north site + BBQ</strong>
-              <em>5 hours · sunset hoping</em>
-            </span>
-          </span>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./camping-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Camping in Phú Quốc</h4>
-          <p class="more-service-card-desc">A quiet island camping experience for travelers who want more than a normal beach trip. Paddle SUP around nearby islands, watch sunrise and sunset from the sea, enjoy a simple BBQ by the beach, and slow down in a peaceful place away from the crowd.</p>
-          <span class="more-service-card-pads" aria-label="Camping experience highlights">
-            <span class="more-service-card-pad">
-              <strong>SUP island hopping</strong>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>Sunrise and sunset moments</strong>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>Beach BBQ</strong>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>Quiet island night</strong>
-            </span>
-            <span class="more-service-card-pad">
-              <strong>Best value private experience</strong>
-            </span>
-          </span>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./propose-island-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Proposal Getaway in Phu Quoc island</h4>
-          <p class="more-service-card-desc">Will you marry me? .... "yes: i do"</p>
-          <p class="more-service-card-extra">Right before the moment you propose, let time slow down to revisit your most beautiful memories—the times you cried and laughed together. It’s a feeling of pure gratitude for having found each other in this vast world.</p>
-          <p class="more-service-card-extra">Marriage is not the happy ending of a love story, but the beginning of a new kind of journey—one that is more practical, more forgiving, and requires more effort.</p>
-          <p class="more-service-card-extra">What are you hesitating about? Is it the venue, the setting, or something else? Come to us; let Billy walk by your side, and together, we will create this magical moment.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./hiking-mountain-phu-quoc.html">
-          <h4 class="more-service-card-title">Private Deep Sea Fishing in Phu Quoc island</h4>
-          <p class="more-service-card-desc">Rody fishes man ,let's lock and load .</p>
-          <!-- ✅ NEW -->
-          <p class="more-service-card-extra">Leave the coastline behind and head into the open waters around Phu Quoc with an experienced local captain.</p>
-          <p class="more-service-card-extra">Fish using traditional local techniques, explore productive offshore fishing grounds, enjoy the peaceful atmosphere of the open sea, and if luck is on your side, taste your own catch prepared fresh on board.</p>
-          <p class="more-service-card-extra">This is not a tourist fishing demonstration.</p>
-          <p class="more-service-card-extra">It's a real fishing trip designed for travelers who want to experience how local fishermen have worked these waters for generations.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
-        <a class="more-service-card" href="./coral-dictionary-at-phu-quoc.html">
-          <h4 class="more-service-card-title">Phu Quoc Coral Dictionary</h4>
-          <p class="more-service-card-desc">Simple notes to help guests understand, respect, and protect reef life.</p>
-          <!-- ✅ NEW -->
-          <p class="more-service-card-extra">The total area of coral reefs zoned for conservation in Phu Quoc is approximately 473.9 hectares.</p>
-          <p class="more-service-card-extra">An Thoi Archipelago (The South): Known as the coral "capital" of Phu Quoc, it accounts for over 76% of the total area (roughly 362.2 hectares). This area also boasts the highest coral cover density and serves as the strictly protected zone of the Marine Protected Area.</p>
-          <p class="more-service-card-extra">The North of the Island: Covers a significantly smaller area (about 111.7 hectares), scattered around locations such as Hon Mot and Ganh Dau Cape.</p>
-          <p class="more-service-card-extra">Note from regulatory authorities: Despite the high species diversity, Phu Quoc's coral reefs are currently under immense pressure from climate change (specifically coral bleaching due to rising sea temperatures), tourism development, and fishing activities. The average live coral cover is currently recorded at around 28.1%. Consequently, the Kien Giang provincial government is actively collaborating with scientific organizations to implement natural reef restoration projects.</p>
-          <span class="more-service-card-link">Read more</span>
-        </a>
+
+  <div class="popup-backdrop" id="leave-no-trace-popup" aria-hidden="true">
+    <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <div class="popup-head">
+        <h2 class="popup-title" id="popupTitle">Bạn đang tìm kiếm điều gì ở Phú Quốc?</h2>
+        <button class="popup-close" type="button" aria-label="Đóng popup">×</button>
       </div>
-    </div>
-    <div class="more-accordion-block" aria-labelledby="moreAccordionTitle">
-      <h3 class="more-section-label" id="moreAccordionTitle">Accordion</h3>
-      <div class="more-accordion-list">
-        <details class="more-accordion-item" open>
-          <summary class="more-accordion-summary">Leave no trace</summary>
-          <!-- ✅ UPDATED -->
-          <div class="leave-no-trace-memo-note" aria-label="Welcome note">
-            <p><strong>Dear Guest,</strong></p>
-            <p>
-I really appreciate you being here, as it means you've spent a lot of time getting to know who we are and what we do. I don't know when we will meet each other, or whether you will choose to stay with us or not, but we are always willing to support you and give you advice from a local's perspective. Please don't hesitate to keep in touch. Billy and Friend Adventures is a small team of local guides.    
-.</p>
-            <p>Xin chào!</p>
-          </div>
-          <!-- ✅ NEW -->
-          <section class="leave-no-trace-gallery" aria-label="Leave no trace photo gallery">
-            <div class="leave-no-trace-gallery__track" aria-label="Swipe gallery">
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/1.png" alt="Leave no trace travel moment 1" loading="lazy" decoding="async">
-              </figure>
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/2.png" alt="Leave no trace travel moment 2" loading="lazy" decoding="async">
-              </figure>
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/3.png" alt="Leave no trace travel moment 3" loading="lazy" decoding="async">
-              </figure>
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/4.png" alt="Leave no trace travel moment 4" loading="lazy" decoding="async">
-              </figure>
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/5.png" alt="Leave no trace travel moment 5" loading="lazy" decoding="async">
-              </figure>
-              <figure class="leave-no-trace-gallery__slide">
-                <img class="leave-no-trace-gallery__image" src="images/leave no trace/6.png" alt="Leave no trace travel moment 6" loading="lazy" decoding="async">
-              </figure>
+
+      <div class="popup-copy">
+        <strong>Cảm ơn bạn</strong> đã chọn đồng hành theo tinh thần tôn trọng đại dương, rạn san hô và môi trường tự nhiên.
+        Mỗi lựa chọn nhỏ của bạn đều góp phần giúp hành trình biển đảo sạch hơn, đẹp hơn và bền vững hơn cho những lần quay lại sau này.
+      </div>
+
+      <div class="popup-note">
+        Tinh thần cốt lõi của Billy and Friend Adventures là: khám phá có trách nhiệm, không để lại dấu vết, và giữ nguyên vẻ đẹp tự nhiên của Phú Quốc cho chính bạn và cho những người đến sau.
+      </div>
+
+      <div class="popup-notes-shell">
+        <button class="popup-notes-arrow popup-notes-arrow-left" type="button" aria-label="Scroll cards sang trái">‹</button>
+
+        <div class="popup-notes">
+          <div class="popup-note-item" data-tour="snorkeling" role="button" tabindex="0" aria-label="Open snorkeling experience page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
             </div>
-          </section>
-          <div class="more-accordion-panel">
-            <p>Leave no trace is the travel promise behind Billy and Friend Adventures: enjoy Phú Quốc without damaging coral reefs, beaches, forest paths, or the quiet local places that make the island worth visiting.</p>
+            <span class="popup-note-label">snorkeling</span>
           </div>
-        </details>
-        <details class="more-accordion-item" open>
-          <summary class="more-accordion-summary">FAQ</summary>
-          <div class="more-accordion-panel">
-            <dl class="more-faq-list">
-              <div>
-                <dt>Are these private experiences?</dt>
-                <dd>Yes. The focus is on private, slower, and more personal Phú Quốc experiences instead of crowded standard tours.</dd>
-              </div>
-              <div>
-                <dt>Is snorkeling beginner-friendly?</dt>
-                <dd>Yes. The snorkeling experience is designed to be calm, guided, and respectful of coral safety.</dd>
-              </div>
-              <div>
-                <dt>How does the tour protect coral reefs?</dt>
-                <dd>The guide explains safe movement, no-touch reef behavior, cleaner travel habits, and why coral needs distance and respect.</dd>
-              </div>
-              <div>
-                <dt>How can guests book?</dt>
-                <dd>Guests can use the contact popup, choose an available date, or open a specific landing page for the experience they want.</dd>
-              </div>
-              <div>
-                <dt>Which experience should first-time visitors choose?</dt>
-                <dd>Snorkeling is usually the easiest first choice, while hiking, camping, diving, and proposal getaways fit more specific travel plans.</dd>
-              </div>
-            </dl>
+
+          <div class="popup-note-item" data-tour="diving" role="button" tabindex="0" aria-label="Open diving experience page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">diving</span>
           </div>
-        </details>
+
+          <div class="popup-note-item" data-tour="hiking" role="button" tabindex="0" aria-label="Open hiking experience page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">hiking</span>
+          </div>
+
+          <div class="popup-note-item" data-tour="camping" role="button" tabindex="0" aria-label="Open camping experience page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">camping</span>
+          </div>
+
+          <div class="popup-note-item" data-tour="propose" role="button" tabindex="0" aria-label="Open propose experience page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">propose</span>
+          </div>
+
+          <div class="popup-note-item" data-tour="phuQuocTipAndTrick" role="button" tabindex="0" aria-label="Open Phu Quoc tip and trick page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/phuquoctipandtrick-low.png" alt="phu quoc tip and trick" data-progressive-image="true" data-highres-src="images/home/tour/phuquoctipandtrick.png" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">phu quoc tip and trick</span>
+          </div>
+
+          <div class="popup-note-item" data-tour="coralDictionary" role="button" tabindex="0" aria-label="Open coral dictionary page">
+            <div class="popup-note-box">
+              <img class="popup-note-img" src="images/home/tour/coral-dictionary-low.jpg" alt="coral dictionary" data-progressive-image="true" data-highres-src="images/home/tour/coral-dictionary.jpg" loading="lazy" decoding="async">
+            </div>
+            <span class="popup-note-label">coral dictionary</span>
+          </div>
+        </div>
+
+        <button class="popup-notes-arrow popup-notes-arrow-right" type="button" aria-label="Scroll cards sang phải">›</button>
       </div>
     </div>
   </div>
-</section>
+
+  <div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
+    <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
+      <button class="availability-popup-close" type="button" aria-label="Đóng lịch">×</button>
+      <h2 class="availability-popup-title" id="availabilityPopupTitle">check avalibility</h2>
+      <p class="availability-popup-desc">Chọn ngày còn trống để nhắn Billy and Friend Adventures kiểm tra và giữ lịch tour cho bạn.</p>
+
+      <div class="availability-calendar-head">
+        <div class="availability-month-label" id="availabilityMonthLabel"></div>
+        <div class="availability-nav" aria-label="Đổi tháng">
+          <button type="button" id="availabilityPrevMonth" aria-label="Tháng trước">‹</button>
+          <button type="button" id="availabilityNextMonth" aria-label="Tháng sau">›</button>
+        </div>
+      </div>
+
+      <div class="availability-weekdays" aria-hidden="true">
+        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+      </div>
+
+      <div class="availability-days" id="availabilityDays"></div>
+      <div class="availability-message" id="availabilityMessage" role="status" aria-live="polite"></div>
+      <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button>
+
+      <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true">
+        <div class="availability-tour-item" data-tour="snorkeling">
+          <div class="availability-tour-box">
+            <img class="availability-tour-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" data-progressive-image="true" data-highres-src="images/home/tour/snorkeling.jpg" loading="lazy" decoding="async">
+          </div>
+          <span class="availability-tour-label">snorkeling</span>
+        </div>
+
+        <div class="availability-tour-item" data-tour="diving">
+          <div class="availability-tour-box">
+            <img class="availability-tour-img" src="images/home/tour/diving-low.png" alt="diving" data-progressive-image="true" data-highres-src="images/home/tour/diving.png" loading="lazy" decoding="async">
+          </div>
+          <span class="availability-tour-label">diving</span>
+        </div>
+
+        <div class="availability-tour-item" data-tour="hiking">
+          <div class="availability-tour-box">
+            <img class="availability-tour-img" src="images/home/tour/hiking-low.png" alt="hiking" data-progressive-image="true" data-highres-src="images/home/tour/hiking.png" loading="lazy" decoding="async">
+          </div>
+          <span class="availability-tour-label">hiking</span>
+        </div>
+
+        <div class="availability-tour-item" data-tour="camping">
+          <div class="availability-tour-box">
+            <img class="availability-tour-img" src="images/home/tour/camping-low.png" alt="camping" data-progressive-image="true" data-highres-src="images/home/tour/camping.png" loading="lazy" decoding="async">
+          </div>
+          <span class="availability-tour-label">camping</span>
+        </div>
+
+        <div class="availability-tour-item" data-tour="propose">
+          <div class="availability-tour-box">
+            <img class="availability-tour-img" src="images/home/tour/propose-low.png" alt="propose" data-progressive-image="true" data-highres-src="images/home/tour/propose.jpg" loading="lazy" decoding="async">
+          </div>
+          <span class="availability-tour-label">propose</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-popup-backdrop" id="contact-popup" aria-hidden="true">
+    <div class="contact-popup-card" role="dialog" aria-modal="true" aria-labelledby="contactPopupTitle">
+      <div class="contact-popup-header">
+        <img class="contact-popup-header-vector" src="images/comon/menu.svg" alt="" loading="lazy" decoding="async" aria-hidden="true">
+        <div class="contact-popup-drag-handle" id="contactPopupTitle">About Us</div>
+        <button class="contact-popup-close" type="button" aria-label="Đóng liên hệ">×</button>
+      </div>
+
+      <a class="contact-phone-link" id="contactPhoneLink" href="tel:+84812233398" aria-label="Gọi số +84 812233398">
+        <span class="contact-phone-icon" aria-hidden="true">☎</span>
+        <span class="contact-phone-number">+84 812233398</span>
+      </a>
+
+      <p class="contact-popup-story">" xin chào bạn đã đến với Billy và những người bạn " chúng tôi là một đội , và chúng tôi chưa bao giờ là một cá nhân , hãy để chúng ta như một gia đình, gia đình vui vẻ"</p>
+
+      <div class="contact-social-list" aria-label="Kênh liên hệ">
+        <span class="contact-social-item" aria-label="facebook"><span class="contact-social-icon facebook" aria-hidden="true">f</span><span class="contact-social-label">facebook</span></span>
+        <span class="contact-social-item" aria-label="telegram"><span class="contact-social-icon telegram" aria-hidden="true">↗</span><span class="contact-social-label">telegram</span></span>
+        <span class="contact-social-item" aria-label="kakao"><span class="contact-social-icon kakao" aria-hidden="true">K</span><span class="contact-social-label">kakao</span></span>
+        <span class="contact-social-item" aria-label="zalo"><span class="contact-social-icon zalo" aria-hidden="true">Z</span><span class="contact-social-label">zalo</span></span>
+        <span class="contact-social-item" aria-label="tiktok"><span class="contact-social-icon tiktok" aria-hidden="true">♪</span><span class="contact-social-label">tiktok</span></span>
+        <span class="contact-social-item" aria-label="youtube"><span class="contact-social-icon youtube" aria-hidden="true">▶</span><span class="contact-social-label">youtube</span></span>
+        <span class="contact-social-item" aria-label="wechat"><span class="contact-social-icon wechat" aria-hidden="true">💬</span><span class="contact-social-label">wechat</span></span>
+        <span class="contact-social-item" aria-label="google map"><span class="contact-social-icon google-map" aria-hidden="true">⌖</span><span class="contact-social-label">google map</span></span>
+        <span class="contact-social-item" aria-label="maill"><span class="contact-social-icon maill" aria-hidden="true">@</span><span class="contact-social-label">maill</span></span>
+        <span class="contact-social-item" aria-label="line"><span class="contact-social-icon line" aria-hidden="true">L</span><span class="contact-social-label">line</span></span>
+      </div>
+
+      <div class="contact-footer-text">find me on what you have</div>
+    </div>
+  </div>
+
+  <section
+    class="more-stories-section"
+    id="more-stories-section"
+    aria-labelledby="moreStoriesTitle"
+    data-home-root="scrollable-home"
+    data-home-behavior="scrollable"
+    data-return-target="true"
+  >
+    <div class="more-stories-inner">
+      <p class="more-stories-kicker">Billy and Friend Adventures</p>
+      <h2 class="more-stories-title" id="moreStoriesTitle" tabindex="-1">Private Phú Quốc experiences with a local guide</h2>
+      <p class="more-stories-quote">"Some laugh because we are different.<br>We smile because we choose not to be the same."</p>
+      <p class="more-stories-intro">We choose a slower, a more personal way to discover Phú Quốc through coral-friendly snorkeling or diving, with quiet island camping sometimes, and live a life shaped by a Leave no trace mindset.that's it.</p>
+
+      <div class="more-stories-notes" aria-label="Snorkeling service notes">
+        <span class="more-stories-note">no crowd</span>
+        <span class="more-stories-note">underwater guide</span>
+        <span class="more-stories-note">kid + disabled friendly</span>
+        <span class="more-stories-note">HD glass</span>
+        <span class="more-stories-note">current controlled</span>
+        <span class="more-stories-note">media with you</span>
+      </div>
+
+      <button class="more-stories-back-button" type="button" data-story-back-to-tours aria-label="Back to tour choices">Back to tours</button>
+
+      <div class="more-services-block" aria-labelledby="moreServicesTitle">
+        <h3 class="more-section-label" id="moreServicesTitle">Compact semantic layer</h3>
+
+        <div class="more-services-grid" aria-label="Private Phú Quốc tour landing pages">
+          <a class="more-service-card" href="./coral-snorkeling-phu-quoc.html">
+            <h4 class="more-service-card-title">Snorkeling in Phu Quoc island </h4>
+            <p class="more-service-card-desc">Private coral-friendly snorkeling with a local guide and slower, cleaner travel.</p>
+            <p class="more-service-card-extra">We understand that every family and traveler seeks the perfect getaway—a journey thoughtfully tailored so that every member can fully enjoy the experience and no one is left behind. That is exactly why we have crafted the following exclusive, customized tour programs just for you:</p>
+
+            <span class="more-service-card-pads" aria-label="Snorkeling program options">
+              <span class="more-service-card-pad"><strong>snorkeling and relax 4 hours</strong><em>for check out or fly home</em></span>
+              <span class="more-service-card-pad"><strong>snorkeling and relax 4 hours with kid</strong><em>desiged emphasie for kid safe and fly</em></span>
+              <span class="more-service-card-pad"><strong>snorkeling relax 6 hourse</strong><em>freediving advanced</em></span>
+              <span class="more-service-card-pad"><strong>snorkeling stay chill + BBQ</strong><em>6 hours · sunset hoping</em></span>
+            </span>
+
+            <span class="more-service-card-link">Read more</span>
+          </a>
+
+          <a class="more-service-card" href="./diving-island-phu-quoc.html">
+            <h4 class="more-service-card-title">Diving in Phu Quoc Island</h4>
+            <p class="more-service-card-desc">If you are open water diver ? 4 to 10M ? no doubt - this's right fit for you.</p>
+            <p class="more-service-card-extra">Diving in Phu Quoc is not just about seeing beautiful corals — it is about discovering one of Vietnam’s rich marine ecosystems, connected to the wider Indo-Pacific biodiversity region. Around Phu Quoc’s small islands, especially in the south, divers can find diverse coral reefs, reef fish, sponges, and other marine life. The best experience depends on local knowledge: choosing the right reef, the right season, and the right water conditions for a safe and meaningful dive.</p>
+
+            <span class="more-service-card-pads" aria-label="Diving program options">
+              <span class="more-service-card-pad"><strong>diving and relax north site</strong><em>4 hours</em></span>
+              <span class="more-service-card-pad"><strong>diving and relax south site</strong><em>4 hours trip</em></span>
+              <span class="more-service-card-pad"><strong>diving relax north site + BBQ</strong><em>5 hours. sunset hoping</em></span>
+              <span class="more-service-card-pad"><strong>diving relax north site + BBQ</strong><em>5 hours · sunset hoping</em></span>
+            </span>
+
+            <span class="more-service-card-link">Read more</span>
+          </a>
+
+          <a class="more-service-card" href="./camping-island-phu-quoc.html">
+            <h4 class="more-service-card-title">Private Camping in Phú Quốc</h4>
+            <p class="more-service-card-desc">A quiet island camping experience for travelers who want more than a normal beach trip. Paddle SUP around nearby islands, watch sunrise and sunset from the sea, enjoy a simple BBQ by the beach, and slow down in a peaceful place away from the crowd.</p>
+
+            <span class="more-service-card-pads" aria-label="Camping experience highlights">
+              <span class="more-service-card-pad"><strong>SUP island hopping</strong></span>
+              <span class="more-service-card-pad"><strong>Sunrise and sunset moments</strong></span>
+              <span class="more-service-card-pad"><strong>Beach BBQ</strong></span>
+              <span class="more-service-card-pad"><strong>Quiet island night</strong></span>
+              <span class="more-service-card-pad"><strong>Best value private experience</strong></span>
+            </span>
+
+            <span class="more-service-card-link">Read more</span>
+          </a>
+
+          <a class="more-service-card" href="./propose-island-phu-quoc.html">
+            <h4 class="more-service-card-title">Private Proposal Getaway in Phu Quoc island</h4>
+            <p class="more-service-card-desc">Will you marry me? .... "yes: i do"</p>
+            <p class="more-service-card-extra">Right before the moment you propose, let time slow down to revisit your most beautiful memories—the times you cried and laughed together. It’s a feeling of pure gratitude for having found each other in this vast world.</p>
+            <p class="more-service-card-extra">Marriage is not the happy ending of a love story, but the beginning of a new kind of journey—one that is more practical, more forgiving, and requires more effort.</p>
+            <p class="more-service-card-extra">What are you hesitating about? Is it the venue, the setting, or something else? Come to us; let Billy walk by your side, and together, we will create this magical moment.</p>
+            <span class="more-service-card-link">Read more</span>
+          </a>
+
+          <a class="more-service-card" href="./hiking-mountain-phu-quoc.html">
+            <h4 class="more-service-card-title">Private Deep Sea Fishing in Phu Quoc island</h4>
+            <p class="more-service-card-desc">Rody fishes man ,let's lock and load .</p>
+            <p class="more-service-card-extra">Leave the coastline behind and head into the open waters around Phu Quoc with an experienced local captain.</p>
+            <p class="more-service-card-extra">Fish using traditional local techniques, explore productive offshore fishing grounds, enjoy the peaceful atmosphere of the open sea, and if luck is on your side, taste your own catch prepared fresh on board.</p>
+            <p class="more-service-card-extra">This is not a tourist fishing demonstration.</p>
+            <p class="more-service-card-extra">It's a real fishing trip designed for travelers who want to experience how local fishermen have worked these waters for generations.</p>
+            <span class="more-service-card-link">Read more</span>
+          </a>
+
+          <a class="more-service-card" href="./coral-dictionary-at-phu-quoc.html">
+            <h4 class="more-service-card-title">Phu Quoc Coral Dictionary</h4>
+            <p class="more-service-card-desc">Simple notes to help guests understand, respect, and protect reef life.</p>
+            <p class="more-service-card-extra">The total area of coral reefs zoned for conservation in Phu Quoc is approximately 473.9 hectares.</p>
+            <p class="more-service-card-extra">An Thoi Archipelago (The South): Known as the coral "capital" of Phu Quoc, it accounts for over 76% of the total area (roughly 362.2 hectares). This area also boasts the highest coral cover density and serves as the strictly protected zone of the Marine Protected Area.</p>
+            <p class="more-service-card-extra">The North of the Island: Covers a significantly smaller area (about 111.7 hectares), scattered around locations such as Hon Mot and Ganh Dau Cape.</p>
+            <p class="more-service-card-extra">Note from regulatory authorities: Despite the high species diversity, Phu Quoc's coral reefs are currently under immense pressure from climate change (specifically coral bleaching due to rising sea temperatures), tourism development, and fishing activities. The average live coral cover is currently recorded at around 28.1%. Consequently, the Kien Giang provincial government is actively collaborating with scientific organizations to implement natural reef restoration projects.</p>
+            <span class="more-service-card-link">Read more</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="more-accordion-block" aria-labelledby="moreAccordionTitle">
+        <h3 class="more-section-label" id="moreAccordionTitle">Accordion</h3>
+
+        <div class="more-accordion-list">
+          <details class="more-accordion-item" open>
+            <summary class="more-accordion-summary">Leave no trace</summary>
+
+            <div class="leave-no-trace-memo-note" aria-label="Welcome note">
+              <p><strong>Dear Guest,</strong></p>
+              <p>
+I really appreciate you being here, as it means you've spent a lot of time getting to know who we are and what we do. I don't know when we will meet each other, or whether you will choose to stay with us or not, but we are always willing to support you and give you advice from a local's perspective. Please don't hesitate to keep in touch. Billy and Friend Adventures is a small team of local guides.
+.
+              </p>
+              <p>Xin chào!</p>
+            </div>
+
+            <section class="leave-no-trace-gallery" aria-label="Leave no trace photo gallery">
+              <div class="leave-no-trace-gallery__track" aria-label="Swipe gallery">
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/1.png" alt="Leave no trace travel moment 1" loading="lazy" decoding="async"></figure>
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/2.png" alt="Leave no trace travel moment 2" loading="lazy" decoding="async"></figure>
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/3.png" alt="Leave no trace travel moment 3" loading="lazy" decoding="async"></figure>
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/4.png" alt="Leave no trace travel moment 4" loading="lazy" decoding="async"></figure>
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/5.png" alt="Leave no trace travel moment 5" loading="lazy" decoding="async"></figure>
+                <figure class="leave-no-trace-gallery__slide"><img class="leave-no-trace-gallery__image" src="images/leave no trace/6.png" alt="Leave no trace travel moment 6" loading="lazy" decoding="async"></figure>
+              </div>
+            </section>
+
+            <div class="more-accordion-panel">
+              <p>Leave no trace is the travel promise behind Billy and Friend Adventures: enjoy Phú Quốc without damaging coral reefs, beaches, forest paths, or the quiet local places that make the island worth visiting.</p>
+            </div>
+          </details>
+
+          <details class="more-accordion-item" open>
+            <summary class="more-accordion-summary">FAQ</summary>
+
+            <div class="more-accordion-panel">
+              <dl class="more-faq-list">
+                <div>
+                  <dt>Are these private experiences?</dt>
+                  <dd>Yes. The focus is on private, slower, and more personal Phú Quốc experiences instead of crowded standard tours.</dd>
+                </div>
+
+                <div>
+                  <dt>Is snorkeling beginner-friendly?</dt>
+                  <dd>Yes. The snorkeling experience is designed to be calm, guided, and respectful of coral safety.</dd>
+                </div>
+
+                <div>
+                  <dt>How does the tour protect coral reefs?</dt>
+                  <dd>The guide explains safe movement, no-touch reef behavior, cleaner travel habits, and why coral needs distance and respect.</dd>
+                </div>
+
+                <div>
+                  <dt>How can guests book?</dt>
+                  <dd>Guests can use the contact popup, choose an available date, or open a specific landing page for the experience they want.</dd>
+                </div>
+
+                <div>
+                  <dt>Which experience should first-time visitors choose?</dt>
+                  <dd>Snorkeling is usually the easiest first choice, while hiking, camping, diving, and proposal getaways fit more specific travel plans.</dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
-<!-- ✅ UPDATED: MODULE 13 — SITE FOOTER SVG DOCK -->
+
 <footer class="site-footer" aria-label="Bottom navigation">
   <nav class="site-footer-inner" aria-label="Footer navigation">
     <button class="site-footer-dock-item" type="button" data-footer-category aria-label="Mở danh mục tour">
@@ -515,6 +492,7 @@ I really appreciate you being here, as it means you've spent a lot of time getti
       </svg>
       <span class="site-footer-label">Danh mục</span>
     </button>
+
     <button class="site-footer-dock-item" type="button" data-footer-shorts aria-label="Mở stories">
       <svg class="site-footer-icon site-footer-icon-shorts" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M9 4.5l7.5 4.35L9 13.2V4.5z"></path>
@@ -522,6 +500,7 @@ I really appreciate you being here, as it means you've spent a lot of time getti
       </svg>
       <span class="site-footer-label">Shorts</span>
     </button>
+
     <button class="site-footer-dock-item site-footer-dock-main" type="button" data-footer-contact aria-label="Mở liên hệ">
       <span class="site-footer-main-circle" aria-hidden="true">
         <svg class="site-footer-icon site-footer-icon-main" viewBox="0 0 24 24" focusable="false">
@@ -536,6 +515,7 @@ I really appreciate you being here, as it means you've spent a lot of time getti
       </span>
       <span class="site-footer-label">Liên hệ</span>
     </button>
+
     <button class="site-footer-dock-item" type="button" data-footer-viewed aria-label="Mở nội dung đã xem">
       <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M4.5 5.5h15v10h-15z"></path>
@@ -544,6 +524,7 @@ I really appreciate you being here, as it means you've spent a lot of time getti
       </svg>
       <span class="site-footer-label">SP đã xem</span>
     </button>
+
     <button class="site-footer-dock-item" type="button" data-footer-store aria-label="Mở cửa hàng hoặc bản đồ">
       <svg class="site-footer-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M5.5 10.5h13"></path>
@@ -558,6 +539,7 @@ I really appreciate you being here, as it means you've spent a lot of time getti
     </button>
   </nav>
 </footer>
+
 <script type="module" src="./js/main.js"></script>
 </body>
 </html>
