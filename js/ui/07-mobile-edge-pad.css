@@ -1,0 +1,127 @@
+/* =====================================================
+  ✅ NEW: CSS MODULE 07 — MOBILE EDGE PAD
+  FILE: ./css/modules/07-mobile-edge-pad.css
+
+  SYSTEM MAP POSITION:
+  - PROJECT MODULE INDEX: 07-mobile-edge-pad
+  - HTML module: MODULE 07 — MOBILE EDGE PAD MODULE
+  - Related cross-module selector: 11-scroll-home / .more-stories-back-button
+
+  SOURCE LOCATION BEFORE EXTRACTION:
+  - index.html
+  - MODULE 01.5 — INLINE STYLE REGISTRY
+  - This file was extracted during Step 6G.
+
+  RELATED HTML SELECTORS / IDS:
+  - .mobile-edge-pad
+  - #more-stories-section via aria-controls="more-stories-section"
+  - .more-stories-back-button
+
+  RELATED JS / BEHAVIOR MAP:
+  - Mobile edge trigger: .mobile-edge-pad
+  - Scroll target: #more-stories-section
+  - Scroll/return button: .more-stories-back-button / [data-story-back-to-tours]
+  - Hidden state: .mobile-edge-pad.is-hidden
+  - Current behavior source: ./js/main.js or current main JS entry behavior bundle
+  - Functions / logic to inspect during debug:
+    - mobile edge pad click/touch binding
+    - mobile edge pad hide/show state toggle
+    - scroll to #more-stories-section behavior
+    - return/back to tour choices behavior
+    - home scroll lock coordination if gesture issue is related
+
+  RELATED HTML MODULE COMMENT:
+  - MODULE 07 — MOBILE EDGE PAD MODULE
+  - MAP: 07-mobile-edge-pad-root / 07-mobile-edge-pad-trigger / 07-mobile-edge-pad-hidden-state
+
+  PURPOSE:
+  - Owns visual styling for the mobile bottom edge handle.
+  - Owns visibility and focus style for the edge pad.
+  - Keeps mobile edge pad CSS separate from mobile search, scroll-home composite, booking, contact, policy, and tour popup CSS.
+
+  OWNS:
+  - .mobile-edge-pad
+  - .mobile-edge-pad::before
+  - .mobile-edge-pad.is-hidden
+  - .mobile-edge-pad:focus-visible
+
+  CROSS-MODULE RULE OWNED TEMPORARILY:
+  - .more-stories-back-button inside MODULE 07 mobile media block
+
+  STATE CLASSES:
+  - .is-hidden
+
+  MEDIA:
+  - @media (max-width:768px)
+
+  DEBUG ROUTING:
+  - Mobile edge pad visual position / size / bottom safe-area issue: edit ./css/modules/07-mobile-edge-pad.css
+  - Mobile edge pad visibility issue: inspect .mobile-edge-pad and .mobile-edge-pad.is-hidden in this file
+  - Mobile edge pad tap/gesture issue: inspect touch-action in this file + JS mobile edge pad binding
+  - Back to tours button hidden on mobile: inspect .more-stories-back-button rule in this file
+  - Back to tours button layout on desktop/content area: inspect ./css/modules/11-scroll-home-composite.css
+  - Scroll target behavior issue: inspect JS behavior for #more-stories-section and .mobile-edge-pad
+
+  KNOWN CROSS-MODULE RULE:
+  - .more-stories-back-button is visually owned by MODULE 11 scroll-home.
+  - In the original inline CSS, .more-stories-back-button { display: none; } lived inside the MODULE 07 mobile edge pad media block.
+  - This rule is intentionally kept in ./css/modules/07-mobile-edge-pad.css during Step 6G to preserve cascade and avoid gesture-flow changes.
+  - Do not move/split this rule until the mobile gesture/debug step is explicitly requested.
+
+  IMMUTABLE / SAFETY RULES:
+  - Do not rename mobile edge pad selectors unless the matching HTML and JS are explicitly updated.
+  - Do not move booking, contact, policy, mobile search, scroll-home composite, or tour popup CSS into this file.
+  - Preserve original selector names, original values, and cascade order.
+  - This extraction is mechanical-only: original selector names and CSS values are preserved.
+===================================================== */
+
+.mobile-edge-pad {
+  display: none; 
+}
+@media (max-width:768px) {
+  .mobile-edge-pad {
+    position: fixed; 
+    left: 50%; 
+    bottom: calc(env(safe-area-inset-bottom, 0px) - 11.5px); 
+    z-index: 1004; 
+    width: 360px; 
+    height: 30px; 
+    padding: 0; 
+    border: 0; 
+    border-radius: 999px; 
+    background: rgba(255, 255, 255, 0.58); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    box-shadow: 0 -2px 18px rgba(255, 255, 255, 0.22), 0 10px 30px rgba(0, 0, 0, 0.24); 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    touch-action: none; 
+    -webkit-tap-highlight-color: transparent; 
+    transform: translate3d(-50%, 0, 0); 
+    opacity: 1; 
+    visibility: visible; 
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; 
+  }
+  .mobile-edge-pad::before {
+    content: ""; 
+    width: 54px; 
+    height: 5px; 
+    border-radius: 999px; 
+    background: rgba(5, 6, 8, 0.32); 
+  }
+  .mobile-edge-pad.is-hidden {
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; 
+    transform: translate3d(-50%, 10px, 0); 
+  }
+  .mobile-edge-pad:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.86); 
+    outline-offset: 5px; 
+  }
+  .more-stories-back-button {
+    display: none; 
+  }
+}
