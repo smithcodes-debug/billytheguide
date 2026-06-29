@@ -3,6 +3,20 @@
   display: none;
 }
 
+@keyframes zoomPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 1024px) {
   html.mobile-home-feed-snap,
   body.mobile-home-feed-snap {
@@ -11,7 +25,6 @@
     overscroll-behavior-y: contain;
   }
 
-  body.mobile-home-feed-snap .hero,
   body.mobile-home-feed-snap .more-stories-section.is-mobile-home-feed-ready {
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -31,10 +44,7 @@
       linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%);
   }
 
-  .more-stories-section.is-mobile-home-feed-ready::before {
-    display: none;
-  }
-
+  .more-stories-section.is-mobile-home-feed-ready::before,
   .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
     display: none;
   }
@@ -121,21 +131,6 @@
     height: 0;
   }
 
-  .mobile-home-feed-card-empty {
-    background: rgba(255, 255, 255, 0.72);
-  }
-
-  .mobile-home-feed-card-empty::after {
-    content: "";
-    position: absolute;
-    inset: 18px;
-    border-radius: 30px;
-    background:
-      radial-gradient(circle at 72% 70%, rgba(159, 223, 229, 0.18), transparent 34%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.18));
-    pointer-events: none;
-  }
-
   .mobile-home-feed-card-01 {
     background: #06111f;
     color: #ffffff;
@@ -159,8 +154,7 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background:
-      linear-gradient(180deg, rgba(5, 6, 8, 0.18) 0%, rgba(5, 6, 8, 0.42) 42%, rgba(5, 6, 8, 0.78) 100%);
+    background: linear-gradient(180deg, rgba(5, 6, 8, 0.18) 0%, rgba(5, 6, 8, 0.42) 42%, rgba(5, 6, 8, 0.78) 100%);
     pointer-events: none;
   }
 
@@ -210,6 +204,20 @@
     text-align: center;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.66);
     transform: none;
+  }
+
+  .title-mobile-line,
+  .title-mobile-line-1,
+  .title-mobile-line-2 {
+    display: block;
+  }
+
+  .title-mobile-line-1 {
+    text-transform: lowercase;
+  }
+
+  .title-mobile-line-2 {
+    text-transform: none;
   }
 
   .mobile-home-feed-card-01 .story {
@@ -377,11 +385,6 @@
     gap: 10px;
   }
 
-  .mobile-home-feed .more-contact-platforms {
-    justify-content: center;
-    gap: 10px;
-  }
-
   .mobile-home-feed-handle {
     position: fixed;
     left: 50%;
@@ -413,10 +416,7 @@
       linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%);
   }
 
-  .more-stories-section.is-mobile-home-feed-ready::before {
-    display: none;
-  }
-
+  .more-stories-section.is-mobile-home-feed-ready::before,
   .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
     display: none;
   }
@@ -451,10 +451,6 @@
     scroll-snap-align: none;
     scroll-snap-stop: normal;
     overflow: visible;
-  }
-
-  .mobile-home-feed-panel-empty {
-    display: none;
   }
 
   .mobile-home-feed-card {
@@ -508,8 +504,7 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    background:
-      linear-gradient(180deg, rgba(5, 6, 8, 0.14) 0%, rgba(5, 6, 8, 0.42) 46%, rgba(5, 6, 8, 0.76) 100%);
+    background: linear-gradient(180deg, rgba(5, 6, 8, 0.14) 0%, rgba(5, 6, 8, 0.42) 46%, rgba(5, 6, 8, 0.76) 100%);
     pointer-events: none;
   }
 
@@ -558,9 +553,9 @@
     transform: none;
   }
 
-  .mobile-home-feed .more-stories-kicker {
-    margin-bottom: 18px;
-    color: rgba(8, 63, 70, 0.62);
+  .mobile-home-feed .more-stories-kicker,
+  .mobile-home-feed .more-stories-title,
+  .mobile-home-feed .more-stories-intro {
     text-align: center;
   }
 
@@ -569,7 +564,6 @@
     color: #101820;
     font-size: clamp(30px, 8vw, 50px);
     line-height: 1.03;
-    text-align: center;
     letter-spacing: -0.045em;
   }
 
@@ -578,7 +572,6 @@
     color: rgba(16, 20, 24, 0.64);
     font-size: clamp(15px, 3.8vw, 20px);
     line-height: 1.48;
-    text-align: center;
   }
 
   .mobile-home-feed .more-service-card {
@@ -614,41 +607,9 @@
     font-size: 16px;
   }
 
-  .mobile-home-feed .more-accordion-item {
-    border: 0;
-  }
-
-  .mobile-home-feed .more-accordion-summary {
-    padding: 0 0 14px;
-    color: #101820;
-    font-size: clamp(24px, 7vw, 42px);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-    cursor: default;
-  }
-
-  .mobile-home-feed .more-accordion-summary::after {
-    display: none;
-  }
-
-  .mobile-home-feed .more-accordion-panel {
-    padding: 0;
-    color: rgba(16, 20, 24, 0.66);
-    font-size: 14px;
-    line-height: 1.48;
-    overflow: visible;
-  }
-
-  .mobile-home-feed .more-faq-list {
-    gap: 10px;
-  }
-
-  .mobile-home-feed .more-contact-platforms {
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .mobile-home-feed-handle {
+  .mobile-home-feed .more-accordion-summary::after,
+  .mobile-home-feed-handle,
+  .mobile-home-feed-panel-empty {
     display: none;
   }
 }
@@ -790,6 +751,31 @@
     height: clamp(58px, 11.5svh, 100px);
     margin-bottom: clamp(4px, 1svh, 7px);
   }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 180ms ease, visibility 180ms ease;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-last {
+    height: 100vh;
+    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-last {
+    height: min(90svh, 100%);
+    max-height: 90svh;
+    align-self: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
+    height: 100%;
+    min-height: 0;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -857,32 +843,5 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-  }
-}
-
-@media (max-width: 1024px) {
-  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 180ms ease, visibility 180ms ease;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-last {
-    height: 100vh;
-    height: 100svh;
-    min-height: 100vh;
-    min-height: 100svh;
-    overflow: hidden;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-last {
-    height: min(90svh, 100%);
-    max-height: 90svh;
-    align-self: center;
-  }
-
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
-    height: 100%;
-    min-height: 0;
   }
 }
