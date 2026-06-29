@@ -1,5 +1,4 @@
 /* ✅ NEW: MODULE 13 — SITE FOOTER */
-
 /* ✅ UPDATED: thin SVG fixed bottom dock */
 :root {
   --site-footer-dock-height: 44px; /* ✅ UPDATED: thin dock */
@@ -11,12 +10,12 @@
 }
 
 body {
-  padding-bottom: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
+  padding-bottom: 0; /* ✅ UPDATED: footer must not reserve space on main hero */
 }
 
-/* ✅ UPDATED: remove footer reserve gap on cards 1-8 */
-body.mobile-home-feed-snap:not(.is-feed-ending) {
-  padding-bottom: 0;
+body.is-feed-ending,
+body.is-home-reading-mode {
+  padding-bottom: calc(var(--site-footer-dock-height) + env(safe-area-inset-bottom, 0px)); /* ✅ UPDATED */
 }
 
 .site-footer {
@@ -31,9 +30,15 @@ body.mobile-home-feed-snap:not(.is-feed-ending) {
   padding: 0;
   background: transparent;
   color: #101820;
-  transform: translateX(-50%); /* ✅ UPDATED */
+  transform: translate3d(-50%, 110%, 0); /* ✅ UPDATED: hidden by default */
+  opacity: 0; /* ✅ UPDATED: hidden by default */
+  visibility: hidden; /* ✅ UPDATED: hidden by default */
   pointer-events: none; /* ✅ UPDATED */
   box-sizing: border-box;
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease,
+    transform 260ms cubic-bezier(.2,.8,.2,1);
 }
 
 .site-footer-inner {
@@ -152,28 +157,15 @@ body.mobile-home-feed-snap:not(.is-feed-ending) {
   transform: translateY(-10px); /* ✅ UPDATED */
 }
 
-/* ✅ UPDATED: FOOTER VISIBILITY STATE — HERO + CARD 09 ONLY */
-html.mobile-home-feed-snap:not(.is-feed-ending) .site-footer,
-body.mobile-home-feed-snap:not(.is-feed-ending) .site-footer {
-  opacity: 0;
-  visibility: hidden;
-  transform: translate3d(-50%, 110%, 0);
-  pointer-events: none;
-}
-
+/* ✅ UPDATED: footer hidden by default, only visible in ending/reading mode */
 html.is-feed-ending .site-footer,
-body.is-feed-ending .site-footer {
+body.is-feed-ending .site-footer,
+html.is-home-reading-mode .site-footer,
+body.is-home-reading-mode .site-footer {
   opacity: 1;
   visibility: visible;
   transform: translate3d(-50%, 0, 0);
   pointer-events: none;
-}
-
-.site-footer {
-  transition:
-    opacity 220ms ease,
-    visibility 220ms ease,
-    transform 260ms cubic-bezier(.2,.8,.2,1);
 }
 
 @media (min-width: 769px), (orientation: landscape) {
