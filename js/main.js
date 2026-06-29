@@ -1,14 +1,10 @@
-import { initGesture } from './ui/gesture.js';
 import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js';
 import { initContactPopup } from './ui/contact-popup.js';
 import { initPolicyPopup } from './ui/policy-popup.js';
 import { initTourCarousel } from './ui/tour-carousel.js';
-import { initStoryExpand } from './ui/story-expand.js';
 import { initSearchPopup } from './ui/search-popup.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initSiteFooter } from './modules/site-footer.js';
-import { initDebugSiteReset } from './modules/debug-site-reset.js';
-
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
 
@@ -403,19 +399,16 @@ function safeInit(initFn, initName) {
 
 function initHome() {}
 
-safeInit(initGesture, 'initGesture');
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initHomePopup, 'initHomePopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');
 safeInit(initTourCarousel, 'initTourCarousel');
-safeInit(initStoryExpand, 'initStoryExpand');
 safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
 safeInit(initSearchPopup, 'initSearchPopup');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
-safeInit(initDebugSiteReset, 'initDebugSiteReset');
 safeInit(initHome, 'initHome');
 
 markAppReadyOnNextPaint();

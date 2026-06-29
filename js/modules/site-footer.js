@@ -1,7 +1,6 @@
-/* ✅ NEW: MODULE 13 — SITE FOOTER */
-
 export function initSiteFooter() {
   const footer = document.querySelector('.site-footer');
+
   if (!footer || footer.dataset.siteFooterInitialized === 'true') return;
 
   const categoryButton = footer.querySelector('[data-footer-category]');
@@ -13,17 +12,17 @@ export function initSiteFooter() {
 
   footer.dataset.siteFooterInitialized = 'true';
 
-  if (categoryButton) { /* ✅ UPDATED */
+  if (categoryButton) {
     categoryButton.addEventListener('click', function () {
       window.dispatchEvent(new CustomEvent('billy:open-home-tour-popup'));
     });
   }
 
-  if (shortsButton) { /* ✅ UPDATED */
+  if (shortsButton) {
     shortsButton.addEventListener('click', function () {
-      if (moreStoriesSection) {
-        moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (!moreStoriesSection) return;
+
+      moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -33,13 +32,13 @@ export function initSiteFooter() {
     });
   }
 
-  if (viewedButton) { /* ✅ UPDATED: temporary route until viewed-products module exists */
+  if (viewedButton) {
     viewedButton.addEventListener('click', function () {
       window.location.href = './phu-quoc-tip-and-trick.html';
     });
   }
 
-  if (storeButton) { /* ✅ UPDATED: placeholder until official store/map link is ready */
+  if (storeButton) {
     storeButton.addEventListener('click', function () {
       window.dispatchEvent(new CustomEvent('billy:open-contact-popup'));
     });
