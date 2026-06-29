@@ -1,32 +1,125 @@
-export function initNavigation() { /* ✅ UPDATED */
-  document.querySelectorAll('[data-nav]').forEach((btn) => { /* ✅ UPDATED */
-    btn.addEventListener('click', () => { /* ✅ UPDATED */
-      const url = btn.getAttribute('data-nav'); /* ✅ UPDATED */
-      if (url) window.location.href = url; /* ✅ UPDATED */
-    });
-  });
-}
+export function initNavigation() {
+  const HOME_HASH = '#home';
+  const HOME_PAGE = 'index.html';
+  const LOGO_SELECTOR = '#logoTrigger, .logo';
+  const HERO_SELECTOR = '.hero';
 
-export function initSnorkelingCardNavigation() { /* ✅ NEW */
-  const snorkelingCards = document.querySelectorAll('.popup-note-item[data-tour="snorkeling"]'); /* ✅ NEW */
-  const snorkelingLandingUrl = 'coral-snorkeling-phu-quoc.html'; /* ✅ NEW */
-
-  if (!snorkelingCards.length) return; /* ✅ REQUIRED FIX */
-
-  function goToSnorkelingPage(event) { /* ✅ NEW */
-    event.preventDefault(); /* ✅ NEW */
-    window.location.href = snorkelingLandingUrl; /* ✅ NEW */
+  function isHomePage() {
+    const path = window.location.pathname;
+    return (
+      path === '/' ||
+      path.endsWith('/') ||
+      path.endsWith('/index.html') ||
+      path.endsWith('index.html')
+    );
   }
 
-  snorkelingCards.forEach(function (card) { /* ✅ NEW */
-    card.addEventListener('click', goToSnorkelingPage); /* ✅ NEW */
+  function clearHomeConflictState() {
+    document.documentElement.classList.remove(
+      'is-feed-ending',
+      'mobile-home-feed-snap',
+      'is-home-reading-mode',
+      'mobile-popup-scroll-lock',
+      'home-scroll-locked'
+    );
 
-    card.addEventListener('keydown', function (event) { /* ✅ NEW */
-      if (event.key === 'Enter' || event.key === ' ') { /* ✅ NEW */
-        goToSnorkelingPage(event); /* ✅ NEW */
+    document.body.classList.remove(
+      'is-feed-ending',
+      'mobile-home-feed-snap',
+      'is-home-reading-mode',
+      'mobile-popup-scroll-lock',
+      'home-scroll-locked'
+    );
+
+    document.querySelectorAll('.is-open').forEach(function (node) {
+      node.classList.remove('is-open');
+      if (node.hasAttribute('aria-hidden')) {
+        node.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  function scrollToHero(behavior) {
+    const hero = document.querySelector(HERO_SELECTOR);
+
+    clearHomeConflictState();
+
+    if (hero) {
+      hero.scrollIntoView({
+        behavior: behavior || 'smooth',
+        block: 'start'
+      });
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: behavior || 'smooth'
+    });
+  }
+
+  function goToHomeHero() {
+    if (isHomePage()) {
+      scrollToHero('smooth');
+      return;
+    }
+
+    window.location.href = HOME_PAGE + HOME_HASH;
+  }
+
+  document.querySelectorAll('[data-nav]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const url = btn.getAttribute('data-nav');
+      if (url) window.location.href = url;
+    });
+  });
+
+  document.querySelectorAll(LOGO_SELECTOR).forEach(function (logo) {
+    logo.addEventListener('click', function (event) {
+      event.preventDefault();
+      goToHomeHero();
+    });
+
+    logo.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        goToHomeHero();
       }
     });
   });
 
-  console.log('Snorkeling card navigation initialized'); /* ✅ NEW */
+  if (isHomePage() && window.location.hash === HOME_HASH) {
+    window.setTimeout(function () {
+      scrollToHero('auto');
+
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }, 0);
+  }
+}
+
+export function initSnorkelingCardNavigation() {
+  const snorkelingCards = document.querySelectorAll('.popup-note-item[data-tour="snorkeling"]');
+  const snorkelingLandingUrl = 'coral-snorkeling-phu-quoc.html';
+
+  if (!snorkelingCards.length) return;
+
+  function goToSnorkelingPage(event) {
+    event.preventDefault();
+    window.location.href = snorkelingLandingUrl;
+  }
+
+  snorkelingCards.forEach(function (card) {
+    card.addEventListener('click', goToSnorkelingPage);
+
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        goToSnorkelingPage(event);
+      }
+    });
+  });
+
+  console.log('Snorkeling card navigation initialized');
 }
