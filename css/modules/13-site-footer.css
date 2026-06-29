@@ -30,9 +30,9 @@ body.is-home-reading-mode {
   padding: 0;
   background: transparent;
   color: #101820;
-  transform: translate3d(-50%, 110%, 0); /* ✅ UPDATED: hidden by default */
-  opacity: 0; /* ✅ UPDATED: hidden by default */
-  visibility: hidden; /* ✅ UPDATED: hidden by default */
+  transform: translate3d(-50%, 0, 0); /* ✅ UPDATED: footer visible on main hero */
+  opacity: 1; /* ✅ UPDATED: footer visible on main hero */
+  visibility: visible; /* ✅ UPDATED: footer visible on main hero */
   pointer-events: none; /* ✅ UPDATED */
   box-sizing: border-box;
   transition:
@@ -157,7 +157,7 @@ body.is-home-reading-mode {
   transform: translateY(-10px); /* ✅ UPDATED */
 }
 
-/* ✅ UPDATED: footer hidden by default, only visible in ending/reading mode */
+/* ✅ UPDATED: footer visible on main hero and kept visible in ending/reading mode */
 html.is-feed-ending .site-footer,
 body.is-feed-ending .site-footer,
 html.is-home-reading-mode .site-footer,
