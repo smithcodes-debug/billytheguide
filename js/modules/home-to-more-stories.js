@@ -5,6 +5,7 @@ const OPEN_MORE_STORIES_EVENT = 'billy:open-more-stories';
 const DEFAULT_HANDOFF_LOCK_MS = 520;
 
 let handoffTimer = 0;
+let handoffRetryTimers = [];
 
 function setHeroExitedState(enabled) {
   document.documentElement.classList.toggle(HERO_EXITED_CLASS, enabled);
@@ -14,6 +15,13 @@ function setHeroExitedState(enabled) {
 function clearScrollLocks() {
   document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS, MOBILE_POPUP_SCROLL_LOCK_CLASS);
   document.body.classList.remove(HOME_SCROLL_LOCK_CLASS, MOBILE_POPUP_SCROLL_LOCK_CLASS);
+}
+
+function clearHandoffRetryTimers() {
+  handoffRetryTimers.forEach(function (timerId) {
+    window.clearTimeout(timerId);
+  });
+  handoffRetryTimers = [];
 }
 
 function getMoreStoriesSection() {
@@ -31,10 +39,34 @@ function focusMoreStoriesTitle() {
 }
 
 /* ✅ UPDATED */
+function getTargetTop(targetSection) {
+  const rect = targetSection.getBoundingClientRect();
+  const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+
+  return Math.max(0, Math.round(rect.top + currentScrollY));
+}
+
+/* ✅ UPDATED */
 function scrollToMoreStories(targetSection, behavior) {
-  targetSection.scrollIntoView({
-    behavior: behavior || 'smooth',
-    block: 'start'
+  const top = getTargetTop(targetSection);
+
+  window.scrollTo({
+    top: top,
+    left: 0,
+    behavior: behavior || 'auto'
+  });
+}
+
+/* ✅ UPDATED */
+function runStableMoreStoriesScroll(targetSection, behavior) {
+  scrollToMoreStories(targetSection, behavior);
+
+  [48, 120, 260].forEach(function (delay) {
+    const timerId = window.setTimeout(function () {
+      scrollToMoreStories(targetSection, 'auto');
+    }, delay);
+
+    handoffRetryTimers.push(timerId);
   });
 }
 
@@ -60,6 +92,7 @@ function resetHeroOnFreshPageLoad() {
 export function resetHeroToMoreStoriesState() {
   window.clearTimeout(handoffTimer);
   handoffTimer = 0;
+  clearHandoffRetryTimers();
   setHeroExitedState(false);
 }
 
@@ -75,18 +108,23 @@ export function openMoreStoriesHandoff(options) {
   if (!targetSection) return;
 
   window.clearTimeout(handoffTimer);
+  handoffTimer = 0;
+  clearHandoffRetryTimers();
   clearScrollLocks();
 
   if (beforeScroll) {
     beforeScroll();
   }
 
+  /* ✅ UPDATED */
   setHeroExitedState(true);
 
   window.requestAnimationFrame(function () {
-    scrollToMoreStories(targetSection, behavior);
+    runStableMoreStoriesScroll(targetSection, behavior);
 
     handoffTimer = window.setTimeout(function () {
+      scrollToMoreStories(targetSection, 'auto');
+
       if (shouldFocusTitle) {
         focusMoreStoriesTitle();
       }
@@ -100,5 +138,4 @@ export function openMoreStoriesHandoff(options) {
   });
 }
 
-/* ✅ UPDATED */
 window.addEventListener('pageshow', resetHeroOnFreshPageLoad);

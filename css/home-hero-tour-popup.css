@@ -724,8 +724,23 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
   }
 }
 
+/* ✅ UPDATED: collapse Hero during H1 → H2 handoff to prevent leftover Hero strip */
 html.is-hero-exited .hero,
 body.is-hero-exited .hero {
+  display: none;
+  min-height: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
   visibility: hidden;
   pointer-events: none;
+}
+
+html.is-hero-exited .hero::before,
+html.is-hero-exited .hero::after,
+body.is-hero-exited .hero::before,
+body.is-hero-exited .hero::after {
+  display: none;
+  content: none;
 }
