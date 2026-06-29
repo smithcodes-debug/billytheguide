@@ -1,11 +1,17 @@
 const MOBILE_EDGE_QUERY = '(max-width: 768px)';
 const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked';
+const HERO_EXITED_CLASS = 'is-hero-exited';
 const SWIPE_UP_THRESHOLD = 34;
-const JUMP_LOCK_MS = 520;
+const JUMP_LOCK_MS = 620;
 
 function unlockHomeScroll() {
   document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS);
   document.body.classList.remove(HOME_SCROLL_LOCK_CLASS);
+}
+
+function setHeroExitedState(enabled) {
+  document.documentElement.classList.toggle(HERO_EXITED_CLASS, enabled);
+  document.body.classList.toggle(HERO_EXITED_CLASS, enabled);
 }
 
 export function initMobileEdgePad() {
@@ -31,14 +37,33 @@ export function initMobileEdgePad() {
     return Boolean(searchPopup && searchPopup.classList.contains('is-open'));
   }
 
+  function getTargetTop() {
+    return Math.max(0, Math.round(targetSection.getBoundingClientRect().top + window.scrollY));
+  }
+
+  function forceScrollToMoreStories() {
+    window.scrollTo({
+      top: getTargetTop(),
+      left: 0,
+      behavior: 'auto'
+    });
+  }
+
+  function updateHeroExitedByPosition() {
+    if (isJumping) return;
+
+    const heroRect = hero.getBoundingClientRect();
+    const targetRect = targetSection.getBoundingClientRect();
+
+    const shouldExitHero = targetRect.top <= 2 || heroRect.bottom <= 2;
+
+    setHeroExitedState(shouldExitHero);
+  }
+
   function updateEdgePadVisibility() {
     const shouldHide = !isMobile() || !heroIsVisible || isSearchOpen();
 
     edgePad.classList.toggle('is-hidden', shouldHide);
-  }
-
-  function getTargetTop() {
-    return Math.max(0, Math.round(targetSection.getBoundingClientRect().top + window.scrollY));
   }
 
   function goToMoreStories() {
@@ -46,21 +71,20 @@ export function initMobileEdgePad() {
 
     isJumping = true;
     unlockHomeScroll();
+    setHeroExitedState(true);
     edgePad.classList.add('is-hidden');
 
     window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
-        window.scrollTo({
-          top: getTargetTop(),
-          left: 0,
-          behavior: 'auto'
-        });
+      forceScrollToMoreStories();
 
-        window.setTimeout(function () {
-          isJumping = false;
-          updateEdgePadVisibility();
-        }, JUMP_LOCK_MS);
-      });
+      window.setTimeout(forceScrollToMoreStories, 80);
+      window.setTimeout(forceScrollToMoreStories, 180);
+      window.setTimeout(function () {
+        forceScrollToMoreStories();
+        isJumping = false;
+        updateHeroExitedByPosition();
+        updateEdgePadVisibility();
+      }, JUMP_LOCK_MS);
     });
   }
 
@@ -119,7 +143,12 @@ export function initMobileEdgePad() {
   }
 
   mobileMedia.addEventListener('change', updateEdgePadVisibility);
-  window.addEventListener('scroll', updateEdgePadVisibility, { passive: true });
 
+  window.addEventListener('scroll', function () {
+    updateHeroExitedByPosition();
+    updateEdgePadVisibility();
+  }, { passive: true });
+
+  updateHeroExitedByPosition();
   updateEdgePadVisibility();
 }

@@ -762,3 +762,9 @@ body.is-snorkeling-navigating .popup-backdrop.is-open {
     outline-offset: 4px;
   }
 }
+/* ✅ UPDATED: Strong Hero exit guard for Safari/Chrome iOS */
+html.is-hero-exited .hero,
+body.is-hero-exited .hero {
+  visibility: hidden;
+  pointer-events: none;
+}
