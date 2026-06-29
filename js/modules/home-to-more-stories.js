@@ -13,14 +13,22 @@ function setHeroExitedState(enabled) {
 }
 
 function clearScrollLocks() {
-  document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS, MOBILE_POPUP_SCROLL_LOCK_CLASS);
-  document.body.classList.remove(HOME_SCROLL_LOCK_CLASS, MOBILE_POPUP_SCROLL_LOCK_CLASS);
+  document.documentElement.classList.remove(
+    HOME_SCROLL_LOCK_CLASS,
+    MOBILE_POPUP_SCROLL_LOCK_CLASS
+  );
+
+  document.body.classList.remove(
+    HOME_SCROLL_LOCK_CLASS,
+    MOBILE_POPUP_SCROLL_LOCK_CLASS
+  );
 }
 
 function clearHandoffRetryTimers() {
   handoffRetryTimers.forEach(function (timerId) {
     window.clearTimeout(timerId);
   });
+
   handoffRetryTimers = [];
 }
 
@@ -38,15 +46,17 @@ function focusMoreStoriesTitle() {
   }, 120);
 }
 
-/* ✅ UPDATED */
 function getTargetTop(targetSection) {
   const rect = targetSection.getBoundingClientRect();
-  const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+  const currentScrollY =
+    window.scrollY ||
+    window.pageYOffset ||
+    document.documentElement.scrollTop ||
+    0;
 
   return Math.max(0, Math.round(rect.top + currentScrollY));
 }
 
-/* ✅ UPDATED */
 function scrollToMoreStories(targetSection, behavior) {
   const top = getTargetTop(targetSection);
 
@@ -57,7 +67,6 @@ function scrollToMoreStories(targetSection, behavior) {
   });
 }
 
-/* ✅ UPDATED */
 function runStableMoreStoriesScroll(targetSection, behavior) {
   scrollToMoreStories(targetSection, behavior);
 
@@ -70,7 +79,6 @@ function runStableMoreStoriesScroll(targetSection, behavior) {
   });
 }
 
-/* ✅ UPDATED */
 function resetHeroOnFreshPageLoad() {
   if (window.location.hash) return;
 
@@ -92,6 +100,7 @@ function resetHeroOnFreshPageLoad() {
 export function resetHeroToMoreStoriesState() {
   window.clearTimeout(handoffTimer);
   handoffTimer = 0;
+
   clearHandoffRetryTimers();
   setHeroExitedState(false);
 }
@@ -99,16 +108,21 @@ export function resetHeroToMoreStoriesState() {
 export function openMoreStoriesHandoff(options) {
   const config = options || {};
   const targetSection = config.targetSection || getMoreStoriesSection();
-  const beforeScroll = typeof config.beforeScroll === 'function' ? config.beforeScroll : null;
-  const afterScroll = typeof config.afterScroll === 'function' ? config.afterScroll : null;
+  const beforeScroll =
+    typeof config.beforeScroll === 'function' ? config.beforeScroll : null;
+  const afterScroll =
+    typeof config.afterScroll === 'function' ? config.afterScroll : null;
   const shouldFocusTitle = config.focusTitle === true;
-  const lockMs = Number.isFinite(config.lockMs) ? config.lockMs : DEFAULT_HANDOFF_LOCK_MS;
+  const lockMs = Number.isFinite(config.lockMs)
+    ? config.lockMs
+    : DEFAULT_HANDOFF_LOCK_MS;
   const behavior = config.behavior || 'smooth';
 
   if (!targetSection) return;
 
   window.clearTimeout(handoffTimer);
   handoffTimer = 0;
+
   clearHandoffRetryTimers();
   clearScrollLocks();
 
@@ -116,7 +130,6 @@ export function openMoreStoriesHandoff(options) {
     beforeScroll();
   }
 
-  /* ✅ UPDATED */
   setHeroExitedState(true);
 
   window.requestAnimationFrame(function () {
