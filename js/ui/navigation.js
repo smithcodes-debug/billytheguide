@@ -130,4 +130,3 @@ export function initSnorkelingCardNavigation() {
 
   console.log('Snorkeling card navigation initialized');
 }
-``
