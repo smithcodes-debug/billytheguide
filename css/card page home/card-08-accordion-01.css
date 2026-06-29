@@ -91,19 +91,18 @@
   order: 3;
 }
 
-/* ✅ UPDATED: push whole Leave no trace card content down, reduce bottom gap */
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .mobile-home-feed-card-scroll {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
   justify-content: flex-end;
   padding-bottom: 10px;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
   width: 100%;
   margin-top: auto;
   margin-bottom: 0;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-summary {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
   margin-top: 22px;
   padding-bottom: 0;
 }
