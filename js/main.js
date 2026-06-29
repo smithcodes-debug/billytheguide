@@ -119,6 +119,7 @@ function initMobileHomeFeed() {
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
+  const heroSection = document.querySelector('.hero');
 
   if (!homeSection || !sourceInner) return;
   if (homeSection.querySelector('.' + FEED_CLASS)) return;
@@ -147,6 +148,63 @@ function initMobileHomeFeed() {
     });
 
     return clone;
+  }
+
+  function appendCloneIfExists(parent, sourceNode, extraClassName) {
+    if (!sourceNode) return;
+
+    const clone = cloneForMobileFeed(sourceNode);
+
+    if (extraClassName) {
+      clone.classList.add(extraClassName);
+    }
+
+    parent.appendChild(clone);
+  }
+
+  function createMainHeroNode() {
+    const heroNode = document.createElement('div');
+    const tagline = heroSection ? heroSection.querySelector('.hero-guide-tagline') : null;
+    const title = heroSection ? heroSection.querySelector('.title') : null;
+    const story = heroSection ? heroSection.querySelector('.story') : null;
+    const ctaRow = heroSection ? heroSection.querySelector('.cta-row') : null;
+
+    heroNode.className = 'mobile-home-feed-main-hero';
+
+    appendCloneIfExists(heroNode, tagline, 'mobile-home-feed-main-hero-tagline');
+    appendCloneIfExists(heroNode, title, 'mobile-home-feed-main-hero-title');
+    appendCloneIfExists(heroNode, story, 'mobile-home-feed-main-hero-story');
+    appendCloneIfExists(heroNode, ctaRow, 'mobile-home-feed-main-hero-cta');
+
+    return heroNode;
+  }
+
+  function createIntroNode() {
+    const intro = document.createElement('div');
+    const kicker = sourceInner.querySelector('.more-stories-kicker');
+    const title = sourceInner.querySelector('.more-stories-title');
+    const quote = sourceInner.querySelector('.more-stories-quote');
+    const copy = sourceInner.querySelector('.more-stories-intro');
+    const notes = sourceInner.querySelector('.more-stories-notes');
+
+    if (kicker) intro.appendChild(cloneForMobileFeed(kicker));
+    if (title) intro.appendChild(cloneForMobileFeed(title));
+    if (quote) intro.appendChild(cloneForMobileFeed(quote));
+    if (copy) intro.appendChild(cloneForMobileFeed(copy));
+
+    if (notes) {
+      const notesClone = cloneForMobileFeed(notes);
+
+      notesClone.classList.add('mobile-home-feed-card-02-notes');
+
+      notesClone.querySelectorAll('.more-stories-note').forEach(function (note) {
+        note.classList.add('mobile-home-feed-card-02-note');
+      });
+
+      intro.appendChild(notesClone);
+    }
+
+    return intro;
   }
 
   function createContentPanel(sourceNode, cardIndex, totalCards) {
@@ -184,33 +242,6 @@ function initMobileHomeFeed() {
     return panel;
   }
 
-  function createIntroNode() {
-    const intro = document.createElement('div');
-    const kicker = sourceInner.querySelector('.more-stories-kicker');
-    const title = sourceInner.querySelector('.more-stories-title');
-    const quote = sourceInner.querySelector('.more-stories-quote');
-    const copy = sourceInner.querySelector('.more-stories-intro');
-    const notes = sourceInner.querySelector('.more-stories-notes');
-
-    if (kicker) intro.appendChild(cloneForMobileFeed(kicker));
-    if (title) intro.appendChild(cloneForMobileFeed(title));
-    if (quote) intro.appendChild(cloneForMobileFeed(quote));
-    if (copy) intro.appendChild(cloneForMobileFeed(copy));
-
-    if (notes) {
-      const notesClone = cloneForMobileFeed(notes);
-      notesClone.classList.add('mobile-home-feed-card-01-notes');
-
-      notesClone.querySelectorAll('.more-stories-note').forEach(function (note) {
-        note.classList.add('mobile-home-feed-card-01-note');
-      });
-
-      intro.appendChild(notesClone);
-    }
-
-    return intro;
-  }
-
   const feed = document.createElement('div');
   const handle = document.createElement('span');
   const contentNodes = [];
@@ -224,6 +255,7 @@ function initMobileHomeFeed() {
   handle.className = 'mobile-home-feed-handle';
   handle.setAttribute('aria-hidden', 'true');
 
+  contentNodes.push(createMainHeroNode());
   contentNodes.push(createIntroNode());
 
   sourceInner.querySelectorAll('.more-service-card').forEach(function (card) {
@@ -238,6 +270,7 @@ function initMobileHomeFeed() {
 
   feedNodes.forEach(function (node, index) {
     const panel = createContentPanel(node, index, feedNodes.length);
+
     feed.appendChild(panel);
 
     if (index === feedNodes.length - 1) {
@@ -365,6 +398,7 @@ function initHome() {}
 
 safeInit(initGesture, 'initGesture');
 safeInit(initNavigation, 'initNavigation');
+safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initHomePopup, 'initHomePopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');
@@ -373,7 +407,6 @@ safeInit(initStoryExpand, 'initStoryExpand');
 safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
 safeInit(initAvailabilityPopup, 'initAvailabilityPopup');
 safeInit(initSearchPopup, 'initSearchPopup');
-safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
 safeInit(initDebugSiteReset, 'initDebugSiteReset');
