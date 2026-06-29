@@ -212,9 +212,9 @@ header {
 
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
+  min-height: calc(100vh - 20px);
+  min-height: calc(100svh - 20px);
+  min-height: calc(100dvh - 20px);
   padding: 128px 28px 28px;
   display: flex;
   flex-direction: column;
