@@ -4,7 +4,6 @@ import { initContactPopup } from './ui/contact-popup.js';
 import { initPolicyPopup } from './ui/policy-popup.js';
 import { initTourCarousel } from './ui/tour-carousel.js';
 import { initStoryExpand } from './ui/story-expand.js';
-import { initAvailabilityPopup } from './modules/booking.js';
 import { initSearchPopup } from './ui/search-popup.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initSiteFooter } from './modules/site-footer.js';
@@ -217,9 +216,11 @@ function initMobileHomeFeed() {
     panel.className =
       'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' +
       cardNumber;
+
     card.className =
       'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' +
       cardNumber;
+
     scroll.className =
       'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' +
       cardNumber;
@@ -340,6 +341,7 @@ function initMobileHomeFeed() {
     const lastPanelObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!isMobileTabletViewport()) return;
+
         setFeedEndingMode(entry.intersectionRatio >= LAST_CARD_VISIBLE_RATIO);
       });
     }, {
@@ -405,7 +407,6 @@ safeInit(initContactPopup, 'initContactPopup');
 safeInit(initTourCarousel, 'initTourCarousel');
 safeInit(initStoryExpand, 'initStoryExpand');
 safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
-safeInit(initAvailabilityPopup, 'initAvailabilityPopup');
 safeInit(initSearchPopup, 'initSearchPopup');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
