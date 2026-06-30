@@ -78,6 +78,18 @@
     overflow: hidden;
     box-sizing: border-box;
   }
+  /* ✅ REQUIRED FIX: Cards 02-09 use full mobile feed height when header/footer are hidden */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-02,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-03,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-04,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-05,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-06,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-07,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-08,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-09 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
   .mobile-home-feed-panel-empty {
     display: none;
@@ -518,6 +530,12 @@
     height: min(90svh, 100%);
     max-height: 90svh;
     align-self: center;
+  }
+  /* ✅ REQUIRED FIX: Card 09 should stretch inside the new 10px panel gaps */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-09 .mobile-home-feed-card-last {
+    height: 100%;
+    max-height: none;
+    align-self: stretch;
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
