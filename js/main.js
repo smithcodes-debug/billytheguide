@@ -529,6 +529,7 @@ function initMobileHomeFeed() {
       isSnapActivated = false;
       setFeedEndingMode(false);
       applySnapStateIfNeeded();
+      setMobileFeedHeaderState('01');
       scheduleActiveMobileFeedCardSync();
       return;
     }

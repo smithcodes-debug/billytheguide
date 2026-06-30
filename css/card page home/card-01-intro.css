@@ -594,6 +594,7 @@
   }
 }
 
+/* ✅ REQUIRED FIX: header visibility follows mobile feed state on every shell width */
 body.is-mobile-feed-header-hidden header {
   opacity: 0 !important;
   visibility: hidden !important;
