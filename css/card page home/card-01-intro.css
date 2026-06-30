@@ -593,8 +593,9 @@
     box-sizing: border-box;
   }
 }
+
 @media (max-width: 1024px) {
-  /* ✅ NEW: header chỉ hiện ở Card 01 Main Hero và Card 09 FAQ */
+  /* ✅ UPDATED: header chỉ hiện ở Card 01 Main Hero và card cuối cùng thật sự */
   body.mobile-home-feed-snap[data-mobile-feed-active-card] header {
     transition:
       transform 220ms ease,
@@ -602,7 +603,7 @@
       visibility 180ms ease;
   }
 
-  body.mobile-home-feed-snap[data-mobile-feed-active-card]:not([data-mobile-feed-active-card="01"]):not([data-mobile-feed-active-card="09"]) header {
+  body.mobile-home-feed-snap[data-mobile-feed-active-card]:not([data-mobile-feed-active-card="01"]):not(.is-mobile-feed-last-card-active) header {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -610,7 +611,7 @@
   }
 
   body.mobile-home-feed-snap[data-mobile-feed-active-card="01"] header,
-  body.mobile-home-feed-snap[data-mobile-feed-active-card="09"] header {
+  body.mobile-home-feed-snap.is-mobile-feed-last-card-active header {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;

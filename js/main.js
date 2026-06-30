@@ -108,6 +108,7 @@ function initMobileHomeFeed() {
   let activeCardFrame = 0; /* ✅ NEW */
   let isSnapActivated = false;
   let lastPanel = null;
+  let lastCardNumber = '01'; /* ✅ NEW */
 
   function isMobileTabletViewport() {
     return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
@@ -362,10 +363,20 @@ function initMobileHomeFeed() {
   }
 
   function setActiveMobileFeedCard(cardNumber) {
-    /* ✅ NEW */
+    /* ✅ UPDATED */
+    const isLastCardActive = cardNumber === lastCardNumber;
+
     document.documentElement.setAttribute('data-mobile-feed-active-card', cardNumber);
     document.body.setAttribute('data-mobile-feed-active-card', cardNumber);
     homeSection.setAttribute('data-mobile-feed-active-card', cardNumber);
+
+    document.documentElement.setAttribute('data-mobile-feed-last-card', lastCardNumber);
+    document.body.setAttribute('data-mobile-feed-last-card', lastCardNumber);
+    homeSection.setAttribute('data-mobile-feed-last-card', lastCardNumber);
+
+    document.documentElement.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
+    document.body.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
+    homeSection.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
   }
 
   function syncActiveMobileFeedCard() {
@@ -404,6 +415,8 @@ function initMobileHomeFeed() {
   const feed = document.createElement('div');
   const handle = document.createElement('span');
   const feedNodes = createFeedNodes();
+
+  lastCardNumber = String(feedNodes.length || 1).padStart(2, '0'); /* ✅ NEW */
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
