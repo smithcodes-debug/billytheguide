@@ -197,9 +197,14 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
     availabilityPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
     availabilityMemo.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
     renderCalendar(); /* ✅ NEW */
+    window.requestAnimationFrame(function () { /* ✅ REQUIRED FIX */
+      availabilityCloseBtn.focus({ preventScroll: true }); /* ✅ REQUIRED FIX */
+    }); /* ✅ REQUIRED FIX */
   }
 
-  function closeAvailabilityPopup() { /* ✅ UPDATED */
+  function closeAvailabilityPopup(event) { /* ✅ UPDATED */
+    if (event && typeof event.preventDefault === 'function') event.preventDefault(); /* ✅ REQUIRED FIX */
+    if (event && typeof event.stopPropagation === 'function') event.stopPropagation(); /* ✅ REQUIRED FIX */
     availabilityPopup.classList.remove('is-open'); /* ✅ NEW */
     availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
     availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
@@ -247,11 +252,12 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
   });
 
   availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
-  availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ NEW */
+  availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
+  availabilityCloseBtn.addEventListener('pointerup', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
 
-  availabilityPopup.addEventListener('click', function (event) { /* ✅ NEW */
-    if (!availabilityPopupCard.contains(event.target)) { /* ✅ NEW */
-      closeAvailabilityPopup(); /* ✅ NEW */
+  availabilityPopup.addEventListener('click', function (event) { /* ✅ UPDATED */
+    if (event.target === availabilityPopup) { /* ✅ REQUIRED FIX */
+      closeAvailabilityPopup(event); /* ✅ REQUIRED FIX */
     }
   });
 
