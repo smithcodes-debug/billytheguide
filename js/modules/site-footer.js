@@ -6,7 +6,7 @@ export function initSiteFooter() {
   const categoryButton = footer.querySelector('[data-footer-category]');
   const checkBookButton = footer.querySelector('[data-footer-check-book]');
   const contactButton = footer.querySelector('[data-footer-contact]');
-  const viewedButton = footer.querySelector('[data-footer-viewed]');
+  const waterForecastButton = footer.querySelector('[data-footer-water-forecast]');
   const galleryButton = footer.querySelector('[data-footer-gallery]');
 
   footer.dataset.siteFooterInitialized = 'true';
@@ -34,9 +34,14 @@ export function initSiteFooter() {
     });
   }
 
-  if (viewedButton) {
-    viewedButton.addEventListener('click', function () {
-      window.location.href = './phu-quoc-tip-and-trick.html';
+  if (waterForecastButton) {
+    waterForecastButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.dispatchEvent(new CustomEvent('billy:open-water-forecast', {
+        detail: {
+          source: 'site-footer-water-forecast'
+        }
+      }));
     });
   }
 

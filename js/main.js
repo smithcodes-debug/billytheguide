@@ -6,6 +6,7 @@ import { initAvailabilityPopup } from './modules/booking.js';
 import { initSearchPopup } from './ui/search-popup.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initGalleryWithUs } from './modules/gallery-with-us.js';
+import { initWaterForecast } from './modules/water-forecast.js';
 import { initSiteFooter } from './modules/site-footer.js';
 
 const APP_LOADING_CLASS = 'js-loading';
@@ -616,6 +617,7 @@ safeInit(initAvailabilityPopup, 'initAvailabilityPopup');
 safeInit(initSearchPopup, 'initSearchPopup');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initGalleryWithUs, 'initGalleryWithUs');
+safeInit(initWaterForecast, 'initWaterForecast');
 safeInit(initSiteFooter, 'initSiteFooter');
 
 markAppReadyOnNextPaint();
