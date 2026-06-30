@@ -4,6 +4,10 @@
 .mobile-home-feed-handle {
   display: none;
 }
+/* ✅ REQUIRED FIX: mobile feed drag handle removed from visual UI */
+.mobile-home-feed-handle {
+  display: none !important;
+}
 
 @media (max-width: 1024px) {
   html.mobile-home-feed-snap,
@@ -217,23 +221,7 @@
     gap: 10px;
   }
 
-  .mobile-home-feed-handle {
-    position: fixed;
-    left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 43px);
-    z-index: 1005;
-    width: 58px;
-    height: 7px;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(5, 6, 8, 0.22);
-    transform: translate3d(-50%, 0, 0);
-    pointer-events: none;
-  }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-handle {
-    display: block;
-  }
 }
 
 @media (min-width: 1025px) {
