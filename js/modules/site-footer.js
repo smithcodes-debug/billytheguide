@@ -7,7 +7,7 @@ export function initSiteFooter() {
   const checkBookButton = footer.querySelector('[data-footer-check-book]');
   const contactButton = footer.querySelector('[data-footer-contact]');
   const viewedButton = footer.querySelector('[data-footer-viewed]');
-  const storeButton = footer.querySelector('[data-footer-store]');
+  const galleryButton = footer.querySelector('[data-footer-gallery]');
 
   footer.dataset.siteFooterInitialized = 'true';
 
@@ -40,9 +40,14 @@ export function initSiteFooter() {
     });
   }
 
-  if (storeButton) {
-    storeButton.addEventListener('click', function () {
-      window.dispatchEvent(new CustomEvent('billy:open-contact-popup'));
+  if (galleryButton) {
+    galleryButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.dispatchEvent(new CustomEvent('billy:open-gallery-with-us', {
+        detail: {
+          source: 'site-footer-gallery'
+        }
+      }));
     });
   }
 }
