@@ -15,7 +15,7 @@ const MOCK_GALLERY_REVIEWS = [
     dateLabel: '8 months ago',
     rating: 5,
     tour: 'snorkeling',
-    image: 'images/gallery-with-us/guest-01.jpg',
+    image: 'images/gallery-with-us/1.png',
     text: 'Not to be missed! Had a fantastic day out with Billy and friends, who were superb hosts. The sea was calm, the coral was beautiful, and the whole experience felt personal, relaxed, and very well cared for.'
   },
   {
@@ -23,7 +23,7 @@ const MOCK_GALLERY_REVIEWS = [
     dateLabel: '3 months ago',
     rating: 5,
     tour: 'family snorkeling',
-    image: 'images/gallery-with-us/guest-02.jpg',
+    image: 'images/gallery-with-us/2.png',
     text: 'A very kind local guide team. The trip never felt rushed. The children felt safe in the water, and we loved that the guide explained how to protect the coral before we entered the sea.'
   },
   {
@@ -31,7 +31,7 @@ const MOCK_GALLERY_REVIEWS = [
     dateLabel: '5 months ago',
     rating: 5,
     tour: 'private island day',
-    image: 'images/gallery-with-us/guest-03.jpg',
+    image: 'images/gallery-with-us/3.png',
     text: 'This was the highlight of our Phu Quoc trip. Quiet places, clear water, helpful guidance, and no shopping stops. It felt like spending a day with local friends who really know the island.'
   },
   {
@@ -39,7 +39,7 @@ const MOCK_GALLERY_REVIEWS = [
     dateLabel: '1 year ago',
     rating: 5,
     tour: 'coral friendly tour',
-    image: 'images/gallery-with-us/guest-04.jpg',
+    image: 'images/gallery-with-us/4.jpg',
     text: 'The guide respected the reef and helped everyone move carefully. We saw beautiful coral and fish, but what I remember most is the honest local knowledge and the peaceful route away from the crowd.'
   }
 ];
