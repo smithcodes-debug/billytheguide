@@ -365,6 +365,7 @@ function initMobileHomeFeed() {
   function setActiveMobileFeedCard(cardNumber) {
     /* ✅ UPDATED */
     const isLastCardActive = cardNumber === lastCardNumber;
+    const isHeaderVisibleCard = cardNumber === '01' || isLastCardActive;
 
     document.documentElement.setAttribute('data-mobile-feed-active-card', cardNumber);
     document.body.setAttribute('data-mobile-feed-active-card', cardNumber);
@@ -377,20 +378,25 @@ function initMobileHomeFeed() {
     document.documentElement.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
     document.body.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
     homeSection.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
+
+    document.documentElement.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
+    document.body.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
+    homeSection.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
   }
 
   function syncActiveMobileFeedCard() {
-    /* ✅ NEW */
+    /* ✅ UPDATED */
     const panels = Array.from(feed.querySelectorAll('.mobile-home-feed-panel'));
 
     if (!panels.length) return;
 
-    const viewportCenter = feed.scrollTop + (feed.clientHeight / 2);
+    const viewportCenter = window.innerHeight / 2;
     let nearestPanel = panels[0];
     let nearestDistance = Number.POSITIVE_INFINITY;
 
     panels.forEach(function (panel) {
-      const panelCenter = panel.offsetTop + (panel.clientHeight / 2);
+      const panelRect = panel.getBoundingClientRect();
+      const panelCenter = panelRect.top + (panelRect.height / 2);
       const distance = Math.abs(panelCenter - viewportCenter);
 
       if (distance < nearestDistance) {
@@ -530,6 +536,7 @@ function initMobileHomeFeed() {
   initLastPanelObserver();
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
+  window.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true }); /* ✅ NEW */
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
   feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true }); /* ✅ NEW */
   window.addEventListener('resize', syncMobileFeedState);

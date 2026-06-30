@@ -67,7 +67,7 @@
     min-height: 100vh;
     min-height: 100svh;
     padding:
-      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-panel-top-gap)) /* ✅ UPDATED */
+      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-panel-top-gap))
       var(--mobile-home-feed-side-gap)
       calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
     display: flex;
@@ -596,25 +596,25 @@
 
 @media (max-width: 1024px) {
   /* ✅ UPDATED: header chỉ hiện ở Card 01 Main Hero và card cuối cùng thật sự */
-  body.mobile-home-feed-snap[data-mobile-feed-active-card] header {
+  body[data-mobile-feed-active-card] header {
     transition:
       transform 220ms ease,
       opacity 180ms ease,
       visibility 180ms ease;
   }
 
-  body.mobile-home-feed-snap[data-mobile-feed-active-card]:not([data-mobile-feed-active-card="01"]):not(.is-mobile-feed-last-card-active) header {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateX(-50%) translateY(calc(-100% - 16px));
+  body.is-mobile-feed-header-hidden:not([data-mobile-feed-active-card="01"]):not(.is-mobile-feed-last-card-active) header {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(calc(-100% - 16px)) !important;
   }
 
-  body.mobile-home-feed-snap[data-mobile-feed-active-card="01"] header,
-  body.mobile-home-feed-snap.is-mobile-feed-last-card-active header {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%);
+  body[data-mobile-feed-active-card="01"] header,
+  body.is-mobile-feed-last-card-active header {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) !important;
   }
 }
