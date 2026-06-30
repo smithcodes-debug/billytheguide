@@ -398,8 +398,7 @@ function initMobileHomeFeed() {
 
     if (!panels.length) return;
 
-    const feedRect = feed.getBoundingClientRect();
-    const viewportCenter = feedRect.top + (feedRect.height / 2);
+    const viewportCenter = window.innerHeight / 2;
     let nearestPanel = panels[0];
     let nearestDistance = Number.POSITIVE_INFINITY;
 
@@ -530,7 +529,6 @@ function initMobileHomeFeed() {
       isSnapActivated = false;
       setFeedEndingMode(false);
       applySnapStateIfNeeded();
-      setMobileFeedHeaderState('01');
       scheduleActiveMobileFeedCardSync();
       return;
     }
