@@ -4,7 +4,7 @@ export function initContactPopup() {
   const contactCloseBtn = contactPopup ? contactPopup.querySelector('.contact-popup-close') : null;
   const contactTriggers = document.querySelectorAll('[data-contact-popup-trigger]');
 
-  if (!contactPopup || !contactPopupCard || !contactCloseBtn || !contactTriggers.length) return;
+  if (!contactPopup || !contactPopupCard || !contactCloseBtn) return;
   if (contactPopup.dataset.contactPopupInitialized === 'true') return;
 
   contactPopup.dataset.contactPopupInitialized = 'true';

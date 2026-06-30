@@ -26,7 +26,7 @@ export function initSiteFooter() {
         bubbles: false,
         cancelable: true,
         detail: {
-          source: 'site-footer-shorts',
+          source: 'site-footer-check-book',
           targetCard: '02'
         }
       });
