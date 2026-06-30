@@ -96,12 +96,18 @@ function initMobileHomeFeed() {
   const FEED_ENDING_CLASS = 'is-feed-ending';
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last';
   const LAST_CARD_VISIBLE_RATIO = 0.58;
+  const MAX_FEED_CARDS = 10; /* ✅ NEW */
+  const FAQ_CARD_NUMBER = '09'; /* ✅ NEW */
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
 
   if (!homeSection || !sourceInner) return;
   if (homeSection.querySelector('.' + FEED_CLASS)) return;
+
+  let activeCardFrame = 0; /* ✅ NEW */
+  let isSnapActivated = false;
+  let lastPanel = null;
 
   function isMobileTabletViewport() {
     return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
@@ -225,6 +231,101 @@ function initMobileHomeFeed() {
     return intro;
   }
 
+  function createFaqFallbackNode() {
+    /* ✅ NEW */
+    const faq = document.createElement('div');
+    const heading = createElement('h2', 'mobile-home-feed-faq-title', 'FAQ');
+    const lead = createElement('p', 'mobile-home-feed-faq-lead', 'Quick answers before you choose your Phu Quoc local experience.');
+    const list = createElement('div', 'mobile-home-feed-faq-list');
+
+    const faqItems = [
+      {
+        question: 'Is this a shopping tour?',
+        answer: 'No. The guide style is local, private, coral-friendly, and not based on shopping stops or commission stops.'
+      },
+      {
+        question: 'Can beginners join snorkeling?',
+        answer: 'Yes. The route can be adjusted for beginners, kids, families, and slower travelers.'
+      },
+      {
+        question: 'What happens if the sea condition is not good?',
+        answer: 'The plan should follow real water and weather conditions around Phu Quoc, not a fixed crowded route.'
+      },
+      {
+        question: 'Is the trip private?',
+        answer: 'The experience is designed around private guidance, flexible pacing, and cleaner travel.'
+      }
+    ];
+
+    faq.className = 'mobile-home-feed-faq';
+
+    faq.appendChild(heading);
+    faq.appendChild(lead);
+
+    faqItems.forEach(function (item) {
+      const details = document.createElement('details');
+      const summary = createElement('summary', '', item.question);
+      const panel = createElement('p', '', item.answer);
+
+      details.className = 'mobile-home-feed-faq-item';
+      details.setAttribute('open', '');
+
+      details.appendChild(summary);
+      details.appendChild(panel);
+      list.appendChild(details);
+    });
+
+    faq.appendChild(list);
+
+    return faq;
+  }
+
+  function findFaqSourceNode(accordionNodes) {
+    /* ✅ NEW */
+    const faqPattern = /(faq|frequently|question|asked|hỏi|câu hỏi|thắc mắc)/i;
+
+    return accordionNodes.find(function (node) {
+      return faqPattern.test(node.textContent || '');
+    }) || null;
+  }
+
+  function createFeedNodes() {
+    /* ✅ NEW */
+    const serviceNodes = Array.from(sourceInner.querySelectorAll('.more-service-card'));
+    const accordionNodes = Array.from(sourceInner.querySelectorAll('.more-accordion-item'));
+    const faqSourceNode = findFaqSourceNode(accordionNodes);
+    const feedNodes = [];
+
+    feedNodes.push(createMainHeroNode());
+    feedNodes.push(createIntroNode());
+
+    serviceNodes.slice(0, 6).forEach(function (card) {
+      feedNodes.push(card);
+    });
+
+    while (feedNodes.length < 8 && accordionNodes.length) {
+      const nextAccordion = accordionNodes.shift();
+
+      if (nextAccordion !== faqSourceNode) {
+        feedNodes.push(nextAccordion);
+      }
+    }
+
+    if (faqSourceNode) {
+      feedNodes.push(faqSourceNode);
+    } else {
+      feedNodes.push(createFaqFallbackNode());
+    }
+
+    accordionNodes.forEach(function (item) {
+      if (feedNodes.length < MAX_FEED_CARDS && item !== faqSourceNode) {
+        feedNodes.push(item);
+      }
+    });
+
+    return feedNodes.slice(0, MAX_FEED_CARDS);
+  }
+
   function createContentPanel(sourceNode, cardIndex, totalCards) {
     const panel = document.createElement('section');
     const card = document.createElement('div');
@@ -235,6 +336,11 @@ function initMobileHomeFeed() {
     panel.className = 'mobile-home-feed-panel mobile-home-feed-panel-content mobile-home-feed-panel-' + cardNumber;
     card.className = 'mobile-home-feed-card mobile-home-feed-card-content mobile-home-feed-card-' + cardNumber;
     scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber;
+
+    if (cardNumber === FAQ_CARD_NUMBER) {
+      panel.classList.add('mobile-home-feed-panel-faq'); /* ✅ NEW */
+      card.classList.add('mobile-home-feed-card-faq'); /* ✅ NEW */
+    }
 
     if (isLastCard) {
       panel.classList.add(LAST_CARD_CLASS);
@@ -255,30 +361,55 @@ function initMobileHomeFeed() {
     return panel;
   }
 
+  function setActiveMobileFeedCard(cardNumber) {
+    /* ✅ NEW */
+    document.documentElement.setAttribute('data-mobile-feed-active-card', cardNumber);
+    document.body.setAttribute('data-mobile-feed-active-card', cardNumber);
+    homeSection.setAttribute('data-mobile-feed-active-card', cardNumber);
+  }
+
+  function syncActiveMobileFeedCard() {
+    /* ✅ NEW */
+    const panels = Array.from(feed.querySelectorAll('.mobile-home-feed-panel'));
+
+    if (!panels.length) return;
+
+    const viewportCenter = feed.scrollTop + (feed.clientHeight / 2);
+    let nearestPanel = panels[0];
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    panels.forEach(function (panel) {
+      const panelCenter = panel.offsetTop + (panel.clientHeight / 2);
+      const distance = Math.abs(panelCenter - viewportCenter);
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestPanel = panel;
+      }
+    });
+
+    setActiveMobileFeedCard(nearestPanel.getAttribute('data-mobile-feed-card') || '01');
+  }
+
+  function scheduleActiveMobileFeedCardSync() {
+    /* ✅ NEW */
+    if (activeCardFrame) return;
+
+    activeCardFrame = window.requestAnimationFrame(function () {
+      activeCardFrame = 0;
+      syncActiveMobileFeedCard();
+    });
+  }
+
   const feed = document.createElement('div');
   const handle = document.createElement('span');
-  const contentNodes = [];
-  let isSnapActivated = false;
-  let lastPanel = null;
+  const feedNodes = createFeedNodes();
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
 
   handle.className = 'mobile-home-feed-handle';
   handle.setAttribute('aria-hidden', 'true');
-
-  contentNodes.push(createMainHeroNode());
-  contentNodes.push(createIntroNode());
-
-  sourceInner.querySelectorAll('.more-service-card').forEach(function (card) {
-    contentNodes.push(card);
-  });
-
-  sourceInner.querySelectorAll('.more-accordion-item').forEach(function (item) {
-    contentNodes.push(item);
-  });
-
-  const feedNodes = contentNodes.slice(0, 9);
 
   feedNodes.forEach(function (node, index) {
     const panel = createContentPanel(node, index, feedNodes.length);
@@ -315,6 +446,7 @@ function initMobileHomeFeed() {
 
     isSnapActivated = true;
     applySnapStateIfNeeded();
+    scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
   }
 
   function activateSnapWhenHomeReached() {
@@ -371,23 +503,29 @@ function initMobileHomeFeed() {
       isSnapActivated = false;
       setFeedEndingMode(false);
       applySnapStateIfNeeded();
+      scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
       return;
     }
 
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS);
     syncFeedEndingState();
+    scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
   }
 
+  setActiveMobileFeedCard('01'); /* ✅ NEW */
   syncMobileFeedState();
   initLastPanelObserver();
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
+  feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true }); /* ✅ NEW */
   window.addEventListener('resize', syncMobileFeedState);
 
   window.addEventListener('orientationchange', function () {
     window.setTimeout(syncMobileFeedState, 220);
   });
+
+  window.requestAnimationFrame(syncActiveMobileFeedCard); /* ✅ NEW */
 }
 
 function markAppReady() {

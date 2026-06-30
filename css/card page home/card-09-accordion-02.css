@@ -1,3 +1,125 @@
 :root {
   --accordion-02-css-loaded: 1;
 }
+
+@media (max-width: 1024px) {
+  /* ✅ NEW: Card 09 FAQ owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 251, 252, 0.96) 100%);
+    color: var(--color-ink);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+    padding: 18px 18px 24px;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
+    margin: 0;
+    padding: 0 0 16px;
+    color: #101820;
+    font-size: clamp(32px, 9vw, 54px);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-lead,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
+    margin: 0 auto 18px;
+    max-width: 520px;
+    color: rgba(16, 20, 24, 0.66);
+    font-size: clamp(15px, 3.8vw, 19px);
+    line-height: 1.48;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-list {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid rgba(8, 63, 70, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 26px rgba(5, 6, 8, 0.07);
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary {
+    color: #083f46;
+    font-size: clamp(15px, 4vw, 19px);
+    line-height: 1.24;
+    font-weight: 800;
+    list-style: none;
+    cursor: default;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
+    margin: 8px 0 0;
+    color: rgba(16, 20, 24, 0.66);
+    font-size: clamp(13px, 3.4vw, 16px);
+    line-height: 1.42;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* ✅ NEW: Card 09 FAQ owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+    padding: 48px 34px 86px;
+    justify-content: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
+    color: #101820;
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item {
+    padding: 16px 18px;
+    border: 1px solid rgba(8, 63, 70, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 26px rgba(5, 6, 8, 0.07);
+  }
+}

@@ -1,3 +1,5 @@
+/* ✅ UPDATED: CARD 08 CSS - accordion card 01 only */
+
 .more-accordion-list > .more-accordion-item:first-child[open] {
   display: flex;
   flex-direction: column;
@@ -89,20 +91,4 @@
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-panel {
   order: 3;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
-  justify-content: flex-end;
-  padding-bottom: 10px;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: 0;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
-  margin-top: 22px;
-  padding-bottom: 0;
 }

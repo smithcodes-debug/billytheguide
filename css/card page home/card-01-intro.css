@@ -593,3 +593,27 @@
     box-sizing: border-box;
   }
 }
+@media (max-width: 1024px) {
+  /* ✅ NEW: header chỉ hiện ở Card 01 Main Hero và Card 09 FAQ */
+  body.mobile-home-feed-snap[data-mobile-feed-active-card] header {
+    transition:
+      transform 220ms ease,
+      opacity 180ms ease,
+      visibility 180ms ease;
+  }
+
+  body.mobile-home-feed-snap[data-mobile-feed-active-card]:not([data-mobile-feed-active-card="01"]):not([data-mobile-feed-active-card="09"]) header {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(calc(-100% - 16px));
+  }
+
+  body.mobile-home-feed-snap[data-mobile-feed-active-card="01"] header,
+  body.mobile-home-feed-snap[data-mobile-feed-active-card="09"] header {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%);
+  }
+}
