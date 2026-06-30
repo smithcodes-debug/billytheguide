@@ -360,10 +360,12 @@ function initMobileHomeFeed() {
   }
 
   function setMobileFeedHeaderState(cardNumber) {
-    /* ✅ REQUIRED FIX: header stays visible while Shorts opens the feed */
-    document.documentElement.classList.remove('is-mobile-feed-header-hidden');
-    document.body.classList.remove('is-mobile-feed-header-hidden');
-    homeSection.classList.remove('is-mobile-feed-header-hidden');
+    const isLastCardActive = cardNumber === lastCardNumber;
+    const shouldShowHeader = cardNumber === '01' || isLastCardActive;
+
+    document.documentElement.classList.toggle('is-mobile-feed-header-hidden', !shouldShowHeader);
+    document.body.classList.toggle('is-mobile-feed-header-hidden', !shouldShowHeader);
+    homeSection.classList.toggle('is-mobile-feed-header-hidden', !shouldShowHeader);
   }
 
   function setActiveMobileFeedCard(cardNumber) {
@@ -490,10 +492,6 @@ function initMobileHomeFeed() {
     homeSection.classList.add(FEED_READY_CLASS);
     activateSnapState();
     setFeedEndingMode(false);
-
-    document.documentElement.classList.remove('is-mobile-feed-header-hidden');
-    document.body.classList.remove('is-mobile-feed-header-hidden');
-    homeSection.classList.remove('is-mobile-feed-header-hidden');
 
     homeSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
 

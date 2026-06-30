@@ -8,15 +8,14 @@
 @media (max-width: 1024px) {
   html.mobile-home-feed-snap,
   body.mobile-home-feed-snap {
-    /* ✅ REQUIRED FIX: avoid nested document snap trapping the internal feed scroller */
-    scroll-snap-type: none;
+    scroll-snap-type: y mandatory;
     scroll-padding-top: 0;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: contain;
   }
 
   body.mobile-home-feed-snap .more-stories-section.is-mobile-home-feed-ready {
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .more-stories-section.is-mobile-home-feed-ready {
@@ -49,8 +48,6 @@
     overflow-x: hidden;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
-    /* ✅ REQUIRED FIX: keep vertical gestures owned by the feed after bridge activation */
-    touch-action: pan-y;
     scroll-padding-top: 0;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
@@ -597,9 +594,19 @@
   }
 }
 
-/* ✅ REQUIRED FIX: header must stay visible/fixed above mobile feed */
-body.is-mobile-feed-header-hidden header,
-body[data-mobile-feed-active-card] header,
+/* ✅ REQUIRED FIX: header visibility follows active mobile feed card state */
+body.is-mobile-feed-header-hidden header {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(calc(-100% - 16px)) !important;
+  transition:
+    transform 220ms ease,
+    opacity 180ms ease,
+    visibility 180ms ease;
+}
+
+body[data-mobile-feed-active-card="01"] header,
 body.is-mobile-feed-last-card-active header {
   opacity: 1 !important;
   visibility: visible !important;
