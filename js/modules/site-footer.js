@@ -19,10 +19,23 @@ export function initSiteFooter() {
   }
 
   if (shortsButton) {
-    shortsButton.addEventListener('click', function () {
-      if (!moreStoriesSection) return;
+    shortsButton.addEventListener('click', function (event) {
+      event.preventDefault();
 
-      moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const openFeedEvent = new CustomEvent('billy:open-mobile-home-feed', {
+        bubbles: false,
+        cancelable: true,
+        detail: {
+          source: 'site-footer-shorts',
+          targetCard: '02'
+        }
+      });
+
+      const wasNotCanceled = window.dispatchEvent(openFeedEvent);
+
+      if (wasNotCanceled && moreStoriesSection) {
+        moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 

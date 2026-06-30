@@ -360,7 +360,7 @@ function initMobileHomeFeed() {
   }
 
   function setMobileFeedHeaderState(cardNumber) {
-    /* ✅ REQUIRED FIX: header stays fixed/visible; JS only clears stale hidden state */
+    /* ✅ REQUIRED FIX: header stays visible while Shorts opens the feed */
     document.documentElement.classList.remove('is-mobile-feed-header-hidden');
     document.body.classList.remove('is-mobile-feed-header-hidden');
     homeSection.classList.remove('is-mobile-feed-header-hidden');
@@ -474,39 +474,46 @@ function initMobileHomeFeed() {
     }
   }
 
-  function enterMobileFeedFromPreFeed() {
-    if (!isMobileTabletViewport() || isSnapActivated) return;
-    if (homeSection.getBoundingClientRect().top <= 8) return;
+  function openMobileHomeFeedFromFooter(event) {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
 
-    /* ✅ REQUIRED FIX: bridge first downward swipe/wheel from intro hero into the actual mobile feed */
+    const requestedCard = event && event.detail && event.detail.targetCard
+      ? String(event.detail.targetCard).padStart(2, '0')
+      : '02';
+
+    const targetPanel = feed.querySelector('[data-mobile-feed-card="' + requestedCard + '"]')
+      || feed.querySelector('[data-mobile-feed-card="02"]')
+      || feed.querySelector('.mobile-home-feed-panel');
+
+    homeSection.classList.add(FEED_READY_CLASS);
     activateSnapState();
-    window.requestAnimationFrame(function () {
-      homeSection.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
-    });
-  }
+    setFeedEndingMode(false);
 
-  let preFeedTouchStartY = 0;
+    document.documentElement.classList.remove('is-mobile-feed-header-hidden');
+    document.body.classList.remove('is-mobile-feed-header-hidden');
+    homeSection.classList.remove('is-mobile-feed-header-hidden');
 
-  function handlePreFeedTouchStart(event) {
-    if (!event.touches || !event.touches.length) return;
-    preFeedTouchStartY = event.touches[0].clientY;
-  }
+    homeSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
 
-  function handlePreFeedTouchEnd(event) {
-    if (!event.changedTouches || !event.changedTouches.length) return;
+    window.setTimeout(function () {
+      if (!targetPanel) return;
 
-    const touchEndY = event.changedTouches[0].clientY;
-    const swipeDistance = preFeedTouchStartY - touchEndY;
+      feed.scrollTo({
+        top: targetPanel.offsetTop,
+        left: 0,
+        behavior: 'smooth'
+      });
 
-    if (swipeDistance > 34) {
-      enterMobileFeedFromPreFeed();
-    }
-  }
+      const cardNumber = targetPanel.getAttribute('data-mobile-feed-card') || requestedCard;
+      setActiveMobileFeedCard(cardNumber);
+      syncFeedEndingState();
+    }, 260);
 
-  function handlePreFeedWheel(event) {
-    if (event.deltaY > 16) {
-      enterMobileFeedFromPreFeed();
-    }
+    window.setTimeout(function () {
+      scheduleActiveMobileFeedCardSync();
+    }, 560);
   }
 
   function getLastPanelVisibleRatio() {
@@ -569,9 +576,7 @@ function initMobileHomeFeed() {
   initLastPanelObserver();
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
-  window.addEventListener('touchstart', handlePreFeedTouchStart, { passive: true });
-  window.addEventListener('touchend', handlePreFeedTouchEnd, { passive: true });
-  window.addEventListener('wheel', handlePreFeedWheel, { passive: true });
+  window.addEventListener('billy:open-mobile-home-feed', openMobileHomeFeedFromFooter);
   window.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
   feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });

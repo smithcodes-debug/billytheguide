@@ -180,3 +180,9 @@ body.is-home-reading-mode .site-footer {
     border-radius: 20px 20px 0 0; /* ✅ UPDATED */
   }
 }
+
+/* ✅ REQUIRED FIX: Shorts is now the direct entry to the mobile card feed */
+.site-footer-dock-item[data-footer-shorts]:active,
+.site-footer-dock-item[data-footer-shorts].is-footer-shorts-active {
+  color: var(--site-footer-dock-accent);
+}
