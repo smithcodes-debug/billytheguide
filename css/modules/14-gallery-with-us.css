@@ -4,7 +4,9 @@
 :root {
   --gallery-with-us-inset: 15px;
   --gallery-with-us-header-offset: calc(env(safe-area-inset-top, 0px) + 86px);
-  --gallery-with-us-footer-offset: calc(env(safe-area-inset-bottom, 0px) + 15px);
+  --gallery-with-us-footer-dock-height: 112px;
+  --gallery-with-us-footer-gap: 20px;
+  --gallery-with-us-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--gallery-with-us-footer-dock-height) + var(--gallery-with-us-footer-gap));
   --gallery-with-us-radius: 12px;
   --gallery-with-us-ink: #050608;
   --gallery-with-us-muted: rgba(5, 6, 8, 0.54);
@@ -39,11 +41,12 @@
   position: absolute;
   left: var(--gallery-with-us-inset);
   right: var(--gallery-with-us-inset);
-  top: calc(var(--gallery-with-us-header-offset) + 15px);
+  top: auto;
   bottom: var(--gallery-with-us-footer-offset);
   display: flex;
   flex-direction: column;
   min-height: 0;
+  max-height: calc(100dvh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 24px);
   border-radius: var(--gallery-with-us-radius);
   background: rgba(255, 255, 255, 0.97);
   color: var(--gallery-with-us-ink);
@@ -52,7 +55,6 @@
   transform: translateY(7px) scale(0.992);
   transition: transform 220ms cubic-bezier(.2,.8,.2,1);
 }
-
 .gallery-with-us-root.is-open .gallery-with-us-panel {
   transform: translateY(0) scale(1);
 }
@@ -342,3 +344,33 @@ body.gallery-with-us-open { overflow: hidden; }
   .gallery-with-us-panel,
   .gallery-with-us-progress-bar { transition: none; }
 }
+
+/* ✅ GALLERY FOOTER GAP PATCH — 2026-06-30 */
+/* Bottom-anchor Gallery popup so it sits above the footer dock with a 20px visual gap. */
+@supports not (height: 100dvh) {
+  .gallery-with-us-panel {
+    max-height: calc(100vh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 24px);
+  }
+}
+
+@media (max-height: 720px) {
+  :root {
+    --gallery-with-us-footer-dock-height: 104px;
+  }
+
+  .gallery-with-us-body {
+    padding-top: 8px;
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --gallery-with-us-footer-dock-height: 96px;
+    --gallery-with-us-footer-gap: 20px;
+  }
+
+  .gallery-with-us-panel {
+    max-height: calc(100dvh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 16px);
+  }
+}
+
