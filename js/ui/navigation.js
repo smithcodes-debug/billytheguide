@@ -106,27 +106,3 @@ export function initNavigation() {
     }, 0);
   }
 }
-
-export function initSnorkelingCardNavigation() {
-  const snorkelingCards = document.querySelectorAll('.popup-note-item[data-tour="snorkeling"]');
-  const snorkelingLandingUrl = 'coral-snorkeling-phu-quoc.html';
-
-  if (!snorkelingCards.length) return;
-
-  function goToSnorkelingPage(event) {
-    event.preventDefault();
-    window.location.href = snorkelingLandingUrl;
-  }
-
-  snorkelingCards.forEach(function (card) {
-    card.addEventListener('click', goToSnorkelingPage);
-
-    card.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        goToSnorkelingPage(event);
-      }
-    });
-  });
-
-  console.log('Snorkeling card navigation initialized');
-}

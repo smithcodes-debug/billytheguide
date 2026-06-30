@@ -1,10 +1,11 @@
-import { initNavigation, initSnorkelingCardNavigation } from './ui/navigation.js';
+import { initNavigation } from './ui/navigation.js';
 import { initContactPopup } from './ui/contact-popup.js';
 import { initPolicyPopup } from './ui/policy-popup.js';
 import { initTourCarousel } from './ui/tour-carousel.js';
 import { initSearchPopup } from './ui/search-popup.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
 import { initSiteFooter } from './modules/site-footer.js';
+
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
 
@@ -73,6 +74,7 @@ function initHomePopup() {
   });
 
   window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, openPopup);
+
   closeBtn.addEventListener('click', closePopup);
 
   popup.addEventListener('click', function (event) {
@@ -161,10 +163,12 @@ function initMobileHomeFeed() {
     storyText.textContent = 'Xin chào! I am Bill, Billy the Bill .Tôi sinh ra và lớn lên ở vùng đất Phú Quốc thân yêu này, từ bé theo cha đánh bắt trên từng ngóc ngách của rạn san hô ở Phú Quốc. Mỗi ngày khi nhìn thấy những nhà làm tour thiếu ý thức đã làm tổn hại đến vẻ đẹp tự nhiên này… tôi tin rằng chúng ta không cần thiết phải đánh đổi giữa du lịch và môi trường… Bạn có muốn cùng tôi..';
 
     checkboxInput.type = 'checkbox';
+
     quote.setAttribute('role', 'button');
     quote.setAttribute('tabindex', '0');
     quote.setAttribute('aria-controls', 'leave-no-trace-popup');
     quote.setAttribute('aria-expanded', 'false');
+
     thanks.setAttribute('role', 'button');
     thanks.setAttribute('tabindex', '0');
     thanks.setAttribute('aria-controls', 'leave-no-trace-popup');
@@ -172,14 +176,19 @@ function initMobileHomeFeed() {
 
     title.appendChild(titleLineOne);
     title.appendChild(titleLineTwo);
+
     story.appendChild(storyText);
+
     checkboxLabel.appendChild(checkboxInput);
     checkboxLabel.appendChild(fakeBox);
+
     quote.appendChild(quoteStart);
     quote.appendChild(checkboxLabel);
     quote.appendChild(quoteEnd);
+
     ctaRow.appendChild(quote);
     ctaRow.appendChild(thanks);
+
     heroNode.appendChild(tagline);
     heroNode.appendChild(title);
     heroNode.appendChild(story);
@@ -231,6 +240,7 @@ function initMobileHomeFeed() {
       panel.classList.add(LAST_CARD_CLASS);
       card.classList.add('mobile-home-feed-card-last');
       scroll.classList.add('mobile-home-feed-card-scroll-last');
+
       panel.setAttribute('data-mobile-feed-last-card', 'true');
       card.setAttribute('data-mobile-feed-last-card', 'true');
     }
@@ -248,12 +258,12 @@ function initMobileHomeFeed() {
   const feed = document.createElement('div');
   const handle = document.createElement('span');
   const contentNodes = [];
-
   let isSnapActivated = false;
   let lastPanel = null;
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
+
   handle.className = 'mobile-home-feed-handle';
   handle.setAttribute('aria-hidden', 'true');
 
@@ -397,18 +407,14 @@ function safeInit(initFn, initName) {
   }
 }
 
-function initHome() {}
-
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initHomePopup, 'initHomePopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');
 safeInit(initTourCarousel, 'initTourCarousel');
-safeInit(initSnorkelingCardNavigation, 'initSnorkelingCardNavigation');
 safeInit(initSearchPopup, 'initSearchPopup');
 safeInit(initProgressiveImageLoader, 'initProgressiveImageLoader');
 safeInit(initSiteFooter, 'initSiteFooter');
-safeInit(initHome, 'initHome');
 
 markAppReadyOnNextPaint();
