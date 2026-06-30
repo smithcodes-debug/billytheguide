@@ -1,0 +1,254 @@
+/* ✅ MODULE 15 — WATER FORECAST */
+/* Mobile-first poster-style water condition card. Transparent root only; no visual backdrop. */
+:root {
+  --water-forecast-shell-inset: 15px;
+  --water-forecast-header-offset: calc(env(safe-area-inset-top, 0px) + 86px);
+  --water-forecast-footer-offset: calc(env(safe-area-inset-bottom, 0px) + 15px);
+  --water-forecast-ink: #050608;
+  --water-forecast-paper: rgba(255, 255, 255, 0.97);
+  --water-forecast-line: rgba(5, 6, 8, 0.82);
+  --water-forecast-soft-line: rgba(5, 6, 8, 0.18);
+  --water-forecast-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+}
+
+.water-forecast-root {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: var(--app-shell-max-width, 768px);
+  z-index: 1006;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: transparent;
+  box-sizing: border-box;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.water-forecast-root.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.water-forecast-stage {
+  position: absolute;
+  left: var(--water-forecast-shell-inset);
+  right: var(--water-forecast-shell-inset);
+  top: calc(var(--water-forecast-header-offset) + 15px);
+  bottom: var(--water-forecast-footer-offset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.water-forecast-card {
+  position: relative;
+  width: min(100%, 430px);
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid rgba(5, 6, 8, 0.1);
+  border-top: 4px solid var(--water-forecast-ink);
+  background: var(--water-forecast-paper);
+  color: var(--water-forecast-ink);
+  box-shadow: var(--water-forecast-shadow);
+  padding: 17px 20px 15px;
+  transform: translateY(12px) scale(0.985);
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+.water-forecast-root.is-open .water-forecast-card {
+  transform: translateY(0) scale(1);
+}
+
+.water-forecast-close {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(5, 6, 8, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(5, 6, 8, 0.72);
+  font-size: 24px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.water-forecast-close:focus-visible {
+  outline: 3px solid rgba(5, 6, 8, 0.22);
+  outline-offset: 3px;
+}
+
+.water-forecast-title {
+  margin: 0 42px 13px 0;
+  padding: 0 0 13px;
+  border-bottom: 1.5px solid var(--water-forecast-line);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(23px, 6.4vw, 32px);
+  line-height: 1.04;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.water-forecast-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.water-forecast-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 65px;
+  padding: 8px 0;
+  border-bottom: 1.5px solid var(--water-forecast-line);
+}
+
+.water-forecast-icon {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--water-forecast-ink);
+}
+
+.water-forecast-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1.85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.water-forecast-text {
+  min-width: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(19px, 5.3vw, 27px);
+  line-height: 1.14;
+  letter-spacing: -0.048em;
+  font-weight: 450;
+}
+
+.water-forecast-label {
+  font-weight: 450;
+}
+
+.water-forecast-value {
+  font-weight: 900;
+}
+
+.water-forecast-best {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 74px;
+  margin: 13px 0 12px;
+  border: 1.5px solid var(--water-forecast-line);
+  min-height: 76px;
+}
+
+.water-forecast-best-text {
+  display: flex;
+  align-items: center;
+  padding: 10px 13px;
+  background: #050608;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 6vw, 29px);
+  line-height: 1.02;
+  letter-spacing: -0.052em;
+}
+
+.water-forecast-best-label {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.water-forecast-best-value {
+  font-weight: 500;
+}
+
+.water-forecast-best-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--water-forecast-ink);
+  border-left: 1.5px solid var(--water-forecast-line);
+}
+
+.water-forecast-best-icon svg {
+  width: 58px;
+  height: 58px;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.water-forecast-note {
+  margin: 0;
+  color: rgba(5, 6, 8, 0.72);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(13px, 3.5vw, 16px);
+  line-height: 1.25;
+  font-style: italic;
+  letter-spacing: -0.025em;
+}
+
+html.water-forecast-open,
+body.water-forecast-open {
+  overflow: hidden;
+}
+
+@media (max-width: 360px) {
+  .water-forecast-card {
+    padding: 15px 16px 14px;
+  }
+
+  .water-forecast-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .water-forecast-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .water-forecast-best {
+    grid-template-columns: minmax(0, 1fr) 62px;
+  }
+
+  .water-forecast-best-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .water-forecast-root,
+  .water-forecast-card {
+    transition: none;
+  }
+}

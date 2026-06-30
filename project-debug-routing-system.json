@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-25-gallery-with-us-module-integrated",
+  "version": "pdrs-01-26-water-forecast-module-integrated",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,11 +8,11 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "gallery-with-us-module-integrated",
-    "note": "PDRS-01.25 update: added MODULE 14 — Gallery With Us. ./css/modules/14-gallery-with-us.css owns the mobile-first transparent-root gallery/review popup visual; ./js/modules/gallery-with-us.js owns dynamic mock review rendering, open/close state, horizontal card swipe, progress bar, and Read more behavior. Footer Gallery is mapped through ./js/modules/site-footer.js using billy:open-gallery-with-us. No visual backdrop is used; the hero/page remains visible behind the panel."
+    "status": "water-forecast-module-integrated",
+    "note": "PDRS-01.26 update: added MODULE 15 — Water Forecast. ./css/modules/15-water-forecast.css owns the poster-style transparent-root water forecast popup visual; ./js/modules/water-forecast.js owns backend-ready manual data, render, open/close, and update API. Footer Water forecast is mapped by ./js/modules/site-footer.js via billy:open-water-forecast."
   },
   "runtimeChangePolicy": {
-    "indexHtmlChange": "added Gallery With Us CSS link and mapped footer Gallery from data-footer-store to data-footer-gallery; gallery popup root is rendered dynamically by JS",
+    "indexHtmlChange": "added Water Forecast CSS link and mapped footer Water forecast from data-footer-viewed route behavior to data-footer-water-forecast event behavior",
     "cssAdded": true,
     "cssChanged": true,
     "jsAdded": true,
@@ -21,17 +21,19 @@
       "./js/modules/progressive-image-loader.js",
       "./js/modules/site-footer.js",
       "./js/modules/home-to-more-stories.js",
-      "./js/modules/gallery-with-us.js"
+      "./js/modules/gallery-with-us.js",
+      "./js/modules/water-forecast.js"
     ],
     "bodyChanged": true,
     "textChanged": true,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.25 accounts Gallery With Us integration: created ./css/modules/14-gallery-with-us.css and ./js/modules/gallery-with-us.js; ./js/main.js imports/initializes initGalleryWithUs before initSiteFooter; ./js/modules/site-footer.js dispatches billy:open-gallery-with-us from [data-footer-gallery].",
+    "note": "PDRS-01.26 accounts Water Forecast integration: created ./css/modules/15-water-forecast.css and ./js/modules/water-forecast.js; ./js/main.js imports/initializes initWaterForecast before initSiteFooter; ./js/modules/site-footer.js dispatches billy:open-water-forecast from [data-footer-water-forecast].",
     "cssAddedFiles": [
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css",
-      "./css/modules/14-gallery-with-us.css"
+      "./css/modules/14-gallery-with-us.css",
+      "./css/modules/15-water-forecast.css"
     ],
     "cssRemovedFilesFromIndex": [
       "./css/card page home/card-10-accordion-03.css"
@@ -41,7 +43,8 @@
       "./css/card page home/card-09-accordion-02.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/07-mobile-edge-pad.css",
-      "./css/modules/14-gallery-with-us.css"
+      "./css/modules/14-gallery-with-us.css",
+      "./css/modules/15-water-forecast.css"
     ],
     "jsChangedFiles": [
       "./js/main.js",
@@ -50,7 +53,8 @@
       "./js/ui/mobile-edge-pad.js",
       "./js/ui/story-expand.js",
       "./js/modules/site-footer.js",
-      "./js/modules/gallery-with-us.js"
+      "./js/modules/gallery-with-us.js",
+      "./js/modules/water-forecast.js"
     ],
     "htmlRemovedBlocks": [
       "Contact platforms accordion item inside .more-accordion-list"
@@ -115,6 +119,24 @@
         "./images/gallery-with-us/guest-04.jpg"
       ],
       "visualRule": "transparent root layer only; no visual backdrop; panel is centered/inset and leaves hero/page visible behind it"
+    },
+    "waterForecastIntegration": {
+      "status": "accounted",
+      "owner": "./js/modules/water-forecast.js",
+      "cssOwner": "./css/modules/15-water-forecast.css",
+      "footerTrigger": "[data-footer-water-forecast]",
+      "openEvent": "billy:open-water-forecast",
+      "closeEvent": "billy:close-water-forecast",
+      "dataMode": "manual backend-ready data object in JS; later replace with backend/API data through updateWaterForecastData()",
+      "title": "PHU QUOC WATER FORECAST",
+      "rows": [
+        "Sea Condition: Calm",
+        "Visibility: Good (7–8 m)",
+        "Current: Slow"
+      ],
+      "bestFor": "Snorkeling / Island Hopping",
+      "note": "base from data base of Billy and Friend",
+      "visualRule": "transparent root layer only; no visual backdrop; hero/page remains visible behind poster card"
     }
   },
   "knownFiles": {
@@ -148,6 +170,7 @@
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/14-gallery-with-us.css",
+      "./css/modules/15-water-forecast.css",
       "./css/modules/03-mobile-search.css",
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/09-tour-snorkeling-transition.css",
@@ -196,7 +219,8 @@
       "./js/modules/progressive-image-loader.js",
       "./js/modules/site-footer.js",
       "./js/modules/home-to-more-stories.js",
-      "./js/modules/gallery-with-us.js"
+      "./js/modules/gallery-with-us.js",
+      "./js/modules/water-forecast.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -215,7 +239,9 @@
       "logoHomeNavigationRuntimeStatus": "active/accounted after PDRS-01.23: ./js/ui/navigation.js owns #logoTrigger/.logo click and Enter/Space to return to index.html hero. ./js/ui/contact-popup.js no longer treats #logoTrigger as a contact trigger. initMobileHomeSectionLock is not initialized by main.js.",
       "homeToMoreStoriesHandoffRuntimeStatus": "active/accounted after PDRS-01.24: ./js/modules/home-to-more-stories.js owns unified H1/Hero to H2/More Stories handoff; mobile-edge-pad.js and story-expand.js call openMoreStoriesHandoff rather than maintaining separate scroll logic.",
       "galleryWithUsImportedByMain": true,
-      "galleryWithUsRuntimeStatus": "active after import/init in ./js/main.js; opens from footer Gallery via billy:open-gallery-with-us; renders dynamic mock review/photo cards from local JS data"
+      "galleryWithUsRuntimeStatus": "active after import/init in ./js/main.js; opens from footer Gallery via billy:open-gallery-with-us; renders dynamic mock review/photo cards from local JS data",
+      "waterForecastImportedByMain": true,
+      "waterForecastRuntimeStatus": "active after import/init in ./js/main.js; opens from footer Water forecast via billy:open-water-forecast; renders backend-ready manual water-condition data."
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -227,7 +253,8 @@
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/07-mobile-edge-pad.css",
-      "./css/modules/14-gallery-with-us.css"
+      "./css/modules/14-gallery-with-us.css",
+      "./css/modules/15-water-forecast.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -303,7 +330,8 @@
       "heroResponsiveImageExceptionPolicy": "Allowed exception to everywhere same: only the hero background image source may differ by display category. The hero component DOM, layout, tagline, story, CTA, header, availability, popup behavior, and shell rule remain same everywhere.",
       "progressiveImageLoaderJsRuntimeStatus": "Reusable module at ./js/modules/progressive-image-loader.js. CSS owns image URLs via background-image low-res and --progressive-highres high-res. JS only preloads and toggles .is-highres.",
       "snapReadingHandoffRuntimeStatus": "active/accounted after PDRS-01.22: card 09 FAQ is final mobile feed card; card 1-8 remain snap/swipe; card 09 enters .is-feed-ending/.is-home-reading-mode and footer dock appears. card-10 accordion/contact platform CSS link removed from index.html.",
-      "galleryWithUsRuntimeStatus": "active/accounted after PDRS-01.25: ./css/modules/14-gallery-with-us.css owns visual; ./js/modules/gallery-with-us.js owns dynamic mock data render/open-close/read-more/horizontal swipe; images expected under ./images/gallery-with-us/."
+      "galleryWithUsRuntimeStatus": "active/accounted after PDRS-01.25: ./css/modules/14-gallery-with-us.css owns visual; ./js/modules/gallery-with-us.js owns dynamic mock data render/open-close/read-more/horizontal swipe; images expected under ./images/gallery-with-us/.",
+      "waterForecastRuntimeStatus": "active/accounted after PDRS-01.26: ./css/modules/15-water-forecast.css owns visual; ./js/modules/water-forecast.js owns manual/backend-ready data render and open-close behavior."
     },
     "plannedCssModules": [],
     "plannedJsModules": [
@@ -314,7 +342,7 @@
     "removedRuntimeCssFiles": [
       "./css/card page home/card-10-accordion-03.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.25 complete: Gallery With Us module accounted and footer Gallery mapped to real module event."
+    "currentInventoryCheckpoint": "PDRS-01.26 complete: Water Forecast module accounted and footer Water forecast mapped to real module event."
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -327,13 +355,15 @@
       "./css/card page home/card-01-intro.css",
       "./css/card page home/card-09-accordion-02.css",
       "./css/modules/13-site-footer.css",
-      "./css/modules/14-gallery-with-us.css"
+      "./css/modules/14-gallery-with-us.css",
+      "./css/modules/15-water-forecast.css"
     ],
     "currentInventoryCheckpoint": "PDRS-01.22 complete: card 09 FAQ reading-mode handoff and footer reveal accounted.",
     "nextRecommendedJsBatch": [
       "./js/main.js",
       "./js/modules/site-footer.js",
-      "./js/modules/gallery-with-us.js"
+      "./js/modules/gallery-with-us.js",
+      "./js/modules/water-forecast.js"
     ],
     "nextRecommendedUploadBatch": [
       "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
@@ -598,6 +628,23 @@
         "./js/main.js",
         "index.html"
       ]
+    },
+    {
+      "id": "water-forecast-transparent-root-backend-ready",
+      "rule": "Water Forecast uses a transparent fixed root layer only; do not add visual backdrop unless explicitly requested. Data is manual/backend-ready in ./js/modules/water-forecast.js and must remain easy to replace by backend/API data later.",
+      "primaryAreas": [
+        "15-water-forecast",
+        "13-site-footer",
+        "18-main-js-entry",
+        "cross-module-overlay-stack"
+      ],
+      "firstFilesToInspect": [
+        "./css/modules/15-water-forecast.css",
+        "./js/modules/water-forecast.js",
+        "./js/modules/site-footer.js",
+        "./js/main.js",
+        "index.html"
+      ]
     }
   ],
   "modules": {
@@ -627,7 +674,8 @@
         "./css/modules/01-global-motion.css",
         "./css/modules/17-mobile-story-typewriter.css",
         "./css/modules/13-site-footer.css",
-        "./css/modules/14-gallery-with-us.css"
+        "./css/modules/14-gallery-with-us.css",
+        "./css/modules/15-water-forecast.css"
       ],
       "jsFiles": [
         "./js/main.js"
@@ -645,7 +693,8 @@
       "notes": [
         "./css/modules/05-hero-background.css is active owner for hero background image/layer/crop after PDRS-01.16 ownership lock.",
         "PDRS-01.22: ./css/card page home/card-10-accordion-03.css removed from index.html after Contact platforms/card 10 deletion.",
-        "PDRS-01.25: ./css/modules/14-gallery-with-us.css added for Gallery With Us popup opened from footer Gallery."
+        "PDRS-01.25: ./css/modules/14-gallery-with-us.css added for Gallery With Us popup opened from footer Gallery.",
+        "PDRS-01.26: ./css/modules/15-water-forecast.css added for Water Forecast popup opened from footer Water forecast."
       ]
     },
     "02-header-system": {
@@ -1431,7 +1480,8 @@
         "./js/modules/site-footer.js",
         "./js/modules/progressive-image-loader.js",
         "./js/modules/home-to-more-stories.js",
-        "./js/modules/gallery-with-us.js"
+        "./js/modules/gallery-with-us.js",
+        "./js/modules/water-forecast.js"
       ],
       "internalFunctions": [
         "initHomePopup",
@@ -1456,6 +1506,7 @@
         "initMobileEdgePad",
         "initMobileHomeFeed",
         "initGalleryWithUs",
+        "initWaterForecast",
         "initSiteFooter",
         "initHome",
         "markAppReadyOnNextPaint"
@@ -1476,7 +1527,9 @@
         ".mobile-home-feed-panel-last",
         ".mobile-home-feed-card-09",
         "#gallery-with-us-popup",
-        "[data-footer-gallery]"
+        "[data-footer-gallery]",
+        "#water-forecast-popup",
+        "[data-footer-water-forecast]"
       ],
       "states": [
         "body.js-loading",
@@ -1499,7 +1552,9 @@
         "is-hero-exited",
         "billy:open-more-stories",
         "billy:open-gallery-with-us",
-        "gallery-with-us-open"
+        "gallery-with-us-open",
+        "billy:open-water-forecast",
+        "water-forecast-open"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -1514,7 +1569,9 @@
         "./js/ui/mobile-edge-pad.js",
         "./js/ui/story-expand.js",
         "./js/modules/gallery-with-us.js",
-        "./css/modules/14-gallery-with-us.css"
+        "./css/modules/14-gallery-with-us.css",
+        "./js/modules/water-forecast.js",
+        "./css/modules/15-water-forecast.css"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1535,7 +1592,8 @@
         "PDRS-01.23: main.js does not initialize initMobileHomeSectionLock; this removes mobile feed boundary/logo/history conflict.",
         "PDRS-01.23: logo-home navigation is delegated to ./js/ui/navigation.js.",
         "PDRS-01.24: home-to-more-stories handoff is imported transitively by mobile-edge-pad.js and story-expand.js; main.js initializes both callers.",
-        "PDRS-01.25: main.js imports and initializes initGalleryWithUs before initSiteFooter so footer Gallery can dispatch billy:open-gallery-with-us to an active listener."
+        "PDRS-01.25: main.js imports and initializes initGalleryWithUs before initSiteFooter so footer Gallery can dispatch billy:open-gallery-with-us to an active listener.",
+        "PDRS-01.26: main.js imports and initializes initWaterForecast before initSiteFooter so footer Water forecast can dispatch billy:open-water-forecast to an active listener."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -1926,7 +1984,8 @@
         "./css/modules/08-policy-popup.css",
         "./css/modules/10-contact-popup.css",
         "./css/modules/07-mobile-edge-pad.css",
-        "./css/modules/14-gallery-with-us.css"
+        "./css/modules/14-gallery-with-us.css",
+        "./css/modules/15-water-forecast.css"
       ],
       "jsFilesPrimary": [
         "./js/main.js",
@@ -1936,7 +1995,8 @@
         "./js/ui/mobile-edge-pad.js",
         "./js/modules/booking.js",
         "./js/ui/tour-carousel.js",
-        "./js/modules/gallery-with-us.js"
+        "./js/modules/gallery-with-us.js",
+        "./js/modules/water-forecast.js"
       ],
       "selectors": [
         "header",
@@ -1947,7 +2007,9 @@
         ".mobile-search-backdrop",
         ".mobile-edge-pad",
         ".gallery-with-us-root",
-        ".gallery-with-us-panel"
+        ".gallery-with-us-panel",
+        ".water-forecast-root",
+        ".water-forecast-card"
       ],
       "zIndexStackFromIndexHtml": {
         "header": 1100,
@@ -1957,7 +2019,8 @@
         ".contact-popup-backdrop": 1001,
         ".popup-backdrop": 1000,
         ".availability-popup-backdrop": 1000,
-        ".gallery-with-us-root": 1005
+        ".gallery-with-us-root": 1005,
+        ".water-forecast-root": 1006
       },
       "states": [
         ".is-open",
@@ -1971,7 +2034,9 @@
         "backdrop-filter",
         "position: fixed",
         "gallery-with-us-open",
-        "billy:open-gallery-with-us"
+        "billy:open-gallery-with-us",
+        "water-forecast-open",
+        "billy:open-water-forecast"
       ],
       "behavior": [
         "Header is intentionally above all confirmed overlay layers.",
@@ -1981,7 +2046,8 @@
         "Mobile search popup uses z-index 1003.",
         "Mobile edge pad uses z-index 1004 but still remains below header because header is z-index 1100.",
         "Do not raise popup z-index above header unless the design invariant is explicitly changed.",
-        "Gallery With Us root uses z-index 1005 with transparent visual backdrop; header remains above at 1100; footer remains below/around dock layer depending state."
+        "Gallery With Us root uses z-index 1005 with transparent visual backdrop; header remains above at 1100; footer remains below/around dock layer depending state.",
+        "Water Forecast root uses z-index 1006 with transparent visual backdrop; header remains above at 1100."
       ],
       "futureUploadIfBug": [
         "project-debug-routing-system.json",
@@ -1995,7 +2061,9 @@
         "js/main.js",
         "specific popup JS module named by the symptom",
         "./css/modules/14-gallery-with-us.css",
-        "./js/modules/gallery-with-us.js"
+        "./js/modules/gallery-with-us.js",
+        "./css/modules/15-water-forecast.css",
+        "./js/modules/water-forecast.js"
       ],
       "riskNotes": [
         "Header must remain visible above every overlay.",
@@ -2330,7 +2398,8 @@
         "[data-footer-back-top]",
         "body.is-feed-ending .site-footer",
         "body.is-home-reading-mode .site-footer",
-        "[data-footer-gallery]"
+        "[data-footer-gallery]",
+        "[data-footer-water-forecast]"
       ],
       "states": [
         "data-site-footer-initialized",
@@ -2341,7 +2410,8 @@
         ".is-home-reading-mode",
         "footer-hidden-default",
         "footer-visible-after-card09-faq",
-        "billy:open-gallery-with-us"
+        "billy:open-gallery-with-us",
+        "billy:open-water-forecast"
       ],
       "behavior": [
         "Footer provides final site navigation links, contact CTA, phone CTA, trust note, and back-to-top action.",
@@ -2350,7 +2420,8 @@
         "Footer follows mobile UI source of truth and desktop/landscape 768px app shell boundary.",
         "PDRS-01.22: Footer dock is hidden by default and revealed only when body has .is-feed-ending or .is-home-reading-mode.",
         "PDRS-01.22: Footer remains fixed-bottom dock within app shell; visibility is controlled by CSS state from main.js reading-mode handoff.",
-        "PDRS-01.25: Footer Gallery uses [data-footer-gallery] and dispatches billy:open-gallery-with-us; footer does not render gallery cards or own gallery state."
+        "PDRS-01.25: Footer Gallery uses [data-footer-gallery] and dispatches billy:open-gallery-with-us; footer does not render gallery cards or own gallery state.",
+        "PDRS-01.26: Footer Water forecast uses [data-footer-water-forecast] and dispatches billy:open-water-forecast; footer does not render forecast card or own forecast data."
       ],
       "riskNotes": [
         "Footer CSS must not style header, hero, availability, popup internals, or mobile home feed.",
@@ -2360,7 +2431,8 @@
         "PDRS-01.22: If footer appears too early, inspect main.js card09 observer and body .is-feed-ending/.is-home-reading-mode state.",
         "PDRS-01.22: Footer CSS may style body padding-bottom only in reading mode; do not restore global body padding-bottom unless footer should always be visible.",
         "After PDRS-01.23, footer contact should still use billy:open-contact-popup or [data-contact-popup-trigger]; logo must not be used as the contact trigger.",
-        "If Gallery opens contact popup or nothing happens, inspect ./js/modules/site-footer.js mapping from [data-footer-gallery] to billy:open-gallery-with-us, then ./js/modules/gallery-with-us.js import/init order in ./js/main.js."
+        "If Gallery opens contact popup or nothing happens, inspect ./js/modules/site-footer.js mapping from [data-footer-gallery] to billy:open-gallery-with-us, then ./js/modules/gallery-with-us.js import/init order in ./js/main.js.",
+        "If Water forecast still opens phu-quoc-tip-and-trick.html or does nothing, inspect ./js/modules/site-footer.js mapping from [data-footer-water-forecast] to billy:open-water-forecast and ./js/main.js import/init order."
       ],
       "futureUploadIfBug": [
         "index.html",
@@ -2369,7 +2441,9 @@
         "./js/main.js",
         "./js/ui/contact-popup.js",
         "./js/modules/gallery-with-us.js",
-        "./css/modules/14-gallery-with-us.css"
+        "./css/modules/14-gallery-with-us.css",
+        "./js/modules/water-forecast.js",
+        "./css/modules/15-water-forecast.css"
       ]
     },
     "30-snap-reading-handoff": {
@@ -2667,6 +2741,98 @@
         "Do not couple this module to Google widget/iframe layout; external APIs should provide data only if integrated later.",
         "If popup appears under header or footer, inspect z-index and inset in ./css/modules/14-gallery-with-us.css and cross-module-overlay-stack before changing header/footer.",
         "If Gallery opens contact popup, inspect ./js/modules/site-footer.js for stale data-footer-store mapping."
+      ]
+    },
+    "15-water-forecast": {
+      "area": "Phu Quoc Water Forecast poster card opened from footer Water forecast",
+      "htmlModule": "MODULE 15 — WATER FORECAST (root rendered dynamically by JS; CSS link in index.html head; footer trigger in MODULE 13)",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/modules/15-water-forecast.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/modules/water-forecast.js",
+        "./js/main.js"
+      ],
+      "jsFilesRelated": [
+        "./js/modules/site-footer.js"
+      ],
+      "selectors": [
+        "#water-forecast-popup",
+        ".water-forecast-root",
+        ".water-forecast-stage",
+        ".water-forecast-card",
+        ".water-forecast-close",
+        ".water-forecast-title",
+        ".water-forecast-list",
+        ".water-forecast-row",
+        ".water-forecast-icon",
+        ".water-forecast-text",
+        ".water-forecast-label",
+        ".water-forecast-value",
+        ".water-forecast-best",
+        ".water-forecast-best-text",
+        ".water-forecast-best-label",
+        ".water-forecast-best-value",
+        ".water-forecast-best-icon",
+        ".water-forecast-note",
+        "[data-footer-water-forecast]"
+      ],
+      "states": [
+        ".is-open",
+        "aria-hidden",
+        "aria-modal",
+        "water-forecast-open",
+        "data-water-forecast-initialized",
+        "data-water-forecast-row",
+        "billy:open-water-forecast",
+        "billy:close-water-forecast",
+        "Escape"
+      ],
+      "dataModel": {
+        "currentMode": "DEFAULT_WATER_FORECAST_DATA and activeWaterForecastData inside ./js/modules/water-forecast.js",
+        "fields": [
+          "title",
+          "rows[key, icon, label, value]",
+          "bestForLabel",
+          "bestFor",
+          "note"
+        ],
+        "v1Data": {
+          "title": "PHU QUOC WATER FORECAST",
+          "seaCondition": "Calm",
+          "visibility": "Good (7–8 m)",
+          "current": "Slow",
+          "bestFor": "Snorkeling / Island Hopping",
+          "note": "base from data base of Billy and Friend"
+        },
+        "futureBackendNote": "Backend/API should supply the same data shape or call updateWaterForecastData(nextData). Layout remains owned by CSS/JS module."
+      },
+      "behavior": [
+        "Footer Water forecast dispatches billy:open-water-forecast through ./js/modules/site-footer.js.",
+        "./js/modules/water-forecast.js creates #water-forecast-popup dynamically if it is not present in HTML.",
+        "No visual backdrop is used; .water-forecast-root is transparent and only controls pointer/open state.",
+        "Poster card starts below the fixed header offset, respects footer/safe area, and keeps hero/page visible behind it.",
+        "Inline SVG icons render water condition, visibility, current, and snorkeling/fins visual without external icon assets.",
+        "Close by X button, Escape, or outside-card click."
+      ],
+      "ownershipRule": "CSS owns Water Forecast visual/layout only. JS owns root creation, backend-ready manual data, render, open/close state, and update API. Footer owns only trigger dispatch.",
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/15-water-forecast.css",
+        "./js/modules/water-forecast.js",
+        "./js/modules/site-footer.js",
+        "./js/main.js"
+      ],
+      "riskNotes": [
+        "Do not use data-footer-viewed for Water forecast after this integration; use [data-footer-water-forecast].",
+        "Do not route Water forecast to ./phu-quoc-tip-and-trick.html unless user intentionally changes behavior.",
+        "Do not add update time unless explicitly requested; current v1 intentionally hides update time.",
+        "Do not add Wind row in v1 unless explicitly requested.",
+        "If backend is added later, preserve renderWaterForecast/updateWaterForecastData data shape or map backend response into that shape."
       ]
     }
   },
@@ -3508,6 +3674,34 @@
         "[data-footer-gallery]"
       ],
       "ownershipRule": "14-gallery-with-us owns popup visual and JS behavior; 13-site-footer owns only footer trigger dispatch."
+    },
+    "water-forecast-loi": {
+      "userDescriptionExamples": [
+        "water forecast không mở",
+        "footer Water forecast không chạy",
+        "Phu Quoc Water Forecast card lỗi",
+        "visibility/current/sea condition sai",
+        "card forecast bị che header/footer",
+        "water forecast vẫn đi tip and trick page"
+      ],
+      "routeToModule": "15-water-forecast",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./css/modules/15-water-forecast.css",
+        "./js/modules/water-forecast.js",
+        "./js/modules/site-footer.js",
+        "./js/main.js"
+      ],
+      "selectors": [
+        "#water-forecast-popup",
+        ".water-forecast-root",
+        ".water-forecast-card",
+        ".water-forecast-row",
+        ".water-forecast-best",
+        "[data-footer-water-forecast]"
+      ],
+      "ownershipRule": "15-water-forecast owns popup visual and JS behavior; 13-site-footer owns only footer trigger dispatch."
     }
   },
   "registriesFromIndexHtml": {
@@ -3540,7 +3734,8 @@
       "popupTitle",
       "site-content",
       "siteFooterTitle",
-      "gallery-with-us-popup"
+      "gallery-with-us-popup",
+      "water-forecast-popup"
     ],
     "classes": [
       "and",
@@ -3743,7 +3938,25 @@
       "gallery-with-us-read-more",
       "gallery-with-us-progress",
       "gallery-with-us-progress-bar",
-      "gallery-with-us-open"
+      "gallery-with-us-open",
+      "water-forecast-root",
+      "water-forecast-stage",
+      "water-forecast-card",
+      "water-forecast-close",
+      "water-forecast-title",
+      "water-forecast-list",
+      "water-forecast-row",
+      "water-forecast-icon",
+      "water-forecast-text",
+      "water-forecast-label",
+      "water-forecast-value",
+      "water-forecast-best",
+      "water-forecast-best-text",
+      "water-forecast-best-label",
+      "water-forecast-best-value",
+      "water-forecast-best-icon",
+      "water-forecast-note",
+      "water-forecast-open"
     ],
     "dataAttributes": [
       "data-home-behavior",
@@ -3756,7 +3969,9 @@
       "data-mobile-feed-card",
       "data-mobile-feed-last-card",
       "data-footer-gallery",
-      "data-gallery-card"
+      "data-gallery-card",
+      "data-footer-water-forecast",
+      "data-water-forecast-row"
     ],
     "ariaAttributes": [
       "aria-controls",
@@ -3770,27 +3985,26 @@
     ]
   },
   "nextSteps": {
-    "nextStepName": "PDRS-01.26 — Test Gallery With Us on mobile browsers",
+    "nextStepName": "PDRS-01.27 — Test Water Forecast on mobile browsers",
     "recommendedUploadBatch": [
-      "Short screen recording of footer Gallery open/close on iPhone Safari/Chrome",
-      "./css/modules/14-gallery-with-us.css",
-      "./js/modules/gallery-with-us.js",
+      "Short screen recording of footer Water forecast open/close on iPhone Safari/Chrome",
+      "./css/modules/15-water-forecast.css",
+      "./js/modules/water-forecast.js",
       "./js/modules/site-footer.js",
-      "./js/main.js",
-      "Browser Network screenshot if images/gallery-with-us/* 404 appears"
+      "./js/main.js"
     ],
-    "goal": "Verify footer Gallery opens Gallery With Us module, image paths load, panel respects header/footer inset, horizontal swipe works, and Read more toggles correctly."
+    "goal": "Verify footer Water forecast opens the poster card, transparent root uses hero/page behind it, header remains visible, and future backend data can map into updateWaterForecastData()."
   },
   "assetInventoryReconciliation": {
     "step": "PDRS-01.6 — Asset Inventory Reconciliation",
-    "status": "css-js-modules-accounted-index-and-pdrs-synced-pdrs-01-25",
-    "updatedAtLocal": "2026-06-30T23:16:00+07:00",
+    "status": "css-js-modules-accounted-index-and-pdrs-synced-pdrs-01-26",
+    "updatedAtLocal": "2026-07-01T00:16:00+07:00",
     "runtimeChangePolicy": {
       "indexHtmlChanged": true,
       "runtimeCssChanged": true,
       "runtimeJsChanged": true,
       "htmlTextChanged": false,
-      "note": "PDRS metadata updated to account for Gallery With Us module CSS/JS and footer Gallery mapping."
+      "note": "PDRS metadata updated to account for Water Forecast module CSS/JS and footer Water forecast mapping."
     },
     "activeIndexHtmlCheck": {
       "hasInlineStyleTag": false,
@@ -3824,7 +4038,8 @@
         "./css/modules/01-global-motion.css",
         "./css/modules/17-mobile-story-typewriter.css",
         "./css/modules/13-site-footer.css",
-        "./css/modules/14-gallery-with-us.css"
+        "./css/modules/14-gallery-with-us.css",
+        "./css/modules/15-water-forecast.css"
       ],
       "jsLoadOrder": [
         "./js/modules/tour-card-links.js",
@@ -3942,7 +4157,7 @@
     ],
     "rootCardCssStatus": "PASS — all 10 root card CSS files required by active index.html are now accounted for. Files 07-09 should be raw-source verified before deep debug because fetch could not process them in this session.",
     "cssModulesPlannedNotLinked": [],
-    "currentInventoryCheckpoint": "PDRS-01.25 complete: Gallery With Us accounted."
+    "currentInventoryCheckpoint": "PDRS-01.26 complete: Water Forecast accounted."
   },
   "rootCardCssInventory": {
     "step": "PDRS-01.7 — Root Card CSS Inventory",
