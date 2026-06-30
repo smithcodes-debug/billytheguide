@@ -21,6 +21,7 @@
   .more-stories-section.is-mobile-home-feed-ready {
     --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px);
     --mobile-home-feed-locked-gap: 10px;
+    --mobile-home-feed-panel-top-gap: 5px; /* ✅ NEW */
     --mobile-home-feed-side-gap: 16px;
     height: 100vh;
     height: 100svh;
@@ -66,7 +67,7 @@
     min-height: 100vh;
     min-height: 100svh;
     padding:
-      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-locked-gap))
+      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-panel-top-gap)) /* ✅ UPDATED */
       var(--mobile-home-feed-side-gap)
       calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
     display: flex;
