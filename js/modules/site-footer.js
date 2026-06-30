@@ -4,11 +4,10 @@ export function initSiteFooter() {
   if (!footer || footer.dataset.siteFooterInitialized === 'true') return;
 
   const categoryButton = footer.querySelector('[data-footer-category]');
-  const shortsButton = footer.querySelector('[data-footer-shorts]');
+  const checkBookButton = footer.querySelector('[data-footer-check-book]');
   const contactButton = footer.querySelector('[data-footer-contact]');
   const viewedButton = footer.querySelector('[data-footer-viewed]');
   const storeButton = footer.querySelector('[data-footer-store]');
-  const moreStoriesSection = document.getElementById('more-stories-section');
 
   footer.dataset.siteFooterInitialized = 'true';
 
@@ -18,24 +17,14 @@ export function initSiteFooter() {
     });
   }
 
-  if (shortsButton) {
-    shortsButton.addEventListener('click', function (event) {
+  if (checkBookButton) {
+    checkBookButton.addEventListener('click', function (event) {
       event.preventDefault();
-
-      const openFeedEvent = new CustomEvent('billy:open-mobile-home-feed', {
-        bubbles: false,
-        cancelable: true,
+      window.dispatchEvent(new CustomEvent('billy:open-availability-popup', {
         detail: {
-          source: 'site-footer-check-book',
-          targetCard: '02'
+          source: 'site-footer-check-book'
         }
-      });
-
-      const wasNotCanceled = window.dispatchEvent(openFeedEvent);
-
-      if (wasNotCanceled && moreStoriesSection) {
-        moreStoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      }));
     });
   }
 
