@@ -131,9 +131,25 @@
     height: 0;
   }
 
+  /* ✅ UPDATED: chỉ card 01 được kéo về visual hero cũ, không ảnh hưởng card 02-09 */
+  .mobile-home-feed-panel-01 {
+    padding:
+      calc(var(--mobile-home-feed-header-height) + 15px)
+      0
+      calc(env(safe-area-inset-bottom, 0px) + 0px);
+  }
+
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
     background: #06111f;
     color: #ffffff;
+    box-shadow: none;
   }
 
   .mobile-home-feed-card-01::before {
@@ -149,23 +165,30 @@
     pointer-events: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 0;
-    background: linear-gradient(180deg, rgba(5, 6, 8, 0.18) 0%, rgba(5, 6, 8, 0.42) 42%, rgba(5, 6, 8, 0.78) 100%);
+    background:
+      linear-gradient(180deg, rgba(5, 6, 8, 0.22) 0%, rgba(5, 6, 8, 0.36) 38%, rgba(5, 6, 8, 0.82) 100%);
     pointer-events: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
     position: relative;
     z-index: 1;
-    padding: 18px 18px 22px;
+    padding:
+      4px
+      8px
+      calc(env(safe-area-inset-bottom, 0px) + 88px);
     justify-content: flex-end;
     color: #ffffff;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-main-hero {
     width: 100%;
     min-height: 0;
@@ -173,17 +196,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    gap: 16px;
+    gap: clamp(10px, 1.7svh, 16px);
     text-align: center;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .hero-guide-tagline {
     position: static;
-    width: 100%;
+    width: calc(100% - 32px);
     max-width: none;
     padding: 0;
     color: #ffffff;
-    font-size: 13px;
+    font-size: clamp(16px, 4.1vw, 24px);
     line-height: 1.15;
     font-weight: 800;
     letter-spacing: 0.01em;
@@ -193,12 +217,13 @@
     transform: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .title {
-    max-width: 100%;
+    max-width: calc(100% - 24px);
     margin: 0;
     color: #ffffff;
-    font-size: clamp(28px, 8vw, 44px);
-    line-height: 1.08;
+    font-size: clamp(38px, 10vw, 64px);
+    line-height: 1.02;
     font-weight: 760;
     letter-spacing: -0.04em;
     text-align: center;
@@ -220,20 +245,21 @@
     text-transform: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .story {
-    width: 100%;
-    max-width: 100%;
-    padding: 15px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 24px;
-    background: rgba(13, 17, 23, 0.62);
+    width: calc(100% - 48px);
+    max-width: 680px;
+    padding: clamp(14px, 2.2svh, 24px) clamp(15px, 4.2vw, 36px);
+    border: 0;
+    border-radius: 0;
+    background: rgba(13, 17, 23, 0.76);
     color: #ffffff;
-    font-size: clamp(15px, 4vw, 18px);
-    line-height: 1.48;
+    font-size: clamp(18px, 4.8vw, 32px);
+    line-height: 1.45;
     text-align: center;
     box-sizing: border-box;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     transform: none;
   }
 
@@ -241,19 +267,21 @@
     margin: 0;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .cta-row {
-    width: 100%;
-    margin: 0;
+    width: calc(100% - 28px);
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: clamp(7px, 2vw, 14px);
     flex-wrap: nowrap;
     color: #ffffff;
-    font-size: clamp(14px, 3.8vw, 17px);
-    line-height: 1.2;
+    font-size: clamp(18px, 4.8vw, 32px);
+    line-height: 1.15;
     font-weight: 760;
     white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   }
 
   .mobile-home-feed-card-01 .quote {
@@ -279,11 +307,12 @@
     display: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .fake-box {
     position: relative;
     z-index: 3;
-    width: 19px;
-    height: 19px;
+    width: clamp(19px, 5vw, 30px);
+    height: clamp(19px, 5vw, 30px);
     border: 2px solid #ffffff;
     border-radius: 4px;
     display: inline-flex;
@@ -481,10 +510,16 @@
     touch-action: auto;
   }
 
+  /* ✅ UPDATED: desktop/large shell vẫn chỉ override card 01 */
   .mobile-home-feed-card-01 {
+    width: 100%;
+    max-width: 700px;
     min-height: 720px;
+    border: 0;
+    border-radius: 0;
     background: #06111f;
     color: #ffffff;
+    box-shadow: none;
   }
 
   .mobile-home-feed-card-01::before {
@@ -499,20 +534,24 @@
     pointer-events: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 0;
-    background: linear-gradient(180deg, rgba(5, 6, 8, 0.14) 0%, rgba(5, 6, 8, 0.42) 46%, rgba(5, 6, 8, 0.76) 100%);
+    background:
+      linear-gradient(180deg, rgba(5, 6, 8, 0.20) 0%, rgba(5, 6, 8, 0.38) 44%, rgba(5, 6, 8, 0.80) 100%);
     pointer-events: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
     position: relative;
     z-index: 1;
     color: #ffffff;
     justify-content: flex-end;
+    padding: 18px 24px 72px;
   }
 
   .mobile-home-feed-main-hero {
@@ -525,32 +564,60 @@
     text-align: center;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .hero-guide-tagline {
     position: static;
     width: 100%;
     padding: 0;
     color: #ffffff;
+    font-size: clamp(18px, 3vw, 28px);
+    line-height: 1.15;
+    font-weight: 800;
     text-align: left;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
     transform: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .title {
     margin: 0;
     color: #ffffff;
-    font-size: clamp(30px, 6vw, 52px);
-    line-height: 1.06;
+    font-size: clamp(42px, 6vw, 64px);
+    line-height: 1.04;
     text-align: center;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.66);
     transform: none;
   }
 
+  /* ✅ UPDATED */
   .mobile-home-feed-card-01 .story {
-    padding: 17px 18px;
-    border-radius: 24px;
-    background: rgba(13, 17, 23, 0.62);
+    width: 100%;
+    padding: 20px 24px;
+    border: 0;
+    border-radius: 0;
+    background: rgba(13, 17, 23, 0.76);
     color: #ffffff;
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: 1.45;
+    text-align: center;
     transform: none;
+  }
+
+  /* ✅ NEW */
+  .mobile-home-feed-card-01 .cta-row {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    color: #ffffff;
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: 1.15;
+    font-weight: 760;
+    white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   }
 
   .mobile-home-feed .more-stories-kicker,
@@ -843,5 +910,13 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+  }
+
+  /* ✅ UPDATED: landscape/tablet/desktop chỉ card 01 bỏ card-frame */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+    max-width: var(--app-shell-max-width, 768px);
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
   }
 }
