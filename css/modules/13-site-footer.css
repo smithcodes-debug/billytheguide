@@ -181,8 +181,23 @@ body.is-home-reading-mode .site-footer {
   }
 }
 
-/* ✅ REQUIRED FIX: Shorts is now the direct entry to the mobile card feed */
-.site-footer-dock-item[data-footer-shorts]:active,
-.site-footer-dock-item[data-footer-shorts].is-footer-shorts-active {
-  color: var(--site-footer-dock-accent);
+/* ✅ REQUIRED FIX: footer visibility follows the same mobile feed state as header */
+body.is-mobile-feed-header-hidden .site-footer {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translate3d(-50%, calc(100% + 16px), 0) !important;
+}
+
+body[data-mobile-feed-active-card="01"] .site-footer,
+body.is-mobile-feed-last-card-active .site-footer {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translate3d(-50%, 0, 0) !important;
+  pointer-events: none !important;
+}
+
+body[data-mobile-feed-active-card="01"] .site-footer .site-footer-inner,
+body.is-mobile-feed-last-card-active .site-footer .site-footer-inner {
+  pointer-events: auto !important;
 }
