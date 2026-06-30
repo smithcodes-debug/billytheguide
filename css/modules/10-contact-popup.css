@@ -491,3 +491,157 @@ transform: translateX(-50%);
   0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
   50% { filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.24)); }
 }
+
+/* ✅ CONTACT POPUP SHELL PATCH — 2026-06-30 */
+/* Fixes: transparent root/no black backdrop, shell-safe height, reliable X hit target, tighter phone icon/number spacing. */
+.contact-popup-backdrop {
+  background: transparent;
+}
+
+.contact-popup-backdrop {
+  position: fixed;
+  inset: 0 auto 0 50%;
+  width: min(100%, var(--app-shell-max-width, 768px));
+  max-width: var(--app-shell-max-width, 768px);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 104px) 22px calc(env(safe-area-inset-bottom, 0px) + 24px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.contact-popup-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.contact-popup-card {
+  width: min(100%, 560px);
+  max-height: min(760px, calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 150px));
+  margin: auto 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.contact-popup-close {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact-phone-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.contact-phone-icon {
+  position: static;
+  flex: 0 0 auto;
+  transform: none;
+  width: 38px;
+  height: 38px;
+}
+
+.contact-phone-number {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: inline-block;
+}
+
+@supports not (height: 100dvh) {
+  .contact-popup-card {
+    max-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 150px);
+  }
+}
+
+@media (max-height: 760px) {
+  .contact-popup-backdrop {
+    align-items: flex-start;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 104px);
+  }
+
+  .contact-popup-card {
+    margin: 0;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 132px);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-popup-backdrop {
+    inset: 0 auto 0 50%;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    width: min(100%, var(--app-shell-max-width, 768px));
+    max-width: var(--app-shell-max-width, 768px);
+    align-items: center;
+    justify-content: center;
+    padding: calc(env(safe-area-inset-top, 0px) + 104px) 22px calc(env(safe-area-inset-bottom, 0px) + 24px);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .contact-popup-card {
+    width: min(100%, 420px);
+    max-height: min(760px, calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 150px));
+    margin: auto 0;
+    box-sizing: border-box;
+    pointer-events: auto;
+  }
+
+  .contact-popup-close {
+    position: relative;
+    z-index: 5;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .contact-phone-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 18px;
+    box-sizing: border-box;
+  }
+
+  .contact-phone-icon {
+    position: static;
+    flex: 0 0 auto;
+    transform: none;
+  }
+
+  .contact-phone-number {
+    flex: 0 1 auto;
+  }
+}

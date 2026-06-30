@@ -24,9 +24,14 @@ export function initContactPopup() {
     document.documentElement.classList.add('mobile-popup-scroll-lock');
     document.body.classList.add('mobile-popup-scroll-lock');
     setContactTriggersExpanded(true);
+    window.requestAnimationFrame(function () {
+      contactCloseBtn.focus({ preventScroll: true });
+    });
   }
 
-  function closeContactPopup() {
+  function closeContactPopup(event) {
+    if (event && typeof event.preventDefault === 'function') event.preventDefault();
+    if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
     contactPopup.classList.remove('is-open');
     contactPopup.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('mobile-popup-scroll-lock');
@@ -49,10 +54,11 @@ export function initContactPopup() {
   });
 
   contactCloseBtn.addEventListener('click', closeContactPopup);
+  contactCloseBtn.addEventListener('pointerup', closeContactPopup);
 
   contactPopup.addEventListener('click', function (event) {
-    if (!contactPopupCard.contains(event.target)) {
-      closeContactPopup();
+    if (event.target === contactPopup) {
+      closeContactPopup(event);
     }
   });
 
