@@ -49,6 +49,8 @@
     overflow-x: hidden;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
+    /* ✅ REQUIRED FIX: keep vertical gestures owned by the feed after bridge activation */
+    touch-action: pan-y;
     scroll-padding-top: 0;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;

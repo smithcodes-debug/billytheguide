@@ -474,6 +474,41 @@ function initMobileHomeFeed() {
     }
   }
 
+  function enterMobileFeedFromPreFeed() {
+    if (!isMobileTabletViewport() || isSnapActivated) return;
+    if (homeSection.getBoundingClientRect().top <= 8) return;
+
+    /* ✅ REQUIRED FIX: bridge first downward swipe/wheel from intro hero into the actual mobile feed */
+    activateSnapState();
+    window.requestAnimationFrame(function () {
+      homeSection.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+    });
+  }
+
+  let preFeedTouchStartY = 0;
+
+  function handlePreFeedTouchStart(event) {
+    if (!event.touches || !event.touches.length) return;
+    preFeedTouchStartY = event.touches[0].clientY;
+  }
+
+  function handlePreFeedTouchEnd(event) {
+    if (!event.changedTouches || !event.changedTouches.length) return;
+
+    const touchEndY = event.changedTouches[0].clientY;
+    const swipeDistance = preFeedTouchStartY - touchEndY;
+
+    if (swipeDistance > 34) {
+      enterMobileFeedFromPreFeed();
+    }
+  }
+
+  function handlePreFeedWheel(event) {
+    if (event.deltaY > 16) {
+      enterMobileFeedFromPreFeed();
+    }
+  }
+
   function getLastPanelVisibleRatio() {
     if (!lastPanel) return 0;
 
@@ -534,6 +569,9 @@ function initMobileHomeFeed() {
   initLastPanelObserver();
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
+  window.addEventListener('touchstart', handlePreFeedTouchStart, { passive: true });
+  window.addEventListener('touchend', handlePreFeedTouchEnd, { passive: true });
+  window.addEventListener('wheel', handlePreFeedWheel, { passive: true });
   window.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
   feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });
