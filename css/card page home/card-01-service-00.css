@@ -80,20 +80,23 @@
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .hero-guide-tagline {
-    position: static;
-    width: calc(100% - 32px);
-    max-width: none;
-    padding: 0;
-    color: #ffffff;
-    font-size: clamp(16px, 4.1vw, 24px);
-    line-height: 1.15;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    text-align: left;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
-    pointer-events: none;
-    transform: none;
-  }
+  position: absolute;
+  top: clamp(10px, 1.6svh, 18px);
+  left: clamp(16px, 5vw, 32px);
+  z-index: 2;
+  width: calc(100% - clamp(32px, 10vw, 64px));
+  max-width: none;
+  padding: 0;
+  color: #ffffff;
+  font-size: clamp(16px, 4.1vw, 24px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+  transform: none;
+}
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title {
     max-width: calc(100% - 24px);
