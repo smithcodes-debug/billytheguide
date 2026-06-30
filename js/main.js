@@ -360,19 +360,10 @@ function initMobileHomeFeed() {
   }
 
   function setMobileFeedHeaderState(cardNumber) {
-    const isLastCardActive = cardNumber === lastCardNumber;
-    const shouldShowHeader = cardNumber === '01' || isLastCardActive;
-
-    if (shouldShowHeader) {
-      document.documentElement.classList.remove('is-mobile-feed-header-hidden');
-      document.body.classList.remove('is-mobile-feed-header-hidden');
-      homeSection.classList.remove('is-mobile-feed-header-hidden');
-      return;
-    }
-
-    document.documentElement.classList.add('is-mobile-feed-header-hidden');
-    document.body.classList.add('is-mobile-feed-header-hidden');
-    homeSection.classList.add('is-mobile-feed-header-hidden');
+    /* ✅ REQUIRED FIX: header stays fixed/visible; JS only clears stale hidden state */
+    document.documentElement.classList.remove('is-mobile-feed-header-hidden');
+    document.body.classList.remove('is-mobile-feed-header-hidden');
+    homeSection.classList.remove('is-mobile-feed-header-hidden');
   }
 
   function setActiveMobileFeedCard(cardNumber) {
