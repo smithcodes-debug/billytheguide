@@ -21,7 +21,7 @@
   .more-stories-section.is-mobile-home-feed-ready {
     --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px);
     --mobile-home-feed-locked-gap: 10px;
-    --mobile-home-feed-panel-top-gap: 5px; /* ✅ NEW */
+    --mobile-home-feed-panel-top-gap: 5px;
     --mobile-home-feed-side-gap: 16px;
     height: 100vh;
     height: 100svh;
@@ -595,19 +595,15 @@
 }
 
 @media (max-width: 1024px) {
-  /* ✅ UPDATED: header chỉ hiện ở Card 01 Main Hero và card cuối cùng thật sự */
-  body[data-mobile-feed-active-card] header {
-    transition:
-      transform 220ms ease,
-      opacity 180ms ease,
-      visibility 180ms ease;
-  }
-
-  body.is-mobile-feed-header-hidden:not([data-mobile-feed-active-card="01"]):not(.is-mobile-feed-last-card-active) header {
+  body.is-mobile-feed-header-hidden header {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
     transform: translateX(-50%) translateY(calc(-100% - 16px)) !important;
+    transition:
+      transform 220ms ease,
+      opacity 180ms ease,
+      visibility 180ms ease;
   }
 
   body[data-mobile-feed-active-card="01"] header,

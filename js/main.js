@@ -96,8 +96,8 @@ function initMobileHomeFeed() {
   const FEED_ENDING_CLASS = 'is-feed-ending';
   const LAST_CARD_CLASS = 'mobile-home-feed-panel-last';
   const LAST_CARD_VISIBLE_RATIO = 0.58;
-  const MAX_FEED_CARDS = 10; /* ✅ NEW */
-  const FAQ_CARD_NUMBER = '09'; /* ✅ NEW */
+  const MAX_FEED_CARDS = 10;
+  const FAQ_CARD_NUMBER = '09';
 
   const homeSection = document.querySelector(HOME_SECTION_SELECTOR);
   const sourceInner = homeSection ? homeSection.querySelector(SOURCE_INNER_SELECTOR) : null;
@@ -105,10 +105,10 @@ function initMobileHomeFeed() {
   if (!homeSection || !sourceInner) return;
   if (homeSection.querySelector('.' + FEED_CLASS)) return;
 
-  let activeCardFrame = 0; /* ✅ NEW */
+  let activeCardFrame = 0;
   let isSnapActivated = false;
   let lastPanel = null;
-  let lastCardNumber = '01'; /* ✅ NEW */
+  let lastCardNumber = '01';
 
   function isMobileTabletViewport() {
     return window.innerWidth <= MOBILE_TABLET_MAX_WIDTH;
@@ -233,7 +233,6 @@ function initMobileHomeFeed() {
   }
 
   function createFaqFallbackNode() {
-    /* ✅ NEW */
     const faq = document.createElement('div');
     const heading = createElement('h2', 'mobile-home-feed-faq-title', 'FAQ');
     const lead = createElement('p', 'mobile-home-feed-faq-lead', 'Quick answers before you choose your Phu Quoc local experience.');
@@ -282,7 +281,6 @@ function initMobileHomeFeed() {
   }
 
   function findFaqSourceNode(accordionNodes) {
-    /* ✅ NEW */
     const faqPattern = /(faq|frequently|question|asked|hỏi|câu hỏi|thắc mắc)/i;
 
     return accordionNodes.find(function (node) {
@@ -291,7 +289,6 @@ function initMobileHomeFeed() {
   }
 
   function createFeedNodes() {
-    /* ✅ NEW */
     const serviceNodes = Array.from(sourceInner.querySelectorAll('.more-service-card'));
     const accordionNodes = Array.from(sourceInner.querySelectorAll('.more-accordion-item'));
     const faqSourceNode = findFaqSourceNode(accordionNodes);
@@ -339,8 +336,8 @@ function initMobileHomeFeed() {
     scroll.className = 'mobile-home-feed-card-scroll mobile-home-feed-card-scroll-' + cardNumber;
 
     if (cardNumber === FAQ_CARD_NUMBER) {
-      panel.classList.add('mobile-home-feed-panel-faq'); /* ✅ NEW */
-      card.classList.add('mobile-home-feed-card-faq'); /* ✅ NEW */
+      panel.classList.add('mobile-home-feed-panel-faq');
+      card.classList.add('mobile-home-feed-card-faq');
     }
 
     if (isLastCard) {
@@ -362,10 +359,24 @@ function initMobileHomeFeed() {
     return panel;
   }
 
-  function setActiveMobileFeedCard(cardNumber) {
-    /* ✅ UPDATED */
+  function setMobileFeedHeaderState(cardNumber) {
     const isLastCardActive = cardNumber === lastCardNumber;
-    const isHeaderVisibleCard = cardNumber === '01' || isLastCardActive;
+    const shouldShowHeader = cardNumber === '01' || isLastCardActive;
+
+    if (shouldShowHeader) {
+      document.documentElement.classList.remove('is-mobile-feed-header-hidden');
+      document.body.classList.remove('is-mobile-feed-header-hidden');
+      homeSection.classList.remove('is-mobile-feed-header-hidden');
+      return;
+    }
+
+    document.documentElement.classList.add('is-mobile-feed-header-hidden');
+    document.body.classList.add('is-mobile-feed-header-hidden');
+    homeSection.classList.add('is-mobile-feed-header-hidden');
+  }
+
+  function setActiveMobileFeedCard(cardNumber) {
+    const isLastCardActive = cardNumber === lastCardNumber;
 
     document.documentElement.setAttribute('data-mobile-feed-active-card', cardNumber);
     document.body.setAttribute('data-mobile-feed-active-card', cardNumber);
@@ -379,18 +390,16 @@ function initMobileHomeFeed() {
     document.body.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
     homeSection.classList.toggle('is-mobile-feed-last-card-active', isLastCardActive);
 
-    document.documentElement.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
-    document.body.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
-    homeSection.classList.toggle('is-mobile-feed-header-hidden', !isHeaderVisibleCard);
+    setMobileFeedHeaderState(cardNumber);
   }
 
   function syncActiveMobileFeedCard() {
-    /* ✅ UPDATED */
     const panels = Array.from(feed.querySelectorAll('.mobile-home-feed-panel'));
 
     if (!panels.length) return;
 
-    const viewportCenter = window.innerHeight / 2;
+    const feedRect = feed.getBoundingClientRect();
+    const viewportCenter = feedRect.top + (feedRect.height / 2);
     let nearestPanel = panels[0];
     let nearestDistance = Number.POSITIVE_INFINITY;
 
@@ -409,7 +418,6 @@ function initMobileHomeFeed() {
   }
 
   function scheduleActiveMobileFeedCardSync() {
-    /* ✅ NEW */
     if (activeCardFrame) return;
 
     activeCardFrame = window.requestAnimationFrame(function () {
@@ -422,7 +430,7 @@ function initMobileHomeFeed() {
   const handle = document.createElement('span');
   const feedNodes = createFeedNodes();
 
-  lastCardNumber = String(feedNodes.length || 1).padStart(2, '0'); /* ✅ NEW */
+  lastCardNumber = String(feedNodes.length || 1).padStart(2, '0');
 
   feed.className = FEED_CLASS;
   feed.setAttribute('aria-label', 'Mobile home feed');
@@ -465,7 +473,7 @@ function initMobileHomeFeed() {
 
     isSnapActivated = true;
     applySnapStateIfNeeded();
-    scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
+    scheduleActiveMobileFeedCardSync();
   }
 
   function activateSnapWhenHomeReached() {
@@ -522,30 +530,31 @@ function initMobileHomeFeed() {
       isSnapActivated = false;
       setFeedEndingMode(false);
       applySnapStateIfNeeded();
-      scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
+      setMobileFeedHeaderState('01');
+      scheduleActiveMobileFeedCardSync();
       return;
     }
 
     homeSection.classList.remove(DESKTOP_NORMAL_SCROLL_CLASS);
     syncFeedEndingState();
-    scheduleActiveMobileFeedCardSync(); /* ✅ NEW */
+    scheduleActiveMobileFeedCardSync();
   }
 
-  setActiveMobileFeedCard('01'); /* ✅ NEW */
+  setActiveMobileFeedCard('01');
   syncMobileFeedState();
   initLastPanelObserver();
 
   window.addEventListener('scroll', activateSnapWhenHomeReached, { passive: true });
-  window.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true }); /* ✅ NEW */
+  window.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });
   feed.addEventListener('scroll', syncFeedEndingState, { passive: true });
-  feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true }); /* ✅ NEW */
+  feed.addEventListener('scroll', scheduleActiveMobileFeedCardSync, { passive: true });
   window.addEventListener('resize', syncMobileFeedState);
 
   window.addEventListener('orientationchange', function () {
     window.setTimeout(syncMobileFeedState, 220);
   });
 
-  window.requestAnimationFrame(syncActiveMobileFeedCard); /* ✅ NEW */
+  window.requestAnimationFrame(syncActiveMobileFeedCard);
 }
 
 function markAppReady() {
