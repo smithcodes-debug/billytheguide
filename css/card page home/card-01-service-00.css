@@ -15,8 +15,9 @@
 @media (max-width: 1024px) {
   /* ✅ NEW: Card 01 Main Hero owner */
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-01 {
+    /* ✅ REQUIRED FIX: align Card 01 hero directly under the real fixed header height */
     padding:
-      calc(var(--mobile-home-feed-header-height) + 15px)
+      calc(env(safe-area-inset-top, 0px) + 62px)
       0
       calc(env(safe-area-inset-bottom, 0px) + 0px);
   }
