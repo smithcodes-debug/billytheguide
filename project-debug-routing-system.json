@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-27-footer-toggle-home-tour-popup-extracted",
+  "version": "pdrs-01-28-typography-system-ready",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "footer-toggle-home-tour-popup-extracted",
-    "note": "PDRS-01.27 update: extracted #leave-no-trace-popup open/close logic from ./js/main.js into ./js/ui/home-tour-popup.js; ./js/main.js now imports/initializes initHomeTourPopup only. ./js/modules/site-footer.js now toggles footer Menu, Check-book, Find me, and Gallery based on each popup .is-open state; Water Forecast remains open-only by explicit owner request. ./js/modules/booking.js now exposes billy:close-availability-popup for footer toggle."
+    "status": "typography-system-ready-not-yet-linked",
+    "note": "PDRS-01.28 adds planned MODULE 02 Typography System at ./css/modules/02-typography-system.css. This module is ready to import after ./css/modules/00-display-shell.css and before component CSS. Component files should gradually consume typography tokens instead of hardcoding font stacks."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "added Water Forecast CSS link and mapped footer Water forecast from data-footer-viewed route behavior to data-footer-water-forecast event behavior",
@@ -29,8 +29,9 @@
     "textChanged": true,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only.",
+    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only. PDRS-01.28: Typography system module created/ready; import after 00-display-shell.css before converting component CSS.",
     "cssAddedFiles": [
+      "./css/modules/02-typography-system.css",
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/14-gallery-with-us.css",
@@ -305,7 +306,8 @@
       "./css/modules/13-site-footer.css",
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/14-gallery-with-us.css",
-      "./css/modules/15-water-forecast.css"
+      "./css/modules/15-water-forecast.css",
+      "./css/modules/02-typography-system.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -385,7 +387,9 @@
       "waterForecastRuntimeStatus": "active/accounted after PDRS-01.26: ./css/modules/15-water-forecast.css owns visual; ./js/modules/water-forecast.js owns manual/backend-ready data render and open-close behavior.",
       "homeTourPopupRuntimeStatus": "active/accounted after PDRS-01.27: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close; ./js/main.js imports/init only."
     },
-    "plannedCssModules": [],
+    "plannedCssModules": [
+      "./css/modules/02-typography-system.css"
+    ],
     "plannedJsModules": [
       "./js/modules/input-modality.js",
       "./js/modules/progressive-image-loader.js"
@@ -394,7 +398,7 @@
     "removedRuntimeCssFiles": [
       "./css/card page home/card-10-accordion-03.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.27 complete: Home Tour Popup extracted from main.js; footer icon toggle accounted; Water Forecast remains open-only."
+    "currentInventoryCheckpoint": "PDRS-01.28 typography system ready: ./css/modules/02-typography-system.css created as font/type token owner; not yet imported in index.html until component conversion batch begins."
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -698,6 +702,18 @@
         "./js/modules/site-footer.js",
         "./js/main.js",
         "index.html"
+      ]
+    },
+    {
+      "id": "typography-system-source-of-truth",
+      "rule": "Project typography is owned by ./css/modules/02-typography-system.css. Component CSS should consume typography tokens instead of hardcoding font stacks. JS must not manage fonts unless explicitly required later.",
+      "primaryAreas": [
+        "02-typography-system"
+      ],
+      "firstFilesToInspect": [
+        "./css/modules/02-typography-system.css",
+        "index.html",
+        "specific component CSS named by symptom"
       ]
     }
   ],
@@ -2938,6 +2954,64 @@
         "Do not add Wind row in v1 unless explicitly requested.",
         "If backend is added later, preserve renderWaterForecast/updateWaterForecastData data shape or map backend response into that shape."
       ]
+    },
+    "02-typography-system": {
+      "area": "project-wide font family / type scale / typography tokens",
+      "htmlModule": "MODULE 02 — TYPOGRAPHY SYSTEM (planned CSS module; import after 00-display-shell.css)",
+      "cssFilesPrimary": [
+        "./css/modules/02-typography-system.css"
+      ],
+      "jsFilesPrimary": [],
+      "selectors": [
+        ":root",
+        "html",
+        "body",
+        "button",
+        "input",
+        "textarea",
+        "select",
+        ".type-display-xl",
+        ".type-display-lg",
+        ".type-display-md",
+        ".type-body",
+        ".type-ui",
+        ".type-accent"
+      ],
+      "states": [
+        "--font-display",
+        "--font-body",
+        "--font-ui",
+        "--font-label",
+        "--font-button",
+        "--font-number",
+        "--type-display-xl",
+        "--type-display-lg",
+        "--type-display-md",
+        "--type-body-md",
+        "--type-ui-sm",
+        "--line-display-tight",
+        "--line-body",
+        "--tracking-display-tight",
+        "--tracking-body",
+        "--type-accent"
+      ],
+      "behavior": [
+        "Owns project-wide typography tokens and baseline font smoothing only.",
+        "Should be imported immediately after ./css/modules/00-display-shell.css and before component CSS.",
+        "Component modules should consume var(--font-display), var(--font-body), var(--font-ui), font-size tokens, line-height tokens, and tracking tokens instead of hardcoding font stacks.",
+        "Does not own layout, z-index, widths, image paths, popup state, JS behavior, or module-specific visual composition."
+      ],
+      "futureUploadIfBug": [
+        "./css/modules/02-typography-system.css",
+        "index.html",
+        "specific component CSS file whose typography is visually wrong"
+      ],
+      "riskNotes": [
+        "Do not import typography system after component CSS because token overrides and body baseline may become inconsistent.",
+        "Do not use JS for typography switching unless the owner explicitly requests runtime theme/font switching later.",
+        "Apply component conversion batch-by-batch to preserve rollback safety."
+      ],
+      "runtimeStatus": "created-ready-not-yet-linked"
     }
   },
   "debugScenarios": {

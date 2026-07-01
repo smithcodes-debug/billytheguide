@@ -1,0 +1,150 @@
+/* ✅ MODULE 02 — TYPOGRAPHY SYSTEM
+   Project-wide typography source of truth.
+
+   Status:
+   - Ready to import after ./css/modules/00-display-shell.css.
+   - Component CSS should consume these tokens instead of hardcoding font stacks.
+
+   Brand direction:
+   - Premium editorial display: Georgia / Times New Roman serif.
+   - Practical UI/control text: Poppins / system sans.
+   - Deep teal accent follows the existing brand tone (#083f46).
+
+   Ownership:
+   - Owns font-family tokens, type scale tokens, line-height tokens, letter-spacing tokens.
+   - Does not own component layout, width, z-index, image paths, popup state, or JS behavior.
+*/
+:root {
+  /* Font families */
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-ui: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-label: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-button: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-number: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-logo: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-google-mark: Arial, Helvetica, sans-serif;
+
+  /* Brand text colors */
+  --type-ink: #101820;
+  --type-ink-soft: rgba(16, 24, 32, 0.68);
+  --type-ink-muted: rgba(16, 24, 32, 0.54);
+  --type-ink-inverse: #ffffff;
+  --type-accent: #083f46;
+  --type-accent-soft: rgba(8, 63, 70, 0.72);
+
+  /* Display scale — hero/card/major module titles */
+  --type-display-xl: clamp(38px, 10vw, 64px);
+  --type-display-lg: clamp(31px, 8.8vw, 56px);
+  --type-display-md: clamp(24px, 7vw, 42px);
+  --type-display-sm: clamp(19px, 5.3vw, 27px);
+
+  /* UI scale — controls, footer, calendar, chips, labels */
+  --type-ui-lg: clamp(18px, 4.8vw, 32px);
+  --type-ui-md: clamp(15px, 3.9vw, 20px);
+  --type-ui-sm: 13px;
+  --type-ui-xs: 11px;
+  --type-ui-xxs: 9.5px;
+
+  /* Body scale — story/copy/description */
+  --type-body-lg: clamp(18px, 4.8vw, 32px);
+  --type-body-md: clamp(15px, 3.9vw, 20px);
+  --type-body-sm: 14px;
+  --type-body-xs: 12px;
+
+  /* Line-height tokens */
+  --line-display-tight: 0.98;
+  --line-display: 1.04;
+  --line-title: 1.08;
+  --line-body: 1.45;
+  --line-body-loose: 1.62;
+  --line-ui: 1.15;
+  --line-caption: 1.25;
+
+  /* Letter-spacing tokens */
+  --tracking-display-tight: -0.055em;
+  --tracking-display: -0.045em;
+  --tracking-title: -0.035em;
+  --tracking-body: -0.025em;
+  --tracking-ui: -0.015em;
+  --tracking-label: 0.01em;
+  --tracking-kicker: 0.08em;
+
+  /* Weight tokens */
+  --weight-display: 900;
+  --weight-title: 760;
+  --weight-ui-strong: 850;
+  --weight-ui: 700;
+  --weight-body: 500;
+  --weight-body-strong: 650;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--type-ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button,
+input,
+textarea,
+select,
+[role="button"] {
+  font-family: var(--font-ui);
+}
+
+/* Reusable semantic helpers for future landing pages/modules. */
+.type-display-xl {
+  font-family: var(--font-display);
+  font-size: var(--type-display-xl);
+  line-height: var(--line-display-tight);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display-tight);
+}
+
+.type-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--type-display-lg);
+  line-height: var(--line-display-tight);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display-tight);
+}
+
+.type-display-md {
+  font-family: var(--font-display);
+  font-size: var(--type-display-md);
+  line-height: var(--line-title);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-title);
+}
+
+.type-body {
+  font-family: var(--font-body);
+  font-size: var(--type-body-md);
+  line-height: var(--line-body);
+  font-weight: var(--weight-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.type-ui {
+  font-family: var(--font-ui);
+  font-size: var(--type-ui-sm);
+  line-height: var(--line-ui);
+  font-weight: var(--weight-ui);
+  letter-spacing: var(--tracking-ui);
+}
+
+.type-accent {
+  color: var(--type-accent);
+}

@@ -4,6 +4,7 @@
 .mobile-home-feed-handle {
   display: none;
 }
+
 /* ✅ REQUIRED FIX: mobile feed drag handle removed from visual UI */
 .mobile-home-feed-handle {
   display: none !important;
@@ -82,6 +83,7 @@
     overflow: hidden;
     box-sizing: border-box;
   }
+
   /* ✅ REQUIRED FIX: Cards 02-09 use full mobile feed height when header/footer are hidden */
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-02,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-03,
@@ -107,7 +109,7 @@
     border: 1px solid rgba(5, 6, 8, 0.08);
     border-radius: 38px;
     background: rgba(255, 255, 255, 0.88);
-    color: var(--color-ink);
+    color: var(--color-ink, var(--type-ink, #101820));
     box-shadow:
       0 24px 70px rgba(8, 63, 70, 0.11),
       inset 0 0 0 1px rgba(255, 255, 255, 0.62);
@@ -139,23 +141,34 @@
   .mobile-home-feed .more-stories-kicker {
     margin-bottom: 18px;
     color: rgba(8, 63, 70, 0.62);
+    font-family: var(--font-label, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: var(--type-ui-sm, 13px);
+    line-height: var(--line-caption, 1.25);
+    font-weight: var(--weight-ui, 700);
+    letter-spacing: var(--tracking-kicker, 0.08em);
     text-align: center;
+    text-transform: uppercase;
   }
 
   .mobile-home-feed .more-stories-title {
     max-width: none;
-    color: #101820;
-    font-size: clamp(30px, 8vw, 50px);
-    line-height: 1.03;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-lg, clamp(30px, 8vw, 50px));
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
     text-align: center;
-    letter-spacing: -0.045em;
+    letter-spacing: var(--tracking-display, -0.045em);
   }
 
   .mobile-home-feed .more-stories-intro {
     margin-top: 20px;
-    color: rgba(16, 20, 24, 0.64);
-    font-size: clamp(15px, 3.8vw, 20px);
-    line-height: 1.48;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.64));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.8vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
     text-align: center;
   }
 
@@ -165,31 +178,38 @@
     border: 0;
     background: transparent;
     box-shadow: none;
-    color: var(--color-ink);
+    color: var(--color-ink, var(--type-ink, #101820));
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .mobile-home-feed .more-service-card-title {
-    color: #101820;
-    font-size: clamp(24px, 7vw, 42px);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.035em);
   }
 
   .mobile-home-feed .more-service-card-desc {
     margin-top: 16px;
     max-width: 520px;
-    color: rgba(16, 20, 24, 0.62);
-    font-size: clamp(15px, 3.9vw, 20px);
-    line-height: 1.4;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.62));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.9vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
   }
 
   .mobile-home-feed .more-service-card-link {
     margin-top: 24px;
-    color: var(--color-hue-deep);
+    color: var(--color-hue-deep, var(--type-accent, #083f46));
+    font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
     font-size: 16px;
+    font-weight: var(--weight-ui, 700);
   }
 
   .mobile-home-feed .more-accordion-item {
@@ -198,10 +218,12 @@
 
   .mobile-home-feed .more-accordion-summary {
     padding: 0 0 14px;
-    color: #101820;
-    font-size: clamp(24px, 7vw, 42px);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.04em);
     cursor: default;
   }
 
@@ -211,17 +233,18 @@
 
   .mobile-home-feed .more-accordion-panel {
     padding: 0;
-    color: rgba(16, 20, 24, 0.66);
-    font-size: 14px;
-    line-height: 1.48;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-sm, 14px);
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
     overflow: hidden;
   }
 
   .mobile-home-feed .more-faq-list {
     gap: 10px;
   }
-
-
 }
 
 @media (min-width: 1025px) {
@@ -281,7 +304,7 @@
     border: 1px solid rgba(5, 6, 8, 0.08);
     border-radius: 38px;
     background: rgba(255, 255, 255, 0.88);
-    color: var(--color-ink);
+    color: var(--color-ink, var(--type-ink, #101820));
     box-shadow:
       0 24px 70px rgba(8, 63, 70, 0.11),
       inset 0 0 0 1px rgba(255, 255, 255, 0.62);
@@ -309,17 +332,22 @@
 
   .mobile-home-feed .more-stories-title {
     max-width: none;
-    color: #101820;
-    font-size: clamp(30px, 8vw, 50px);
-    line-height: 1.03;
-    letter-spacing: -0.045em;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-lg, clamp(30px, 8vw, 50px));
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-display, -0.045em);
   }
 
   .mobile-home-feed .more-stories-intro {
     margin-top: 20px;
-    color: rgba(16, 20, 24, 0.64);
-    font-size: clamp(15px, 3.8vw, 20px);
-    line-height: 1.48;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.64));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.8vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
   }
 
   .mobile-home-feed .more-service-card {
@@ -328,31 +356,38 @@
     border: 0;
     background: transparent;
     box-shadow: none;
-    color: var(--color-ink);
+    color: var(--color-ink, var(--type-ink, #101820));
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .mobile-home-feed .more-service-card-title {
-    color: #101820;
-    font-size: clamp(24px, 7vw, 42px);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.035em);
   }
 
   .mobile-home-feed .more-service-card-desc {
     margin-top: 16px;
     max-width: 520px;
-    color: rgba(16, 20, 24, 0.62);
-    font-size: clamp(15px, 3.9vw, 20px);
-    line-height: 1.4;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.62));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.9vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
   }
 
   .mobile-home-feed .more-service-card-link {
     margin-top: 24px;
-    color: var(--color-hue-deep);
+    color: var(--color-hue-deep, var(--type-accent, #083f46));
+    font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
     font-size: 16px;
+    font-weight: var(--weight-ui, 700);
   }
 
   .mobile-home-feed .more-accordion-summary::after,
@@ -391,11 +426,12 @@
   grid-column: 1 / -1;
   display: block;
   margin: 0 0 2px;
-  color: rgba(5, 6, 8, 0.58);
-  font-size: clamp(15px, 3vw, 17px);
-  line-height: 1.25;
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  color: var(--type-ink-muted, rgba(5, 6, 8, 0.58));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-md, clamp(15px, 3vw, 17px));
+  line-height: var(--line-caption, 1.25);
+  font-weight: var(--weight-body-strong, 650);
+  letter-spacing: var(--tracking-body, -0.01em);
   text-align: center;
   text-transform: none;
 }
@@ -412,10 +448,11 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+  font-family: var(--font-label, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   font-size: clamp(10px, 2.7vw, 13px);
-  line-height: 1.15;
+  line-height: var(--line-ui, 1.15);
   font-weight: 750;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-ui, -0.01em);
   text-transform: lowercase;
   box-shadow: none;
   box-sizing: border-box;
@@ -476,10 +513,11 @@
     margin: 14px auto 0;
     max-width: 260px;
     color: rgba(16, 20, 24, 0.58);
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
     font-size: clamp(13px, 3.4vw, 17px);
-    line-height: 1.42;
+    line-height: var(--line-body, 1.42);
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--tracking-body, -0.01em);
     text-align: center;
   }
 
@@ -519,6 +557,7 @@
     max-height: 90svh;
     align-self: center;
   }
+
   /* ✅ REQUIRED FIX: Card 09 should stretch inside the new 10px panel gaps */
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-09 .mobile-home-feed-card-last {
     height: 100%;
@@ -546,10 +585,11 @@
     margin: 14px auto 0;
     max-width: 560px;
     color: rgba(16, 20, 24, 0.58);
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
     font-size: clamp(13px, 3.4vw, 17px);
-    line-height: 1.42;
+    line-height: var(--line-body, 1.42);
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--tracking-body, -0.01em);
     text-align: center;
   }
 }
