@@ -251,6 +251,8 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
     openAvailabilityPopup(); /* ✅ NEW */
   });
 
+  window.addEventListener('billy:close-availability-popup', closeAvailabilityPopup); /* ✅ FOOTER TOGGLE */
+
   availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
   availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
   availabilityCloseBtn.addEventListener('pointerup', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
