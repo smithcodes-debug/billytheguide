@@ -10,6 +10,7 @@ import { initProgressiveImageLoader } from './modules/progressive-image-loader.j
 import { initGalleryWithUs } from './modules/gallery-with-us.js';
 import { initWaterForecast } from './modules/water-forecast.js';
 import { initSiteFooter } from './modules/site-footer.js';
+import { initDebugSiteReset } from './modules/debug-site-reset.js';
 
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
@@ -612,6 +613,7 @@ function safeInit(initFn, initName) {
 }
 
 safeInit(initRuntimeBoot, 'initRuntimeBoot');
+safeInit(initDebugSiteReset, 'initDebugSiteReset');
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initHomePopup, 'initHomePopup');
