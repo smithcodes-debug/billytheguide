@@ -1,5 +1,9 @@
-/* ✅ UPDATED: CARD 10 CSS - accordion card 03 shell */
-
+/* ✅ UPDATED: CARD 10 CSS - accordion card 03 shell
+   Runtime note:
+   - Card 10 was removed from active index.html in the current project flow.
+   - This file is kept as a safe reserved/legacy shell only.
+   - No typography targets are active here yet.
+*/
 @media (max-width: 1024px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 {
     /* reserved for card 10 specific styles */
