@@ -1,287 +1,354 @@
-export function initAvailabilityPopup() { /* ✅ UPDATED */
-  const availabilityMemo = document.getElementById('availabilityMemo'); /* ✅ NEW */
-  const availabilityPopup = document.getElementById('availability-popup'); /* ✅ NEW */
-  const availabilityPopupCard = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-card') : null; /* ✅ NEW */
-  const availabilityCloseBtn = availabilityPopup ? availabilityPopup.querySelector('.availability-popup-close') : null; /* ✅ NEW */
-  const availabilityMonthLabel = document.getElementById('availabilityMonthLabel'); /* ✅ NEW */
-  const availabilityDays = document.getElementById('availabilityDays'); /* ✅ NEW */
-  const availabilityPrevMonth = document.getElementById('availabilityPrevMonth'); /* ✅ NEW */
-  const availabilityNextMonth = document.getElementById('availabilityNextMonth'); /* ✅ NEW */
-  const availabilityMessage = document.getElementById('availabilityMessage'); /* ✅ NEW */
-  const availabilityContactLink = document.getElementById('availabilityContactLink'); /* ✅ NEW */
-  const availabilityTourList = document.getElementById('availabilityTourList'); /* ✅ NEW */
+export function initAvailabilityPopup() {
+  const memoButton = document.getElementById('availabilityMemo');
+  const popup = document.getElementById('availability-popup');
+  const popupCard = popup ? popup.querySelector('.availability-popup-card') : null;
+  const closeButton = popup ? popup.querySelector('.availability-popup-close') : null;
+  const monthLabel = document.getElementById('availabilityMonthLabel');
+  const daysGrid = document.getElementById('availabilityDays');
+  const prevButton = document.getElementById('availabilityPrevMonth');
+  const nextButton = document.getElementById('availabilityNextMonth');
+  const messageBox = document.getElementById('availabilityMessage');
+  const contactButton = document.getElementById('availabilityContactLink');
+  const tourList = document.getElementById('availabilityTourList');
+  const footerCheckBookButton = document.querySelector('[data-footer-check-book]');
 
-  if (!availabilityMemo || !availabilityPopup || !availabilityPopupCard || !availabilityCloseBtn || !availabilityMonthLabel || !availabilityDays || !availabilityPrevMonth || !availabilityNextMonth || !availabilityMessage || !availabilityContactLink || !availabilityTourList) return; /* ✅ REQUIRED FIX */
+  if (
+    !memoButton ||
+    !popup ||
+    !popupCard ||
+    !closeButton ||
+    !monthLabel ||
+    !daysGrid ||
+    !prevButton ||
+    !nextButton ||
+    !messageBox ||
+    !contactButton ||
+    !tourList
+  ) {
+    return;
+  }
 
-  const TOUR_PAGE_MAP = { /* ✅ UPDATED */
-    snorkeling: './coral-snorkeling-phu-quoc.html', /* ✅ NEW */
-    diving: './diving-island-phu-quoc.html', /* ✅ NEW */
-    hiking: './hiking-mountain-phu-quoc.html', /* ✅ UPDATED */
-    camping: './camping-island-phu-quoc.html', /* ✅ UPDATED */
-    propose: './propose-island-phu-quoc.html' /* ✅ UPDATED */
+  if (popup.dataset.availabilityReady === 'true') {
+    return;
+  }
+  popup.dataset.availabilityReady = 'true';
+
+  const TOUR_PAGE_MAP = {
+    snorkeling: './coral-snorkeling-phu-quoc.html',
+    diving: './diving-island-phu-quoc.html',
+    hiking: './hiking-mountain-phu-quoc.html',
+    camping: './camping-island-phu-quoc.html',
+    propose: './propose-island-phu-quoc.html'
   };
 
-  const BOOKED_DATES = new Set([ /* ✅ NEW: fake booked data for current month + next month */
-    '2026-06-17', /* ✅ NEW */
-    '2026-06-18', /* ✅ NEW */
-    '2026-06-20', /* ✅ NEW */
-    '2026-06-22', /* ✅ NEW */
-    '2026-06-24', /* ✅ NEW */
-    '2026-06-26', /* ✅ NEW */
-    '2026-06-27', /* ✅ NEW */
-    '2026-06-28', /* ✅ NEW */
-    '2026-06-29', /* ✅ NEW */
-    '2026-06-30', /* ✅ NEW */
-    '2026-07-03', /* ✅ NEW */
-    '2026-07-06', /* ✅ NEW */
-    '2026-07-09', /* ✅ NEW */
-    '2026-07-11', /* ✅ NEW */
-    '2026-07-14', /* ✅ NEW */
-    '2026-07-17', /* ✅ NEW */
-    '2026-07-20', /* ✅ NEW */
-    '2026-07-23', /* ✅ NEW */
-    '2026-07-25', /* ✅ NEW */
-    '2026-07-28' /* ✅ NEW */
-  ]);
+  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup';
+  const OPEN_AVAILABILITY_EVENT = 'billy:open-availability-popup';
+  const CLOSE_AVAILABILITY_EVENT = 'billy:close-availability-popup';
+  const SCROLL_LOCK_CLASS = 'availability-scroll-locked';
+  const MAX_MONTH_OFFSET = 6;
+  const MIN_HOURS_BEFORE_TOUR = 12;
 
-  const now = new Date(); /* ✅ NEW */
-  const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1); /* ✅ NEW */
-  const maxBookingDate = addMonths(new Date(now.getFullYear(), now.getMonth(), now.getDate()), 6); /* ✅ NEW */
-  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup'; /* ✅ NEW */
-  const HOME_SCROLL_LOCK_CLASS = 'home-scroll-locked'; /* ✅ NEW */
-  let visibleMonthDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), 1); /* ✅ NEW */
-  let selectedDateKey = ''; /* ✅ NEW */
+  const today = startOfDay(new Date());
+  const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const maxBookingDay = addMonths(today, MAX_MONTH_OFFSET);
+  const demoBookedDates = createDemoBookedDates(today);
 
-  function padNumber(value) { /* ✅ NEW */
-    return String(value).padStart(2, '0'); /* ✅ NEW */
+  let visibleMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+  let selectedDateKey = '';
+  let lastFocusedElement = null;
+
+  function padNumber(value) {
+    return String(value).padStart(2, '0');
   }
 
-  function toDateKey(date) { /* ✅ NEW */
-    return date.getFullYear() + '-' + padNumber(date.getMonth() + 1) + '-' + padNumber(date.getDate()); /* ✅ NEW */
+  function startOfDay(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
-  function addMonths(date, count) { /* ✅ NEW */
-    const clonedDate = new Date(date.getTime()); /* ✅ NEW */
-    clonedDate.setMonth(clonedDate.getMonth() + count); /* ✅ NEW */
-    return clonedDate; /* ✅ NEW */
+  function toDateKey(date) {
+    return [date.getFullYear(), padNumber(date.getMonth() + 1), padNumber(date.getDate())].join('-');
   }
 
-  function isSameDay(dateA, dateB) { /* ✅ NEW */
-    return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth() && dateA.getDate() === dateB.getDate(); /* ✅ NEW */
+  function addDays(date, count) {
+    const nextDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    nextDate.setDate(nextDate.getDate() + count);
+    return nextDate;
   }
 
-  function getMonthDistance(fromDate, toDate) { /* ✅ NEW */
-    return (toDate.getFullYear() - fromDate.getFullYear()) * 12 + (toDate.getMonth() - fromDate.getMonth()); /* ✅ NEW */
+  function addMonths(date, count) {
+    const nextDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    nextDate.setMonth(nextDate.getMonth() + count);
+    return nextDate;
   }
 
-  function isInsideTwelveHours(date) { /* ✅ NEW */
-    const tourStartTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0); /* ✅ NEW */
-    const diffMs = tourStartTime.getTime() - now.getTime(); /* ✅ NEW */
-    return diffMs <= 12 * 60 * 60 * 1000; /* ✅ NEW */
+  function getMonthOffset(fromDate, toDate) {
+    return (toDate.getFullYear() - fromDate.getFullYear()) * 12 + (toDate.getMonth() - fromDate.getMonth());
   }
 
-  function resetSelection() { /* ✅ NEW */
-    selectedDateKey = ''; /* ✅ NEW */
-    availabilityTourList.classList.remove('is-open'); /* ✅ NEW */
-    availabilityTourList.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-    availabilityContactLink.disabled = true; /* ✅ NEW */
-    availabilityContactLink.textContent = 'Chọn ngày màu xanh để đặt tour.'; /* ✅ NEW */
-    availabilityMessage.className = 'availability-message'; /* ✅ NEW */
-    availabilityMessage.textContent = ''; /* ✅ NEW */
+  function createDemoBookedDates(baseDate) {
+    const offsets = [2, 4, 7, 11, 15, 19, 24, 31, 38, 46, 53, 61, 74, 88, 103, 121, 145, 166];
+    return new Set(offsets.map(function (offset) {
+      return toDateKey(addDays(baseDate, offset));
+    }));
   }
 
-  function showMessage(text, type) { /* ✅ NEW */
-    availabilityMessage.textContent = text; /* ✅ NEW */
-    availabilityMessage.className = 'availability-message is-visible' + (type ? ' is-' + type : ''); /* ✅ NEW */
+  function isTooSoon(date) {
+    const tourStart = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0);
+    const diffMs = tourStart.getTime() - Date.now();
+    return diffMs <= MIN_HOURS_BEFORE_TOUR * 60 * 60 * 1000;
   }
 
-  function openTourChoicePopupFromAvailability() { /* ✅ NEW */
-    const leaveNoTracePopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
-    const leaveNoTraceCheckbox = document.getElementById('leaveNoTraceCheckbox'); /* ✅ NEW */
-    const ctaTriggers = document.querySelectorAll('.cta-trigger'); /* ✅ NEW */
+  function setScrollLock(isLocked) {
+    document.documentElement.classList.toggle(SCROLL_LOCK_CLASS, isLocked);
+    document.body.classList.toggle(SCROLL_LOCK_CLASS, isLocked);
+  }
 
-    if (!leaveNoTracePopup) return; /* ✅ REQUIRED FIX */
+  function showMessage(text, type) {
+    messageBox.textContent = text || '';
+    messageBox.className = 'availability-message';
 
-    closeAvailabilityPopup(); /* ✅ NEW */
+    if (!text) {
+      return;
+    }
 
-    window.setTimeout(function () { /* ✅ NEW */
-      window.dispatchEvent(new CustomEvent(OPEN_HOME_TOUR_POPUP_EVENT)); /* ✅ NEW */
+    messageBox.classList.add('is-visible');
+    if (type) {
+      messageBox.classList.add('is-' + type);
+    }
+  }
 
-      if (leaveNoTracePopup.classList.contains('is-open')) return; /* ✅ REQUIRED FIX */
+  function resetSelection() {
+    selectedDateKey = '';
+    tourList.classList.remove('is-open');
+    tourList.setAttribute('aria-hidden', 'true');
+    contactButton.disabled = true;
+    contactButton.textContent = 'Chọn ngày màu xanh để đặt tour.';
+    showMessage('', '');
+  }
 
-      document.documentElement.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ REQUIRED FIX */
-      document.body.classList.remove(HOME_SCROLL_LOCK_CLASS); /* ✅ REQUIRED FIX */
+  function selectDate(dateKey) {
+    selectedDateKey = dateKey;
+    tourList.classList.add('is-open');
+    tourList.setAttribute('aria-hidden', 'false');
+    contactButton.disabled = false;
+    contactButton.textContent = 'Mở popup chọn tour cho ngày ' + dateKey;
+    showMessage('Bạn đã chọn ngày ' + dateKey + '. Hãy chọn tour bên dưới hoặc mở popup tour hiện có.', 'success');
+    renderCalendar();
+  }
 
-      if (leaveNoTraceCheckbox) { /* ✅ NEW */
-        leaveNoTraceCheckbox.checked = true; /* ✅ NEW */
-      }
+  function createEmptyDay() {
+    const emptyDay = document.createElement('span');
+    emptyDay.className = 'availability-day availability-day-empty';
+    emptyDay.setAttribute('aria-hidden', 'true');
+    return emptyDay;
+  }
 
-      leaveNoTracePopup.classList.add('is-open'); /* ✅ NEW */
-      leaveNoTracePopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
+  function createDayButton(date) {
+    const dateKey = toDateKey(date);
+    const dayButton = document.createElement('button');
+    const isPast = date < today;
+    const isBeyondLimit = date > maxBookingDay;
+    const isBooked = demoBookedDates.has(dateKey);
+    const tooSoon = isTooSoon(date);
+    const isAvailable = !isPast && !isBeyondLimit && !isBooked && !tooSoon;
 
-      ctaTriggers.forEach(function (trigger) { /* ✅ NEW */
-        trigger.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
+    dayButton.type = 'button';
+    dayButton.className = 'availability-day';
+    dayButton.textContent = String(date.getDate());
+    dayButton.dataset.date = dateKey;
+
+    if (dateKey === toDateKey(today)) {
+      dayButton.classList.add('is-today-date');
+    }
+
+    if (isPast) {
+      dayButton.classList.add('is-past');
+      dayButton.disabled = true;
+      dayButton.setAttribute('aria-label', dateKey + ' đã qua');
+    } else if (tooSoon) {
+      dayButton.classList.add('is-too-soon');
+      dayButton.disabled = true;
+      dayButton.setAttribute('aria-label', dateKey + ' cần đặt trước ít nhất 12 tiếng');
+    } else if (isBeyondLimit) {
+      dayButton.classList.add('is-too-soon');
+      dayButton.disabled = true;
+      dayButton.setAttribute('aria-label', dateKey + ' vượt quá giới hạn đặt trước 6 tháng');
+    } else if (isBooked) {
+      dayButton.classList.add('is-booked-date');
+      dayButton.disabled = true;
+      dayButton.setAttribute('aria-label', dateKey + ' đã được đặt');
+    } else if (isAvailable) {
+      dayButton.classList.add('is-open-date');
+      dayButton.setAttribute('aria-label', dateKey + ' còn trống');
+      dayButton.addEventListener('click', function () {
+        selectDate(dateKey);
       });
-    }, 180); /* ✅ NEW */
-  }
-
-  function renderCalendar() { /* ✅ NEW */
-    availabilityDays.innerHTML = ''; /* ✅ NEW */
-    const year = visibleMonthDate.getFullYear(); /* ✅ NEW */
-    const month = visibleMonthDate.getMonth(); /* ✅ NEW */
-    const firstDate = new Date(year, month, 1); /* ✅ NEW */
-    const lastDate = new Date(year, month + 1, 0); /* ✅ NEW */
-    const firstDayMondayIndex = (firstDate.getDay() + 6) % 7; /* ✅ NEW */
-    const monthDistance = getMonthDistance(currentMonthDate, visibleMonthDate); /* ✅ NEW */
-
-    availabilityMonthLabel.textContent = firstDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); /* ✅ NEW */
-    availabilityPrevMonth.disabled = monthDistance <= 0; /* ✅ NEW */
-    availabilityNextMonth.disabled = monthDistance >= 6; /* ✅ NEW */
-
-    for (let i = 0; i < firstDayMondayIndex; i += 1) { /* ✅ NEW */
-      const emptyDay = document.createElement('button'); /* ✅ NEW */
-      emptyDay.type = 'button'; /* ✅ NEW */
-      emptyDay.className = 'availability-day is-empty'; /* ✅ NEW */
-      emptyDay.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-      emptyDay.tabIndex = -1; /* ✅ NEW */
-      availabilityDays.appendChild(emptyDay); /* ✅ NEW */
     }
 
-    for (let day = 1; day <= lastDate.getDate(); day += 1) { /* ✅ NEW */
-      const date = new Date(year, month, day); /* ✅ NEW */
-      const dateKey = toDateKey(date); /* ✅ NEW */
-      const dayButton = document.createElement('button'); /* ✅ NEW */
-      dayButton.type = 'button'; /* ✅ NEW */
-      dayButton.className = 'availability-day'; /* ✅ NEW */
-      dayButton.textContent = String(day); /* ✅ NEW */
-      dayButton.dataset.date = dateKey; /* ✅ NEW */
+    if (dateKey === selectedDateKey) {
+      dayButton.classList.add('is-selected-date');
+      dayButton.setAttribute('aria-current', 'date');
+    }
 
-      const isPastDate = date < new Date(now.getFullYear(), now.getMonth(), now.getDate()); /* ✅ NEW */
-      const isTodayDate = isSameDay(date, now); /* ✅ NEW */
-      const isTooSoonDate = isInsideTwelveHours(date); /* ✅ NEW */
-      const isAfterMaxDate = date > maxBookingDate; /* ✅ NEW */
-      const isBookedDate = BOOKED_DATES.has(dateKey); /* ✅ NEW */
-      const isAvailableDate = !isPastDate && !isTooSoonDate && !isAfterMaxDate && !isBookedDate; /* ✅ NEW */
+    return dayButton;
+  }
 
-      if (isTodayDate) dayButton.classList.add('is-today-date'); /* ✅ NEW */
-      if (isPastDate) dayButton.classList.add('is-past'); /* ✅ NEW */
-      if (isTooSoonDate && !isPastDate) dayButton.classList.add('is-too-soon'); /* ✅ NEW */
-      if (isAfterMaxDate) dayButton.classList.add('is-too-soon'); /* ✅ NEW */
-      if (isBookedDate) dayButton.classList.add('is-booked-date'); /* ✅ NEW */
-      if (isAvailableDate) dayButton.classList.add('is-open-date'); /* ✅ NEW */
-      if (dateKey === selectedDateKey) dayButton.classList.add('is-selected-date'); /* ✅ NEW */
+  function renderCalendar() {
+    const year = visibleMonth.getFullYear();
+    const month = visibleMonth.getMonth();
+    const firstDate = new Date(year, month, 1);
+    const lastDate = new Date(year, month + 1, 0);
+    const firstMondayIndex = (firstDate.getDay() + 6) % 7;
+    const monthOffset = getMonthOffset(currentMonth, visibleMonth);
 
-      if (isAvailableDate) { /* ✅ NEW */
-        dayButton.addEventListener('click', function () { /* ✅ UPDATED */
-          selectedDateKey = dateKey; /* ✅ NEW */
-          openTourChoicePopupFromAvailability(); /* ✅ NEW */
-        });
-      } else { /* ✅ NEW */
-        dayButton.disabled = true; /* ✅ NEW */
+    daysGrid.textContent = '';
+    monthLabel.textContent = firstDate.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric'
+    });
 
-        if (isBookedDate) { /* ✅ NEW */
-          dayButton.setAttribute('aria-label', dateKey + ' đã được đặt'); /* ✅ NEW */
-        } else if (isAfterMaxDate) { /* ✅ NEW */
-          dayButton.setAttribute('aria-label', dateKey + ' vượt quá giới hạn đặt trước 6 tháng'); /* ✅ NEW */
-        } else if (isPastDate || isTooSoonDate) { /* ✅ NEW */
-          dayButton.setAttribute('aria-label', dateKey + ' chưa thể đặt do đã qua hoặc còn dưới 12 tiếng'); /* ✅ NEW */
-        }
+    prevButton.disabled = monthOffset <= 0;
+    nextButton.disabled = monthOffset >= MAX_MONTH_OFFSET;
+
+    for (let index = 0; index < firstMondayIndex; index += 1) {
+      daysGrid.appendChild(createEmptyDay());
+    }
+
+    for (let day = 1; day <= lastDate.getDate(); day += 1) {
+      daysGrid.appendChild(createDayButton(new Date(year, month, day)));
+    }
+  }
+
+  function openAvailabilityPopup() {
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    popup.classList.add('is-open');
+    popup.setAttribute('aria-hidden', 'false');
+    memoButton.setAttribute('aria-expanded', 'true');
+    setScrollLock(true);
+    resetSelection();
+    renderCalendar();
+
+    window.requestAnimationFrame(function () {
+      closeButton.focus({ preventScroll: true });
+    });
+  }
+
+  function closeAvailabilityPopup() {
+    popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden', 'true');
+    memoButton.setAttribute('aria-expanded', 'false');
+    setScrollLock(false);
+    resetSelection();
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus({ preventScroll: true });
+    }
+  }
+
+  function openExistingHomeTourPopup() {
+    window.dispatchEvent(new CustomEvent(OPEN_HOME_TOUR_POPUP_EVENT, {
+      detail: {
+        source: 'availability-booking',
+        date: selectedDateKey
       }
+    }));
 
-      availabilityDays.appendChild(dayButton); /* ✅ NEW */
+    const existingTourPopup = document.getElementById('leave-no-trace-popup');
+    if (existingTourPopup) {
+      existingTourPopup.classList.add('is-open');
+      existingTourPopup.setAttribute('aria-hidden', 'false');
+      existingTourPopup.querySelectorAll('.popup-note-item').forEach(function (item) {
+        if (selectedDateKey) {
+          item.dataset.selectedDate = selectedDateKey;
+        }
+      });
     }
+
+    closeAvailabilityPopup();
   }
 
-  function openAvailabilityPopup() { /* ✅ UPDATED */
-    availabilityPopup.classList.add('is-open'); /* ✅ NEW */
-    availabilityPopup.setAttribute('aria-hidden', 'false'); /* ✅ NEW */
-    availabilityMemo.setAttribute('aria-expanded', 'true'); /* ✅ NEW */
-    renderCalendar(); /* ✅ NEW */
-    window.requestAnimationFrame(function () { /* ✅ REQUIRED FIX */
-      availabilityCloseBtn.focus({ preventScroll: true }); /* ✅ REQUIRED FIX */
-    }); /* ✅ REQUIRED FIX */
-  }
-
-  function stopAvailabilityEvent(event) { /* ✅ REQUIRED FIX */
-    if (!event) return; /* ✅ REQUIRED FIX */
-    if (typeof event.preventDefault === 'function') event.preventDefault(); /* ✅ REQUIRED FIX */
-    if (typeof event.stopPropagation === 'function') event.stopPropagation(); /* ✅ REQUIRED FIX */
-    if (typeof event.stopImmediatePropagation === 'function') event.stopImmediatePropagation(); /* ✅ REQUIRED FIX */
-  }
-
-  function handleAvailabilityCloseButton(event) { /* ✅ REQUIRED FIX */
-    stopAvailabilityEvent(event); /* ✅ REQUIRED FIX */
-    closeAvailabilityPopup(); /* ✅ REQUIRED FIX */
-  }
-
-  function closeAvailabilityPopup(event) { /* ✅ UPDATED */
-    stopAvailabilityEvent(event); /* ✅ REQUIRED FIX */
-    availabilityPopup.classList.remove('is-open'); /* ✅ NEW */
-    availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
-    availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
-  }
-
-  availabilityPrevMonth.addEventListener('click', function () { /* ✅ NEW */
-    if (getMonthDistance(currentMonthDate, visibleMonthDate) <= 0) return; /* ✅ REQUIRED FIX */
-    visibleMonthDate = addMonths(visibleMonthDate, -1); /* ✅ NEW */
-    resetSelection(); /* ✅ NEW */
-    renderCalendar(); /* ✅ NEW */
-  });
-
-  availabilityNextMonth.addEventListener('click', function () { /* ✅ NEW */
-    if (getMonthDistance(currentMonthDate, visibleMonthDate) >= 6) return; /* ✅ REQUIRED FIX */
-    visibleMonthDate = addMonths(visibleMonthDate, 1); /* ✅ NEW */
-    resetSelection(); /* ✅ NEW */
-    renderCalendar(); /* ✅ NEW */
-  });
-
-  availabilityTourList.addEventListener('click', function (event) { /* ✅ NEW */
-    const tourItem = event.target.closest('.availability-tour-item'); /* ✅ NEW */
-    if (!tourItem || !selectedDateKey) return; /* ✅ REQUIRED FIX */
-    const tourName = tourItem.dataset.tour; /* ✅ NEW */
-    const tourUrl = TOUR_PAGE_MAP[tourName]; /* ✅ NEW */
-    if (!tourUrl) return; /* ✅ REQUIRED FIX */
-    window.location.href = tourUrl + '?date=' + encodeURIComponent(selectedDateKey); /* ✅ NEW */
-  });
-
-  availabilityTourList.addEventListener('keydown', function (event) { /* ✅ NEW */
-    if (event.key !== 'Enter' && event.key !== ' ') return; /* ✅ NEW */
-    const tourItem = event.target.closest('.availability-tour-item'); /* ✅ NEW */
-    if (!tourItem || !selectedDateKey) return; /* ✅ REQUIRED FIX */
-    event.preventDefault(); /* ✅ NEW */
-    tourItem.click(); /* ✅ NEW */
-  });
-
-  availabilityTourList.querySelectorAll('.availability-tour-item').forEach(function (tourItem) { /* ✅ NEW */
-    tourItem.setAttribute('role', 'button'); /* ✅ NEW */
-    tourItem.setAttribute('tabindex', '0'); /* ✅ NEW */
-  });
-
-  window.addEventListener('billy:open-availability-popup', function () { /* ✅ NEW */
-    if (availabilityPopup.classList.contains('is-open')) return; /* ✅ REQUIRED FIX */
-    openAvailabilityPopup(); /* ✅ NEW */
-  });
-
-  window.addEventListener('billy:close-availability-popup', closeAvailabilityPopup); /* ✅ FOOTER TOGGLE */
-
-  availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
-  availabilityCloseBtn.addEventListener('pointerdown', handleAvailabilityCloseButton, true); /* ✅ REQUIRED FIX */
-  availabilityCloseBtn.addEventListener('click', handleAvailabilityCloseButton, true); /* ✅ REQUIRED FIX */
-  availabilityCloseBtn.addEventListener('touchstart', handleAvailabilityCloseButton, { capture: true, passive: false }); /* ✅ REQUIRED FIX */
-
-  availabilityPopup.addEventListener('click', function (event) { /* ✅ UPDATED */
-    if (event.target === availabilityPopup) { /* ✅ REQUIRED FIX */
-      closeAvailabilityPopup(event); /* ✅ REQUIRED FIX */
+  function goToTourPage(tourName) {
+    const tourUrl = TOUR_PAGE_MAP[tourName];
+    if (!tourUrl || !selectedDateKey) {
+      return;
     }
+
+    window.location.href = tourUrl + '?date=' + encodeURIComponent(selectedDateKey);
+  }
+
+  function handleTourListClick(event) {
+    const tourItem = event.target.closest('.availability-tour-item');
+    if (!tourItem) {
+      return;
+    }
+
+    goToTourPage(tourItem.dataset.tour);
+  }
+
+  function handleTourListKeydown(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    const tourItem = event.target.closest('.availability-tour-item');
+    if (!tourItem) {
+      return;
+    }
+
+    event.preventDefault();
+    goToTourPage(tourItem.dataset.tour);
+  }
+
+  prevButton.addEventListener('click', function () {
+    if (getMonthOffset(currentMonth, visibleMonth) <= 0) {
+      return;
+    }
+
+    visibleMonth = addMonths(visibleMonth, -1);
+    resetSelection();
+    renderCalendar();
   });
 
-  document.addEventListener('keydown', function (event) { /* ✅ NEW */
-    if (event.key === 'Escape' && availabilityPopup.classList.contains('is-open')) { /* ✅ NEW */
-      closeAvailabilityPopup(); /* ✅ NEW */
+  nextButton.addEventListener('click', function () {
+    if (getMonthOffset(currentMonth, visibleMonth) >= MAX_MONTH_OFFSET) {
+      return;
+    }
+
+    visibleMonth = addMonths(visibleMonth, 1);
+    resetSelection();
+    renderCalendar();
+  });
+
+  memoButton.addEventListener('click', openAvailabilityPopup);
+  closeButton.addEventListener('click', closeAvailabilityPopup);
+  contactButton.addEventListener('click', openExistingHomeTourPopup);
+  tourList.addEventListener('click', handleTourListClick);
+  tourList.addEventListener('keydown', handleTourListKeydown);
+
+  tourList.querySelectorAll('.availability-tour-item').forEach(function (item) {
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+  });
+
+  if (footerCheckBookButton) {
+    footerCheckBookButton.addEventListener('click', openAvailabilityPopup);
+  }
+
+  popup.addEventListener('click', function (event) {
+    if (event.target === popup) {
+      closeAvailabilityPopup();
     }
   });
 
-  resetSelection(); /* ✅ NEW */
-  renderCalendar(); /* ✅ NEW */
-  console.log('Availability popup initialized from booking module'); /* ✅ UPDATED */
+  window.addEventListener(OPEN_AVAILABILITY_EVENT, openAvailabilityPopup);
+  window.addEventListener(CLOSE_AVAILABILITY_EVENT, closeAvailabilityPopup);
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && popup.classList.contains('is-open')) {
+      closeAvailabilityPopup();
+    }
+  });
+
+  resetSelection();
+  renderCalendar();
 }

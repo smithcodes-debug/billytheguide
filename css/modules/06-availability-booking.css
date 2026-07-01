@@ -1,28 +1,37 @@
-/* ✅ MODULE 06 — AVAILABILITY BOOKING */
-/* Mobile-first. Booking popup uses fixed shell logic: panel starts 15px below protected header/professional text and ends 15px above footer dock. */
+/* MODULE 06 — AVAILABILITY BOOKING
+   Rebuilt clean from scratch.
+   Mobile is source of truth. Same component everywhere; only shell sizing responds. */
 :root {
-  --availability-popup-side-inset: 22px;
-  --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
-  --availability-popup-header-gap: 15px;
-  --availability-popup-footer-dock-height: 112px;
-  --availability-popup-footer-gap: 15px;
-  --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
-  --availability-popup-panel-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-header-gap) - var(--availability-popup-footer-offset));
+  --availability-shell-width: var(--app-shell-max-width, 768px);
+  --availability-safe-top: env(safe-area-inset-top, 0px);
+  --availability-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --availability-header-space: 150px;
+  --availability-footer-space: 118px;
+  --availability-panel-gap: 15px;
+  --availability-side-gap: 18px;
+  --availability-panel-top: calc(var(--availability-safe-top) + var(--availability-header-space) + var(--availability-panel-gap));
+  --availability-panel-height: calc(100dvh - var(--availability-panel-top) - var(--availability-footer-space) - var(--availability-safe-bottom));
+}
+
+html.availability-scroll-locked,
+body.availability-scroll-locked {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .availability-memo {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 128px);
   left: 28px;
-  z-index: 3;
+  z-index: 4;
   width: 132px;
   min-height: 118px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.58);
+  border: 0;
   border-radius: 24px;
   background: transparent;
   color: #ffffff;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -33,7 +42,7 @@
 .availability-memo::before {
   content: "";
   position: absolute;
-  inset: 7px 5px -7px;
+  inset: 8px 5px -8px;
   border-radius: 24px;
   background: rgba(0, 0, 0, 0.28);
   filter: blur(10px);
@@ -53,10 +62,8 @@
   padding: 11px 10px 10px;
   border: 1px solid rgba(255, 255, 255, 0.52);
   border-radius: 22px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.28),
-    inset 0 0 16px rgba(255, 255, 255, 0.12);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28), inset 0 0 16px rgba(255, 255, 255, 0.12);
   overflow: hidden;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -171,6 +178,361 @@
   outline-offset: 4px;
 }
 
+.availability-popup-backdrop {
+  position: fixed;
+  inset: 0 auto auto 50%;
+  z-index: 1000;
+  width: min(100%, var(--availability-shell-width));
+  height: 100dvh;
+  max-width: var(--availability-shell-width);
+  background: rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 180ms ease, visibility 180ms ease;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.availability-popup-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.availability-popup-card {
+  position: absolute;
+  top: var(--availability-panel-top);
+  left: var(--availability-side-gap);
+  right: var(--availability-side-gap);
+  height: max(360px, var(--availability-panel-height));
+  max-height: calc(100dvh - var(--availability-panel-top) - var(--availability-safe-bottom) - 15px);
+  margin: 0 auto;
+  padding: 22px 18px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(23, 29, 35, 0.98), rgba(10, 13, 18, 0.98));
+  color: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 12px, 0) scale(0.985);
+  transition: transform 220ms ease;
+  box-sizing: border-box;
+}
+
+.availability-popup-backdrop.is-open .availability-popup-card {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.availability-popup-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 20;
+  width: 46px;
+  height: 46px;
+  margin: -8px -4px 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.availability-popup-close:focus-visible,
+.availability-nav button:focus-visible,
+.availability-day:focus-visible,
+.availability-contact:focus-visible,
+.availability-tour-item:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.82);
+  outline-offset: 3px;
+}
+
+.availability-popup-title {
+  margin: 0 54px 8px 0;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.availability-popup-desc {
+  clear: none;
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.availability-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.availability-month-label {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.availability-nav {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.availability-nav button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  touch-action: manipulation;
+}
+
+.availability-nav button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.availability-weekdays,
+.availability-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.availability-weekdays span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.availability-days {
+  margin-top: 8px;
+}
+
+.availability-day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: default;
+  box-sizing: border-box;
+  touch-action: manipulation;
+}
+
+.availability-day-empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.availability-day:disabled {
+  cursor: not-allowed;
+}
+
+.availability-day.is-past {
+  color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.035);
+  opacity: 0.58;
+}
+
+.availability-day.is-too-soon {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.42);
+  opacity: 0.72;
+}
+
+.availability-day.is-open-date {
+  border-color: rgba(34, 197, 94, 0.95);
+  background: rgba(34, 197, 94, 0.9);
+  color: #06220f;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.18);
+}
+
+.availability-day.is-booked-date {
+  border-color: rgba(239, 68, 68, 0.9);
+  background: rgba(239, 68, 68, 0.84);
+  color: #ffffff;
+}
+
+.availability-day.is-selected-date {
+  outline: 3px solid rgba(255, 255, 255, 0.78);
+  outline-offset: 2px;
+}
+
+.availability-day.is-today-date {
+  border-color: #ff78bb;
+  background: #ff4fa3;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(255, 79, 163, 0.24), 0 10px 24px rgba(255, 79, 163, 0.28);
+}
+
+.availability-day.is-today-date.is-past,
+.availability-day.is-today-date.is-too-soon {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.availability-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+}
+
+.availability-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.availability-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.availability-legend .open-dot {
+  background: rgba(34, 197, 94, 0.88);
+}
+
+.availability-legend .booked-dot {
+  background: rgba(239, 68, 68, 0.82);
+}
+
+.availability-legend .contact-dot {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.availability-message {
+  display: none;
+  margin-top: 14px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.availability-message.is-visible {
+  display: block;
+}
+
+.availability-message.is-error {
+  border: 1px solid rgba(239, 68, 68, 0.38);
+  background: rgba(239, 68, 68, 0.18);
+}
+
+.availability-message.is-success {
+  border: 1px solid rgba(34, 197, 94, 0.34);
+  background: rgba(34, 197, 94, 0.16);
+}
+
+.availability-contact {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.availability-contact:not(:disabled) {
+  background: rgba(34, 197, 94, 0.9);
+  color: #06220f;
+  font-weight: 700;
+}
+
+.availability-contact:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+.availability-tour-list {
+  display: none;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.availability-tour-list.is-open {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.availability-tour-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.availability-tour-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.availability-tour-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.availability-tour-label {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: lowercase;
+}
+
 @keyframes availabilityMemoFloat {
   0%,
   100% {
@@ -223,382 +585,70 @@
   }
 }
 
-.availability-popup-backdrop {
-  position: fixed;
-  inset: 0 auto 0 50%;
-  width: min(100%, var(--app-shell-max-width, 768px));
-  max-width: var(--app-shell-max-width, 768px);
-  z-index: 1000;
-  display: block;
-  padding: 0;
-  background: transparent;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition:
-    opacity 0.24s ease,
-    visibility 0.24s ease;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-sizing: border-box;
-  transform: translateX(-50%);
-  overflow: hidden;
-  overscroll-behavior: contain;
-}
-
-.availability-popup-backdrop.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.availability-popup-card {
-  position: absolute;
-  left: 50%;
-  /* ✅ FULL HEIGHT BOOKING PANEL:
-     Starts 15px below protected header/professional text
-     and ends 15px above footer dock.
-     Height is explicit to avoid max-height / auto-height conflicts on mobile Safari. */
-  top: calc(var(--availability-popup-header-offset) + var(--availability-popup-header-gap));
-  bottom: var(--availability-popup-footer-offset);
-  width: min(calc(100% - (var(--availability-popup-side-inset) * 2)), 430px);
-  height: var(--availability-popup-panel-height);
-  min-height: 0;
-  max-height: none;
-  margin: 0;
-  padding: 24px 20px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 24px;
-  background: linear-gradient(180deg, rgba(23, 29, 35, 0.96), rgba(10, 13, 18, 0.96));
-  color: #ffffff;
-  overflow-y: auto;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
-  transform: translateX(-50%) translateY(12px) scale(0.98);
-  transition: transform 0.24s ease;
-  -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  pointer-events: auto;
-}
-
-.availability-popup-backdrop.is-open .availability-popup-card {
-  transform: translateX(-50%) translateY(0) scale(1);
-}
-
-.availability-popup-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 20;
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 26px;
-  line-height: 1;
-  cursor: pointer;
-  pointer-events: auto;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.availability-popup-close:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.84);
-  outline-offset: 4px;
-}
-
-.availability-popup-title {
-  margin: 0 44px 8px 0;
-  color: #ffffff;
-  font-size: 25px;
-  line-height: 1.1;
-  font-weight: 700;
-  text-transform: lowercase;
-}
-
-.availability-popup-desc {
-  margin: 0 0 16px;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.availability-calendar-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 14px 0;
-}
-
-.availability-month-label {
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.availability-nav {
-  display: flex;
-  gap: 8px;
-}
-
-.availability-nav button {
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.availability-nav button:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.availability-weekdays,
-.availability-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 7px;
-}
-
-.availability-weekdays span {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 11px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.availability-day {
-  min-height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.92);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: default;
-}
-
-.availability-day.is-empty {
-  visibility: hidden;
-}
-
-.availability-day.is-past,
-.availability-day.is-too-soon {
-  opacity: 0.52;
-  cursor: not-allowed;
-}
-
-.availability-day.is-past {
-  color: rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.035);
-}
-
-.availability-day.is-too-soon {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.045);
-  color: rgba(255, 255, 255, 0.42);
-}
-
-.availability-day.is-open-date {
-  border-color: rgba(34, 197, 94, 0.95);
-  background: rgba(34, 197, 94, 0.88);
-  color: #06220f;
-  cursor: pointer;
-}
-
-.availability-day.is-booked-date {
-  border-color: rgba(239, 68, 68, 0.9);
-  background: rgba(239, 68, 68, 0.82);
-  color: #ffffff;
-}
-
-.availability-day.is-selected-date {
-  outline: 3px solid rgba(255, 255, 255, 0.78);
-  outline-offset: 2px;
-}
-
-.availability-day.is-today-date {
-  border-color: #ff78bb;
-  background: #ff4fa3;
-  color: #ffffff;
-  box-shadow:
-    0 0 0 2px rgba(255, 79, 163, 0.24),
-    0 10px 24px rgba(255, 79, 163, 0.28);
-}
-
-.availability-day.is-today-date.is-past,
-.availability-day.is-today-date.is-too-soon {
-  opacity: 1;
-  color: #ffffff;
-}
-
-.availability-legend {
-  display: none;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  margin-top: 16px;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 12px;
-}
-
-.availability-legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.availability-legend i {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-}
-
-.availability-legend .open-dot {
-  background: rgba(34, 197, 94, 0.88);
-}
-
-.availability-legend .booked-dot {
-  background: rgba(239, 68, 68, 0.82);
-}
-
-.availability-legend .contact-dot {
-  background: rgba(255, 255, 255, 0.28);
-}
-
-.availability-message {
-  display: none;
-  margin-top: 14px;
-  padding: 11px 13px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.availability-message.is-visible {
-  display: block;
-}
-
-.availability-message.is-error {
-  border: 1px solid rgba(239, 68, 68, 0.38);
-  background: rgba(239, 68, 68, 0.18);
-}
-
-.availability-message.is-success {
-  border: 1px solid rgba(34, 197, 94, 0.34);
-  background: rgba(34, 197, 94, 0.16);
-}
-
-.availability-contact {
-  display: block;
-  width: 100%;
-  margin-top: 16px;
-  padding: 12px 14px;
-  border: 0;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  font-family: "Poppins", sans-serif;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.availability-contact:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.availability-tour-list {
-  display: none;
-  margin-top: 16px;
-  gap: 14px;
-}
-
-.availability-tour-list.is-open {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.availability-tour-item {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-
-.availability-tour-box {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  background: #ffffff;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-}
-
-.availability-tour-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.availability-tour-label {
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-  text-transform: lowercase;
-}
-/* ✅ BOOKING POPUP SHELL PATCH */
-/* The panel height is owned by explicit top + bottom + height offsets, not max-height. */
 @supports not (height: 100dvh) {
   :root {
-    --availability-popup-panel-height: calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-header-gap) - var(--availability-popup-footer-offset));
+    --availability-panel-height: calc(100vh - var(--availability-panel-top) - var(--availability-footer-space) - var(--availability-safe-bottom));
+  }
+
+  .availability-popup-backdrop {
+    height: 100vh;
   }
 
   .availability-popup-card {
-    max-height: none;
+    max-height: calc(100vh - var(--availability-panel-top) - var(--availability-safe-bottom) - 15px);
   }
 }
 
-@media (max-height: 680px) {
+@media (max-height: 700px) {
   :root {
-    --availability-popup-footer-dock-height: 104px;
-    --availability-popup-footer-gap: 15px;
+    --availability-header-space: 132px;
+    --availability-footer-space: 102px;
   }
 
   .availability-popup-card {
-    max-height: none;
+    padding: 18px 16px 16px;
+  }
+
+  .availability-day {
+    min-height: 36px;
   }
 }
 
-@media (max-height: 640px) {
+@media (max-width: 420px) {
   :root {
-    --availability-popup-footer-dock-height: 96px;
-    --availability-popup-footer-gap: 15px;
+    --availability-side-gap: 14px;
   }
 
-  .availability-popup-card {
-    max-height: none;
-  }
-}
-
-@media (max-width: 480px) {
   .availability-memo {
-    display: none;
+    left: 20px;
+    width: 122px;
+    min-height: 110px;
+  }
+
+  .availability-memo-card {
+    min-height: 110px;
+  }
+
+  .availability-popup-title {
+    font-size: 23px;
+  }
+
+  .availability-popup-desc {
+    font-size: 13px;
+  }
+
+  .availability-weekdays,
+  .availability-days {
+    gap: 5px;
+  }
+
+  .availability-day {
+    min-height: 36px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  .availability-tour-list.is-open {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
