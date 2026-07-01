@@ -2,15 +2,15 @@
    Full-view booking screen. Hidden by default with display:none.
    Footer Check-book opens the module by adding .is-open.
 
-   Layout contract:
-   - Header remains visible above this module.
-   - Footer remains visible above this module.
-   - Booking view visually replaces/covers the main hero area.
-   - Booking background covers all space behind the footer, so no old card/page content can leak through.
+   Geometry source of truth:
+   - Header CSS owner is ./css/home-hero-tour-popup.css.
+   - Header fixed height contract is 62px.
+   - Card 01 main hero starts at env(safe-area-inset-top) + 62px.
+   - Booking view copies that main hero geometry instead of using guessed top/bottom numbers.
 */
 :root {
   --availability-shell-width: var(--app-shell-max-width, 768px);
-  --availability-view-top: calc(env(safe-area-inset-top, 0px) + 150px);
+  --availability-view-top: calc(env(safe-area-inset-top, 0px) + 62px);
   --availability-footer-clearance: calc(env(safe-area-inset-bottom, 0px) + 104px);
   --availability-gap: 10px;
   --availability-x: 18px;
@@ -22,11 +22,12 @@ body.availability-booking-open {
   overscroll-behavior: none;
 }
 
-/* ✅ REQUIRED FIX: keep the real footer visible while booking fullview covers behind it. */
+/* ✅ REQUIRED FIX: footer stays visible above booking fullview. */
 body.availability-booking-open .site-footer {
   z-index: 1005;
 }
 
+/* ✅ REQUIRED FIX: booking copies main hero/card-01 geometry: starts under the real fixed header. */
 .availability-booking-view {
   display: none;
   position: fixed;
@@ -70,7 +71,7 @@ body.availability-booking-open .site-footer {
   display: block;
   height: 100%;
   min-height: 0;
-  padding: 15px var(--availability-x) calc(var(--availability-footer-clearance) + 14px);
+  padding: 14px var(--availability-x) calc(var(--availability-footer-clearance) + 14px);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -101,15 +102,15 @@ body.availability-booking-open .site-footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   font-family: Arial, sans-serif;
-  font-size: 28px;
+  font-size: 27px;
   line-height: 1;
   cursor: pointer;
   touch-action: manipulation;
@@ -448,7 +449,7 @@ body.availability-booking-open .site-footer {
 
 @media (max-height: 760px) {
   :root {
-    --availability-view-top: calc(env(safe-area-inset-top, 0px) + 132px);
+    --availability-view-top: calc(env(safe-area-inset-top, 0px) + 62px);
     --availability-footer-clearance: calc(env(safe-area-inset-bottom, 0px) + 96px);
     --availability-gap: 9px;
   }
@@ -513,11 +514,5 @@ body.availability-booking-open .site-footer {
   .availability-day {
     min-height: 27px;
     font-size: 11px;
-  }
-
-  .availability-popup-close {
-    width: 40px;
-    height: 40px;
-    font-size: 27px;
   }
 }
