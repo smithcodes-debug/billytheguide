@@ -2,6 +2,7 @@ import { initNavigation } from './ui/navigation.js';
 import { initContactPopup } from './ui/contact-popup.js';
 import { initPolicyPopup } from './ui/policy-popup.js';
 import { initTourCarousel } from './ui/tour-carousel.js';
+import { initHomeTourPopup } from './ui/home-tour-popup.js';
 import { initAvailabilityPopup } from './modules/booking.js';
 import { initSearchPopup } from './ui/search-popup.js';
 import { initProgressiveImageLoader } from './modules/progressive-image-loader.js';
@@ -11,81 +12,6 @@ import { initSiteFooter } from './modules/site-footer.js';
 
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
-
-function initHomePopup() {
-  const popup = document.getElementById('leave-no-trace-popup');
-  const popupCard = popup ? popup.querySelector('.popup-card') : null;
-  const closeBtn = popup ? popup.querySelector('.popup-close') : null;
-  const OPEN_HOME_TOUR_POPUP_EVENT = 'billy:open-home-tour-popup';
-
-  if (!popup || !popupCard || !closeBtn) return;
-
-  function getTriggers() {
-    return Array.prototype.slice.call(document.querySelectorAll('.cta-trigger'));
-  }
-
-  function syncTriggerState(expanded) {
-    getTriggers().forEach(function (trigger) {
-      trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-
-      trigger.querySelectorAll('input[type="checkbox"]').forEach(function (input) {
-        input.checked = expanded;
-      });
-    });
-  }
-
-  function openPopup() {
-    popup.classList.add('is-open');
-    popup.setAttribute('aria-hidden', 'false');
-    syncTriggerState(true);
-  }
-
-  function closePopup() {
-    popup.classList.remove('is-open');
-    popup.setAttribute('aria-hidden', 'true');
-    syncTriggerState(false);
-  }
-
-  document.addEventListener('click', function (event) {
-    const trigger = event.target && event.target.closest
-      ? event.target.closest('.cta-trigger')
-      : null;
-
-    if (!trigger) return;
-
-    event.preventDefault();
-    openPopup();
-  });
-
-  document.addEventListener('keydown', function (event) {
-    const trigger = event.target && event.target.closest
-      ? event.target.closest('.cta-trigger')
-      : null;
-
-    if (!trigger) {
-      if (event.key === 'Escape' && popup.classList.contains('is-open')) {
-        closePopup();
-      }
-
-      return;
-    }
-
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      openPopup();
-    }
-  });
-
-  window.addEventListener(OPEN_HOME_TOUR_POPUP_EVENT, openPopup);
-
-  closeBtn.addEventListener('click', closePopup);
-
-  popup.addEventListener('click', function (event) {
-    if (!popupCard.contains(event.target)) {
-      closePopup();
-    }
-  });
-}
 
 function initMobileHomeFeed() {
   const MOBILE_TABLET_MAX_WIDTH = 1024;
@@ -609,7 +535,7 @@ function safeInit(initFn, initName) {
 
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
-safeInit(initHomePopup, 'initHomePopup');
+safeInit(initHomeTourPopup, 'initHomeTourPopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');
 safeInit(initTourCarousel, 'initTourCarousel');
