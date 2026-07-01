@@ -5,8 +5,8 @@
   --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
   --availability-popup-footer-dock-height: 112px;
   --availability-popup-footer-gap: 42px;
-  --availability-popup-panel-stretch-total: 50px;
-  --availability-popup-panel-stretch-half: 25px;
+  --availability-popup-panel-stretch-total: 100px;
+  --availability-popup-panel-stretch-half: 50px;
   --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
 }
 
