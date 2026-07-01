@@ -1,3 +1,13 @@
+/* ✅ MODULE 06 — AVAILABILITY BOOKING */
+/* Mobile-first. Booking popup uses the same safe shell logic as Gallery: fixed shell, bottom anchored above footer, and protected top gap below header/professional text. */
+:root {
+  --availability-popup-side-inset: 22px;
+  --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
+  --availability-popup-footer-dock-height: 112px;
+  --availability-popup-footer-gap: 12px;
+  --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
+}
+
 .availability-memo {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 128px);
@@ -217,10 +227,8 @@
   width: min(100%, var(--app-shell-max-width, 768px));
   max-width: var(--app-shell-max-width, 768px);
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 104px) 22px calc(env(safe-area-inset-bottom, 0px) + 24px);
+  display: block;
+  padding: 0;
   background: transparent;
   opacity: 0;
   visibility: hidden;
@@ -232,10 +240,10 @@
   -webkit-backdrop-filter: none;
   box-sizing: border-box;
   transform: translateX(-50%);
-  overflow-y: auto;
+  overflow: hidden;
   overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
 }
+
 .availability-popup-backdrop.is-open {
   opacity: 1;
   visibility: visible;
@@ -243,10 +251,12 @@
 }
 
 .availability-popup-card {
-  position: relative;
-  width: min(100%, 430px);
-  max-height: min(680px, calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 150px));
-  margin: auto 0;
+  position: absolute;
+  left: 50%;
+  bottom: var(--availability-popup-footer-offset);
+  width: min(calc(100% - (var(--availability-popup-side-inset) * 2)), 430px);
+  max-height: min(680px, calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px));
+  margin: 0;
   padding: 24px 20px 20px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 24px;
@@ -254,14 +264,15 @@
   color: #ffffff;
   overflow-y: auto;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
-  transform: translateY(12px) scale(0.98);
+  transform: translateX(-50%) translateY(12px) scale(0.98);
   transition: transform 0.24s ease;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   pointer-events: auto;
 }
+
 .availability-popup-backdrop.is-open .availability-popup-card {
-  transform: translateY(0) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 .availability-popup-close {
@@ -282,6 +293,7 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
+
 .availability-popup-close:focus-visible {
   outline: 3px solid rgba(255, 255, 255, 0.84);
   outline-offset: 4px;
@@ -542,22 +554,32 @@
   text-align: center;
   text-transform: lowercase;
 }
+
 /* ✅ BOOKING POPUP SHELL PATCH */
 @supports not (height: 100dvh) {
   .availability-popup-card {
-    max-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 150px);
+    max-height: min(680px, calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px));
   }
 }
 
 @media (max-height: 680px) {
-  .availability-popup-backdrop {
-    align-items: flex-start;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 104px);
+  :root {
+    --availability-popup-footer-dock-height: 104px;
   }
 
   .availability-popup-card {
-    margin: 0;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 132px);
+    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px);
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --availability-popup-footer-dock-height: 96px;
+    --availability-popup-footer-gap: 12px;
+  }
+
+  .availability-popup-card {
+    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px);
   }
 }
 
