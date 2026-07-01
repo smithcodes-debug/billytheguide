@@ -202,9 +202,20 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
     }); /* ✅ REQUIRED FIX */
   }
 
+  function stopAvailabilityEvent(event) { /* ✅ REQUIRED FIX */
+    if (!event) return; /* ✅ REQUIRED FIX */
+    if (typeof event.preventDefault === 'function') event.preventDefault(); /* ✅ REQUIRED FIX */
+    if (typeof event.stopPropagation === 'function') event.stopPropagation(); /* ✅ REQUIRED FIX */
+    if (typeof event.stopImmediatePropagation === 'function') event.stopImmediatePropagation(); /* ✅ REQUIRED FIX */
+  }
+
+  function handleAvailabilityCloseButton(event) { /* ✅ REQUIRED FIX */
+    stopAvailabilityEvent(event); /* ✅ REQUIRED FIX */
+    closeAvailabilityPopup(); /* ✅ REQUIRED FIX */
+  }
+
   function closeAvailabilityPopup(event) { /* ✅ UPDATED */
-    if (event && typeof event.preventDefault === 'function') event.preventDefault(); /* ✅ REQUIRED FIX */
-    if (event && typeof event.stopPropagation === 'function') event.stopPropagation(); /* ✅ REQUIRED FIX */
+    stopAvailabilityEvent(event); /* ✅ REQUIRED FIX */
     availabilityPopup.classList.remove('is-open'); /* ✅ NEW */
     availabilityPopup.setAttribute('aria-hidden', 'true'); /* ✅ NEW */
     availabilityMemo.setAttribute('aria-expanded', 'false'); /* ✅ NEW */
@@ -254,8 +265,9 @@ export function initAvailabilityPopup() { /* ✅ UPDATED */
   window.addEventListener('billy:close-availability-popup', closeAvailabilityPopup); /* ✅ FOOTER TOGGLE */
 
   availabilityMemo.addEventListener('click', openAvailabilityPopup); /* ✅ NEW */
-  availabilityCloseBtn.addEventListener('click', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
-  availabilityCloseBtn.addEventListener('pointerup', closeAvailabilityPopup); /* ✅ REQUIRED FIX */
+  availabilityCloseBtn.addEventListener('pointerdown', handleAvailabilityCloseButton, true); /* ✅ REQUIRED FIX */
+  availabilityCloseBtn.addEventListener('click', handleAvailabilityCloseButton, true); /* ✅ REQUIRED FIX */
+  availabilityCloseBtn.addEventListener('touchstart', handleAvailabilityCloseButton, { capture: true, passive: false }); /* ✅ REQUIRED FIX */
 
   availabilityPopup.addEventListener('click', function (event) { /* ✅ UPDATED */
     if (event.target === availabilityPopup) { /* ✅ REQUIRED FIX */

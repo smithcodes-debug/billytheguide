@@ -7,6 +7,7 @@
   --availability-popup-footer-dock-height: 112px;
   --availability-popup-footer-gap: 15px;
   --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
+  --availability-popup-panel-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-header-gap) - var(--availability-popup-footer-offset));
 }
 
 .availability-memo {
@@ -256,11 +257,13 @@
   left: 50%;
   /* ✅ FULL HEIGHT BOOKING PANEL:
      Starts 15px below protected header/professional text
-     and ends 15px above footer dock. */
+     and ends 15px above footer dock.
+     Height is explicit to avoid max-height / auto-height conflicts on mobile Safari. */
   top: calc(var(--availability-popup-header-offset) + var(--availability-popup-header-gap));
   bottom: var(--availability-popup-footer-offset);
   width: min(calc(100% - (var(--availability-popup-side-inset) * 2)), 430px);
-  height: auto;
+  height: var(--availability-popup-panel-height);
+  min-height: 0;
   max-height: none;
   margin: 0;
   padding: 24px 20px 20px;
@@ -285,9 +288,9 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  z-index: 5;
-  width: 42px;
-  height: 42px;
+  z-index: 20;
+  width: 46px;
+  height: 46px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.1);
@@ -561,8 +564,12 @@
   text-transform: lowercase;
 }
 /* ✅ BOOKING POPUP SHELL PATCH */
-/* The panel height is owned by top + bottom offsets, not max-height. */
+/* The panel height is owned by explicit top + bottom + height offsets, not max-height. */
 @supports not (height: 100dvh) {
+  :root {
+    --availability-popup-panel-height: calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-header-gap) - var(--availability-popup-footer-offset));
+  }
+
   .availability-popup-card {
     max-height: none;
   }
