@@ -1,10 +1,10 @@
 /* ✅ NEW: MODULE 14 — GALLERY WITH US */
 /* Mobile-first. Transparent root layer only; no visual backdrop. Hero/page remains visible behind the panel. */
-/* ✅ PATCH: Scale module visual content down ~50%, while keeping .gallery-with-us-title unchanged. */
+/* ✅ PATCH: Restore taller panel length while keeping current white review-card visual flow. */
 :root {
   --gallery-with-us-inset: 15px;
   --gallery-with-us-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
-  --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 214px);
+  --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 156px);
   --gallery-with-us-footer-dock-height: 112px;
   --gallery-with-us-footer-gap: 15px;
   --gallery-with-us-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--gallery-with-us-footer-dock-height) + var(--gallery-with-us-footer-gap));
@@ -111,11 +111,14 @@
   min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
   padding: 12px 0 9px;
   flex: 1 1 auto;
 }
 
 .gallery-with-us-summary {
+  margin-top: auto;
   padding: 3px 11px 11px;
   text-align: center;
 }
@@ -352,20 +355,23 @@ html.gallery-with-us-open,
 body.gallery-with-us-open {
   overflow: hidden;
 }
-
 @media (max-width: 380px) {
   .gallery-with-us-track {
     grid-auto-columns: calc(58% - 18px);
   }
 }
 
-
-/* ✅ GALLERY MOBILE STRETCH PATCH — 2026-07-01 */
-/* Stretch Guest reviews panel from 10px below professional tagline area to 15px above footer dock. */
+/* ✅ GALLERY TALL PANEL PATCH — 2026-07-01 */
+/* Keep bottom anchored above footer dock, restore panel length upward, and let the review content sit low then grow upward. */
 @media (max-height: 720px) {
   :root {
-    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 198px);
+    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 146px);
+    --gallery-with-us-footer-dock-height: 104px;
     --gallery-with-us-footer-gap: 15px;
+  }
+
+  .gallery-with-us-body {
+    padding-top: 8px;
   }
 
   .gallery-with-us-panel {
@@ -375,10 +381,17 @@ body.gallery-with-us-open {
 
 @media (max-height: 640px) {
   :root {
-    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 184px);
+    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 136px);
+    --gallery-with-us-footer-dock-height: 96px;
     --gallery-with-us-footer-gap: 15px;
   }
 
+  .gallery-with-us-panel {
+    max-height: none;
+  }
+}
+
+@supports not (height: 100dvh) {
   .gallery-with-us-panel {
     max-height: none;
   }
@@ -389,34 +402,5 @@ body.gallery-with-us-open {
   .gallery-with-us-panel,
   .gallery-with-us-progress-bar {
     transition: none;
-  }
-}
-
-/* ✅ GALLERY FOOTER GAP PATCH — 2026-06-30 */
-/* Bottom-anchor Gallery popup so it sits above the footer dock with a 12px visual gap. */
-@supports not (height: 100dvh) {
-  .gallery-with-us-panel {
-    max-height: none;
-  }
-}
-
-@media (max-height: 720px) {
-  :root {
-    --gallery-with-us-footer-dock-height: 104px;
-  }
-
-  .gallery-with-us-body {
-    padding-top: 8px;
-  }
-}
-
-@media (max-height: 640px) {
-  :root {
-    --gallery-with-us-footer-dock-height: 96px;
-    --gallery-with-us-footer-gap: 15px;
-  }
-
-  .gallery-with-us-panel {
-    max-height: none;
   }
 }
