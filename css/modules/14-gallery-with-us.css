@@ -4,8 +4,9 @@
 :root {
   --gallery-with-us-inset: 15px;
   --gallery-with-us-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
+  --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 214px);
   --gallery-with-us-footer-dock-height: 112px;
-  --gallery-with-us-footer-gap: 12px;
+  --gallery-with-us-footer-gap: 15px;
   --gallery-with-us-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--gallery-with-us-footer-dock-height) + var(--gallery-with-us-footer-gap));
   --gallery-with-us-radius: 12px;
   --gallery-with-us-ink: #050608;
@@ -41,12 +42,13 @@
   position: absolute;
   left: var(--gallery-with-us-inset);
   right: var(--gallery-with-us-inset);
-  top: auto;
+  top: var(--gallery-with-us-top-offset);
   bottom: var(--gallery-with-us-footer-offset);
   display: flex;
   flex-direction: column;
   min-height: 0;
-  max-height: calc(100dvh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 8px);
+  height: auto;
+  max-height: none;
   border-radius: var(--gallery-with-us-radius);
   background: rgba(255, 255, 255, 0.97);
   color: var(--gallery-with-us-ink);
@@ -357,6 +359,31 @@ body.gallery-with-us-open {
   }
 }
 
+
+/* ✅ GALLERY MOBILE STRETCH PATCH — 2026-07-01 */
+/* Stretch Guest reviews panel from 10px below professional tagline area to 15px above footer dock. */
+@media (max-height: 720px) {
+  :root {
+    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 198px);
+    --gallery-with-us-footer-gap: 15px;
+  }
+
+  .gallery-with-us-panel {
+    max-height: none;
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --gallery-with-us-top-offset: calc(env(safe-area-inset-top, 0px) + 184px);
+    --gallery-with-us-footer-gap: 15px;
+  }
+
+  .gallery-with-us-panel {
+    max-height: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .gallery-with-us-root,
   .gallery-with-us-panel,
@@ -369,7 +396,7 @@ body.gallery-with-us-open {
 /* Bottom-anchor Gallery popup so it sits above the footer dock with a 12px visual gap. */
 @supports not (height: 100dvh) {
   .gallery-with-us-panel {
-    max-height: calc(100vh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 8px);
+    max-height: none;
   }
 }
 
@@ -386,10 +413,10 @@ body.gallery-with-us-open {
 @media (max-height: 640px) {
   :root {
     --gallery-with-us-footer-dock-height: 96px;
-    --gallery-with-us-footer-gap: 12px;
+    --gallery-with-us-footer-gap: 15px;
   }
 
   .gallery-with-us-panel {
-    max-height: calc(100dvh - var(--gallery-with-us-header-offset) - var(--gallery-with-us-footer-offset) - 8px);
+    max-height: none;
   }
 }
