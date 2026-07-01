@@ -1,99 +1,198 @@
 export function initGesture() {
+  const root = document.documentElement;
+
+  if (root.dataset.gestureInitialized === 'true') return;
+  root.dataset.gestureInitialized = 'true';
+
+  const EDGE_BACK_ZONE = 28;
+  const EDGE_BACK_TRIGGER_DISTANCE = 64;
+  const EDGE_BACK_INTENT_DISTANCE = 12;
+
+  const HERO_RELOAD_TRIGGER_DISTANCE = 92;
+  const HERO_RELOAD_INTENT_DISTANCE = 16;
+
+  const DOMINANCE_RATIO = 1.25;
+
   let startX = 0;
   let startY = 0;
-  let availabilitySwipeDisabled = false; /* ✅ NEW */
-  const EDGE_BACK_ZONE = 24; /* ✅ NEW */
-  const AVAILABILITY_SWIPE_TOP_THRESHOLD = 80; /* ✅ NEW */
+  let startTarget = null;
+  let isSingleTouch = false;
+  let isEdgeBackCandidate = false;
+  let isHeroReloadCandidate = false;
+  let hasLockedGesture = false;
+  let lockedGesture = '';
 
-  function isMobileViewport() { /* ✅ UPDATED */
-    return window.innerWidth <= 768 || window.matchMedia('(hover: none) and (pointer: coarse)').matches; /* ✅ UPDATED */
+  function isInteractiveElement(target) {
+    if (!target || !target.closest) return false;
+
+    return Boolean(
+      target.closest(
+        'a, button, input, textarea, select, option, label, summary, [role="button"], [role="link"], [contenteditable="true"]'
+      )
+    );
   }
 
-  function hasOpenPopup() { /* ✅ NEW */
-    return Boolean(document.querySelector('.popup-backdrop.is-open, .availability-popup-backdrop.is-open, .contact-popup-backdrop.is-open')); /* ✅ NEW */
+  function isInsideHero(target) {
+    return Boolean(target && target.closest && target.closest('.hero'));
   }
 
-  function hasTourCardPopupOpen() { /* ✅ NEW */
-    const tourPopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
-    return Boolean(tourPopup && tourPopup.classList.contains('is-open')); /* ✅ NEW */
+  function isHorizontalIntent(deltaX, deltaY) {
+    return Math.abs(deltaX) > Math.abs(deltaY) * DOMINANCE_RATIO;
   }
 
-  function disableAvailabilitySwipeOnceTourPopupOpens() { /* ✅ NEW */
-    if (hasTourCardPopupOpen()) { /* ✅ NEW */
-      availabilitySwipeDisabled = true; /* ✅ NEW */
+  function isVerticalDownIntent(deltaX, deltaY) {
+    return deltaY > 0 && Math.abs(deltaY) > Math.abs(deltaX) * DOMINANCE_RATIO;
+  }
+
+  function preventIfCancelable(event) {
+    if (event && event.cancelable) {
+      event.preventDefault();
     }
   }
 
-  function isAvailabilitySwipeAllowedAtCurrentScroll() { /* ✅ NEW */
-    return window.scrollY <= AVAILABILITY_SWIPE_TOP_THRESHOLD; /* ✅ NEW */
+  function resetGestureState() {
+    startX = 0;
+    startY = 0;
+    startTarget = null;
+    isSingleTouch = false;
+    isEdgeBackCandidate = false;
+    isHeroReloadCandidate = false;
+    hasLockedGesture = false;
+    lockedGesture = '';
   }
 
-  function observeTourPopupState() { /* ✅ NEW */
-    const tourPopup = document.getElementById('leave-no-trace-popup'); /* ✅ NEW */
-    if (!tourPopup) return; /* ✅ REQUIRED FIX */
-    if (tourPopup.dataset.availabilitySwipeObserverInitialized === 'true') return; /* ✅ REQUIRED FIX */
+  function handleTouchStart(event) {
+    if (!event.touches || event.touches.length !== 1) {
+      resetGestureState();
+      return;
+    }
 
-    tourPopup.dataset.availabilitySwipeObserverInitialized = 'true'; /* ✅ NEW */
+    const touch = event.touches[0];
 
-    const observer = new MutationObserver(function () { /* ✅ NEW */
-      disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
-    });
+    startX = touch.clientX;
+    startY = touch.clientY;
+    startTarget = event.target;
+    isSingleTouch = true;
+    hasLockedGesture = false;
+    lockedGesture = '';
 
-    observer.observe(tourPopup, { /* ✅ NEW */
-      attributes: true, /* ✅ NEW */
-      attributeFilter: ['class'] /* ✅ NEW */
-    });
+    isEdgeBackCandidate = startX <= EDGE_BACK_ZONE;
 
-    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
+    isHeroReloadCandidate =
+      isInsideHero(startTarget) && !isInteractiveElement(startTarget);
   }
 
-  observeTourPopupState(); /* ✅ NEW */
+  function handleTouchMove(event) {
+    if (!isSingleTouch || !event.touches || event.touches.length !== 1) return;
 
-  document.addEventListener('touchstart', (e) => {
-    if (!e.touches || e.touches.length !== 1) return;
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
 
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
+    if (!hasLockedGesture && isEdgeBackCandidate) {
+      const isRightSwipe = deltaX > EDGE_BACK_INTENT_DISTANCE;
+      const hasHorizontalIntent = isHorizontalIntent(deltaX, deltaY);
 
-    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
-  }, { passive: true });
+      if (isRightSwipe && hasHorizontalIntent) {
+        hasLockedGesture = true;
+        lockedGesture = 'edge-back';
+      }
+    }
 
-  document.addEventListener('touchend', (e) => {
-    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+    if (!hasLockedGesture && isHeroReloadCandidate) {
+      const hasDownIntent =
+        deltaY > HERO_RELOAD_INTENT_DISTANCE &&
+        isVerticalDownIntent(deltaX, deltaY);
 
-    const endX = e.changedTouches[0].clientX; /* ✅ NEW */
-    const endY = e.changedTouches[0].clientY; /* ✅ NEW */
-    const deltaX = endX - startX;
-    const deltaY = endY - startY;
-    const absDeltaX = Math.abs(deltaX); /* ✅ NEW */
-    const absDeltaY = Math.abs(deltaY); /* ✅ NEW */
-    const isMobile = isMobileViewport(); /* ✅ NEW */
-    const popupIsOpen = hasOpenPopup(); /* ✅ NEW */
+      if (hasDownIntent) {
+        hasLockedGesture = true;
+        lockedGesture = 'hero-reload';
+      }
+    }
 
-    disableAvailabilitySwipeOnceTourPopupOpens(); /* ✅ NEW */
+    if (lockedGesture === 'edge-back' || lockedGesture === 'hero-reload') {
+      preventIfCancelable(event);
+    }
 
     if (
-      isMobile && /* ✅ UPDATED */
-      popupIsOpen && /* ✅ UPDATED: chỉ back khi đang mở popup */
-      startX <= EDGE_BACK_ZONE && /* ✅ NEW: chỉ nhận swipe từ cạnh trái 24px */
-      deltaX > 60 &&
-      absDeltaX > absDeltaY
+      isEdgeBackCandidate &&
+      deltaX > EDGE_BACK_INTENT_DISTANCE &&
+      absDeltaX > absDeltaY * DOMINANCE_RATIO
     ) {
+      preventIfCancelable(event);
+    }
+
+    if (
+      isHeroReloadCandidate &&
+      deltaY > HERO_RELOAD_INTENT_DISTANCE &&
+      absDeltaY > absDeltaX * DOMINANCE_RATIO
+    ) {
+      preventIfCancelable(event);
+    }
+  }
+
+  function handleTouchEnd(event) {
+    if (!isSingleTouch || !event.changedTouches || event.changedTouches.length !== 1) {
+      resetGestureState();
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
+
+    const shouldGoBack =
+      isEdgeBackCandidate &&
+      deltaX >= EDGE_BACK_TRIGGER_DISTANCE &&
+      absDeltaX > absDeltaY * DOMINANCE_RATIO;
+
+    if (shouldGoBack) {
+      preventIfCancelable(event);
+      resetGestureState();
       window.history.back();
-      return; /* ✅ NEW */
+      return;
     }
 
-    if (!isMobile) return; /* ✅ KEEP: mobile only */
+    const shouldReloadHero =
+      isHeroReloadCandidate &&
+      deltaY >= HERO_RELOAD_TRIGGER_DISTANCE &&
+      absDeltaY > absDeltaX * DOMINANCE_RATIO;
 
-    if (hasTourCardPopupOpen()) { /* ✅ UPDATED */
-      availabilitySwipeDisabled = true; /* ✅ NEW */
-      return; /* ✅ REQUIRED FIX */
+    if (shouldReloadHero) {
+      preventIfCancelable(event);
+      resetGestureState();
+      window.location.reload();
+      return;
     }
 
-    if (popupIsOpen) return; /* ✅ KEEP: swipe up đã bị remove, popup mở thì không làm gì */
-    if (availabilitySwipeDisabled) return; /* ✅ NEW */
-    if (!isAvailabilitySwipeAllowedAtCurrentScroll()) return; /* ✅ NEW */
+    resetGestureState();
+  }
 
-    /* ✅ UPDATED: removed swipe-up booking/availability trigger */
-  }, { passive: true });
+  function handleTouchCancel() {
+    resetGestureState();
+  }
+
+  document.addEventListener('touchstart', handleTouchStart, {
+    passive: true,
+    capture: true
+  });
+
+  document.addEventListener('touchmove', handleTouchMove, {
+    passive: false,
+    capture: true
+  });
+
+  document.addEventListener('touchend', handleTouchEnd, {
+    passive: false,
+    capture: true
+  });
+
+  document.addEventListener('touchcancel', handleTouchCancel, {
+    passive: true,
+    capture: true
+  });
 }
