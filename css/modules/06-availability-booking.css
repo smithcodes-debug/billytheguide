@@ -1,12 +1,11 @@
 /* ✅ MODULE 06 — AVAILABILITY BOOKING */
-/* Mobile-first. Booking popup uses the same safe shell logic as Gallery: fixed shell, bottom anchored above footer, and protected top gap below header/professional text. */
+/* Mobile-first. Booking popup uses fixed shell logic: panel starts 15px below protected header/professional text and ends 15px above footer dock. */
 :root {
   --availability-popup-side-inset: 22px;
   --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
+  --availability-popup-header-gap: 15px;
   --availability-popup-footer-dock-height: 112px;
-  --availability-popup-footer-gap: 42px;
-  --availability-popup-panel-stretch-total: 100px;
-  --availability-popup-panel-stretch-half: 50px;
+  --availability-popup-footer-gap: 15px;
   --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
 }
 
@@ -255,13 +254,14 @@
 .availability-popup-card {
   position: absolute;
   left: 50%;
-  /* ✅ BOOKING PANEL STRETCH +50px TOTAL:
-     - bottom extends downward 25px
-     - max-height can grow upward 25px
-     Keeps footer-safe bottom anchoring and gives extra room for lower text. */
-  bottom: calc(var(--availability-popup-footer-offset) - var(--availability-popup-panel-stretch-half));
+  /* ✅ FULL HEIGHT BOOKING PANEL:
+     Starts 15px below protected header/professional text
+     and ends 15px above footer dock. */
+  top: calc(var(--availability-popup-header-offset) + var(--availability-popup-header-gap));
+  bottom: var(--availability-popup-footer-offset);
   width: min(calc(100% - (var(--availability-popup-side-inset) * 2)), 430px);
-  max-height: min(730px, calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total)));
+  height: auto;
+  max-height: none;
   margin: 0;
   padding: 24px 20px 20px;
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -560,32 +560,33 @@
   text-align: center;
   text-transform: lowercase;
 }
-
 /* ✅ BOOKING POPUP SHELL PATCH */
+/* The panel height is owned by top + bottom offsets, not max-height. */
 @supports not (height: 100dvh) {
   .availability-popup-card {
-    max-height: min(730px, calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total)));
+    max-height: none;
   }
 }
 
 @media (max-height: 680px) {
   :root {
     --availability-popup-footer-dock-height: 104px;
+    --availability-popup-footer-gap: 15px;
   }
 
   .availability-popup-card {
-    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total));
+    max-height: none;
   }
 }
 
 @media (max-height: 640px) {
   :root {
     --availability-popup-footer-dock-height: 96px;
-    --availability-popup-footer-gap: 42px;
+    --availability-popup-footer-gap: 15px;
   }
 
   .availability-popup-card {
-    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total));
+    max-height: none;
   }
 }
 
