@@ -5,6 +5,8 @@
   --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
   --availability-popup-footer-dock-height: 112px;
   --availability-popup-footer-gap: 42px;
+  --availability-popup-panel-stretch-total: 50px;
+  --availability-popup-panel-stretch-half: 25px;
   --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
 }
 
@@ -253,9 +255,13 @@
 .availability-popup-card {
   position: absolute;
   left: 50%;
-  bottom: var(--availability-popup-footer-offset);
+  /* ✅ BOOKING PANEL STRETCH +50px TOTAL:
+     - bottom extends downward 25px
+     - max-height can grow upward 25px
+     Keeps footer-safe bottom anchoring and gives extra room for lower text. */
+  bottom: calc(var(--availability-popup-footer-offset) - var(--availability-popup-panel-stretch-half));
   width: min(calc(100% - (var(--availability-popup-side-inset) * 2)), 430px);
-  max-height: min(680px, calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px));
+  max-height: min(730px, calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total)));
   margin: 0;
   padding: 24px 20px 20px;
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -558,7 +564,7 @@
 /* ✅ BOOKING POPUP SHELL PATCH */
 @supports not (height: 100dvh) {
   .availability-popup-card {
-    max-height: min(680px, calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px));
+    max-height: min(730px, calc(100vh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total)));
   }
 }
 
@@ -568,7 +574,7 @@
   }
 
   .availability-popup-card {
-    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px);
+    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total));
   }
 }
 
@@ -579,6 +585,12 @@
   }
 
   .availability-popup-card {
-    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px);
+    max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px + var(--availability-popup-panel-stretch-total));
+  }
+}
+
+@media (max-width: 480px) {
+  .availability-memo {
+    display: none;
   }
 }
