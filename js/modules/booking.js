@@ -3,6 +3,7 @@ export function initAvailabilityPopup() {
   const closeButton = bookingView ? bookingView.querySelector('.availability-popup-close') : null;
   const monthLabel = document.getElementById('availabilityMonthLabel');
   const daysGrid = document.getElementById('availabilityDays');
+  const calendarSection = bookingView ? bookingView.querySelector('.availability-calendar-section') : null;
   const prevButton = document.getElementById('availabilityPrevMonth');
   const nextButton = document.getElementById('availabilityNextMonth');
   const messageBox = document.getElementById('availabilityMessage');
@@ -10,7 +11,7 @@ export function initAvailabilityPopup() {
   const tourList = document.getElementById('availabilityTourList');
   const footerButton = document.querySelector('[data-footer-check-book]');
 
-  if (!bookingView || !closeButton || !monthLabel || !daysGrid || !prevButton || !nextButton || !messageBox || !continueButton || !tourList) {
+  if (!bookingView || !closeButton || !monthLabel || !daysGrid || !calendarSection || !prevButton || !nextButton || !messageBox || !continueButton || !tourList) {
     return;
   }
 
@@ -22,7 +23,6 @@ export function initAvailabilityPopup() {
   const TOUR_PAGE_MAP = {
     snorkeling: './coral-snorkeling-phu-quoc.html',
     diving: './diving-island-phu-quoc.html',
-    hiking: './hiking-mountain-phu-quoc.html',
     camping: './camping-island-phu-quoc.html',
     propose: './propose-island-phu-quoc.html'
   };
@@ -30,7 +30,7 @@ export function initAvailabilityPopup() {
   const OPEN_EVENT = 'billy:open-availability-popup';
   const CLOSE_EVENT = 'billy:close-availability-popup';
   const SCROLL_LOCK_CLASS = 'availability-booking-open';
-  const MAX_MONTH_OFFSET = 6;
+  const MAX_MONTH_OFFSET = 3;
   const MIN_HOURS_BEFORE_TOUR = 12;
 
   const today = startOfDay(new Date());
@@ -41,6 +41,9 @@ export function initAvailabilityPopup() {
   let visibleMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
   let selectedDateKey = '';
   let lastFocusedElement = null;
+  let calendarTouchStartX = 0;
+  let calendarTouchStartY = 0;
+  let calendarTouchStartTime = 0;
 
   function padNumber(value) {
     return String(value).padStart(2, '0');
@@ -128,6 +131,7 @@ export function initAvailabilityPopup() {
     }
 
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    visibleMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
     resetSelection();
     renderCalendar();
     setBookingOpenState(true);
@@ -298,6 +302,55 @@ export function initAvailabilityPopup() {
     goToTour(item.dataset.tour);
   }
 
+  function goToPreviousMonth() {
+    if (monthOffset(currentMonth, visibleMonth) <= 0) {
+      return;
+    }
+    visibleMonth = addMonths(visibleMonth, -1);
+    resetSelection();
+    renderCalendar();
+  }
+
+  function goToNextMonth() {
+    if (monthOffset(currentMonth, visibleMonth) >= MAX_MONTH_OFFSET) {
+      return;
+    }
+    visibleMonth = addMonths(visibleMonth, 1);
+    resetSelection();
+    renderCalendar();
+  }
+
+  function handleCalendarTouchStart(event) {
+    if (!event.touches || event.touches.length !== 1) {
+      return;
+    }
+    const touch = event.touches[0];
+    calendarTouchStartX = touch.clientX;
+    calendarTouchStartY = touch.clientY;
+    calendarTouchStartTime = Date.now();
+  }
+
+  function handleCalendarTouchEnd(event) {
+    if (!calendarTouchStartTime || !event.changedTouches || event.changedTouches.length !== 1) {
+      return;
+    }
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - calendarTouchStartX;
+    const deltaY = touch.clientY - calendarTouchStartY;
+    const elapsed = Date.now() - calendarTouchStartTime;
+    calendarTouchStartX = 0;
+    calendarTouchStartY = 0;
+    calendarTouchStartTime = 0;
+    if (elapsed > 700 || Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY) * 1.35) {
+      return;
+    }
+    if (deltaX < 0) {
+      goToNextMonth();
+    } else {
+      goToPreviousMonth();
+    }
+  }
+
   prevButton.addEventListener('click', function () {
     if (monthOffset(currentMonth, visibleMonth) <= 0) {
       return;
@@ -318,6 +371,8 @@ export function initAvailabilityPopup() {
     renderCalendar();
   });
 
+  calendarSection.addEventListener('touchstart', handleCalendarTouchStart, { passive: true });
+  calendarSection.addEventListener('touchend', handleCalendarTouchEnd, { passive: true });
   closeButton.addEventListener('click', closeBooking);
   continueButton.addEventListener('click', openExistingTourPopup);
   tourList.addEventListener('click', handleTourClick);
