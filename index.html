@@ -69,64 +69,72 @@
 </div>
 
 <main id="site-content" class="site-content">
-  <button class="availability-memo" id="availabilityMemo" type="button" aria-label="Check booking availability" aria-controls="availability-popup" aria-expanded="false">
-    <span class="availability-memo-card" aria-hidden="true">
-      <span class="availability-calendar-icon">
-        <span class="availability-calendar-top"></span>
-        <span class="availability-calendar-rings"><span></span><span></span></span>
-        <span class="availability-calendar-grid"><span></span><span></span><span></span><span></span><span></span><span></span></span>
-      </span>
-      <span class="availability-memo-text">check booking</span>
-      <span class="availability-memo-hint">calendar</span>
-    </span>
-  </button>
-  <div class="availability-popup-backdrop" id="availability-popup" aria-hidden="true">
-    <div class="availability-popup-card" role="dialog" aria-modal="true" aria-labelledby="availabilityPopupTitle">
+  <section class="availability-booking-view" id="availability-popup" aria-hidden="true" aria-labelledby="availabilityPopupTitle">
+    <div class="availability-booking-frame" role="dialog" aria-modal="true">
       <button class="availability-popup-close" type="button" aria-label="Đóng lịch đặt tour">×</button>
-      <h2 class="availability-popup-title" id="availabilityPopupTitle">check booking</h2>
-      <p class="availability-popup-desc">Choose an available green date. The booking flow will continue with the existing tour choice popup.</p>
-      <div class="availability-calendar-head">
-        <div class="availability-month-label" id="availabilityMonthLabel" aria-live="polite"></div>
-        <div class="availability-nav" aria-label="Calendar navigation">
-          <button type="button" id="availabilityPrevMonth" aria-label="Previous month">‹</button>
-          <button type="button" id="availabilityNextMonth" aria-label="Next month">›</button>
-        </div>
-      </div>
-      <div class="availability-weekdays" aria-hidden="true">
-        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-      </div>
-      <div class="availability-days" id="availabilityDays" aria-label="Available booking dates"></div>
-      <div class="availability-legend" aria-hidden="true">
-        <span><i class="open-dot"></i>Open</span>
-        <span><i class="booked-dot"></i>Booked</span>
-        <span><i class="contact-dot"></i>Contact</span>
-      </div>
-      <div class="availability-message" id="availabilityMessage" aria-live="polite"></div>
-      <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Chọn ngày màu xanh để đặt tour.</button>
-      <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true" aria-label="Tour choices">
-        <div class="availability-tour-item" data-tour="snorkeling">
-          <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" loading="lazy" decoding="async"></span>
-          <span class="availability-tour-label">snorkeling</span>
-        </div>
-        <div class="availability-tour-item" data-tour="diving">
-          <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/diving-low.png" alt="diving" loading="lazy" decoding="async"></span>
-          <span class="availability-tour-label">diving</span>
-        </div>
-        <div class="availability-tour-item" data-tour="hiking">
-          <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/hiking-low.png" alt="hiking" loading="lazy" decoding="async"></span>
-          <span class="availability-tour-label">hiking</span>
-        </div>
-        <div class="availability-tour-item" data-tour="camping">
-          <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/camping-low.png" alt="camping" loading="lazy" decoding="async"></span>
-          <span class="availability-tour-label">camping</span>
-        </div>
-        <div class="availability-tour-item" data-tour="propose">
-          <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/propose-low.png" alt="propose" loading="lazy" decoding="async"></span>
-          <span class="availability-tour-label">propose</span>
-        </div>
+
+      <div class="availability-booking-scroll">
+        <header class="availability-booking-header">
+          <p class="availability-booking-kicker">Billy and Friend Adventures</p>
+          <h2 class="availability-popup-title" id="availabilityPopupTitle">check booking</h2>
+          <p class="availability-popup-desc">Choose a green date, then continue with the tour you want. This screen opens from the footer Check-book icon.</p>
+        </header>
+
+        <section class="availability-calendar-section" aria-label="Booking calendar">
+          <div class="availability-calendar-head">
+            <div class="availability-month-label" id="availabilityMonthLabel" aria-live="polite"></div>
+            <div class="availability-nav" aria-label="Calendar navigation">
+              <button type="button" id="availabilityPrevMonth" aria-label="Previous month">‹</button>
+              <button type="button" id="availabilityNextMonth" aria-label="Next month">›</button>
+            </div>
+          </div>
+
+          <div class="availability-weekdays" aria-hidden="true">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+
+          <div class="availability-days" id="availabilityDays" aria-label="Available booking dates"></div>
+
+          <div class="availability-legend" aria-hidden="true">
+            <span><i class="open-dot"></i>Open</span>
+            <span><i class="booked-dot"></i>Booked</span>
+            <span><i class="closed-dot"></i>Closed</span>
+          </div>
+        </section>
+
+        <section class="availability-booking-status" aria-label="Booking status">
+          <div class="availability-message" id="availabilityMessage" aria-live="polite"></div>
+          <button class="availability-contact" id="availabilityContactLink" type="button" disabled>Choose a green date to continue.</button>
+        </section>
+
+        <section class="availability-tour-section" aria-label="Tour choices">
+          <h3 class="availability-tour-title">choose your experience</h3>
+          <div class="availability-tour-list" id="availabilityTourList" aria-hidden="true" aria-label="Tour choices">
+            <div class="availability-tour-item" data-tour="snorkeling">
+              <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/snorkeling-low.png" alt="snorkeling" loading="lazy" decoding="async"></span>
+              <span class="availability-tour-label">snorkeling</span>
+            </div>
+            <div class="availability-tour-item" data-tour="diving">
+              <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/diving-low.png" alt="diving" loading="lazy" decoding="async"></span>
+              <span class="availability-tour-label">diving</span>
+            </div>
+            <div class="availability-tour-item" data-tour="hiking">
+              <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/hiking-low.png" alt="hiking" loading="lazy" decoding="async"></span>
+              <span class="availability-tour-label">hiking</span>
+            </div>
+            <div class="availability-tour-item" data-tour="camping">
+              <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/camping-low.png" alt="camping" loading="lazy" decoding="async"></span>
+              <span class="availability-tour-label">camping</span>
+            </div>
+            <div class="availability-tour-item" data-tour="propose">
+              <span class="availability-tour-box"><img class="availability-tour-img" src="images/home/tour/propose-low.png" alt="propose" loading="lazy" decoding="async"></span>
+              <span class="availability-tour-label">propose</span>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
-  </div>
+  </section>
   <div class="policy-popup-backdrop" id="policy-popup" aria-hidden="true">
     <div class="policy-popup-card" role="dialog" aria-modal="true" aria-labelledby="policyPopupTitle">
       <button class="policy-popup-close" type="button" aria-label="Đóng chính sách">×</button>
