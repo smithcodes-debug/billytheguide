@@ -7,6 +7,10 @@
    - Header fixed height contract is 62px.
    - Card 01 main hero starts at env(safe-area-inset-top) + 62px.
    - Booking view copies that main hero geometry instead of using guessed top/bottom numbers.
+
+   Visual source of truth:
+   - Poster/paper tone follows MODULE 15 Water Forecast style.
+   - Calendar days stay paper/ink only; availability status is shown with a small dot.
 */
 :root {
   --availability-shell-width: var(--app-shell-max-width, 768px);
@@ -14,6 +18,16 @@
   --availability-footer-clearance: calc(env(safe-area-inset-bottom, 0px) + 104px);
   --availability-gap: 10px;
   --availability-x: 18px;
+  --availability-ink: #050608;
+  --availability-paper: rgba(255, 255, 255, 0.97);
+  --availability-paper-soft: #f6f4ee;
+  --availability-line: rgba(5, 6, 8, 0.82);
+  --availability-soft-line: rgba(5, 6, 8, 0.18);
+  --availability-shadow: 0 18px 48px rgba(0, 0, 0, 0.14);
+  --availability-green: #17b957;
+  --availability-red: #c51d24;
+  --availability-pink: #ec4899;
+  --availability-gray: #8b918f;
 }
 
 html.availability-booking-open,
@@ -38,8 +52,8 @@ body.availability-booking-open .site-footer {
   width: min(100%, var(--availability-shell-width));
   max-width: var(--availability-shell-width);
   min-height: 0;
-  background: #070b10;
-  color: #ffffff;
+  background: var(--availability-paper-soft);
+  color: var(--availability-ink);
   pointer-events: none;
   transform: translateX(-50%);
   overflow: hidden;
@@ -61,9 +75,8 @@ body.availability-booking-open .site-footer {
   overflow: hidden;
   box-sizing: border-box;
   background:
-    radial-gradient(circle at 12% 0%, rgba(34, 197, 94, 0.18), transparent 30%),
-    radial-gradient(circle at 90% 4%, rgba(59, 130, 246, 0.16), transparent 34%),
-    linear-gradient(180deg, rgba(18, 25, 33, 0.99), rgba(5, 8, 12, 0.99));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(246, 244, 238, 0.985)),
+    radial-gradient(circle at 0% 0%, rgba(5, 6, 8, 0.045), transparent 34%);
 }
 
 .availability-booking-scroll {
@@ -71,7 +84,7 @@ body.availability-booking-open .site-footer {
   display: block;
   height: 100%;
   min-height: 0;
-  padding: 14px var(--availability-x) calc(var(--availability-footer-clearance) + 14px);
+  padding: 15px var(--availability-x) calc(var(--availability-footer-clearance) + 14px);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -80,14 +93,15 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-booking-header {
-  position: static !important;
+  position: relative !important;
   display: block !important;
   width: auto !important;
   height: auto !important;
   min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 58px 0 0 !important;
+  margin: 0 0 12px !important;
+  padding: 0 54px 12px 0 !important;
   border: 0 !important;
+  border-bottom: 1.5px solid var(--availability-line) !important;
   background: transparent !important;
   box-shadow: none !important;
   transform: none !important;
@@ -102,15 +116,15 @@ body.availability-booking-open .site-footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(5, 6, 8, 0.22);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(5, 6, 8, 0.72);
   font-family: Arial, sans-serif;
-  font-size: 27px;
+  font-size: 25px;
   line-height: 1;
   cursor: pointer;
   touch-action: manipulation;
@@ -120,23 +134,24 @@ body.availability-booking-open .site-footer {
 .availability-popup-title {
   display: block;
   margin: 0;
-  color: #ffffff;
-  font-family: "Poppins", Arial, sans-serif;
-  font-size: clamp(31px, 9.4vw, 54px);
-  line-height: 0.9;
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(34px, 10vw, 58px);
+  line-height: 0.91;
   font-weight: 900;
   text-transform: lowercase;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.06em;
 }
 
 .availability-popup-desc {
   display: block;
-  max-width: 520px;
+  max-width: 560px;
   margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-family: "Poppins", Arial, sans-serif;
+  color: rgba(5, 6, 8, 0.68);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 12px;
-  line-height: 1.34;
+  line-height: 1.32;
+  letter-spacing: -0.025em;
 }
 
 .availability-calendar-section,
@@ -147,11 +162,13 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-calendar-section {
-  padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.065);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 40px rgba(0, 0, 0, 0.14);
+  padding: 10px 11px 9px;
+  border: 1.5px solid var(--availability-line);
+  border-top-width: 4px;
+  border-radius: 8px;
+  background: var(--availability-paper);
+  color: var(--availability-ink);
+  box-shadow: var(--availability-shadow);
   box-sizing: border-box;
 }
 
@@ -160,15 +177,18 @@ body.availability-booking-open .site-footer {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin: 0 0 8px;
+  margin: 0 0 9px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--availability-line);
 }
 
 .availability-month-label {
-  color: #ffffff;
-  font-family: "Poppins", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.05;
   font-weight: 900;
+  letter-spacing: -0.055em;
 }
 
 .availability-nav {
@@ -184,10 +204,10 @@ body.availability-booking-open .site-footer {
   width: 32px;
   height: 32px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(5, 6, 8, 0.4);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: #ffffff;
+  color: var(--availability-ink);
   font-family: Arial, sans-serif;
   font-size: 21px;
   line-height: 1;
@@ -196,7 +216,7 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-nav button:disabled {
-  opacity: 0.35;
+  opacity: 0.32;
   cursor: not-allowed;
 }
 
@@ -204,12 +224,12 @@ body.availability-booking-open .site-footer {
 .availability-days {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 3px;
+  gap: 4px;
 }
 
 .availability-weekdays span {
-  color: rgba(255, 255, 255, 0.52);
-  font-family: "Poppins", Arial, sans-serif;
+  color: rgba(5, 6, 8, 0.54);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 9px;
   line-height: 1;
   font-weight: 900;
@@ -217,26 +237,41 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-days {
-  margin-top: 6px;
+  margin-top: 7px;
 }
 
 .availability-day {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 28px;
+  min-height: 30px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.92);
-  font-family: "Poppins", Arial, sans-serif;
+  border: 1.3px solid rgba(5, 6, 8, 0.34);
+  border-radius: 9px 12px 8px 11px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 11px;
   font-weight: 900;
   cursor: default;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.54);
   box-sizing: border-box;
   touch-action: manipulation;
+}
+
+.availability-day::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  border: 1px solid rgba(5, 6, 8, 0.16);
+  border-radius: 999px;
+  background: transparent;
+  box-sizing: border-box;
 }
 
 .availability-day-empty {
@@ -249,34 +284,52 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-day.is-open-date {
-  border-color: rgba(34, 197, 94, 0.95);
-  background: linear-gradient(180deg, rgba(74, 222, 128, 0.96), rgba(34, 197, 94, 0.9));
-  color: #05230f;
+  border-color: rgba(5, 6, 8, 0.48);
+  background: #ffffff;
+  color: var(--availability-ink);
   cursor: pointer;
-  box-shadow: 0 7px 14px rgba(34, 197, 94, 0.15);
+}
+
+.availability-day.is-open-date::after {
+  background: var(--availability-green);
+  border-color: rgba(5, 6, 8, 0.12);
 }
 
 .availability-day.is-booked-date {
-  border-color: rgba(248, 113, 113, 0.92);
-  background: rgba(185, 28, 28, 0.92);
-  color: #ffffff;
+  border-color: rgba(5, 6, 8, 0.34);
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(5, 6, 8, 0.72);
+}
+
+.availability-day.is-booked-date::after {
+  background: var(--availability-red);
+  border-color: rgba(5, 6, 8, 0.12);
 }
 
 .availability-day.is-closed-date {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.035);
-  color: rgba(255, 255, 255, 0.34);
+  border-color: rgba(5, 6, 8, 0.18);
+  background: rgba(246, 244, 238, 0.78);
+  color: rgba(5, 6, 8, 0.38);
+}
+
+.availability-day.is-closed-date::after {
+  background: var(--availability-gray);
+  border-color: rgba(5, 6, 8, 0.08);
 }
 
 .availability-day.is-today-date {
-  border-color: rgba(236, 72, 153, 0.96);
-  background: #ec4899;
-  color: #ffffff;
-  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+  color: var(--availability-ink);
+  border-color: rgba(236, 72, 153, 0.88);
+  background: #ffffff;
+}
+
+.availability-day.is-today-date::after {
+  background: var(--availability-pink);
+  border-color: rgba(5, 6, 8, 0.12);
 }
 
 .availability-day.is-selected-date {
-  outline: 2px solid rgba(255, 255, 255, 0.82);
+  outline: 2.5px solid var(--availability-ink);
   outline-offset: 2px;
 }
 
@@ -285,11 +338,15 @@ body.availability-booking-open .site-footer {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px 10px;
-  margin-top: 8px;
-  color: rgba(255, 255, 255, 0.72);
-  font-family: "Poppins", Arial, sans-serif;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1.5px solid var(--availability-line);
+  color: rgba(5, 6, 8, 0.74);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 11px;
-  font-weight: 800;
+  line-height: 1.1;
+  font-weight: 850;
+  letter-spacing: -0.035em;
 }
 
 .availability-legend span {
@@ -302,30 +359,39 @@ body.availability-booking-open .site-footer {
   display: inline-block;
   width: 9px;
   height: 9px;
+  border: 1px solid rgba(5, 6, 8, 0.14);
   border-radius: 999px;
+  box-sizing: border-box;
 }
 
 .availability-legend .open-dot {
-  background: #22c55e;
+  background: var(--availability-green);
 }
 
 .availability-legend .booked-dot {
-  background: #b91c1c;
+  background: var(--availability-red);
 }
 
+.availability-legend .today-dot {
+  background: var(--availability-pink);
+}
+
+.availability-legend .past-dot,
 .availability-legend .closed-dot {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--availability-gray);
 }
 
 .availability-message {
   display: none;
   padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.94);
-  font-family: "Poppins", Arial, sans-serif;
+  border: 1.5px solid var(--availability-line);
+  border-radius: 8px;
+  background: var(--availability-paper);
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 12px;
-  line-height: 1.36;
+  line-height: 1.32;
+  letter-spacing: -0.025em;
 }
 
 .availability-message.is-visible {
@@ -333,13 +399,13 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-message.is-success {
-  border: 1px solid rgba(34, 197, 94, 0.34);
-  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(5, 6, 8, 0.82);
+  background: #ffffff;
 }
 
 .availability-message.is-error {
-  border: 1px solid rgba(239, 68, 68, 0.36);
-  background: rgba(239, 68, 68, 0.16);
+  border-color: var(--availability-red);
+  background: #ffffff;
 }
 
 .availability-contact {
@@ -347,37 +413,41 @@ body.availability-booking-open .site-footer {
   width: 100%;
   margin-top: 10px;
   padding: 12px 13px;
-  border: 0;
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-family: "Poppins", Arial, sans-serif;
+  border: 1.5px solid var(--availability-line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 13px;
-  line-height: 1.3;
+  line-height: 1.25;
   font-weight: 900;
   text-align: left;
+  letter-spacing: -0.04em;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .availability-contact:disabled {
-  opacity: 0.52;
+  opacity: 0.46;
   cursor: not-allowed;
 }
 
 .availability-contact:not(:disabled) {
-  background: linear-gradient(135deg, #22c55e, #86efac);
-  color: #05230f;
+  background: #050608;
+  color: #ffffff;
 }
 
 .availability-tour-title {
   margin: 0 0 10px;
-  color: rgba(255, 255, 255, 0.82);
-  font-family: "Poppins", Arial, sans-serif;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--availability-line);
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 13px;
-  line-height: 1.2;
+  line-height: 1.15;
   font-weight: 900;
   text-transform: lowercase;
+  letter-spacing: -0.035em;
 }
 
 .availability-tour-list {
@@ -395,23 +465,25 @@ body.availability-booking-open .site-footer {
 
 .availability-tour-item {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-columns: 50px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
   min-width: 0;
   padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid var(--availability-line);
+  border-radius: 8px;
+  background: var(--availability-paper);
+  color: var(--availability-ink);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
 
 .availability-tour-box {
-  width: 52px;
+  width: 50px;
   aspect-ratio: 1 / 1;
-  border-radius: 13px;
+  border: 1.5px solid var(--availability-line);
+  border-radius: 6px;
   background: #ffffff;
   overflow: hidden;
 }
@@ -424,12 +496,13 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-tour-label {
-  color: #ffffff;
-  font-family: "Poppins", Arial, sans-serif;
-  font-size: 12px;
+  color: var(--availability-ink);
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
   line-height: 1.15;
   font-weight: 900;
   text-transform: lowercase;
+  letter-spacing: -0.035em;
 }
 
 .availability-popup-close:focus-visible,
@@ -437,7 +510,7 @@ body.availability-booking-open .site-footer {
 .availability-day:focus-visible,
 .availability-contact:focus-visible,
 .availability-tour-item:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline: 2.5px solid rgba(5, 6, 8, 0.72);
   outline-offset: 2px;
 }
 
@@ -460,20 +533,21 @@ body.availability-booking-open .site-footer {
   }
 
   .availability-popup-title {
-    font-size: clamp(29px, 9vw, 46px);
+    font-size: clamp(31px, 9vw, 50px);
   }
 
   .availability-popup-desc {
     font-size: 12px;
-    line-height: 1.32;
+    line-height: 1.3;
   }
 
   .availability-calendar-section {
-    padding: 7px;
+    padding: 8px;
   }
 
   .availability-calendar-head {
     margin-bottom: 7px;
+    padding-bottom: 7px;
   }
 
   .availability-weekdays,
@@ -486,13 +560,14 @@ body.availability-booking-open .site-footer {
   }
 
   .availability-day {
-    min-height: 26px;
-    border-radius: 8px;
+    min-height: 27px;
+    border-radius: 8px 11px 8px 10px;
     font-size: 11px;
   }
 
   .availability-legend {
-    margin-top: 7px;
+    margin-top: 8px;
+    padding-top: 7px;
   }
 }
 
@@ -502,8 +577,8 @@ body.availability-booking-open .site-footer {
   }
 
   .availability-calendar-section {
-    padding: 7px;
-    border-radius: 17px;
+    padding: 8px;
+    border-radius: 8px;
   }
 
   .availability-weekdays,
@@ -512,7 +587,13 @@ body.availability-booking-open .site-footer {
   }
 
   .availability-day {
-    min-height: 27px;
+    min-height: 28px;
     font-size: 11px;
+  }
+
+  .availability-popup-close {
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
   }
 }
