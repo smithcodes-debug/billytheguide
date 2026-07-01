@@ -619,48 +619,64 @@ body.is-mobile-feed-last-card-active header {
   pointer-events: auto !important;
   transform: translateX(-50%) !important;
 }
-/* ✅ CARD 01 HERO RIGHT EDGE PROMO PAD — 2026-07-01 */
-/* Decorative pad attached to the right edge of the hero/app shell. */
-.mobile-home-feed-main-hero {
-  position: relative;
-  overflow: visible;
+/* ✅ CARD 01 HERO RIGHT EDGE PROMO PAD — FIXED */
+/* Attach promo pad to the real right edge of card 01, not inner hero content. */
+
+/* ✅ Disable previous inner-hero pad if it exists */
+.mobile-home-feed-main-hero::after {
+  content: none !important;
+  display: none !important;
 }
 
-.mobile-home-feed-main-hero::after {
+/* ✅ Real owner: full visual card 01 */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+  position: relative;
+  overflow: hidden;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::after {
   content: "make great thing with us";
   position: absolute;
 
-  /* ✅ Attach to the right edge, outside the inner hero text area */
-  top: clamp(58px, 9svh, 82px);
-  right: calc(var(--mobile-home-feed-side-gap, 16px) * -1);
+  /* ✅ Bám sát mép phải hero/card */
+  right: 0;
 
-  z-index: 4;
-  width: clamp(230px, 42vw, 330px);
-  min-height: clamp(46px, 7svh, 62px);
-  padding: 11px 20px 12px 22px;
+  /* ✅ Vị trí theo ảnh: nằm ngang vùng tiêu đề, không đụng tagline */
+  top: clamp(76px, 10svh, 108px);
+
+  z-index: 8;
+
+  /* ✅ Pad ngắn hơn */
+  width: clamp(205px, 34%, 258px);
+  min-height: 44px;
+  padding: 10px 10px 10px 16px;
 
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 
-  border: 1px solid rgba(255, 255, 255, 0.36);
+  /* ✅ Text kết thúc cách mép phải hero khoảng 10px */
+  justify-content: flex-end;
+  text-align: right;
+
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-right: 0;
-  border-radius: 24px 0 0 24px;
+  border-radius: 22px 0 0 22px;
 
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08)),
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.22), transparent 48%);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.18), transparent 46%);
+
   box-shadow:
-    0 16px 38px rgba(0, 0, 0, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0 14px 32px rgba(0, 0, 0, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07);
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
-  color: rgba(255, 255, 255, 0.94);
+  color: rgba(255, 255, 255, 0.95);
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(12px, 2.35vw, 16px);
-  line-height: 1.12;
+  font-size: clamp(11px, 2.05vw, 14px);
+  line-height: 1.1;
   font-weight: 750;
   letter-spacing: -0.035em;
   text-transform: lowercase;
@@ -672,13 +688,12 @@ body.is-mobile-feed-last-card-active header {
 }
 
 @media (max-width: 420px) {
-  .mobile-home-feed-main-hero::after {
-    top: clamp(54px, 8.5svh, 72px);
-    right: calc(var(--mobile-home-feed-side-gap, 16px) * -1);
-    width: clamp(215px, 58vw, 265px);
-    min-height: 44px;
-    padding: 9px 15px 10px 17px;
-    border-radius: 22px 0 0 22px;
-    font-size: clamp(11px, 2.8vw, 13px);
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::after {
+    top: clamp(70px, 9svh, 94px);
+    width: clamp(188px, 48vw, 230px);
+    min-height: 40px;
+    padding: 8px 10px 9px 14px;
+    border-radius: 20px 0 0 20px;
+    font-size: clamp(10px, 2.55vw, 12px);
   }
 }
