@@ -4,7 +4,7 @@
   --availability-popup-side-inset: 22px;
   --availability-popup-header-offset: calc(env(safe-area-inset-top, 0px) + 150px);
   --availability-popup-footer-dock-height: 112px;
-  --availability-popup-footer-gap: 12px;
+  --availability-popup-footer-gap: 42px;
   --availability-popup-footer-offset: calc(env(safe-area-inset-bottom, 0px) + var(--availability-popup-footer-dock-height) + var(--availability-popup-footer-gap));
 }
 
@@ -575,16 +575,10 @@
 @media (max-height: 640px) {
   :root {
     --availability-popup-footer-dock-height: 96px;
-    --availability-popup-footer-gap: 12px;
+    --availability-popup-footer-gap: 42px;
   }
 
   .availability-popup-card {
     max-height: calc(100dvh - var(--availability-popup-header-offset) - var(--availability-popup-footer-offset) - 8px);
-  }
-}
-
-@media (max-width: 480px) {
-  .availability-memo {
-    display: none;
   }
 }
