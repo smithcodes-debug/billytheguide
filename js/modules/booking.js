@@ -8,7 +8,7 @@ export function initAvailabilityPopup() {
   const messageBox = document.getElementById('availabilityMessage');
   const continueButton = document.getElementById('availabilityContactLink');
   const tourList = document.getElementById('availabilityTourList');
-  const footerOpenButton = document.querySelector('[data-footer-check-book]');
+  const footerButton = document.querySelector('[data-footer-check-book]');
 
   if (!bookingView || !closeButton || !monthLabel || !daysGrid || !prevButton || !nextButton || !messageBox || !continueButton || !tourList) {
     return;
@@ -82,15 +82,21 @@ export function initAvailabilityPopup() {
     return tourStart.getTime() - Date.now() <= MIN_HOURS_BEFORE_TOUR * 60 * 60 * 1000;
   }
 
+  function setFooterExpanded(isExpanded) {
+    if (!footerButton) {
+      return;
+    }
+
+    footerButton.setAttribute('aria-controls', 'availability-popup');
+    footerButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+  }
+
   function setBookingOpenState(isOpen) {
     document.documentElement.classList.toggle(SCROLL_LOCK_CLASS, isOpen);
     document.body.classList.toggle(SCROLL_LOCK_CLASS, isOpen);
     bookingView.classList.toggle('is-open', isOpen);
     bookingView.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-
-    if (footerOpenButton) {
-      footerOpenButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    }
+    setFooterExpanded(isOpen);
   }
 
   function showMessage(text, type) {
@@ -117,6 +123,10 @@ export function initAvailabilityPopup() {
   }
 
   function openBooking() {
+    if (bookingView.classList.contains('is-open')) {
+      return;
+    }
+
     lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     resetSelection();
     renderCalendar();
@@ -128,6 +138,10 @@ export function initAvailabilityPopup() {
   }
 
   function closeBooking() {
+    if (!bookingView.classList.contains('is-open')) {
+      return;
+    }
+
     setBookingOpenState(false);
     resetSelection();
 
@@ -304,12 +318,6 @@ export function initAvailabilityPopup() {
     renderCalendar();
   });
 
-  if (footerOpenButton) {
-    footerOpenButton.setAttribute('aria-controls', 'availability-popup');
-    footerOpenButton.setAttribute('aria-expanded', 'false');
-    footerOpenButton.addEventListener('click', openBooking);
-  }
-
   closeButton.addEventListener('click', closeBooking);
   continueButton.addEventListener('click', openExistingTourPopup);
   tourList.addEventListener('click', handleTourClick);
@@ -329,6 +337,7 @@ export function initAvailabilityPopup() {
     }
   });
 
+  setFooterExpanded(false);
   resetSelection();
   renderCalendar();
 }
