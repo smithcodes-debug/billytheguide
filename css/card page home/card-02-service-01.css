@@ -204,7 +204,7 @@
   left: 50%;
   bottom: calc(100% + 14px);
   width: min(100%, 560px);
-  height: clamp(270px, 52svh, 510px);
+  height: clamp(320px, 61svh, 600px);
   transform: translateX(-50%);
   perspective: 1100px;
   pointer-events: none;
@@ -528,7 +528,7 @@
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-zipper-pages {
-    height: clamp(250px, 50svh, 460px);
+    height: clamp(305px, 60svh, 550px);
     bottom: calc(100% + 12px);
   }
 
