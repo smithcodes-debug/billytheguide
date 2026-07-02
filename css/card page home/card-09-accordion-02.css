@@ -27,7 +27,10 @@
     box-sizing: border-box;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+/* ✅ FONT TYPE: font-display
+     FAQ title / accordion summary title.
+  */
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
     margin: 0;
     padding: 0 0 16px;
@@ -40,11 +43,14 @@
     text-align: center;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-lead,
+/* ✅ FONT TYPE: font-body
+     FAQ lead / accordion panel body.
+  */
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-lead,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
     margin: 0 auto 18px;
     max-width: 520px;
-    color: rgba(16, 24, 32, 0.66);
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
     font-family: var(--font-body, Georgia, "Times New Roman", serif);
     font-size: clamp(15px, 3.95vw, 19.5px);
     line-height: var(--line-body, 1.45);
@@ -69,7 +75,10 @@
     box-sizing: border-box;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary {
+/* ✅ FONT TYPE: font-ui
+     FAQ question / câu hỏi trong từng item.
+  */
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary {
     color: var(--type-accent, #083f46);
     font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
     font-size: clamp(15px, 4vw, 19px);
@@ -84,9 +93,12 @@
     display: none;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
+/* ✅ FONT TYPE: font-body
+     FAQ answer paragraph / câu trả lời.
+  */
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
     margin: 8px 0 0;
-    color: rgba(16, 24, 32, 0.66);
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
     font-family: var(--font-body, Georgia, "Times New Roman", serif);
     font-size: clamp(15px, 3.95vw, 19.5px);
     line-height: var(--line-body, 1.45);
@@ -110,7 +122,10 @@
     text-align: center;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+/* ✅ FONT TYPE: font-display
+     FAQ title / accordion summary title.
+  */
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
     color: var(--type-ink, #101820);
     font-family: var(--font-display, Georgia, "Times New Roman", serif);
