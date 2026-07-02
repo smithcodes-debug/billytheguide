@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 720" role="img" aria-labelledby="snorkelGirlTitle snorkelGirlDesc">
+  <title id="snorkelGirlTitle">Simple hand-drawn snorkeler line art</title>
+  <desc id="snorkelGirlDesc">A lightweight decorative line-art swimmer with mask, short snorkel, flowing hair, bubbles, and fins.</desc>
+  <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Hair flow -->
+    <path d="M260 150 C232 132 205 144 186 166 C168 187 146 194 118 184"/>
+    <path d="M256 172 C222 152 197 176 176 198 C153 222 123 225 92 210"/>
+    <path d="M246 196 C210 182 190 210 168 232 C145 254 115 258 82 244"/>
+    <path d="M270 136 C245 126 226 135 211 151"/>
+
+    <!-- Head, mask, short snorkel -->
+    <path d="M281 132 C302 118 332 122 349 142 C366 162 363 194 342 213 C322 230 289 226 272 202 C257 181 260 148 281 132 Z"/>
+    <path d="M295 158 C309 148 334 149 347 158 C352 164 352 178 346 185 C331 191 309 190 294 184 C288 177 289 164 295 158 Z"/>
+    <path d="M291 173 C282 171 279 176 280 184"/>
+    <path d="M347 174 C359 176 366 184 366 196"/>
+    <path d="M357 198 C351 206 341 207 334 201"/>
+    <path d="M344 151 L354 105 C356 98 367 100 368 107 L364 151"/>
+    <path d="M356 106 L368 109"/>
+
+    <!-- Neck and upper body -->
+    <path d="M296 221 C290 239 282 252 269 265"/>
+    <path d="M334 220 C340 248 338 270 328 296"/>
+    <path d="M265 262 C292 245 330 250 349 282 C371 319 351 365 318 388"/>
+    <path d="M268 266 C250 296 230 332 218 368"/>
+    <path d="M251 288 C270 300 302 302 326 288"/>
+    <path d="M235 356 C258 376 294 382 318 388"/>
+
+    <!-- Rear arm -->
+    <path d="M252 270 C220 296 190 329 159 363 C132 393 104 403 78 405"/>
+    <path d="M238 285 C210 310 180 344 149 374 C126 397 104 414 84 419"/>
+    <path d="M78 405 C65 405 58 411 53 420"/>
+    <path d="M84 419 C70 423 61 431 54 440"/>
+    <path d="M94 419 C86 427 79 433 70 438"/>
+
+    <!-- Torso to hips -->
+    <path d="M223 368 C205 394 191 424 176 455"/>
+    <path d="M318 388 C296 418 270 448 249 485"/>
+    <path d="M176 455 C196 472 224 483 249 485"/>
+
+    <!-- Legs -->
+    <path d="M186 456 C163 505 139 558 104 605"/>
+    <path d="M221 482 C203 536 182 591 146 646"/>
+    <path d="M245 486 C232 545 218 599 188 664"/>
+    <path d="M284 427 C263 487 241 556 204 622"/>
+
+    <!-- Fins -->
+    <path d="M103 604 C73 628 46 654 23 692 C55 701 84 690 107 659"/>
+    <path d="M146 646 C118 675 96 708 86 744 C121 739 149 718 166 680" transform="translate(0 -34)"/>
+    <path d="M52 682 L94 648"/>
+    <path d="M112 700 L154 662"/>
+
+    <!-- Small body details -->
+    <path d="M296 244 C292 250 291 257 292 265"/>
+    <path d="M269 340 C259 340 250 343 243 349"/>
+    <path d="M212 519 C198 531 184 539 169 547"/>
+    <path d="M142 581 C130 592 116 599 102 607"/>
+
+    <!-- Bubbles -->
+    <circle cx="73" cy="493" r="13"/>
+    <circle cx="107" cy="462" r="8"/>
+    <circle cx="71" cy="444" r="5"/>
+    <circle cx="46" cy="526" r="7"/>
+    <circle cx="98" cy="519" r="4"/>
+  </g>
+</svg>
