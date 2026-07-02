@@ -1,18 +1,24 @@
 /* ✅ NEW: Coral Dictionary card text spacing */
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-title {
+/* ✅ FONT TYPE: font-display
+   Card title / tiêu đề lớn.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-title {
   order: 1;
   font-family: var(--font-display, Georgia, "Times New Roman", serif);
   font-weight: var(--weight-display, 900);
   letter-spacing: var(--tracking-title, -0.035em);
 }
 
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-desc {
+/* ✅ FONT TYPE: font-body
+   Short description / mô tả ngắn dưới title.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-desc {
   order: 2;
   margin-bottom: 7px;
   font-family: var(--font-body, Georgia, "Times New Roman", serif);
@@ -20,7 +26,10 @@
   letter-spacing: var(--tracking-body, -0.025em);
 }
 
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra {
+/* ✅ FONT TYPE: font-body
+   Extra paragraph / đoạn body dài.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra {
   order: 3;
   max-width: 94%;
   margin: 0 auto 5px;
@@ -30,11 +39,14 @@
   letter-spacing: var(--tracking-body, -0.025em);
 }
 
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra + .more-service-card-extra {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra + .more-service-card-extra {
   margin-top: 0;
 }
 
-.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-link {
+/* ✅ FONT TYPE: font-button
+   CTA / Read more.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-link {
   order: 5;
   margin-top: 4px;
   font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
