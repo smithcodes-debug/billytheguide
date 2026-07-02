@@ -35,6 +35,9 @@
   box-sizing: border-box;
 }
 
+/* ✅ FONT TYPE: font-display
+   Card title / tiêu đề lớn.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-title {
   flex: 0 0 auto;
   order: -4;
@@ -46,6 +49,9 @@
   letter-spacing: var(--tracking-title, -0.035em);
 }
 
+/* ✅ FONT TYPE: font-body
+   Short description / mô tả ngắn dưới title.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
@@ -58,6 +64,9 @@
   letter-spacing: var(--tracking-body, -0.025em);
 }
 
+/* ✅ FONT TYPE: font-body
+   Extra paragraph / đoạn body dài.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-extra {
   flex: 0 0 auto;
   order: -1;
@@ -96,6 +105,9 @@
   box-sizing: border-box;
 }
 
+/* ✅ FONT TYPE: font-ui
+   Pad title / chữ chính trong từng pad nhỏ.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pad strong {
   display: block;
   color: rgba(8, 38, 44, 0.94);
@@ -107,6 +119,9 @@
   text-transform: none;
 }
 
+/* ✅ FONT TYPE: font-body italic
+   Pad meta / chữ phụ trong pad nhỏ.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pad em {
   display: block;
   color: rgba(8, 63, 70, 0.66);
@@ -118,6 +133,9 @@
   letter-spacing: -0.01em;
 }
 
+/* ✅ FONT TYPE: font-button
+   CTA / Read more.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-link {
   flex: 0 0 auto;
   order: 1;
