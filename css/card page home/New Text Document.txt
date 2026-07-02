@@ -1,0 +1,35 @@
+Ý tưởng bạn muốn làm cho card 2
+Bạn muốn biến phần trống ở gần đáy card — vị trí đang được khoanh đỏ trong hình 2 — thành một thanh kéo dạng zipper / dây khóa kéo.
+Logic tương tác bạn muốn
+
+Người dùng sẽ dùng tay vuốt/kéo zipper từ bên phải sang bên trái.
+Đây không phải animation tự chạy đơn giản, mà là animation thật theo thao tác tay:
+
+Tay kéo bao nhiêu thì zipper mở bấy nhiêu.
+Mỗi khi người dùng kéo được khoảng 10px, hệ thống sẽ mở/hiện thêm một popup nội dung con.
+Nghĩa là zipper đóng vai trò như một thanh progress điều khiển nội dung.
+
+
+
+Nội dung con / popup bạn muốn
+
+Khi zipper được kéo dần, từng popup nội dung con sẽ lần lượt xuất hiện.
+Mỗi popup không phải nhỏ như tooltip, mà có chiều cao/dài giống vùng trong hình 3:
+
+Popup/nội dung con sẽ chiếm một vùng lớn bên trong card.
+Gần giống một “trang nội dung” nằm trong khung card.
+Chiều dài popup phải đủ để trình bày nội dung rõ, không bị bé quá.
+
+
+
+Animation chuyển popup
+Bạn muốn hiệu ứng chuyển giữa các popup giống như lật trang sách:
+
+Khi popup mới xuất hiện, nội dung không chỉ fade in.
+Popup sẽ có cảm giác như một trang đang được lật.
+Mỗi lần kéo zipper thêm một đoạn, trang/popup tiếp theo được mở ra bằng animation kiểu book page flip.
+
+Nói ngắn gọn theo ngôn ngữ implementation
+Bạn muốn card 2 có một module tương tác mới:
+
+Một zipper progress controller nằm ở đáy card. Người dùng kéo zipper từ phải sang trái. Mỗi 10px kéo sẽ trigger một step. Mỗi step mở một popup nội dung con. Các popup chuyển cảnh bằng hiệu ứng lật trang sách. Popup có kích thước lớn giống vùng khoanh đỏ ở hình 3.
