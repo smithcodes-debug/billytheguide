@@ -116,9 +116,12 @@
     overflow: hidden;
     transform: translateZ(0);
     box-sizing: border-box;
+    isolation: isolate;
   }
 
   .mobile-home-feed-card-scroll {
+    position: relative;
+    z-index: 2;
     height: 100%;
     min-height: 0;
     padding: 18px 16px;
@@ -310,9 +313,12 @@
       inset 0 0 0 1px rgba(255, 255, 255, 0.62);
     overflow: hidden;
     transform: translateZ(0);
+    isolation: isolate;
   }
 
   .mobile-home-feed-card-scroll {
+    position: relative;
+    z-index: 2;
     height: auto;
     min-height: 620px;
     padding: 48px 16px 86px;
@@ -395,6 +401,35 @@
   .mobile-home-feed-panel-empty {
     display: none;
   }
+}
+
+/* ✅ GLOBAL DECORATION: navy smoky air + full-height snorkeler background for all mobile home feed cards. */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(8, 63, 70, 0.20), transparent 34%),
+    radial-gradient(circle at 84% 78%, rgba(5, 18, 31, 0.15), transparent 42%),
+    radial-gradient(circle at 52% 48%, rgba(159, 223, 229, 0.13), transparent 56%),
+    linear-gradient(180deg, rgba(248, 251, 252, 0.90), rgba(255, 255, 255, 0.95));
+  pointer-events: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url("../../images/vector/snorkel-girl-line.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 105%;
+  mix-blend-mode: multiply;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
 .more-stories-side-icons {
