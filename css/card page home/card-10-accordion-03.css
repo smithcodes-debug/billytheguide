@@ -1,15 +1,17 @@
-/* ✅ UPDATED: CARD 10 CSS - accordion card 03 shell
-   Runtime note:
-   - Card 10 was removed from active index.html in the current project flow.
-   - This file is kept as a safe reserved/legacy shell only.
-   - No typography targets are active here yet.
-*/
-@media (max-width: 1024px) {
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 {
-    /* reserved for card 10 specific styles */
-  }
+/*
+  ✅ UPDATED: Card 10 reserved shell
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .mobile-home-feed-card-scroll {
-    /* reserved for card 10 text/layout spacing */
-  }
-}
+  Runtime note:
+  - main.js can render up to 10 mobile feed cards.
+  - Current active Card 10 visual spacing for Leave no trace is owned by card-08-accordion-01.css.
+  - This file is intentionally kept as a clean reserved shell for future Card 10-only styles.
+
+  Ownership rule:
+  - If future styles are added here, every selector must be scoped to:
+    .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10
+
+  Safety rule:
+  - No active CSS rules are defined in this file today.
+  - No global accordion selector is allowed here.
+  - No shared mobile feed shell selector is allowed here.
+*/

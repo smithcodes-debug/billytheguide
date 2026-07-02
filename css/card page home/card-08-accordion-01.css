@@ -1,22 +1,33 @@
-/* ✅ UPDATED: CARD 08 CSS - accordion card 01 only */
-.more-accordion-list > .more-accordion-item:first-child[open] {
+/*
+  ✅ UPDATED: Legacy file card-08-accordion-01.css
+  Runtime owner after mobile feed generation:
+  - This file styles the Leave no trace accordion card only.
+  - In the current main.js feed order, Leave no trace is rendered as .mobile-home-feed-card-10.
+
+  Safety rule:
+  - No global .more-accordion-item selector here.
+  - No global .leave-no-trace-memo-note selector here.
+  - FAQ/card 09 must not be affected by this file.
+*/
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item {
   display: flex;
   flex-direction: column;
 }
 
-.more-accordion-list > .more-accordion-item:first-child[open] .leave-no-trace-memo-note {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .leave-no-trace-memo-note {
   order: 1;
 }
 
-.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-summary {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .more-accordion-summary {
   order: 2;
 }
 
-.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-panel {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .more-accordion-panel {
   order: 3;
 }
 
-.leave-no-trace-memo-note {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note {
   position: relative;
   width: min(calc(100% - 32px), 720px);
   margin: -18px auto 34px;
@@ -35,7 +46,7 @@
   box-sizing: border-box;
 }
 
-.leave-no-trace-memo-note::before {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note::before {
   content: "";
   position: absolute;
   top: -12px;
@@ -49,15 +60,15 @@
   box-sizing: border-box;
 }
 
-.leave-no-trace-memo-note p {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note p {
   margin: 0;
 }
 
-.leave-no-trace-memo-note p + p {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note p + p {
   margin-top: 6px;
 }
 
-.leave-no-trace-memo-note strong {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note strong {
   display: block;
   margin-bottom: 2px;
   font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
@@ -67,33 +78,22 @@
   letter-spacing: var(--tracking-ui, -0.015em);
 }
 
-.mobile-home-feed .more-accordion-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-home-feed .more-accordion-item .leave-no-trace-memo-note {
-  order: 1;
-  margin: -34px auto 18px;
-}
-
-.mobile-home-feed .more-accordion-item .more-accordion-summary {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-summary {
   order: 2;
   padding: 0 0 14px;
 }
 
-.mobile-home-feed .more-accordion-item .more-accordion-panel {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-panel {
   order: 3;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .leave-no-trace-memo-note {
-  order: 1;
-}
+@media (max-width: 1024px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .mobile-home-feed-card-scroll {
+    justify-content: center;
+    overflow: hidden;
+  }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-summary {
-  order: 2;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-panel {
-  order: 3;
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .leave-no-trace-memo-note {
+    margin: -34px auto 18px;
+  }
 }
