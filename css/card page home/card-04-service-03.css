@@ -3,6 +3,7 @@
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
   justify-content: flex-start;
 }
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card {
   min-height: 100%;
   height: 100%;
@@ -15,6 +16,7 @@
   overflow: hidden;
   transform: translateY(15px);
 }
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
   content: "";
   display: block;
@@ -32,6 +34,10 @@
   box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
   box-sizing: border-box;
 }
+
+/* ✅ FONT TYPE: font-display
+   Card title / tiêu đề lớn.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
   flex: 0 0 auto;
   order: -4;
@@ -42,6 +48,10 @@
   font-weight: var(--weight-display, 900);
   letter-spacing: var(--tracking-title, -0.035em);
 }
+
+/* ✅ FONT TYPE: font-body
+   Short description / mô tả ngắn dưới title.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
@@ -53,6 +63,10 @@
   font-weight: var(--weight-body, 500);
   letter-spacing: var(--tracking-body, -0.025em);
 }
+/* ✅ FONT TYPE: font-body
+   Extra paragraph / đoạn body dài.
+   Đây là đoạn text chính cần đọc nhiều hơn.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
   flex: 0 0 auto;
   order: -1;
@@ -67,6 +81,7 @@
   text-align: center;
 }
 
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
   order: 0;
   width: min(calc(100% - 20px), 540px);
@@ -74,6 +89,7 @@
   display: grid;
   gap: 6px;
 }
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad {
   min-height: 40px;
   padding: 7px 10px;
@@ -89,6 +105,10 @@
   color: rgba(9, 31, 36, 0.88);
   box-sizing: border-box;
 }
+
+/* ✅ FONT TYPE: font-ui
+   Pad title / chữ chính trong từng pad nhỏ.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
   display: block;
   color: rgba(8, 38, 44, 0.94);
@@ -99,6 +119,10 @@
   letter-spacing: -0.025em;
   text-transform: none;
 }
+
+/* ✅ FONT TYPE: font-body italic
+   Pad meta / chữ phụ trong pad nhỏ.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad em {
   display: block;
   color: rgba(8, 63, 70, 0.66);
@@ -109,6 +133,10 @@
   font-weight: var(--weight-body, 500);
   letter-spacing: -0.01em;
 }
+
+/* ✅ FONT TYPE: font-button
+   CTA / Read more.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
   flex: 0 0 auto;
   order: 1;
