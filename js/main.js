@@ -211,43 +211,17 @@ function initMobileHomeFeed() {
   }
 
   const CARD_02_ZIPPER_STEPS = [
-    {
-      title: 'No crowd, just breathing space',
-      copy: 'We keep the route personal, slower, and away from rushed crowded stops whenever sea conditions allow.'
-    },
-    {
-      title: 'Underwater guide beside you',
-      copy: 'A local guide stays close in the water, helping you move calmly and notice coral, fish, current, and safe entry points.'
-    },
-    {
-      title: 'Kid + disabled friendly pace',
-      copy: 'The experience can slow down for families, beginners, nervous swimmers, and guests who need extra time or support.'
-    },
-    {
-      title: 'HD glass for clearer viewing',
-      copy: 'Simple comfort matters. Good mask fit and clearer viewing help guests enjoy the reef without fighting equipment.'
-    },
-    {
-      title: 'Current controlled planning',
-      copy: 'The route should follow real water movement, wind, visibility, and safety, not a fixed tourist timetable.'
-    },
-    {
-      title: 'Media with you',
-      copy: 'When conditions are suitable, we help capture the moment so the memory stays with you after the trip.'
-    },
-    {
-      title: 'Quiet island rhythm',
-      copy: 'Some days are for snorkeling, some days are for resting, camping, or simply moving with the island weather.'
-    },
-    {
-      title: 'Leave no trace mindset',
-      copy: 'We avoid touching coral, chasing wildlife, leaving trash, or turning a natural place into a shopping route.'
-    },
-    {
-      title: 'Private Phu Quoc feeling',
-      copy: 'The goal is not to do more things faster. The goal is to discover Phu Quoc in a calmer, more human way.'
-    }
+    { title: 'No crowd, just breathing space', copy: 'We keep the route personal, slower, and away from rushed crowded stops whenever sea conditions allow.' },
+    { title: 'Underwater guide beside you', copy: 'A local guide stays close in the water, helping you move calmly and notice coral, fish, current, and safe entry points.' },
+    { title: 'Kid + disabled friendly pace', copy: 'The experience can slow down for families, beginners, nervous swimmers, and guests who need extra time or support.' },
+    { title: 'HD glass for clearer viewing', copy: 'Simple comfort matters. Good mask fit and clearer viewing help guests enjoy the reef without fighting equipment.' },
+    { title: 'Current controlled planning', copy: 'The route should follow real water movement, wind, visibility, and safety, not a fixed tourist timetable.' },
+    { title: 'Media with you', copy: 'When conditions are suitable, we help capture the moment so the memory stays with you after the trip.' },
+    { title: 'Quiet island rhythm', copy: 'Some days are for snorkeling, some days are for resting, camping, or simply moving with the island weather.' },
+    { title: 'Leave no trace mindset', copy: 'We avoid touching coral, chasing wildlife, leaving trash, or turning a natural place into a shopping route.' },
+    { title: 'Private Phu Quoc feeling', copy: 'The goal is not to do more things faster. The goal is to discover Phu Quoc in a calmer, more human way.' }
   ];
+
   function createCard02ZipperNode() {
     const module = createElement('section', 'mobile-home-feed-card-02-zipper-module');
     const viewport = createElement('div', 'mobile-home-feed-card-02-zipper-pages');
@@ -258,9 +232,11 @@ function initMobileHomeFeed() {
     const teeth = createElement('div', 'mobile-home-feed-card-02-zipper-teeth');
     const handle = createElement('button', 'mobile-home-feed-card-02-zipper-handle');
     const handleIcon = createElement('span', 'mobile-home-feed-card-02-zipper-handle-icon');
+
     module.setAttribute('data-zipper-step', '0');
     module.style.setProperty('--zipper-progress', '0');
     viewport.setAttribute('aria-live', 'polite');
+
     CARD_02_ZIPPER_STEPS.forEach(function (item, index) {
       const page = createElement('article', 'mobile-home-feed-card-02-zipper-page');
       const pageNumber = createElement('span', 'mobile-home-feed-card-02-zipper-page-number', String(index + 1).padStart(2, '0'));
@@ -273,6 +249,7 @@ function initMobileHomeFeed() {
       page.appendChild(copy);
       viewport.appendChild(page);
     });
+
     control.setAttribute('role', 'slider');
     control.setAttribute('tabindex', '0');
     control.setAttribute('aria-label', 'Card 2 zipper story progress');
@@ -293,6 +270,7 @@ function initMobileHomeFeed() {
     module.appendChild(control);
     return module;
   }
+
   function initCard02ZipperInteraction(root) {
     const module = root ? root.querySelector('.mobile-home-feed-card-02-zipper-module') : null;
     const control = module ? module.querySelector('.mobile-home-feed-card-02-zipper-control') : null;
@@ -300,18 +278,22 @@ function initMobileHomeFeed() {
     const handle = module ? module.querySelector('.mobile-home-feed-card-02-zipper-handle') : null;
     const pages = module ? Array.from(module.querySelectorAll('.mobile-home-feed-card-02-zipper-page')) : [];
     if (!module || !control || !track || !handle || !pages.length || module.getAttribute('data-zipper-ready') === 'true') return;
+
     module.setAttribute('data-zipper-ready', 'true');
     let currentStep = 0;
     let isDragging = false;
     let turnTimer = 0;
+
     function clamp(value, min, max) {
       return Math.min(max, Math.max(min, value));
     }
+
     function getMaxDrag() {
       const trackRect = track.getBoundingClientRect();
       const handleRect = handle.getBoundingClientRect();
       return Math.max(1, trackRect.width - handleRect.width);
     }
+
     function syncStep(nextStep) {
       const totalSteps = pages.length;
       const safeStep = clamp(nextStep, 0, totalSteps);
@@ -333,15 +315,14 @@ function initMobileHomeFeed() {
           page.classList.add('is-page-turning');
         }
       });
-      if (turnTimer) {
-        window.clearTimeout(turnTimer);
-      }
+      if (turnTimer) window.clearTimeout(turnTimer);
       turnTimer = window.setTimeout(function () {
         pages.forEach(function (page) {
           page.classList.remove('is-page-turning');
         });
       }, 520);
     }
+
     function stepFromClientX(clientX) {
       const trackRect = track.getBoundingClientRect();
       const handleRect = handle.getBoundingClientRect();
@@ -349,9 +330,11 @@ function initMobileHomeFeed() {
       const dragDistance = clamp(trackRect.right - clientX - (handleRect.width / 2), 0, maxDrag);
       return Math.round((dragDistance / maxDrag) * pages.length);
     }
+
     function updateFromPointer(event) {
       syncStep(stepFromClientX(event.clientX));
     }
+
     control.addEventListener('pointerdown', function (event) {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       isDragging = true;
@@ -360,11 +343,13 @@ function initMobileHomeFeed() {
       updateFromPointer(event);
       event.preventDefault();
     });
+
     control.addEventListener('pointermove', function (event) {
       if (!isDragging) return;
       updateFromPointer(event);
       event.preventDefault();
     });
+
     function endDrag(event) {
       if (!isDragging) return;
       isDragging = false;
@@ -373,6 +358,7 @@ function initMobileHomeFeed() {
         control.releasePointerCapture(event.pointerId);
       }
     }
+
     control.addEventListener('pointerup', endDrag);
     control.addEventListener('pointercancel', endDrag);
     control.addEventListener('keydown', function (event) {
@@ -390,8 +376,10 @@ function initMobileHomeFeed() {
         syncStep(pages.length);
       }
     });
+
     syncStep(0);
   }
+
   function createIntroNode() {
     const intro = document.createElement('div');
     const kicker = sourceInner.querySelector('.more-stories-kicker');
