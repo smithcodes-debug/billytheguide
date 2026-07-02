@@ -210,6 +210,188 @@ function initMobileHomeFeed() {
     return heroNode;
   }
 
+  const CARD_02_ZIPPER_STEPS = [
+    {
+      title: 'No crowd, just breathing space',
+      copy: 'We keep the route personal, slower, and away from rushed crowded stops whenever sea conditions allow.'
+    },
+    {
+      title: 'Underwater guide beside you',
+      copy: 'A local guide stays close in the water, helping you move calmly and notice coral, fish, current, and safe entry points.'
+    },
+    {
+      title: 'Kid + disabled friendly pace',
+      copy: 'The experience can slow down for families, beginners, nervous swimmers, and guests who need extra time or support.'
+    },
+    {
+      title: 'HD glass for clearer viewing',
+      copy: 'Simple comfort matters. Good mask fit and clearer viewing help guests enjoy the reef without fighting equipment.'
+    },
+    {
+      title: 'Current controlled planning',
+      copy: 'The route should follow real water movement, wind, visibility, and safety, not a fixed tourist timetable.'
+    },
+    {
+      title: 'Media with you',
+      copy: 'When conditions are suitable, we help capture the moment so the memory stays with you after the trip.'
+    },
+    {
+      title: 'Quiet island rhythm',
+      copy: 'Some days are for snorkeling, some days are for resting, camping, or simply moving with the island weather.'
+    },
+    {
+      title: 'Leave no trace mindset',
+      copy: 'We avoid touching coral, chasing wildlife, leaving trash, or turning a natural place into a shopping route.'
+    },
+    {
+      title: 'Private Phu Quoc feeling',
+      copy: 'The goal is not to do more things faster. The goal is to discover Phu Quoc in a calmer, more human way.'
+    }
+  ];
+  function createCard02ZipperNode() {
+    const module = createElement('section', 'mobile-home-feed-card-02-zipper-module');
+    const viewport = createElement('div', 'mobile-home-feed-card-02-zipper-pages');
+    const control = createElement('div', 'mobile-home-feed-card-02-zipper-control');
+    const label = createElement('div', 'mobile-home-feed-card-02-zipper-label', 'Pull the zipper from right to left');
+    const track = createElement('div', 'mobile-home-feed-card-02-zipper-track');
+    const fill = createElement('div', 'mobile-home-feed-card-02-zipper-fill');
+    const teeth = createElement('div', 'mobile-home-feed-card-02-zipper-teeth');
+    const handle = createElement('button', 'mobile-home-feed-card-02-zipper-handle');
+    const handleIcon = createElement('span', 'mobile-home-feed-card-02-zipper-handle-icon');
+    module.setAttribute('data-zipper-step', '0');
+    module.style.setProperty('--zipper-progress', '0');
+    viewport.setAttribute('aria-live', 'polite');
+    CARD_02_ZIPPER_STEPS.forEach(function (item, index) {
+      const page = createElement('article', 'mobile-home-feed-card-02-zipper-page');
+      const pageNumber = createElement('span', 'mobile-home-feed-card-02-zipper-page-number', String(index + 1).padStart(2, '0'));
+      const title = createElement('h3', 'mobile-home-feed-card-02-zipper-page-title', item.title);
+      const copy = createElement('p', 'mobile-home-feed-card-02-zipper-page-copy', item.copy);
+      page.setAttribute('data-zipper-page', String(index + 1));
+      page.setAttribute('aria-hidden', 'true');
+      page.appendChild(pageNumber);
+      page.appendChild(title);
+      page.appendChild(copy);
+      viewport.appendChild(page);
+    });
+    control.setAttribute('role', 'slider');
+    control.setAttribute('tabindex', '0');
+    control.setAttribute('aria-label', 'Card 2 zipper story progress');
+    control.setAttribute('aria-valuemin', '0');
+    control.setAttribute('aria-valuemax', String(CARD_02_ZIPPER_STEPS.length));
+    control.setAttribute('aria-valuenow', '0');
+    control.setAttribute('aria-valuetext', 'Zipper closed');
+    handle.type = 'button';
+    handle.setAttribute('aria-label', 'Drag zipper');
+    handle.setAttribute('tabindex', '-1');
+    handle.appendChild(handleIcon);
+    track.appendChild(fill);
+    track.appendChild(teeth);
+    track.appendChild(handle);
+    control.appendChild(label);
+    control.appendChild(track);
+    module.appendChild(viewport);
+    module.appendChild(control);
+    return module;
+  }
+  function initCard02ZipperInteraction(root) {
+    const module = root ? root.querySelector('.mobile-home-feed-card-02-zipper-module') : null;
+    const control = module ? module.querySelector('.mobile-home-feed-card-02-zipper-control') : null;
+    const track = module ? module.querySelector('.mobile-home-feed-card-02-zipper-track') : null;
+    const handle = module ? module.querySelector('.mobile-home-feed-card-02-zipper-handle') : null;
+    const pages = module ? Array.from(module.querySelectorAll('.mobile-home-feed-card-02-zipper-page')) : [];
+    if (!module || !control || !track || !handle || !pages.length || module.getAttribute('data-zipper-ready') === 'true') return;
+    module.setAttribute('data-zipper-ready', 'true');
+    let currentStep = 0;
+    let isDragging = false;
+    let turnTimer = 0;
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+    function getMaxDrag() {
+      const trackRect = track.getBoundingClientRect();
+      const handleRect = handle.getBoundingClientRect();
+      return Math.max(1, trackRect.width - handleRect.width);
+    }
+    function syncStep(nextStep) {
+      const totalSteps = pages.length;
+      const safeStep = clamp(nextStep, 0, totalSteps);
+      const progress = totalSteps > 0 ? safeStep / totalSteps : 0;
+      const stepChanged = safeStep !== currentStep;
+      currentStep = safeStep;
+      module.style.setProperty('--zipper-progress', String(progress));
+      module.setAttribute('data-zipper-step', String(safeStep));
+      module.classList.toggle('is-zipper-open', safeStep > 0);
+      control.setAttribute('aria-valuenow', String(safeStep));
+      control.setAttribute('aria-valuetext', safeStep > 0 ? 'Story page ' + safeStep + ' of ' + totalSteps : 'Zipper closed');
+      pages.forEach(function (page, index) {
+        const isActive = index === safeStep - 1;
+        page.classList.toggle('is-active', isActive);
+        page.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        if (isActive && stepChanged) {
+          page.classList.remove('is-page-turning');
+          page.offsetWidth;
+          page.classList.add('is-page-turning');
+        }
+      });
+      if (turnTimer) {
+        window.clearTimeout(turnTimer);
+      }
+      turnTimer = window.setTimeout(function () {
+        pages.forEach(function (page) {
+          page.classList.remove('is-page-turning');
+        });
+      }, 520);
+    }
+    function stepFromClientX(clientX) {
+      const trackRect = track.getBoundingClientRect();
+      const handleRect = handle.getBoundingClientRect();
+      const maxDrag = getMaxDrag();
+      const dragDistance = clamp(trackRect.right - clientX - (handleRect.width / 2), 0, maxDrag);
+      return Math.round((dragDistance / maxDrag) * pages.length);
+    }
+    function updateFromPointer(event) {
+      syncStep(stepFromClientX(event.clientX));
+    }
+    control.addEventListener('pointerdown', function (event) {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      isDragging = true;
+      control.classList.add('is-dragging');
+      control.setPointerCapture(event.pointerId);
+      updateFromPointer(event);
+      event.preventDefault();
+    });
+    control.addEventListener('pointermove', function (event) {
+      if (!isDragging) return;
+      updateFromPointer(event);
+      event.preventDefault();
+    });
+    function endDrag(event) {
+      if (!isDragging) return;
+      isDragging = false;
+      control.classList.remove('is-dragging');
+      if (control.hasPointerCapture && control.hasPointerCapture(event.pointerId)) {
+        control.releasePointerCapture(event.pointerId);
+      }
+    }
+    control.addEventListener('pointerup', endDrag);
+    control.addEventListener('pointercancel', endDrag);
+    control.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        syncStep(currentStep + 1);
+      } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        syncStep(currentStep - 1);
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        syncStep(0);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        syncStep(pages.length);
+      }
+    });
+    syncStep(0);
+  }
   function createIntroNode() {
     const intro = document.createElement('div');
     const kicker = sourceInner.querySelector('.more-stories-kicker');
@@ -234,6 +416,8 @@ function initMobileHomeFeed() {
 
       intro.appendChild(notesClone);
     }
+
+    intro.appendChild(createCard02ZipperNode());
 
     return intro;
   }
@@ -359,6 +543,9 @@ function initMobileHomeFeed() {
     card.setAttribute('data-mobile-feed-card', cardNumber);
 
     scroll.appendChild(cloneForMobileFeed(sourceNode));
+    if (cardNumber === '02') {
+      initCard02ZipperInteraction(scroll);
+    }
     card.appendChild(scroll);
     panel.appendChild(card);
 
