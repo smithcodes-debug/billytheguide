@@ -2,7 +2,7 @@
   ✅ UPDATED: Legacy file card-08-accordion-01.css
   Runtime owner after mobile feed generation:
   - This file styles the Leave no trace accordion card only.
-  - In the current main.js feed order, Leave no trace is rendered as .mobile-home-feed-card-10.
+  - In the current main.js feed order, Leave no trace is rendered as .mobile-home-feed-card-08.
 
   Safety rule:
   - No global .more-accordion-item selector here.
@@ -10,32 +10,32 @@
   - FAQ/card 09 must not be affected by this file.
 */
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item {
   display: flex;
   flex-direction: column;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .leave-no-trace-memo-note {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item > .leave-no-trace-memo-note {
   order: 1;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .more-accordion-summary {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item > .more-accordion-summary {
   order: 2;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .more-accordion-panel {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item > .more-accordion-panel {
   order: 3;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .leave-no-trace-memo-note {
   position: relative;
   width: min(calc(100% - 32px), 720px);
   margin: -18px auto 34px;
   padding: 14px 16px 15px;
-  color: #2f2a12;
+  color: rgba(16, 24, 32, 0.66);
   font-family: var(--font-body, Georgia, "Times New Roman", serif);
-  font-size: var(--type-body-sm, 13px);
-  line-height: 1.32;
+  font-size: clamp(15px, 3.95vw, 19.5px);
+  line-height: var(--line-body, 1.45);
   font-weight: var(--weight-body, 500);
   letter-spacing: var(--tracking-body, -0.025em);
   text-align: left;
@@ -46,7 +46,7 @@
   box-sizing: border-box;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note::before {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .leave-no-trace-memo-note::before {
   content: "";
   position: absolute;
   top: -12px;
@@ -60,40 +60,40 @@
   box-sizing: border-box;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note p {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .leave-no-trace-memo-note p {
   margin: 0;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note p + p {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .leave-no-trace-memo-note p + p {
   margin-top: 6px;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .leave-no-trace-memo-note strong {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .leave-no-trace-memo-note strong {
   display: block;
   margin-bottom: 2px;
   font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   font-size: 14px;
-  line-height: var(--line-caption, 1.2);
+  line-height: var(--line-caption, 1.25);
   font-weight: var(--weight-ui, 700);
   letter-spacing: var(--tracking-ui, -0.015em);
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-summary {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-summary {
   order: 2;
   padding: 0 0 14px;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-panel {
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-panel {
   order: 3;
 }
 
 @media (max-width: 1024px) {
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .mobile-home-feed-card-scroll {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .mobile-home-feed-card-scroll {
     justify-content: center;
     overflow: hidden;
   }
 
-  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-10 .more-accordion-item > .leave-no-trace-memo-note {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-accordion-item > .leave-no-trace-memo-note {
     margin: -34px auto 18px;
   }
 }

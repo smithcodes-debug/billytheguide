@@ -44,10 +44,10 @@
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
     margin: 0 auto 18px;
     max-width: 520px;
-    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    color: rgba(16, 24, 32, 0.66);
     font-family: var(--font-body, Georgia, "Times New Roman", serif);
-    font-size: clamp(15px, 3.8vw, 19px);
-    line-height: var(--line-body, 1.48);
+    font-size: clamp(15px, 3.95vw, 19.5px);
+    line-height: var(--line-body, 1.45);
     font-weight: var(--weight-body, 500);
     letter-spacing: var(--tracking-body, -0.025em);
     text-align: center;
@@ -86,10 +86,10 @@
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
     margin: 8px 0 0;
-    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    color: rgba(16, 24, 32, 0.66);
     font-family: var(--font-body, Georgia, "Times New Roman", serif);
-    font-size: clamp(13px, 3.4vw, 16px);
-    line-height: var(--line-body, 1.42);
+    font-size: clamp(15px, 3.95vw, 19.5px);
+    line-height: var(--line-body, 1.45);
     font-weight: var(--weight-body, 500);
     letter-spacing: var(--tracking-body, -0.025em);
   }
