@@ -184,6 +184,9 @@ body.availability-booking-open .site-footer {
 }
 
 .availability-calendar-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 10px 11px 9px;
   border: 1.5px solid var(--availability-line);
   border-top-width: 4px;
@@ -195,6 +198,36 @@ body.availability-booking-open .site-footer {
   touch-action: pan-y;
 }
 
+/* ✅ GLOBAL VISUAL LOGIC: navy smoky air layer for the calendar pad only. */
+.availability-calendar-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(8, 63, 70, 0.18), transparent 34%),
+    radial-gradient(circle at 84% 78%, rgba(5, 18, 31, 0.13), transparent 42%),
+    radial-gradient(circle at 50% 50%, rgba(159, 223, 229, 0.12), transparent 56%),
+    linear-gradient(180deg, rgba(248, 251, 252, 0.88), rgba(255, 255, 255, 0.94));
+  pointer-events: none;
+}
+
+/* ✅ GLOBAL VISUAL LOGIC: keep line-art dark; let the white image background blend into smoky navy air. */
+.availability-calendar-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url("../../images/vector/snorkel-girl-line.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 118%;
+  mix-blend-mode: multiply;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
 .availability-calendar-head {
   display: flex;
   align-items: center;
@@ -203,6 +236,14 @@ body.availability-booking-open .site-footer {
   margin: 0 0 9px;
   padding-bottom: 8px;
   border-bottom: 1.5px solid var(--availability-line);
+}
+
+.availability-calendar-head,
+.availability-weekdays,
+.availability-days,
+.availability-legend {
+  position: relative;
+  z-index: 2;
 }
 
 .availability-month-label {
