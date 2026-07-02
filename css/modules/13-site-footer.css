@@ -6,7 +6,7 @@
   --site-footer-dock-border: rgba(5, 6, 8, 0.14);
   --site-footer-dock-ink: rgba(25, 29, 33, 0.58);
   --site-footer-dock-ink-strong: rgba(25, 29, 33, 0.74);
-  --site-footer-dock-accent: #083f46;
+  --site-footer-dock-accent: var(--type-accent, #083f46);
 }
 
 body {
@@ -29,7 +29,8 @@ body.is-home-reading-mode {
   margin: 0;
   padding: 0;
   background: transparent;
-  color: #101820;
+  color: var(--type-ink, #101820);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   transform: translate3d(-50%, 0, 0); /* ✅ UPDATED: footer visible on main hero */
   opacity: 1; /* ✅ UPDATED: footer visible on main hero */
   visibility: visible; /* ✅ UPDATED: footer visible on main hero */
@@ -73,7 +74,11 @@ body.is-home-reading-mode {
   border-radius: 12px;
   background: transparent;
   color: var(--site-footer-dock-ink);
-  font: inherit;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-xxs, 9.5px);
+  line-height: var(--line-caption, 1.25);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,10 +103,11 @@ body.is-home-reading-mode {
 .site-footer-label {
   max-width: 100%;
   color: var(--site-footer-dock-ink-strong);
-  font-size: 9.5px; /* ✅ UPDATED */
-  line-height: 1.05;
-  font-weight: 650;
-  letter-spacing: -0.015em;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-xxs, 9.5px); /* ✅ UPDATED */
+  line-height: var(--line-ui, 1.15);
+  font-weight: var(--weight-body-strong, 650);
+  letter-spacing: var(--tracking-ui, -0.015em);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,7 +130,7 @@ body.is-home-reading-mode {
   height: 42px; /* ✅ UPDATED */
   border-radius: 999px;
   background: var(--site-footer-dock-accent);
-  color: #ffffff;
+  color: var(--type-ink-inverse, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;

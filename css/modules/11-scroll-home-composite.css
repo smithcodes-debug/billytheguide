@@ -2,7 +2,8 @@
   position: relative;
   padding: 96px 24px 120px;
   background: linear-gradient(180deg, var(--color-soft-white) 0%, var(--color-white) 55%, #f3f6f7 100%);
-  color: var(--color-ink);
+  color: var(--type-ink, var(--color-ink));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
   overflow: hidden;
 }
 
@@ -24,31 +25,35 @@
 
 .more-stories-kicker {
   margin: 0 0 10px;
-  color: rgba(28, 40, 51, 0.58);
-  font-size: 13px;
-  line-height: 1.3;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: var(--type-ink-muted, rgba(28, 40, 51, 0.58));
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-sm, 13px);
+  line-height: var(--line-caption, 1.25);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-kicker, 0.08em);
   text-transform: uppercase;
 }
 
 .more-stories-title {
   margin: 0;
   max-width: 860px;
-  color: #17202a;
-  font-size: clamp(34px, 7vw, 64px);
-  line-height: 0.98;
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  color: var(--type-ink, #17202a);
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: var(--type-display-xl, clamp(34px, 7vw, 64px));
+  line-height: var(--line-display-tight, 0.98);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-display, -0.045em);
 }
 
 .more-stories-intro {
   max-width: 780px;
   margin: 22px 0 0;
-  color: rgba(28, 40, 51, 0.72);
-  font-size: clamp(16px, 2.2vw, 19px);
-  line-height: 1.72;
-  font-weight: 500;
+  color: var(--type-ink-soft, rgba(28, 40, 51, 0.72));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-md, clamp(16px, 2.2vw, 19px));
+  line-height: var(--line-body-loose, 1.62);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
 }
 
 .more-stories-back-button {
@@ -61,11 +66,12 @@
 
 .more-section-label {
   margin: 0 0 14px;
-  color: var(--color-hue-deep);
-  font-size: clamp(22px, 4vw, 32px);
-  line-height: 1.12;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  color: var(--type-accent, var(--color-hue-deep));
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: var(--type-display-sm, clamp(22px, 4vw, 32px));
+  line-height: var(--line-title, 1.08);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
 }
 
 .more-services-grid {
@@ -84,7 +90,8 @@
   padding: 24px 22px;
   border-right: 1px solid rgba(15, 76, 92, 0.14);
   border-bottom: 1px solid rgba(15, 76, 92, 0.14);
-  color: #1c2833;
+  color: var(--type-ink, #1c2833);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
   text-align: center;
   text-decoration: none;
   background: rgba(247, 251, 252, 0.78);
@@ -101,19 +108,23 @@
 
 .more-service-card-title {
   margin: 0;
-  color: #123044;
-  font-size: 16px;
-  line-height: 1.2;
-  font-weight: 700;
+  color: var(--type-accent, #123044);
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: var(--type-display-sm, 16px);
+  line-height: var(--line-title, 1.08);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
 }
 
 .more-service-card-desc {
   margin: 12px auto 0;
   max-width: 280px;
-  color: rgba(28, 40, 51, 0.72);
-  font-size: 14px;
-  line-height: 1.45;
-  font-weight: 500;
+  color: var(--type-ink-soft, rgba(28, 40, 51, 0.72));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-sm, 14px);
+  line-height: var(--line-body, 1.45);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
 }
 
 .more-service-card-link {
@@ -121,10 +132,12 @@
   align-items: center;
   justify-content: center;
   margin: 18px auto 0;
-  color: var(--color-hue-deep);
-  font-size: 13px;
-  line-height: 1;
-  font-weight: 700;
+  color: var(--type-accent, var(--color-hue-deep));
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-sm, 13px);
+  line-height: var(--line-ui, 1.15);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
 }
 
 .more-service-card:focus-visible {
@@ -166,10 +179,12 @@
   gap: 18px;
   min-height: 64px;
   padding: 20px 22px;
-  color: #123044;
-  font-size: 17px;
-  line-height: 1.2;
-  font-weight: 700;
+  color: var(--type-accent, #123044);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-md, 17px);
+  line-height: var(--line-ui, 1.15);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
   cursor: pointer;
   list-style: none;
   -webkit-tap-highlight-color: transparent;
@@ -183,9 +198,10 @@
   content: "+";
   flex: 0 0 auto;
   color: rgba(18, 48, 68, 0.58);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   font-size: 24px;
   line-height: 1;
-  font-weight: 500;
+  font-weight: var(--weight-body, 500);
 }
 
 .more-accordion-item[open] .more-accordion-summary::after {
@@ -194,10 +210,12 @@
 
 .more-accordion-panel {
   padding: 0 22px 22px;
-  color: rgba(28, 40, 51, 0.74);
-  font-size: 15px;
-  line-height: 1.65;
-  font-weight: 500;
+  color: var(--type-ink-soft, rgba(28, 40, 51, 0.74));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-md, 15px);
+  line-height: var(--line-body-loose, 1.62);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
 }
 
 .more-accordion-panel p {
@@ -211,8 +229,10 @@
 }
 
 .more-faq-list dt {
-  color: #123044;
-  font-weight: 700;
+  color: var(--type-accent, #123044);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
 }
 
 .more-faq-list dd {
@@ -235,10 +255,12 @@
   border: 1px solid rgba(15, 76, 92, 0.14);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
-  color: #123044;
-  font-size: 13px;
-  line-height: 1;
-  font-weight: 700;
+  color: var(--type-accent, #123044);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-sm, 13px);
+  line-height: var(--line-ui, 1.15);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
   text-transform: lowercase;
 }
 
