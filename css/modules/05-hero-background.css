@@ -2,11 +2,9 @@
   --hero-bg-mobile: url("../../images/home/hero-768.jpeg");
   --hero-bg-tablet: url("../../images/home/hero-1280.png");
   --hero-bg-desktop: url("../../images/home/hero-1920.jpg");
-
   --hero-bg-position-mobile: center center;
   --hero-bg-position-tablet: center center;
   --hero-bg-position-desktop: center center;
-
   --hero-bg-size: cover;
   --hero-bg-fallback: #06111f;
 }

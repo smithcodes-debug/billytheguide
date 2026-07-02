@@ -22,9 +22,11 @@
   flex: 0 0 auto;
   order: 1;
   margin: 0 0 5px;
-  font-size: clamp(23.1px, 6.16vw, 38.5px);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: var(--type-display-sm, clamp(23.1px, 6.16vw, 38.5px));
+  line-height: var(--line-title, 1.08);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-service-card-desc {
@@ -32,8 +34,11 @@
   order: 2;
   max-width: 520px;
   margin: 0 auto 8px;
-  font-size: clamp(14.3px, 3.74vw, 18.7px);
-  line-height: 1.32;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-md, clamp(14.3px, 3.74vw, 18.7px));
+  line-height: var(--line-body, 1.45);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-service-card-extra {
@@ -41,13 +46,13 @@
   order: 3;
   max-width: 94%;
   margin: 0 auto 5px;
-  color: rgba(16, 20, 24, 0.72);
-  font-size: clamp(13.2px, 3.3vw, 16.5px);
-  line-height: 1.32;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  color: var(--type-ink-soft, rgba(16, 20, 24, 0.72));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-sm, clamp(13.2px, 3.3vw, 16.5px));
+  line-height: var(--line-body, 1.45);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
   text-align: center;
-  
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-08 .more-service-card-extra + .more-service-card-extra {
@@ -61,6 +66,9 @@
   margin-bottom: 0;
   padding-top: 4px;
   padding-bottom: 0;
-  font-size: 16.5px;
-  line-height: 1.1;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-md, 16.5px);
+  line-height: var(--line-ui, 1.15);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
 }
