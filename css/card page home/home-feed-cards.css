@@ -1,0 +1,1871 @@
+/*
+  home-feed-cards.css
+  Generated stable bundle for mobile home feed card CSS.
+  Source files remain untouched for rollback.
+  Runtime mapping follows main.js generated card order.
+*/
+
+/* ===== Source: card-01-service-00.css ===== */
+@keyframes zoomPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 1024px) {
+  /* ✅ NEW: Card 01 Main Hero owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-01 {
+    /* ✅ REQUIRED FIX: align Card 01 hero directly under the real fixed header height */
+    padding:
+      calc(env(safe-area-inset-top, 0px) + 62px)
+      0
+      calc(env(safe-area-inset-bottom, 0px) + 0px);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    background: #06111f;
+    color: #ffffff;
+    box-shadow: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url("../../images/home/hero-768.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    transform: translateZ(0);
+    pointer-events: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(5, 6, 8, 0.22) 0%, rgba(5, 6, 8, 0.36) 38%, rgba(5, 6, 8, 0.82) 100%);
+    pointer-events: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
+    position: relative;
+    z-index: 1;
+    padding:
+      4px
+      8px
+      calc(env(safe-area-inset-bottom, 0px) + 88px);
+    justify-content: flex-end;
+    color: #ffffff;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-main-hero {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(10px, 1.7svh, 16px);
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .hero-guide-tagline {
+    position: absolute;
+    top: clamp(10px, 1.6svh, 18px);
+    left: clamp(16px, 5vw, 32px);
+    z-index: 2;
+    width: calc(100% - clamp(32px, 10vw, 64px));
+    max-width: none;
+    padding: 0;
+    color: #ffffff;
+    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: clamp(16px, 4.1vw, 24px);
+    line-height: var(--line-ui, 1.15);
+    font-weight: 800;
+    letter-spacing: var(--tracking-label, 0.01em);
+    text-align: left;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title {
+    max-width: calc(100% - 24px);
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-xl, clamp(38px, 10vw, 64px));
+    line-height: var(--line-display, 1.02);
+    font-weight: var(--weight-title, 760);
+    letter-spacing: var(--tracking-display, -0.04em);
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.66);
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title-mobile-line,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title-mobile-line-1,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title-mobile-line-2 {
+    display: block;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title-mobile-line-1 {
+    text-transform: lowercase;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title-mobile-line-2 {
+    text-transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .story {
+    width: calc(100% - 48px);
+    max-width: 680px;
+    padding: clamp(14px, 2.2svh, 24px) clamp(15px, 4.2vw, 36px);
+    border: 0;
+    border-radius: 0;
+    background: rgba(13, 17, 23, 0.76);
+    color: #ffffff;
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-lg, clamp(18px, 4.8vw, 32px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+    text-align: center;
+    box-sizing: border-box;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .story p {
+    margin: 0;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .cta-row {
+    width: calc(100% - 28px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(7px, 2vw, 14px);
+    flex-wrap: nowrap;
+    color: #ffffff;
+    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: var(--type-ui-lg, clamp(18px, 4.8vw, 32px));
+    line-height: var(--line-ui, 1.15);
+    font-weight: var(--weight-title, 760);
+    letter-spacing: var(--tracking-ui, -0.015em);
+    white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .quote {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: nowrap;
+    cursor: pointer;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .thanks {
+    cursor: pointer;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .cta-row > span,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .quote > span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .checkbox input {
+    display: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .fake-box {
+    position: relative;
+    z-index: 3;
+    width: clamp(19px, 5vw, 30px);
+    height: clamp(19px, 5vw, 30px);
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: zoomPulse 1.5s ease-in-out infinite;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .checkbox input:checked + .fake-box::after {
+    content: "✔";
+    color: #18a34a;
+    font-size: 17px;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* ✅ NEW: Card 01 Main Hero owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+    width: 100%;
+    max-width: 700px;
+    min-height: 720px;
+    border: 0;
+    border-radius: 0;
+    background: #06111f;
+    color: #ffffff;
+    box-shadow: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url("../../images/home/hero-1920.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    pointer-events: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(5, 6, 8, 0.20) 0%, rgba(5, 6, 8, 0.38) 44%, rgba(5, 6, 8, 0.80) 100%);
+    pointer-events: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-card-scroll {
+    position: relative;
+    z-index: 1;
+    color: #ffffff;
+    justify-content: flex-end;
+    padding: 18px 24px 72px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .mobile-home-feed-main-hero {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .hero-guide-tagline {
+    position: static;
+    width: 100%;
+    padding: 0;
+    color: #ffffff;
+    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: clamp(18px, 3vw, 28px);
+    line-height: var(--line-ui, 1.15);
+    font-weight: 800;
+    letter-spacing: var(--tracking-label, 0.01em);
+    text-align: left;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .title {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: clamp(42px, 6vw, 64px);
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-title, 760);
+    letter-spacing: var(--tracking-display, -0.04em);
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.66);
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .story {
+    width: 100%;
+    padding: 20px 24px;
+    border: 0;
+    border-radius: 0;
+    background: rgba(13, 17, 23, 0.76);
+    color: #ffffff;
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+    text-align: center;
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .story p {
+    margin: 0;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 .cta-row {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    color: #ffffff;
+    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: var(--line-ui, 1.15);
+    font-weight: var(--weight-title, 760);
+    letter-spacing: var(--tracking-ui, -0.015em);
+    white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  }
+}
+
+@media (min-width: 769px), (orientation: landscape) {
+  /* ✅ NEW: responsive shell only, riêng card 01 */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-01 {
+    max-width: var(--app-shell-max-width, 768px);
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+/* ===== Source: card-01-intro.css ===== */
+.mobile-home-feed,
+.mobile-home-feed-handle {
+  display: none;
+}
+
+/* ✅ REQUIRED FIX: mobile feed drag handle removed from visual UI */
+.mobile-home-feed-handle {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  html.mobile-home-feed-snap,
+  body.mobile-home-feed-snap {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+    overscroll-behavior-y: contain;
+  }
+
+  body.mobile-home-feed-snap .more-stories-section.is-mobile-home-feed-ready {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready {
+    --mobile-home-feed-header-height: calc(env(safe-area-inset-top, 0px) + 74px);
+    --mobile-home-feed-locked-gap: 10px;
+    --mobile-home-feed-panel-top-gap: 5px;
+    --mobile-home-feed-side-gap: 16px;
+    height: 100vh;
+    height: 100svh;
+    padding: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready::before,
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
+    display: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    scrollbar-width: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .mobile-home-feed-panel {
+    height: 100vh;
+    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding:
+      calc(var(--mobile-home-feed-header-height) + var(--mobile-home-feed-panel-top-gap))
+      var(--mobile-home-feed-side-gap)
+      calc(env(safe-area-inset-bottom, 0px) + var(--mobile-home-feed-locked-gap));
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* ✅ REQUIRED FIX: Cards 02-09 use full mobile feed height when header/footer are hidden */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-02,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-03,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-04,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-05,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-06,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-07,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-08,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-09 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .mobile-home-feed-panel-empty {
+    display: none;
+  }
+
+  .mobile-home-feed-card {
+    position: relative;
+    width: min(100%, 700px);
+    height: 100%;
+    min-height: 0;
+    border: 1px solid rgba(5, 6, 8, 0.08);
+    border-radius: 38px;
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--color-ink, var(--type-ink, #101820));
+    box-shadow:
+      0 24px 70px rgba(8, 63, 70, 0.11),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+    overflow: hidden;
+    transform: translateZ(0);
+    box-sizing: border-box;
+  }
+
+  .mobile-home-feed-card-scroll {
+    height: 100%;
+    min-height: 0;
+    padding: 18px 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    box-sizing: border-box;
+    scrollbar-width: none;
+  }
+
+  .mobile-home-feed-card-scroll::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .mobile-home-feed .more-stories-kicker {
+    margin-bottom: 18px;
+    color: rgba(8, 63, 70, 0.62);
+    font-family: var(--font-label, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: var(--type-ui-sm, 13px);
+    line-height: var(--line-caption, 1.25);
+    font-weight: var(--weight-ui, 700);
+    letter-spacing: var(--tracking-kicker, 0.08em);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .mobile-home-feed .more-stories-title {
+    max-width: none;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-lg, clamp(30px, 8vw, 50px));
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
+    text-align: center;
+    letter-spacing: var(--tracking-display, -0.045em);
+  }
+
+  .mobile-home-feed .more-stories-intro {
+    margin-top: 20px;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.64));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.8vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+    text-align: center;
+  }
+
+  .mobile-home-feed .more-service-card {
+    min-height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--color-ink, var(--type-ink, #101820));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-home-feed .more-service-card-title {
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.035em);
+  }
+
+  .mobile-home-feed .more-service-card-desc {
+    margin-top: 16px;
+    max-width: 520px;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.62));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.9vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+  }
+
+  .mobile-home-feed .more-service-card-link {
+    margin-top: 24px;
+    color: var(--color-hue-deep, var(--type-accent, #083f46));
+    font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: 16px;
+    font-weight: var(--weight-ui, 700);
+  }
+
+  .mobile-home-feed .more-accordion-item {
+    border: 0;
+  }
+
+  .mobile-home-feed .more-accordion-summary {
+    padding: 0 0 14px;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.04em);
+    cursor: default;
+  }
+
+  .mobile-home-feed .more-accordion-summary::after {
+    display: none;
+  }
+
+  .mobile-home-feed .more-accordion-panel {
+    padding: 0;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-sm, 14px);
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+    overflow: hidden;
+  }
+
+  .mobile-home-feed .more-faq-list {
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .more-stories-section.is-mobile-home-feed-ready {
+    min-height: 100vh;
+    height: auto;
+    padding: calc(env(safe-area-inset-top, 0px) + 112px) 24px 120px;
+    overflow: visible;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(159, 223, 229, 0.26), transparent 28%),
+      radial-gradient(circle at 86% 76%, rgba(159, 223, 229, 0.22), transparent 30%),
+      linear-gradient(180deg, #f8fbfc 0%, #ffffff 52%, #f3f7f8 100%);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready::before,
+  .more-stories-section.is-mobile-home-feed-ready .more-stories-inner {
+    display: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 28px;
+    width: min(100%, 760px);
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+    scroll-snap-type: none;
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: auto;
+    touch-action: auto;
+    scrollbar-width: auto;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed::-webkit-scrollbar {
+    display: initial;
+  }
+
+  .mobile-home-feed-panel {
+    height: auto;
+    min-height: auto;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+    overflow: visible;
+  }
+
+  .mobile-home-feed-card {
+    position: relative;
+    width: min(100%, 700px);
+    height: auto;
+    min-height: 620px;
+    border: 1px solid rgba(5, 6, 8, 0.08);
+    border-radius: 38px;
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--color-ink, var(--type-ink, #101820));
+    box-shadow:
+      0 24px 70px rgba(8, 63, 70, 0.11),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+
+  .mobile-home-feed-card-scroll {
+    height: auto;
+    min-height: 620px;
+    padding: 48px 16px 86px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overscroll-behavior: auto;
+    touch-action: auto;
+  }
+
+  .mobile-home-feed .more-stories-kicker,
+  .mobile-home-feed .more-stories-title,
+  .mobile-home-feed .more-stories-intro {
+    text-align: center;
+  }
+
+  .mobile-home-feed .more-stories-title {
+    max-width: none;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-lg, clamp(30px, 8vw, 50px));
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-display, -0.045em);
+  }
+
+  .mobile-home-feed .more-stories-intro {
+    margin-top: 20px;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.64));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.8vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+  }
+
+  .mobile-home-feed .more-service-card {
+    min-height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--color-ink, var(--type-ink, #101820));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-home-feed .more-service-card-title {
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: var(--type-display-md, clamp(24px, 7vw, 42px));
+    line-height: var(--line-title, 1.08);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-title, -0.035em);
+  }
+
+  .mobile-home-feed .more-service-card-desc {
+    margin-top: 16px;
+    max-width: 520px;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.62));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: var(--type-body-md, clamp(15px, 3.9vw, 20px));
+    line-height: var(--line-body, 1.45);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+  }
+
+  .mobile-home-feed .more-service-card-link {
+    margin-top: 24px;
+    color: var(--color-hue-deep, var(--type-accent, #083f46));
+    font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: 16px;
+    font-weight: var(--weight-ui, 700);
+  }
+
+  .mobile-home-feed .more-accordion-summary::after,
+  .mobile-home-feed-handle,
+  .mobile-home-feed-panel-empty {
+    display: none;
+  }
+}
+
+.more-stories-side-icons {
+  display: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-notes {
+  width: min(100%, 560px);
+  margin: auto auto 0;
+  padding: 12px 12px 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 10px;
+  row-gap: 16px;
+  border: 1px solid rgba(5, 6, 8, 0.08);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow:
+    0 18px 50px rgba(5, 6, 8, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  transform: translateY(10px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-notes::before {
+  content: "Stay chill with us , few thing make up your time.";
+  grid-column: 1 / -1;
+  display: block;
+  margin: 0 0 2px;
+  color: var(--type-ink-muted, rgba(5, 6, 8, 0.58));
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-md, clamp(15px, 3vw, 17px));
+  line-height: var(--line-caption, 1.25);
+  font-weight: var(--weight-body-strong, 650);
+  letter-spacing: var(--tracking-body, -0.01em);
+  text-align: center;
+  text-transform: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note {
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(5, 6, 8, 0.72);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  font-family: var(--font-label, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(10px, 2.7vw, 13px);
+  line-height: var(--line-ui, 1.15);
+  font-weight: 750;
+  letter-spacing: var(--tracking-ui, -0.01em);
+  text-transform: lowercase;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin: 0 0 7px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.82);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 22px rgba(5, 6, 8, 0.07);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(1)::before {
+  background-image: url("../../images/note/1.png");
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(2)::before {
+  background-image: url("../../images/note/4.jpg");
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(3)::before {
+  background-image: url("../../images/note/5.png");
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(4)::before {
+  background-image: url("../../images/note/6.png");
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(5)::before {
+  background-image: url("../../images/note/8.png");
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note:nth-child(6)::before {
+  background-image: url("../../images/note/9.png");
+}
+
+@media (max-width: 1024px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
+    padding: 5px 16px 12px;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-title {
+    font-size: clamp(21px, 5.6vw, 35px);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-quote {
+    margin: 14px auto 0;
+    max-width: 260px;
+    color: rgba(16, 20, 24, 0.58);
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: clamp(13px, 3.4vw, 17px);
+    line-height: var(--line-body, 1.42);
+    font-weight: 600;
+    letter-spacing: var(--tracking-body, -0.01em);
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-notes {
+    margin: auto auto 0;
+    padding: clamp(8px, 1.8svh, 12px) 12px clamp(10px, 2svh, 16px);
+    row-gap: clamp(8px, 1.8svh, 16px);
+    transform: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-notes::before {
+    font-size: clamp(13px, 3vw, 17px);
+    line-height: 1.2;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02-note::before {
+    height: clamp(58px, 11.5svh, 100px);
+    margin-bottom: clamp(4px, 1svh, 7px);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready.is-feed-ending .mobile-home-feed-handle {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 180ms ease, visibility 180ms ease;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-last {
+    height: 100vh;
+    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-last {
+    height: min(90svh, 100%);
+    max-height: 90svh;
+    align-self: center;
+  }
+
+  /* ✅ REQUIRED FIX: Card 09 should stretch inside the new 10px panel gaps */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel-09 .mobile-home-feed-card-last {
+    height: 100%;
+    max-height: none;
+    align-self: stretch;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll-last {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll {
+    padding: 5px 16px 86px;
+    justify-content: flex-start;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-title {
+    font-size: clamp(21px, 5.6vw, 35px);
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-quote {
+    margin: 14px auto 0;
+    max-width: 560px;
+    color: rgba(16, 20, 24, 0.58);
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: clamp(13px, 3.4vw, 17px);
+    line-height: var(--line-body, 1.42);
+    font-weight: 600;
+    letter-spacing: var(--tracking-body, -0.01em);
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px), (orientation: landscape) {
+  .more-stories-section.is-mobile-home-feed-ready {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed {
+    width: 100%;
+    max-width: var(--app-shell-max-width, 768px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-panel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card {
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-scroll {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ✅ REQUIRED FIX: header visibility follows active mobile feed card state */
+body.is-mobile-feed-header-hidden header {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(calc(-100% - 16px)) !important;
+  transition:
+    transform 220ms ease,
+    opacity 180ms ease,
+    visibility 180ms ease;
+}
+
+body[data-mobile-feed-active-card="01"] header,
+body.is-mobile-feed-last-card-active header {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(-50%) !important;
+}
+
+/* ===== Source: card-02-service-01.css ===== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: -2;
+  width: min(calc(100% - 20px), 340px);
+  height: 155px;
+  margin: 0 auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-title {
+  flex: 0 0 auto;
+  order: -4;
+  margin: 0 0 5px;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: -3;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-extra {
+  flex: 0 0 auto;
+  order: -1;
+  max-width: 540px;
+  margin: 0 auto 8px;
+  color: rgba(16, 20, 24, 0.72);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(13.2px, 3.3vw, 16.5px);
+  line-height: 1.24;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.01em);
+  text-align: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pads {
+  order: 0;
+  width: min(calc(100% - 20px), 540px);
+  margin: 0 auto 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pad {
+  min-height: 40px;
+  padding: 7px 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid rgba(8, 63, 70, 0.14);
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(232, 249, 249, 0.82), rgba(255, 255, 255, 0.70)),
+    rgba(221, 245, 246, 0.72);
+  box-shadow: 0 7px 18px rgba(8, 63, 70, 0.07);
+  color: rgba(9, 31, 36, 0.88);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pad strong {
+  display: block;
+  color: rgba(8, 38, 44, 0.94);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(12.1px, 2.915vw, 14.85px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pad em {
+  display: block;
+  color: rgba(8, 63, 70, 0.66);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(9.9px, 2.42vw, 12.1px);
+  line-height: 1.18;
+  font-style: italic;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: -0.01em;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-link {
+  flex: 0 0 auto;
+  order: 1;
+  margin-top: 2px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16.5px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-03-service-02.css ===== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: -2;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 0 auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/14.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
+  flex: 0 0 auto;
+  order: -4;
+  margin: 0 0 5px;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: -3;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
+  flex: 0 0 auto;
+  order: -1;
+  max-width: 540px;
+  margin: 0 auto 8px;
+  color: rgba(16, 20, 24, 0.72);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(13.2px, 3.3vw, 16.5px);
+  line-height: 1.24;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.01em);
+  text-align: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
+  order: 0;
+  width: min(calc(100% - 20px), 540px);
+  margin: 0 auto 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad {
+  min-height: 40px;
+  padding: 7px 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid rgba(8, 63, 70, 0.14);
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(232, 249, 249, 0.82), rgba(255, 255, 255, 0.70)),
+    rgba(221, 245, 246, 0.72);
+  box-shadow: 0 7px 18px rgba(8, 63, 70, 0.07);
+  color: rgba(9, 31, 36, 0.88);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
+  display: block;
+  color: rgba(8, 38, 44, 0.94);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(12.1px, 2.915vw, 14.85px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad em {
+  display: block;
+  color: rgba(8, 63, 70, 0.66);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(9.9px, 2.42vw, 12.1px);
+  line-height: 1.18;
+  font-style: italic;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: -0.01em;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
+  flex: 0 0 auto;
+  order: 1;
+  margin-top: 2px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16.5px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-04-service-03.css ===== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: -2;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 0 auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/15.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-title {
+  flex: 0 0 auto;
+  order: -4;
+  margin: 0 0 5px;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: -3;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-pads {
+  order: 0;
+  width: min(calc(100% - 20px), 540px);
+  margin: 0 auto 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-pad {
+  min-height: 40px;
+  padding: 7px 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid rgba(8, 63, 70, 0.14);
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(232, 249, 249, 0.82), rgba(255, 255, 255, 0.70)),
+    rgba(221, 245, 246, 0.72);
+  box-shadow: 0 7px 18px rgba(8, 63, 70, 0.07);
+  color: rgba(9, 31, 36, 0.88);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-pad strong {
+  display: block;
+  color: rgba(8, 38, 44, 0.94);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(12.1px, 2.915vw, 14.85px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-pad em {
+  display: block;
+  color: rgba(8, 63, 70, 0.66);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(9.9px, 2.42vw, 12.1px);
+  line-height: 1.18;
+  font-style: italic;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: -0.01em;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-05 .more-service-card-link {
+  flex: 0 0 auto;
+  order: 1;
+  margin-top: 2px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16.5px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-05-service-04.css ===== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-title {
+  flex: 0 0 auto;
+  order: 1;
+  margin: 0 0 5px;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: 2;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-extra {
+  flex: 0 0 auto;
+  order: 3;
+  max-width: 92%;
+  margin: 0 auto 5px;
+  color: rgba(16, 20, 24, 0.72);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(13.2px, 3.3vw, 16.5px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.01em);
+  text-align: center;
+  font-style: italic;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-extra + .more-service-card-extra {
+  margin-top: 0;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card::after {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: 4;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 6px auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/16.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-06 .more-service-card-link {
+  flex: 0 0 auto;
+  order: 5;
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16.5px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-06-service-05.css ===== */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .mobile-home-feed-card-scroll {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  justify-content: flex-start;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  overflow: hidden;
+  transform: translateY(15px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card-title {
+  flex: 0 0 auto;
+  order: 1;
+  margin: 0 0 5px;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: 2;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card-extra {
+  flex: 0 0 auto;
+  order: 3;
+  max-width: 94%;
+  margin: 0 auto 6px;
+  color: rgba(16, 20, 24, 0.72);
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: clamp(13.2px, 3.3vw, 16.5px);
+  line-height: 1.34;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.01em);
+  text-align: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card-extra + .more-service-card-extra {
+  margin-top: 0;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card::after {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  order: 4;
+  width: min(calc(95% - 19px), 323px);
+  height: 147.25px;
+  margin: 6px auto 8px;
+  border: 1px solid rgba(5, 6, 8, 0.10);
+  border-radius: 16px;
+  background-image: url("../../images/comon/17.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 8px 18px rgba(5, 6, 8, 0.09);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-07 .more-service-card-link {
+  flex: 0 0 auto;
+  order: 5;
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding-top: 4px;
+  padding-bottom: 0;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 16.5px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-07-service-06.css ===== */
+/* ✅ NEW: Coral Dictionary card text spacing */
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-title {
+  order: 1;
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-desc {
+  order: 2;
+  margin-bottom: 7px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra {
+  order: 3;
+  max-width: 94%;
+  margin: 0 auto 5px;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-extra + .more-service-card-extra {
+  margin-top: 0;
+}
+
+.more-service-card[href="./coral-dictionary-at-phu-quoc.html"] .more-service-card-link {
+  order: 5;
+  margin-top: 4px;
+  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-weight: var(--weight-ui, 700);
+}
+
+/* ===== Source: card-08-accordion-01.css ===== */
+/* ✅ UPDATED: CARD 08 CSS - accordion card 01 only */
+.more-accordion-list > .more-accordion-item:first-child[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .leave-no-trace-memo-note {
+  order: 1;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-summary {
+  order: 2;
+}
+
+.more-accordion-list > .more-accordion-item:first-child[open] .more-accordion-panel {
+  order: 3;
+}
+
+.leave-no-trace-memo-note {
+  position: relative;
+  width: min(calc(100% - 32px), 720px);
+  margin: -18px auto 34px;
+  padding: 14px 16px 15px;
+  color: #2f2a12;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-size: var(--type-body-sm, 13px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+  text-align: left;
+  background: #fff3a6;
+  border: 1px solid #e4c64f;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(5, 6, 8, 0.16);
+  box-sizing: border-box;
+}
+
+.leave-no-trace-memo-note::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 42px;
+  width: 22px;
+  height: 22px;
+  background: #fff3a6;
+  border-top: 1px solid #e4c64f;
+  border-left: 1px solid #e4c64f;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+
+.leave-no-trace-memo-note p {
+  margin: 0;
+}
+
+.leave-no-trace-memo-note p + p {
+  margin-top: 6px;
+}
+
+.leave-no-trace-memo-note strong {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 14px;
+  line-height: var(--line-caption, 1.2);
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
+}
+
+.mobile-home-feed .more-accordion-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-home-feed .more-accordion-item .leave-no-trace-memo-note {
+  order: 1;
+  margin: -34px auto 18px;
+}
+
+.mobile-home-feed .more-accordion-item .more-accordion-summary {
+  order: 2;
+  padding: 0 0 14px;
+}
+
+.mobile-home-feed .more-accordion-item .more-accordion-panel {
+  order: 3;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .leave-no-trace-memo-note {
+  order: 1;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-summary {
+  order: 2;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed .more-accordion-item > .more-accordion-panel {
+  order: 3;
+}
+
+/* ===== Source: card-09-accordion-02.css ===== */
+:root {
+  --accordion-02-css-loaded: 1;
+}
+
+@media (max-width: 1024px) {
+  /* ✅ NEW: Card 09 FAQ owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 251, 252, 0.96) 100%);
+    color: var(--color-ink, var(--type-ink, #101820));
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+    padding: 18px 18px 24px;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
+    margin: 0;
+    padding: 0 0 16px;
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: clamp(32px, 9vw, 54px);
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-display, -0.045em);
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-lead,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
+    margin: 0 auto 18px;
+    max-width: 520px;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: clamp(15px, 3.8vw, 19px);
+    line-height: var(--line-body, 1.48);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-list {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid rgba(8, 63, 70, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 26px rgba(5, 6, 8, 0.07);
+    box-sizing: border-box;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary {
+    color: var(--type-accent, #083f46);
+    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-size: clamp(15px, 4vw, 19px);
+    line-height: var(--line-caption, 1.24);
+    font-weight: 800;
+    letter-spacing: var(--tracking-ui, -0.015em);
+    list-style: none;
+    cursor: default;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
+    margin: 8px 0 0;
+    color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
+    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-size: clamp(13px, 3.4vw, 16px);
+    line-height: var(--line-body, 1.42);
+    font-weight: var(--weight-body, 500);
+    letter-spacing: var(--tracking-body, -0.025em);
+  }
+}
+
+@media (min-width: 1025px) {
+  /* ✅ NEW: Card 09 FAQ owner */
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-card-scroll {
+    padding: 48px 34px 86px;
+    justify-content: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-item {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
+    color: var(--type-ink, #101820);
+    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: var(--line-display, 1.04);
+    font-weight: var(--weight-display, 900);
+    letter-spacing: var(--tracking-display, -0.045em);
+    text-align: center;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item {
+    padding: 16px 18px;
+    border: 1px solid rgba(8, 63, 70, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 26px rgba(5, 6, 8, 0.07);
+  }
+}
+
