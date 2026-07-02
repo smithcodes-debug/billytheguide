@@ -1,46 +1,51 @@
 /* =====================================================
-  ✅ NEW: CSS MODULE 17 — MOBILE STORY TYPEWRITER
-  FILE: ./css/modules/17-mobile-story-typewriter.css
+✅ NEW: CSS MODULE 17 — MOBILE STORY TYPEWRITER
+FILE: ./css/modules/17-mobile-story-typewriter.css
 
-  SYSTEM MAP POSITION:
-  - PROJECT MODULE INDEX: 17-script-mobile-story-typewriter
-  - HTML related module: 05-hero-story
-  - JS file: ./js/modules/mobile-story-typewriter.js
+SYSTEM MAP POSITION:
+- PROJECT MODULE INDEX: 17-script-mobile-story-typewriter
+- HTML related module: 05-hero-story
+- JS file: ./js/modules/mobile-story-typewriter.js
 
-  SOURCE LOCATION BEFORE EXTRACTION:
-  - index.html
-  - MODULE 01.5 — INLINE STYLE REGISTRY
-  - This file was extracted during Step 6I.
+SOURCE LOCATION BEFORE EXTRACTION:
+- index.html
+- MODULE 01.5 — INLINE STYLE REGISTRY
+- This file was extracted during Step 6I.
 
-  RELATED HTML SELECTORS / IDS:
-  - .story
-  - .story p
+RELATED HTML SELECTORS / IDS:
+- .story
+- .story p
 
-  RELATED JS / BEHAVIOR MAP:
-  - ./js/modules/mobile-story-typewriter.js
-  - Typewriter caret rendering logic if JS injects caret element or class
-  - The keyframe name must remain: storyCaretBlink
+RELATED JS / BEHAVIOR MAP:
+- ./js/modules/mobile-story-typewriter.js
+- Typewriter caret rendering logic if JS injects caret element or class
+- The keyframe name must remain: storyCaretBlink
 
-  PURPOSE:
-  - Owns the caret blink keyframe used by the mobile story typewriter behavior.
-  - Keeps typewriter animation CSS separate from global motion and other feature modules.
+PURPOSE:
+- Owns the caret blink keyframe used by the mobile story typewriter behavior.
+- Keeps typewriter animation CSS separate from global motion and other feature modules.
 
-  OWNS:
-  - @keyframes storyCaretBlink
+OWNS:
+- @keyframes storyCaretBlink
 
-  DEBUG ROUTING:
-  - If mobile story caret blink stops working: inspect this file and ./js/modules/mobile-story-typewriter.js.
-  - If keyframe is referenced but not applied: inspect JS/class generation first, then this file.
-  - If reduced motion affects caret timing: inspect ./css/modules/01-global-motion.css.
+DEBUG ROUTING:
+- If mobile story caret blink stops working: inspect this file and ./js/modules/mobile-story-typewriter.js.
+- If keyframe is referenced but not applied: inspect JS/class generation first, then this file.
+- If reduced motion affects caret timing: inspect ./css/modules/01-global-motion.css.
 
-  IMMUTABLE / SAFETY RULES:
-  - Do not rename storyCaretBlink unless all JS/CSS references are explicitly updated.
-  - Do not move global reduced-motion rules into this file.
-  - Preserve original keyframe values.
-  - This extraction is mechanical-only: original keyframe name and CSS values are preserved.
+IMMUTABLE / SAFETY RULES:
+- Do not rename storyCaretBlink unless all JS/CSS references are explicitly updated.
+- Do not move global reduced-motion rules into this file.
+- Preserve original keyframe values.
+- This extraction is mechanical-only: original keyframe name and CSS values are preserved.
 ===================================================== */
 
 @keyframes storyCaretBlink {
-  0%, 49% { opacity: 1; } 
-  50%, 100% { opacity: 0; } 
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0;
+  }
 }

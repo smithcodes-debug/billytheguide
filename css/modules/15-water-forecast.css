@@ -4,7 +4,7 @@
   --water-forecast-shell-inset: 15px;
   --water-forecast-header-offset: calc(env(safe-area-inset-top, 0px) + 86px);
   --water-forecast-footer-offset: calc(env(safe-area-inset-bottom, 0px) + 15px);
-  --water-forecast-ink: #050608;
+  --water-forecast-ink: var(--type-ink, #050608);
   --water-forecast-paper: rgba(255, 255, 255, 0.97);
   --water-forecast-line: rgba(5, 6, 8, 0.82);
   --water-forecast-soft-line: rgba(5, 6, 8, 0.18);
@@ -58,6 +58,7 @@
   border-top: 4px solid var(--water-forecast-ink);
   background: var(--water-forecast-paper);
   color: var(--water-forecast-ink);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   box-shadow: var(--water-forecast-shadow);
   padding: 17px 20px 15px;
   transform: translateY(12px) scale(0.985);
@@ -78,7 +79,9 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   color: rgba(5, 6, 8, 0.72);
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   font-size: 24px;
+  font-weight: var(--weight-ui, 700);
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -96,11 +99,11 @@
   margin: 0 42px 13px 0;
   padding: 0 0 13px;
   border-bottom: 1.5px solid var(--water-forecast-line);
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(23px, 6.4vw, 32px);
-  line-height: 1.04;
-  font-weight: 900;
-  letter-spacing: -0.055em;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-lg, clamp(23px, 6.4vw, 32px));
+  line-height: var(--line-display, 1.04);
+  font-weight: var(--weight-ui-strong, 850);
+  letter-spacing: var(--tracking-display-tight, -0.055em);
   text-transform: uppercase;
 }
 
@@ -143,19 +146,19 @@
 
 .water-forecast-text {
   min-width: 0;
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(19px, 5.3vw, 27px);
-  line-height: 1.14;
-  letter-spacing: -0.048em;
-  font-weight: 450;
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-lg, clamp(19px, 5.3vw, 27px));
+  line-height: var(--line-ui, 1.15);
+  letter-spacing: var(--tracking-title, -0.035em);
+  font-weight: var(--weight-body, 500);
 }
 
 .water-forecast-label {
-  font-weight: 450;
+  font-weight: var(--weight-body, 500);
 }
 
 .water-forecast-value {
-  font-weight: 900;
+  font-weight: var(--weight-ui-strong, 850);
 }
 
 .water-forecast-best {
@@ -171,20 +174,20 @@
   align-items: center;
   padding: 10px 13px;
   background: #050608;
-  color: #fff;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(21px, 6vw, 29px);
-  line-height: 1.02;
-  letter-spacing: -0.052em;
+  color: var(--type-ink-inverse, #ffffff);
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: var(--type-display-sm, clamp(21px, 6vw, 29px));
+  line-height: var(--line-title, 1.08);
+  letter-spacing: var(--tracking-title, -0.035em);
 }
 
 .water-forecast-best-label {
-  font-weight: 700;
+  font-weight: var(--weight-ui, 700);
   text-transform: uppercase;
 }
 
 .water-forecast-best-value {
-  font-weight: 500;
+  font-weight: var(--weight-body, 500);
 }
 
 .water-forecast-best-icon {
@@ -208,12 +211,13 @@
 
 .water-forecast-note {
   margin: 0;
-  color: rgba(5, 6, 8, 0.72);
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(13px, 3.5vw, 16px);
-  line-height: 1.25;
+  color: var(--type-ink-soft, rgba(5, 6, 8, 0.72));
+  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: var(--type-ui-sm, clamp(13px, 3.5vw, 16px));
+  line-height: var(--line-caption, 1.25);
   font-style: italic;
-  letter-spacing: -0.025em;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
 }
 
 html.water-forecast-open,
