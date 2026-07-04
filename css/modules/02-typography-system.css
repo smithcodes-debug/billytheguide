@@ -38,15 +38,15 @@
 
 :root {
   /* Font families — debug mode: intentionally no fallback stacks */
-  --font-display: Georgia;
-  --font-serif: Georgia;
-  --font-body: Georgia;
-  --font-ui: "Poppins";
-  --font-label: "Poppins";
-  --font-button: "Poppins";
-  --font-number: "Poppins";
-  --font-logo: "Poppins";
-  --font-google-mark: Arial;
+  --font-display: Georgia; /* loại 1 */
+  --font-serif: Georgia; /* loại 2 */
+  --font-body: Georgia; /* loại 3 */
+  --font-ui: "Poppins"; /* loại 4 */
+  --font-label: "Poppins"; /* loại 5 */
+  --font-button: "Poppins"; /* loại 6 */
+  --font-number: "Poppins"; /* loại 7 */
+  --font-logo: "Poppins"; /* loại 8 */
+  --font-google-mark: Arial; /* loại 9 */
 
   /* Brand text colors */
   --type-ink: #101820;
