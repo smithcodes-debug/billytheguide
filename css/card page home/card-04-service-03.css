@@ -1,13 +1,3 @@
-/* ✅ CARD 04 — PRIVATE CAMPING REBUILD CLEAN
-   Owner: css/card page home/card-04-service-03.css
-   Scope: Card 04 / Private Camping only.
-   Goal: rebuild clean, self-contained visual rules to avoid broad fallback conflicts.
-   Notes:
-   - No dependency on FONT 3.2 / 3.2.1 for the highlighted Camping description.
-   - Description text uses direct values copied from the Card 03 highlighted paragraph visual intent.
-   - Do not edit text/content/image paths here.
-*/
-
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
   padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
@@ -18,7 +8,6 @@
   min-height: 100%;
   height: 100%;
   padding: 0;
-  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -28,39 +17,6 @@
   transform: translateY(15px);
 }
 
-/* ✅ Title — keep Card 04 title behavior local and explicit. */
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
-  flex: 0 0 auto;
-  order: -4;
-  margin: 0 0 5px;
-  color: #101820;
-  font-family: Georgia;
-  font-size: clamp(23.1px, 6.16vw, 38.5px);
-  line-height: 1.02;
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  text-align: center;
-}
-
-/* ✅ Camping description — rebuilt direct specs, copied from Card 03 highlighted paragraph intent.
-   This selector intentionally has high specificity to beat card-01-intro.css broad fallback:
-   .mobile-home-feed .more-service-card-desc
-*/
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
-  flex: 0 0 auto;
-  order: -3;
-  max-width: 540px;
-  margin: 0 auto 8px;
-  color: #101820;
-  font-family: Georgia;
-  font-size: 12px;
-  line-height: 1.38;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  text-align: left;
-}
-
-/* ✅ Image — keep original path and placement. */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
   content: "";
   display: block;
@@ -79,59 +35,69 @@
   box-sizing: border-box;
 }
 
-/* ✅ Optional long text if HTML later adds .more-service-card-extra to Card 04. */
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-display
+  Owns this card text:
+  - Main card title / tiêu đề lớn của card.
+  - Selector target: .more-service-card-title
+  - Example text area: large headline at the top of this service card.
+  Purpose:
+  - Editorial display headline. Do not hardcode font here; font comes from 02-typography-system.css.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
+  flex: 0 0 auto;
+  order: -4;
+  margin: 0 0 5px;
+  font-family: var(--font-display);
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: var(--line-title, 1.02);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-body
+  Owns this card text:
+  - Short description / subtitle ngay dưới title.
+  - Selector target: .more-service-card-desc
+  - Example text area: one short sentence below the large card headline.
+  Purpose:
+  - Soft body-style intro text. Do not hardcode font here; font comes from 02-typography-system.css.
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: -3;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  font-family: var(--font-body);
+  font-size: clamp(14.3px, 3.74vw, 18.7px);
+  line-height: 1.32;
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+}
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-body
+  Owns this card text:
+  - Long explanation / đoạn giải thích dài trong card.
+  - Selector target: .more-service-card-extra
+  - Example text area: main paragraph block that explains the service story/content.
+  Purpose:
+  - Long readable storytelling/explanation text. Do not hardcode font here; font comes from 02-typography-system.css.
+*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
   flex: 0 0 auto;
   order: -1;
   max-width: 540px;
   margin: 0 auto 8px;
-  color: #101820;
-  font-family: Georgia;
-  font-size: 12px;
-  line-height: 1.38;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  text-align: left;
+  color: rgba(16, 24, 32, 0.66);
+  font-family: var(--font-body);
+  font-size: clamp(15px, 3.95vw, 19.5px);
+  line-height: var(--line-body, 1.45);
+  font-weight: var(--weight-body, 500);
+  letter-spacing: var(--tracking-body, -0.025em);
+  text-align: center;
 }
 
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
-  order: 0;
-  width: min(calc(100% - 20px), 540px);
-  margin: 0 auto 8px;
-  display: grid;
-  gap: 6px;
-}
-
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad {
-  min-height: 40px;
-  padding: 7px 10px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
-  border: 1px solid rgba(8, 63, 70, 0.14);
-  border-radius: 15px;
-  background:
-    linear-gradient(180deg, rgba(232, 249, 249, 0.82), rgba(255, 255, 255, 0.70)),
-    rgba(221, 245, 246, 0.72);
-  box-shadow: 0 7px 18px rgba(8, 63, 70, 0.07);
-  color: rgba(9, 31, 36, 0.88);
-  box-sizing: border-box;
-}
-
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
-flex: 0 0 auto;
-order: -1;
-max-width: 540px;
-margin: 0 auto 8px;
-color: var(--font-3-2-color);
-font-family: var(--font-3-2-family);
-font-size: var(--font-3-2-size);
-line-height: var(--font-3-2-line);
-font-weight: var(--font-3-2-weight);
-letter-spacing: var(--font-3-2-tracking);
-text-align: var(--font-3-2-align);
-}
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
   order: 0;
