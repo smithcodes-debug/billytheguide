@@ -184,3 +184,312 @@
   line-height: 1.1;
   font-weight: var(--weight-ui, 700);
 }
+
+/* ✅ CARD 02 ZIPPER STORY PROGRESS — visual owner: card-02-service-01.css
+   JS owner: main.js / initCard02ZipperInteraction()
+   Purpose: right-to-left zipper drag that reveals 9 story pages with book-flip animation. */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-zipper-content {
+  display: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-module {
+  --zipper-progress: 0;
+  width: min(calc(100% - 36px), 500px);
+  margin: auto auto 18px;
+  padding: 0;
+  display: grid;
+  grid-template-rows: minmax(138px, auto) auto;
+  gap: 10px;
+  align-self: center;
+  perspective: 900px;
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-pages {
+  position: relative;
+  min-height: 138px;
+  display: grid;
+  place-items: stretch;
+  transform-style: preserve-3d;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-height: 138px;
+  padding: 13px 15px 14px;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  border: 1px solid rgba(16, 24, 32, 0.10);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(245, 247, 246, 0.88)),
+    #ffffff;
+  box-shadow: 0 16px 30px rgba(5, 6, 8, 0.08);
+  color: var(--type-ink, #101820);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: rotateY(-17deg) translateX(10px) scale(0.982);
+  transform-origin: left center;
+  transition:
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: rotateY(0deg) translateX(0) scale(1);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page.is-page-turning {
+  animation: card02ZipperBookFlip 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page-number {
+  width: max-content;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(16, 24, 32, 0.08);
+  color: rgba(16, 24, 32, 0.62);
+  font-family: var(--font-number);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: 0.03em;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page-title {
+  margin: 0;
+  color: var(--type-ink, #101820);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 5vw, 25px);
+  line-height: var(--line-title, 1.08);
+  font-weight: var(--weight-display, 900);
+  letter-spacing: var(--tracking-title, -0.035em);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page-copy {
+  margin: 0;
+  color: var(--font-3-2-color, #101820);
+  font-family: var(--font-3-2-family, var(--font-body));
+  font-size: var(--font-3-2-size, 14px);
+  line-height: var(--font-3-2-line, 1.45);
+  font-weight: var(--font-3-2-weight, 500);
+  letter-spacing: var(--font-3-2-tracking, -0.025em);
+  text-align: var(--font-3-2-align, left);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control {
+  width: 100%;
+  min-height: 70px;
+  display: grid;
+  gap: 7px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  outline: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control.is-dragging {
+  cursor: grabbing;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control:focus-visible .mobile-home-feed-card-02-zipper-track {
+  box-shadow:
+    0 0 0 3px rgba(16, 24, 32, 0.14),
+    0 12px 22px rgba(5, 6, 8, 0.10);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-label {
+  color: rgba(16, 24, 32, 0.72);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
+  text-align: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track {
+  position: relative;
+  width: 100%;
+  height: 42px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(236, 231, 221, 0.98), rgba(206, 195, 178, 0.95) 49%, rgba(238, 232, 222, 0.98) 50%, rgba(214, 204, 188, 0.96)),
+    #ded5c7;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    inset 0 -1px 0 rgba(77, 63, 48, 0.12),
+    0 12px 22px rgba(5, 6, 8, 0.10);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0 4px, rgba(77, 63, 48, 0.08) 4px 8px),
+    rgba(222, 213, 198, 0.86);
+  z-index: 1;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::before {
+  top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 0 100%);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::after {
+  bottom: 0;
+  clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: calc((100% - 36px) * var(--zipper-progress));
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.20);
+  transform-origin: right center;
+  z-index: 2;
+  transition: width 180ms linear;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .is-zipper-returning .mobile-home-feed-card-02-zipper-fill {
+  transition: width 320ms cubic-bezier(0.25, 0.9, 0.25, 1);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth {
+  position: absolute;
+  top: 16px;
+  left: 22px;
+  right: 22px;
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg, #111820 0 3px, transparent 3px 7px),
+    linear-gradient(180deg, transparent 0 3px, rgba(17, 24, 32, 0.88) 3px 7px, transparent 7px 100%);
+  border-radius: 999px;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.24));
+  z-index: 3;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  height: 4px;
+  background: rgba(17, 24, 32, 0.92);
+  border-radius: 999px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::before {
+  left: 0;
+  right: calc((100% - 36px) * var(--zipper-progress) + 14px);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::after {
+  right: 0;
+  width: calc((100% - 36px) * var(--zipper-progress));
+  transform-origin: right center;
+  transform: translateY(calc(var(--zipper-progress) * 10px)) rotate(calc(var(--zipper-progress) * 10deg));
+  opacity: calc(0.4 + (var(--zipper-progress) * 0.6));
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle {
+  position: absolute;
+  top: 50%;
+  right: calc(10px + ((100% - 54px) * var(--zipper-progress)));
+  width: 34px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 50% 42%, transparent 0 5px, #101820 5.5px 8px, transparent 8.5px),
+    linear-gradient(180deg, #2a3038, #07090c);
+  box-shadow:
+    0 5px 10px rgba(5, 6, 8, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  transform: translateY(-50%);
+  transition: right 180ms linear, transform 180ms ease;
+  z-index: 5;
+  cursor: inherit;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .is-zipper-returning .mobile-home-feed-card-02-zipper-handle {
+  transition:
+    right 320ms cubic-bezier(0.25, 0.9, 0.25, 1),
+    transform 180ms ease;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control.is-dragging .mobile-home-feed-card-02-zipper-handle {
+  transform: translateY(-50%) scale(1.04);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle-icon {
+  position: absolute;
+  left: 50%;
+  bottom: -17px;
+  width: 17px;
+  height: 20px;
+  border: 3px solid #101820;
+  border-top: 0;
+  border-radius: 0 0 999px 999px;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #101820;
+  transform: translateX(-50%);
+}
+
+@keyframes card02ZipperBookFlip {
+  0% {
+    opacity: 0;
+    transform: rotateY(-58deg) translateX(16px) scale(0.96);
+    filter: blur(1px);
+  }
+  58% {
+    opacity: 1;
+    transform: rotateY(7deg) translateX(0) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-page,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill,
+  .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle {
+    animation: none;
+    transition: none;
+  }
+}

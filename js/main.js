@@ -289,6 +289,12 @@ function initMobileHomeFeed() {
     let currentStep = 0;
     let isDragging = false;
     let turnTimer = 0;
+    let resetTimer = 0;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let hasTriggeredPanelSwipe = false;
+    const PANEL_SWIPE_UP_THRESHOLD = 40;
+    const ZIPPER_RESET_DELAY = 80;
 
     function clamp(value, min, max) {
       return Math.min(max, Math.max(min, value));
@@ -329,6 +335,15 @@ function initMobileHomeFeed() {
       }, 520);
     }
 
+    function resetZipper() {
+      module.classList.add('is-zipper-returning');
+      syncStep(0);
+      if (resetTimer) window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(function () {
+        module.classList.remove('is-zipper-returning');
+      }, 360);
+    }
+
     function stepFromClientX(clientX) {
       const trackRect = track.getBoundingClientRect();
       const handleRect = handle.getBoundingClientRect();
@@ -341,18 +356,54 @@ function initMobileHomeFeed() {
       syncStep(stepFromClientX(event.clientX));
     }
 
+    function swipeToNextPanel() {
+      const currentPanel = module.closest('.mobile-home-feed-panel');
+      const nextPanel = currentPanel ? currentPanel.nextElementSibling : null;
+      hasTriggeredPanelSwipe = true;
+      resetZipper();
+      if (nextPanel && nextPanel.classList && nextPanel.classList.contains('mobile-home-feed-panel')) {
+        feed.scrollTo({
+          top: nextPanel.offsetTop,
+          left: 0,
+          behavior: 'smooth'
+        });
+        const cardNumber = nextPanel.getAttribute('data-mobile-feed-card') || '03';
+        setActiveMobileFeedCard(cardNumber);
+        window.setTimeout(function () {
+          syncFeedEndingState();
+          scheduleActiveMobileFeedCardSync();
+        }, 260);
+      }
+    }
+
     control.addEventListener('pointerdown', function (event) {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       isDragging = true;
+      hasTriggeredPanelSwipe = false;
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
       control.classList.add('is-dragging');
-      control.setPointerCapture(event.pointerId);
+      if (control.setPointerCapture) {
+        control.setPointerCapture(event.pointerId);
+      }
       updateFromPointer(event);
       event.preventDefault();
     });
 
     control.addEventListener('pointermove', function (event) {
       if (!isDragging) return;
-      updateFromPointer(event);
+      const deltaX = event.clientX - pointerStartX;
+      const deltaY = event.clientY - pointerStartY;
+      const absX = Math.abs(deltaX);
+      const absY = Math.abs(deltaY);
+      if (!hasTriggeredPanelSwipe && deltaY <= -PANEL_SWIPE_UP_THRESHOLD && absY > absX) {
+        swipeToNextPanel();
+        event.preventDefault();
+        return;
+      }
+      if (!hasTriggeredPanelSwipe) {
+        updateFromPointer(event);
+      }
       event.preventDefault();
     });
 
@@ -363,10 +414,17 @@ function initMobileHomeFeed() {
       if (control.hasPointerCapture && control.hasPointerCapture(event.pointerId)) {
         control.releasePointerCapture(event.pointerId);
       }
+      window.setTimeout(resetZipper, ZIPPER_RESET_DELAY);
     }
 
     control.addEventListener('pointerup', endDrag);
     control.addEventListener('pointercancel', endDrag);
+    control.addEventListener('lostpointercapture', function () {
+      if (!isDragging) return;
+      isDragging = false;
+      control.classList.remove('is-dragging');
+      resetZipper();
+    });
     control.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
         event.preventDefault();
@@ -374,6 +432,9 @@ function initMobileHomeFeed() {
       } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
         event.preventDefault();
         syncStep(currentStep - 1);
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        resetZipper();
       } else if (event.key === 'Home') {
         event.preventDefault();
         syncStep(0);
