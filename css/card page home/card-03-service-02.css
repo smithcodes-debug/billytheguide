@@ -86,17 +86,17 @@
   - Long readable storytelling/explanation text. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-extra {
-  flex: 0 0 auto;
-  order: -1;
-  max-width: 540px;
-  margin: 0 auto 8px;
-  color: rgba(16, 24, 32, 0.66);
-  font-family: var(--font-body);
-  font-size: clamp(15px, 3.95vw, 19.5px);
-  line-height: var(--line-body, 1.45);
-  font-weight: var(--weight-body, 500);
-  letter-spacing: var(--tracking-body, -0.025em);
-  text-align: center;
+flex: 0 0 auto;
+order: -1;
+max-width: 540px;
+margin: 0 auto 8px;
+color: var(--font-3-2-color);
+font-family: var(--font-3-2-family);
+font-size: var(--font-3-2-size);
+line-height: var(--font-3-2-line);
+font-weight: var(--font-3-2-weight);
+letter-spacing: var(--font-3-2-tracking);
+text-align: var(--font-3-2-align);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-03 .more-service-card-pads {
