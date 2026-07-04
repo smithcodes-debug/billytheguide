@@ -35,37 +35,54 @@
   box-sizing: border-box;
 }
 
-/* ✅ FONT TYPE: font-display
-   Card title / tiêu đề lớn.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-display
+  Owns this card text:
+  - Main card title / tiêu đề lớn của card.
+  - Selector target: .more-service-card-title
+  - Example text area: large headline at the top of this service card.
+  Purpose:
+  - Editorial display headline. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
   flex: 0 0 auto;
   order: -4;
   margin: 0 0 5px;
-  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-family: var(--font-display);
   font-size: clamp(23.1px, 6.16vw, 38.5px);
   line-height: var(--line-title, 1.02);
   font-weight: var(--weight-display, 900);
   letter-spacing: var(--tracking-title, -0.035em);
 }
 
-/* ✅ FONT TYPE: font-body
-   Short description / mô tả ngắn dưới title.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-body
+  Owns this card text:
+  - Short description / subtitle ngay dưới title.
+  - Selector target: .more-service-card-desc
+  - Example text area: one short sentence below the large card headline.
+  Purpose:
+  - Soft body-style intro text. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
   max-width: 520px;
   margin: 0 auto 8px;
-  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-family: var(--font-body);
   font-size: clamp(14.3px, 3.74vw, 18.7px);
   line-height: 1.32;
   font-weight: var(--weight-body, 500);
   letter-spacing: var(--tracking-body, -0.025em);
 }
-/* ✅ FONT TYPE: font-body
-   Extra paragraph / đoạn body dài.
-   Đây là đoạn text chính cần đọc nhiều hơn.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-body
+  Owns this card text:
+  - Long explanation / đoạn giải thích dài trong card.
+  - Selector target: .more-service-card-extra
+  - Example text area: main paragraph block that explains the service story/content.
+  Purpose:
+  - Long readable storytelling/explanation text. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
   flex: 0 0 auto;
@@ -73,7 +90,7 @@
   max-width: 540px;
   margin: 0 auto 8px;
   color: rgba(16, 24, 32, 0.66);
-  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-family: var(--font-body);
   font-size: clamp(15px, 3.95vw, 19.5px);
   line-height: var(--line-body, 1.45);
   font-weight: var(--weight-body, 500);
@@ -106,13 +123,19 @@
   box-sizing: border-box;
 }
 
-/* ✅ FONT TYPE: font-ui
-   Pad title / chữ chính trong từng pad nhỏ.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-ui
+  Owns this card text:
+  - Pad title / chữ chính trong từng pad nhỏ.
+  - Selector target: .more-service-card-pad strong
+  - Example text area: short highlight title inside each small information pad.
+  Purpose:
+  - Compact UI-like highlight text, not long explanation paragraph. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
   display: block;
   color: rgba(8, 38, 44, 0.94);
-  font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-family: var(--font-ui);
   font-size: clamp(12.1px, 2.915vw, 14.85px);
   line-height: 1.08;
   font-weight: 800;
@@ -120,13 +143,19 @@
   text-transform: none;
 }
 
-/* ✅ FONT TYPE: font-body italic
-   Pad meta / chữ phụ trong pad nhỏ.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-body
+  Owns this card text:
+  - Pad meta / chữ phụ italic trong từng pad nhỏ.
+  - Selector target: .more-service-card-pad em
+  - Example text area: secondary italic note under each pad title.
+  Purpose:
+  - Small supporting body text. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad em {
   display: block;
   color: rgba(8, 63, 70, 0.66);
-  font-family: var(--font-body, Georgia, "Times New Roman", serif);
+  font-family: var(--font-body);
   font-size: clamp(9.9px, 2.42vw, 12.1px);
   line-height: 1.18;
   font-style: italic;
@@ -134,8 +163,14 @@
   letter-spacing: -0.01em;
 }
 
-/* ✅ FONT TYPE: font-button
-   CTA / Read more.
+/*
+  ✅ FONT ROLE FROM MODULE 02: --font-button
+  Owns this card text:
+  - CTA link / nút chữ “Read more”.
+  - Selector target: .more-service-card-link
+  - Example text area: Read more call-to-action at the bottom of this card.
+  Purpose:
+  - Button/CTA typography. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
   flex: 0 0 auto;
@@ -144,7 +179,7 @@
   margin-bottom: 0;
   padding-top: 4px;
   padding-bottom: 0;
-  font-family: var(--font-button, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-family: var(--font-button);
   font-size: 16.5px;
   line-height: 1.1;
   font-weight: var(--weight-ui, 700);

@@ -1,30 +1,52 @@
-/* ✅ MODULE 02 — TYPOGRAPHY SYSTEM
-   Project-wide typography source of truth.
+/*
+  ✅ MODULE 02 — TYPOGRAPHY SYSTEM
 
-   Status:
-   - Ready to import after ./css/modules/00-display-shell.css.
-   - Component CSS should consume these tokens instead of hardcoding font stacks.
+  Purpose:
+  - Project-wide typography source of truth.
+  - Defines semantic font tokens, type scale, line-height, letter-spacing, and weight tokens.
+  - Component CSS should consume these tokens instead of hardcoding font-family values.
 
-   Brand direction:
-   - Premium editorial display: Georgia / Times New Roman serif.
-   - Practical UI/control text: Poppins / system sans.
-   - Deep teal accent follows the existing brand tone (#083f46).
+  DEBUG FONT MODE — NO FALLBACK STACKS:
+  - Font tokens intentionally use a single named font only.
+  - Purpose: make it easier to detect which module is using which typography token in DevTools.
+  - If a module displays the wrong typography, inspect its computed font-family and trace the token.
+  - Fallback stacks are intentionally removed for debugging clarity.
 
-   Ownership:
-   - Owns font-family tokens, type scale tokens, line-height tokens, letter-spacing tokens.
-   - Does not own component layout, width, z-index, image paths, popup state, or JS behavior.
+  Font token groups:
+  - Display / editorial serif:
+    --font-display: major hero titles, card titles, editorial headings.
+    --font-serif: generic serif token when a module needs serif semantics.
+    --font-body: default body/story/copy text.
+
+  - UI / control sans:
+    --font-ui: controls, menus, footer, calendar, chips, generic UI text.
+    --font-label: labels, badges, tag text, kicker text.
+    --font-button: button text.
+    --font-number: numbers, counts, calendar dates, prices.
+    --font-logo: text logo or brand mark when logo is text-based.
+
+  - Special mark:
+    --font-google-mark: Google-style neutral mark text only.
+
+  Ownership:
+  - Owns font-family tokens, type scale tokens, line-height tokens, letter-spacing tokens, weight tokens.
+  - Does not own component layout, width, z-index, image paths, popup state, or JS behavior.
+
+  Import order:
+  - Ready to import after ./css/modules/00-display-shell.css.
 */
+
 :root {
-  /* Font families */
-  --font-display: Georgia, "Times New Roman", serif;
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-body: Georgia, "Times New Roman", serif;
-  --font-ui: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-label: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-button: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-number: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-logo: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-google-mark: Arial, Helvetica, sans-serif;
+  /* Font families — debug mode: intentionally no fallback stacks */
+  --font-display: Georgia;
+  --font-serif: Georgia;
+  --font-body: Georgia;
+  --font-ui: "Poppins";
+  --font-label: "Poppins";
+  --font-button: "Poppins";
+  --font-number: "Poppins";
+  --font-logo: "Poppins";
+  --font-google-mark: Arial;
 
   /* Brand text colors */
   --type-ink: #101820;

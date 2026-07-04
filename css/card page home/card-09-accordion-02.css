@@ -27,15 +27,21 @@
     box-sizing: border-box;
   }
 
-/* ✅ FONT TYPE: font-display
-     FAQ title / accordion summary title.
+/*
+    ✅ FONT ROLE FROM MODULE 02: --font-display
+    Owns this card text:
+    - FAQ title / accordion summary title.
+    - Selector target: .mobile-home-feed-faq-title, .more-accordion-summary
+    - Example text area: main FAQ heading or accordion summary heading.
+    Purpose:
+    - Large editorial accordion/FAQ headline. Do not hardcode font here; font comes from 02-typography-system.css.
   */
     .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
     margin: 0;
     padding: 0 0 16px;
     color: var(--type-ink, #101820);
-    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-family: var(--font-display);
     font-size: clamp(32px, 9vw, 54px);
     line-height: var(--line-display, 1.04);
     font-weight: var(--weight-display, 900);
@@ -43,15 +49,21 @@
     text-align: center;
   }
 
-/* ✅ FONT TYPE: font-body
-     FAQ lead / accordion panel body.
+/*
+    ✅ FONT ROLE FROM MODULE 02: --font-body
+    Owns this card text:
+    - FAQ lead / accordion panel body.
+    - Selector target: .mobile-home-feed-faq-lead, .more-accordion-panel
+    - Example text area: lead paragraph or expanded accordion body content.
+    Purpose:
+    - Readable long explanation text. Do not hardcode font here; font comes from 02-typography-system.css.
   */
     .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-lead,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-panel {
     margin: 0 auto 18px;
     max-width: 520px;
     color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
-    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-family: var(--font-body);
     font-size: clamp(15px, 3.95vw, 19.5px);
     line-height: var(--line-body, 1.45);
     font-weight: var(--weight-body, 500);
@@ -75,12 +87,18 @@
     box-sizing: border-box;
   }
 
-/* ✅ FONT TYPE: font-ui
-     FAQ question / câu hỏi trong từng item.
+/*
+    ✅ FONT ROLE FROM MODULE 02: --font-ui
+    Owns this card text:
+    - FAQ question / câu hỏi trong từng item.
+    - Selector target: .mobile-home-feed-faq-item summary
+    - Example text area: clickable/summary question text inside each FAQ item.
+    Purpose:
+    - UI-style question label text. Do not hardcode font here; font comes from 02-typography-system.css.
   */
     .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item summary {
     color: var(--type-accent, #083f46);
-    font-family: var(--font-ui, "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-family: var(--font-ui);
     font-size: clamp(15px, 4vw, 19px);
     line-height: var(--line-caption, 1.24);
     font-weight: 800;
@@ -93,13 +111,19 @@
     display: none;
   }
 
-/* ✅ FONT TYPE: font-body
-     FAQ answer paragraph / câu trả lời.
+/*
+    ✅ FONT ROLE FROM MODULE 02: --font-body
+    Owns this card text:
+    - FAQ answer paragraph / câu trả lời trong từng item.
+    - Selector target: .mobile-home-feed-faq-item p
+    - Example text area: answer paragraph under each FAQ question.
+    Purpose:
+    - Readable answer/body paragraph text. Do not hardcode font here; font comes from 02-typography-system.css.
   */
     .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-item p {
     margin: 8px 0 0;
     color: var(--type-ink-soft, rgba(16, 20, 24, 0.66));
-    font-family: var(--font-body, Georgia, "Times New Roman", serif);
+    font-family: var(--font-body);
     font-size: clamp(15px, 3.95vw, 19.5px);
     line-height: var(--line-body, 1.45);
     font-weight: var(--weight-body, 500);
@@ -122,13 +146,19 @@
     text-align: center;
   }
 
-/* ✅ FONT TYPE: font-display
-     FAQ title / accordion summary title.
+/*
+    ✅ FONT ROLE FROM MODULE 02: --font-display
+    Owns this card text:
+    - FAQ title / accordion summary title.
+    - Selector target: .mobile-home-feed-faq-title, .more-accordion-summary
+    - Example text area: main FAQ heading or accordion summary heading.
+    Purpose:
+    - Large editorial accordion/FAQ headline. Do not hardcode font here; font comes from 02-typography-system.css.
   */
     .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .mobile-home-feed-faq-title,
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-09 .more-accordion-summary {
     color: var(--type-ink, #101820);
-    font-family: var(--font-display, Georgia, "Times New Roman", serif);
+    font-family: var(--font-display);
     font-size: clamp(34px, 5vw, 54px);
     line-height: var(--line-display, 1.04);
     font-weight: var(--weight-display, 900);
