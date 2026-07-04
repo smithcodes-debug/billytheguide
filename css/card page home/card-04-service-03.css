@@ -55,27 +55,27 @@ Purpose:
 }
 
 /*
-✅ FONT ROLE FROM MODULE 02: FONT 3.2.1 / --font-3-2-1-*
+✅ FONT ROLE FROM MODULE 02: FONT 3.2 / --font-3-2-*
 Owns this card text:
 - Camping description / đoạn mô tả dưới title.
 - Selector target: .more-service-card-desc
 Purpose:
-- Same metrics as FONT 3.2, but pure black color for stronger readable paragraph.
+- Match the standard paragraph role used by Proposal .more-service-card-extra.
 - Token source is css/modules/02-typography-system.css.
 - Specificity intentionally beats card-01-intro.css broad .mobile-home-feed .more-service-card-desc fallback.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
-  max-width: 92%;
-  margin: 0 auto 5px;
+  max-width: 540px;
+  margin: 0 auto 8px;
   color: var(--font-3-2-1-color);
   font-family: var(--font-3-2-1-family);
   font-size: var(--font-3-2-1-size);
   line-height: var(--font-3-2-1-line);
   font-weight: var(--font-3-2-1-weight);
   letter-spacing: var(--font-3-2-1-tracking);
-  text-align: center;
+  text-align: var(--font-3-2-1-align);
 }
 
 /*

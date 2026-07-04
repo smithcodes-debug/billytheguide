@@ -23,8 +23,6 @@
     Intro/explanation nổi bật, larger softer paragraph, usually used for featured intro copy.
   - FONT 3.2 / .type-font-3-2 / .type-body-paragraph:
     Normal paragraph, standard readable paragraph under a heading or inside long content.
-  - FONT 3.2.1 / .type-font-3-2-1 / .type-body-paragraph-black:
-    Same metrics as FONT 3.2, but with pure black text color for stronger readable paragraphs.
 
   UI / control sans:
   - --font-ui: controls, menus, footer, calendar, chips, generic UI text.
@@ -56,7 +54,6 @@
 
   /* Brand text colors */
   --type-ink: #101820;
-  --type-ink-black: #000000;
   --type-ink-soft: rgba(16, 24, 32, 0.68);
   --type-ink-muted: rgba(16, 24, 32, 0.54);
   --type-ink-inverse: #ffffff;
@@ -99,13 +96,13 @@
   --font-3-2-color: var(--type-ink);
   --font-3-2-align: left;
 
-  /* Same as FONT 3.2, but pure black color for stronger paragraph readability. */
+  /* Same exact font specs as FONT 3.2. Use as a separate debug/mapping role. */
   --font-3-2-1-family: var(--font-3-2-family);
   --font-3-2-1-size: var(--font-3-2-size);
   --font-3-2-1-line: var(--font-3-2-line);
   --font-3-2-1-weight: var(--font-3-2-weight);
   --font-3-2-1-tracking: var(--font-3-2-tracking);
-  --font-3-2-1-color: var(--type-ink-black);
+  --font-3-2-1-color: var(--font-3-2-color);
   --font-3-2-1-align: var(--font-3-2-align);
 
   /* Line-height tokens */
@@ -215,6 +212,7 @@ select,
 }
 
 .type-font-3-2-1,
+.type-body-paragraph-3-2-1,
 .type-body-paragraph-black {
   color: var(--font-3-2-1-color);
   font-family: var(--font-3-2-1-family);
