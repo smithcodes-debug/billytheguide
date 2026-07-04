@@ -141,6 +141,16 @@ function updateProgress(root) {
   progressBar.style.transform = 'translateX(' + translate + '%)';
 }
 
+
+export function getGalleryWithUsReviewData() {
+  return {
+    summary: Object.assign({}, MOCK_GALLERY_SUMMARY),
+    reviews: MOCK_GALLERY_REVIEWS.map(function (item) {
+      return Object.assign({}, item);
+    })
+  };
+}
+
 export function initGalleryWithUs() {
   const root = createRoot();
   if (root.dataset.galleryWithUsInitialized === 'true') return;

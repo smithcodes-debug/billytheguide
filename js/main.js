@@ -12,6 +12,7 @@ import { initWaterForecast } from './modules/water-forecast.js';
 import { initSiteFooter } from './modules/site-footer.js';
 import { initDebugSiteReset } from './modules/debug-site-reset.js';
 import { initRealZipper } from './ui/real-zipper.js';
+import { initCard02Reviews } from './ui/card-02-reviews.js';
 
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
@@ -619,6 +620,7 @@ safeInit(initDebugSiteReset, 'initDebugSiteReset');
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
 safeInit(initRealZipper, 'initRealZipper');
+safeInit(initCard02Reviews, 'initCard02Reviews');
 safeInit(initHomePopup, 'initHomePopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');
