@@ -5,11 +5,14 @@
 */
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .card-02-reviews-inline {
+  --card-02-review-to-zipper-gap: 20px;
+  --card-02-review-bottom: calc(env(safe-area-inset-bottom, 0px) + 92px);
   position: absolute;
   left: 50%;
-  top: 58%;
+  top: auto;
+  bottom: var(--card-02-review-bottom);
   width: min(calc(100% - 40px), 500px);
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 4;
   box-sizing: border-box;
   pointer-events: auto;
@@ -20,7 +23,8 @@
   grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
   gap: 8px;
   align-items: stretch;
-  padding: 9px;
+  min-height: 176px;
+  padding: 10px;
   border: 1px solid rgba(5, 6, 8, 0.07);
   border-radius: 18px;
   background:
@@ -210,7 +214,7 @@
   letter-spacing: var(--tracking-body, -0.025em);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
 }
 
@@ -224,7 +228,7 @@
 
 @media (max-height: 720px) {
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .card-02-reviews-inline {
-    top: 57%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 88px);
   }
 
   .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .card-02-reviews-shell {

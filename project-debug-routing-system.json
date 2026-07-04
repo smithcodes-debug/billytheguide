@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-29-real-zipper-module-planned",
+  "version": "pdrs-01-30-card-02-inline-reviews-active",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "real-zipper-module-planned-after-main-js-cleanup",
-    "note": "PDRS-01.29 records the Card 02 zipper rebuild plan. Old zipper creation/interaction was removed from ./js/main.js. New zipper ownership is planned for ./js/ui/real-zipper.js and ./css/modules/18-real-zipper.css. Runtime becomes active only after the new JS import/init and CSS link are added."
+    "status": "card-02-real-zipper-and-inline-reviews-active",
+    "note": "PDRS-01.30 records Card 02 inline reviews as active. ./js/ui/card-02-reviews.js owns inline review mounting in Card 02; ./css/modules/19-card-02-reviews.css owns inline review visual/layout; ./js/modules/gallery-with-us.js owns review data source via getGalleryWithUsReviewData(); ./css/modules/18-real-zipper.css owns real zipper visual and bottom placement."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "added Water Forecast CSS link and mapped footer Water forecast from data-footer-viewed route behavior to data-footer-water-forecast event behavior",
@@ -23,19 +23,21 @@
       "./js/modules/home-to-more-stories.js",
       "./js/modules/gallery-with-us.js",
       "./js/modules/water-forecast.js",
-      "./js/ui/home-tour-popup.js"
+      "./js/ui/home-tour-popup.js",
+      "./js/ui/card-02-reviews.js"
     ],
     "bodyChanged": true,
     "textChanged": true,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only. PDRS-01.28: Typography system module created/ready; import after 00-display-shell.css before converting component CSS. PDRS-01.29: Card 02 old zipper was removed from main.js; new ownership planned at ./js/ui/real-zipper.js + ./css/modules/18-real-zipper.css.",
+    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only. PDRS-01.28: Typography system module created/ready; import after 00-display-shell.css before converting component CSS. PDRS-01.29: Card 02 old zipper was removed from main.js; new ownership planned at ./js/ui/real-zipper.js + ./css/modules/18-real-zipper.css. PDRS-01.30: Card 02 inline reviews active via ./js/ui/card-02-reviews.js + ./css/modules/19-card-02-reviews.css; data reused from ./js/modules/gallery-with-us.js.",
     "cssAddedFiles": [
       "./css/modules/02-typography-system.css",
       "./css/modules/12-leave-no-trace-gallery.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/14-gallery-with-us.css",
-      "./css/modules/15-water-forecast.css"
+      "./css/modules/15-water-forecast.css",
+      "./css/modules/19-card-02-reviews.css"
     ],
     "cssRemovedFilesFromIndex": [
       "./css/card page home/card-10-accordion-03.css"
@@ -46,7 +48,9 @@
       "./css/modules/13-site-footer.css",
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/14-gallery-with-us.css",
-      "./css/modules/15-water-forecast.css"
+      "./css/modules/15-water-forecast.css",
+      "./css/modules/18-real-zipper.css",
+      "./css/modules/19-card-02-reviews.css"
     ],
     "jsChangedFiles": [
       "./js/main.js",
@@ -57,7 +61,8 @@
       "./js/modules/site-footer.js",
       "./js/modules/gallery-with-us.js",
       "./js/modules/water-forecast.js",
-      "./js/modules/booking.js"
+      "./js/modules/booking.js",
+      "./js/ui/card-02-reviews.js"
     ],
     "htmlRemovedBlocks": [
       "Contact platforms accordion item inside .more-accordion-list"
@@ -219,6 +224,27 @@
       ],
       "designDecision": "Use Real Zipper Slider — SVG/PNG hybrid. Do not continue CSS-only zipper and do not animate split-open zipper lips.",
       "safetyRule": "Keep zipper logic isolated in real-zipper.js; do not re-add long zipper implementation to main.js."
+    },
+    "card02InlineReviewsIntegration": {
+      "status": "active-accounted",
+      "reason": "Owner requested guest reviews in Card 02 blank space, reusing current Gallery With Us review data.",
+      "owners": {
+        "jsOwner": "./js/ui/card-02-reviews.js",
+        "cssOwner": "./css/modules/19-card-02-reviews.css",
+        "dataOwner": "./js/modules/gallery-with-us.js",
+        "relatedVisualOwner": "./css/modules/18-real-zipper.css"
+      },
+      "mountOrder": [
+        "initMobileHomeFeed creates Card 02 mobile DOM.",
+        "initRealZipper mounts the real zipper into Card 02.",
+        "initCard02Reviews mounts inline reviews into the same Card 02 blank area."
+      ],
+      "layoutRepair": {
+        "zipperBottomTarget": "20px from card bottom using --real-zipper-bottom-offset: 20px",
+        "reviewTarget": "inline review module bottom is anchored above visible zipper bottom area with approx 20px gap",
+        "noJsChangeNeeded": true
+      },
+      "safetyRule": "Do not move Card 02 review content into main.js. Keep main.js import/init only."
     }
   },
   "knownFiles": {
@@ -238,6 +264,7 @@
       "./css/home-hero-tour-popup.css",
       "./css/card page home/card-01-intro.css",
       "./css/card page home/card-02-service-01.css",
+      "./css/modules/19-card-02-reviews.css",
       "./css/card page home/card-03-service-02.css",
       "./css/card page home/card-04-service-03.css",
       "./css/card page home/card-05-service-04.css",
@@ -304,7 +331,8 @@
       "./js/modules/gallery-with-us.js",
       "./js/modules/water-forecast.js",
       "./js/ui/home-tour-popup.js",
-      "./js/ui/real-zipper.js"
+      "./js/ui/real-zipper.js",
+      "./js/ui/card-02-reviews.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -328,8 +356,10 @@
       "waterForecastRuntimeStatus": "active after import/init in ./js/main.js; opens from footer Water forecast via billy:open-water-forecast; renders backend-ready manual water-condition data.",
       "homeTourPopupImportedByMain": true,
       "homeTourPopupRuntimeStatus": "active after PDRS-01.27 extraction from ./js/main.js; ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state, .cta-trigger sync, and billy:open-home-tour-popup / billy:close-home-tour-popup.",
-      "realZipperImportedByMain": false,
-      "realZipperRuntimeStatus": "planned/not-active after main.js old zipper cleanup; create ./js/ui/real-zipper.js and import/init from ./js/main.js after initMobileHomeFeed."
+      "realZipperImportedByMain": true,
+      "realZipperRuntimeStatus": "active; visual/bottom placement owned by ./css/modules/18-real-zipper.css and JS by ./js/ui/real-zipper.js.",
+      "card02ReviewsImportedByMain": true,
+      "card02ReviewsRuntimeStatus": "active after initMobileHomeFeed and initRealZipper; mounts guest review strip in Card 02 blank area using Gallery With Us data."
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -344,7 +374,8 @@
       "./css/modules/14-gallery-with-us.css",
       "./css/modules/15-water-forecast.css",
       "./css/modules/02-typography-system.css",
-      "./css/modules/18-real-zipper.css"
+      "./css/modules/18-real-zipper.css",
+      "./css/modules/19-card-02-reviews.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -426,22 +457,27 @@
       "realZipperRuntimeStatus": "planned after owner request: ./js/ui/real-zipper.js will own Card 02 real zipper creation/interaction; ./css/modules/18-real-zipper.css will own visual; main.js should remain import/init only.",
       "realZipperCssModule": "./css/modules/18-real-zipper.css",
       "realZipperJsModule": "./js/ui/real-zipper.js",
-      "oldCard02ZipperMainJsCleanup": "completed/accounted: old Card 02 zipper functions and calls removed from ./js/main.js."
+      "oldCard02ZipperMainJsCleanup": "completed/accounted: old Card 02 zipper functions and calls removed from ./js/main.js.",
+      "card02ReviewsRuntimeStatus": "active/accounted: ./js/ui/card-02-reviews.js owns Card 02 inline reviews; ./css/modules/19-card-02-reviews.css owns visual/layout; data from ./js/modules/gallery-with-us.js.",
+      "card02ReviewsCssModule": "./css/modules/19-card-02-reviews.css",
+      "card02ReviewsJsModule": "./js/ui/card-02-reviews.js"
     },
     "plannedCssModules": [
       "./css/modules/02-typography-system.css",
-      "./css/modules/18-real-zipper.css"
+      "./css/modules/18-real-zipper.css",
+      "./css/modules/19-card-02-reviews.css"
     ],
     "plannedJsModules": [
       "./js/modules/input-modality.js",
       "./js/modules/progressive-image-loader.js",
-      "./js/ui/real-zipper.js"
+      "./js/ui/real-zipper.js",
+      "./js/ui/card-02-reviews.js"
     ],
     "currentActiveCardCount": 9,
     "removedRuntimeCssFiles": [
       "./css/card page home/card-10-accordion-03.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.29 real zipper module planned: old zipper removed from main.js; new isolated JS/CSS module ownership recorded."
+    "currentInventoryCheckpoint": "PDRS-01.30 Card 02 inline reviews active and zipper/review CSS adjustment accounted."
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -456,9 +492,10 @@
       "./css/modules/13-site-footer.css",
       "./css/modules/14-gallery-with-us.css",
       "./css/modules/15-water-forecast.css",
-      "./css/modules/18-real-zipper.css"
+      "./css/modules/18-real-zipper.css",
+      "./css/modules/19-card-02-reviews.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.29 real zipper module planned and old main.js zipper cleanup accounted.",
+    "currentInventoryCheckpoint": "PDRS-01.30 Card 02 inline reviews active and CSS 18/19 spacing relationship accounted.",
     "nextRecommendedJsBatch": [
       "./js/main.js",
       "./js/modules/site-footer.js",
@@ -466,7 +503,8 @@
       "./js/modules/water-forecast.js",
       "./js/ui/home-tour-popup.js",
       "./js/modules/booking.js",
-      "./js/ui/real-zipper.js"
+      "./js/ui/real-zipper.js",
+      "./js/ui/card-02-reviews.js"
     ],
     "nextRecommendedUploadBatch": [
       "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
@@ -775,6 +813,24 @@
         "./js/main.js",
         "index.html",
         "./css/card page home/card-02-service-01.css"
+      ]
+    },
+    {
+      "id": "card-02-inline-reviews-separated-owner",
+      "rule": "Card 02 inline reviews must live in ./js/ui/card-02-reviews.js and ./css/modules/19-card-02-reviews.css. Reuse data from ./js/modules/gallery-with-us.js. Do not move rendering logic into ./js/main.js and do not style this module from card-02-service-01.css.",
+      "primaryAreas": [
+        "34-card-02-inline-reviews",
+        "14-gallery-with-us",
+        "33-real-zipper",
+        "18-main-js-entry"
+      ],
+      "firstFilesToInspect": [
+        "./js/ui/card-02-reviews.js",
+        "./css/modules/19-card-02-reviews.css",
+        "./js/modules/gallery-with-us.js",
+        "./css/modules/18-real-zipper.css",
+        "./js/main.js",
+        "index.html"
       ]
     }
   ],
@@ -1369,7 +1425,8 @@
         "./css/card page home/card-07-service-06.css",
         "./css/card page home/card-08-accordion-01.css",
         "./css/card page home/card-09-accordion-02.css",
-        "./css/modules/18-real-zipper.css"
+        "./css/modules/18-real-zipper.css",
+        "./css/modules/19-card-02-reviews.css"
       ],
       "jsFilesPrimary": [
         "./js/main.js",
@@ -1400,7 +1457,9 @@
         ".mobile-home-feed-card-09",
         ".mobile-home-feed-card-scroll-last",
         ".real-zipper-module",
-        ".real-zipper-control"
+        ".real-zipper-control",
+        ".card-02-reviews-inline",
+        ".card-02-reviews-track"
       ],
       "states": [
         "details[open]",
@@ -1442,7 +1501,9 @@
         "./js/ui/story-expand.js",
         "./js/modules/home-to-more-stories.js",
         "./js/ui/real-zipper.js",
-        "./css/modules/18-real-zipper.css"
+        "./css/modules/18-real-zipper.css",
+        "./js/ui/card-02-reviews.js",
+        "./css/modules/19-card-02-reviews.css"
       ],
       "behavior": [
         "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
@@ -1457,7 +1518,8 @@
       "jsFilesRelated": [
         "./js/modules/input-modality.js",
         "./js/modules/progressive-image-loader.js",
-        "./js/ui/real-zipper.js"
+        "./js/ui/real-zipper.js",
+        "./js/ui/card-02-reviews.js"
       ],
       "riskNotes": [
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
@@ -1465,7 +1527,8 @@
         "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored.",
         "PDRS-01.23: initMobileHomeSectionLock is not initialized by main.js during logo-home cleanup. Do not assume feed boundary lock is active unless safeInit(initMobileHomeSectionLock, ...) is restored deliberately.",
         "Do not reintroduce separate H1/H2 scroll handoff logic inside story-expand.js or mobile-edge-pad.js; debug shared handoff module first.",
-        "PDRS-01.29: Card 02 zipper is planned as a separate real zipper module; do not debug it by editing main.js old zipper functions because they were removed."
+        "PDRS-01.29: Card 02 zipper is planned as a separate real zipper module; do not debug it by editing main.js old zipper functions because they were removed.",
+        "PDRS-01.30: Card 02 blank-space reviews are absolute-positioned; debug overlap with zipper in CSS modules 18 and 19 only."
       ]
     },
     "20-snorkeling-page": {
@@ -1632,7 +1695,9 @@
         "./js/modules/home-to-more-stories.js",
         "./js/modules/gallery-with-us.js",
         "./js/modules/water-forecast.js",
-        "./js/ui/home-tour-popup.js"
+        "./js/ui/home-tour-popup.js",
+        "./js/ui/card-02-reviews.js",
+        "./js/ui/real-zipper.js"
       ],
       "internalFunctions": [
         "initMobileHomeFeed",
@@ -1683,7 +1748,9 @@
         "[data-footer-water-forecast]",
         ".more-stories-zipper-content",
         ".real-zipper-module",
-        ".real-zipper-control"
+        ".real-zipper-control",
+        ".card-02-reviews-inline",
+        ".card-02-reviews-track"
       ],
       "states": [
         "body.js-loading",
@@ -1716,7 +1783,9 @@
         "billy:close-gallery-with-us",
         "real-zipper-planned",
         "--real-zipper-progress",
-        "data-real-zipper-ready"
+        "data-real-zipper-ready",
+        "data-card-02-reviews-ready",
+        "data-card-02-reviews-mounted"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -1737,7 +1806,9 @@
         "./js/ui/home-tour-popup.js",
         "./js/modules/booking.js",
         "./js/ui/real-zipper.js",
-        "./css/modules/18-real-zipper.css"
+        "./css/modules/18-real-zipper.css",
+        "./js/ui/card-02-reviews.js",
+        "./css/modules/19-card-02-reviews.css"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
@@ -1755,7 +1826,8 @@
         "After PDRS-01.27, do not restore initHomePopup inside ./js/main.js; keep #leave-no-trace-popup open/close ownership in ./js/ui/home-tour-popup.js.",
         "If footer Menu toggle fails with a missing module error, verify ./js/ui/home-tour-popup.js path and import in ./js/main.js.",
         "PDRS-01.29: Do not put Card 02 zipper implementation back into main.js; keep main.js as import/init only for ./js/ui/real-zipper.js.",
-        "After creating real-zipper.js, initialize it after initMobileHomeFeed because Card 02 mobile feed DOM is created by initMobileHomeFeed."
+        "After creating real-zipper.js, initialize it after initMobileHomeFeed because Card 02 mobile feed DOM is created by initMobileHomeFeed.",
+        "If Card 02 reviews do not appear, inspect ./js/ui/card-02-reviews.js before editing main.js."
       ],
       "behavior": [
         "PDRS-01.22: initMobileHomeFeed creates 9 mobile feed cards and marks the final card with .mobile-home-feed-panel-last / data-mobile-feed-last-card=true.",
@@ -1767,7 +1839,8 @@
         "PDRS-01.26: main.js imports and initializes initWaterForecast before initSiteFooter so footer Water forecast can dispatch billy:open-water-forecast to an active listener.",
         "PDRS-01.27: main.js imports and initializes initHomeTourPopup from ./js/ui/home-tour-popup.js; main.js no longer owns initHomePopup implementation.",
         "PDRS-01.27: footer toggle integration depends on initHomeTourPopup, initAvailabilityPopup, initContactPopup, initGalleryWithUs, and initSiteFooter init order.",
-        "PDRS-01.29: Old Card 02 zipper functions were removed from main.js. New zipper implementation is planned as ./js/ui/real-zipper.js with CSS in ./css/modules/18-real-zipper.css."
+        "PDRS-01.29: Old Card 02 zipper functions were removed from main.js. New zipper implementation is planned as ./js/ui/real-zipper.js with CSS in ./css/modules/18-real-zipper.css.",
+        "PDRS-01.30: main.js imports/initCard02Reviews after initRealZipper; main.js must remain import/init only for Card 02 reviews."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -3104,15 +3177,17 @@
       ],
       "cssFilesRelated": [
         "./css/card page home/card-02-service-01.css",
-        "./css/modules/11-scroll-home-composite.css"
+        "./css/modules/11-scroll-home-composite.css",
+        "./css/modules/19-card-02-reviews.css"
       ],
       "jsFilesPrimary": [
         "./js/ui/real-zipper.js"
       ],
       "jsFilesRelated": [
-        "./js/main.js"
+        "./js/main.js",
+        "./js/ui/card-02-reviews.js"
       ],
-      "runtimeStatus": "planned-not-active-yet",
+      "runtimeStatus": "active-accounted",
       "selectors": [
         ".more-stories-section",
         ".more-stories-inner",
@@ -3164,7 +3239,8 @@
         "Interaction remains right-to-left drag, but implementation is isolated in ./js/ui/real-zipper.js.",
         "Visual should use Real Zipper Slider — SVG/PNG hybrid, not CSS-only fake zipper and not split-open zipper animation.",
         "CSS module owns visual only; JS module owns DOM creation, accessibility state, pointer/keyboard interaction, progress, page switching, and reset behavior.",
-        "Main.js must remain import/init only and must not regain long zipper functions."
+        "Main.js must remain import/init only and must not regain long zipper functions.",
+        "PDRS-01.30: Real zipper is active and positioned by ./css/modules/18-real-zipper.css; inline reviews above it are owned by module 34."
       ],
       "ownershipRule": "./js/ui/real-zipper.js owns Card 02 zipper DOM/interaction. ./css/modules/18-real-zipper.css owns visual. ./js/main.js imports/initializes only. ./css/card page home/card-02-service-01.css should not own zipper visual after cleanup.",
       "activationPlan": [
@@ -3192,7 +3268,75 @@
         "If the zipper appears twice, old main.js zipper or old CSS/DOM was reintroduced by mistake.",
         "If story pages do not render, inspect .more-stories-zipper-content in index.html and ensure data-card-02-zipper-page articles still exist.",
         "If drag direction is wrong, inspect real-zipper.js pointer math; expected direction is right-to-left.",
-        "If visual looks fake again, switch SVG track/head to real image assets while preserving the same JS API."
+        "If visual looks fake again, switch SVG track/head to real image assets while preserving the same JS API.",
+        "PDRS-01.30: Zipper bottom placement is coordinated with Card 02 inline reviews; target zipper bottom gap is 20px and review-to-zipper gap is 20px."
+      ]
+    },
+    "34-card-02-inline-reviews": {
+      "area": "Card 02 inline guest reviews in blank space above real zipper",
+      "htmlModule": "MODULE 34 — CARD 02 INLINE REVIEWS",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/modules/19-card-02-reviews.css"
+      ],
+      "cssFilesRelated": [
+        "./css/modules/18-real-zipper.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/modules/14-gallery-with-us.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/ui/card-02-reviews.js"
+      ],
+      "jsFilesRelated": [
+        "./js/modules/gallery-with-us.js",
+        "./js/main.js",
+        "./js/ui/real-zipper.js"
+      ],
+      "runtimeStatus": "active-accounted",
+      "selectors": [
+        ".mobile-home-feed-card-02",
+        ".mobile-home-feed-card-scroll-02",
+        ".card-02-reviews-inline",
+        ".card-02-reviews-shell",
+        ".card-02-reviews-summary",
+        ".card-02-reviews-track",
+        ".card-02-reviews-card",
+        ".real-zipper-module",
+        ".real-zipper-control"
+      ],
+      "states": [
+        "data-card-02-reviews-ready=\"true\"",
+        "data-card-02-reviews-mounted=\"true\"",
+        "horizontal native scroll",
+        "scroll-snap-type: x mandatory",
+        "review hidden/visible relationship with .real-zipper-module zipper state if needed"
+      ],
+      "behavior": [
+        "Mounts compact guest review strip into Card 02 after mobile feed DOM exists.",
+        "Reuses Gallery With Us review data through getGalleryWithUsReviewData() exported by ./js/modules/gallery-with-us.js.",
+        "Visual is compact/inline, not the Gallery With Us popup panel.",
+        "Position is coordinated with the real zipper CSS so review module can extend downward and keep a 20px gap from the visible zipper area.",
+        "Main.js remains import/init only and must not own review rendering logic."
+      ],
+      "ownershipRule": "./js/ui/card-02-reviews.js owns Card 02 inline review mounting. ./css/modules/19-card-02-reviews.css owns visual/position. ./js/modules/gallery-with-us.js owns review data. ./css/modules/18-real-zipper.css owns zipper position; cross-positioning must be solved in CSS modules 18 and 19 only.",
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./js/ui/card-02-reviews.js",
+        "./css/modules/19-card-02-reviews.css",
+        "./js/modules/gallery-with-us.js",
+        "./css/modules/18-real-zipper.css",
+        "screenshot of Card 02 blank area / zipper area",
+        "console error screenshot if import/init fails"
+      ],
+      "riskNotes": [
+        "If reviews do not appear, inspect initCard02Reviews import/init order and Card 02 clone existence after initMobileHomeFeed.",
+        "If reviews overlap zipper, adjust css/modules/19-card-02-reviews.css bottom anchor and css/modules/18-real-zipper.css --real-zipper-bottom-offset only.",
+        "If reviews break Gallery popup, inspect gallery-with-us.js data export and ensure popup initGalleryWithUs remains unchanged.",
+        "Do not hardcode review data separately in card-02-reviews.js unless owner explicitly asks; use Gallery With Us data source."
       ]
     }
   },
@@ -4137,6 +4281,34 @@
         ".real-zipper-control",
         ".real-zipper-track",
         ".real-zipper-handle"
+      ]
+    },
+    "card-02-inline-reviews-loi": {
+      "userDescriptionExamples": [
+        "review card 2 không hiện",
+        "review đè zipper",
+        "review nằm quá cao",
+        "review cách zipper không đúng",
+        "review không kéo ngang được",
+        "card-02-reviews.js import lỗi"
+      ],
+      "routeToModule": "34-card-02-inline-reviews",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./js/ui/card-02-reviews.js",
+        "./css/modules/19-card-02-reviews.css",
+        "./js/modules/gallery-with-us.js",
+        "./css/modules/18-real-zipper.css",
+        "screenshot of Card 02 review/zipper area",
+        "console error screenshot if any"
+      ],
+      "selectors": [
+        ".card-02-reviews-inline",
+        ".card-02-reviews-track",
+        ".real-zipper-module",
+        ".mobile-home-feed-card-02"
       ]
     }
   },

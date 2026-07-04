@@ -11,7 +11,7 @@
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-module {
   --real-zipper-progress: 0;
-  --real-zipper-bottom-offset: 56px;
+  --real-zipper-bottom-offset: 20px;
   width: min(calc(100% - 36px), 500px);
   margin: 0;
   padding: 0;
