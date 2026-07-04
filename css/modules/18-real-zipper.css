@@ -8,7 +8,7 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-module {
   --real-zipper-progress: 0;
   width: min(calc(100% - 36px), 500px);
-  margin: auto auto 15px;
+  margin: auto auto 35px;
   padding: 0;
   display: grid;
   grid-template-rows: minmax(138px, auto) auto;
