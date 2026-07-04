@@ -5,22 +5,33 @@
    Rule: no old .mobile-home-feed-card-02-zipper-* ownership here.
 */
 
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-scroll-02 {
+  position: relative;
+}
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-module {
   --real-zipper-progress: 0;
+  --real-zipper-bottom-offset: 56px;
   width: min(calc(100% - 36px), 500px);
-  margin: auto auto 100px;
+  margin: 0;
   padding: 0;
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--real-zipper-bottom-offset));
+  transform: translateX(-50%);
   display: grid;
-  grid-template-rows: minmax(138px, auto) auto;
-  gap: 10px;
-  align-self: center;
+  grid-template-rows: minmax(124px, auto) auto;
+  gap: 7px;
+  align-self: auto;
   perspective: 900px;
   box-sizing: border-box;
+  z-index: 6;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-pages {
   position: relative;
-  min-height: 138px;
+  min-height: 124px;
   display: grid;
   place-items: stretch;
   transform-style: preserve-3d;
@@ -29,11 +40,11 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-page {
   grid-area: 1 / 1;
   width: 100%;
-  min-height: 138px;
-  padding: 13px 15px 14px;
+  min-height: 124px;
+  padding: 12px 14px 13px;
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 6px;
   border: 1px solid rgba(16, 24, 32, 0.10);
   border-radius: 18px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(245, 247, 246, 0.88)), #ffffff;
@@ -96,9 +107,9 @@
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-control {
   width: 100%;
-  min-height: 84px;
+  min-height: 52px;
   display: grid;
-  gap: 8px;
+  gap: 5px;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -111,14 +122,14 @@
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-control:focus-visible .real-zipper-track {
-  box-shadow: 0 0 0 3px rgba(112, 130, 139, 0.22), 0 16px 30px rgba(24, 39, 47, 0.14);
+  box-shadow: 0 0 0 3px rgba(112, 130, 139, 0.22), 0 12px 22px rgba(24, 39, 47, 0.13);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-label {
   color: rgba(44, 57, 64, 0.78);
   font-family: var(--font-ui);
-  font-size: 12px;
-  line-height: 1.1;
+  font-size: 11.5px;
+  line-height: 1.05;
   font-weight: var(--weight-ui, 700);
   letter-spacing: var(--tracking-ui, -0.015em);
   text-align: center;
@@ -127,10 +138,10 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-track {
   position: relative;
   width: 100%;
-  height: 64px;
-  border-radius: 18px;
+  height: 38px;
+  border-radius: 12px;
   background: linear-gradient(180deg, rgba(248, 252, 253, 0.95), rgba(204, 218, 224, 0.82)), #d8e2e5;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78), inset 0 -1px 0 rgba(49, 66, 73, 0.13), 0 14px 24px rgba(8, 21, 28, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), inset 0 -1px 0 rgba(49, 66, 73, 0.10), 0 9px 16px rgba(8, 21, 28, 0.10);
   overflow: visible;
   box-sizing: border-box;
   isolation: isolate;
@@ -161,14 +172,14 @@
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-progress-fill {
   position: absolute;
-  top: 8px;
-  right: 18px;
-  width: calc((100% - 36px) * var(--real-zipper-progress));
-  height: calc(100% - 16px);
+  top: 5px;
+  right: 12px;
+  width: calc((100% - 24px) * var(--real-zipper-progress));
+  height: calc(100% - 10px);
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.30), rgba(125, 148, 157, 0.12)), rgba(255, 255, 255, 0.10);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -1px 0 rgba(61, 80, 88, 0.08);
-  opacity: calc(0.16 + (var(--real-zipper-progress) * 0.62));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.28), rgba(125, 148, 157, 0.10)), rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 0 rgba(61, 80, 88, 0.07);
+  opacity: calc(0.14 + (var(--real-zipper-progress) * 0.58));
   transform-origin: right center;
   transition: width 180ms linear, opacity 180ms linear;
   z-index: 2;
@@ -176,20 +187,20 @@
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-module.is-returning .real-zipper-progress-fill {
-  transition: width 320ms cubic-bezier(0.25, 0.9, 0.25, 1), opacity 320ms cubic-bezier(0.25, 0.9, 0.25, 1);
+  transition: width 300ms cubic-bezier(0.25, 0.9, 0.25, 1), opacity 300ms cubic-bezier(0.25, 0.9, 0.25, 1);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-handle {
   position: absolute;
   top: 50%;
-  right: calc(8px + ((100% - 48px) * var(--real-zipper-progress)));
-  width: 44px;
-  height: 60px;
+  right: calc(5px + ((100% - 32px) * var(--real-zipper-progress)));
+  width: 30px;
+  height: 38px;
   padding: 0;
   border: 0;
   background: transparent;
   transform: translateY(-50%);
-  transition: right 180ms linear, transform 180ms ease;
+  transition: right 180ms linear, transform 160ms ease;
   z-index: 5;
   cursor: inherit;
   touch-action: none;
@@ -199,13 +210,13 @@
   content: "";
   position: absolute;
   left: 50%;
-  top: 23px;
-  width: 25px;
-  height: 28px;
-  border-radius: 11px 11px 9px 9px;
+  top: 15px;
+  width: 17px;
+  height: 18px;
+  border-radius: 7px 7px 6px 6px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.54) 0 2px, transparent 2px calc(100% - 2px), rgba(42, 61, 69, 0.11) calc(100% - 2px)), linear-gradient(180deg, #f9fdfe 0%, #c8d7dc 48%, #edf4f6 100%);
   border: 1px solid rgba(57, 76, 84, 0.24);
-  box-shadow: 0 7px 13px rgba(12, 27, 35, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.90), inset 0 -1px 0 rgba(38, 58, 66, 0.14);
+  box-shadow: 0 5px 9px rgba(12, 27, 35, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.86), inset 0 -1px 0 rgba(38, 58, 66, 0.12);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -213,22 +224,22 @@
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-puller-svg {
   position: absolute;
   left: 50%;
-  top: -18px;
-  width: 48px;
-  height: 68px;
+  top: -12px;
+  width: 30px;
+  height: 42px;
   display: block;
   overflow: visible;
   transform: translateX(-50%) rotate(-2deg);
-  filter: drop-shadow(0 5px 7px rgba(8, 20, 28, 0.22));
+  filter: drop-shadow(0 4px 5px rgba(8, 20, 28, 0.18));
   pointer-events: none;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-control.is-dragging .real-zipper-handle {
-  transform: translateY(-50%) scale(1.04);
+  transform: translateY(-50%) scale(1.035);
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .real-zipper-module.is-returning .real-zipper-handle {
-  transition: right 320ms cubic-bezier(0.25, 0.9, 0.25, 1), transform 180ms ease;
+  transition: right 300ms cubic-bezier(0.25, 0.9, 0.25, 1), transform 160ms ease;
 }
 
 @keyframes realZipperBookFlip {
