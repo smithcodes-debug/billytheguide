@@ -493,3 +493,277 @@
     transition: none;
   }
 }
+
+/* ✅ SILVER REAL SPLIT ZIPPER V1 — OVERRIDE START
+   Visual owner: card-02-service-01.css
+   JS owner remains unchanged: main.js / initCard02ZipperInteraction()
+   Scope: rebuild zipper visual only; keep existing drag/progress/story logic and class API. */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .more-stories-quote {
+  width: min(calc(100% - 36px), 500px);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-self: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-module {
+  --zipper-progress: 0;
+  --zipper-track-pad: 22px;
+  --zipper-open-width: calc((100% - 44px) * var(--zipper-progress));
+  --zipper-handle-right: calc(9px + ((100% - 54px) * var(--zipper-progress)));
+  width: min(calc(100% - 36px), 500px);
+  margin: auto auto 15px;
+  padding: 0;
+  display: grid;
+  grid-template-rows: minmax(138px, auto) auto;
+  gap: 10px;
+  align-self: center;
+  perspective: 900px;
+  box-sizing: border-box;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control {
+  width: 100%;
+  min-height: 78px;
+  display: grid;
+  gap: 8px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  outline: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control.is-dragging {
+  cursor: grabbing;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-label {
+  color: rgba(44, 57, 64, 0.78);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: var(--weight-ui, 700);
+  letter-spacing: var(--tracking-ui, -0.015em);
+  text-align: center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control:focus-visible .mobile-home-feed-card-02-zipper-track {
+  box-shadow:
+    0 0 0 3px rgba(112, 130, 139, 0.22),
+    0 16px 30px rgba(24, 39, 47, 0.14);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track {
+  position: relative;
+  width: 100%;
+  height: 58px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(210, 222, 226, 0.12), rgba(255, 255, 255, 0.48), rgba(159, 177, 184, 0.14)),
+    #d8e2e5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 -1px 0 rgba(49, 66, 73, 0.13),
+    0 14px 24px rgba(8, 21, 28, 0.12);
+  overflow: visible;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: 22px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 3px, rgba(62, 79, 87, 0.08) 3px 6px),
+    linear-gradient(180deg, #edf3f5, #bccdd2 52%, #e6eef0);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(42, 62, 70, 0.14);
+  z-index: 1;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::before {
+  top: 7px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-track::after {
+  bottom: 7px;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill {
+  position: absolute;
+  top: 0;
+  right: var(--zipper-track-pad);
+  width: var(--zipper-open-width);
+  height: 100%;
+  border-radius: 0 999px 999px 0;
+  background: transparent;
+  transform-origin: right center;
+  z-index: 4;
+  overflow: visible;
+  transition: width 180ms linear;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 18px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.20) 0 3px, rgba(48, 67, 76, 0.10) 3px 6px),
+    linear-gradient(180deg, #f2f7f8, #b8cbd1 58%, #e6eef0);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 2px 5px rgba(11, 25, 31, 0.08);
+  opacity: calc(0.18 + (var(--zipper-progress) * 0.82));
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill::before {
+  top: 6px;
+  transform: translateY(calc(var(--zipper-progress) * -7px)) rotate(calc(var(--zipper-progress) * -3.5deg));
+  transform-origin: left center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-fill::after {
+  bottom: 6px;
+  transform: translateY(calc(var(--zipper-progress) * 7px)) rotate(calc(var(--zipper-progress) * 3.5deg));
+  transform-origin: left center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .is-zipper-returning .mobile-home-feed-card-02-zipper-fill {
+  transition: width 320ms cubic-bezier(0.25, 0.9, 0.25, 1);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth {
+  position: absolute;
+  top: 24px;
+  left: var(--zipper-track-pad);
+  right: calc(var(--zipper-open-width) + 24px);
+  height: 10px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, #eef6f7 0 4px, #7f969e 4px 5px, transparent 5px 8px),
+    linear-gradient(180deg, transparent 0 3px, rgba(78, 96, 104, 0.76) 3px 7px, transparent 7px 100%);
+  filter:
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.72))
+    drop-shadow(0 -1px 0 rgba(28, 43, 50, 0.14));
+  z-index: 5;
+  transition: right 180ms linear;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::after {
+  content: "";
+  position: absolute;
+  right: calc(-1 * var(--zipper-open-width) - 3px);
+  width: var(--zipper-open-width);
+  height: 8px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, #f4fbfb 0 4px, #8ca2a9 4px 5px, transparent 5px 8px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0 2px, rgba(89, 108, 116, 0.72) 2px 6px, rgba(255, 255, 255, 0) 6px 100%);
+  opacity: calc(0.12 + (var(--zipper-progress) * 0.88));
+  transform-origin: left center;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::before {
+  top: -9px;
+  transform: translateY(calc(var(--zipper-progress) * -5px)) rotate(calc(var(--zipper-progress) * -4deg));
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-teeth::after {
+  top: 11px;
+  transform: translateY(calc(var(--zipper-progress) * 5px)) rotate(calc(var(--zipper-progress) * 4deg));
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle {
+  position: absolute;
+  top: 50%;
+  right: var(--zipper-handle-right);
+  width: 36px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(57, 76, 84, 0.24);
+  border-radius: 13px 13px 11px 11px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.52) 0 2px, transparent 2px calc(100% - 2px), rgba(42, 61, 69, 0.10) calc(100% - 2px)),
+    linear-gradient(180deg, #f8fcfd 0%, #c8d6db 48%, #edf4f5 100%);
+  box-shadow:
+    0 8px 15px rgba(12, 27, 35, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    inset 0 -1px 0 rgba(38, 58, 66, 0.14);
+  transform: translateY(-50%);
+  transition: right 180ms linear, transform 180ms ease;
+  z-index: 8;
+  cursor: inherit;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 25px;
+  width: 26px;
+  height: 22px;
+  border: 5px solid #d8e5e8;
+  border-top-color: #f7fbfc;
+  border-left-color: #eef6f7;
+  border-right-color: #9fb4bb;
+  border-bottom-color: #7e949c;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow:
+    0 3px 7px rgba(12, 27, 35, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -19px;
+  width: 17px;
+  height: 34px;
+  border: 1px solid rgba(46, 65, 73, 0.22);
+  border-radius: 7px 7px 5px 5px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.55), transparent 35%, rgba(54, 75, 84, 0.11)),
+    linear-gradient(180deg, #f7fbfc, #bfd0d6 62%, #e6eef1);
+  box-shadow:
+    0 4px 8px rgba(10, 24, 31, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  transform: translateX(-50%) rotate(-4deg);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .is-zipper-returning .mobile-home-feed-card-02-zipper-teeth,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .is-zipper-returning .mobile-home-feed-card-02-zipper-handle {
+  transition:
+    right 320ms cubic-bezier(0.25, 0.9, 0.25, 1),
+    transform 180ms ease;
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-control.is-dragging .mobile-home-feed-card-02-zipper-handle {
+  transform: translateY(-50%) scale(1.035);
+}
+
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle-icon,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle-icon::before,
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-02 .mobile-home-feed-card-02-zipper-handle-icon::after {
+  display: none;
+  content: none;
+}
+/* ✅ SILVER REAL SPLIT ZIPPER V1 — OVERRIDE END */

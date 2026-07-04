@@ -11,6 +11,7 @@ import { initGalleryWithUs } from './modules/gallery-with-us.js';
 import { initWaterForecast } from './modules/water-forecast.js';
 import { initSiteFooter } from './modules/site-footer.js';
 import { initDebugSiteReset } from './modules/debug-site-reset.js';
+import { initRealZipper } from './ui/real-zipper.js';
 
 const APP_LOADING_CLASS = 'js-loading';
 const APP_READY_CLASS = 'js-ready';
@@ -210,243 +211,6 @@ function initMobileHomeFeed() {
     return heroNode;
   }
 
-  function getCard02ZipperSteps() {
-    const contentSource = sourceInner.querySelector('.more-stories-zipper-content');
-    const sourcePages = contentSource
-      ? Array.from(contentSource.querySelectorAll('[data-card-02-zipper-page]'))
-      : [];
-    return sourcePages.map(function (sourcePage) {
-      const titleNode = sourcePage.querySelector('.more-stories-zipper-title');
-      const copyNode = sourcePage.querySelector('.more-stories-zipper-copy');
-      return {
-        title: titleNode ? titleNode.textContent.trim() : '',
-        copy: copyNode ? copyNode.textContent.trim() : ''
-      };
-    }).filter(function (item) {
-      return item.title && item.copy;
-    });
-  }
-
-  function createCard02ZipperNode() {
-    const zipperSteps = getCard02ZipperSteps();
-    const module = createElement('section', 'mobile-home-feed-card-02-zipper-module');
-    const viewport = createElement('div', 'mobile-home-feed-card-02-zipper-pages');
-    const control = createElement('div', 'mobile-home-feed-card-02-zipper-control');
-    const label = createElement('div', 'mobile-home-feed-card-02-zipper-label', 'Pull the zipper from right to left');
-    const track = createElement('div', 'mobile-home-feed-card-02-zipper-track');
-    const fill = createElement('div', 'mobile-home-feed-card-02-zipper-fill');
-    const teeth = createElement('div', 'mobile-home-feed-card-02-zipper-teeth');
-    const handle = createElement('button', 'mobile-home-feed-card-02-zipper-handle');
-    const handleIcon = createElement('span', 'mobile-home-feed-card-02-zipper-handle-icon');
-
-    module.setAttribute('data-zipper-step', '0');
-    module.style.setProperty('--zipper-progress', '0');
-    viewport.setAttribute('aria-live', 'polite');
-
-    zipperSteps.forEach(function (item, index) {
-      const page = createElement('article', 'mobile-home-feed-card-02-zipper-page');
-      const pageNumber = createElement('span', 'mobile-home-feed-card-02-zipper-page-number', String(index + 1).padStart(2, '0'));
-      const title = createElement('h3', 'mobile-home-feed-card-02-zipper-page-title', item.title);
-      const copy = createElement('p', 'mobile-home-feed-card-02-zipper-page-copy', item.copy);
-      page.setAttribute('data-zipper-page', String(index + 1));
-      page.setAttribute('aria-hidden', 'true');
-      page.appendChild(pageNumber);
-      page.appendChild(title);
-      page.appendChild(copy);
-      viewport.appendChild(page);
-    });
-
-    control.setAttribute('role', 'slider');
-    control.setAttribute('tabindex', '0');
-    control.setAttribute('aria-label', 'Card 2 zipper story progress');
-    control.setAttribute('aria-valuemin', '0');
-    control.setAttribute('aria-valuemax', String(zipperSteps.length));
-    control.setAttribute('aria-valuenow', '0');
-    control.setAttribute('aria-valuetext', 'Zipper closed');
-    handle.type = 'button';
-    handle.setAttribute('aria-label', 'Drag zipper');
-    handle.setAttribute('tabindex', '-1');
-    handle.appendChild(handleIcon);
-    track.appendChild(fill);
-    track.appendChild(teeth);
-    track.appendChild(handle);
-    control.appendChild(label);
-    control.appendChild(track);
-    module.appendChild(viewport);
-    module.appendChild(control);
-    return module;
-  }
-
-  function initCard02ZipperInteraction(root) {
-    const module = root ? root.querySelector('.mobile-home-feed-card-02-zipper-module') : null;
-    const control = module ? module.querySelector('.mobile-home-feed-card-02-zipper-control') : null;
-    const track = module ? module.querySelector('.mobile-home-feed-card-02-zipper-track') : null;
-    const handle = module ? module.querySelector('.mobile-home-feed-card-02-zipper-handle') : null;
-    const pages = module ? Array.from(module.querySelectorAll('.mobile-home-feed-card-02-zipper-page')) : [];
-    if (!module || !control || !track || !handle || !pages.length || module.getAttribute('data-zipper-ready') === 'true') return;
-
-    module.setAttribute('data-zipper-ready', 'true');
-    let currentStep = 0;
-    let isDragging = false;
-    let turnTimer = 0;
-    let resetTimer = 0;
-    let pointerStartX = 0;
-    let pointerStartY = 0;
-    let hasTriggeredPanelSwipe = false;
-    const PANEL_SWIPE_UP_THRESHOLD = 40;
-    const ZIPPER_RESET_DELAY = 80;
-
-    function clamp(value, min, max) {
-      return Math.min(max, Math.max(min, value));
-    }
-
-    function getMaxDrag() {
-      const trackRect = track.getBoundingClientRect();
-      const handleRect = handle.getBoundingClientRect();
-      return Math.max(1, trackRect.width - handleRect.width);
-    }
-
-    function syncStep(nextStep) {
-      const totalSteps = pages.length;
-      const safeStep = clamp(nextStep, 0, totalSteps);
-      const progress = totalSteps > 0 ? safeStep / totalSteps : 0;
-      const stepChanged = safeStep !== currentStep;
-      currentStep = safeStep;
-      module.style.setProperty('--zipper-progress', String(progress));
-      module.setAttribute('data-zipper-step', String(safeStep));
-      module.classList.toggle('is-zipper-open', safeStep > 0);
-      control.setAttribute('aria-valuenow', String(safeStep));
-      control.setAttribute('aria-valuetext', safeStep > 0 ? 'Story page ' + safeStep + ' of ' + totalSteps : 'Zipper closed');
-      pages.forEach(function (page, index) {
-        const isActive = index === safeStep - 1;
-        page.classList.toggle('is-active', isActive);
-        page.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        if (isActive && stepChanged) {
-          page.classList.remove('is-page-turning');
-          page.offsetWidth;
-          page.classList.add('is-page-turning');
-        }
-      });
-      if (turnTimer) window.clearTimeout(turnTimer);
-      turnTimer = window.setTimeout(function () {
-        pages.forEach(function (page) {
-          page.classList.remove('is-page-turning');
-        });
-      }, 520);
-    }
-
-    function resetZipper() {
-      module.classList.add('is-zipper-returning');
-      syncStep(0);
-      if (resetTimer) window.clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(function () {
-        module.classList.remove('is-zipper-returning');
-      }, 360);
-    }
-
-    function stepFromClientX(clientX) {
-      const trackRect = track.getBoundingClientRect();
-      const handleRect = handle.getBoundingClientRect();
-      const maxDrag = getMaxDrag();
-      const dragDistance = clamp(trackRect.right - clientX - (handleRect.width / 2), 0, maxDrag);
-      return Math.round((dragDistance / maxDrag) * pages.length);
-    }
-
-    function updateFromPointer(event) {
-      syncStep(stepFromClientX(event.clientX));
-    }
-
-    function swipeToNextPanel() {
-      const currentPanel = module.closest('.mobile-home-feed-panel');
-      const nextPanel = currentPanel ? currentPanel.nextElementSibling : null;
-      hasTriggeredPanelSwipe = true;
-      resetZipper();
-      if (nextPanel && nextPanel.classList && nextPanel.classList.contains('mobile-home-feed-panel')) {
-        feed.scrollTo({
-          top: nextPanel.offsetTop,
-          left: 0,
-          behavior: 'smooth'
-        });
-        const cardNumber = nextPanel.getAttribute('data-mobile-feed-card') || '03';
-        setActiveMobileFeedCard(cardNumber);
-        window.setTimeout(function () {
-          syncFeedEndingState();
-          scheduleActiveMobileFeedCardSync();
-        }, 260);
-      }
-    }
-
-    control.addEventListener('pointerdown', function (event) {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-      isDragging = true;
-      hasTriggeredPanelSwipe = false;
-      pointerStartX = event.clientX;
-      pointerStartY = event.clientY;
-      control.classList.add('is-dragging');
-      if (control.setPointerCapture) {
-        control.setPointerCapture(event.pointerId);
-      }
-      updateFromPointer(event);
-      event.preventDefault();
-    });
-
-    control.addEventListener('pointermove', function (event) {
-      if (!isDragging) return;
-      const deltaX = event.clientX - pointerStartX;
-      const deltaY = event.clientY - pointerStartY;
-      const absX = Math.abs(deltaX);
-      const absY = Math.abs(deltaY);
-      if (!hasTriggeredPanelSwipe && deltaY <= -PANEL_SWIPE_UP_THRESHOLD && absY > absX) {
-        swipeToNextPanel();
-        event.preventDefault();
-        return;
-      }
-      if (!hasTriggeredPanelSwipe) {
-        updateFromPointer(event);
-      }
-      event.preventDefault();
-    });
-
-    function endDrag(event) {
-      if (!isDragging) return;
-      isDragging = false;
-      control.classList.remove('is-dragging');
-      if (control.hasPointerCapture && control.hasPointerCapture(event.pointerId)) {
-        control.releasePointerCapture(event.pointerId);
-      }
-      window.setTimeout(resetZipper, ZIPPER_RESET_DELAY);
-    }
-
-    control.addEventListener('pointerup', endDrag);
-    control.addEventListener('pointercancel', endDrag);
-    control.addEventListener('lostpointercapture', function () {
-      if (!isDragging) return;
-      isDragging = false;
-      control.classList.remove('is-dragging');
-      resetZipper();
-    });
-    control.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        event.preventDefault();
-        syncStep(currentStep + 1);
-      } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        event.preventDefault();
-        syncStep(currentStep - 1);
-      } else if (event.key === 'Escape') {
-        event.preventDefault();
-        resetZipper();
-      } else if (event.key === 'Home') {
-        event.preventDefault();
-        syncStep(0);
-      } else if (event.key === 'End') {
-        event.preventDefault();
-        syncStep(pages.length);
-      }
-    });
-
-    syncStep(0);
-  }
-
   function createIntroNode() {
     const intro = document.createElement('div');
     const kicker = sourceInner.querySelector('.more-stories-kicker');
@@ -472,8 +236,7 @@ function initMobileHomeFeed() {
       intro.appendChild(notesClone);
     }
 
-    intro.appendChild(createCard02ZipperNode());
-
+  
     return intro;
   }
 
@@ -598,9 +361,6 @@ function initMobileHomeFeed() {
     card.setAttribute('data-mobile-feed-card', cardNumber);
 
     scroll.appendChild(cloneForMobileFeed(sourceNode));
-    if (cardNumber === '02') {
-      initCard02ZipperInteraction(scroll);
-    }
     card.appendChild(scroll);
     panel.appendChild(card);
 
@@ -858,6 +618,7 @@ safeInit(initRuntimeBoot, 'initRuntimeBoot');
 safeInit(initDebugSiteReset, 'initDebugSiteReset');
 safeInit(initNavigation, 'initNavigation');
 safeInit(initMobileHomeFeed, 'initMobileHomeFeed');
+safeInit(initRealZipper, 'initRealZipper');
 safeInit(initHomePopup, 'initHomePopup');
 safeInit(initPolicyPopup, 'initPolicyPopup');
 safeInit(initContactPopup, 'initContactPopup');

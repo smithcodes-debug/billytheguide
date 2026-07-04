@@ -1,6 +1,6 @@
 {
   "systemName": "Project Debug Routing System",
-  "version": "pdrs-01-28-typography-system-ready",
+  "version": "pdrs-01-29-real-zipper-module-planned",
   "language": "vi",
   "createdFrom": [
     "index.html"
@@ -8,8 +8,8 @@
   "purpose": "Router toàn dự án để Copilot tra ngược từ khu vực lỗi/symptom sang HTML module, CSS file, JS file, selector, state, aria và route liên quan.",
   "scope": {
     "level": "project-wide-v1",
-    "status": "typography-system-ready-not-yet-linked",
-    "note": "PDRS-01.28 adds planned MODULE 02 Typography System at ./css/modules/02-typography-system.css. This module is ready to import after ./css/modules/00-display-shell.css and before component CSS. Component files should gradually consume typography tokens instead of hardcoding font stacks."
+    "status": "real-zipper-module-planned-after-main-js-cleanup",
+    "note": "PDRS-01.29 records the Card 02 zipper rebuild plan. Old zipper creation/interaction was removed from ./js/main.js. New zipper ownership is planned for ./js/ui/real-zipper.js and ./css/modules/18-real-zipper.css. Runtime becomes active only after the new JS import/init and CSS link are added."
   },
   "runtimeChangePolicy": {
     "indexHtmlChange": "added Water Forecast CSS link and mapped footer Water forecast from data-footer-viewed route behavior to data-footer-water-forecast event behavior",
@@ -29,7 +29,7 @@
     "textChanged": true,
     "classIdAttributeChanged": true,
     "metadataUpdated": true,
-    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only. PDRS-01.28: Typography system module created/ready; import after 00-display-shell.css before converting component CSS.",
+    "note": "PDRS-01.27 accounts Home Tour Popup extraction and Footer Toggle: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state and events billy:open-home-tour-popup / billy:close-home-tour-popup; ./js/main.js imports and initializes initHomeTourPopup; ./js/modules/site-footer.js toggles Menu, Check-book, Find me, and Gallery; ./js/modules/booking.js listens for billy:close-availability-popup. Water Forecast remains open-only. PDRS-01.28: Typography system module created/ready; import after 00-display-shell.css before converting component CSS. PDRS-01.29: Card 02 old zipper was removed from main.js; new ownership planned at ./js/ui/real-zipper.js + ./css/modules/18-real-zipper.css.",
     "cssAddedFiles": [
       "./css/modules/02-typography-system.css",
       "./css/modules/12-leave-no-trace-gallery.css",
@@ -186,6 +186,39 @@
         }
       ],
       "explicitException": "Water Forecast footer trigger remains open-only and is not toggled in site-footer.js."
+    },
+    "realZipperModulePlanning": {
+      "status": "planned-not-active-yet",
+      "reason": "Owner decided to remove the old main.js zipper and rebuild as separate real zipper module.",
+      "oldRuntimeCleanup": {
+        "mainJsOldZipperRemoved": true,
+        "removedFunctions": [
+          "getCard02ZipperSteps",
+          "createCard02ZipperNode",
+          "initCard02ZipperInteraction"
+        ],
+        "removedCalls": [
+          "intro.appendChild(createCard02ZipperNode())",
+          "initCard02ZipperInteraction(scroll)"
+        ],
+        "mainJsCurrentRole": "main.js owns mobile feed/card cloning only; old zipper DOM/progress logic is no longer in main.js."
+      },
+      "newOwners": {
+        "jsOwner": "./js/ui/real-zipper.js",
+        "cssOwner": "./css/modules/18-real-zipper.css",
+        "htmlOwner": "index.html head link only when activated",
+        "sourceContentOwner": "index.html .more-stories-zipper-content remains content source for story pages"
+      },
+      "activationPlan": [
+        "Create ./js/ui/real-zipper.js exporting initRealZipper.",
+        "Create ./css/modules/18-real-zipper.css for visual only.",
+        "Import initRealZipper in ./js/main.js.",
+        "Call safeInit(initRealZipper, 'initRealZipper') after initMobileHomeFeed so cloned card 02 exists.",
+        "Link ./css/modules/18-real-zipper.css in index.html after card-02-service-01.css or near other modules.",
+        "Cleanup inert old zipper CSS from ./css/card page home/card-02-service-01.css after new module render is verified."
+      ],
+      "designDecision": "Use Real Zipper Slider — SVG/PNG hybrid. Do not continue CSS-only zipper and do not animate split-open zipper lips.",
+      "safetyRule": "Keep zipper logic isolated in real-zipper.js; do not re-add long zipper implementation to main.js."
     }
   },
   "knownFiles": {
@@ -270,7 +303,8 @@
       "./js/modules/home-to-more-stories.js",
       "./js/modules/gallery-with-us.js",
       "./js/modules/water-forecast.js",
-      "./js/ui/home-tour-popup.js"
+      "./js/ui/home-tour-popup.js",
+      "./js/ui/real-zipper.js"
     ],
     "jsInventoryNotes": {
       "activeIndexJsLoadOrderUnchanged": true,
@@ -293,7 +327,9 @@
       "waterForecastImportedByMain": true,
       "waterForecastRuntimeStatus": "active after import/init in ./js/main.js; opens from footer Water forecast via billy:open-water-forecast; renders backend-ready manual water-condition data.",
       "homeTourPopupImportedByMain": true,
-      "homeTourPopupRuntimeStatus": "active after PDRS-01.27 extraction from ./js/main.js; ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state, .cta-trigger sync, and billy:open-home-tour-popup / billy:close-home-tour-popup."
+      "homeTourPopupRuntimeStatus": "active after PDRS-01.27 extraction from ./js/main.js; ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close state, .cta-trigger sync, and billy:open-home-tour-popup / billy:close-home-tour-popup.",
+      "realZipperImportedByMain": false,
+      "realZipperRuntimeStatus": "planned/not-active after main.js old zipper cleanup; create ./js/ui/real-zipper.js and import/init from ./js/main.js after initMobileHomeFeed."
     },
     "cssUploadedOrAccounted": [
       "./css/snorkeling.css",
@@ -307,7 +343,8 @@
       "./css/modules/07-mobile-edge-pad.css",
       "./css/modules/14-gallery-with-us.css",
       "./css/modules/15-water-forecast.css",
-      "./css/modules/02-typography-system.css"
+      "./css/modules/02-typography-system.css",
+      "./css/modules/18-real-zipper.css"
     ],
     "rootLegacyInventoryNotes": {
       "styleCssUploaded": true,
@@ -385,20 +422,26 @@
       "snapReadingHandoffRuntimeStatus": "active/accounted after PDRS-01.22: card 09 FAQ is final mobile feed card; card 1-8 remain snap/swipe; card 09 enters .is-feed-ending/.is-home-reading-mode and footer dock appears. card-10 accordion/contact platform CSS link removed from index.html.",
       "galleryWithUsRuntimeStatus": "active/accounted after PDRS-01.25: ./css/modules/14-gallery-with-us.css owns visual; ./js/modules/gallery-with-us.js owns dynamic mock data render/open-close/read-more/horizontal swipe; images expected under ./images/gallery-with-us/.",
       "waterForecastRuntimeStatus": "active/accounted after PDRS-01.26: ./css/modules/15-water-forecast.css owns visual; ./js/modules/water-forecast.js owns manual/backend-ready data render and open-close behavior.",
-      "homeTourPopupRuntimeStatus": "active/accounted after PDRS-01.27: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close; ./js/main.js imports/init only."
+      "homeTourPopupRuntimeStatus": "active/accounted after PDRS-01.27: ./js/ui/home-tour-popup.js owns #leave-no-trace-popup open/close; ./js/main.js imports/init only.",
+      "realZipperRuntimeStatus": "planned after owner request: ./js/ui/real-zipper.js will own Card 02 real zipper creation/interaction; ./css/modules/18-real-zipper.css will own visual; main.js should remain import/init only.",
+      "realZipperCssModule": "./css/modules/18-real-zipper.css",
+      "realZipperJsModule": "./js/ui/real-zipper.js",
+      "oldCard02ZipperMainJsCleanup": "completed/accounted: old Card 02 zipper functions and calls removed from ./js/main.js."
     },
     "plannedCssModules": [
-      "./css/modules/02-typography-system.css"
+      "./css/modules/02-typography-system.css",
+      "./css/modules/18-real-zipper.css"
     ],
     "plannedJsModules": [
       "./js/modules/input-modality.js",
-      "./js/modules/progressive-image-loader.js"
+      "./js/modules/progressive-image-loader.js",
+      "./js/ui/real-zipper.js"
     ],
     "currentActiveCardCount": 9,
     "removedRuntimeCssFiles": [
       "./css/card page home/card-10-accordion-03.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.28 typography system ready: ./css/modules/02-typography-system.css created as font/type token owner; not yet imported in index.html until component conversion batch begins."
+    "currentInventoryCheckpoint": "PDRS-01.29 real zipper module planned: old zipper removed from main.js; new isolated JS/CSS module ownership recorded."
   },
   "uploadPolicyForFutureDebug": {
     "defaultFilesToUpload": [
@@ -412,16 +455,18 @@
       "./css/card page home/card-09-accordion-02.css",
       "./css/modules/13-site-footer.css",
       "./css/modules/14-gallery-with-us.css",
-      "./css/modules/15-water-forecast.css"
+      "./css/modules/15-water-forecast.css",
+      "./css/modules/18-real-zipper.css"
     ],
-    "currentInventoryCheckpoint": "PDRS-01.27 complete: Home Tour Popup extraction + footer icon toggle accounted.",
+    "currentInventoryCheckpoint": "PDRS-01.29 real zipper module planned and old main.js zipper cleanup accounted.",
     "nextRecommendedJsBatch": [
       "./js/main.js",
       "./js/modules/site-footer.js",
       "./js/modules/gallery-with-us.js",
       "./js/modules/water-forecast.js",
       "./js/ui/home-tour-popup.js",
-      "./js/modules/booking.js"
+      "./js/modules/booking.js",
+      "./js/ui/real-zipper.js"
     ],
     "nextRecommendedUploadBatch": [
       "Only upload file(s) related to the specific bug/symptom using debugScenarios routing."
@@ -714,6 +759,22 @@
         "./css/modules/02-typography-system.css",
         "index.html",
         "specific component CSS named by symptom"
+      ]
+    },
+    {
+      "id": "real-zipper-separated-owner",
+      "rule": "Card 02 real zipper must live in its own JS/CSS module. Do not re-add long zipper render/interaction code into ./js/main.js. Main.js may only import/init initRealZipper. Visual belongs to ./css/modules/18-real-zipper.css, not card-02-service-01.css after cleanup.",
+      "primaryAreas": [
+        "33-real-zipper",
+        "18-main-js-entry",
+        "11-scroll-home-composite"
+      ],
+      "firstFilesToInspect": [
+        "./js/ui/real-zipper.js",
+        "./css/modules/18-real-zipper.css",
+        "./js/main.js",
+        "index.html",
+        "./css/card page home/card-02-service-01.css"
       ]
     }
   ],
@@ -1307,7 +1368,8 @@
         "./css/card page home/card-06-service-05.css",
         "./css/card page home/card-07-service-06.css",
         "./css/card page home/card-08-accordion-01.css",
-        "./css/card page home/card-09-accordion-02.css"
+        "./css/card page home/card-09-accordion-02.css",
+        "./css/modules/18-real-zipper.css"
       ],
       "jsFilesPrimary": [
         "./js/main.js",
@@ -1336,7 +1398,9 @@
         ".mobile-home-feed-panel-last",
         ".mobile-home-feed-card-last",
         ".mobile-home-feed-card-09",
-        ".mobile-home-feed-card-scroll-last"
+        ".mobile-home-feed-card-scroll-last",
+        ".real-zipper-module",
+        ".real-zipper-control"
       ],
       "states": [
         "details[open]",
@@ -1376,7 +1440,9 @@
         "./css/modules/13-site-footer.css",
         "./js/ui/mobile-edge-pad.js",
         "./js/ui/story-expand.js",
-        "./js/modules/home-to-more-stories.js"
+        "./js/modules/home-to-more-stories.js",
+        "./js/ui/real-zipper.js",
+        "./css/modules/18-real-zipper.css"
       ],
       "behavior": [
         "main.js/initMobileHomeFeed clones .more-stories-inner content into .mobile-home-feed panels and removes duplicate ids from clones.",
@@ -1390,14 +1456,16 @@
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js",
-        "./js/modules/progressive-image-loader.js"
+        "./js/modules/progressive-image-loader.js",
+        "./js/ui/real-zipper.js"
       ],
       "riskNotes": [
         "Touch-vs-mouse interaction should read html[data-input-mode] from ./js/modules/input-modality.js after it is imported by main.js.",
         "PDRS-01.22: Do not restore nested FAQ-only scroll unless reading-mode handoff is intentionally removed.",
         "PDRS-01.22: Do not re-add card-10-accordion-03.css to index.html unless Contact platforms/card 10 is intentionally restored.",
         "PDRS-01.23: initMobileHomeSectionLock is not initialized by main.js during logo-home cleanup. Do not assume feed boundary lock is active unless safeInit(initMobileHomeSectionLock, ...) is restored deliberately.",
-        "Do not reintroduce separate H1/H2 scroll handoff logic inside story-expand.js or mobile-edge-pad.js; debug shared handoff module first."
+        "Do not reintroduce separate H1/H2 scroll handoff logic inside story-expand.js or mobile-edge-pad.js; debug shared handoff module first.",
+        "PDRS-01.29: Card 02 zipper is planned as a separate real zipper module; do not debug it by editing main.js old zipper functions because they were removed."
       ]
     },
     "20-snorkeling-page": {
@@ -1612,7 +1680,10 @@
         "#gallery-with-us-popup",
         "[data-footer-gallery]",
         "#water-forecast-popup",
-        "[data-footer-water-forecast]"
+        "[data-footer-water-forecast]",
+        ".more-stories-zipper-content",
+        ".real-zipper-module",
+        ".real-zipper-control"
       ],
       "states": [
         "body.js-loading",
@@ -1642,7 +1713,10 @@
         "billy:close-home-tour-popup",
         "billy:close-availability-popup",
         "billy:close-contact-popup",
-        "billy:close-gallery-with-us"
+        "billy:close-gallery-with-us",
+        "real-zipper-planned",
+        "--real-zipper-progress",
+        "data-real-zipper-ready"
       ],
       "futureUploadIfBug": [
         "./js/main.js",
@@ -1661,14 +1735,17 @@
         "./js/modules/water-forecast.js",
         "./css/modules/15-water-forecast.css",
         "./js/ui/home-tour-popup.js",
-        "./js/modules/booking.js"
+        "./js/modules/booking.js",
+        "./js/ui/real-zipper.js",
+        "./css/modules/18-real-zipper.css"
       ],
       "jsFilesRelated": [
         "./js/modules/input-modality.js"
       ],
       "plannedImports": [
         "./js/modules/input-modality.js",
-        "./js/modules/progressive-image-loader.js"
+        "./js/modules/progressive-image-loader.js",
+        "./js/ui/real-zipper.js"
       ],
       "riskNotes": [
         "Input modality should be initialized early in main.js before gesture/home feed modules consume html[data-input-mode].",
@@ -1676,7 +1753,9 @@
         "Do not restore safeInit(initMobileHomeSectionLock, ...) while logo-home navigation is being debugged because it can reintroduce #logoTrigger and .more-stories-section conflict.",
         "If a module 404 appears for ../modules/home-to-more-stories.js, verify the file exists at ./js/modules/home-to-more-stories.js and relative imports from ./js/ui/*.js use ../modules/home-to-more-stories.js.",
         "After PDRS-01.27, do not restore initHomePopup inside ./js/main.js; keep #leave-no-trace-popup open/close ownership in ./js/ui/home-tour-popup.js.",
-        "If footer Menu toggle fails with a missing module error, verify ./js/ui/home-tour-popup.js path and import in ./js/main.js."
+        "If footer Menu toggle fails with a missing module error, verify ./js/ui/home-tour-popup.js path and import in ./js/main.js.",
+        "PDRS-01.29: Do not put Card 02 zipper implementation back into main.js; keep main.js as import/init only for ./js/ui/real-zipper.js.",
+        "After creating real-zipper.js, initialize it after initMobileHomeFeed because Card 02 mobile feed DOM is created by initMobileHomeFeed."
       ],
       "behavior": [
         "PDRS-01.22: initMobileHomeFeed creates 9 mobile feed cards and marks the final card with .mobile-home-feed-panel-last / data-mobile-feed-last-card=true.",
@@ -1687,7 +1766,8 @@
         "PDRS-01.25: main.js imports and initializes initGalleryWithUs before initSiteFooter so footer Gallery can dispatch billy:open-gallery-with-us to an active listener.",
         "PDRS-01.26: main.js imports and initializes initWaterForecast before initSiteFooter so footer Water forecast can dispatch billy:open-water-forecast to an active listener.",
         "PDRS-01.27: main.js imports and initializes initHomeTourPopup from ./js/ui/home-tour-popup.js; main.js no longer owns initHomePopup implementation.",
-        "PDRS-01.27: footer toggle integration depends on initHomeTourPopup, initAvailabilityPopup, initContactPopup, initGalleryWithUs, and initSiteFooter init order."
+        "PDRS-01.27: footer toggle integration depends on initHomeTourPopup, initAvailabilityPopup, initContactPopup, initGalleryWithUs, and initSiteFooter init order.",
+        "PDRS-01.29: Old Card 02 zipper functions were removed from main.js. New zipper implementation is planned as ./js/ui/real-zipper.js with CSS in ./css/modules/18-real-zipper.css."
       ]
     },
     "23-ui-gesture-navigation-system": {
@@ -3012,6 +3092,108 @@
         "Apply component conversion batch-by-batch to preserve rollback safety."
       ],
       "runtimeStatus": "created-ready-not-yet-linked"
+    },
+    "33-real-zipper": {
+      "area": "Card 02 Real Zipper Slider — SVG/PNG hybrid story progress module",
+      "htmlModule": "MODULE 33 — REAL ZIPPER SLIDER FOR CARD 02",
+      "htmlFilesPrimary": [
+        "index.html"
+      ],
+      "cssFilesPrimary": [
+        "./css/modules/18-real-zipper.css"
+      ],
+      "cssFilesRelated": [
+        "./css/card page home/card-02-service-01.css",
+        "./css/modules/11-scroll-home-composite.css"
+      ],
+      "jsFilesPrimary": [
+        "./js/ui/real-zipper.js"
+      ],
+      "jsFilesRelated": [
+        "./js/main.js"
+      ],
+      "runtimeStatus": "planned-not-active-yet",
+      "selectors": [
+        ".more-stories-section",
+        ".more-stories-inner",
+        ".more-stories-zipper-content",
+        "[data-card-02-zipper-page]",
+        ".more-stories-zipper-title",
+        ".more-stories-zipper-copy",
+        ".mobile-home-feed-card-02",
+        ".mobile-home-feed-card-scroll-02",
+        ".real-zipper-module",
+        ".real-zipper-pages",
+        ".real-zipper-page",
+        ".real-zipper-page.is-active",
+        ".real-zipper-control",
+        ".real-zipper-track",
+        ".real-zipper-svg",
+        ".real-zipper-handle",
+        ".real-zipper-puller",
+        ".real-zipper-label"
+      ],
+      "states": [
+        "data-real-zipper-ready=\"true\"",
+        "data-real-zipper-step",
+        "--real-zipper-progress",
+        ".is-dragging",
+        ".is-returning",
+        ".is-active",
+        "aria-live",
+        "role=\"slider\"",
+        "aria-valuemin",
+        "aria-valuemax",
+        "aria-valuenow",
+        "aria-valuetext",
+        "pointerdown",
+        "pointermove",
+        "pointerup",
+        "pointercancel",
+        "keydown",
+        "ArrowLeft",
+        "ArrowRight",
+        "Escape",
+        "Home",
+        "End"
+      ],
+      "behavior": [
+        "Planned replacement for old Card 02 zipper previously embedded inside ./js/main.js.",
+        "real-zipper.js should render the zipper module into cloned Card 02 after initMobileHomeFeed creates the mobile feed DOM.",
+        "Story page source should remain .more-stories-zipper-content in index.html; JS reads title/copy and renders pages dynamically.",
+        "Interaction remains right-to-left drag, but implementation is isolated in ./js/ui/real-zipper.js.",
+        "Visual should use Real Zipper Slider — SVG/PNG hybrid, not CSS-only fake zipper and not split-open zipper animation.",
+        "CSS module owns visual only; JS module owns DOM creation, accessibility state, pointer/keyboard interaction, progress, page switching, and reset behavior.",
+        "Main.js must remain import/init only and must not regain long zipper functions."
+      ],
+      "ownershipRule": "./js/ui/real-zipper.js owns Card 02 zipper DOM/interaction. ./css/modules/18-real-zipper.css owns visual. ./js/main.js imports/initializes only. ./css/card page home/card-02-service-01.css should not own zipper visual after cleanup.",
+      "activationPlan": [
+        "Create ./js/ui/real-zipper.js exporting initRealZipper.",
+        "Create ./css/modules/18-real-zipper.css.",
+        "Add import { initRealZipper } from \"./ui/real-zipper.js\"; to ./js/main.js.",
+        "Call safeInit(initRealZipper, 'initRealZipper') after safeInit(initMobileHomeFeed, 'initMobileHomeFeed').",
+        "Add <link rel=\"stylesheet\" href=\"./css/modules/18-real-zipper.css\"> to index.html.",
+        "Remove old/inert zipper visual blocks from ./css/card page home/card-02-service-01.css after the new module is verified."
+      ],
+      "futureUploadIfBug": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./js/ui/real-zipper.js",
+        "./css/modules/18-real-zipper.css",
+        "./css/card page home/card-02-service-01.css",
+        "./css/modules/11-scroll-home-composite.css",
+        "screenshot of Card 02 zipper area",
+        "console error screenshot if real-zipper.js fails to import or initialize"
+      ],
+      "riskNotes": [
+        "Do not keep old .mobile-home-feed-card-02-zipper-* visual blocks active once the new real zipper module is rendering.",
+        "Initialize after mobile feed creation; otherwise Card 02 cloned DOM may not exist yet.",
+        "If the zipper appears twice, old main.js zipper or old CSS/DOM was reintroduced by mistake.",
+        "If story pages do not render, inspect .more-stories-zipper-content in index.html and ensure data-card-02-zipper-page articles still exist.",
+        "If drag direction is wrong, inspect real-zipper.js pointer math; expected direction is right-to-left.",
+        "If visual looks fake again, switch SVG track/head to real image assets while preserving the same JS API."
+      ]
     }
   },
   "debugScenarios": {
@@ -3926,6 +4108,36 @@
         "billy:close-gallery-with-us"
       ],
       "explicitException": "Water Forecast footer trigger remains open-only unless owner requests toggle later."
+    },
+    "card-02-real-zipper-loi": {
+      "userDescriptionExamples": [
+        "zipper card 2 không hiện",
+        "dây kéo card 2 lỗi",
+        "real zipper không kéo được",
+        "đầu kéo zipper lệch",
+        "story zipper không đổi trang",
+        "real-zipper.js import lỗi"
+      ],
+      "routeToModule": "33-real-zipper",
+      "uploadRequestOrder": [
+        "project-debug-routing-system.json",
+        "index.html",
+        "./js/main.js",
+        "./js/ui/real-zipper.js",
+        "./css/modules/18-real-zipper.css",
+        "./css/card page home/card-02-service-01.css",
+        "screenshot Card 02 zipper area",
+        "console error screenshot if any"
+      ],
+      "selectors": [
+        ".more-stories-zipper-content",
+        "[data-card-02-zipper-page]",
+        ".mobile-home-feed-card-02",
+        ".real-zipper-module",
+        ".real-zipper-control",
+        ".real-zipper-track",
+        ".real-zipper-handle"
+      ]
     }
   },
   "registriesFromIndexHtml": {
