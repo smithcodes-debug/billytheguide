@@ -64,16 +64,22 @@
   Purpose:
   - Soft body-style intro text. Do not hardcode font here; font comes from 02-typography-system.css.
 */
+/* ✅ CARD 04 DESC USES FONT 3.2
+   Owner: card-04-service-03.css
+   Typography tokens owner: css/modules/02-typography-system.css
+   Scope: Camping description paragraph below title only. */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
   max-width: 520px;
   margin: 0 auto 8px;
-  font-family: var(--font-body);
-  font-size: clamp(14.3px, 3.74vw, 18.7px);
-  line-height: 1.32;
-  font-weight: var(--weight-body, 500);
-  letter-spacing: var(--tracking-body, -0.025em);
+  color: var(--font-3-2-color);
+  font-family: var(--font-3-2-family);
+  font-size: var(--font-3-2-size);
+  line-height: var(--font-3-2-line);
+  font-weight: var(--font-3-2-weight);
+  letter-spacing: var(--font-3-2-tracking);
+  text-align: center;
 }
 /*
   ✅ FONT ROLE FROM MODULE 02: --font-body
