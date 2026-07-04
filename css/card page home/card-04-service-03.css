@@ -36,13 +36,12 @@
 }
 
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-display
-  Owns this card text:
-  - Main card title / tiêu đề lớn của card.
-  - Selector target: .more-service-card-title
-  - Example text area: large headline at the top of this service card.
-  Purpose:
-  - Editorial display headline. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: --font-display
+Owns this card text:
+- Main card title / tiêu đề lớn của card.
+- Selector target: .more-service-card-title
+Purpose:
+- Editorial display headline. Do not hardcode font here; font comes from 02-typography-system.css.
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
   flex: 0 0 auto;
@@ -56,23 +55,20 @@
 }
 
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-body
-  Owns this card text:
-  - Short description / subtitle ngay dưới title.
-  - Selector target: .more-service-card-desc
-  - Example text area: one short sentence below the large card headline.
-  Purpose:
-  - Soft body-style intro text. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: FONT 3.2 / --font-3-2-*
+Owns this card text:
+- Camping description / đoạn mô tả dưới title.
+- Selector target: .more-service-card-desc
+Purpose:
+- Match the standard paragraph role used by Proposal .more-service-card-extra.
+- Token source is css/modules/02-typography-system.css.
+- Specificity intentionally beats card-01-intro.css broad .mobile-home-feed .more-service-card-desc fallback.
 */
-/* ✅ CARD 04 DESC USES FONT 3.2
-   Owner: card-04-service-03.css
-   Typography tokens owner: css/modules/02-typography-system.css
-   Scope: Camping description paragraph below title only. */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
   flex: 0 0 auto;
   order: -3;
-  max-width: 520px;
-  margin: 0 auto 8px;
+  max-width: 92%;
+  margin: 0 auto 5px;
   color: var(--font-3-2-color);
   font-family: var(--font-3-2-family);
   font-size: var(--font-3-2-size);
@@ -81,29 +77,26 @@
   letter-spacing: var(--font-3-2-tracking);
   text-align: center;
 }
+
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-body
-  Owns this card text:
-  - Long explanation / đoạn giải thích dài trong card.
-  - Selector target: .more-service-card-extra
-  - Example text area: main paragraph block that explains the service story/content.
-  Purpose:
-  - Long readable storytelling/explanation text. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: FONT 3.2 / --font-3-2-*
+Owns this card text:
+- Long explanation / đoạn giải thích dài trong card.
+- Selector target: .more-service-card-extra
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
-flex: 0 0 auto;
-order: -1;
-max-width: 540px;
-margin: 0 auto 8px;
-color: var(--font-3-2-color);
-font-family: var(--font-3-2-family);
-font-size: var(--font-3-2-size);
-line-height: var(--font-3-2-line);
-font-weight: var(--font-3-2-weight);
-letter-spacing: var(--font-3-2-tracking);
-text-align: var(--font-3-2-align);
+  flex: 0 0 auto;
+  order: -1;
+  max-width: 540px;
+  margin: 0 auto 8px;
+  color: var(--font-3-2-color);
+  font-family: var(--font-3-2-family);
+  font-size: var(--font-3-2-size);
+  line-height: var(--font-3-2-line);
+  font-weight: var(--font-3-2-weight);
+  letter-spacing: var(--font-3-2-tracking);
+  text-align: var(--font-3-2-align);
 }
-
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
   order: 0;
@@ -130,13 +123,10 @@ text-align: var(--font-3-2-align);
 }
 
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-ui
-  Owns this card text:
-  - Pad title / chữ chính trong từng pad nhỏ.
-  - Selector target: .more-service-card-pad strong
-  - Example text area: short highlight title inside each small information pad.
-  Purpose:
-  - Compact UI-like highlight text, not long explanation paragraph. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: --font-ui
+Owns this card text:
+- Pad title / chữ chính trong từng pad nhỏ.
+- Selector target: .more-service-card-pad strong
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
   display: block;
@@ -150,13 +140,10 @@ text-align: var(--font-3-2-align);
 }
 
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-body
-  Owns this card text:
-  - Pad meta / chữ phụ italic trong từng pad nhỏ.
-  - Selector target: .more-service-card-pad em
-  - Example text area: secondary italic note under each pad title.
-  Purpose:
-  - Small supporting body text. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: --font-body
+Owns this card text:
+- Pad meta / chữ phụ italic trong từng pad nhỏ.
+- Selector target: .more-service-card-pad em
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad em {
   display: block;
@@ -170,13 +157,10 @@ text-align: var(--font-3-2-align);
 }
 
 /*
-  ✅ FONT ROLE FROM MODULE 02: --font-button
-  Owns this card text:
-  - CTA link / nút chữ “Read more”.
-  - Selector target: .more-service-card-link
-  - Example text area: Read more call-to-action at the bottom of this card.
-  Purpose:
-  - Button/CTA typography. Do not hardcode font here; font comes from 02-typography-system.css.
+✅ FONT ROLE FROM MODULE 02: --font-button
+Owns this card text:
+- CTA link / nút chữ “Read more”.
+- Selector target: .more-service-card-link
 */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
   flex: 0 0 auto;
