@@ -1,3 +1,13 @@
+/* ✅ CARD 04 — PRIVATE CAMPING REBUILD CLEAN
+   Owner: css/card page home/card-04-service-03.css
+   Scope: Card 04 / Private Camping only.
+   Goal: rebuild clean, self-contained visual rules to avoid broad fallback conflicts.
+   Notes:
+   - No dependency on FONT 3.2 / 3.2.1 for the highlighted Camping description.
+   - Description text uses direct values copied from the Card 03 highlighted paragraph visual intent.
+   - Do not edit text/content/image paths here.
+*/
+
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .mobile-home-feed-card-scroll {
   padding-top: calc(env(safe-area-inset-top, 0px) + 0px);
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
@@ -8,6 +18,7 @@
   min-height: 100%;
   height: 100%;
   padding: 0;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -17,6 +28,39 @@
   transform: translateY(15px);
 }
 
+/* ✅ Title — keep Card 04 title behavior local and explicit. */
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
+  flex: 0 0 auto;
+  order: -4;
+  margin: 0 0 5px;
+  color: #101820;
+  font-family: Georgia;
+  font-size: clamp(23.1px, 6.16vw, 38.5px);
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  text-align: center;
+}
+
+/* ✅ Camping description — rebuilt direct specs, copied from Card 03 highlighted paragraph intent.
+   This selector intentionally has high specificity to beat card-01-intro.css broad fallback:
+   .mobile-home-feed .more-service-card-desc
+*/
+.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
+  flex: 0 0 auto;
+  order: -3;
+  max-width: 540px;
+  margin: 0 auto 8px;
+  color: #101820;
+  font-family: Georgia;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-align: left;
+}
+
+/* ✅ Image — keep original path and placement. */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card::before {
   content: "";
   display: block;
@@ -35,67 +79,19 @@
   box-sizing: border-box;
 }
 
-/*
-✅ FONT ROLE FROM MODULE 02: --font-display
-Owns this card text:
-- Main card title / tiêu đề lớn của card.
-- Selector target: .more-service-card-title
-Purpose:
-- Editorial display headline. Do not hardcode font here; font comes from 02-typography-system.css.
-*/
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-title {
-  flex: 0 0 auto;
-  order: -4;
-  margin: 0 0 5px;
-  font-family: var(--font-display);
-  font-size: clamp(23.1px, 6.16vw, 38.5px);
-  line-height: var(--line-title, 1.02);
-  font-weight: var(--weight-display, 900);
-  letter-spacing: var(--tracking-title, -0.035em);
-}
-
-/*
-✅ FONT ROLE FROM MODULE 02: FONT 3.2 / --font-3-2-*
-Owns this card text:
-- Camping description / đoạn mô tả dưới title.
-- Selector target: .more-service-card-desc
-Purpose:
-- Match the standard paragraph role used by Proposal .more-service-card-extra.
-- Token source is css/modules/02-typography-system.css.
-- Specificity intentionally beats card-01-intro.css broad .mobile-home-feed .more-service-card-desc fallback.
-*/
-.more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-desc {
-  flex: 0 0 auto;
-  order: -3;
-  max-width: 540px;
-  margin: 0 auto 8px;
-  color: var(--font-3-2-1-color);
-  font-family: var(--font-3-2-1-family);
-  font-size: var(--font-3-2-1-size);
-  line-height: var(--font-3-2-1-line);
-  font-weight: var(--font-3-2-1-weight);
-  letter-spacing: var(--font-3-2-1-tracking);
-  text-align: var(--font-3-2-1-align);
-}
-
-/*
-✅ FONT ROLE FROM MODULE 02: FONT 3.2 / --font-3-2-*
-Owns this card text:
-- Long explanation / đoạn giải thích dài trong card.
-- Selector target: .more-service-card-extra
-*/
+/* ✅ Optional long text if HTML later adds .more-service-card-extra to Card 04. */
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-extra {
   flex: 0 0 auto;
   order: -1;
   max-width: 540px;
   margin: 0 auto 8px;
-  color: var(--font-3-2-color);
-  font-family: var(--font-3-2-family);
-  font-size: var(--font-3-2-size);
-  line-height: var(--font-3-2-line);
-  font-weight: var(--font-3-2-weight);
-  letter-spacing: var(--font-3-2-tracking);
-  text-align: var(--font-3-2-align);
+  color: #101820;
+  font-family: Georgia;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-align: left;
 }
 
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pads {
@@ -122,16 +118,10 @@ Owns this card text:
   box-sizing: border-box;
 }
 
-/*
-✅ FONT ROLE FROM MODULE 02: --font-ui
-Owns this card text:
-- Pad title / chữ chính trong từng pad nhỏ.
-- Selector target: .more-service-card-pad strong
-*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad strong {
   display: block;
   color: rgba(8, 38, 44, 0.94);
-  font-family: var(--font-ui);
+  font-family: "Poppins";
   font-size: clamp(12.1px, 2.915vw, 14.85px);
   line-height: 1.08;
   font-weight: 800;
@@ -139,29 +129,17 @@ Owns this card text:
   text-transform: none;
 }
 
-/*
-✅ FONT ROLE FROM MODULE 02: --font-body
-Owns this card text:
-- Pad meta / chữ phụ italic trong từng pad nhỏ.
-- Selector target: .more-service-card-pad em
-*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-pad em {
   display: block;
   color: rgba(8, 63, 70, 0.66);
-  font-family: var(--font-body);
+  font-family: Georgia;
   font-size: clamp(9.9px, 2.42vw, 12.1px);
   line-height: 1.18;
   font-style: italic;
-  font-weight: var(--weight-body, 500);
+  font-weight: 500;
   letter-spacing: -0.01em;
 }
 
-/*
-✅ FONT ROLE FROM MODULE 02: --font-button
-Owns this card text:
-- CTA link / nút chữ “Read more”.
-- Selector target: .more-service-card-link
-*/
 .more-stories-section.is-mobile-home-feed-ready .mobile-home-feed-card-04 .more-service-card-link {
   flex: 0 0 auto;
   order: 1;
@@ -169,8 +147,10 @@ Owns this card text:
   margin-bottom: 0;
   padding-top: 4px;
   padding-bottom: 0;
-  font-family: var(--font-button);
+  color: #083f46;
+  font-family: "Poppins";
   font-size: 16.5px;
   line-height: 1.1;
-  font-weight: var(--weight-ui, 700);
+  font-weight: 700;
+  letter-spacing: -0.015em;
 }
