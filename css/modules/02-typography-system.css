@@ -18,6 +18,12 @@
     --font-serif: generic serif token when a module needs serif semantics.
     --font-body: default body/story/copy text.
 
+  Body role map inside font loại 3:
+  - FONT 3.1 / .type-font-3-1 / .type-body-intro:
+    Intro/explanation nổi bật, larger softer paragraph, usually used for featured intro copy.
+  - FONT 3.2 / .type-font-3-2 / .type-body-paragraph:
+    Normal paragraph, standard readable paragraph under a heading or inside long content.
+
   - UI / control sans:
     --font-ui: controls, menus, footer, calendar, chips, generic UI text.
     --font-label: labels, badges, tag text, kicker text.
@@ -74,6 +80,33 @@
   --type-body-md: clamp(15px, 3.9vw, 20px);
   --type-body-sm: 14px;
   --type-body-xs: 12px;
+
+  /*
+    Body role scale inside FONT 3 / --font-body
+
+    FONT 3.1 — intro/explanation nổi bật
+    - Use for featured intro copy, highlighted explanation, soft editorial body text.
+    - Visual intent: bigger, softer, more breathing room.
+
+    FONT 3.2 — normal paragraph
+    - Use for standard paragraph under a small heading or inside long content.
+    - Visual intent: compact, readable, normal story paragraph.
+  */
+  --font-3-1-family: var(--font-body);
+  --font-3-1-size: var(--type-body-md);
+  --font-3-1-line: var(--line-body-loose);
+  --font-3-1-weight: var(--weight-body);
+  --font-3-1-tracking: var(--tracking-body);
+  --font-3-1-color: var(--type-ink-soft);
+  --font-3-1-align: center;
+
+  --font-3-2-family: var(--font-body);
+  --font-3-2-size: var(--type-body-sm);
+  --font-3-2-line: var(--line-body);
+  --font-3-2-weight: var(--weight-body);
+  --font-3-2-tracking: var(--tracking-body);
+  --font-3-2-color: var(--type-ink);
+  --font-3-2-align: left;
 
   /* Line-height tokens */
   --line-display-tight: 0.98;
